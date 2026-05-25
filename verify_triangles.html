@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sri Yantra — Triangle Verification (v3)</title>
+<style>
+  body { background: #1a1a2e; margin: 0; display: flex; flex-direction: column;
+         align-items: center; padding: 20px; font-family: monospace; color: #ccc; }
+  h2 { color: #d4af7a; margin: 8px 0 4px; }
+  p  { color: #888; margin: 2px 0 12px; font-size: 13px; text-align: center; }
+  .controls { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+              margin-bottom: 12px; }
+  label { color: #aaa; font-size: 13px; cursor: pointer; }
+  input[type=checkbox] { accent-color: #d4af7a; }
+  svg { border: 1px solid #333; border-radius: 4px; }
+  .legend { display: flex; gap: 20px; margin-top: 8px; font-size: 12px; }
+  .leg { display: flex; align-items: center; gap: 6px; }
+  .swatch { width: 24px; height: 3px; }
+</style>
+</head>
+<body>
+<h2>Śrī Yantra — Exact SOL Geometry (v3)</h2>
+<p>All 9 triangles equilateral. UFT2–4 corners on DFT1's sides. DFT2–5 corners on UFT1's sides.</p>
+
+<div class="controls">
+  <label><input type="checkbox" id="chkUFT" checked> Show UFT (Śiva ▲)</label>
+  <label><input type="checkbox" id="chkDFT" checked> Show DFT (Śakti ▽)</label>
+  <label><input type="checkbox" id="chkSOL" > Show Seed of Life overlay</label>
+  <label><input type="checkbox" id="chkLabels" checked> Labels</label>
+  <label><input type="checkbox" id="chkVertexDots" checked> Vertex dots</label>
+</div>
+
+<svg id="yantra" viewBox="0 0 500 500" width="480" height="480" xmlns="http://www.w3.org/2000/svg">
+</svg>
+
+<div class="legend">
+  <div class="leg"><div class="swatch" style="background:#e88b6a"></div> UFT (Śiva)</div>
+  <div class="leg"><div class="swatch" style="background:#6ab4e8"></div> DFT (Śakti)</div>
+  <div class="leg"><div class="swatch" style="background:#c8a86a;opacity:.4"></div> DFT1 (reference)</div>
+  <div class="leg"><div class="swatch" style="background:#e8d86a"></div> DFT5 = Circuit 8</div>
+</div>
+
+<script>
+const CX = 250, CY = 250, R = 118;
+
+// v3 exact coordinates
+const UFT = [
+  { verts: [[0,1],[-0.977823,-0.209436],[0.977823,-0.209436]], label:'UFT1' },
+  { verts: [[0,0.722222],[-0.722222,-0.481481],[0.722222,-0.481481]], label:'UFT2' },
+  { verts: [[0,0.537037],[-0.324074,-0.064815],[0.324074,-0.064815]], label:'UFT3' },
+  { verts: [[0,0.333333],[-0.472222,-0.666667],[0.472222,-0.666667]], label:'UFT4' },
+];
+const DFT = [
+  { verts: [[0,-1],[-0.942809,0.333333],[0.942809,0.333333]], label:'DFT1' },
+  { verts: [[0,-0.666667],[-0.648148,0.537037],[0.648148,0.537037]], label:'DFT2' },
+  { verts: [[0,-0.481481],[-0.311111,0.203704],[0.311111,0.203704]], label:'DFT3' },
+  { verts: [[0,-0.209436],[-0.236889,0.097243],[0.236889,0.097243]], label:'DFT4' },
+  { verts: [[0,-0.074074],[-0.518519,0.722222],[0.518519,0.722222]], label:'DFT5 (C8)' },
+];
+
+function toSVG([x, y]) { return [CX + x*R, CY - y*R]; }
+function pts(verts) {
+  return verts.map(toSVG).map(([x,y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
+}
+
+const svg = document.getElementById('yantra');
+
+function ns(tag, attrs, parent) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k,v] of Object.entries(attrs)) el.setAttribute(k, v);
+  if (parent) parent.appendChild(el);
+  return el;
+}
+
+// Background
+ns('rect', {x:0,y:0,width:500,height:500,fill:'#1a1a2e'}, svg);
+
+// Outer circle
+ns('circle', {cx:CX,cy:CY,r:R,fill:'none',stroke:'#555',strokeWidth:0.8}, svg);
+// Equatorial lines (guide)
+ns('line', {x1:CX-R,y1:CY,x2:CX+R,y2:CY,stroke:'#333',strokeWidth:0.5}, svg);
+ns('line', {x1:CX,y1:CY-R,x2:CX,y2:CY+R,stroke:'#333',strokeWidth:0.5}, svg);
+
+// SOL overlay (hidden by default)
+const solGroup = ns('g', {id:'sol',opacity:'0.5'}, svg);
+const S3 = Math.sqrt(3);
+const solCenters = [[0,0],...Array.from({length:6},(_,k)=>{
+  const a = k*Math.PI/3 + Math.PI/2;
+  return [Math.cos(a)*0.5, Math.sin(a)*0.5];
+})];
+solCenters.forEach(([cx,cy]) => {
+  const [sx,sy] = toSVG([cx,cy]);
+  ns('circle',{cx:sx,cy:sy,r:R*0.5,fill:'none',stroke:'#5b9bd5',strokeWidth:0.5},solGroup);
+  ns('circle',{cx:sx,cy:sy,r:2,fill:'#5b9bd5'},solGroup);
+});
+
+// DFT group
+const dftGroup = ns('g', {id:'dft'}, svg);
+const uftGroup = ns('g', {id:'uft'}, svg);
+const labelsGroup = ns('g', {id:'labels'}, svg);
+const dotsGroup = ns('g', {id:'dots'}, svg);
+
+function drawTriangles() {
+  dftGroup.innerHTML = '';
+  uftGroup.innerHTML = '';
+  labelsGroup.innerHTML = '';
+  dotsGroup.innerHTML = '';
+
+  const showUFT = document.getElementById('chkUFT').checked;
+  const showDFT = document.getElementById('chkDFT').checked;
+  const showLabels = document.getElementById('chkLabels').checked;
+  const showDots = document.getElementById('chkVertexDots').checked;
+
+  // UFT colours: outermost darker, innermost lighter
+  const uftColors = ['#c85a30','#d4724a','#e08a64','#eca07e'];
+  // DFT colours
+  const dftColors = ['#2a6a9a','#3a80b8','#4a96d0','#5aace8','#e8d86a'];
+
+  if (showDFT) {
+    DFT.forEach((t,i) => {
+      const isC8 = i === 4;
+      const color = dftColors[i];
+      const sw = isC8 ? 1.5 : (i===0 ? 1.2 : 0.9);
+      ns('polygon', {
+        points: pts(t.verts),
+        fill: isC8 ? 'rgba(232,216,106,0.06)' : (i===0 ? 'rgba(42,106,154,0.08)' : 'none'),
+        stroke: color,
+        strokeWidth: sw,
+        strokeLinejoin: 'round',
+      }, dftGroup);
+    });
+  }
+
+  if (showUFT) {
+    UFT.forEach((t,i) => {
+      ns('polygon', {
+        points: pts(t.verts),
+        fill: i===0 ? 'rgba(200,90,48,0.05)' : 'none',
+        stroke: uftColors[i],
+        strokeWidth: i===0 ? 1.2 : 0.9,
+        strokeLinejoin: 'round',
+      }, uftGroup);
+    });
+  }
+
+  if (showLabels) {
+    const labelData = [
+      ...UFT.map((t,i) => ({...t, color: uftColors[i], show: showUFT})),
+      ...DFT.map((t,i) => ({...t, color: dftColors[i], show: showDFT})),
+    ];
+    labelData.forEach(t => {
+      if (!t.show) return;
+      const [ax, ay] = toSVG(t.verts[0]);
+      const isUp = t.verts[0][1] > 0;
+      ns('text', {
+        x: ax, y: isUp ? ay - 5 : ay + 13,
+        fill: t.color,
+        'font-size': 9,
+        'text-anchor': 'middle',
+        'font-family': 'monospace',
+        opacity: 0.85,
+      }, labelsGroup).textContent = t.label;
+    });
+  }
+
+  if (showDots) {
+    const allTriangles = [
+      ...UFT.map((t,i) => ({...t, color: uftColors[i], show: showUFT})),
+      ...DFT.map((t,i) => ({...t, color: dftColors[i], show: showDFT})),
+    ];
+    allTriangles.forEach(t => {
+      if (!t.show) return;
+      t.verts.forEach(v => {
+        const [sx,sy] = toSVG(v);
+        ns('circle', {cx:sx,cy:sy,r:2.5,fill:t.color,opacity:0.8}, dotsGroup);
+      });
+    });
+  }
+}
+
+// Controls
+['chkUFT','chkDFT','chkLabels','chkVertexDots'].forEach(id =>
+  document.getElementById(id).addEventListener('change', drawTriangles));
+
+document.getElementById('chkSOL').addEventListener('change', e => {
+  solGroup.style.display = e.target.checked ? '' : 'none';
+});
+solGroup.style.display = 'none';
+
+drawTriangles();
+</script>
+</body>
+</html>

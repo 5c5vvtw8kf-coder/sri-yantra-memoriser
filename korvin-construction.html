@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Korvin–Sri Yantra Construction</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{background:#111;display:flex;flex-direction:column;align-items:center;padding:16px;font-family:sans-serif}
+h2{color:#eee;font-size:15px;margin-bottom:8px}
+#wrap{display:flex;align-items:flex-start;gap:16px}
+svg{background:#fafafa;border:1px solid #444;display:block;flex-shrink:0}
+#legend{background:rgba(255,255,255,.93);
+  border:1px solid #bbb;border-radius:4px;padding:6px 10px;font-size:10px;line-height:1.7;flex-shrink:0;align-self:flex-start}
+#legend div{display:flex;align-items:center;gap:6px}
+.lc{width:20px;height:3px;border-radius:1px}
+#status{color:#888;font-size:11px;margin-top:6px}
+</style>
+</head>
+<body>
+<h2>Korvin Sri Yantra Construction</h2>
+<div id="wrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="25 35 470 470" width="864" height="864">
+<!-- Cardinal circles (centred at b,f,g,d r=110) -->
+<g id="cardinal-circles">
+  <circle cx="260" cy="160" r="110" fill="none" stroke="#bbb" stroke-width="0.5" stroke-dasharray="5,3"/>
+  <circle cx="150" cy="270" r="110" fill="none" stroke="#bbb" stroke-width="0.5" stroke-dasharray="5,3"/>
+  <circle cx="370" cy="270" r="110" fill="none" stroke="#bbb" stroke-width="0.5" stroke-dasharray="5,3"/>
+  <circle cx="260" cy="380" r="110" fill="none" stroke="#bbb" stroke-width="0.5" stroke-dasharray="5,3"/>
+</g>
+<!-- C0 -->
+  <circle cx="260" cy="270" r="110" fill="none" stroke="black" stroke-width="0.9"/>
+<!-- 16 additional radial lines at 11.25° intervals (through H3, H6, etc.) to give 32 divisions -->
+<g id="radials-32" stroke="#bbb" stroke-width="0.5" stroke-dasharray="4,3">
+  <line x1="281.46" y1="162.114" x2="302.92" y2="54.227"/>
+  <line x1="321.113" y1="178.538" x2="382.225" y2="87.077"/>
+  <line x1="351.462" y1="208.887" x2="442.923" y2="147.775"/>
+  <line x1="367.886" y1="248.54" x2="475.773" y2="227.08"/>
+  <line x1="367.886" y1="291.46" x2="475.773" y2="312.92"/>
+  <line x1="351.462" y1="331.113" x2="442.923" y2="392.225"/>
+  <line x1="321.113" y1="361.462" x2="382.225" y2="452.923"/>
+  <line x1="281.46" y1="377.886" x2="302.92" y2="485.773"/>
+  <line x1="238.54" y1="377.886" x2="217.08" y2="485.773"/>
+  <line x1="198.887" y1="361.462" x2="137.775" y2="452.923"/>
+  <line x1="168.538" y1="331.113" x2="77.077" y2="392.225"/>
+  <line x1="152.114" y1="291.46" x2="44.227" y2="312.92"/>
+  <line x1="152.114" y1="248.54" x2="44.227" y2="227.08"/>
+  <line x1="168.538" y1="208.887" x2="77.077" y2="147.775"/>
+  <line x1="198.887" y1="178.538" x2="137.775" y2="87.077"/>
+  <line x1="238.54" y1="162.114" x2="217.08" y2="54.227"/>
+</g>
+<!-- 16 radial reference lines, every 22.5°, from C0 (r=110) to outermost circle (r=220) -->
+<g id="gate-diagonals" stroke="#bbb" stroke-width="0.5" stroke-dasharray="4,3">
+  <line x1="260.0" y1="160.0" x2="260.0" y2="50.0"/>
+  <line x1="302.095" y1="168.373" x2="344.19" y2="66.747"/>
+  <line x1="337.782" y1="192.218" x2="415.563" y2="114.437"/>
+  <line x1="361.627" y1="227.905" x2="463.253" y2="185.81"/>
+  <line x1="370.0" y1="270.0" x2="480.0" y2="270.0"/>
+  <line x1="361.627" y1="312.095" x2="463.253" y2="354.19"/>
+  <line x1="337.782" y1="347.782" x2="415.563" y2="425.563"/>
+  <line x1="302.095" y1="371.627" x2="344.19" y2="473.253"/>
+  <line x1="260.0" y1="380.0" x2="260.0" y2="490.0"/>
+  <line x1="217.905" y1="371.627" x2="175.81" y2="473.253"/>
+  <line x1="182.218" y1="347.782" x2="104.437" y2="425.563"/>
+  <line x1="158.373" y1="312.095" x2="56.747" y2="354.19"/>
+  <line x1="150.0" y1="270.0" x2="40.0" y2="270.0"/>
+  <line x1="158.373" y1="227.905" x2="56.747" y2="185.81"/>
+  <line x1="182.218" y1="192.218" x2="104.437" y2="114.437"/>
+  <line x1="217.905" y1="168.373" x2="175.81" y2="66.747"/>
+</g>
+<!-- Outer square: B15, B3, B7, B11 -->
+<polygon points="104.437,114.437 415.563,114.437 415.563,425.563 104.437,425.563"
+  fill="none" stroke="#aaa" stroke-width="0.8"/>
+<!-- Second square: B16, B4, B8, B12 -->
+<polygon points="175.81,66.747 463.253,185.81 344.19,473.253 56.747,354.19"
+  fill="none" stroke="#aaa" stroke-width="0.8"/>
+<!-- Third square: B1, B5, B9, B13 -->
+<polygon points="260.0,50.0 480.0,270.0 260.0,490.0 40.0,270.0"
+  fill="none" stroke="#aaa" stroke-width="0.8"/>
+<!-- Fourth square: B2, B6, B10, B14 -->
+<polygon points="344.19,66.747 463.253,354.19 175.81,473.253 56.747,185.81"
+  fill="none" stroke="#aaa" stroke-width="0.8"/>
+<!-- H points: intersections of three squares with each other and with radial lines -->
+<g id="pts-h" fill="#888">
+  <circle cx="260.0" cy="114.44" r="1"/>
+  <circle cx="260.0" cy="101.62" r="1"/>
+  <circle cx="290.94" cy="114.44" r="1"/>
+  <circle cx="319.53" cy="126.28" r="1"/>
+  <circle cx="324.44" cy="114.44" r="1"/>
+  <circle cx="348.12" cy="138.12" r="1"/>
+  <circle cx="370.0" cy="160.0" r="1"/>
+  <circle cx="379.06" cy="150.94" r="1"/>
+  <circle cx="415.56" cy="166.06" r="1"/>
+  <circle cx="415.56" cy="205.56" r="1"/>
+  <circle cx="443.5" cy="233.5" r="1"/>
+  <circle cx="415.56" cy="270.0" r="1"/>
+  <circle cx="428.38" cy="270.0" r="1"/>
+  <circle cx="415.56" cy="300.94" r="1"/>
+  <circle cx="403.72" cy="329.53" r="1"/>
+  <circle cx="415.56" cy="334.44" r="1"/>
+  <circle cx="391.88" cy="358.12" r="1"/>
+  <circle cx="370.0" cy="380.0" r="1"/>
+  <circle cx="379.06" cy="389.06" r="1"/>
+  <circle cx="363.94" cy="425.56" r="1"/>
+  <circle cx="324.44" cy="425.56" r="1"/>
+  <circle cx="296.5" cy="453.5" r="1"/>
+  <circle cx="260.0" cy="425.56" r="1"/>
+  <circle cx="260.0" cy="438.38" r="1"/>
+  <circle cx="229.06" cy="425.56" r="1"/>
+  <circle cx="200.47" cy="413.72" r="1"/>
+  <circle cx="195.56" cy="425.56" r="1"/>
+  <circle cx="171.88" cy="401.88" r="1"/>
+  <circle cx="150.0" cy="380.0" r="1"/>
+  <circle cx="140.94" cy="389.06" r="1"/>
+  <circle cx="104.44" cy="373.94" r="1"/>
+  <circle cx="104.44" cy="334.44" r="1"/>
+  <circle cx="76.5" cy="306.5" r="1"/>
+  <circle cx="104.44" cy="270.0" r="1"/>
+  <circle cx="91.62" cy="270.0" r="1"/>
+  <circle cx="104.44" cy="239.06" r="1"/>
+  <circle cx="116.28" cy="210.47" r="1"/>
+  <circle cx="104.44" cy="205.56" r="1"/>
+  <circle cx="128.12" cy="181.88" r="1"/>
+  <circle cx="150.0" cy="160.0" r="1"/>
+  <circle cx="140.94" cy="150.94" r="1"/>
+  <circle cx="156.06" cy="114.44" r="1"/>
+  <circle cx="195.56" cy="114.44" r="1"/>
+  <circle cx="223.5" cy="86.5" r="1"/>
+</g>
+<g id="labels-h" font-family="sans-serif" font-size="3" fill="#888">
+  <text x="260.0" y="110.44" text-anchor="middle">H1</text>
+  <text x="260.0" y="97.62" text-anchor="middle">H2</text>
+  <text x="291.92" y="110.54" text-anchor="middle">H3</text>
+  <text x="321.44" y="122.66" text-anchor="middle">H4</text>
+  <text x="326.35" y="110.82" text-anchor="middle">H5</text>
+  <text x="350.9" y="134.96" text-anchor="middle">H6</text>
+  <text x="373.54" y="157.46" text-anchor="middle">H7</text>
+  <text x="382.6" y="148.4" text-anchor="middle">H8</text>
+  <text x="419.72" y="164.28" text-anchor="middle">H9</text>
+  <text x="420.18" y="204.65" text-anchor="middle">H10</text>
+  <text x="448.4" y="233.52" text-anchor="middle">H11</text>
+  <text x="420.56" y="271.0" text-anchor="middle">H12</text>
+  <text x="433.38" y="271.0" text-anchor="middle">H13</text>
+  <text x="420.46" y="302.92" text-anchor="middle">H14</text>
+  <text x="408.34" y="332.44" text-anchor="middle">H15</text>
+  <text x="420.18" y="337.35" text-anchor="middle">H16</text>
+  <text x="396.04" y="361.9" text-anchor="middle">H17</text>
+  <text x="373.54" y="384.54" text-anchor="middle">H18</text>
+  <text x="382.6" y="393.6" text-anchor="middle">H19</text>
+  <text x="366.72" y="430.72" text-anchor="middle">H20</text>
+  <text x="326.35" y="431.18" text-anchor="middle">H21</text>
+  <text x="297.48" y="459.4" text-anchor="middle">H22</text>
+  <text x="260.0" y="431.56" text-anchor="middle">H23</text>
+  <text x="260.0" y="444.38" text-anchor="middle">H24</text>
+  <text x="228.08" y="431.46" text-anchor="middle">H25</text>
+  <text x="198.56" y="419.34" text-anchor="middle">H26</text>
+  <text x="193.65" y="431.18" text-anchor="middle">H27</text>
+  <text x="169.1" y="407.04" text-anchor="middle">H28</text>
+  <text x="146.46" y="384.54" text-anchor="middle">H29</text>
+  <text x="137.4" y="393.6" text-anchor="middle">H30</text>
+  <text x="100.28" y="377.72" text-anchor="middle">H31</text>
+  <text x="99.82" y="337.35" text-anchor="middle">H32</text>
+  <text x="71.6" y="308.48" text-anchor="middle">H33</text>
+  <text x="99.44" y="271.0" text-anchor="middle">H34</text>
+  <text x="86.62" y="271.0" text-anchor="middle">H35</text>
+  <text x="99.54" y="239.08" text-anchor="middle">H36</text>
+  <text x="111.66" y="209.56" text-anchor="middle">H37</text>
+  <text x="99.82" y="204.65" text-anchor="middle">H38</text>
+  <text x="123.96" y="180.1" text-anchor="middle">H39</text>
+  <text x="146.46" y="157.46" text-anchor="middle">H40</text>
+  <text x="137.4" y="148.4" text-anchor="middle">H41</text>
+  <text x="153.28" y="111.28" text-anchor="middle">H42</text>
+  <text x="193.65" y="110.82" text-anchor="middle">H43</text>
+  <text x="222.52" y="82.6" text-anchor="middle">H44</text>
+</g>
+<!-- G points: cardinal circle ∩ radial lines, r=203.253, at ±22.5° from each cardinal -->
+<g id="pts-g" fill="#888">
+  <circle cx="337.782" cy="82.218" r="1"/>
+  <circle cx="447.782" cy="192.218" r="1"/>
+  <circle cx="447.782" cy="347.782" r="1"/>
+  <circle cx="337.782" cy="457.782" r="1"/>
+  <circle cx="182.218" cy="457.782" r="1"/>
+  <circle cx="72.218" cy="347.782" r="1"/>
+  <circle cx="72.218" cy="192.218" r="1"/>
+  <circle cx="182.218" cy="82.218" r="1"/>
+</g>
+<g id="labels-g" font-family="sans-serif" font-size="3" fill="#888">
+  <text x="339.695" y="78.599" text-anchor="middle">G1</text>
+  <text x="452.401" y="191.305" text-anchor="middle">G2</text>
+  <text x="452.401" y="350.695" text-anchor="middle">G3</text>
+  <text x="339.695" y="463.401" text-anchor="middle">G4</text>
+  <text x="180.305" y="463.401" text-anchor="middle">G5</text>
+  <text x="67.599" y="350.695" text-anchor="middle">G6</text>
+  <text x="67.599" y="191.305" text-anchor="middle">G7</text>
+  <text x="180.305" y="78.599" text-anchor="middle">G8</text>
+</g>
+<!-- E points on r=116.651 (grey guide circle) -->
+<g id="pts-e" fill="#888">
+  <circle cx="260.0" cy="153.349" r="1"/>
+  <circle cx="304.64" cy="162.229" r="1"/>
+  <circle cx="342.485" cy="187.515" r="1"/>
+  <circle cx="367.771" cy="225.36" r="1"/>
+  <circle cx="376.651" cy="270.0" r="1"/>
+  <circle cx="367.771" cy="314.64" r="1"/>
+  <circle cx="342.485" cy="352.485" r="1"/>
+  <circle cx="304.64" cy="377.771" r="1"/>
+  <circle cx="260.0" cy="386.651" r="1"/>
+  <circle cx="215.36" cy="377.771" r="1"/>
+  <circle cx="177.515" cy="352.485" r="1"/>
+  <circle cx="152.229" cy="314.64" r="1"/>
+  <circle cx="143.349" cy="270.0" r="1"/>
+  <circle cx="152.229" cy="225.36" r="1"/>
+  <circle cx="177.515" cy="187.515" r="1"/>
+  <circle cx="215.36" cy="162.229" r="1"/>
+</g>
+<g id="labels-e" font-family="sans-serif" font-size="3" fill="#888">
+  <text x="260.0" y="149.349" text-anchor="middle">E1</text>
+  <text x="306.553" y="158.61" text-anchor="middle">E2</text>
+  <text x="346.021" y="184.979" text-anchor="middle">E3</text>
+  <text x="372.39" y="224.447" text-anchor="middle">E4</text>
+  <text x="381.651" y="271.0" text-anchor="middle">E5</text>
+  <text x="372.39" y="317.553" text-anchor="middle">E6</text>
+  <text x="346.021" y="357.021" text-anchor="middle">E7</text>
+  <text x="306.553" y="383.39" text-anchor="middle">E8</text>
+  <text x="260.0" y="392.651" text-anchor="middle">E9</text>
+  <text x="213.447" y="383.39" text-anchor="middle">E10</text>
+  <text x="173.979" y="357.021" text-anchor="middle">E11</text>
+  <text x="147.61" y="317.553" text-anchor="middle">E12</text>
+  <text x="138.349" y="271.0" text-anchor="middle">E13</text>
+  <text x="147.61" y="224.447" text-anchor="middle">E14</text>
+  <text x="173.979" y="184.979" text-anchor="middle">E15</text>
+  <text x="213.447" y="158.61" text-anchor="middle">E16</text>
+</g>
+<!-- F points on r=133.271 (grey guide circle) -->
+<g id="pts-f" fill="#888">
+  <circle cx="260.0" cy="136.729" r="1"/>
+  <circle cx="311.001" cy="146.874" r="1"/>
+  <circle cx="354.237" cy="175.763" r="1"/>
+  <circle cx="383.126" cy="218.999" r="1"/>
+  <circle cx="393.271" cy="270.0" r="1"/>
+  <circle cx="383.126" cy="321.001" r="1"/>
+  <circle cx="354.237" cy="364.237" r="1"/>
+  <circle cx="311.001" cy="393.126" r="1"/>
+  <circle cx="260.0" cy="403.271" r="1"/>
+  <circle cx="208.999" cy="393.126" r="1"/>
+  <circle cx="165.763" cy="364.237" r="1"/>
+  <circle cx="136.874" cy="321.001" r="1"/>
+  <circle cx="126.729" cy="270.0" r="1"/>
+  <circle cx="136.874" cy="218.999" r="1"/>
+  <circle cx="165.763" cy="175.763" r="1"/>
+  <circle cx="208.999" cy="146.874" r="1"/>
+</g>
+<g id="labels-f" font-family="sans-serif" font-size="3" fill="#888">
+  <text x="260.0" y="132.729" text-anchor="middle">F1</text>
+  <text x="312.914" y="143.255" text-anchor="middle">F2</text>
+  <text x="357.773" y="173.227" text-anchor="middle">F3</text>
+  <text x="387.745" y="218.086" text-anchor="middle">F4</text>
+  <text x="398.271" y="271.0" text-anchor="middle">F5</text>
+  <text x="387.745" y="323.914" text-anchor="middle">F6</text>
+  <text x="357.773" y="368.773" text-anchor="middle">F7</text>
+  <text x="312.914" y="398.745" text-anchor="middle">F8</text>
+  <text x="260.0" y="409.271" text-anchor="middle">F9</text>
+  <text x="207.086" y="398.745" text-anchor="middle">F10</text>
+  <text x="162.227" y="368.773" text-anchor="middle">F11</text>
+  <text x="132.255" y="323.914" text-anchor="middle">F12</text>
+  <text x="121.729" y="271.0" text-anchor="middle">F13</text>
+  <text x="132.255" y="218.086" text-anchor="middle">F14</text>
+  <text x="162.227" y="173.227" text-anchor="middle">F15</text>
+  <text x="207.086" y="143.255" text-anchor="middle">F16</text>
+</g>
+<!-- C points on r=123.301 -->
+<g id="pts-c" fill="#dd3300">
+  <circle cx="260.0" cy="146.699" r="1.3"/>
+  <circle cx="307.185" cy="156.085" r="1.3"/>
+  <circle cx="347.187" cy="182.813" r="1.3"/>
+  <circle cx="373.915" cy="222.815" r="1.3"/>
+  <circle cx="383.301" cy="270.0" r="1.3"/>
+  <circle cx="373.915" cy="317.185" r="1.3"/>
+  <circle cx="347.187" cy="357.187" r="1.3"/>
+  <circle cx="307.185" cy="383.915" r="1.3"/>
+  <circle cx="260.0" cy="393.301" r="1.3"/>
+  <circle cx="212.815" cy="383.915" r="1.3"/>
+  <circle cx="172.813" cy="357.187" r="1.3"/>
+  <circle cx="146.085" cy="317.185" r="1.3"/>
+  <circle cx="136.699" cy="270.0" r="1.3"/>
+  <circle cx="146.085" cy="222.815" r="1.3"/>
+  <circle cx="172.813" cy="182.813" r="1.3"/>
+  <circle cx="212.815" cy="156.085" r="1.3"/>
+</g>
+<g id="labels-c" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="260.0" y="142.699" text-anchor="middle">C1</text>
+  <text x="309.098" y="152.466" text-anchor="middle">C2</text>
+  <text x="350.723" y="180.277" text-anchor="middle">C3</text>
+  <text x="378.534" y="221.902" text-anchor="middle">C4</text>
+  <text x="388.301" y="271.0" text-anchor="middle">C5</text>
+  <text x="378.534" y="320.098" text-anchor="middle">C6</text>
+  <text x="350.723" y="361.723" text-anchor="middle">C7</text>
+  <text x="309.098" y="389.534" text-anchor="middle">C8</text>
+  <text x="260.0" y="399.301" text-anchor="middle">C9</text>
+  <text x="210.902" y="389.534" text-anchor="middle">C10</text>
+  <text x="169.277" y="361.723" text-anchor="middle">C11</text>
+  <text x="141.466" y="320.098" text-anchor="middle">C12</text>
+  <text x="131.699" y="271.0" text-anchor="middle">C13</text>
+  <text x="141.466" y="221.902" text-anchor="middle">C14</text>
+  <text x="169.277" y="180.277" text-anchor="middle">C15</text>
+  <text x="210.902" y="152.466" text-anchor="middle">C16</text>
+</g>
+<!-- D points on r=143.24 -->
+<g id="pts-d" fill="#dd3300">
+  <circle cx="260.0" cy="126.76" r="1.3"/>
+  <circle cx="314.816" cy="137.663" r="1.3"/>
+  <circle cx="361.286" cy="168.714" r="1.3"/>
+  <circle cx="392.337" cy="215.184" r="1.3"/>
+  <circle cx="403.24" cy="270.0" r="1.3"/>
+  <circle cx="392.337" cy="324.816" r="1.3"/>
+  <circle cx="361.286" cy="371.286" r="1.3"/>
+  <circle cx="314.816" cy="402.337" r="1.3"/>
+  <circle cx="260.0" cy="413.24" r="1.3"/>
+  <circle cx="205.184" cy="402.337" r="1.3"/>
+  <circle cx="158.714" cy="371.286" r="1.3"/>
+  <circle cx="127.663" cy="324.816" r="1.3"/>
+  <circle cx="116.76" cy="270.0" r="1.3"/>
+  <circle cx="127.663" cy="215.184" r="1.3"/>
+  <circle cx="158.714" cy="168.714" r="1.3"/>
+  <circle cx="205.184" cy="137.663" r="1.3"/>
+</g>
+<g id="labels-d" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="260.0" y="122.76" text-anchor="middle">D1</text>
+  <text x="316.729" y="134.044" text-anchor="middle">D2</text>
+  <text x="364.822" y="166.178" text-anchor="middle">D3</text>
+  <text x="396.956" y="214.271" text-anchor="middle">D4</text>
+  <text x="408.24" y="271.0" text-anchor="middle">D5</text>
+  <text x="396.956" y="327.729" text-anchor="middle">D6</text>
+  <text x="364.822" y="375.822" text-anchor="middle">D7</text>
+  <text x="316.729" y="407.956" text-anchor="middle">D8</text>
+  <text x="260.0" y="419.24" text-anchor="middle">D9</text>
+  <text x="203.271" y="407.956" text-anchor="middle">D10</text>
+  <text x="155.178" y="375.822" text-anchor="middle">D11</text>
+  <text x="123.044" y="327.729" text-anchor="middle">D12</text>
+  <text x="111.76" y="271.0" text-anchor="middle">D13</text>
+  <text x="123.044" y="214.271" text-anchor="middle">D14</text>
+  <text x="155.178" y="166.178" text-anchor="middle">D15</text>
+  <text x="203.271" y="134.044" text-anchor="middle">D16</text>
+</g>
+<!-- A points on r=155.563 -->
+<g id="pts-a" fill="#dd3300">
+  <circle cx="260.0" cy="114.437" r="1.3"/>
+  <circle cx="319.531" cy="126.279" r="1.3"/>
+  <circle cx="370.0" cy="160.0" r="1.3"/>
+  <circle cx="403.721" cy="210.469" r="1.3"/>
+  <circle cx="415.563" cy="270.0" r="1.3"/>
+  <circle cx="403.721" cy="329.531" r="1.3"/>
+  <circle cx="370.0" cy="380.0" r="1.3"/>
+  <circle cx="319.531" cy="413.721" r="1.3"/>
+  <circle cx="260.0" cy="425.563" r="1.3"/>
+  <circle cx="200.469" cy="413.721" r="1.3"/>
+  <circle cx="150.0" cy="380.0" r="1.3"/>
+  <circle cx="116.279" cy="329.531" r="1.3"/>
+  <circle cx="104.437" cy="270.0" r="1.3"/>
+  <circle cx="116.279" cy="210.469" r="1.3"/>
+  <circle cx="150.0" cy="160.0" r="1.3"/>
+  <circle cx="200.469" cy="126.279" r="1.3"/>
+</g>
+<g id="labels-a" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="260.0" y="110.437" text-anchor="middle">A1</text>
+  <text x="321.444" y="122.66" text-anchor="middle">A2</text>
+  <text x="373.536" y="157.464" text-anchor="middle">A3</text>
+  <text x="408.34" y="209.556" text-anchor="middle">A4</text>
+  <text x="420.563" y="271.0" text-anchor="middle">A5</text>
+  <text x="408.34" y="332.444" text-anchor="middle">A6</text>
+  <text x="373.536" y="384.536" text-anchor="middle">A7</text>
+  <text x="321.444" y="419.34" text-anchor="middle">A8</text>
+  <text x="260.0" y="431.563" text-anchor="middle">A9</text>
+  <text x="198.556" y="419.34" text-anchor="middle">A10</text>
+  <text x="146.464" y="384.536" text-anchor="middle">A11</text>
+  <text x="111.66" y="332.444" text-anchor="middle">A12</text>
+  <text x="99.437" y="271.0" text-anchor="middle">A13</text>
+  <text x="111.66" y="209.556" text-anchor="middle">A14</text>
+  <text x="146.464" y="157.464" text-anchor="middle">A15</text>
+  <text x="198.556" y="122.66" text-anchor="middle">A16</text>
+</g>
+<!-- B points on r=220 -->
+<g id="pts-b" fill="#dd3300">
+  <circle cx="260.0" cy="50.0" r="1.3"/>
+  <circle cx="344.19" cy="66.747" r="1.3"/>
+  <circle cx="415.563" cy="114.437" r="1.3"/>
+  <circle cx="463.253" cy="185.81" r="1.3"/>
+  <circle cx="480.0" cy="270.0" r="1.3"/>
+  <circle cx="463.253" cy="354.19" r="1.3"/>
+  <circle cx="415.563" cy="425.563" r="1.3"/>
+  <circle cx="344.19" cy="473.253" r="1.3"/>
+  <circle cx="260.0" cy="490.0" r="1.3"/>
+  <circle cx="175.81" cy="473.253" r="1.3"/>
+  <circle cx="104.437" cy="425.563" r="1.3"/>
+  <circle cx="56.747" cy="354.19" r="1.3"/>
+  <circle cx="40.0" cy="270.0" r="1.3"/>
+  <circle cx="56.747" cy="185.81" r="1.3"/>
+  <circle cx="104.437" cy="114.437" r="1.3"/>
+  <circle cx="175.81" cy="66.747" r="1.3"/>
+</g>
+<g id="labels-b" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="260.0" y="46.0" text-anchor="middle">B1</text>
+  <text x="346.103" y="63.128" text-anchor="middle">B2</text>
+  <text x="419.099" y="111.901" text-anchor="middle">B3</text>
+  <text x="467.872" y="184.897" text-anchor="middle">B4</text>
+  <text x="485.0" y="271.0" text-anchor="middle">B5</text>
+  <text x="467.872" y="357.103" text-anchor="middle">B6</text>
+  <text x="419.099" y="430.099" text-anchor="middle">B7</text>
+  <text x="346.103" y="478.872" text-anchor="middle">B8</text>
+  <text x="260.0" y="496.0" text-anchor="middle">B9</text>
+  <text x="173.897" y="478.872" text-anchor="middle">B10</text>
+  <text x="100.901" y="430.099" text-anchor="middle">B11</text>
+  <text x="52.128" y="357.103" text-anchor="middle">B12</text>
+  <text x="35.0" y="271.0" text-anchor="middle">B13</text>
+  <text x="52.128" y="184.897" text-anchor="middle">B14</text>
+  <text x="100.901" y="111.901" text-anchor="middle">B15</text>
+  <text x="173.897" y="63.128" text-anchor="middle">B16</text>
+</g>
+<!-- Korvin gate reference circle A: r = 110√2 = 155.563, passes through pts 9,10,11,12 -->
+  <circle cx="260" cy="270" r="155.563" fill="none" stroke="#bbb" stroke-width="0.9"/>
+<!-- Korvin gate reference circle B: r = 220, passes through outer extremities of cardinal circles -->
+  <circle cx="260" cy="270" r="220" fill="none" stroke="#bbb" stroke-width="0.9"/>
+<!-- Korvin outer circle 1: radius = b to DFT5 apex = 283.301 - 160 = 123.301 -->
+  <circle cx="260" cy="270" r="123.301" fill="none" stroke="black" stroke-width="0.9"/>
+<!-- Korvin outer circle 2: radius = d to pt24 = 380 - 236.76 = 143.24 -->
+  <circle cx="260" cy="270" r="143.24" fill="none" stroke="black" stroke-width="0.9"/>
+<!-- Two border rings just outside the 16-petal lotus (~1mm gap each) -->
+  <circle cx="260" cy="270" r="145.29" fill="none" stroke="black" stroke-width="0.9"/>
+  <circle cx="260" cy="270" r="147.34" fill="none" stroke="black" stroke-width="0.9"/>
+<!-- Petal guide circles — one midway between each pair of black circles -->
+  <circle cx="260" cy="270" r="116.651" fill="none" stroke="#bbb" stroke-width="0.5"/>
+  <circle cx="260" cy="270" r="133.271" fill="none" stroke="#bbb" stroke-width="0.5"/>
+<!-- Petal curve guides: compass on C1,C3,...C15, r=6.651 (half petal band width) -->
+<g id="petal-guides" fill="none" stroke="#bbb" stroke-width="0.4" stroke-dasharray="2,2">
+  <circle cx="260.0" cy="146.699" r="6.651"/>
+  <circle cx="347.187" cy="182.813" r="6.651"/>
+  <circle cx="383.301" cy="270.0" r="6.651"/>
+  <circle cx="347.187" cy="357.187" r="6.651"/>
+  <circle cx="260.0" cy="393.301" r="6.651"/>
+  <circle cx="172.813" cy="357.187" r="6.651"/>
+  <circle cx="136.699" cy="270.0" r="6.651"/>
+  <circle cx="172.813" cy="182.813" r="6.651"/>
+</g>
+<!-- 8-petal lotus outlines -->
+<g id="petals-8" fill="rgba(255,220,180,0.18)" stroke="red" stroke-width="0.7">
+  <!-- petal 0° -->
+  <path d="M 217.905 168.373 A 6.651 6.651 0 0 1 221.954 159.728 A 116.651 116.651 0 0 1 266.29 153.519 A 6.651 6.651 0 0 1 260.0 146.699 A 6.651 6.651 0 0 1 253.71 153.519 A 116.651 116.651 0 0 1 298.046 159.728 A 6.651 6.651 0 0 1 302.095 168.373"/>
+  <!-- petal 45° -->
+  <path d="M 302.095 168.373 A 6.651 6.651 0 0 1 311.072 165.123 A 116.651 116.651 0 0 1 346.812 192.083 A 6.651 6.651 0 0 1 347.187 182.813 A 6.651 6.651 0 0 1 337.917 183.188 A 116.651 116.651 0 0 1 364.877 218.928 A 6.651 6.651 0 0 1 361.627 227.905"/>
+  <!-- petal 90° -->
+  <path d="M 361.627 227.905 A 6.651 6.651 0 0 1 370.272 231.954 A 116.651 116.651 0 0 1 376.481 276.29 A 6.651 6.651 0 0 1 383.301 270.0 A 6.651 6.651 0 0 1 376.481 263.71 A 116.651 116.651 0 0 1 370.272 308.046 A 6.651 6.651 0 0 1 361.627 312.095"/>
+  <!-- petal 135° -->
+  <path d="M 361.627 312.095 A 6.651 6.651 0 0 1 364.877 321.072 A 116.651 116.651 0 0 1 337.917 356.812 A 6.651 6.651 0 0 1 347.187 357.187 A 6.651 6.651 0 0 1 346.812 347.917 A 116.651 116.651 0 0 1 311.072 374.877 A 6.651 6.651 0 0 1 302.095 371.627"/>
+  <!-- petal 180° -->
+  <path d="M 302.095 371.627 A 6.651 6.651 0 0 1 298.046 380.272 A 116.651 116.651 0 0 1 253.71 386.481 A 6.651 6.651 0 0 1 260.0 393.301 A 6.651 6.651 0 0 1 266.29 386.481 A 116.651 116.651 0 0 1 221.954 380.272 A 6.651 6.651 0 0 1 217.905 371.627"/>
+  <!-- petal 225° -->
+  <path d="M 217.905 371.627 A 6.651 6.651 0 0 1 208.928 374.877 A 116.651 116.651 0 0 1 173.188 347.917 A 6.651 6.651 0 0 1 172.813 357.187 A 6.651 6.651 0 0 1 182.083 356.812 A 116.651 116.651 0 0 1 155.123 321.072 A 6.651 6.651 0 0 1 158.373 312.095"/>
+  <!-- petal 270° -->
+  <path d="M 158.373 312.095 A 6.651 6.651 0 0 1 149.728 308.046 A 116.651 116.651 0 0 1 143.519 263.71 A 6.651 6.651 0 0 1 136.699 270.0 A 6.651 6.651 0 0 1 143.519 276.29 A 116.651 116.651 0 0 1 149.728 231.954 A 6.651 6.651 0 0 1 158.373 227.905"/>
+  <!-- petal 315° -->
+  <path d="M 158.373 227.905 A 6.651 6.651 0 0 1 155.123 218.928 A 116.651 116.651 0 0 1 182.083 183.188 A 6.651 6.651 0 0 1 172.813 182.813 A 6.651 6.651 0 0 1 173.188 192.083 A 116.651 116.651 0 0 1 208.928 165.123 A 6.651 6.651 0 0 1 217.905 168.373"/>
+</g>
+<!-- 16-petal lotus outlines -->
+<g id="petals-16" fill="rgba(255,220,180,0.18)" stroke="red" stroke-width="0.7">
+  <!-- petal 0.0° -->
+  <path d="M 235.945 149.068 A 9.97 9.97 0 0 1 244.645 137.617 A 133.271 133.271 0 0 1 269.27 137.052 A 9.97 9.97 0 0 1 260.0 126.76 A 9.97 9.97 0 0 1 250.73 137.052 A 133.271 133.271 0 0 1 275.355 137.617 A 9.97 9.97 0 0 1 284.055 149.068"/>
+  <!-- petal 22.5° -->
+  <path d="M 284.055 149.068 A 9.97 9.97 0 0 1 296.475 141.818 A 133.271 133.271 0 0 1 319.441 150.719 A 9.97 9.97 0 0 1 314.816 137.663 A 9.97 9.97 0 0 1 302.313 143.624 A 133.271 133.271 0 0 1 324.847 153.57 A 9.97 9.97 0 0 1 328.502 167.479"/>
+  <!-- petal 45.0° -->
+  <path d="M 328.502 167.479 A 9.97 9.97 0 0 1 342.752 165.533 A 133.271 133.271 0 0 1 360.563 182.546 A 9.97 9.97 0 0 1 361.286 168.714 A 9.97 9.97 0 0 1 347.454 169.437 A 133.271 133.271 0 0 1 364.467 187.248 A 9.97 9.97 0 0 1 362.521 201.498"/>
+  <!-- petal 67.5° -->
+  <path d="M 362.521 201.498 A 9.97 9.97 0 0 1 376.43 205.153 A 133.271 133.271 0 0 1 386.376 227.687 A 9.97 9.97 0 0 1 392.337 215.184 A 9.97 9.97 0 0 1 379.281 210.559 A 133.271 133.271 0 0 1 388.182 233.525 A 9.97 9.97 0 0 1 380.932 245.945"/>
+  <!-- petal 90.0° -->
+  <path d="M 380.932 245.945 A 9.97 9.97 0 0 1 392.383 254.645 A 133.271 133.271 0 0 1 392.948 279.27 A 9.97 9.97 0 0 1 403.24 270.0 A 9.97 9.97 0 0 1 392.948 260.73 A 133.271 133.271 0 0 1 392.383 285.355 A 9.97 9.97 0 0 1 380.932 294.055"/>
+  <!-- petal 112.5° -->
+  <path d="M 380.932 294.055 A 9.97 9.97 0 0 1 388.182 306.475 A 133.271 133.271 0 0 1 379.281 329.441 A 9.97 9.97 0 0 1 392.337 324.816 A 9.97 9.97 0 0 1 386.376 312.313 A 133.271 133.271 0 0 1 376.43 334.847 A 9.97 9.97 0 0 1 362.521 338.502"/>
+  <!-- petal 135.0° -->
+  <path d="M 362.521 338.502 A 9.97 9.97 0 0 1 364.467 352.752 A 133.271 133.271 0 0 1 347.454 370.563 A 9.97 9.97 0 0 1 361.286 371.286 A 9.97 9.97 0 0 1 360.563 357.454 A 133.271 133.271 0 0 1 342.752 374.467 A 9.97 9.97 0 0 1 328.502 372.521"/>
+  <!-- petal 157.5° -->
+  <path d="M 328.502 372.521 A 9.97 9.97 0 0 1 324.847 386.43 A 133.271 133.271 0 0 1 302.313 396.376 A 9.97 9.97 0 0 1 314.816 402.337 A 9.97 9.97 0 0 1 319.441 389.281 A 133.271 133.271 0 0 1 296.475 398.182 A 9.97 9.97 0 0 1 284.055 390.932"/>
+  <!-- petal 180.0° -->
+  <path d="M 284.055 390.932 A 9.97 9.97 0 0 1 275.355 402.383 A 133.271 133.271 0 0 1 250.73 402.948 A 9.97 9.97 0 0 1 260.0 413.24 A 9.97 9.97 0 0 1 269.27 402.948 A 133.271 133.271 0 0 1 244.645 402.383 A 9.97 9.97 0 0 1 235.945 390.932"/>
+  <!-- petal 202.5° -->
+  <path d="M 235.945 390.932 A 9.97 9.97 0 0 1 223.525 398.182 A 133.271 133.271 0 0 1 200.559 389.281 A 9.97 9.97 0 0 1 205.184 402.337 A 9.97 9.97 0 0 1 217.687 396.376 A 133.271 133.271 0 0 1 195.153 386.43 A 9.97 9.97 0 0 1 191.498 372.521"/>
+  <!-- petal 225.0° -->
+  <path d="M 191.498 372.521 A 9.97 9.97 0 0 1 177.248 374.467 A 133.271 133.271 0 0 1 159.437 357.454 A 9.97 9.97 0 0 1 158.714 371.286 A 9.97 9.97 0 0 1 172.546 370.563 A 133.271 133.271 0 0 1 155.533 352.752 A 9.97 9.97 0 0 1 157.479 338.502"/>
+  <!-- petal 247.5° -->
+  <path d="M 157.479 338.502 A 9.97 9.97 0 0 1 143.57 334.847 A 133.271 133.271 0 0 1 133.624 312.313 A 9.97 9.97 0 0 1 127.663 324.816 A 9.97 9.97 0 0 1 140.719 329.441 A 133.271 133.271 0 0 1 131.818 306.475 A 9.97 9.97 0 0 1 139.068 294.055"/>
+  <!-- petal 270.0° -->
+  <path d="M 139.068 294.055 A 9.97 9.97 0 0 1 127.617 285.355 A 133.271 133.271 0 0 1 127.052 260.73 A 9.97 9.97 0 0 1 116.76 270.0 A 9.97 9.97 0 0 1 127.052 279.27 A 133.271 133.271 0 0 1 127.617 254.645 A 9.97 9.97 0 0 1 139.068 245.945"/>
+  <!-- petal 292.5° -->
+  <path d="M 139.068 245.945 A 9.97 9.97 0 0 1 131.818 233.525 A 133.271 133.271 0 0 1 140.719 210.559 A 9.97 9.97 0 0 1 127.663 215.184 A 9.97 9.97 0 0 1 133.624 227.687 A 133.271 133.271 0 0 1 143.57 205.153 A 9.97 9.97 0 0 1 157.479 201.498"/>
+  <!-- petal 315.0° -->
+  <path d="M 157.479 201.498 A 9.97 9.97 0 0 1 155.533 187.248 A 133.271 133.271 0 0 1 172.546 169.437 A 9.97 9.97 0 0 1 158.714 168.714 A 9.97 9.97 0 0 1 159.437 182.546 A 133.271 133.271 0 0 1 177.248 165.533 A 9.97 9.97 0 0 1 191.498 167.479"/>
+  <!-- petal 337.5° -->
+  <path d="M 191.498 167.479 A 9.97 9.97 0 0 1 195.153 153.57 A 133.271 133.271 0 0 1 217.687 143.624 A 9.97 9.97 0 0 1 205.184 137.663 A 9.97 9.97 0 0 1 200.559 150.719 A 133.271 133.271 0 0 1 223.525 141.818 A 9.97 9.97 0 0 1 235.945 149.068"/>
+</g>
+<!-- I points: 8-petal dividers ∩ Triangle Circle (C0 r=110) -->
+<g id="pts-i" fill="#dd3300">
+  <circle cx="302.095" cy="168.373" r="1.3"/>
+  <circle cx="361.627" cy="227.905" r="1.3"/>
+  <circle cx="361.627" cy="312.095" r="1.3"/>
+  <circle cx="302.095" cy="371.627" r="1.3"/>
+  <circle cx="217.905" cy="371.627" r="1.3"/>
+  <circle cx="158.373" cy="312.095" r="1.3"/>
+  <circle cx="158.373" cy="227.905" r="1.3"/>
+  <circle cx="217.905" cy="168.373" r="1.3"/>
+</g>
+<g id="labels-i" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="304.008" y="164.754" text-anchor="middle">I1</text>
+  <text x="366.246" y="226.992" text-anchor="middle">I2</text>
+  <text x="366.246" y="315.008" text-anchor="middle">I3</text>
+  <text x="304.008" y="377.246" text-anchor="middle">I4</text>
+  <text x="215.992" y="377.246" text-anchor="middle">I5</text>
+  <text x="153.754" y="315.008" text-anchor="middle">I6</text>
+  <text x="153.754" y="226.992" text-anchor="middle">I7</text>
+  <text x="215.992" y="164.754" text-anchor="middle">I8</text>
+</g>
+<!-- 8-petal dividers (C0 r=110 to circle1 r=123.301), offset by 22.5° -->
+<g id="dividers-8petal" stroke="#bbb" stroke-width="0.5">
+  <line x1="302.095" y1="168.373" x2="307.185" y2="156.085"/>
+  <line x1="361.627" y1="227.905" x2="373.915" y2="222.815"/>
+  <line x1="361.627" y1="312.095" x2="373.915" y2="317.185"/>
+  <line x1="302.095" y1="371.627" x2="307.185" y2="383.915"/>
+  <line x1="217.905" y1="371.627" x2="212.815" y2="383.915"/>
+  <line x1="158.373" y1="312.095" x2="146.085" y2="317.185"/>
+  <line x1="158.373" y1="227.905" x2="146.085" y2="222.815"/>
+  <line x1="217.905" y1="168.373" x2="212.815" y2="156.085"/>
+</g>
+<!-- 16-petal dividers (circle1 r=123.301 to circle2 r=143.24) -->
+<g id="dividers-16petal" stroke="#bbb" stroke-width="0.5">
+  <line x1="260.0" y1="146.699" x2="260.0" y2="126.76"/>
+  <line x1="307.185" y1="156.085" x2="314.816" y2="137.663"/>
+  <line x1="347.187" y1="182.813" x2="361.286" y2="168.714"/>
+  <line x1="373.915" y1="222.815" x2="392.337" y2="215.184"/>
+  <line x1="383.301" y1="270.0" x2="403.24" y2="270.0"/>
+  <line x1="373.915" y1="317.185" x2="392.337" y2="324.816"/>
+  <line x1="347.187" y1="357.187" x2="361.286" y2="371.286"/>
+  <line x1="307.185" y1="383.915" x2="314.816" y2="402.337"/>
+  <line x1="260.0" y1="393.301" x2="260.0" y2="413.24"/>
+  <line x1="212.815" y1="383.915" x2="205.184" y2="402.337"/>
+  <line x1="172.813" y1="357.187" x2="158.714" y2="371.286"/>
+  <line x1="146.085" y1="317.185" x2="127.663" y2="324.816"/>
+  <line x1="136.699" y1="270.0" x2="116.76" y2="270.0"/>
+  <line x1="146.085" y1="222.815" x2="127.663" y2="215.184"/>
+  <line x1="172.813" y1="182.813" x2="158.714" y2="168.714"/>
+  <line x1="212.815" y1="156.085" x2="205.184" y2="137.663"/>
+</g>
+<!-- ref-arcs moved to end of SVG so they render on top -->
+<!-- OM circles -->
+  <circle cx="150" cy="270" r="29.47" fill="none" stroke="#cc99cc" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <circle cx="370" cy="270" r="29.47" fill="none" stroke="#cc99cc" stroke-width="0.5" stroke-dasharray="2,2"/>
+<!-- Reference verticals 11→12 and 9→10 -->
+<g id="ref-verts">
+  <line x1="150" y1="160" x2="150" y2="380" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="370" y1="160" x2="370" y2="380" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+</g>
+<!-- Centre lines -->
+  <line x1="80" y1="270" x2="450" y2="270" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,4"/>
+  <line x1="260" y1="40" x2="260" y2="430" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,4"/>
+<!-- Green (trimmed: 8→6 and 1→3) -->
+<g id="green">
+  <line x1="205" y1="175" x2="165" y2="325" stroke="#2d8a2d" stroke-width="0.6"/>
+  <line x1="315" y1="175" x2="355" y2="325" stroke="#2d8a2d" stroke-width="0.6"/>
+</g>
+<!-- Orange DFT1 -->
+<g id="orange">
+  <line x1="260" y1="380" x2="155.14" y2="236.76" stroke="darkorange" stroke-width="0.6"/>
+  <line x1="260" y1="380" x2="364.86" y2="236.76" stroke="darkorange" stroke-width="0.6"/>
+  <line x1="155.14" y1="236.76" x2="364.86" y2="236.76" stroke="darkorange" stroke-width="0.6"/>
+</g>
+<!-- Purple UFT1 -->
+<g id="purple">
+  <line x1="260" y1="160" x2="165" y2="215" stroke="#8800aa" stroke-width="0.6"/>
+  <line x1="260" y1="160" x2="355" y2="215" stroke="#8800aa" stroke-width="0.6"/>
+  <line x1="202.888" y1="182.872" x2="317.112" y2="182.872" stroke="#8800aa" stroke-width="0.6"/>
+</g>
+<!-- UFT1 triangle -->
+  <polygon points="260,160 154.021,299.47 365.979,299.47" fill="rgba(136,0,170,0.06)" stroke="black" stroke-width="0.9"/>
+<!-- DFT1 triangle -->
+  <polygon points="260,380 155.14,236.76 364.86,236.76" fill="rgba(255,140,0,0.06)" stroke="black" stroke-width="0.9"/>
+<!-- Teal -->
+<g id="teal">
+  <line x1="205" y1="175" x2="355" y2="325" stroke="#008080" stroke-width="0.6"/>
+  <line x1="315" y1="175" x2="165" y2="325" stroke="#008080" stroke-width="0.6"/>
+</g>
+<!-- Blue -->
+<g id="blue">
+  <line x1="150" y1="270" x2="355" y2="325" stroke="#3366cc" stroke-width="0.6"/>
+  <line x1="370" y1="270" x2="165" y2="325" stroke="#3366cc" stroke-width="0.6"/>
+</g>
+<!-- Dark red (corrected: through P'-P∩(15→d) and P'-P∩(16→d)) -->
+<g id="darkred">
+  <line x1="260" y1="182.872" x2="178.210" y2="343.555" stroke="#cc1111" stroke-width="0.5"/>
+  <line x1="260" y1="182.872" x2="341.790" y2="343.555" stroke="#cc1111" stroke-width="0.5"/>
+</g>
+<!-- Olive -->
+<g id="olive">
+  <line x1="150" y1="270" x2="260" y2="380" stroke="olive" stroke-width="0.5"/>
+  <line x1="370" y1="270" x2="260" y2="380" stroke="olive" stroke-width="0.5"/>
+</g>
+<!-- Dark gold -->
+<g id="darkgold">
+  <line x1="150" y1="270" x2="315" y2="365" stroke="#b8860b" stroke-width="0.5"/>
+  <line x1="370" y1="270" x2="205" y2="365" stroke="#b8860b" stroke-width="0.5"/>
+  <line x1="184.91" y1="350.38" x2="335.09" y2="350.38" stroke="#b8860b" stroke-width="0.5"/>
+</g>
+<!-- Points -->
+<g id="points">
+  <circle cx="260" cy="160" r="1.5" fill="white" stroke="#555" stroke-width="1"/>
+  <circle cx="370" cy="270" r="1.5" fill="white" stroke="#555" stroke-width="1"/>
+  <circle cx="150" cy="270" r="1.5" fill="white" stroke="#555" stroke-width="1"/>
+  <circle cx="260" cy="380" r="1.5" fill="white" stroke="#555" stroke-width="1"/>
+  <circle cx="315" cy="175" r="1.3" fill="#555"/>
+  <circle cx="355" cy="215" r="1.3" fill="#555"/>
+  <circle cx="355" cy="325" r="1.3" fill="#555"/>
+  <circle cx="315" cy="365" r="1.3" fill="#555"/>
+  <circle cx="205" cy="365" r="1.3" fill="#555"/>
+  <circle cx="165" cy="325" r="1.3" fill="#555"/>
+  <circle cx="165" cy="215" r="1.3" fill="#555"/>
+  <circle cx="205" cy="175" r="1.3" fill="#555"/>
+  <circle cx="370" cy="160" r="1.3" fill="#555"/>
+  <circle cx="370" cy="380" r="1.3" fill="#555"/>
+  <circle cx="150" cy="160" r="1.3" fill="#555"/>
+  <circle cx="150" cy="380" r="1.3" fill="#555"/>
+  <circle cx="179.47" cy="270" r="1" fill="#884488"/>
+  <circle cx="340.53" cy="270" r="1" fill="#884488"/>
+  <circle cx="370" cy="299.47" r="1" fill="#884488"/>
+  <circle cx="150" cy="299.47" r="1" fill="#884488"/>
+  <circle cx="260" cy="299.47" r="1" fill="#884488"/>
+  <circle cx="155.14" cy="236.76" r="1.3" fill="#dd3300"/>
+  <circle cx="364.86" cy="236.76" r="1.3" fill="#dd3300"/>
+  <circle cx="199.65" cy="194.94" r="1.3" fill="#dd3300"/>
+  <circle cx="320.35" cy="194.94" r="1.3" fill="#dd3300"/>
+  <circle cx="215.67" cy="185.67" r="1.3" fill="#dd3300"/>
+  <circle cx="304.33" cy="185.67" r="1.3" fill="#dd3300"/>
+  <circle cx="260.0" cy="230.0" r="1.3" fill="#dd3300"/>
+  <circle cx="260" cy="236.76" r="1.3" fill="#dd3300"/>
+  <circle cx="186.68" cy="279.84" r="1.3" fill="#dd3300"/>
+  <circle cx="309.25" cy="312.73" r="1.3" fill="#dd3300"/>
+  <circle cx="210.75" cy="312.73" r="1.3" fill="#dd3300"/>
+  <circle cx="333.32" cy="279.84" r="1.3" fill="#dd3300"/>
+  <circle cx="260" cy="182.872" r="1.3" fill="#dd3300"/>
+  <circle cx="178.210" cy="343.555" r="1.3" fill="#dd3300"/>
+  <circle cx="341.790" cy="343.555" r="1.3" fill="#dd3300"/>
+  <circle cx="346.73" cy="293.27" r="1.3" fill="#dd3300"/>
+  <circle cx="173.27" cy="293.27" r="1.3" fill="#dd3300"/>
+  <circle cx="289.62" cy="350.38" r="1.3" fill="#dd3300"/>
+  <circle cx="230.38" cy="350.38" r="1.3" fill="#dd3300"/>
+  <circle cx="200.95" cy="299.33" r="1.3" fill="#dd3300"/>
+  <circle cx="319.05" cy="299.33" r="1.3" fill="#dd3300"/>
+  <circle cx="194.42" cy="295.58" r="1.3" fill="#dd3300"/>
+  <circle cx="325.58" cy="295.58" r="1.3" fill="#dd3300"/>
+  <circle cx="260.0" cy="333.33" r="1.3" fill="#dd3300"/>
+  <circle cx="175.56" cy="284.72" r="1.3" fill="#dd3300"/>
+  <circle cx="344.44" cy="284.72" r="1.3" fill="#dd3300"/>
+  <circle cx="213.21" cy="306.39" r="1.3" fill="#dd3300"/>
+  <circle cx="306.79" cy="306.39" r="1.3" fill="#dd3300"/>
+  <circle cx="199.46" cy="236.76" r="1.3" fill="#dd3300"/>
+  <circle cx="320.54" cy="236.76" r="1.3" fill="#dd3300"/>
+</g>
+<!-- Labels -->
+<g id="labels">
+  <text x="263" y="155" font-size="3" fill="#333" font-family="sans-serif">b</text>
+  <text x="374" y="267" font-size="3" fill="#333" font-family="sans-serif">g</text>
+  <text x="139" y="267" font-size="3" fill="#333" font-family="sans-serif">f</text>
+  <text x="263" y="389" font-size="3" fill="#333" font-family="sans-serif">d</text>
+  <text x="319" y="171" font-size="3" fill="#333" font-family="sans-serif">1</text>
+  <text x="359" y="212" font-size="3" fill="#333" font-family="sans-serif">2</text>
+  <text x="359" y="328" font-size="3" fill="#333" font-family="sans-serif">3</text>
+  <text x="319" y="370" font-size="3" fill="#333" font-family="sans-serif">4</text>
+  <text x="195" y="373" font-size="3" fill="#333" font-family="sans-serif">5</text>
+  <text x="153" y="328" font-size="3" fill="#333" font-family="sans-serif">6</text>
+  <text x="153" y="212" font-size="3" fill="#333" font-family="sans-serif">7</text>
+  <text x="193" y="171" font-size="3" fill="#333" font-family="sans-serif">8</text>
+  <text x="373" y="157" font-size="3" fill="#333" font-family="sans-serif">9</text>
+  <text x="373" y="386" font-size="3" fill="#333" font-family="sans-serif">10</text>
+  <text x="138" y="157" font-size="3" fill="#333" font-family="sans-serif">11</text>
+  <text x="138" y="386" font-size="3" fill="#333" font-family="sans-serif">12</text>
+  <text x="143.14" y="233.76" font-size="3" fill="#cc2200" font-family="sans-serif">15</text>
+  <text x="367.86" y="233.76" font-size="3" fill="#cc2200" font-family="sans-serif">16</text>
+  <text x="186.65" y="191.94" font-size="3" fill="#cc2200" font-family="sans-serif">17</text>
+  <text x="323.35" y="191.94" font-size="3" fill="#cc2200" font-family="sans-serif">18</text>
+  <text x="202.67" y="182.67" font-size="3" fill="#cc2200" font-family="sans-serif">21</text>
+  <text x="307.33" y="182.67" font-size="3" fill="#cc2200" font-family="sans-serif">22</text>
+  <text x="263.0" y="227.0" font-size="3" fill="#cc2200" font-family="sans-serif">23</text>
+  <text x="263" y="240.76" font-size="3" fill="#cc2200" font-family="sans-serif">24</text>
+  <text x="173.68" y="276.84" font-size="3" fill="#cc2200" font-family="sans-serif">25</text>
+  <text x="312.25" y="309.73" font-size="3" fill="#cc2200" font-family="sans-serif">26</text>
+  <text x="197.75" y="316.73" font-size="3" fill="#cc2200" font-family="sans-serif">27</text>
+  <text x="336.32" y="276.84" font-size="3" fill="#cc2200" font-family="sans-serif">28</text>
+  <text x="263" y="177.872" font-size="3" fill="#cc2200" font-family="sans-serif">29</text>
+  <text x="165.21" y="340.555" font-size="3" fill="#cc2200" font-family="sans-serif">30</text>
+  <text x="344.79" y="340.555" font-size="3" fill="#cc2200" font-family="sans-serif">31</text>
+  <text x="349.73" y="290.27" font-size="3" fill="#cc2200" font-family="sans-serif">32</text>
+  <text x="160.27" y="290.27" font-size="3" fill="#cc2200" font-family="sans-serif">33</text>
+  <text x="292.62" y="354.38" font-size="3" fill="#cc2200" font-family="sans-serif">34</text>
+  <text x="217.38" y="354.38" font-size="3" fill="#cc2200" font-family="sans-serif">35</text>
+  <text x="187.95" y="296.33" font-size="3" fill="#cc2200" font-family="sans-serif">36</text>
+  <text x="322.05" y="296.33" font-size="3" fill="#cc2200" font-family="sans-serif">37</text>
+  <text x="181.42" y="292.58" font-size="3" fill="#cc2200" font-family="sans-serif">38</text>
+  <text x="328.58" y="292.58" font-size="3" fill="#cc2200" font-family="sans-serif">39</text>
+  <text x="263.0" y="337.33" font-size="3" fill="#cc2200" font-family="sans-serif">40</text>
+  <text x="162.56" y="281.72" font-size="3" fill="#cc2200" font-family="sans-serif">41</text>
+  <text x="347.44" y="281.72" font-size="3" fill="#cc2200" font-family="sans-serif">42</text>
+  <text x="200.21" y="310.39" font-size="3" fill="#cc2200" font-family="sans-serif">43</text>
+  <text x="309.79" y="310.39" font-size="3" fill="#cc2200" font-family="sans-serif">44</text>
+  <text x="186.46" y="233.76" font-size="3" fill="#cc2200" font-family="sans-serif">57</text>
+  <text x="323.54" y="233.76" font-size="3" fill="#cc2200" font-family="sans-serif">58</text>
+  <text x="182.47" y="278" font-size="3" fill="#884488" font-family="sans-serif">Q</text>
+  <text x="343.53" y="278" font-size="3" fill="#884488" font-family="sans-serif">Q'</text>
+  <text x="373" y="296.47" font-size="3" fill="#884488" font-family="sans-serif">P</text>
+  <text x="138" y="296.47" font-size="3" fill="#884488" font-family="sans-serif">P'</text>
+</g>
+
+<!-- ══ Extended purple horizontal 21-22 to C0 ════════════════ -->
+<g id="purple-horiz-ext">
+  <line x1="192.853" y1="182.872" x2="327.147" y2="182.872"
+        stroke="#8800aa" stroke-width="0.6"/>
+</g>
+
+<!-- ══ Lines through 58→pt61 and 57→pt61 (new orange-ish) ════ -->
+<g id="lines-57-58-centre">
+  <!-- pt59→pt58→pt61: from C0 top-right, through 58, to pt61 -->
+  <line x1="341.935" y1="196.606"
+        x2="260.0" y2="350.385"
+        stroke="#b06000" stroke-width="0.5"/>
+  <!-- pt60→pt57→pt61: mirror -->
+  <line x1="178.065" y1="196.606"
+        x2="260.0" y2="350.385"
+        stroke="#b06000" stroke-width="0.5"/>
+</g>
+
+<!-- ══ New points 59, 60, 61 ═════════════════════════════════ -->
+<g id="new-pts-59-61">
+  <circle cx="341.935" cy="196.606" r="1.3" fill="#dd3300"/>
+  <circle cx="178.065" cy="196.606" r="1.3" fill="#dd3300"/>
+  <circle cx="260.0" cy="350.385" r="1.3" fill="#dd3300"/>
+</g>
+<g id="new-labels-59-61" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="344.935" y="193.606">59</text>
+  <text x="165.065" y="193.606">60</text>
+  <text x="263.0" y="353.385">61</text>
+</g>
+
+<!-- ══ New pts 64-79 on lines 59→61 and 60→61 ══ -->
+<g id="pts-64-79">
+  <circle cx="327.876" cy="222.992" r="1" fill="#dd3300"/>
+  <circle cx="337.525" cy="204.883" r="1" fill="#dd3300"/>
+  <circle cx="301.846" cy="271.846" r="1" fill="#dd3300"/>
+  <circle cx="283.715" cy="305.875" r="1" fill="#dd3300"/>
+  <circle cx="291.626" cy="291.027" r="1" fill="#dd3300"/>
+  <circle cx="296.959" cy="281.019" r="1" fill="#dd3300"/>
+  <circle cx="266.952" cy="337.336" r="1" fill="#dd3300"/>
+  <circle cx="273.105" cy="325.788" r="1" fill="#dd3300"/>
+  <circle cx="192.124" cy="222.992" r="1" fill="#dd3300"/>
+  <circle cx="182.475" cy="204.883" r="1" fill="#dd3300"/>
+  <circle cx="218.154" cy="271.846" r="1" fill="#dd3300"/>
+  <circle cx="228.374" cy="291.027" r="1" fill="#dd3300"/>
+  <circle cx="236.285" cy="305.875" r="1" fill="#dd3300"/>
+  <circle cx="223.041" cy="281.019" r="1" fill="#dd3300"/>
+  <circle cx="246.895" cy="325.788" r="1" fill="#dd3300"/>
+  <circle cx="253.048" cy="337.336" r="1" fill="#dd3300"/>
+</g>
+<g id="labels-64-79" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="330.876" y="219.992">64</text>
+  <text x="340.525" y="201.883">65</text>
+  <text x="304.846" y="268.846">66</text>
+  <text x="286.715" y="309.875">67</text>
+  <text x="294.626" y="288.027">68</text>
+  <text x="299.959" y="278.019">69</text>
+  <text x="269.952" y="334.336">70</text>
+  <text x="276.105" y="322.788">71</text>
+  <text x="179.124" y="219.992">72</text>
+  <text x="169.475" y="201.883">73</text>
+  <text x="205.154" y="268.846">74</text>
+  <text x="215.374" y="295.027">75</text>
+  <text x="223.285" y="309.875">76</text>
+  <text x="210.041" y="278.019">77</text>
+  <text x="233.895" y="322.788">78</text>
+  <text x="240.048" y="334.336">79</text>
+</g>
+
+<!-- ══ Lines from pt24 down to pt84/pt85 (stop at pt24 on upper end) ══ -->
+<g id="lines-24-80-81">
+  <line x1="260" y1="236.76" x2="315.471" y2="364.989" stroke="#5577aa" stroke-width="0.5"/>
+  <line x1="260" y1="236.76" x2="204.529" y2="364.989" stroke="#5577aa" stroke-width="0.5"/>
+</g>
+
+<!-- ══ New points 80-103 ══ -->
+<g id="pts-80-103">
+  <circle cx="287.128" cy="299.47" r="1" fill="#dd3300"/>
+  <circle cx="232.872" cy="299.47" r="1" fill="#dd3300"/>
+  <!-- pt82, pt83 removed (lines now stop at pt24) -->
+  <circle cx="315.471" cy="364.989" r="1" fill="#dd3300"/>
+  <circle cx="204.529" cy="364.989" r="1" fill="#dd3300"/>
+  <circle cx="298.949" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="233.445" cy="175.374" r="1" fill="#dd3300"/>
+  <circle cx="254.846" cy="224.846" r="1" fill="#dd3300"/>
+  <circle cx="257.959" cy="232.041" r="1" fill="#dd3300"/>
+  <circle cx="290.711" cy="307.752" r="1" fill="#dd3300"/>
+  <circle cx="284.323" cy="292.986" r="1" fill="#dd3300"/>
+  <!-- pt92 removed (was on old dark red line) -->
+  <circle cx="303.254" cy="336.746" r="1" fill="#dd3300"/>
+  <circle cx="293.447" cy="314.076" r="1" fill="#dd3300"/>
+  <circle cx="221.051" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="286.555" cy="175.374" r="1" fill="#dd3300"/>
+  <circle cx="262.041" cy="232.041" r="1" fill="#dd3300"/>
+  <circle cx="265.154" cy="224.846" r="1" fill="#dd3300"/>
+  <circle cx="235.677" cy="292.986" r="1" fill="#dd3300"/>
+  <circle cx="229.289" cy="307.752" r="1" fill="#dd3300"/>
+  <!-- pt101 removed (was on old dark red line) -->
+  <circle cx="216.746" cy="336.746" r="1" fill="#dd3300"/>
+  <circle cx="226.553" cy="314.076" r="1" fill="#dd3300"/>
+</g>
+<g id="labels-80-103" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="290.128" y="297.47">80</text>
+  <text x="222.872" y="297.47">81</text>
+  <!-- labels 82, 83 removed -->
+  <text x="318.471" y="364.989">84</text>
+  <text x="194.529" y="364.989">85</text>
+  <text x="301.949" y="324.795">86</text>
+  <text x="223.445" y="173.374">87</text>
+  <text x="244.846" y="222.846">88</text>
+  <text x="247.959" y="230.041">89</text>
+  <text x="293.711" y="305.752">90</text>
+  <text x="287.323" y="290.986">91</text>
+  <!-- label 92 removed -->
+  <text x="306.254" y="334.746">93</text>
+  <text x="296.447" y="312.076">94</text>
+  <text x="208.051" y="324.795">95</text>
+  <text x="289.555" y="173.374">96</text>
+  <text x="265.041" y="230.041">97</text>
+  <text x="268.154" y="222.846">98</text>
+  <text x="222.677" y="290.986">99</text>
+  <text x="216.289" y="305.752">100</text>
+  <!-- label 101 removed -->
+  <text x="203.746" y="334.746">102</text>
+  <text x="213.553" y="312.076">103</text>
+</g>
+
+<!-- ══ Horizontal through Arc1∩(61→59) and Arc2∩(61→60) at y=283.301 ══ -->
+<g id="horiz-arc-intersections">
+  <line x1="150.807" y1="283.301" x2="369.193" y2="283.301" stroke="#aa3399" stroke-width="0.5"/>
+</g>
+<g id="pts-130-149">
+  <circle cx="295.743" cy="283.301" r="1.3" fill="#aa3399"/>
+  <circle cx="224.257" cy="283.301" r="1.3" fill="#aa3399"/>
+  <circle cx="150.807" cy="283.301" r="1.3" fill="#dd3300"/>
+  <circle cx="369.193" cy="283.301" r="1.3" fill="#dd3300"/>
+  <circle cx="163.301" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="173.102" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="175.944" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="189.211" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="199.578" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="206.699" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="209.423" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="239.867" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="280.133" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="310.577" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="313.301" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="320.422" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="330.789" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="344.056" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="346.898" cy="283.301" r="1" fill="#dd3300"/>
+  <circle cx="356.699" cy="283.301" r="1" fill="#dd3300"/>
+</g>
+<g id="labels-130-149" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="297.743" y="281.301">130</text>
+  <text x="212.257" y="281.301">131</text>
+  <text x="138.807" y="281.301">132</text>
+  <text x="372.193" y="281.301">133</text>
+  <text x="151.301" y="281.301">134</text>
+  <text x="161.102" y="281.301">135</text>
+  <text x="163.944" y="281.301">136</text>
+  <text x="177.211" y="281.301">137</text>
+  <text x="187.578" y="281.301">138</text>
+  <text x="194.699" y="281.301">139</text>
+  <text x="197.423" y="281.301">140</text>
+  <text x="227.867" y="281.301">141</text>
+  <text x="268.133" y="281.301">142</text>
+  <text x="298.577" y="281.301">143</text>
+  <text x="301.301" y="281.301">144</text>
+  <text x="308.422" y="281.301">145</text>
+  <text x="318.789" y="281.301">146</text>
+  <text x="332.056" y="281.301">147</text>
+  <text x="334.898" y="281.301">148</text>
+  <text x="344.699" y="281.301">149</text>
+</g>
+
+<!-- ══ Lines from C0 through pt106/pt113, stopping at midpoint (260,283.301) ══ -->
+<g id="lines-mid-106-113">
+  <line x1="319.996" y1="177.802" x2="260" y2="283.301" stroke="#6644aa" stroke-width="0.5"/>
+  <line x1="200.004" y1="177.802" x2="260" y2="283.301" stroke="#6644aa" stroke-width="0.5"/>
+</g>
+
+<!-- ══ Pts 150-157, 167-170 (above midpoint only; 151,153,158-166,171-179 removed) ══ -->
+<g id="pts-150-170">
+  <!-- C0 upper endpoints -->
+  <circle cx="319.996" cy="177.802" r="1.3" fill="#dd3300"/>
+  <circle cx="200.004" cy="177.802" r="1.3" fill="#dd3300"/>
+  <!-- Line A intersections above midpoint -->
+  <circle cx="317.112" cy="182.872" r="1" fill="#dd3300"/>
+  <circle cx="312.751" cy="190.540" r="1" fill="#dd3300"/>
+  <circle cx="279.323" cy="249.323" r="1" fill="#dd3300"/>
+  <circle cx="271.435" cy="263.193" r="1" fill="#dd3300"/>
+  <!-- Line B intersections above midpoint -->
+  <circle cx="202.888" cy="182.872" r="1" fill="#dd3300"/>
+  <circle cx="207.249" cy="190.540" r="1" fill="#dd3300"/>
+  <circle cx="240.677" cy="249.323" r="1" fill="#dd3300"/>
+  <circle cx="248.565" cy="263.193" r="1" fill="#dd3300"/>
+</g>
+<g id="labels-150-170" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="322.996" y="175.802">150</text>
+  <text x="187.004" y="175.802">152</text>
+  <text x="320.112" y="180.872">154</text>
+  <text x="315.751" y="188.540">155</text>
+  <text x="282.323" y="247.323">156</text>
+  <text x="274.435" y="261.193">157</text>
+  <text x="190.888" y="180.872">167</text>
+  <text x="195.249" y="188.540">168</text>
+  <text x="228.677" y="247.323">169</text>
+  <text x="236.565" y="261.193">170</text>
+</g>
+
+<!-- ══ Horizontal through pts 219 and 204 at y=250.569 (C0 to C0) ══ -->
+<g id="horiz-204-219">
+  <line x1="151.730" y1="250.569" x2="368.270" y2="250.569" stroke="#888800" stroke-width="0.5"/>
+</g>
+
+<!-- ══ Lines C0→228→mid(120-121) and C0→229→mid(120-121) ══ -->
+<g id="lines-228-229-mid63">
+  <line x1="324.388" y1="180.814" x2="260" y2="326.795" stroke="#aa6600" stroke-width="0.5"/>
+  <line x1="195.612" y1="180.814" x2="260" y2="326.795" stroke="#aa6600" stroke-width="0.5"/>
+</g>
+<!-- C0 endpoints pts 230-231 -->
+<g id="pts-230-231">
+  <circle cx="324.388" cy="180.814" r="1.3" fill="#dd3300"/>
+  <circle cx="195.612" cy="180.814" r="1.3" fill="#dd3300"/>
+</g>
+<g id="labels-230-231" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="327.388" y="178.814">230</text>
+  <text x="183.612" y="178.814">231</text>
+</g>
+
+<!-- ══ Horizontal through pts 157 and 170 at y=263.193 (C0 to C0) ══ -->
+<g id="horiz-157-170">
+  <line x1="150.211" y1="263.193" x2="369.789" y2="263.193" stroke="#888800" stroke-width="0.5"/>
+</g>
+
+<!-- ══ Lines 232→(f-3∩6-g) and 233→(f-3∩6-g) ══ -->
+<g id="lines-232-233-apex">
+  <line x1="285.220" y1="263.193" x2="260" y2="299.512" stroke="#aa6600" stroke-width="0.5"/>
+  <line x1="234.780" y1="263.193" x2="260" y2="299.512" stroke="#aa6600" stroke-width="0.5"/>
+</g>
+<!-- Pt 233: left amber ∩ horiz-157-170 (mirror of 232) -->
+<!-- Pt 234: f-3 ∩ 6-g apex -->
+<g id="pts-233-234">
+  <circle cx="234.780" cy="263.193" r="1.3" fill="#dd3300"/>
+  <circle cx="260"     cy="299.512" r="1.3" fill="#dd3300"/>
+</g>
+<g id="labels-233-234" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="222.780" y="261.193">233</text>
+  <text x="262.000" y="297.512">234</text>
+</g>
+
+<!-- ══ Pt 232: right amber ∩ horiz-157-170 (y=263.193) ══ -->
+<g id="pt-232">
+  <circle cx="285.220" cy="263.193" r="1.3" fill="#dd3300"/>
+</g>
+<g id="label-232" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="287.220" y="261.193">232</text>
+</g>
+
+<!-- ══ Pts 235-236: DFT5 base corners on 231-230 horizontal (y=180.814) ══ -->
+<g id="pts-235-236">
+  <circle cx="315.523" cy="185.667" r="1.3" fill="#dd3300"/>
+  <circle cx="204.477" cy="185.667" r="1.3" fill="#dd3300"/>
+</g>
+<g id="labels-235-236" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="317.523" y="183.667">235</text>
+  <text x="192.477" y="183.667">236</text>
+</g>
+
+<!-- ══ Pts 228-229: darkred ∩ horiz-204-219 (y=250.569) ══ -->
+<g id="pts-228-229">
+  <circle cx="293.621" cy="250.569" r="1.3" fill="#dd3300"/>
+  <circle cx="226.379" cy="250.569" r="1.3" fill="#dd3300"/>
+</g>
+<g id="labels-228-229" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="295.621" y="248.569">228</text>
+  <text x="214.379" y="248.569">229</text>
+</g>
+
+<!-- ══ Horizontal through pt7=(165,215) and pt2=(355,215) ══ -->
+<g id="horiz-211">
+  <line x1="165" y1="213.4" x2="355" y2="213.4" stroke="#33aa88" stroke-width="0.5"/>
+</g>
+<g id="pts-180-193">
+  <circle cx="187.866" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt180 [line60-61] -->
+  <circle cx="194.333" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt181 [green-L] -->
+  <circle cx="221.158" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt182 [mid106-L] -->
+  <circle cx="244.805" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt183 [darkred-L] -->
+  <circle cx="245.000" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt184 [teal-L] -->
+  <circle cx="275.000" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt185 [teal-R] -->
+  <circle cx="275.195" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt186 [darkred-R] -->
+  <circle cx="298.842" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt187 [mid106-R] -->
+  <circle cx="325.667" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt188 [green-R] -->
+  <circle cx="332.134" cy="213.400" r="1" fill="#dd3300"/>  <!-- pt189 [line59-61] -->
+</g>
+<g id="labels-180-193" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="175.866" y="211.4">180</text>
+  <text x="182.333" y="211.4">181</text>
+  <text x="209.158" y="211.4">182</text>
+  <text x="232.805" y="211.4">183</text>
+  <text x="233.000" y="211.4">184</text>
+  <text x="277.000" y="211.4">185</text>
+  <text x="277.195" y="211.4">186</text>
+  <text x="300.842" y="211.4">187</text>
+  <text x="327.667" y="211.4">188</text>
+  <text x="334.134" y="211.4">189</text>
+</g>
+
+<!-- ══ Lines from mid(teal-green) through pt130/pt131 down to C0 ══ -->
+<g id="lines-mid-68-75">
+  <line x1="260" y1="213.4" x2="332.208" y2="352.982" stroke="#cc6600" stroke-width="0.5"/>
+  <line x1="260" y1="213.4" x2="187.792" y2="352.982" stroke="#cc6600" stroke-width="0.5"/>
+</g>
+<g id="pts-195-227">
+  <!-- C0 lower endpoints -->
+  <circle cx="332.208" cy="352.982" r="1" fill="#dd3300"/>
+  <circle cx="187.792" cy="352.982" r="1" fill="#dd3300"/>
+  <!-- Right amber intersections -->
+  <circle cx="265.153" cy="224.847" r="1" fill="#dd3300"/>  <!-- [teal-R] -->
+  <circle cx="276.467" cy="246.467" r="1" fill="#dd3300"/>  <!-- [teal-L] -->
+  <circle cx="278.614" cy="250.569" r="1" fill="#dd3300"/>  <!-- [mid106-R] -->
+  <circle cx="295.743" cy="283.301" r="1" fill="#dd3300"/>  <!-- [magenta-h/line59-61] -->
+  <circle cx="298.782" cy="289.107" r="1" fill="#dd3300"/>  <!-- [blue-R] -->
+  <circle cx="299.688" cy="290.840" r="1" fill="#dd3300"/>  <!-- [step-b] -->
+  <circle cx="307.587" cy="305.934" r="1" fill="#dd3300"/>  <!-- [darkgold-R] -->
+  <circle cx="311.450" cy="313.316" r="1" fill="#dd3300"/>  <!-- [blue-L] -->
+  <circle cx="316.684" cy="323.316" r="1" fill="#dd3300"/>  <!-- [olive-R] -->
+  <circle cx="318.504" cy="326.795" r="1" fill="#dd3300"/>  <!-- [darkgreen-h] -->
+  <circle cx="330.847" cy="350.380" r="1" fill="#dd3300"/>  <!-- [darkgold-h] -->
+  <!-- Left amber intersections -->
+  <circle cx="254.847" cy="224.847" r="1" fill="#dd3300"/>  <!-- [teal-L] -->
+  <circle cx="243.533" cy="246.467" r="1" fill="#dd3300"/>  <!-- [teal-R] -->
+  <circle cx="241.386" cy="250.569" r="1" fill="#dd3300"/>  <!-- [mid106-L] -->
+  <circle cx="224.257" cy="283.301" r="1" fill="#dd3300"/>  <!-- [magenta-h/line60-61] -->
+  <circle cx="221.218" cy="289.107" r="1" fill="#dd3300"/>  <!-- [blue-L] -->
+  <circle cx="220.312" cy="290.840" r="1" fill="#dd3300"/>  <!-- [step-b] -->
+  <circle cx="212.413" cy="305.934" r="1" fill="#dd3300"/>  <!-- [darkgold-L] -->
+  <circle cx="208.550" cy="313.316" r="1" fill="#dd3300"/>  <!-- [blue-R] -->
+  <circle cx="203.316" cy="323.316" r="1" fill="#dd3300"/>  <!-- [olive-L] -->
+  <circle cx="201.496" cy="326.795" r="1" fill="#dd3300"/>  <!-- [darkgreen-h] -->
+  <circle cx="189.153" cy="350.380" r="1" fill="#dd3300"/>  <!-- [darkgold-h] -->
+</g>
+<g id="labels-195-227" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="334.208" y="350.982">195</text>
+  <text x="175.792" y="350.982">197</text>
+  <text x="267.153" y="222.847">202</text>
+  <text x="278.467" y="244.467">203</text>
+  <text x="280.614" y="248.569">204</text>
+  <text x="297.743" y="281.301">205</text>
+  <text x="300.782" y="287.107">206</text>
+  <text x="301.688" y="288.840">207</text>
+  <text x="309.587" y="303.934">208</text>
+  <text x="313.450" y="311.316">209</text>
+  <text x="318.684" y="321.316">210</text>
+  <text x="320.504" y="324.795">211</text>
+  <text x="332.847" y="348.380">212</text>
+  <text x="242.847" y="222.847">217</text>
+  <text x="231.533" y="244.467">218</text>
+  <text x="229.386" y="248.569">219</text>
+  <text x="212.257" y="281.301">220</text>
+  <text x="209.218" y="287.107">221</text>
+  <text x="208.312" y="288.840">222</text>
+  <text x="200.413" y="303.934">223</text>
+  <text x="196.550" y="311.316">224</text>
+  <text x="191.316" y="321.316">225</text>
+  <text x="189.496" y="324.795">226</text>
+  <text x="177.153" y="348.380">227</text>
+</g>
+
+<!-- DFT3 triangle -->
+  <polygon points="260,326.795 226.379,250.569 293.621,250.569" fill="rgba(180,0,80,0.06)" stroke="black" stroke-width="0.9"/>
+
+<!-- DFT4 triangle -->
+  <polygon points="260,299.512 234.780,263.193 285.220,263.193" fill="rgba(200,100,0,0.06)" stroke="black" stroke-width="0.9"/>
+
+<!-- DFT5 triangle -->
+  <polygon points="260,283.301 202.888,182.872 317.112,182.872" fill="rgba(0,180,180,0.06)" stroke="black" stroke-width="0.9"/>
+
+<!-- UFT3 triangle -->
+  <polygon points="260,213.4 224.257,283.301 295.743,283.301" fill="rgba(160,0,160,0.06)" stroke="black" stroke-width="0.9"/>
+
+<!-- UFT4 triangle -->
+  <polygon points="260,236.76 210.849,350.380 309.151,350.380" fill="rgba(0,160,80,0.06)" stroke="black" stroke-width="0.9"/>
+
+<!-- UFT2 triangle -->
+  <polygon points="260,182.872 186.892,326.795 333.108,326.795" fill="rgba(0,100,200,0.06)" stroke="black" stroke-width="0.9"/>
+<!-- DFT2 triangle -->
+  <polygon points="260,350.385 187.866,213.400 332.134,213.400" fill="rgba(200,80,0,0.06)" stroke="black" stroke-width="0.9"/>
+
+<!-- ══ Bindu — central point ══ -->
+<g id="bindu">
+  <circle cx="260" cy="270" r="1.8" fill="black"/>
+</g>
+
+<!-- ══ Reference arcs on top so they're visible ══ -->
+<!-- Arc1: compass on 1=(315,175), from g=(370,270) to 8=(205,175) -->
+<!-- Arc2: compass on 8=(205,175), from f=(150,270) to 1=(315,175) -->
+<g id="ref-arcs">
+  <!-- Arc1: compass on 1=(315,175), r=110, from g=(370,270) to 8=(205,175), minor arc through interior -->
+  <path d="M 370 270 A 110 110 0 0 1 205 175" fill="none" stroke="#bbb" stroke-width="0.5" stroke-dasharray="5,3"/>
+  <!-- Arc2: compass on 8=(205,175), r=110, from f=(150,270) to 1=(315,175), minor arc through interior -->
+  <path d="M 150 270 A 110 110 0 0 0 315 175" fill="none" stroke="#bbb" stroke-width="0.5" stroke-dasharray="5,3"/>
+</g>
+
+<!-- ══ Horizontal through 86 and 95 (C0 to C0 at y=326.795) ══ -->
+<g id="horiz-86-95">
+  <line x1="165.796" y1="326.795" x2="354.204" y2="326.795" stroke="#336633" stroke-width="0.5"/>
+</g>
+
+<!-- ══ New pts 120-129 on horizontal y=326.795 ══ -->
+<g id="pts-120-129">
+  <circle cx="165.796" cy="326.795" r="1.3" fill="#dd3300"/>
+  <circle cx="354.204" cy="326.795" r="1.3" fill="#dd3300"/>
+  <circle cx="186.892" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="333.108" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="206.795" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="313.205" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="248.644" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="271.356" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="272.569" cy="326.795" r="1" fill="#dd3300"/>
+  <circle cx="247.431" cy="326.795" r="1" fill="#dd3300"/>
+</g>
+<g id="labels-120-129" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="153.796" y="324.795">120</text>
+  <text x="357.204" y="324.795">121</text>
+  <text x="174.892" y="324.795">122</text>
+  <text x="336.108" y="324.795">123</text>
+  <text x="194.795" y="324.795">124</text>
+  <text x="316.205" y="324.795">125</text>
+  <text x="235.644" y="324.795">126</text>
+  <text x="274.356" y="324.795">127</text>
+  <text x="275.569" y="324.795">128</text>
+  <text x="234.431" y="324.795">129</text>
+</g>
+
+<!-- ══ New pts 104-119: P'-P intersections + new dark red line crossings ══ -->
+<g id="pts-104-119">
+  <!-- P'-P intersections on new dark red lines -->
+  <circle cx="318.953" cy="299.470" r="1.3" fill="#cc1111"/>
+  <circle cx="201.047" cy="299.470" r="1.3" fill="#cc1111"/>
+  <!-- Right dark red line intersections -->
+  <circle cx="286.467" cy="236.760" r="1" fill="#dd3300"/>
+  <circle cx="307.649" cy="277.649" r="1" fill="#dd3300"/>
+  <circle cx="275.129" cy="214.871" r="1" fill="#dd3300"/>
+  <circle cx="328.494" cy="317.889" r="1" fill="#dd3300"/>
+  <circle cx="311.778" cy="285.620" r="1" fill="#dd3300"/>
+  <circle cx="326.316" cy="313.684" r="1" fill="#dd3300"/>
+  <circle cx="303.264" cy="269.185" r="1" fill="#dd3300"/>
+  <!-- Left dark red line intersections (mirrors) -->
+  <circle cx="233.533" cy="236.760" r="1" fill="#dd3300"/>
+  <circle cx="244.871" cy="214.871" r="1" fill="#dd3300"/>
+  <circle cx="212.351" cy="277.649" r="1" fill="#dd3300"/>
+  <circle cx="208.222" cy="285.620" r="1" fill="#dd3300"/>
+  <circle cx="191.506" cy="317.889" r="1" fill="#dd3300"/>
+  <circle cx="193.684" cy="313.684" r="1" fill="#dd3300"/>
+  <circle cx="216.736" cy="269.185" r="1" fill="#dd3300"/>
+</g>
+<g id="labels-104-119" font-family="sans-serif" font-size="3" fill="#cc2200">
+  <text x="321.953" y="297.470">104</text>
+  <text x="188.047" y="297.470">105</text>
+  <text x="289.467" y="234.760">106</text>
+  <text x="310.649" y="275.649">107</text>
+  <text x="278.129" y="212.871">108</text>
+  <text x="331.494" y="315.889">109</text>
+  <text x="314.778" y="283.620">110</text>
+  <text x="329.316" y="311.684">111</text>
+  <text x="306.264" y="267.185">112</text>
+  <text x="220.533" y="234.760">113</text>
+  <text x="232.871" y="212.871">114</text>
+  <text x="199.351" y="275.649">115</text>
+  <text x="195.222" y="283.620">116</text>
+  <text x="178.506" y="315.889">117</text>
+  <text x="180.684" y="311.684">118</text>
+  <text x="203.736" y="267.185">119</text>
+</g>
+<!-- Bhupura gate perpendiculars: from square B15-B3-B7-B11 sides outward to r=220 circle -->
+<g id="bhupura-perps" fill="none" stroke="#aaa" stroke-width="0.8">
+  <!-- top side (J16, H3 → up) -->
+  <line x1="229.056" y1="114.437" x2="229.056" y2="52.187"/>
+  <line x1="290.940" y1="114.440" x2="290.940" y2="52.187"/>
+  <!-- right side (J4, H14 → right) -->
+  <line x1="415.563" y1="239.056" x2="477.813" y2="239.056"/>
+  <line x1="415.560" y1="300.940" x2="477.813" y2="300.940"/>
+  <!-- bottom side (J8, H25 → down) -->
+  <line x1="290.944" y1="425.563" x2="290.944" y2="487.813"/>
+  <line x1="229.060" y1="425.560" x2="229.060" y2="487.813"/>
+  <!-- left side (J12, H36 → left) -->
+  <line x1="104.437" y1="300.944" x2="42.187" y2="300.944"/>
+  <line x1="104.440" y1="239.060" x2="42.187" y2="239.060"/>
+</g>
+<!-- Bhupura even-B perpendiculars: from square sides to even B-points on r=220 -->
+<g id="bhupura-perps-even" fill="none" stroke="#aaa" stroke-width="0.8">
+  <!-- square side → B16 -->
+  <line x1="175.810" y1="114.437" x2="175.810" y2="66.747"/>
+  <!-- square side → B2 -->
+  <line x1="344.190" y1="114.437" x2="344.190" y2="66.747"/>
+  <!-- square side → B4 -->
+  <line x1="415.563" y1="185.810" x2="463.253" y2="185.810"/>
+  <!-- square side → B6 -->
+  <line x1="415.563" y1="354.190" x2="463.253" y2="354.190"/>
+  <!-- square side → B8 -->
+  <line x1="344.190" y1="425.563" x2="344.190" y2="473.253"/>
+  <!-- square side → B10 -->
+  <line x1="175.810" y1="425.563" x2="175.810" y2="473.253"/>
+  <!-- square side → B12 -->
+  <line x1="104.437" y1="354.190" x2="56.747" y2="354.190"/>
+  <!-- square side → B14 -->
+  <line x1="104.437" y1="185.810" x2="56.747" y2="185.810"/>
+</g>
+<!-- Bhupura border rings: 1.5mm outside and inside the T-gate outline -->
+<g id="bhupura-border" fill="none" stroke="black" stroke-width="0.9">
+  <polygon points="101.36,111.36 225.98,111.36 225.98,91.88 172.74,91.88 172.74,63.67 347.26,63.67 347.26,91.88 294.01,91.88 294.01,111.37 418.64,111.36 418.64,235.98 438.12,235.98 438.12,182.74 466.33,182.74 466.33,357.26 438.12,357.26 438.12,304.01 418.63,304.01 418.64,428.64 294.02,428.64 294.02,448.12 347.26,448.12 347.26,476.33 172.74,476.33 172.74,448.12 225.99,448.12 225.99,428.63 101.36,428.64 101.36,304.02 81.88,304.02 81.88,357.26 53.67,357.26 53.67,182.74 81.88,182.74 81.88,235.99 101.37,235.99"/>
+  <polygon points="107.51,117.51 232.13,117.51 232.13,85.73 178.88,85.73 178.88,69.82 341.12,69.82 341.12,85.73 287.87,85.73 287.87,117.51 412.49,117.51 412.49,242.13 444.27,242.13 444.27,188.88 460.18,188.88 460.18,351.12 444.27,351.12 444.27,297.87 412.49,297.87 412.49,422.49 287.87,422.49 287.87,454.27 341.12,454.27 341.12,470.18 178.88,470.18 178.88,454.27 232.13,454.27 232.13,422.49 107.51,422.49 107.51,297.87 75.73,297.87 75.73,351.12 59.82,351.12 59.82,188.88 75.73,188.88 75.73,242.13 107.51,242.13"/>
+</g>
+<!-- Bhupura T-gate outline -->
+<g id="bhupura-outline" fill="none" stroke="black" stroke-width="0.9">
+  <!-- B16→B2 (north crossbar) -->
+  <line x1="175.810" y1="66.747" x2="344.190" y2="66.747"/>
+  <!-- B4→B6 (east crossbar) -->
+  <line x1="463.253" y1="185.810" x2="463.253" y2="354.190"/>
+  <!-- B8→B10 (south crossbar) -->
+  <line x1="344.190" y1="473.253" x2="175.810" y2="473.253"/>
+  <!-- B12→B14 (west crossbar) -->
+  <line x1="56.747" y1="354.190" x2="56.747" y2="185.810"/>
+  <!-- H3→B3 (north gate, right side of top square) -->
+  <line x1="290.940" y1="114.440" x2="415.563" y2="114.437"/>
+  <!-- B3→J4 (right square side, top segment) -->
+  <line x1="415.563" y1="114.437" x2="415.563" y2="239.056"/>
+  <!-- H14→B7 (right square side, bottom segment) -->
+  <line x1="415.560" y1="300.940" x2="415.563" y2="425.563"/>
+  <!-- B7→J8 (bottom square side, right segment) -->
+  <line x1="415.563" y1="425.563" x2="290.944" y2="425.563"/>
+  <!-- H25→B11 (bottom square side, left segment) -->
+  <line x1="229.060" y1="425.560" x2="104.437" y2="425.563"/>
+  <!-- B11→J12 (left square side, bottom segment) -->
+  <line x1="104.437" y1="425.563" x2="104.437" y2="300.944"/>
+  <!-- H36→B15 (left square side, top segment) -->
+  <line x1="104.440" y1="239.060" x2="104.437" y2="114.437"/>
+  <!-- B15→J16 (north gate, left side of top square) -->
+  <line x1="104.437" y1="114.437" x2="229.056" y2="114.437"/>
+  <!-- North-west gate shoulder: L1 → K1-B16 vertical → B16 -->
+  <line x1="229.056" y1="88.802" x2="175.810" y2="88.802"/>
+  <line x1="175.810" y1="88.802" x2="175.810" y2="66.747"/>
+  <!-- North-east gate shoulder: L3 → K2-B2 vertical → B2 -->
+  <line x1="290.940" y1="88.804" x2="344.190" y2="88.804"/>
+  <line x1="344.190" y1="88.804" x2="344.190" y2="66.747"/>
+  <!-- East-north gate shoulder: L5 → K3-B4 horizontal → B4 -->
+  <line x1="441.198" y1="239.056" x2="441.198" y2="185.810"/>
+  <line x1="441.198" y1="185.810" x2="463.253" y2="185.810"/>
+  <!-- East-south gate shoulder: L7 → K4-B6 horizontal → B6 -->
+  <line x1="441.196" y1="300.940" x2="441.196" y2="354.190"/>
+  <line x1="441.196" y1="354.190" x2="463.253" y2="354.190"/>
+  <!-- South-east gate shoulder: L9 → K5-B8 vertical → B8 -->
+  <line x1="290.944" y1="451.198" x2="344.190" y2="451.198"/>
+  <line x1="344.190" y1="451.198" x2="344.190" y2="473.253"/>
+  <!-- South-west gate shoulder: L11 → K6-B10 vertical → B10 -->
+  <line x1="229.060" y1="451.196" x2="175.810" y2="451.196"/>
+  <line x1="175.810" y1="451.196" x2="175.810" y2="473.253"/>
+  <!-- West-south gate shoulder: L13 → K7-B12 horizontal → B12 -->
+  <line x1="78.802" y1="300.944" x2="78.802" y2="354.190"/>
+  <line x1="78.802" y1="354.190" x2="56.747" y2="354.190"/>
+  <!-- West-north gate shoulder: L15 → K8-B14 horizontal → B14 -->
+  <line x1="78.804" y1="239.060" x2="78.804" y2="185.810"/>
+  <line x1="78.804" y1="185.810" x2="56.747" y2="185.810"/>
+  <!-- Gate inner walls (square-side point to first square crossing) -->
+  <line x1="229.056" y1="114.437" x2="229.056" y2="88.802"/>
+  <line x1="290.940" y1="114.440" x2="290.940" y2="88.804"/>
+  <line x1="415.563" y1="239.056" x2="441.198" y2="239.056"/>
+  <line x1="415.560" y1="300.940" x2="441.196" y2="300.940"/>
+  <line x1="290.944" y1="425.563" x2="290.944" y2="451.198"/>
+  <line x1="229.060" y1="425.560" x2="229.060" y2="451.196"/>
+  <line x1="104.437" y1="300.944" x2="78.802"  y2="300.944"/>
+  <line x1="104.440" y1="239.060" x2="78.804"  y2="239.060"/>
+</g>
+<!-- L points: intersections of J/H gate stubs with other square sides -->
+<g id="pts-l" fill="#888">
+  <circle cx="229.056" cy="88.802" r="1.2"/>
+  <circle cx="229.056" cy="80.944" r="1.2"/>
+  <circle cx="290.940" cy="88.804" r="1.2"/>
+  <circle cx="290.940" cy="80.940" r="1.2"/>
+  <circle cx="441.198" cy="239.056" r="1.2"/>
+  <circle cx="449.056" cy="239.056" r="1.2"/>
+  <circle cx="441.196" cy="300.940" r="1.2"/>
+  <circle cx="449.060" cy="300.940" r="1.2"/>
+  <circle cx="290.944" cy="451.198" r="1.2"/>
+  <circle cx="290.944" cy="459.056" r="1.2"/>
+  <circle cx="229.060" cy="451.196" r="1.2"/>
+  <circle cx="229.060" cy="459.060" r="1.2"/>
+  <circle cx="78.802" cy="300.944" r="1.2"/>
+  <circle cx="70.944" cy="300.944" r="1.2"/>
+  <circle cx="78.804" cy="239.060" r="1.2"/>
+  <circle cx="70.940" cy="239.060" r="1.2"/>
+</g>
+<g id="labels-l" font-family="sans-serif" font-size="3" fill="#888">
+  <text x="228.30" y="84.37" text-anchor="middle">L1</text>
+  <text x="228.33" y="76.50" text-anchor="middle">L2</text>
+  <text x="291.70" y="84.37" text-anchor="middle">L3</text>
+  <text x="291.67" y="76.50" text-anchor="middle">L4</text>
+  <text x="445.63" y="238.30" text-anchor="middle">L5</text>
+  <text x="453.50" y="238.33" text-anchor="middle">L6</text>
+  <text x="445.63" y="301.70" text-anchor="middle">L7</text>
+  <text x="453.50" y="301.67" text-anchor="middle">L8</text>
+  <text x="291.70" y="455.63" text-anchor="middle">L9</text>
+  <text x="291.67" y="463.50" text-anchor="middle">L10</text>
+  <text x="228.30" y="455.63" text-anchor="middle">L11</text>
+  <text x="228.33" y="463.50" text-anchor="middle">L12</text>
+  <text x="74.37" y="301.70" text-anchor="middle">L13</text>
+  <text x="66.50" y="301.67" text-anchor="middle">L14</text>
+  <text x="74.37" y="238.30" text-anchor="middle">L15</text>
+  <text x="66.50" y="238.33" text-anchor="middle">L16</text>
+</g>
+<!-- K points: feet of the even-B perpendiculars on the outer square sides -->
+<g id="pts-k" fill="#888">
+  <circle cx="175.810" cy="114.437" r="1.2"/>
+  <circle cx="344.190" cy="114.437" r="1.2"/>
+  <circle cx="415.563" cy="185.810" r="1.2"/>
+  <circle cx="415.563" cy="354.190" r="1.2"/>
+  <circle cx="344.190" cy="425.563" r="1.2"/>
+  <circle cx="175.810" cy="425.563" r="1.2"/>
+  <circle cx="104.437" cy="354.190" r="1.2"/>
+  <circle cx="104.437" cy="185.810" r="1.2"/>
+</g>
+<g id="labels-k" font-family="sans-serif" font-size="3" fill="#888">
+  <text x="173.67" y="110.48" text-anchor="middle">K1</text>
+  <text x="346.33" y="110.48" text-anchor="middle">K2</text>
+  <text x="419.52" y="183.67" text-anchor="middle">K3</text>
+  <text x="419.52" y="356.33" text-anchor="middle">K4</text>
+  <text x="346.33" y="429.52" text-anchor="middle">K5</text>
+  <text x="173.67" y="429.52" text-anchor="middle">K6</text>
+  <text x="100.48" y="356.33" text-anchor="middle">K7</text>
+  <text x="100.48" y="183.67" text-anchor="middle">K8</text>
+</g>
+<!-- J points: intersections of adjacent bhupura square sides (deduplicated — H-series points not repeated) -->
+<g id="pts-j" fill="#888">
+  <circle cx="296.500" cy="86.500" r="1.2"/>
+  <circle cx="363.944" cy="114.437" r="1.2"/>
+  <circle cx="391.880" cy="181.880" r="1.2"/>
+  <circle cx="415.563" cy="239.056" r="1.2"/>
+  <circle cx="443.500" cy="306.500" r="1.2"/>
+  <circle cx="415.563" cy="373.944" r="1.2"/>
+  <circle cx="348.120" cy="401.880" r="1.2"/>
+  <circle cx="290.944" cy="425.563" r="1.2"/>
+  <circle cx="223.500" cy="453.500" r="1.2"/>
+  <circle cx="156.056" cy="425.563" r="1.2"/>
+  <circle cx="128.120" cy="358.120" r="1.2"/>
+  <circle cx="104.437" cy="300.944" r="1.2"/>
+  <circle cx="76.500" cy="233.500" r="1.2"/>
+  <circle cx="104.437" cy="166.056" r="1.2"/>
+  <circle cx="171.880" cy="138.120" r="1.2"/>
+  <circle cx="229.056" cy="114.437" r="1.2"/>
+</g>
+<g id="labels-j" font-family="sans-serif" font-size="3" fill="#888">
+  <text x="297.38" y="82.09" text-anchor="middle">J1</text>
+  <text x="366.44" y="110.69" text-anchor="middle">J2</text>
+  <text x="395.62" y="179.38" text-anchor="middle">J3</text>
+  <text x="419.98" y="238.18" text-anchor="middle">J4</text>
+  <text x="447.91" y="307.38" text-anchor="middle">J5</text>
+  <text x="419.31" y="376.44" text-anchor="middle">J6</text>
+  <text x="350.62" y="405.62" text-anchor="middle">J7</text>
+  <text x="291.82" y="429.98" text-anchor="middle">J8</text>
+  <text x="222.62" y="457.91" text-anchor="middle">J9</text>
+  <text x="153.56" y="429.31" text-anchor="middle">J10</text>
+  <text x="124.38" y="360.62" text-anchor="middle">J11</text>
+  <text x="100.02" y="301.82" text-anchor="middle">J12</text>
+  <text x="72.09" y="232.62" text-anchor="middle">J13</text>
+  <text x="100.69" y="163.56" text-anchor="middle">J14</text>
+  <text x="169.38" y="134.38" text-anchor="middle">J15</text>
+  <text x="228.18" y="110.02" text-anchor="middle">J16</text>
+</g>
+</svg>
+<div id="legend">
+  <div><div class="lc" style="background:#bbb"></div> Cardinal circles + C0</div>
+  <div><div class="lc" style="background:#bbb;border:1px dashed #888"></div> Arcs: C1 (on 1, g→8), C2 (on 8, f→1)</div>
+  <div><div class="lc" style="background:#aa3399"></div> Magenta horiz (arc∩61→59/60)</div>
+  <div><div class="lc" style="background:#6644aa"></div> Purple — mid→106/113</div>
+  <div><div class="lc" style="background:#33aa88"></div> Teal-green horiz (purpleA∩bP / purpleB∩bP')</div>
+  <div><div class="lc" style="background:#2d8a2d"></div> Green diagonals</div>
+  <div><div class="lc" style="background:darkorange"></div> Orange — DFT1</div>
+  <div><div class="lc" style="background:#8800aa"></div> Purple — UFT1</div>
+  <div><div class="lc" style="background:#008080"></div> Teal — slope ±1</div>
+  <div><div class="lc" style="background:#3366cc"></div> Blue diagonals</div>
+  <div><div class="lc" style="background:#cc1111"></div> Dark red</div>
+  <div><div class="lc" style="background:olive"></div> Olive</div>
+  <div><div class="lc" style="background:#b8860b"></div> Dark gold (f→4, g→5)</div>
+  <div><div class="lc" style="background:#5577aa"></div> Steel blue (24→84/85)</div>
+  <div><div class="lc" style="background:#336633"></div> Dark green horiz (86–95)</div>
+  <div><div class="lc" style="background:#888800"></div> Olive-yellow horiz (204–219, y=250.569)</div>
+</div>
+</div>
+<p id="status">Magenta horiz at y=283.301 through arc∩(61→59/60); pts 130–149</p>
+</body></html>

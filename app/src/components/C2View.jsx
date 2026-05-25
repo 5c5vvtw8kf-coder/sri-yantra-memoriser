@@ -1,0 +1,520 @@
+/**
+ * C2View.jsx
+ *
+ * Circuit 2 — Sarvāśā Paripūraka Chakra (16-petal lotus)
+ * Gupta Yoginī
+ *
+ * ── Modes (controlled by parent via props) ────────────────────────────────────
+ *
+ * Explore   — tap any dot → slide-up panel with name. Hover → tooltip.
+ *
+ * Memorise  — petals revealed one at a time (chant order, bottom → anti-CW).
+ *             Active petal: cream fill, hover to reveal name.
+ *             Double-click = memorised → petal turns red (fill + stroke).
+ *             Single-click = skip      → petal stays gold, advance.
+ *             Correct petals: red fill + dark-red stroke overlay.
+ *             The mode toggle and progress bar live in the right panel (App.jsx).
+ */
+
+import { useState, useRef } from 'react'
+import data from '../data/khadgamala-canonical.json'
+import SriYantraSVG, { C2_PETALS } from './SriYantraSVG'
+
+// ── Coordinate constants ───────────────────────────────────────────────────────
+
+const CX = 260
+const CY = 270
+
+// ── Yantra fills ───────────────────────────────────────────────────────────────
+
+const GOLD_FILL    = 'rgba(201,168,76,0.80)'
+const ACTIVE_PETAL = 'rgba(255,248,200,0.92)'
+
+const YANTRA_FILLS = {
+  ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
+    [`petal-c2-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
+  ...Object.fromEntries(Array.from({ length:  8 }, (_, i) =>
+    [`petal-c3-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
+  ...Object.fromEntries(Array.from({ length: 14 }, (_, i) =>
+    [`tri-c4-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
+    [`tri-c5-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
+    [`tri-c6-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
+  ...Object.fromEntries(Array.from({ length:  8 }, (_, i) =>
+    [`tri-c7-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
+  'tri-c8-01':    GOLD_FILL,
+  'tri-c8-bg-01': '#0f0805',
+  'tri-c8-bg-02': '#0f0805',
+  'c9':           '#000000',
+}
+
+// ── Petal geometry ─────────────────────────────────────────────────────────────
+
+const C2_PETAL_ORDER = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+const C2_PETAL_MAP = Object.fromEntries(
+  C2_PETALS.map(p => [parseInt(p.id.slice(-2), 10), { x: p.cx, y: p.cy }])
+)
+
+// Full path for click/hover targets and correct-petal overlays
+const C2_PETAL_PATH_MAP = Object.fromEntries(
+  C2_PETALS.map(p => [parseInt(p.id.slice(-2), 10), p.path])
+)
+
+const C2_DOT_POSITIONS = Object.fromEntries(
+  C2_PETAL_ORDER.map((petalNum, idx) => [idx + 1, C2_PETAL_MAP[petalNum]])
+)
+
+function petalIdForSeq(seq) {
+  return `petal-c2-${String(C2_PETAL_ORDER[seq - 1]).padStart(2, '0')}`
+}
+function petalPathForSeq(seq) {
+  return C2_PETAL_PATH_MAP[C2_PETAL_ORDER[seq - 1]]
+}
+
+// ── Colours ───────────────────────────────────────────────────────────────────
+
+const GOLD = '#c9a84c'
+
+// ── Static data ───────────────────────────────────────────────────────────────
+
+const { deities } = data
+const deityById = Object.fromEntries(deities.map(d => [d.id, d]))
+
+const c2Deities = deities
+  .filter(d => d.sectionId === 'circuit-2' && d.role === 'deity')
+  .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+
+function displayName(deity, script) {
+  if (!deity) return ''
+  const s = deity.scripts
+  if (script === 'devanagari') return s.devanagari || s.iast
+  if (script === 'english')    return s.english    || s.iast
+  return s.iast
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+function DeityDot({ x, y, selected, onClick, onMouseEnter, onMouseLeave }) {
+  return (
+    <circle
+      cx={x.toFixed(1)}
+      cy={y.toFixed(1)}
+      r={selected ? 10.5 : 7.5}
+      fill={selected ? '#ffffff' : 'rgba(255,248,220,0.68)'}
+      stroke={selected ? '#2a0e04' : 'rgba(201,168,76,0.70)'}
+      strokeWidth={selected ? 1.8 : 0.9}
+      style={{ cursor: 'pointer', transition: 'r 0.12s, fill 0.12s, stroke 0.12s' }}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    />
+  )
+}
+
+function DeityPanel({ deity, script, onDismiss }) {
+  if (!deity) return null
+  const { scripts, sequenceInSection } = deity
+  const primary   = displayName(deity, script)
+  const isDevPrim = script === 'devanagari'
+
+  return (
+    <>
+      <div className="fixed inset-0 z-40" onClick={onDismiss} />
+      <div
+        className="fixed left-0 right-0 bottom-0 z-50 bg-surface-900 border-t border-surface-700 rounded-t-2xl shadow-2xl shadow-black/80"
+        style={{ maxHeight: '55vh', overflowY: 'auto' }}
+      >
+        <div className="flex justify-center pt-3 pb-1">
+          <div className="w-10 h-1 rounded-full bg-surface-600" />
+        </div>
+        <div className="px-5 pb-8 pt-2">
+          <div className="flex items-start justify-between mb-3">
+            <span className="text-xs font-mono text-gold-700 uppercase tracking-widest">
+              Gupta Yoginī · {sequenceInSection} of 16
+            </span>
+            <button
+              onClick={onDismiss}
+              className="text-muted hover:text-cream transition-colors text-lg leading-none -mt-0.5"
+            >×</button>
+          </div>
+          <h2 className={`${isDevPrim ? '' : 'iast'} text-gold-400 text-lg font-medium leading-snug mb-1`}>
+            {primary}
+          </h2>
+          {script !== 'iast'    && scripts.iast    && <p className="iast text-gold-600 text-sm mb-1">{scripts.iast}</p>}
+          {script !== 'english' && scripts.english  && <p className="text-cream text-sm mb-2">{scripts.english}</p>}
+          {scripts.translation                       && <p className="text-muted text-xs italic">{scripts.translation}</p>}
+        </div>
+      </div>
+    </>
+  )
+}
+
+function Tooltip({ x, y, label, script }) {
+  if (!label) return null
+  const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
+  const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
+  const charW    = script === 'devanagari' ? 14 : script === 'english' ? 11.5 : 10.5
+  const w        = Math.max(60, label.length * charW + 18)
+  const tx       = Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
+  const ty       = y > CY ? y - h / 2 - 18 : y + h / 2 + 18
+  return (
+    <g pointerEvents="none">
+      <rect
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
+        width={w.toFixed(1)} height={h} rx={3}
+        fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6}
+      />
+      <text
+        x={tx.toFixed(1)} y={ty.toFixed(1)}
+        textAnchor="middle" dominantBaseline="middle"
+        fontSize={fontSize} fill={GOLD} fontFamily="serif"
+      >
+        {label}
+      </text>
+    </g>
+  )
+}
+
+function CompletionPanel({ results, onRestart, onNavigate }) {
+  // Count all 18 items (petals 1–16 + Chakra Svāminī 17 + Yoginī 18)
+  const correct = Object.values(results).filter(v => v === 'correct').length
+  const skipped = 18 - correct
+  return (
+    <div className="mt-4 rounded-xl border border-surface-700 bg-surface-900/80 p-5 text-center">
+      <p className="text-gold-400 text-base font-medium mb-1">Round complete</p>
+      <p className="text-cream text-sm mb-4">
+        <span className="text-red-400">{correct}/18 memorised</span>
+        {skipped > 0 && <span className="text-muted"> · {skipped} to review</span>}
+      </p>
+      <div className="flex gap-3 justify-center">
+        <button
+          onClick={onRestart}
+          className="px-4 py-2 rounded-lg bg-surface-700 hover:bg-surface-600 text-cream text-sm transition-colors"
+        >
+          Try again
+        </button>
+        <button
+          onClick={() => onNavigate('c3')}
+          className="px-4 py-2 rounded-lg bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 text-sm transition-colors"
+        >
+          Next circuit →
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
+
+export default function C2View({
+  script           = 'iast',
+  onDeitySelect    = () => {},
+  // Memorise mode — controlled by App.jsx
+  memorise         = false,
+  currentSeq       = 1,
+  results          = {},
+  onStartMemorise  = () => {},
+  onExitMemorise   = () => {},
+  onMarkResult     = () => {},   // (seq, 'correct' | 'wrong')
+  onToggleResult   = () => {},   // (seq) — right-click correction
+  flash            = false,      // true during all-correct victory flash
+  onNavigate       = () => {},   // (tabId) — for "Next circuit →"
+}) {
+  // Explore mode state (local)
+  const [selectedId,  setSelectedId]  = useState(null)
+  const [hoveredDot,  setHoveredDot]  = useState(null)
+  const [contextMenu, setContextMenu] = useState(null)  // { seq, x, y }
+
+  const clickTimer     = useRef(null)   // active petal
+  const pastClickTimer = useRef(null)   // past petals
+
+  // ── Explore handlers ────────────────────────────────────────────────────────
+
+  const toggle  = (id) => {
+    const newId = selectedId === id ? null : id
+    setSelectedId(newId)
+    onDeitySelect(newId ? deityById[newId] : null)
+  }
+  const hover   = (id, x, y) => setHoveredDot({ id, x, y })
+  const unhover = () => setHoveredDot(null)
+
+  const selectedDeity = selectedId ? deityById[selectedId] : null
+
+  // ── Memorise handlers ───────────────────────────────────────────────────────
+
+  const markResult = (seq, result) => {
+    onMarkResult(seq, result)
+    setHoveredDot(null)
+  }
+
+  // Single-click waits 280 ms to rule out a double-click, then skips (stays gold).
+  const handleMemoriseClick = (seq) => {
+    if (seq !== currentSeq) return
+    if (clickTimer.current) return
+    clickTimer.current = setTimeout(() => {
+      clickTimer.current = null
+      markResult(seq, 'wrong')   // wrong = advance only, no color change
+    }, 280)
+  }
+
+  // Past petals: single-click unmarks if memorised; double-click marks if skipped.
+  const handlePastPetalClick = (seq) => {
+    if (pastClickTimer.current) return
+    pastClickTimer.current = setTimeout(() => {
+      pastClickTimer.current = null
+      if (results[seq] === 'correct') onToggleResult(seq)   // unmark
+    }, 280)
+  }
+  const handlePastPetalDoubleClick = (seq) => {
+    if (pastClickTimer.current) { clearTimeout(pastClickTimer.current); pastClickTimer.current = null }
+    if (results[seq] !== 'correct') onToggleResult(seq)     // mark
+  }
+
+  // Double-click cancels the pending single-click timer and marks correct (red).
+  const handleMemoriseDoubleClick = (seq) => {
+    if (seq !== currentSeq) return
+    if (clickTimer.current) {
+      clearTimeout(clickTimer.current)
+      clickTimer.current = null
+    }
+    markResult(seq, 'correct')
+  }
+
+  // Petals: seq 1–16. Extra items: seq 17 (Chakra Svāminī), 18 (Yoginī).
+  const done = memorise && currentSeq > 18
+
+  // ── Background SVG fills ────────────────────────────────────────────────────
+
+  const filledRegions = (() => {
+    if (memorise) {
+      // During the all-correct victory flash: briefly return to all-gold (no red)
+      if (flash) return { ...YANTRA_FILLS }
+      const fills = { ...YANTRA_FILLS }
+      // Active petal: cream so it reads as "focus here"
+      if (currentSeq <= 16) fills[petalIdForSeq(currentSeq)] = ACTIVE_PETAL
+      // Correct petals only — wrong petals stay gold (no color)
+      for (let seq = 1; seq < currentSeq; seq++) {
+        if (results[seq] === 'correct') fills[petalIdForSeq(seq)] = 'rgba(200,70,70,0.85)'
+      }
+      return fills
+    }
+    // Explore mode: all petals cream to highlight the avarana; selected petal turns red
+    const fills = { ...YANTRA_FILLS }
+    for (let i = 1; i <= 16; i++) fills[petalIdForSeq(i)] = ACTIVE_PETAL
+    if (selectedDeity) fills[petalIdForSeq(selectedDeity.sequenceInSection)] = 'rgba(200,70,70,0.85)'
+    return fills
+  })()
+
+  // ── Render ──────────────────────────────────────────────────────────────────
+
+  return (
+    <div className="w-full p-4">
+
+      {/* Diagram */}
+      <div
+        className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+        style={{ paddingBottom: '100%' }}
+      >
+        <div className="absolute inset-0">
+
+          {/* Layer 1: full Śrī Yantra background */}
+          <SriYantraSVG
+            className="w-full h-full"
+            showTriangles={true}
+            showLabels={false}
+            showNumbers={false}
+            filledRegions={filledRegions}
+          />
+
+
+          {/* Layer 2: deity dots / petal overlays + tooltip + hint */}
+          <svg
+            viewBox="45 55 430 430"
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute inset-0 w-full h-full"
+            style={{ background: 'transparent' }}
+            aria-label="Circuit 2 — 16-petal lotus deity positions"
+          >
+
+            {/* ── Explore mode: full petal hit areas ── */}
+            {!memorise && (
+              <>
+                {/* Dark-red stroke overlay for the selected petal */}
+                {selectedDeity && (() => {
+                  const pathD = petalPathForSeq(selectedDeity.sequenceInSection)
+                  if (!pathD) return null
+                  return (
+                    <path
+                      d={pathD}
+                      fill="rgba(200,70,70,0.85)"
+                      stroke="#7a1a1a"
+                      strokeWidth={0.75}
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  )
+                })()}
+
+                {/* Transparent hit areas for every petal */}
+                {c2Deities.map(d => {
+                  const seq = d.sequenceInSection
+                  const pos = C2_DOT_POSITIONS[seq]
+                  const pathD = petalPathForSeq(seq)
+                  if (!pos || !pathD) return null
+                  return (
+                    <path
+                      key={d.id}
+                      d={pathD}
+                      fill="transparent"
+                      stroke="none"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => toggle(d.id)}
+                      onMouseEnter={() => hover(d.id, pos.x, pos.y)}
+                      onMouseLeave={unhover}
+                    />
+                  )
+                })}
+              </>
+            )}
+
+            {/* ── Memorise mode ── */}
+            {memorise && !done && (
+              <>
+                {/* Red fill + dark-red stroke overlay for memorised petals.
+                    Same viewBox as SriYantraSVG → pixel-perfect alignment,
+                    covering the base gold stroke with the dark-red one.
+                    Hidden during flash so all petals briefly show gold. */}
+                {!flash && c2Deities.map(d => {
+                  const seq = d.sequenceInSection
+                  if (seq >= currentSeq || results[seq] !== 'correct') return null
+                  const pathD = petalPathForSeq(seq)
+                  if (!pathD) return null
+                  return (
+                    <path
+                      key={`overlay-${d.id}`}
+                      d={pathD}
+                      fill="rgba(200,70,70,0.85)"
+                      stroke="#7a1a1a"
+                      strokeWidth={0.75}
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  )
+                })}
+
+                {/* Past petal hit areas — click/dbl-click to correct, right-click for menu.
+                    Rendered above the fill overlay so they capture events. */}
+                {c2Deities.map(d => {
+                  const seq = d.sequenceInSection
+                  if (seq >= currentSeq) return null
+                  const pathD = petalPathForSeq(seq)
+                  if (!pathD) return null
+                  return (
+                    <path
+                      key={`ctx-${d.id}`}
+                      d={pathD}
+                      fill="transparent"
+                      stroke="none"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handlePastPetalClick(seq)}
+                      onDoubleClick={() => handlePastPetalDoubleClick(seq)}
+                      onContextMenu={e => {
+                        e.preventDefault()
+                        setContextMenu({ seq, x: e.clientX, y: e.clientY })
+                      }}
+                    />
+                  )
+                })}
+
+                {/* Active petal: transparent hit area for hover / click / dbl-click */}
+                {currentSeq <= 16 && (() => {
+                  const d     = c2Deities[currentSeq - 1]
+                  const pos   = C2_DOT_POSITIONS[currentSeq]
+                  const pathD = petalPathForSeq(currentSeq)
+                  if (!d || !pos || !pathD) return null
+                  return (
+                    <path
+                      key={d.id}
+                      d={pathD}
+                      fill="transparent"
+                      stroke="none"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleMemoriseClick(currentSeq)}
+                      onDoubleClick={() => handleMemoriseDoubleClick(currentSeq)}
+                      onMouseEnter={() => hover(d.id, pos.x, pos.y)}
+                      onMouseLeave={unhover}
+                    />
+                  )
+                })()}
+              </>
+            )}
+
+            {/* Tooltip */}
+            {hoveredDot && (
+              <Tooltip
+                x={hoveredDot.x}
+                y={hoveredDot.y}
+                label={displayName(deityById[hoveredDot.id], script)}
+                script={script}
+              />
+            )}
+
+          </svg>
+        </div>
+      </div>
+
+      {/* Completion panel */}
+      {done && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+        />
+      )}
+
+      {/* Hint line below yantra */}
+      {!done && (
+        <div className="mt-2 text-center">
+          {!memorise && (
+            <p className="text-muted" style={{ fontSize: '10px' }}>
+              Hover or click any petal to reveal the deity
+            </p>
+          )}
+          {memorise && currentSeq <= 16 && (
+            <p className="text-muted" style={{ fontSize: '10px' }}>
+              hover to reveal · dbl-click = memorised · click = not memorised
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Right-click context menu for correcting past petals */}
+      {contextMenu && (
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setContextMenu(null)}
+            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
+          />
+          <div
+            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
+            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
+          >
+            <button
+              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
+              onClick={() => {
+                onToggleResult(contextMenu.seq)
+                setContextMenu(null)
+              }}
+            >
+              {results[contextMenu.seq] === 'correct'
+                ? 'Unmark as memorised'
+                : 'Mark as memorised'}
+            </button>
+          </div>
+        </>
+      )}
+
+    </div>
+  )
+}

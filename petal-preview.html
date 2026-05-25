@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Petal Tuner v6</title>
+<style>
+  body { margin:0; background:#111; display:flex; flex-direction:column; align-items:center;
+         gap:18px; padding:24px; font-family:monospace; color:#ccc; }
+  h2   { margin:0; color:#c9a84c; font-size:14px; }
+  .note { font-size:11px; color:#666; max-width:780px; text-align:center; line-height:1.8; }
+  .ring-row { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .panel { display:flex; flex-direction:column; align-items:center; gap:5px; }
+  .vlabel { font-size:11px; color:#c9a84c; }
+  .params { font-size:10px; color:#666; text-align:left; line-height:1.9; max-width:190px; }
+  .params .k { color:#999; }
+  hr { border:none; border-top:1px solid #222; width:100%; max-width:900px; }
+  .sec { font-size:12px; color:#666; margin-bottom:2px; }
+</style>
+</head>
+<body>
+
+<h2>Petal Tuner — v6  High Shoulder + Pointed Tip</h2>
+
+<p class="note">
+  Each side is a <strong style="color:#c9a84c">single smooth cubic bezier</strong> — no straight sections, no angular joints.
+  High shoulder: CP1 (blue) is at full width, placed high up the petal so the sides hold width through the body.
+  Pointed tip: CP2 (orange) is near the petal axis, placed near the top, creating the sweep to the point.
+  All four variants vary tip sharpness only — shoulder character is held constant.
+</p>
+
+<div class="sec">── C3: 8-petal  (high shoulder locked, varying tip) ──</div>
+<div class="ring-row" id="row-c3"></div>
+<hr>
+<div class="sec">── C2: 16-petal  (high shoulder locked, varying tip) ──</div>
+<div class="ring-row" id="row-c2"></div>
+
+<script>
+const CX = 260, CY = 270
+const C3_RIN = 110,     C3_ROUT = 123.301
+const C2_RIN = 123.301, C2_ROUT = 143.24
+
+function pt(r, deg) {
+  const a = deg * Math.PI / 180
+  return [CX + r*Math.sin(a), CY - r*Math.cos(a)]
+}
+function fp([x,y]) { return `${x.toFixed(3)},${y.toFixed(3)}` }
+
+// ─── petalPath v6 ────────────────────────────────────────────────────────────
+//
+// Single cubic bezier per side: iL → CP1 → CP2 → tip
+//
+// WIDTH CONDITION (structural invariant):
+//   w = Rin * sin(halfSlot)  — base half-width, the absolute maximum.
+//   CP1 lateral = cp1W * w  (≤ w)
+//   CP2 lateral = cp2W * w  (≤ w)
+//   Bezier convex hull: curve can never exceed max control-point lateral.
+//   ∴ width condition is structurally guaranteed. Cannot be violated.
+//
+// cp1H  : height fraction (0–1) for CP1  — HIGH = shoulder holds full width far up petal
+// cp1W  : lateral fraction (0–1) at CP1   — 1.0 = side starts perfectly vertical from base
+// cp2H  : height fraction (0–1) for CP2  — where the sweep to the tip kicks in
+// cp2W  : lateral fraction (0–1) at CP2  — small = sharp point; larger = softer tip
+
+function petalPath(angleDeg, Rin, Rout, halfSlot, cp1H, cp1W, cp2H, cp2W) {
+  const theta = angleDeg * Math.PI / 180
+  const w     = Rin * Math.sin(halfSlot * Math.PI / 180)   // base half-width (CONDITION max)
+  const hBase = Rin * Math.cos(halfSlot * Math.PI / 180)
+  const hTip  = Rout
+
+  function sp(h, lat) {
+    return [CX + h*Math.sin(theta) - lat*Math.cos(theta),
+            CY - h*Math.cos(theta) - lat*Math.sin(theta)]
+  }
+
+  const iL  = pt(Rin,  angleDeg - halfSlot)
+  const iR  = pt(Rin,  angleDeg + halfSlot)
+  const tip = pt(Rout, angleDeg)
+
+  const h1 = hBase + cp1H * (hTip - hBase)
+  const h2 = hBase + cp2H * (hTip - hBase)
+
+  const cp1L = sp(h1,  cp1W * w)
+  const cp1R = sp(h1, -cp1W * w)
+  const cp2L = sp(h2,  cp2W * w)
+  const cp2R = sp(h2, -cp2W * w)
+
+  return [
+    `M ${fp(iL)}`,
+    `C ${fp(cp1L)} ${fp(cp2L)} ${fp(tip)}`,
+    `C ${fp(cp2R)} ${fp(cp1R)} ${fp(iR)}`,
+    `A ${Rin} ${Rin} 0 0 0 ${fp(iL)}`,
+    'Z',
+  ].join(' ')
+}
+
+// ─── Variants ────────────────────────────────────────────────────────────────
+// Shoulder held constant at cp1H=0.50, cp1W=1.0 — matches approved "High Shoulder" look.
+// CP1 sits at full width, halfway up the petal → sides hold near-full width through the body.
+// Only the tip varies: cp2H (where sweep starts) and cp2W (how close to axis).
+
+const C3_VARIANTS = [
+  { label:'C3-A  gentle tip',   cp1H:0.50, cp1W:1.0, cp2H:0.74, cp2W:0.14 },
+  { label:'C3-B  medium tip',   cp1H:0.50, cp1W:1.0, cp2H:0.76, cp2W:0.09 },
+  { label:'C3-C  sharp tip',    cp1H:0.50, cp1W:1.0, cp2H:0.79, cp2W:0.06 },
+  { label:'C3-D  needle tip',   cp1H:0.50, cp1W:1.0, cp2H:0.82, cp2W:0.04 },
+]
+const C2_VARIANTS = [
+  { label:'C2-A  gentle tip',   cp1H:0.50, cp1W:1.0, cp2H:0.74, cp2W:0.12 },
+  { label:'C2-B  medium tip',   cp1H:0.50, cp1W:1.0, cp2H:0.76, cp2W:0.07 },
+  { label:'C2-C  sharp tip',    cp1H:0.50, cp1W:1.0, cp2H:0.79, cp2W:0.05 },
+  { label:'C2-D  needle tip',   cp1H:0.50, cp1W:1.0, cp2H:0.82, cp2W:0.03 },
+]
+
+// ─── SVG builder ─────────────────────────────────────────────────────────────
+function makeSVG(ring, v) {
+  const Rin  = ring === 'C3' ? C3_RIN  : C2_RIN
+  const Rout = ring === 'C3' ? C3_ROUT : C2_ROUT
+  const n    = ring === 'C3' ? 8 : 16
+  const slot = ring === 'C3' ? 22.5 : 11.25
+  const pad  = Rout + 6
+
+  const paths = []
+
+  for (let i = 0; i < n; i++) {
+    const angle = (360/n) * i
+    const d = petalPath(angle, Rin, Rout, slot, v.cp1H, v.cp1W, v.cp2H, v.cp2W)
+    const top = i === 0
+    paths.push(`<path d="${d}"
+      fill="${top ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.08)'}"
+      stroke="#c9a84c" stroke-width="${top ? 0.9 : 0.45}"/>`)
+  }
+
+  paths.push(`<circle cx="${CX}" cy="${CY}" r="${Rin}"  fill="none" stroke="#232323" stroke-width="0.6"/>`)
+  paths.push(`<circle cx="${CX}" cy="${CY}" r="${Rout}" fill="none" stroke="#232323" stroke-width="0.5" stroke-dasharray="2,2"/>`)
+
+  // Annotate top petal (θ=0)
+  const w0    = Rin  * Math.sin(slot * Math.PI/180)
+  const hB0   = Rin  * Math.cos(slot * Math.PI/180)
+  const h1_0  = hB0 + v.cp1H * (Rout - hB0)
+  const h2_0  = hB0 + v.cp2H * (Rout - hB0)
+  const iL0   = [CX - w0,           CY - hB0]
+  const cp1L0 = [CX - v.cp1W * w0,  CY - h1_0]
+  const cp2L0 = [CX - v.cp2W * w0,  CY - h2_0]
+  const tip0  = [CX,                 CY - Rout]
+
+  function dot([x,y], col, r=2.5) {
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${col}" opacity="0.9"/>`
+  }
+  function seg([x1,y1],[x2,y2], col, dash='1.5,1') {
+    return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"
+      stroke="${col}" stroke-width="0.5" stroke-dasharray="${dash}"/>`
+  }
+
+  paths.push(seg(iL0,   cp1L0, '#4a4', '2,1'))
+  paths.push(seg(cp1L0, cp2L0, '#666', '1,1'))
+  paths.push(seg(cp2L0, tip0,  '#666', '1,1'))
+  paths.push(dot(cp1L0, '#4af', 2.2))
+  paths.push(dot(cp2L0, '#fa6', 2.2))
+  paths.push(dot(tip0,  '#fff', 1.8))
+
+  // CP height reference lines
+  paths.push(`<line x1="${(CX-Rout-2).toFixed(1)}" y1="${(CY-h1_0).toFixed(1)}"
+    x2="${(CX+Rout+2).toFixed(1)}" y2="${(CY-h1_0).toFixed(1)}"
+    stroke="#1a2a1a" stroke-width="0.4" stroke-dasharray="3,2"/>`)
+  paths.push(`<line x1="${(CX-Rout-2).toFixed(1)}" y1="${(CY-h2_0).toFixed(1)}"
+    x2="${(CX+Rout+2).toFixed(1)}" y2="${(CY-h2_0).toFixed(1)}"
+    stroke="#2a2a1a" stroke-width="0.4" stroke-dasharray="3,2"/>`)
+
+  paths.push(`<circle cx="${CX}" cy="${CY}" r="1" fill="#555"/>`)
+
+  return `<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"
+  viewBox="${CX-pad} ${CY-pad} ${pad*2} ${pad*2}" style="background:#0f0805">
+  ${paths.join('')}</svg>`
+}
+
+function paramHtml(v) {
+  return `<span class="k">cp1H</span>: ${v.cp1H} <span style="color:#4af">●</span> shoulder height<br>
+<span class="k">cp1W</span>: ${v.cp1W} (full width hold)<br>
+<span class="k">cp2H</span>: ${v.cp2H} <span style="color:#fa6">●</span> tip sweep starts<br>
+<span class="k">cp2W</span>: ${v.cp2W} (tip sharpness)<br>
+<span style="color:#444">Width: ✓ structurally enforced</span>`
+}
+
+;[['C3',C3_VARIANTS],['C2',C2_VARIANTS]].forEach(([ring,variants]) => {
+  const row = document.getElementById(`row-${ring.toLowerCase()}`)
+  variants.forEach(v => {
+    const el = document.createElement('div')
+    el.className = 'panel'
+    el.innerHTML = `<div class="vlabel">${v.label}</div>${makeSVG(ring,v)}<div class="params">${paramHtml(v)}</div>`
+    row.appendChild(el)
+  })
+})
+</script>
+</body>
+</html>

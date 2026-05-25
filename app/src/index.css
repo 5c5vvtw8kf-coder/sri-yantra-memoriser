@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-surface-900 text-cream;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    /* Prevent overscroll bounce on iOS */
+    overscroll-behavior: none;
+  }
+
+  /* IAST text: use the serif font with proper diacritic rendering */
+  .iast {
+    font-family: 'Gentium Plus', Georgia, serif;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+}
+
+@layer components {
+  .tab-btn {
+    @apply px-4 py-2 text-sm font-medium transition-colors duration-150
+           text-muted border-b-2 border-transparent
+           hover:text-cream hover:border-gold-600;
+  }
+
+  .tab-btn.active {
+    @apply text-gold-400 border-gold-500;
+  }
+
+  .section-item {
+    @apply w-full text-left px-4 py-3 text-sm transition-colors duration-100
+           border-b border-surface-700
+           hover:bg-surface-700;
+  }
+
+  .section-item.selected {
+    @apply bg-surface-700 text-gold-400;
+  }
+
+  .deity-row {
+    @apply flex items-baseline gap-3 py-2 border-b border-surface-700/50;
+  }
+
+  .seq-num {
+    @apply text-xs text-muted font-mono w-6 flex-shrink-0 text-right;
+  }
+
+  .deity-iast {
+    @apply iast text-cream leading-snug;
+  }
+
+  .deity-english {
+    @apply text-xs text-muted ml-auto flex-shrink-0;
+  }
+
+  .group-label {
+    @apply text-xs font-medium uppercase tracking-widest text-gold-700
+           px-0 py-3 mt-2;
+  }
+
+  .meta-row {
+    @apply flex items-start gap-2 text-sm py-1;
+  }
+
+  .meta-label {
+    @apply text-muted text-xs w-28 flex-shrink-0 pt-0.5;
+  }
+
+  .meta-value {
+    @apply text-cream iast;
+  }
+}
+
+/* Scrollbar styling for dark theme */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-600 rounded-full;
+}

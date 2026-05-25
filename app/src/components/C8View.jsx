@@ -1,0 +1,395 @@
+/**
+ * C8View.jsx
+ *
+ * Circuit 8 — Sarvasiddhiprada Chakra (primary downward triangle)
+ * Āti Rahasya Yoginī
+ *
+ * 7 deity positions on DFT5:
+ *   1  Bāṇinī         — left side, outside
+ *   2  Chāpinī        — right side, outside
+ *   3  Pāśinī         — above base edge, toward right
+ *   4  Aṅkuśinī       — above base edge, toward left
+ *   5  Mahākāmēśvarī  — apex (bottom vertex)
+ *   6  Mahāvajrēśvarī — top-right corner (base-right vertex)
+ *   7  Mahābhagamālinī — top-left corner (base-left vertex)
+ *
+ * Supports Explore mode (tap to reveal) and Memorise mode (drill sequentially).
+ */
+
+import { useState, useRef } from 'react'
+import data from '../data/khadgamala-canonical.json'
+import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
+
+// ── Coordinate system (matches InnerView / BinduView) ─────────────────────────
+
+// APEX/BASE_L/BASE_R (the central triangle) and CENTROID come from the
+// shared Korvin geometry module. See ../korvinGeometry.js.
+
+const lerp = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]
+
+// ── Outward unit normals ──────────────────────────────────────────────────────
+
+function outwardNormal(a, b) {
+  const dx = b[0] - a[0], dy = b[1] - a[1]
+  const len = Math.sqrt(dx * dx + dy * dy)
+  let nx = dy / len, ny = -dx / len
+  const midX = (a[0] + b[0]) / 2, midY = (a[1] + b[1]) / 2
+  const dot = nx * (CENTROID[0] - midX) + ny * (CENTROID[1] - midY)
+  if (dot > 0) { nx = -nx; ny = -ny }
+  return [nx, ny]
+}
+
+const N_RIGHT = outwardNormal(BASE_R, APEX)
+const N_TOP   = outwardNormal(BASE_L, BASE_R)
+const N_LEFT  = outwardNormal(APEX,   BASE_L)
+
+// ── Deity dot positions ───────────────────────────────────────────────────────
+
+const C8_BANINI_POS    = (() => { const [x, y] = lerp(BASE_L, APEX, 0.6); return [x + N_LEFT[0]  * 45, y + N_LEFT[1]  * 45] })()
+const C8_CHAPINI_POS   = (() => { const [x, y] = lerp(BASE_R, APEX, 0.6); return [x + N_RIGHT[0] * 45, y + N_RIGHT[1] * 45] })()
+const C8_PASINI_POS    = (() => { const [x, y] = lerp(BASE_L, BASE_R, 0.72); return [x + N_TOP[0] * 45, y + N_TOP[1] * 45] })()
+const C8_ANKUSHINI_POS = (() => { const [x, y] = lerp(BASE_L, BASE_R, 0.28); return [x + N_TOP[0] * 45, y + N_TOP[1] * 45] })()
+
+const C8_POSITIONS = [
+  C8_BANINI_POS,                              // 1 — Bāṇinī:  left side, outside
+  C8_CHAPINI_POS,                             // 2 — Chāpinī: right side, outside
+  C8_PASINI_POS,                              // 3 — Pāśinī:  above base, toward right
+  C8_ANKUSHINI_POS,                           // 4 — Aṅkuśinī: above base, toward left
+  [APEX[0],   APEX[1]  ],                     // 5 — Mahākāmēśvarī: apex (bottom)
+  [BASE_R[0], BASE_R[1]],                     // 6 — Mahāvajrēśvarī: top-right
+  [BASE_L[0], BASE_L[1]],                     // 7 — Mahābhagamālinī: top-left
+]
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const GOLD        = '#c9a84c'
+const RED         = '#c0392b'
+const BG          = '#0f0805'
+const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
+
+const TOTAL = 7
+
+// CONTEXT_TRIS — the nine context triangles — come from the shared Korvin
+// geometry module. See ../korvinGeometry.js.
+
+// ── Static data ───────────────────────────────────────────────────────────────
+
+const { deities } = data
+const deityById = Object.fromEntries(deities.map(d => [d.id, d]))
+
+const c8Deities = deities
+  .filter(d => d.sectionId === 'circuit-8' && d.role === 'deity')
+  .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function displayName(deity, script) {
+  if (!deity) return ''
+  const s = deity.scripts
+  if (script === 'devanagari') return s.devanagari || s.iast
+  if (script === 'english')    return s.english    || s.iast
+  return s.iast
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+function DeityDot({ x, y, r, fill, selected, onClick, onDoubleClick, onContextMenu, onMouseEnter, onMouseLeave, dimStyle }) {
+  const isInteractive = !!(onClick || onMouseEnter)
+  return (
+    <circle
+      cx={x.toFixed(1)} cy={y.toFixed(1)}
+      r={selected ? r + 2.5 : r}
+      fill={selected ? fill : fill + 'bb'}
+      stroke={selected ? '#fff' : 'none'}
+      strokeWidth={selected ? 0.8 : 0}
+      style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
+      onClick={onClick}
+      onDoubleClick={onDoubleClick}
+      onContextMenu={onContextMenu}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    />
+  )
+}
+
+function DeityPanel({ deity, script, onDismiss }) {
+  if (!deity) return null
+  const { scripts, sequenceInSection } = deity
+  const primary   = displayName(deity, script)
+  const isDevPrim = script === 'devanagari'
+  return (
+    <>
+      <div className="fixed inset-0 z-40" onClick={onDismiss} />
+      <div
+        className="fixed left-0 right-0 bottom-0 z-50 bg-surface-900 border-t border-surface-700 rounded-t-2xl shadow-2xl shadow-black/80"
+        style={{ maxHeight: '55vh', overflowY: 'auto' }}
+      >
+        <div className="flex justify-center pt-3 pb-1">
+          <div className="w-10 h-1 rounded-full bg-surface-600" />
+        </div>
+        <div className="px-5 pb-8 pt-2">
+          <div className="flex items-start justify-between mb-3">
+            <span className="text-xs font-mono text-gold-700 uppercase tracking-widest">
+              Āti Rahasya Yoginī · {sequenceInSection} of 7
+            </span>
+            <button onClick={onDismiss}
+              className="text-muted hover:text-cream transition-colors text-lg leading-none -mt-0.5">
+              ×
+            </button>
+          </div>
+          <h2 className={`${isDevPrim ? '' : 'iast'} text-gold-400 text-lg font-medium leading-snug mb-1`}>
+            {primary}
+          </h2>
+          {script !== 'iast' && scripts.iast && (
+            <p className="iast text-gold-600 text-sm mb-1">{scripts.iast}</p>
+          )}
+          {script !== 'english' && scripts.english && (
+            <p className="text-cream text-sm mb-2">{scripts.english}</p>
+          )}
+          {scripts.translation && (
+            <p className="text-muted text-xs italic">{scripts.translation}</p>
+          )}
+        </div>
+      </div>
+    </>
+  )
+}
+
+function Tooltip({ x, y, label, script }) {
+  if (!label) return null
+  const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
+  const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
+  const charW    = script === 'devanagari' ? 14 : script === 'english' ? 11.5 : 10.5
+  const w        = Math.max(60, label.length * charW + 18)
+  const tx       = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
+  const ty       = y - h / 2 - 14
+  return (
+    <g pointerEvents="none">
+      <rect
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
+        width={w.toFixed(1)} height={h} rx={3}
+        fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6}
+      />
+      <text x={tx.toFixed(1)} y={ty.toFixed(1)}
+        textAnchor="middle" dominantBaseline="middle"
+        fontSize={fontSize} fill={GOLD} fontFamily="serif">
+        {label}
+      </text>
+    </g>
+  )
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
+
+export default function C8View({
+  script = 'iast',
+  onDeitySelect = () => {},
+  memorise = false,
+  currentSeq = 1,
+  results = {},
+  onStartMemorise,
+  onExitMemorise,
+  onMarkResult,
+  onToggleResult,
+  flash = false,
+  onNavigate,
+}) {
+  const [selectedId,  setSelectedId]  = useState(null)
+  const [hoveredDot,  setHoveredDot]  = useState(null)
+  const [contextMenu, setContextMenu] = useState(null)
+  const clickTimer = useRef(null)
+
+  const toggle  = (id) => {
+    const newId = selectedId === id ? null : id
+    setSelectedId(newId)
+    onDeitySelect(newId ? deityById[newId] : null)
+  }
+  const hover   = (id, x, y) => setHoveredDot({ id, x, y })
+  const unhover = () => setHoveredDot(null)
+
+  const selectedDeity = selectedId ? deityById[selectedId] : null
+
+  // ── Memorise mode handlers ─────────────────────────────────────────────────
+
+  const handleMemClick = (seq) => {
+    if (clickTimer.current) return
+    clickTimer.current = setTimeout(() => {
+      clickTimer.current = null
+      if (currentSeq === seq) onMarkResult(seq, 'wrong')
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    }, 280)
+  }
+
+  const handleMemDblClick = (seq) => {
+    if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+    if (currentSeq === seq) onMarkResult(seq, 'correct')
+    else if (results[seq] !== 'correct') onToggleResult(seq)
+  }
+
+  const done = memorise && currentSeq > TOTAL
+
+  const mainTriPts = [APEX, BASE_L, BASE_R]
+    .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
+
+  return (
+    <div className="w-full p-4">
+
+      {/* Context menu */}
+      {contextMenu && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
+          <div className="fixed z-50 bg-surface-800 border border-surface-600 rounded-lg shadow-xl py-1"
+               style={{ left: contextMenu.x, top: contextMenu.y }}>
+            <button
+              className="block w-full text-left px-4 py-2 text-sm text-cream hover:bg-surface-700 transition-colors"
+              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}>
+              {results[contextMenu.seq] === 'correct' ? 'Mark as not memorised' : 'Mark as memorised'}
+            </button>
+          </div>
+        </>
+      )}
+
+      <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+           style={{ background: BG }}>
+        <svg viewBox="-30 181 560 500" xmlns="http://www.w3.org/2000/svg"
+             style={{ background: BG, display: 'block', width: '100%' }}
+             aria-label="Circuit 8 — Sarvasiddhiprada Chakra — 7 deity positions">
+
+          {/* Context geometry — even-odd light fill, then surrounding outlines */}
+          <path d={CONTEXT_FILL_PATH} fillRule="evenodd"
+            fill={GOLD} fillOpacity={0.1} stroke="none" />
+          {CONTEXT_TRIS.map((pts, i) => (
+            <polygon key={`ctx-${i}`} points={pts}
+              fill="none" stroke={GOLD} strokeWidth={0.6} opacity={0.14} />
+          ))}
+
+          {/* Central triangle — the main triangle */}
+          <polygon points={mainTriPts}
+            fill="rgba(201,168,76,0.04)" stroke={GOLD}
+            strokeWidth={3} strokeLinejoin="miter" />
+
+          {/* ── Explore mode dots ─────────────────────────────────────────── */}
+          {!memorise && c8Deities.map((d, i) => {
+            const pos = C8_POSITIONS[i]
+            if (!pos) return null
+            return (
+              <DeityDot key={d.id}
+                x={pos[0]} y={pos[1]} r={14}
+                fill="#fff8c8"
+                selected={selectedId === d.id}
+                onClick={() => toggle(d.id)}
+                onMouseEnter={() => hover(d.id, pos[0], pos[1])}
+                onMouseLeave={unhover} />
+            )
+          })}
+
+          {/* ── Memorise mode dots ────────────────────────────────────────── */}
+          {memorise && c8Deities.map((d, i) => {
+            const seq = d.sequenceInSection
+            const pos = C8_POSITIONS[i]
+            if (!pos) return null
+
+            const isActive  = currentSeq === seq
+            const isPast    = currentSeq > seq
+            const isFuture  = !isActive && !isPast
+            const isCorrect = results[seq] === 'correct'
+
+            let fill, selected
+            if (flash)                    { fill = ACTIVE_FILL; selected = true  }
+            else if (isActive)            { fill = ACTIVE_FILL; selected = true  }
+            else if (isPast && isCorrect) { fill = RED;         selected = false }
+            else if (isPast)              { fill = GOLD;        selected = false }
+            else                          { fill = RED;         selected = false }
+
+            return (
+              <DeityDot key={`mem-${seq}`}
+                x={pos[0]} y={pos[1]} r={14} fill={fill} selected={selected}
+                dimStyle={isFuture ? { opacity: 0.15 } : undefined}
+                onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
+                onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
+                onContextMenu={!flash && isPast ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) } : undefined}
+                onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, pos[0], pos[1]) : undefined}
+                onMouseLeave={!flash && (isActive || isPast) ? unhover : undefined}
+              />
+            )
+          })}
+
+          {/* Hover tooltip */}
+          {hoveredDot && !flash && (() => {
+            const d = deityById[hoveredDot.id]
+            if (!d) return null
+            return (
+              <Tooltip
+                x={hoveredDot.x} y={hoveredDot.y}
+                label={displayName(d, script)}
+                script={script}
+              />
+            )
+          })()}
+
+          {/* Hint (explore only) */}
+          {!memorise && !selectedId && !hoveredDot && (
+            <text x={250} y={630} textAnchor="middle"
+              fontSize="13" fill={GOLD} opacity="0.45"
+              fontFamily="serif" fontStyle="italic">
+              Tap any position to reveal the deity
+            </text>
+          )}
+
+          {/* Memorise instruction */}
+          {memorise && !done && (
+            <text x={250} y={630} textAnchor="middle"
+              fontSize="13" fill={GOLD} opacity="0.55"
+              fontFamily="serif" fontStyle="italic">
+              double-tap = memorised · single-tap = not yet
+            </text>
+          )}
+
+        </svg>
+
+        {/* Completion overlay */}
+        {done && (
+          <div className="absolute inset-0 flex items-center justify-center rounded-xl"
+               style={{ background: 'rgba(15,8,5,0.82)' }}>
+            <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
+                 style={{ maxWidth: '15rem', margin: '0 1rem' }}>
+              <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">sarvasiddhiprada cakra</p>
+              <p className="text-cream text-sm">
+                {Object.values(results).filter(v => v === 'correct').length === TOTAL
+                  ? 'Memorised — well done!'
+                  : 'Round complete.'}
+              </p>
+              <p className="text-muted text-xs">
+                {Object.values(results).filter(v => v === 'correct').length}/{TOTAL} memorised
+              </p>
+              <div className="flex flex-col gap-2 pt-1">
+                <button onClick={onStartMemorise}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors">
+                  Try again
+                </button>
+                <button onClick={() => onNavigate && onNavigate('c9')}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
+                  Next →
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-3 text-center">
+        <p className="iast text-gold-600 text-xs">sarvasiddhiprada cakra · ātirahasya yoginī</p>
+        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
+          Primary triangle — seat of the three Mahā Shaktis
+        </p>
+      </div>
+
+      <div className="h-8" />
+
+      {/* Explore mode: deity panel */}
+      {!memorise && selectedDeity && (
+        <DeityPanel deity={selectedDeity} script={script} onDismiss={() => toggle(selectedDeity.id)} />
+      )}
+    </div>
+  )
+}

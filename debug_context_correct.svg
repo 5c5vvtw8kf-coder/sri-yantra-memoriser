@@ -1,0 +1,55 @@
+<svg viewBox="-60 185 560 500" xmlns="http://www.w3.org/2000/svg" width="700" height="625" style="background:#0f0805">
+  <title>CORRECT context triangles — DFT5-based transform</title>
+
+  <!-- DFT1 — outermost downward -->
+  <polygon points="250,697.4 54.8,464.5 445.2,464.5"
+    fill="none" stroke="#fb7185" stroke-width="0.9" opacity="0.5"/>
+  <!-- DFT2 -->
+  <polygon points="250,649.2 115.7,426.6 384.3,426.6"
+    fill="none" stroke="#f43f5e" stroke-width="0.9" opacity="0.5"/>
+  <!-- DFT3 -->
+  <polygon points="250,610.9 187.4,487.0 312.6,487.0"
+    fill="none" stroke="#ef4444" stroke-width="0.9" opacity="0.5"/>
+  <!-- DFT4 — innermost downward context triangle -->
+  <polygon points="250,566.5 203.1,507.5 296.9,507.5"
+    fill="none" stroke="#f97316" stroke-width="0.9" opacity="0.5"/>
+
+  <!-- UFT1 — outermost upward -->
+  <polygon points="250,339.8 52.8,566.5 447.2,566.5"
+    fill="none" stroke="#bfdbfe" stroke-width="0.9" opacity="0.5"/>
+  <!-- UFT2 — apex touches DFT5 base -->
+  <polygon points="250,376.9 113.9,610.9 386.1,610.9"
+    fill="none" stroke="#93c5fd" stroke-width="0.9" opacity="0.5"/>
+  <!-- UFT3 — base at DFT5 apex level -->
+  <polygon points="250,426.6 183.5,540.2 316.5,540.2"
+    fill="none" stroke="#60a5fa" stroke-width="0.9" opacity="0.5"/>
+  <!-- UFT4 -->
+  <polygon points="250,464.5 158.5,649.2 341.5,649.2"
+    fill="none" stroke="#818cf8" stroke-width="0.9" opacity="0.5"/>
+
+  <!-- Main DFT5 triangle — gold, prominent -->
+  <polygon points="250,540.2 143.7,376.9 356.3,376.9"
+    fill="rgba(201,168,76,0.05)" stroke="#c9a84c" stroke-width="2.0" stroke-linejoin="miter"/>
+
+  <!-- Bindu: Korvin(260,270) → ICV via DFT5 transform -->
+  <circle cx="250" cy="518.6" r="6" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+  <circle cx="250" cy="518.6" r="2" fill="#22d3ee"/>
+
+  <!-- Centroid of DFT5 (placed by C9View) -->
+  <circle cx="250" cy="431.3" r="4" fill="#c9a84c" opacity="0.7"/>
+
+  <!-- Labels -->
+  <text x="255" y="545" font-size="10" fill="#c9a84c" font-family="sans-serif">DFT5 (main)</text>
+  <text x="255" y="572" font-size="10" fill="#f97316" font-family="sans-serif">DFT4</text>
+  <text x="315" y="490" font-size="10" fill="#ef4444" font-family="sans-serif">DFT3</text>
+  <text x="388" y="430" font-size="10" fill="#f43f5e" font-family="sans-serif">DFT2</text>
+  <text x="448" y="468" font-size="10" fill="#fb7185" font-family="sans-serif">DFT1</text>
+
+  <text x="160" y="433" font-size="10" fill="#60a5fa" font-family="sans-serif">UFT3</text>
+  <text x="165" y="468" font-size="10" fill="#818cf8" font-family="sans-serif">UFT4</text>
+  <text x="120" y="615" font-size="10" fill="#93c5fd" font-family="sans-serif">UFT2</text>
+  <text x="58" y="570" font-size="10" fill="#bfdbfe" font-family="sans-serif">UFT1</text>
+
+  <text x="255" y="514" font-size="9" fill="#22d3ee" font-family="sans-serif">bindu</text>
+  <text x="255" y="427" font-size="9" fill="#c9a84c" font-family="sans-serif">centroid</text>
+</svg>

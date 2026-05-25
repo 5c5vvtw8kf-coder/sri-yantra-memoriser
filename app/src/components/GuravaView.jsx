@@ -1,0 +1,482 @@
+/**
+ * GuravaView.jsx
+ *
+ * Shows the DFT5 triangle with the three Guru lineage rows above it:
+ *   Row 1 (furthest, Divyaugha)  — 7 deities
+ *   Row 2 (middle,  Siddhaugha)  — 4 deities
+ *   Row 3 (closest, Mānavaugha)  — 8 deities
+ *   Total: 19 Guru lineage deities
+ *
+ * Supports Explore mode (tap to reveal) and Memorise mode (drill 1→19).
+ */
+
+import { useState, useRef } from 'react'
+import data from '../data/khadgamala-canonical.json'
+import { APEX, BASE_L, BASE_R, CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID } from '../korvinGeometry'
+
+// ── Coordinate system ─────────────────────────────────────────────────────────
+
+// APEX/BASE_L/BASE_R (the central triangle) come from the shared Korvin
+// geometry module. See ../korvinGeometry.js.
+
+const lerp = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]  // eslint-disable-line no-unused-vars
+
+// ── Guru row positions ────────────────────────────────────────────────────────
+
+// The 19 guru dots sit in the lower half of GURU_TRAPEZOID (the dark cell above
+// the central triangle), in three rows aligned toward its base.
+
+const DOT_R   = 6      // guru dot radius
+const ROW_GAP = 16     // vertical spacing between rows
+const H_INSET = 10     // horizontal gap from the trapezoid's sloping sides
+
+const TZ = GURU_TRAPEZOID
+
+// x of the trapezoid's left or right edge at a given y
+function trapEdgeX(y, side) {
+  const t   = (y - TZ.yTop) / (TZ.yBottom - TZ.yTop)
+  const top = side === 'L' ? TZ.topLeft[0]    : TZ.topRight[0]
+  const bot = side === 'L' ? TZ.bottomLeft[0] : TZ.bottomRight[0]
+  return top + (bot - top) * t
+}
+
+// Three row y-values; the bottom row tucks just above the central triangle base
+const GURU_Y = { manava: TZ.yBottom - 8.4 }
+GURU_Y.siddha = GURU_Y.manava - ROW_GAP
+GURU_Y.divya  = GURU_Y.manava - 2 * ROW_GAP
+
+// Evenly spaced row of `count` dots between the trapezoid's inset edges
+function rowXY(count, y) {
+  const left  = trapEdgeX(y, 'L') + H_INSET
+  const right = trapEdgeX(y, 'R') - H_INSET
+  return Array.from({ length: count }, (_, i) => [
+    count === 1 ? (left + right) / 2 : left + ((right - left) / (count - 1)) * i,
+    y,
+  ])
+}
+
+const divyaRow = rowXY(7, GURU_Y.divya)
+
+// Middle row: outer dots sit under the top row's first and last gaps; the four
+// are then spaced evenly between them
+const siddhaL = (divyaRow[0][0] + divyaRow[1][0]) / 2
+const siddhaR = (divyaRow[5][0] + divyaRow[6][0]) / 2
+const siddhaRow = Array.from({ length: 4 }, (_, i) => [
+  siddhaL + ((siddhaR - siddhaL) / 3) * i,
+  GURU_Y.siddha,
+])
+
+const GURU_POSITIONS = {
+  'guru-divya':  divyaRow,
+  'guru-siddha': siddhaRow,
+  'guru-manava': rowXY(8, GURU_Y.manava),
+}
+
+const INNER_L = trapEdgeX(GURU_Y.divya, 'L') + H_INSET
+
+// ── Static data ───────────────────────────────────────────────────────────────
+
+const { deities, sections } = data
+const deityById   = Object.fromEntries(deities.map(d => [d.id, d]))
+const sectionById = Object.fromEntries(sections.map(s => [s.id, s]))
+
+const guruDivya  = deities.filter(d => d.sectionId === 'guru-divya')
+const guruSiddha = deities.filter(d => d.sectionId === 'guru-siddha')
+const guruManava = deities.filter(d => d.sectionId === 'guru-manava')
+
+// Combined in chant order: divya → siddha → manava
+const guruAll = [...guruDivya, ...guruSiddha, ...guruManava]
+const GURU_TOTAL = guruAll.length  // 19
+
+// ── Position lookup ────────────────────────────────────────────────────────────
+
+function getGuruPos(d) {
+  const list = d.sectionId === 'guru-divya'  ? guruDivya
+             : d.sectionId === 'guru-siddha' ? guruSiddha
+             : guruManava
+  const i = list.findIndex(g => g.id === d.id)
+  return GURU_POSITIONS[d.sectionId]?.[i]
+}
+
+// ── Colours ───────────────────────────────────────────────────────────────────
+
+const GOLD        = '#c9a84c'
+const RED         = '#c0392b'
+const BG          = '#0f0805'
+const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
+
+// CONTEXT_TRIS — the nine context triangles — come from the shared Korvin
+// geometry module. See ../korvinGeometry.js.
+
+// ── Script helper ─────────────────────────────────────────────────────────────
+
+function displayName(deity, script) {
+  if (!deity) return ''
+  const s = deity.scripts
+  if (script === 'devanagari') return s.devanagari || s.iast
+  if (script === 'english')    return s.english    || s.iast
+  return s.iast
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+function DeityDot({ x, y, r, fill, selected, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
+  const isInteractive = !!(onClick || onMouseEnter)
+  return (
+    <circle
+      cx={x.toFixed(1)} cy={y.toFixed(1)}
+      r={selected ? r + 2.5 : r}
+      fill={selected ? fill : fill + 'bb'}
+      stroke={selected ? '#fff' : 'none'}
+      strokeWidth={selected ? 0.8 : 0}
+      style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
+      onClick={onClick}
+      onDoubleClick={onDoubleClick}
+      onContextMenu={onContextMenu}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    />
+  )
+}
+
+function DeityPanel({ deity, script, onDismiss }) {
+  if (!deity) return null
+  const section = sectionById[deity.sectionId]
+  const { scripts, sequenceInChant } = deity
+  const sectionLabel = section?.label ?? deity.sectionId
+
+  const primary   = displayName(deity, script)
+  const isDevPrim = script === 'devanagari'
+
+  return (
+    <>
+      <div className="fixed inset-0 z-40" onClick={onDismiss} />
+      <div
+        className="fixed left-0 right-0 bottom-0 z-50 bg-surface-900 border-t border-surface-700 rounded-t-2xl shadow-2xl shadow-black/80"
+        style={{ maxHeight: '55vh', overflowY: 'auto' }}
+      >
+        <div className="flex justify-center pt-3 pb-1">
+          <div className="w-10 h-1 rounded-full bg-surface-600" />
+        </div>
+        <div className="px-5 pb-8 pt-2">
+          <div className="flex items-start justify-between mb-3">
+            <span className="text-xs font-mono text-gold-700 uppercase tracking-widest">
+              {sectionLabel} · #{sequenceInChant}
+            </span>
+            <button onClick={onDismiss}
+              className="text-muted hover:text-cream transition-colors text-lg leading-none -mt-0.5">
+              ×
+            </button>
+          </div>
+          <h2 className={`${isDevPrim ? '' : 'iast'} text-gold-400 text-lg font-medium leading-snug mb-1`}>
+            {primary}
+          </h2>
+          {script !== 'iast' && scripts.iast && (
+            <p className="iast text-gold-600 text-sm mb-1">{scripts.iast}</p>
+          )}
+          {script !== 'english' && scripts.english && (
+            <p className="text-cream text-sm mb-2">{scripts.english}</p>
+          )}
+          {scripts.translation && (
+            <p className="text-muted text-xs italic">{scripts.translation}</p>
+          )}
+        </div>
+      </div>
+    </>
+  )
+}
+
+function Tooltip({ x, y, label, fill, script }) {
+  if (!label) return null
+  const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
+  const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
+  const charW    = script === 'devanagari' ? 14 : script === 'english' ? 11.5 : 10.5
+  const w        = Math.max(60, label.length * charW + 18)
+  const tx       = Math.min(Math.max(x, -116 + w / 2), 496 - w / 2)
+  const ty       = y - h / 2 - 12
+  return (
+    <g pointerEvents="none">
+      <rect
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
+        width={w.toFixed(1)} height={h} rx={3}
+        fill="rgba(15,8,5,0.93)" stroke={fill} strokeWidth={0.6}
+      />
+      <text x={tx.toFixed(1)} y={ty.toFixed(1)}
+        textAnchor="middle" dominantBaseline="middle"
+        fontSize={fontSize} fill={fill} fontFamily="serif">
+        {label}
+      </text>
+    </g>
+  )
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
+
+export default function GuravaView({
+  script = 'iast',
+  onDeitySelect = () => {},
+  memorise = false,
+  currentSeq = 1,
+  results = {},
+  onStartMemorise,
+  onExitMemorise,
+  onMarkResult,
+  onToggleResult,
+  flash = false,
+  onNavigate,
+}) {
+  const [selectedId, setSelectedId] = useState(null)
+  const [hoveredDot, setHoveredDot] = useState(null)
+  const [contextMenu, setContextMenu] = useState(null)
+  const clickTimer = useRef(null)
+
+  const toggle  = (id) => {
+    const newId = selectedId === id ? null : id
+    setSelectedId(newId)
+    onDeitySelect(newId ? deityById[newId] : null)
+  }
+  const hover   = (id, x, y) => setHoveredDot({ id, x, y })
+  const unhover = () => setHoveredDot(null)
+
+  const selectedDeity = selectedId ? deityById[selectedId] : null
+
+  // ── Memorise mode handlers ─────────────────────────────────────────────────
+
+  const handleMemClick = (seq) => {
+    if (clickTimer.current) return
+    clickTimer.current = setTimeout(() => {
+      clickTimer.current = null
+      if (currentSeq === seq) onMarkResult(seq, 'wrong')
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    }, 280)
+  }
+
+  const handleMemDblClick = (seq) => {
+    if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+    if (currentSeq === seq) onMarkResult(seq, 'correct')
+    else if (results[seq] !== 'correct') onToggleResult(seq)
+  }
+
+  const done = memorise && currentSeq > GURU_TOTAL
+
+  const mainTriPts = [APEX, BASE_L, BASE_R]
+    .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
+
+  return (
+    <div className="w-full p-4">
+
+      {/* Context menu */}
+      {contextMenu && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
+          <div className="fixed z-50 bg-surface-800 border border-surface-600 rounded-lg shadow-xl py-1"
+               style={{ left: contextMenu.x, top: contextMenu.y }}>
+            <button
+              className="block w-full text-left px-4 py-2 text-sm text-cream hover:bg-surface-700 transition-colors"
+              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}>
+              {results[contextMenu.seq] === 'correct' ? 'Mark as not memorised' : 'Mark as memorised'}
+            </button>
+          </div>
+        </>
+      )}
+
+      <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+           style={{ background: BG }}>
+        <svg viewBox="-30 181 560 500" xmlns="http://www.w3.org/2000/svg"
+             style={{ background: BG, display: 'block', width: '100%' }}
+             aria-label="Guravaḥ — three guru lineages">
+
+          <defs>
+            <marker id="gurava-flow-arrow-red" markerWidth="7" markerHeight="5"
+              refX="7" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill={RED} opacity="0.7" />
+            </marker>
+          </defs>
+
+          {/* Context geometry — even-odd light fill, then surrounding outlines */}
+          <path d={CONTEXT_FILL_PATH} fillRule="evenodd"
+            fill={GOLD} fillOpacity={0.1} stroke="none" />
+          {CONTEXT_TRIS.map((pts, i) => (
+            <polygon key={`ctx-${i}`} points={pts}
+              fill="none" stroke={GOLD} strokeWidth={0.6} opacity={0.14} />
+          ))}
+
+          {/* Central triangle — the main triangle */}
+          <polygon points={mainTriPts}
+            fill="rgba(201,168,76,0.04)" stroke={GOLD}
+            strokeWidth={3} strokeLinejoin="miter" />
+
+          {/* Flow arrow — horizontal above Divyaugha row */}
+          {!memorise && (() => {
+            const ay = GURU_Y.divya - 26
+            return (
+              <line
+                x1={INNER_L.toFixed(1)} y1={ay.toFixed(1)}
+                x2={(INNER_L + 39).toFixed(1)} y2={ay.toFixed(1)}
+                stroke={RED} strokeWidth={2.5} opacity="0.65"
+                markerEnd="url(#gurava-flow-arrow-red)" />
+            )
+          })()}
+
+          {/* Guru row labels */}
+          {!memorise && (() => {
+            const sharedX = (GURU_POSITIONS['guru-manava'][0][0] - 9 - 8).toFixed(1)
+            return [
+              { iast: 'divyaugha guravaḥ',  devanagari: 'दिव्यौघ गुरवः', english: 'Divine Gurus', y: GURU_Y.divya  },
+              { iast: 'siddhaugha guravaḥ', devanagari: 'सिद्धौघ गुरवः', english: 'Siddha Gurus', y: GURU_Y.siddha },
+              { iast: 'mānavaugha guravaḥ', devanagari: 'मानवौघ गुरवः',  english: 'Human Gurus',  y: GURU_Y.manava },
+            ].map(({ iast, devanagari, english, y }) => {
+              const label = script === 'devanagari' ? devanagari : script === 'english' ? english : iast
+              return (
+                <text key={iast} x={sharedX} y={y.toFixed(1)}
+                  textAnchor="end" dominantBaseline="middle"
+                  fontSize="12" fill={GOLD} opacity="0.70"
+                  fontFamily="serif" fontStyle="italic">
+                  {label}
+                </text>
+              )
+            })
+          })()}
+
+          {/* ── Explore mode dots ─────────────────────────────────────────── */}
+          {!memorise && [
+            { sectionId: 'guru-divya',  list: guruDivya  },
+            { sectionId: 'guru-siddha', list: guruSiddha },
+            { sectionId: 'guru-manava', list: guruManava },
+          ].flatMap(({ sectionId, list }) =>
+            list.map((d, i) => {
+              const pos = GURU_POSITIONS[sectionId]?.[i]
+              if (!pos) return null
+              return (
+                <DeityDot key={d.id}
+                  x={pos[0]} y={pos[1]} r={DOT_R}
+                  fill="#fff8c8"
+                  selected={selectedId === d.id}
+                  onClick={() => toggle(d.id)}
+                  onMouseEnter={() => hover(d.id, pos[0], pos[1])}
+                  onMouseLeave={unhover}
+                />
+              )
+            })
+          )}
+
+          {/* ── Memorise mode dots ────────────────────────────────────────── */}
+          {memorise && guruAll.map((d, idx) => {
+            const seq = idx + 1
+            const pos = getGuruPos(d)
+            if (!pos) return null
+
+            const isActive  = currentSeq === seq
+            const isPast    = currentSeq > seq
+            const isFuture  = !isActive && !isPast
+            const isCorrect = results[seq] === 'correct'
+
+            let fill, selected
+            if (flash)                        { fill = ACTIVE_FILL; selected = true  }
+            else if (isActive)                { fill = ACTIVE_FILL; selected = true  }
+            else if (isPast && isCorrect)     { fill = RED;         selected = false }
+            else if (isPast)                  { fill = GOLD;        selected = false }
+            else                              { fill = RED;         selected = false }
+
+            return (
+              <DeityDot key={`mem-${seq}`}
+                x={pos[0]} y={pos[1]} r={DOT_R} fill={fill} selected={selected}
+                dimStyle={isFuture ? { opacity: 0.15 } : undefined}
+                onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
+                onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
+                onContextMenu={!flash && isPast ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) } : undefined}
+                onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, pos[0], pos[1]) : undefined}
+                onMouseLeave={!flash && (isActive || isPast) ? unhover : undefined}
+              />
+            )
+          })}
+
+          {/* Memorise: active position counter */}
+          {memorise && !done && !flash && currentSeq <= GURU_TOTAL && (() => {
+            const d   = guruAll[currentSeq - 1]
+            const pos = getGuruPos(d)
+            if (!pos) return null
+            return (
+              <text x={pos[0].toFixed(1)} y={(pos[1] - 17).toFixed(1)}
+                textAnchor="middle" fontSize="12" fill={ACTIVE_FILL}
+                fontFamily="serif" pointerEvents="none">
+                {currentSeq} / {GURU_TOTAL}
+              </text>
+            )
+          })()}
+
+          {/* Hover tooltip (both modes; suppressed during flash) */}
+          {hoveredDot && !flash && (!memorise ? !selectedId : true) && (
+            <Tooltip
+              x={hoveredDot.x} y={hoveredDot.y}
+              label={displayName(deityById[hoveredDot.id], script)}
+              fill={GOLD} script={script}
+            />
+          )}
+
+          {/* Hint */}
+          {!memorise && !selectedId && !hoveredDot && (
+            <text x={250} y={590} textAnchor="middle"
+              fontSize="14" fill={GOLD} opacity="0.50"
+              fontFamily="serif" fontStyle="italic">
+              Tap any position to reveal the deity
+            </text>
+          )}
+
+          {/* Memorise: instruction */}
+          {memorise && !done && (
+            <text x={250} y={590} textAnchor="middle"
+              fontSize="13" fill={GOLD} opacity="0.55"
+              fontFamily="serif" fontStyle="italic">
+              double-tap = memorised · single-tap = not yet
+            </text>
+          )}
+
+        </svg>
+
+        {/* Completion overlay */}
+        {done && (
+          <div className="absolute inset-0 flex items-center justify-center rounded-xl"
+               style={{ background: 'rgba(15,8,5,0.82)' }}>
+            <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
+                 style={{ maxWidth: '15rem', margin: '0 1rem' }}>
+              <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">guravaḥ</p>
+              <p className="text-cream text-sm">
+                {Object.values(results).filter(v => v === 'correct').length === GURU_TOTAL
+                  ? 'All memorised — well done!'
+                  : 'Round complete.'}
+              </p>
+              <p className="text-muted text-xs">
+                {Object.values(results).filter(v => v === 'correct').length}/{GURU_TOTAL} memorised
+              </p>
+              <div className="flex flex-col gap-2 pt-1">
+                <button onClick={onStartMemorise}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors">
+                  Try again
+                </button>
+                <button onClick={() => onNavigate && onNavigate('bhupura')}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
+                  Next →
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-3 text-center">
+        <p className="iast text-gold-600 text-xs">guravaḥ · divyaugha · siddhaugha · mānavaugha</p>
+        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
+          Three lineages — 19 gurus leading to the source
+        </p>
+      </div>
+
+      <div className="h-8" />
+
+      {/* Explore mode: deity panel */}
+      {!memorise && selectedDeity && (
+        <DeityPanel deity={selectedDeity} script={script} onDismiss={() => toggle(selectedDeity.id)} />
+      )}
+    </div>
+  )
+}
