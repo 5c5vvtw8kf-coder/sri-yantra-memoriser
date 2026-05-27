@@ -31,6 +31,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
+import { displayName } from '../utils.js'
 import SriYantraSVG from './SriYantraSVG'
 
 // ── Static data ───────────────────────────────────────────────────────────────
@@ -94,13 +95,6 @@ const ALL_RED_FILLS = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function displayName(deity, script) {
-  if (!deity) return ''
-  const s = deity.scripts
-  if (script === 'devanagari') return s.devanagari || s.iast
-  if (script === 'english')    return s.english    || s.iast
-  return s.iast
-}
 
 // ── Main component ────────────────────────────────────────────────────────────
 

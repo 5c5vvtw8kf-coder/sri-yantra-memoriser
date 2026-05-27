@@ -23,6 +23,7 @@
 import { useState, useRef } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
+import { displayName } from '../utils.js'
 
 // ── Coordinate constants (must stay in sync with SriYantraSVG.jsx) ────────────
 
@@ -117,13 +118,6 @@ function NavArrow({ from, to, length = 39, gap = 12 }) {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function displayName(deity, script) {
-  if (!deity) return ''
-  const { scripts } = deity
-  if (script === 'devanagari') return scripts.devanagari || scripts.iast
-  if (script === 'english')    return scripts.english    || scripts.iast
-  return scripts.iast
-}
 
 // ── DeityDot ──────────────────────────────────────────────────────────────────
 
@@ -161,7 +155,7 @@ function Tooltip({ x, y, label, fill, script }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
   const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
-  const charW    = script === 'devanagari' ? 14 : script === 'english' ? 11.5 : 10.5
+  const charW    = script === 'devanagari' ? 14 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11.5 : 10.5
   const w        = Math.max(60, label.length * charW + 18)
 
   const tx = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)

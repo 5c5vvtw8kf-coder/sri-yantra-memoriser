@@ -20,6 +20,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
+import { displayName } from '../utils.js'
 import SriYantraSVG, { BHUPURA_MARKERS } from './SriYantraSVG'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
@@ -101,13 +102,6 @@ const GROUP_LABEL = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function displayName(deity, script) {
-  if (!deity) return ''
-  const s = deity.scripts
-  if (script === 'devanagari') return s.devanagari || s.iast
-  if (script === 'english')    return s.english    || s.iast
-  return s.iast
-}
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
@@ -185,7 +179,7 @@ function Tooltip({ x, y, label, fill, script }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
   const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
-  const charW    = script === 'devanagari' ? 14 : script === 'english' ? 11.5 : 10.5
+  const charW    = script === 'devanagari' ? 14 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11.5 : 10.5
   const w        = Math.max(60, label.length * charW + 18)
   const tx       = Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
   const ty       = y > CY ? y - h / 2 - 16 : y + h / 2 + 16

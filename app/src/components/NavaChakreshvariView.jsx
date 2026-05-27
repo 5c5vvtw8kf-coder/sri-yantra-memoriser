@@ -20,6 +20,7 @@
 import { useState, useRef } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
+import { displayName } from '../utils.js'
 
 // ── SriYantraSVG coordinate space ────────────────────────────────────────────
 //   CX = 260, CY = 270, viewBox "45 55 430 430"
@@ -152,13 +153,6 @@ const deityByCircuit = Object.fromEntries(ncDeities.map(d => [d.circuitNumber, d
 
 const TOTAL = 9
 
-function displayName(deity, script) {
-  if (!deity) return ''
-  const { scripts } = deity
-  if (script === 'devanagari') return scripts.devanagari || scripts.iast
-  if (script === 'english')    return scripts.english    || scripts.iast
-  return scripts.iast
-}
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 //
@@ -175,7 +169,7 @@ function Tooltip({ circuitNum, script }) {
 
   const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
   const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
-  const charW    = script === 'devanagari' ? 14 : script === 'english' ? 11.5 : 10.5
+  const charW    = script === 'devanagari' ? 14 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11.5 : 10.5
   const w        = Math.max(60, label.length * charW + 18)
 
   // Fixed anchor — left-align box from TOOLTIP_ANCHOR

@@ -16,6 +16,7 @@ import C9View from './components/C9View'
 import NavaChakreshvariView from './components/NavaChakreshvariView'
 import ClosingView from './components/ClosingView'
 import data from './data/khadgamala-canonical.json'
+import { displayName } from './utils.js'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -187,13 +188,6 @@ const MODEL_YANTRA_FILLS = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function displayName(deity, script) {
-  if (!deity) return ''
-  const s = deity.scripts
-  if (script === 'devanagari') return s.devanagari || s.iast
-  if (script === 'english')    return s.english    || s.iast
-  return s.iast
-}
 
 function ordinal(n) {
   const s = ['th', 'st', 'nd', 'rd']
@@ -2496,6 +2490,8 @@ export default function App() {
             {[
               { id: 'iast',       label: 'IAST' },
               { id: 'devanagari', label: 'देव'  },
+              { id: 'telugu',     label: 'తె'   },
+              { id: 'tamil',      label: 'த'    },
               { id: 'english',    label: 'En'   },
             ].map(s => (
               <button
@@ -3856,7 +3852,7 @@ export default function App() {
                 .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
               const notMem = c8Deities
                 .filter(d => c8PrevResults[d.sequenceInSection] !== 'correct')
-                .map(d => script === 'devanagari' ? (d.scripts.devanagari || d.scripts.iast) : script === 'english' ? (d.scripts.english || d.scripts.iast) : d.scripts.iast)
+                .map(d => displayName(d, script))
               if (notMem.length === 0) return null
               return (
                 <div className="pt-1 border-t border-surface-700 space-y-1">
