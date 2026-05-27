@@ -27,19 +27,10 @@ import data from '../data/khadgamala-canonical.json'
 const SVG_CX = 260
 const SVG_CY = 270
 
-// Tooltip anchor points per circuit, in SriYantraSVG SVG coordinates.
-// Chosen to sit within the circuit's visual region without overlapping the bindu.
-const CIRCUIT_TOOLTIP_POS = {
-  1: { x: 260, y: 455 },   // bhupura — bottom-centre gate
-  2: { x: 390, y: 270 },   // 16-petal — right midpoint
-  3: { x: 148, y: 270 },   // 8-petal  — left midpoint
-  4: { x: 192, y: 270 },   // 14-tri   — left inner ring
-  5: { x: 214, y: 207 },   // 10-outer — upper
-  6: { x: 260, y: 217 },   // 10-inner — upper-centre
-  7: { x: 260, y: 243 },   // 8-tri    — mid-centre
-  8: { x: 260, y: 262 },   // primary tri — lower-centre
-  9: { x: 260, y: 270 },   // bindu
-}
+// Tooltip is always rendered at a fixed top-left position so it never
+// overlaps the active circuit region or the bindu.
+// Coordinates are in SriYantraSVG space: viewBox "45 55 430 430", CX=260, CY=270.
+const TOOLTIP_ANCHOR = { x: 168, y: 100 }   // top-left bhupura corner area
 
 // ── Region id → circuit number ────────────────────────────────────────────────
 //
@@ -64,17 +55,33 @@ function regionToCircuit(id) {
 
 const FILL_NORM   = 'rgba(201,168,76,0.70)'
 const FILL_DIM    = 'rgba(201,168,76,0.18)'
-const FILL_HI     = 'rgba(255,248,200,0.92)'
+const FILL_HI     = 'rgba(255,248,200,0.92)'   // hover — cream
+const FILL_SEL    = 'rgba(192,57,43,0.82)'      // selected (clicked) — red
 const GOLD        = '#c9a84c'
 const RED         = '#c0392b'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
 
-function buildFills(sel) {
-  const f = (n) => !sel ? FILL_NORM : sel === n ? FILL_HI : FILL_DIM
+// hovered  — transient, cream (also used for memorise activeCircuit)
+// selected — persistent after click, red
+function buildFills(hovered, selected) {
+  const active = hovered ?? selected   // anything lit?
+  const f = (n) => {
+    if (n === selected)  return FILL_SEL  // selected (clicked) wins even while still hovering
+    if (n === hovered)   return FILL_HI
+    if (active != null)  return FILL_DIM
+    return FILL_NORM
+  }
+
+  // C1 bhupura: fill only the two wall bands (c1-outer + c1-mid) so the Valayam
+  // (the annular ring between the inner bhupura square and the three circles) stays
+  // empty. 'c1' is always transparent — it exists solely as a hit-test polygon for hover.
+  const c1Color = selected === 1 ? FILL_SEL : hovered === 1 ? FILL_HI : active != null ? FILL_DIM : null
+
   return {
-    // C1 bhupura: transparent when not highlighted so the plain gold lines show,
-    // but non-null so RegionFills renders a hit-testable polygon for hover.
-    'c1': sel === 1 ? FILL_HI : sel ? FILL_DIM : 'transparent',
+    'c1': 'transparent',              // full-ring hit area (belt)
+    'c1-outer': c1Color || 'transparent',  // outer wall band — coloured when active, transparent otherwise
+    'c1-mid':   c1Color || 'transparent',  // mid wall band
+    'c1-inner': 'transparent',            // zone between inner bhupura square and Valayam — hit area only, never coloured
     ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
       [`petal-c2-${String(i + 1).padStart(2, '0')}`, f(2)])),
     ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
@@ -90,8 +97,44 @@ function buildFills(sel) {
     'tri-c8-01':    f(8),
     'tri-c8-bg-01': '#0f0805',
     'tri-c8-bg-02': '#0f0805',
-    // Bindu stays black always — dark-red when its circuit is the active/selected one.
-    'c9': sel === 9 ? '#8b0000' : '#000000',
+    // Bindu: red when clicked (even while hovering), cream on hover, black otherwise.
+    'c9': selected === 9 ? FILL_SEL : hovered === 9 ? FILL_HI : '#000000',
+  }
+}
+
+// Memorise-mode fill builder — colours each circuit independently based on drill results.
+//   active (currentSeq) → cream
+//   past correct        → red  (FILL_SEL)
+//   past wrong          → gold (FILL_NORM)
+//   future              → dim
+//   flash               → all cream
+function buildMemFills(colorFn) {
+  const c = colorFn   // shorthand
+  const c1Color = c(1)
+  // Bindu: only cream/red/black — never dim gold.
+  const c9raw = c(9)
+  const c9 = c9raw === FILL_SEL ? FILL_SEL : c9raw === FILL_HI ? FILL_HI : '#000000'
+  return {
+    'c1': 'transparent',
+    'c1-outer': c1Color,
+    'c1-mid':   c1Color,
+    'c1-inner': 'transparent',
+    ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
+      [`petal-c2-${String(i + 1).padStart(2, '0')}`, c(2)])),
+    ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
+      [`petal-c3-${String(i + 1).padStart(2, '0')}`, c(3)])),
+    ...Object.fromEntries(Array.from({ length: 14 }, (_, i) =>
+      [`tri-c4-${String(i + 1).padStart(2, '0')}`, c(4)])),
+    ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
+      [`tri-c5-${String(i + 1).padStart(2, '0')}`, c(5)])),
+    ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
+      [`tri-c6-${String(i + 1).padStart(2, '0')}`, c(6)])),
+    ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
+      [`tri-c7-${String(i + 1).padStart(2, '0')}`, c(7)])),
+    'tri-c8-01':    c(8),
+    'tri-c8-bg-01': '#0f0805',
+    'tri-c8-bg-02': '#0f0805',
+    'c9': c9,
   }
 }
 
@@ -119,8 +162,9 @@ function displayName(deity, script) {
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 //
-// Rendered inside an overlay SVG with viewBox "45 55 430 430" — same as SriYantraSVG —
-// so tooltip positions are in the same coordinate space as CIRCUIT_TOOLTIP_POS.
+// Rendered inside an overlay SVG with viewBox "45 55 430 430" — same as SriYantraSVG.
+// Always placed at TOOLTIP_ANCHOR (top-left corner) so it never overlaps the active
+// circuit or the bindu.
 
 function Tooltip({ circuitNum, script }) {
   if (!circuitNum) return null
@@ -129,18 +173,14 @@ function Tooltip({ circuitNum, script }) {
   const label = displayName(deity, script)
   if (!label) return null
 
-  const pos = CIRCUIT_TOOLTIP_POS[circuitNum]
-  if (!pos) return null
-
-  const { x, y } = pos
   const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
   const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
   const charW    = script === 'devanagari' ? 14 : script === 'english' ? 11.5 : 10.5
   const w        = Math.max(60, label.length * charW + 18)
 
-  // Clamp within viewBox "45 55 430 430"
-  const tx = Math.min(Math.max(x, 45 + w / 2 + 4), 475 - w / 2)
-  const ty = y > SVG_CY ? y - h / 2 - 18 : y + h / 2 + 18
+  // Fixed anchor — left-align box from TOOLTIP_ANCHOR
+  const tx = TOOLTIP_ANCHOR.x + w / 2
+  const ty = TOOLTIP_ANCHOR.y
 
   return (
     <g pointerEvents="none">
@@ -260,13 +300,19 @@ export default function NavaChakreshvariView({
     ? ncDeities.find(d => d.sequenceInSection === currentSeq)?.circuitNumber ?? null
     : null
 
-  // Explore: fill = hovered (transient) takes priority over selected (persistent).
-  // Memorise: fill = activeCircuit only.
-  const fillSel = memorise
-    ? activeCircuit
-    : (hoveredCircuit ?? selectedCircuit)
-
-  const filledRegions = buildFills(fillSel)
+  // Explore: hovered (cream) takes visual priority over selected (red).
+  const filledRegions = memorise
+    // Memorise: each circuit coloured independently — active=cream, correct=red, wrong=gold, future=dim.
+    ? buildMemFills((circuitNum) => {
+        const deity = deityByCircuit[circuitNum]
+        if (!deity) return FILL_DIM
+        const seq = deity.sequenceInSection
+        if (flash)             return FILL_HI
+        if (seq === currentSeq) return FILL_HI
+        if (seq < currentSeq)   return results[seq] === 'correct' ? FILL_SEL : FILL_NORM
+        return FILL_DIM
+      })
+    : buildFills(hoveredCircuit, selectedCircuit)
 
   // Tooltip shown on hover in both modes (suppressed during flash).
   const tooltipCircuit = flash ? null : hoveredCircuit

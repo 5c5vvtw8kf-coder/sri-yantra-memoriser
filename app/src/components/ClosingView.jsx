@@ -6,24 +6,32 @@
  * Nine special epithets of Śrīdevī followed by the closing
  * triple Namaskāra salutation (namastē namastē namastē namaḥ).
  *
- * Supports Explore mode (tap-to-reveal cards) and Memorise mode
- * (active card highlighted, single-click = not yet, double-click = memorised).
+ * Explore mode:
+ *   Hover a number → whole yantra illuminates cream, bindu black.
+ *   Click a number → sends deity to right panel.
+ *
+ * Memorise mode:
+ *   All labels permanently visible to the right of their number.
+ *   Single-click = not memorised (gold). Double-click = memorised (red).
+ *   Yantra glows cream while drilling; turns red when all 10 memorised.
+ *   Completion overlay appears on the yantra when done.
  *
  * Deities:
- *   closing-001  mahāmahēśvarī              — Great Great Goddess
- *   closing-002  mahāmahārājñī              — Great Great Queen
- *   closing-003  mahāmahāśaktē              — Great Great Power
- *   closing-004  mahāmahāguptē              — Great Great Secret
- *   closing-005  mahāmahājñaptē             — Great Great Known One
- *   closing-006  mahāmahānandē              — Great Great Bliss
- *   closing-007  mahāmahāskandhē            — Great Great Trunk/Support
- *   closing-008  mahāmahāśayē               — Great Great Resting Place
- *   closing-009  mahāmahā śrīcakranagarasāmrājñī — Great Great Empress of the Śrī Chakra City
- *   closing-010  namastē namastē namastē namaḥ  — Namaskāra Navākṣarī
+ *   closing-001  mahāmahēśvarī
+ *   closing-002  mahāmahārājñī
+ *   closing-003  mahāmahāśaktē
+ *   closing-004  mahāmahāguptē
+ *   closing-005  mahāmahājñaptē
+ *   closing-006  mahāmahānandē
+ *   closing-007  mahāmahāskandhē
+ *   closing-008  mahāmahāśayē
+ *   closing-009  mahāmahā śrīcakranagarasāmrājñī
+ *   closing-010  namastē namastē namastē namaḥ
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
+import SriYantraSVG from './SriYantraSVG'
 
 // ── Static data ───────────────────────────────────────────────────────────────
 
@@ -37,7 +45,52 @@ const TOTAL = closingDeities.length   // 10
 
 // ── Colours ───────────────────────────────────────────────────────────────────
 
-const GOLD = '#c9a84c'
+const GOLD        = '#c9a84c'
+const RED_ACCENT  = '#c0392b'
+const CREAM       = 'rgba(255,248,200,0.92)'
+const CREAM_FILL  = 'rgba(255,248,200,0.85)'
+const RED_FILL    = 'rgba(192,57,43,0.82)'
+const BINDU_BLACK = '#080502'
+
+const _pad = n => String(n).padStart(2, '0')
+
+// All circuits cream, bindu black — explore hover + memorise drilling
+const ALL_CREAM_FILLS = {
+  'c1': 'transparent',
+  'c1-outer':    CREAM_FILL,
+  'c1-mid':      CREAM_FILL,
+  'c1-inner':    'transparent',
+  'outer-rings': CREAM_FILL,
+  ...Object.fromEntries(Array.from({ length: 16 }, (_, i) => [`petal-c2-${_pad(i + 1)}`, CREAM_FILL])),
+  ...Object.fromEntries(Array.from({ length: 8  }, (_, i) => [`petal-c3-${_pad(i + 1)}`, CREAM_FILL])),
+  ...Object.fromEntries(Array.from({ length: 14 }, (_, i) => [`tri-c4-${_pad(i + 1)}`,   CREAM_FILL])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c5-${_pad(i + 1)}`,   CREAM_FILL])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c6-${_pad(i + 1)}`,   CREAM_FILL])),
+  ...Object.fromEntries(Array.from({ length: 8  }, (_, i) => [`tri-c7-${_pad(i + 1)}`,   CREAM_FILL])),
+  'tri-c8-01':    CREAM_FILL,
+  'tri-c8-bg-01': BINDU_BLACK,
+  'tri-c8-bg-02': BINDU_BLACK,
+  'c9': BINDU_BLACK,
+}
+
+// All circuits red, bindu cream — memorise completion
+const ALL_RED_FILLS = {
+  'c1': 'transparent',
+  'c1-outer':    RED_FILL,
+  'c1-mid':      RED_FILL,
+  'c1-inner':    'transparent',
+  'outer-rings': RED_FILL,
+  ...Object.fromEntries(Array.from({ length: 16 }, (_, i) => [`petal-c2-${_pad(i + 1)}`, RED_FILL])),
+  ...Object.fromEntries(Array.from({ length: 8  }, (_, i) => [`petal-c3-${_pad(i + 1)}`, RED_FILL])),
+  ...Object.fromEntries(Array.from({ length: 14 }, (_, i) => [`tri-c4-${_pad(i + 1)}`,   RED_FILL])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c5-${_pad(i + 1)}`,   RED_FILL])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c6-${_pad(i + 1)}`,   RED_FILL])),
+  ...Object.fromEntries(Array.from({ length: 8  }, (_, i) => [`tri-c7-${_pad(i + 1)}`,   RED_FILL])),
+  'tri-c8-01':    RED_FILL,
+  'tri-c8-bg-01': '#0f0805',
+  'tri-c8-bg-02': '#0f0805',
+  'c9': CREAM,
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -47,138 +100,6 @@ function displayName(deity, script) {
   if (script === 'devanagari') return s.devanagari || s.iast
   if (script === 'english')    return s.english    || s.iast
   return s.iast
-}
-
-// ── Sub-components ────────────────────────────────────────────────────────────
-
-function EpithetCard({ deity, script, revealed, onToggle }) {
-  const primary   = displayName(deity, script)
-  const isDevPrim = script === 'devanagari'
-
-  return (
-    <button
-      onClick={onToggle}
-      className="w-full text-left px-4 py-3 rounded-lg border border-surface-700 bg-surface-900 hover:border-gold-700 active:border-gold-500 transition-colors"
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <div className="flex items-baseline gap-2 flex-wrap">
-            <span className="text-xs font-mono text-gold-700 flex-shrink-0">
-              #{deity.sequenceInChant}
-            </span>
-            {revealed ? (
-              <span className={`${isDevPrim ? '' : 'iast'} text-gold-400 text-base leading-snug`}>
-                {primary}
-              </span>
-            ) : (
-              <span className="text-muted text-base leading-snug tracking-widest">· · ·</span>
-            )}
-          </div>
-          {revealed && script !== 'iast' && deity.scripts.iast && (
-            <p className="iast text-gold-600 text-xs mt-0.5 ml-8">{deity.scripts.iast}</p>
-          )}
-          {revealed && deity.scripts.translation && (
-            <p className="text-muted text-xs italic mt-1 ml-8">{deity.scripts.translation}</p>
-          )}
-        </div>
-        <span className="text-muted text-lg leading-none flex-shrink-0 mt-0.5 select-none">
-          {revealed ? '−' : '+'}
-        </span>
-      </div>
-    </button>
-  )
-}
-
-function NamaskaraCard({ deity, script, revealed, onToggle }) {
-  const primary   = displayName(deity, script)
-  const isDevPrim = script === 'devanagari'
-
-  return (
-    <button
-      onClick={onToggle}
-      className="w-full text-left px-5 py-4 rounded-xl border-2 bg-surface-900 transition-colors"
-      style={{ borderColor: revealed ? GOLD : 'rgba(201,168,76,0.35)' }}
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-mono text-gold-700 uppercase tracking-widest mb-1">
-            Namaskāra Navākṣarī · #{deity.sequenceInChant}
-          </p>
-          {revealed ? (
-            <>
-              <p className={`${isDevPrim ? '' : 'iast'} text-gold-300 text-lg font-medium leading-snug`}>
-                {primary}
-              </p>
-              {script !== 'iast' && deity.scripts.iast && (
-                <p className="iast text-gold-600 text-sm mt-0.5">{deity.scripts.iast}</p>
-              )}
-              {deity.scripts.translation && (
-                <p className="text-muted text-xs italic mt-1">{deity.scripts.translation}</p>
-              )}
-            </>
-          ) : (
-            <p className="text-muted text-lg tracking-widest">· · · · · · · · ·</p>
-          )}
-        </div>
-        <span className="text-muted text-xl leading-none flex-shrink-0 mt-1 select-none">
-          {revealed ? '−' : '+'}
-        </span>
-      </div>
-    </button>
-  )
-}
-
-// ── Memorise card ─────────────────────────────────────────────────────────────
-
-function MemoriseCard({ deity, script, seq, isActive, isPast, isCorrect, isFuture, onSingleClick, onDoubleClick, onContextMenu }) {
-  const primary   = displayName(deity, script)
-  const isDevPrim = script === 'devanagari'
-  const isNamaskara = deity.sequenceInSection === 10
-
-  let borderColor, bgColor, textOpacity
-  if (isActive)        { borderColor = 'rgba(255,248,200,0.7)'; bgColor = 'rgba(255,248,200,0.07)'; textOpacity = 1 }
-  else if (isCorrect)  { borderColor = 'rgba(192,57,43,0.5)';   bgColor = 'rgba(192,57,43,0.05)';  textOpacity = 0.75 }
-  else if (isPast)     { borderColor = 'rgba(201,168,76,0.3)';  bgColor = 'transparent';            textOpacity = 0.55 }
-  else                 { borderColor = 'rgba(100,90,70,0.2)';   bgColor = 'transparent';            textOpacity = 0.25 }
-
-  return (
-    <button
-      onClick={onSingleClick}
-      onDoubleClick={onDoubleClick}
-      onContextMenu={onContextMenu}
-      disabled={isFuture}
-      className={`w-full text-left px-4 py-3 rounded-lg border transition-colors ${isNamaskara ? 'border-2 px-5 py-4 rounded-xl' : ''}`}
-      style={{ borderColor, background: bgColor, opacity: isFuture ? 0.35 : 1, cursor: isFuture ? 'default' : 'pointer' }}
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1" style={{ opacity: textOpacity }}>
-          <div className="flex items-baseline gap-2 flex-wrap">
-            <span className="text-xs font-mono text-gold-700 flex-shrink-0">
-              {isNamaskara ? 'Namaskāra · ' : ''} #{deity.sequenceInChant}
-            </span>
-            {(isActive || isPast) ? (
-              <span className={`${isDevPrim ? '' : 'iast'} ${isActive ? 'text-gold-200' : 'text-gold-400'} ${isNamaskara ? 'text-lg font-medium' : 'text-base'} leading-snug`}>
-                {primary}
-              </span>
-            ) : (
-              <span className="text-muted text-base leading-snug tracking-widest">· · ·</span>
-            )}
-          </div>
-          {(isActive || isPast) && script !== 'iast' && deity.scripts.iast && (
-            <p className="iast text-gold-600 text-xs mt-0.5 ml-8">{deity.scripts.iast}</p>
-          )}
-        </div>
-        {isActive && (
-          <span className="text-gold-500 text-xs flex-shrink-0 mt-1 font-mono">{seq}/{TOTAL}</span>
-        )}
-        {isPast && (
-          <span className="flex-shrink-0 mt-1" style={{ color: isCorrect ? '#c0392b' : '#c9a84c', fontSize: '12px' }}>
-            {isCorrect ? '✓' : '·'}
-          </span>
-        )}
-      </div>
-    </button>
-  )
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
@@ -196,211 +117,369 @@ export default function ClosingView({
   flash = false,
   onNavigate,
 }) {
-  // Explore mode state
-  const [revealed, setRevealed] = useState(new Set())
-  const [contextMenu, setContextMenu] = useState(null)
+  const [hoveredEpithet, setHoveredEpithet] = useState(null)
+  const [contextMenu, setContextMenu]       = useState(null)
   const clickTimer = useRef(null)
 
-  const toggle = (id) => {
-    setRevealed(prev => {
-      const next = new Set(prev)
-      if (next.has(id)) {
-        next.delete(id)
-        onDeitySelect(null)
-      } else {
-        next.add(id)
-        const deity = closingDeities.find(d => d.id === id)
-        onDeitySelect(deity ?? null)
-      }
-      return next
-    })
-  }
+  // Track yantra position for the fixed number strip
+  const yantraRef = useRef(null)
+  const [yantraPos, setYantraPos] = useState({ top: 80, height: 300 })
 
-  const allRevealed = closingDeities.every(d => revealed.has(d.id))
-
-  const toggleAll = () => {
-    if (allRevealed) {
-      setRevealed(new Set())
-      onDeitySelect(null)
-    } else {
-      setRevealed(new Set(closingDeities.map(d => d.id)))
+  useEffect(() => {
+    const update = () => {
+      if (!yantraRef.current) return
+      const r = yantraRef.current.getBoundingClientRect()
+      setYantraPos({ top: r.top, height: r.height })
     }
+    update()
+    const t = setTimeout(update, 50)
+    window.addEventListener('resize', update)
+    window.addEventListener('scroll', update, true)
+    return () => {
+      clearTimeout(t)
+      window.removeEventListener('resize', update)
+      window.removeEventListener('scroll', update, true)
+    }
+  }, [memorise])
+
+  // ── Derived data ───────────────────────────────────────────────────────────
+
+  const visesanani = closingDeities.filter(d => d.sequenceInSection <= 9)
+  const namaskara  = closingDeities.find(d => d.sequenceInSection === 10)
+
+  const deityForN = (n) => n === 10 ? namaskara : visesanani.find(d => d.sequenceInSection === n)
+
+  const correctCount  = Object.values(results).filter(v => v === 'correct').length
+  const allMemorised  = memorise && correctCount === TOTAL
+  const done          = memorise && currentSeq > TOTAL
+
+  // ── Pixel offset from strip top to centre of button slot ──────────────────
+  // Strip: py-2 (8px) top/bottom padding; 10 equal slots for the remaining height.
+
+  const slotH = (yantraPos.height - 16) / 10   // height of each number row
+
+  const buttonCenterTop = (n) => {
+    const pad = 8
+    const idx = 10 - n   // n=10 → slot 0, n=1 → slot 9
+    return pad + (idx + 0.5) * slotH
   }
 
-  // ── Memorise mode handlers ─────────────────────────────────────────────────
+  // ── Memorise click handlers ────────────────────────────────────────────────
+  // Active (currentSeq): single = wrong/gold, double = correct/red.
+  // Past (n < currentSeq): toggle via right-click context menu.
+  // Future: no action.
 
-  const handleMemClick = (seq) => {
+  const handleMemClick = (n) => {
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === seq) onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === n) onMarkResult(n, 'wrong')
     }, 280)
   }
 
-  const handleMemDblClick = (seq) => {
+  const handleMemDblClick = (n) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq) onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === n) onMarkResult(n, 'correct')
   }
 
-  const done = memorise && currentSeq > TOTAL
+  const handleMemContextMenu = (e, n) => {
+    if (!memorise) return
+    if (n >= currentSeq) return   // only past numbers
+    e.preventDefault()
+    setContextMenu({ seq: n, x: e.clientX, y: e.clientY })
+  }
+
+  // ── Yantra fills ───────────────────────────────────────────────────────────
+
+  const memFills = allMemorised ? ALL_RED_FILLS : ALL_CREAM_FILLS
+  const exploreFills = hoveredEpithet ? ALL_CREAM_FILLS : {}
 
   // ── Render ─────────────────────────────────────────────────────────────────
-
-  // ── Memorise mode ──────────────────────────────────────────────────────────
-  if (memorise) {
-    return (
-      <div className="w-full p-4">
-
-        {/* Context menu */}
-        {contextMenu && (
-          <>
-            <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
-            <div className="fixed z-50 bg-surface-800 border border-surface-600 rounded-lg shadow-xl py-1"
-                 style={{ left: contextMenu.x, top: contextMenu.y }}>
-              <button
-                className="block w-full text-left px-4 py-2 text-sm text-cream hover:bg-surface-700 transition-colors"
-                onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}>
-                {results[contextMenu.seq] === 'correct' ? 'Mark as not memorised' : 'Mark as memorised'}
-              </button>
-            </div>
-          </>
-        )}
-
-        {/* Section header */}
-        <div className="mb-4">
-          <p className="iast text-gold-600 text-xs">śrīdevī viśēṣaṇāni</p>
-          {!done && (
-            <p className="text-muted mt-0.5 text-xs italic" style={{ fontFamily: 'serif' }}>
-              double-tap = memorised · single-tap = not yet
-            </p>
-          )}
-        </div>
-
-        {/* Cards */}
-        <div className="space-y-2 mb-6">
-          {closingDeities.map((deity) => {
-            const seq       = deity.sequenceInSection
-            const isActive  = currentSeq === seq
-            const isPast    = currentSeq > seq
-            const isFuture  = !isActive && !isPast
-            const isCorrect = results[seq] === 'correct'
-
-            return (
-              <MemoriseCard
-                key={deity.id}
-                deity={deity}
-                script={script}
-                seq={seq}
-                isActive={isActive}
-                isPast={isPast}
-                isCorrect={isCorrect}
-                isFuture={isFuture}
-                onSingleClick={!done && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
-                onDoubleClick={!done && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
-                onContextMenu={!done && isPast ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) } : undefined}
-              />
-            )
-          })}
-        </div>
-
-        {/* Completion panel */}
-        {done && (
-          <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-xl text-center space-y-3 mt-2">
-            <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">khadgamālā sampūrṇā</p>
-            <p className="text-cream text-base font-medium">
-              {Object.values(results).filter(v => v === 'correct').length === TOTAL
-                ? 'Stotra complete — well done!'
-                : 'Round complete.'}
-            </p>
-            <p className="text-muted text-xs">
-              {Object.values(results).filter(v => v === 'correct').length}/{TOTAL} memorised
-            </p>
-            <div className="flex flex-col gap-2 pt-1">
-              <button onClick={onStartMemorise}
-                className="w-full py-2 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors">
-                Try again
-              </button>
-              <button onClick={() => onNavigate && onNavigate('nyasa')}
-                className="w-full py-2 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
-                Start from beginning
-              </button>
-            </div>
-          </div>
-        )}
-
-        <div className="mt-6 text-center">
-          <p className="iast text-gold-600 text-xs">śrīdevī viśēṣaṇāni — namaskāra-navākṣarī ca</p>
-        </div>
-
-        <div className="h-8" />
-      </div>
-    )
-  }
-
-  // ── Explore mode ───────────────────────────────────────────────────────────
-  const visesanani = closingDeities.filter(d => d.sequenceInSection <= 9)
-  const namaskara  = closingDeities.find(d => d.sequenceInSection === 10)
 
   return (
     <div className="w-full p-4">
 
-      {/* Section header */}
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <p className="iast text-gold-600 text-xs">śrīdevī viśēṣaṇāni</p>
-          <p className="text-muted mt-0.5" style={{ fontSize: '10px' }}>
-            Nine epithets of the Goddess — chanted after the Nava Chakreshvarī
-          </p>
-        </div>
-        <button
-          onClick={toggleAll}
-          className="text-xs text-muted hover:text-cream transition-colors px-2 py-1 rounded border border-surface-700 hover:border-surface-500"
-        >
-          {allRevealed ? 'Hide all' : 'Reveal all'}
-        </button>
-      </div>
-
-      {/* Viśeṣaṇāni cards */}
-      <div className="space-y-2 mb-6">
-        {visesanani.map(deity => (
-          <EpithetCard
-            key={deity.id}
-            deity={deity}
-            script={script}
-            revealed={revealed.has(deity.id)}
-            onToggle={() => toggle(deity.id)}
-          />
-        ))}
-      </div>
-
-      {/* Divider with label */}
-      <div className="flex items-center gap-3 mb-4">
-        <div className="flex-1 border-t border-surface-700" />
-        <span className="iast text-gold-700 text-xs flex-shrink-0">namaskāranavākṣarī ca</span>
-        <div className="flex-1 border-t border-surface-700" />
-      </div>
-
-      {/* Namaskāra card */}
-      {namaskara && (
-        <NamaskaraCard
-          deity={namaskara}
-          script={script}
-          revealed={revealed.has(namaskara.id)}
-          onToggle={() => toggle(namaskara.id)}
-        />
+      {/* Context menu — right-click on past numbers to toggle */}
+      {contextMenu && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
+          <div
+            className="fixed z-50 bg-surface-800 border border-surface-600 rounded-lg shadow-xl py-1"
+            style={{ left: contextMenu.x, top: contextMenu.y }}
+          >
+            <button
+              className="block w-full text-left px-4 py-2 text-sm text-cream hover:bg-surface-700 transition-colors"
+              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
+            >
+              {results[contextMenu.seq] === 'correct' ? 'Mark as not memorised' : 'Mark as memorised'}
+            </button>
+          </div>
+        </>
       )}
 
-      {/* Caption */}
-      <div className="mt-6 text-center">
-        <p className="iast text-gold-600 text-xs">śrīdevī viśēṣaṇāni — namaskāra-navākṣarī ca</p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          Tap each card to reveal · tap again to conceal
-        </p>
+      {/* SVG filter: converts blue channel to red, leaves yellow/gold untouched.
+          R'=R+B  G'=G  B'=0 — blue pixels become red, yellow/orange stay yellow/orange. */}
+      <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
+        <defs>
+          <filter id="closing-blue-to-red">
+            <feColorMatrix type="matrix" values="
+              1 0 1 0 0
+              0 1 0 0 0
+              0 0 0 0 0
+              0 0 0 1 0" />
+          </filter>
+        </defs>
+      </svg>
+
+      {/* Yantra */}
+      <div ref={yantraRef} className="relative w-full" style={{ paddingBottom: '100%' }}>
+        <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60">
+          <SriYantraSVG
+            className="w-full h-full"
+            showTriangles={true}
+            showLabels={false}
+            showNumbers={false}
+            filledRegions={memorise ? memFills : exploreFills}
+            accentColor={allMemorised ? RED_ACCENT : null}
+          />
+        </div>
+
+        {/* Completion overlay — memorise mode, all done */}
+        {done && (
+          <div
+            className="absolute inset-0 flex items-center justify-center rounded-xl"
+            style={{ background: 'rgba(15,8,5,0.72)' }}
+          >
+            <div
+              className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
+              style={{ maxWidth: '15rem', margin: '0 1rem' }}
+            >
+              <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">
+                khadgamālā sampūrṇā
+              </p>
+              <p className="text-cream text-sm">
+                {correctCount === TOTAL ? 'Stotra complete — well done!' : 'Round complete.'}
+              </p>
+              <p className="text-muted text-xs">{correctCount}/{TOTAL} memorised</p>
+              <div className="flex flex-col gap-2 pt-1">
+                <button
+                  onClick={onStartMemorise}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
+                >
+                  Try again
+                </button>
+                <button
+                  onClick={() => onNavigate && onNavigate('nyasa')}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
+                >
+                  Start from beginning
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>{/* end relative yantra wrapper */}
+
+      {/* Number strip — fixed, in the left margin beside the sidebar */}
+      <div
+        className="pointer-events-none"
+        style={{
+          position: 'fixed',
+          left: 208,
+          top: yantraPos.top,
+          height: yantraPos.height,
+          width: 26,
+          zIndex: 30,
+        }}
+      >
+        {/* Number buttons */}
+        <div className="pointer-events-auto flex flex-col justify-between items-center h-full py-2">
+          {[10,9,8,7,6,5,4,3,2,1].map(n => {
+            const isActive   = memorise && n === currentSeq
+            const isPast     = memorise && n < currentSeq   // revealed regardless of result stored
+            const isCorrect  = results[n] === 'correct'
+            const isFuture   = memorise && n > currentSeq
+
+            const numColor = memorise
+              ? isActive  ? CREAM
+              : isPast && isCorrect ? RED_ACCENT
+              : isPast    ? GOLD
+              : /* future */ 'rgba(201,168,76,0.28)'
+              : (hoveredEpithet === n ? CREAM : GOLD)
+
+            const emojiActive = (!memorise && hoveredEpithet === 10) || (memorise && isPast && isCorrect)
+
+            return (
+              <button
+                key={n}
+                onMouseEnter={() => setHoveredEpithet(n)}
+                onMouseLeave={() => setHoveredEpithet(null)}
+                onClick={memorise
+                  ? () => handleMemClick(n)
+                  : () => { const d = deityForN(n); if (d) onDeitySelect(d) }
+                }
+                onDoubleClick={memorise ? () => handleMemDblClick(n) : undefined}
+                onContextMenu={memorise ? e => handleMemContextMenu(e, n) : undefined}
+                disabled={memorise && isFuture}
+                className="flex-1 flex items-center justify-center transition-colors leading-none select-none"
+                style={{
+                  color: numColor,
+                  fontSize: n === 10 ? '18px' : '15px',
+                  fontFamily: n === 10 ? 'sans-serif' : 'monospace',
+                  fontWeight: 700,
+                  cursor: memorise && isFuture ? 'default' : 'pointer',
+                  filter: n !== 10 ? 'none'
+                    : emojiActive
+                      ? 'url(#closing-blue-to-red)'
+                      : 'sepia(1) saturate(3) hue-rotate(5deg) brightness(0.85)',
+                }}
+                title={n === 10 ? 'namastē namastē namastē namaḥ' : undefined}
+              >
+                {n === 10 ? '🙏' : n}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Explore mode: transparent hover targets covering the label area */}
+        {!memorise && [10,9,8,7,6,5,4,3,2,1].map(n => (
+          <div
+            key={`exp-ht-${n}`}
+            className="pointer-events-auto"
+            style={{
+              position: 'absolute',
+              left: 30,
+              top: buttonCenterTop(n) - slotH / 2,
+              width: 300,
+              height: slotH,
+              cursor: 'pointer',
+            }}
+            onMouseEnter={() => setHoveredEpithet(n)}
+            onMouseLeave={() => setHoveredEpithet(null)}
+            onClick={() => { const d = deityForN(n); if (d) onDeitySelect(d) }}
+          />
+        ))}
+
+        {/* Memorise mode: transparent hover targets covering the label area */}
+        {memorise && [10,9,8,7,6,5,4,3,2,1].map(n => {
+          const isFuture = n > currentSeq
+          return (
+            <div
+              key={`ht-${n}`}
+              className="pointer-events-auto"
+              style={{
+                position: 'absolute',
+                left: 30,
+                top: buttonCenterTop(n) - slotH / 2,
+                width: 300,
+                height: slotH,
+                cursor: isFuture ? 'default' : 'pointer',
+              }}
+              onMouseEnter={() => setHoveredEpithet(n)}
+              onMouseLeave={() => setHoveredEpithet(null)}
+              onClick={() => handleMemClick(n)}
+              onDoubleClick={() => handleMemDblClick(n)}
+              onContextMenu={e => handleMemContextMenu(e, n)}
+            />
+          )
+        })}
+
+        {/* Memorise mode: revealed labels — past numbers (n < currentSeq) */}
+        {memorise && [10,9,8,7,6,5,4,3,2,1].map(n => {
+          const isPast    = n < currentSeq
+          const isCorrect = results[n] === 'correct'
+          if (!isPast) return null
+          const d = deityForN(n)
+          if (!d) return null
+          return (
+            <div
+              key={`lbl-${n}`}
+              className="pointer-events-none"
+              style={{
+                position: 'absolute',
+                left: 30,
+                top: buttonCenterTop(n),
+                transform: 'translateY(-50%)',
+                zIndex: 31,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <p className="iast" style={{ color: isCorrect ? RED_ACCENT : GOLD, fontSize: '13px', fontWeight: 700 }}>
+                {displayName(d, script)}
+              </p>
+            </div>
+          )
+        })}
+
+        {/* Tooltip — explore: always on hover; memorise: active + future only (past show label) */}
+        {hoveredEpithet && (() => {
+          const d = deityForN(hoveredEpithet)
+          if (!d) return null
+          const isPast = memorise && hoveredEpithet < currentSeq
+          if (isPast) return null   // label already visible
+          return (
+            <div
+              className="pointer-events-none"
+              style={{
+                position: 'absolute',
+                left: 30,
+                top: buttonCenterTop(hoveredEpithet),
+                transform: 'translateY(-50%)',
+                zIndex: 32,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <div
+                className="px-2 py-1.5 rounded shadow-lg"
+                style={{ background: 'rgba(15,8,5,0.95)', border: '0.6px solid rgba(255,248,200,0.6)' }}
+              >
+                <p className="iast" style={{ color: GOLD, fontSize: '13px', fontWeight: 700 }}>
+                  {displayName(d, script)}
+                </p>
+                {script !== 'iast' && d.scripts.iast && (
+                  <p className="iast mt-0.5" style={{ color: 'rgba(201,168,76,0.55)', fontSize: '11px' }}>
+                    {d.scripts.iast}
+                  </p>
+                )}
+              </div>
+            </div>
+          )
+        })()}
       </div>
 
-      <div className="h-8" />
+      {/* Direction arrow — below the number strip, indicates chant flows upward (1→10) */}
+      <div
+        className="pointer-events-none"
+        style={{
+          position: 'fixed',
+          left: 208,
+          top: yantraPos.top + yantraPos.height + 4,
+          zIndex: 30,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+        }}
+      >
+        <span style={{ color: GOLD, fontSize: '22px', lineHeight: 1 }}>↑</span>
+        {memorise && !done && (
+          <span style={{ color: CREAM, fontSize: '10px', whiteSpace: 'nowrap' }}>
+            Start here and move to the top
+          </span>
+        )}
+      </div>
+
+      {/* Hint / instruction below yantra */}
+      {!memorise && (
+        <p className="text-center text-muted mt-1" style={{ fontSize: '10px' }}>
+          Hover a number to illuminate the Yantra · tap to reveal the epithet
+        </p>
+      )}
+      {memorise && !done && (
+        <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
+          double-tap = memorised · single-tap = not yet
+        </p>
+      )}
+
     </div>
   )
 }

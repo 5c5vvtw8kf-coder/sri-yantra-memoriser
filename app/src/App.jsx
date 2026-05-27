@@ -47,7 +47,7 @@ const TABS = [
   { id: 'c8',           navLabel: 'cakra-aṣṭamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 8th Veil', navLabelDev: 'चक्राष्टमावरणदेवताः', footerLabel: 'Circuit 8 · Triangle' },
   { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: 'Deities of the Wheel of the 9th Veil', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: 'Circuit 9 · Bindu'    },
   { id: 'chakreshvari', navLabel: 'navacakrēśvarī nāmāni',         navLabelEn: 'Names of the Nine Chakras',            navLabelDev: 'नवचक्रेश्वरी नामानि', footerLabel: 'Nava Chakreshvarī'   },
-  { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets & Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
+  { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets and Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
   { id: 'browser',      navLabel: 'Circuit Browser',               navLabelEn: 'Circuit Browser',                      navLabelDev: 'Circuit Browser',       footerLabel: 'Circuit Browser'      },
 ]
 
@@ -299,14 +299,14 @@ function DeityDetail({ deity, script = 'iast' }) {
       <p className="text-xs font-mono text-gold-700 uppercase tracking-widest leading-tight">
         {subtitle}
       </p>
-      <h2 className={`${isDevPrim ? '' : 'iast'} text-gold-400 text-base font-medium leading-snug`}>
+      <h2 className={`${isDevPrim ? '' : 'iast'} text-gold-400 text-sm font-medium leading-snug`}>
         {primary}
       </h2>
       {script !== 'iast' && scripts.iast && (
-        <p className="iast text-gold-600 text-sm">{scripts.iast}</p>
+        <p className="iast text-gold-600 text-xs">{scripts.iast}</p>
       )}
       {script !== 'english' && scripts.english && (
-        <p className="text-cream text-sm">{scripts.english}</p>
+        <p className="text-cream text-xs">{scripts.english}</p>
       )}
       {scripts.translation && (
         <p className="text-muted text-xs italic mt-1">{scripts.translation}</p>
@@ -337,23 +337,19 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate }) {
       )}
       <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
         <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0 pt-px">Geometry</span>
-          <span className="text-cream">{section.description}</span>
-        </div>
-        <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
-          <span className={`${script !== 'english' ? 'iast ' : ''}text-cream`}>{sectionName(section, 'chakraSvamini', script)}</span>
+          <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
         </div>
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
-          <span className={`${script !== 'english' ? 'iast ' : ''}text-cream`}>
+          <span className="text-gold-500">
             {sectionName(section, 'yoginiType', script)}
             {secrecy && <span className="text-muted ml-1">· {secrecy}</span>}
           </span>
         </div>
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
-          <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
+          <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
         </div>
       </div>
       {onNavigate && targetTab && (
@@ -375,6 +371,36 @@ function SectionInfo({ tabId, script = 'iast' }) {
     : null
 
   if (!section) {
+    // Closing tab gets a dedicated description panel
+    if (tabId === 'closing') {
+      return (
+        <div className="p-4 space-y-2">
+          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
+            śrīdevī viśēṣaṇāni
+          </p>
+          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
+            namaskāra-navākṣarī ca
+          </h2>
+          <p className="text-cream text-xs leading-relaxed">
+            Nine special epithets of Śrīdevī, followed by the closing Namaskāra Navākṣarī.
+          </p>
+          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
+              <span className="text-cream">After the Nava Chakreshvarī</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
+              <span className="text-cream">9 epithets + Namaskāra</span>
+            </div>
+          </div>
+          <p className="text-muted text-xs italic pt-2 leading-relaxed">
+            Hover a number to illuminate the Yantra · tap to reveal the name
+          </p>
+        </div>
+      )
+    }
+
     const hints = {
       nyasa:   'Tap a dot to reveal one of the six Nyāsāṅga Devatāḥ',
       inner:   'Tap a dot to reveal one of the 16 Tithi Nitya Devatāḥ',
@@ -410,30 +436,26 @@ function SectionInfo({ tabId, script = 'iast' }) {
       )}
       <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
         <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0">Geometry</span>
-          <span className="text-cream">{section.description}</span>
+          <span className="text-muted w-24 flex-shrink-0 pt-px">Deities</span>
+          <span className="text-muted">{deityCount}</span>
         </div>
         <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0">Chakra Svāminī</span>
-          <span className={`${script !== 'english' ? 'iast ' : ''}text-cream`}>{sectionName(section, 'chakraSvamini', script)}</span>
+          <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
+          <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
         </div>
         <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0">Yoginī</span>
-          <span className={`${script !== 'english' ? 'iast ' : ''}text-cream`}>{sectionName(section, 'yoginiType', script)}</span>
+          <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
+          <span className="text-gold-500">{sectionName(section, 'yoginiType', script)}</span>
         </div>
         {secrecy && (
           <div className="flex gap-2">
-            <span className="text-muted w-24 flex-shrink-0">Secrecy</span>
-            <span className="text-cream">{secrecy}</span>
+            <span className="text-muted w-24 flex-shrink-0 pt-px">Secrecy</span>
+            <span className="text-muted">{secrecy}</span>
           </div>
         )}
         <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0">Chakreshvarī</span>
-          <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
-        </div>
-        <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0">Deities</span>
-          <span className="text-cream">{deityCount}</span>
+          <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
+          <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
         </div>
       </div>
       <p className="text-muted text-xs pt-1 italic">Tap a dot to reveal a deity</p>
@@ -476,6 +498,165 @@ function CircuitTable({ selectedCircuit, onCircuitSelect }) {
       {!selectedCircuit && (
         <p className="text-muted text-xs text-center mt-2 italic">Tap a circuit to explore</p>
       )}
+    </div>
+  )
+}
+
+// ── Bhupura (Circuit 1) Memorise right-panel info ────────────────────────────
+//
+// Shown instead of SectionInfo when the bhupura tab is in Memorise mode.
+//
+// Phases (driven by currentSeq from App state):
+//   1–28  : dot phase — heading visible, Chakra Svāminī + Yoginī labels
+//           shown but values hidden (···)
+//   29    : Chakra Svāminī active — hover to reveal, click/dbl-click to mark
+//   30    : Yoginī active — same
+//   > 30  : all done
+
+function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+  const [hoveredField, setHoveredField] = useState(null)
+  const [contextMenu,  setContextMenu]  = useState(null)
+  const extraTimer = useRef(null)
+
+  const section = circuitSections.find(s => s.circuitNumber === 1)
+  if (!section) return null
+
+  const dotsDone = currentSeq > 28
+
+  const handleItemClick = (seq) => {
+    if (extraTimer.current) return
+    extraTimer.current = setTimeout(() => {
+      extraTimer.current = null
+      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    }, 280)
+  }
+
+  const handleItemDoubleClick = (seq) => {
+    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+    if (currentSeq === seq)              onMarkResult(seq, 'correct')
+    else if (results[seq] !== 'correct') onToggleResult(seq)
+  }
+
+  const renderRow = (labelText, fieldKey, seq) => {
+    const isActive  = currentSeq === seq
+    const isPast    = currentSeq > seq
+    const isCorrect = results[seq] === 'correct'
+    const isHovered = hoveredField === fieldKey
+    const value     = sectionName(section, fieldKey, script)
+
+    let valueContent
+    if (!dotsDone && !isActive) {
+      valueContent = <span className="text-surface-600 tracking-widest">···</span>
+    } else if (isActive && !isHovered) {
+      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
+    } else if (isActive && isHovered) {
+      valueContent = <span className="text-gold-800">{value}</span>
+    } else if (isPast && isCorrect) {
+      valueContent = <span className="text-red-400">{value}</span>
+    } else if (isPast) {
+      valueContent = <span className="text-muted">{value}</span>
+    } else {
+      valueContent = <span className="text-surface-600 tracking-widest">···</span>
+    }
+
+    const interactive = dotsDone
+
+    return (
+      <div
+        key={fieldKey}
+        className={[
+          'flex gap-2 rounded-lg px-2 py-1.5 -mx-2 transition-colors',
+          interactive ? 'cursor-pointer' : '',
+          !dotsDone && !isActive ? 'opacity-40' : '',
+        ].join(' ')}
+        style={isActive ? {
+          background: 'rgba(255,248,200,0.10)',
+          boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
+        } : undefined}
+        onClick={interactive ? () => handleItemClick(seq) : undefined}
+        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
+        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onContextMenu={interactive && isPast
+          ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+          : undefined}
+      >
+        <span
+          className={`w-24 flex-shrink-0 pt-px text-xs ${isActive ? '' : 'text-muted'}`}
+          style={isActive ? { color: 'rgba(255,248,200,0.92)' } : undefined}
+        >
+          {labelText}
+        </span>
+        <span className="text-xs flex-1">{valueContent}</span>
+      </div>
+    )
+  }
+
+  return (
+    <div className="p-4 space-y-2">
+
+      <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script === 'iast' ? ' iast' : ''}`}>
+        {circuitLabel(1, script)}
+      </p>
+
+      <div className="pt-3 border-t border-surface-700 space-y-1">
+        {renderRow('Chakra Svāminī', 'chakraSvamini', 29)}
+        {renderRow('Yoginī',         'yoginiType',    30)}
+      </div>
+
+      {(currentSeq === 29 || currentSeq === 30) && (
+        <p className="text-xs text-muted italic leading-snug pt-1">
+          hover to reveal<br />
+          dbl-click = memorised · click = not memorised
+        </p>
+      )}
+
+      {currentSeq > 30 && (
+        <div className="pt-3 border-t border-surface-700 space-y-2">
+          <p className="text-xs text-muted italic leading-snug">
+            {Object.values(results).filter(v => v === 'correct').length === 30
+              ? 'All memorised — well done!'
+              : 'Round complete.'}
+          </p>
+          <div className="flex flex-col gap-1.5">
+            <button
+              onClick={onRestart}
+              className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
+            >
+              Try again
+            </button>
+            <button
+              onClick={() => onNavigate('c2')}
+              className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
+            >
+              Next circuit →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {contextMenu && (
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setContextMenu(null)}
+            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
+          />
+          <div
+            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
+            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
+          >
+            <button
+              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
+              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
+            >
+              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
+            </button>
+          </div>
+        </>
+      )}
+
     </div>
   )
 }
@@ -532,11 +713,11 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isActive && !isHovered) {
       valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
     } else if (isActive && isHovered) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-800`}>{value}</span>
+      valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-red-400`}>{value}</span>
+      valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-muted`}>{value}</span>
+      valueContent = <span className="text-muted">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -693,11 +874,11 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isActive && !isHovered) {
       valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
     } else if (isActive && isHovered) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-800`}>{value}</span>
+      valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-red-400`}>{value}</span>
+      valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-muted`}>{value}</span>
+      valueContent = <span className="text-muted">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -849,11 +1030,11 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isActive && !isHovered) {
       valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
     } else if (isActive && isHovered) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-800`}>{value}</span>
+      valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-red-400`}>{value}</span>
+      valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-muted`}>{value}</span>
+      valueContent = <span className="text-muted">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1004,11 +1185,11 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isActive && !isHovered) {
       valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
     } else if (isActive && isHovered) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-800`}>{value}</span>
+      valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-red-400`}>{value}</span>
+      valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-muted`}>{value}</span>
+      valueContent = <span className="text-muted">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1159,11 +1340,11 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isActive && !isHovered) {
       valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
     } else if (isActive && isHovered) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-800`}>{value}</span>
+      valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-red-400`}>{value}</span>
+      valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-muted`}>{value}</span>
+      valueContent = <span className="text-muted">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1314,11 +1495,11 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isActive && !isHovered) {
       valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
     } else if (isActive && isHovered) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-800`}>{value}</span>
+      valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-red-400`}>{value}</span>
+      valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className={`${script !== 'english' ? 'iast ' : ''}text-muted`}>{value}</span>
+      valueContent = <span className="text-muted">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -2038,10 +2219,10 @@ export default function App() {
     if (result === 'correct') setBhupuraResults(newResults)
     const nextSeq = seq + 1
     setBhupuraCurrentSeq(nextSeq)
-    if (nextSeq > 28) {
+    if (nextSeq > 30) {
       setBhupuraPrevResults(newResults)
-      setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 28, rounds: prev.rounds + 1 }))
-      const allCorrect = Array.from({ length: 28 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
+      setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 30, rounds: prev.rounds + 1 }))
+      const allCorrect = Array.from({ length: 30 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setBhupuraFlash(true); setTimeout(() => setBhupuraFlash(false), 1000) }
     }
   }
@@ -2132,6 +2313,17 @@ export default function App() {
       if (selectedCircuit) return <CircuitDetail circuitNumber={selectedCircuit} script={script} onNavigate={handleTabChange} />
       return <CircuitTable selectedCircuit={selectedCircuit} onCircuitSelect={handleCircuitSelect} />
     }
+    if (activeTab === 'bhupura' && bhupuraMemorise) return (
+      <BhupuraMemoriseInfo
+        currentSeq={bhupuraCurrentSeq}
+        results={bhupuraResults}
+        onMarkResult={handleBhupuraMarkResult}
+        onToggleResult={handleBhupuraToggleResult}
+        onRestart={handleBhupuraStartMemorise}
+        onNavigate={handleNavigateToMemorise}
+        script={script}
+      />
+    )
     if (activeTab === 'c2' && c2Memorise) return (
       <C2MemoriseInfo
         currentSeq={c2CurrentSeq}
@@ -2913,17 +3105,17 @@ export default function App() {
                 <button onClick={handleBhupuraStartMemorise} title="Reset" className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
               )}
             </div>
-            {bhupuraMemorise && bhupuraCurrentSeq <= 28 && (() => {
+            {bhupuraMemorise && bhupuraCurrentSeq <= 30 && (() => {
               const correctCount = Object.values(bhupuraResults).filter(v => v === 'correct').length
               return (
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-1.5 rounded-full bg-surface-700 overflow-hidden">
                       <div className="h-full rounded-full bg-gold-600 transition-all duration-300"
-                           style={{ width: `${((bhupuraCurrentSeq - 1) / 28) * 100}%` }} />
+                           style={{ width: `${((bhupuraCurrentSeq - 1) / 30) * 100}%` }} />
                     </div>
                     <span className="text-xs text-muted font-mono whitespace-nowrap">
-                      {bhupuraCurrentSeq - 1} / 28
+                      {bhupuraCurrentSeq - 1} / 30
                       {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
                     </span>
                   </div>
@@ -2940,19 +3132,24 @@ export default function App() {
                   const correct = Object.values(bhupuraPrevResults).filter(v => v === 'correct').length
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/28 memorised</span>
-                      {28 - correct > 0 && <span className="text-muted"> · {28 - correct} not memorised</span>}
+                      <span className="text-red-400">{correct}/30 memorised</span>
+                      {30 - correct > 0 && <span className="text-muted"> · {30 - correct} not memorised</span>}
                     </p>
                   )
                 })()}
               </div>
             )}
             {bhupuraPrevResults !== null && (() => {
-              const notMem = deities
-                .filter(d => d.sectionId === 'circuit-1')
-                .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
-                .filter(d => bhupuraPrevResults[d.sequenceInSection] !== 'correct')
-                .map(d => displayName(d, script))
+              const c1Section = circuitSections.find(s => s.circuitNumber === 1)
+              const notMem = [
+                ...deities
+                  .filter(d => d.sectionId === 'circuit-1')
+                  .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+                  .filter(d => bhupuraPrevResults[d.sequenceInSection] !== 'correct')
+                  .map(d => displayName(d, script)),
+                ...(bhupuraPrevResults[29] !== 'correct' && c1Section ? [sectionName(c1Section, 'chakraSvamini', script)] : []),
+                ...(bhupuraPrevResults[30] !== 'correct' && c1Section ? [sectionName(c1Section, 'yoginiType',    script)] : []),
+              ]
               if (notMem.length === 0) return null
               return (
                 <div className="pt-1 border-t border-surface-700 space-y-1">

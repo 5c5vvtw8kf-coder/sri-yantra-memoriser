@@ -449,18 +449,35 @@ function RegionFills({ filledRegions = {}, onRegionClick = null, onRegionHover =
           onDoubleClick={onRegionDoubleClick ? () => onRegionDoubleClick('c1') : undefined} />
       )}
 
-      {/* C1 sub-band fills */}
+      {/* C1 sub-band fills — also act as hover/click targets for the bhupura walls.
+          All three fire 'c1' so any hover over these bands registers as circuit 1.
+          c1-inner covers the zone between the inner bhupura square and the Valayam circles. */}
       {filledRegions['c1-outer'] && (
         <polygon points={BHUPURA_OUTER_PTS}
-          fill={filledRegions['c1-outer']} mask="url(#mask-c1-outer)" />
+          fill={filledRegions['c1-outer']} mask="url(#mask-c1-outer)"
+          style={style}
+          onClick={clickable ? () => onRegionClick('c1') : undefined}
+          onMouseEnter={hoverable ? () => onRegionHover('c1') : undefined}
+          onMouseLeave={onRegionLeave || undefined}
+          onDoubleClick={onRegionDoubleClick ? () => onRegionDoubleClick('c1') : undefined} />
       )}
       {filledRegions['c1-mid'] && (
         <polygon points={BHUPURA_MAIN_PTS}
-          fill={filledRegions['c1-mid']} mask="url(#mask-c1-mid)" />
+          fill={filledRegions['c1-mid']} mask="url(#mask-c1-mid)"
+          style={style}
+          onClick={clickable ? () => onRegionClick('c1') : undefined}
+          onMouseEnter={hoverable ? () => onRegionHover('c1') : undefined}
+          onMouseLeave={onRegionLeave || undefined}
+          onDoubleClick={onRegionDoubleClick ? () => onRegionDoubleClick('c1') : undefined} />
       )}
       {filledRegions['c1-inner'] && (
         <polygon points={BHUPURA_INNER_PTS}
-          fill={filledRegions['c1-inner']} mask="url(#mask-c1-inner)" />
+          fill={filledRegions['c1-inner']} mask="url(#mask-c1-inner)"
+          style={style}
+          onClick={clickable ? () => onRegionClick('c1') : undefined}
+          onMouseEnter={hoverable ? () => onRegionHover('c1') : undefined}
+          onMouseLeave={onRegionLeave || undefined}
+          onDoubleClick={onRegionDoubleClick ? () => onRegionDoubleClick('c1') : undefined} />
       )}
 
       {filledRegions['outer-rings'] && (
@@ -598,16 +615,32 @@ const BHUPURA_CORNER_COLOUR = {
 }
 
 // Bhupura square parameters — gw/gd values from Korvin construction
-const _S1 = 167,    _GW1 = 33,    _GD1 = 27
-const _S2 = 160,    _GW2 = 32,    _GD2 = 26
-const _S3 = 153,    _GW3 = 30,    _GD3 = 25
+// S values derived from bhupura polygon half-side distances (CX=260, CY=270):
+//   outer  polygon non-gate side → 158.64 units from centre
+//   main   polygon non-gate side → 155.56 units from centre
+//   inner  polygon non-gate side → 152.49 units from centre
+// GW values derived from gate-step x-coordinates in each polygon:
+//   outer: step at x=225.99/294.02 → GW = 34.02
+//   main:  step at x=229.06/290.94 → GW = 30.94
+//   inner: step at x=232.13/287.87 → GW = 27.87
+const _S1 = 159,    _GW1 = 34,    _GD1 = 27
+const _S2 = 156,    _GW2 = 31,    _GD2 = 26
+const _S3 = 152,    _GW3 = 28,    _GD3 = 25
+
+// Gate-adjacent offset for level-1 dots n=1–4 (Siddhi Shaktis at gate openings).
+// Placing them _GOFF1 units outward from the outer polygon step corner snaps
+// the dot to its correct gate corner and keeps it clear of the middle bhupura line.
+// Outer polygon step corners: (294.02,428.64) (101.36,304.02) (225.98,111.36) (418.64,235.98)
+// Main polygon is ~3 units inward from outer; DOT_R_NORMAL=5 needs ≥5 clearance → offset=3.
+const _GOFF1 = 3
 
 const BHUPURA_MARKERS = [
   // Level 1 — outer square
-  { level: 1, n:  1, x: CX + _GW1,                      y: CY + _S1,  corner: false },
-  { level: 1, n:  2, x: CX - _S1,                       y: CY + _GW1, corner: false },
-  { level: 1, n:  3, x: CX - _GW1,                      y: CY - _S1,  corner: false },
-  { level: 1, n:  4, x: CX + _S1,                       y: CY - _GW1, corner: false },
+  // n=1–4: gate-adjacent Siddhi Shaktis — aligned to outer polygon step corners, offset outward
+  { level: 1, n:  1, x: 295,                   y: 430,               corner: false },  // bottom gate right step — manual
+  { level: 1, n:  2, x: 100,                   y: 306,               corner: false },  // left gate bottom step — manual
+  { level: 1, n:  3, x: 225,                   y: 110,               corner: false },  // top gate left step — manual
+  { level: 1, n:  4, x: 420,                   y: 235,               corner: false },  // right gate top step — manual
   { level: 1, n:  5, x: CX - _S1,                       y: CY + _S1,  corner: true  },
   { level: 1, n:  6, x: CX - _S1,                       y: CY - _S1,  corner: true  },
   { level: 1, n:  7, x: CX + _S1,                       y: CY - _S1,  corner: true  },
@@ -615,24 +648,24 @@ const BHUPURA_MARKERS = [
   { level: 1, n:  9, x: CX + _S1 - (_S1 - _GW1) / 3,   y: CY + _S1,  corner: false },
   { level: 1, n: 10, x: CX - _S1 + (_S1 - _GW1) / 4,   y: CY - _S1,  corner: false },
   // Level 2 — mid square
-  { level: 2, n: 11, x: CX - _GW2,                      y: CY + _S2,  corner: false },
-  { level: 2, n: 12, x: CX - _S2,                       y: CY - _GW2, corner: false },
-  { level: 2, n: 13, x: CX + _GW2,                      y: CY - _S2,  corner: false },
-  { level: 2, n: 14, x: CX + _S2,                       y: CY + _GW2, corner: false },
-  { level: 2, n: 15, x: CX - _S2,                       y: CY + _S2,  corner: true  },
-  { level: 2, n: 16, x: CX - _S2,                       y: CY - _S2,  corner: true  },
-  { level: 2, n: 17, x: CX + _S2,                       y: CY - _S2,  corner: true  },
-  { level: 2, n: 18, x: CX + _S2,                       y: CY + _S2,  corner: true  },
+  { level: 2, n: 11, x: 229,                   y: 426,               corner: false },  // manual
+  { level: 2, n: 12, x: 103,                   y: 238,               corner: false },  // manual
+  { level: 2, n: 13, x: 292,                   y: 114,               corner: false },  // manual
+  { level: 2, n: 14, x: 416,                   y: 302,               corner: false },  // manual
+  { level: 2, n: 15, x: 105,                   y: 425,               corner: true  },  // manual
+  { level: 2, n: 16, x: 105,                   y: 115,               corner: true  },  // manual
+  { level: 2, n: 17, x: 415,                   y: 115,               corner: true  },  // manual
+  { level: 2, n: 18, x: 415,                   y: 425,               corner: true  },  // manual
   // Level 3 — inner square
-  { level: 3, n: 19, x: CX + _GW3,                      y: CY + _S3,  corner: false },
-  { level: 3, n: 20, x: CX - _S3,                       y: CY + _GW3, corner: false },
-  { level: 3, n: 21, x: CX - _GW3,                      y: CY - _S3,  corner: false },
-  { level: 3, n: 22, x: CX + _S3,                       y: CY - _GW3, corner: false },
-  { level: 3, n: 23, x: CX - _S3,                       y: CY + _S3,  corner: true  },
-  { level: 3, n: 24, x: CX - _S3,                       y: CY - _S3,  corner: true  },
-  { level: 3, n: 25, x: CX + _S3,                       y: CY - _S3,  corner: true  },
-  { level: 3, n: 26, x: CX + _S3,                       y: CY + _S3,  corner: true  },
-  { level: 3, n: 27, x: CX + _S3 - 0.6  * (_S3 - _GW3), y: CY + _S3, corner: false },
+  { level: 3, n: 19, x: 288,                   y: 423,               corner: false },  // manual
+  { level: 3, n: 20, x: 107,                   y: 298,               corner: false },  // manual
+  { level: 3, n: 21, x: 232,                   y: 117,               corner: false },  // manual
+  { level: 3, n: 22, x: 413,                   y: 242,               corner: false },  // manual
+  { level: 3, n: 23, x: 109,                   y: 421,               corner: true  },  // manual
+  { level: 3, n: 24, x: 109,                   y: 119,               corner: true  },  // manual
+  { level: 3, n: 25, x: 411,                   y: 119,               corner: true  },  // manual
+  { level: 3, n: 26, x: 411,                   y: 421,               corner: true  },  // manual
+  { level: 3, n: 27, x: 338,                   y: 422,               corner: false },  // manual
   { level: 3, n: 28, x: CX - _S3 + 0.33 * (_S3 - _GW3), y: CY - _S3, corner: false },
 ]
 
@@ -672,16 +705,21 @@ export default function SriYantraSVG({
   onRegionHover       = null,
   onRegionLeave       = null,
   onRegionDoubleClick = null,
+  accentColor         = null,
 }) {
-  const gold             = '#c9a84c'
-  const bhupuraGold      = '#b89840'   // slightly richer to match petal stroke appearance
+  const gold             = accentColor || '#c9a84c'
+  const bhupuraGold      = accentColor || '#b89840'   // slightly richer to match petal stroke appearance
   const bhupuraInnerGold = '#ffeb3c'   // matches c1-mid fill (bright yellow band) — model yantra only
   const goldFill         = 'rgba(201,168,76,0.07)'
   const bg               = '#0f0805'
 
   // Inner bhupura strokes: yellow only when the model yantra's yellow c1-mid band is active;
   // otherwise use bhupuraGold so circuit-view pages show consistent all-gold bhupura lines.
-  const bhupuraInnerStroke = filledRegions['c1-mid'] ? bhupuraInnerGold : bhupuraGold
+  // Inner bhupura lines go yellow only when c1-mid is explicitly the model-yantra yellow.
+  // Other fill values (cream, red, dim) keep the normal gold stroke.
+  const bhupuraInnerStroke = accentColor
+    ? accentColor
+    : filledRegions['c1-mid'] === bhupuraInnerGold ? bhupuraInnerGold : bhupuraGold
 
   const c2PetalFills = {}
   const c3PetalFills = {}

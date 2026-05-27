@@ -18,7 +18,7 @@
  * Memorise mode (drill sequentially through all 28).
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import SriYantraSVG, { BHUPURA_MARKERS } from './SriYantraSVG'
 
@@ -72,20 +72,25 @@ const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti')
 const matrikaDeities = c1Deities.filter(d => d.group === 'ashtaMatrika')
 const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti')
 
-const C1_TOTAL = c1Deities.length  // 28
+const C1_TOTAL     = c1Deities.length  // 28 — dot-phase deities only
+const BHUPURA_TOTAL = 30               // 28 deities + Chakra Svāminī (29) + Yoginī (30)
 
 // ── Colours ───────────────────────────────────────────────────────────────────
 
 const GOLD        = '#c9a84c'
-const TEAL        = '#2a8a9e'
+const TEAL        = '#b4b6b8'
 const RED         = '#c0392b'
 const BG          = '#0f0805'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
 
+// Dot sizing — normal: all 28 visible without major overlap; focus: active/selected dot
+const DOT_R_NORMAL = 5
+const DOT_R_FOCUS  = 9
+
 const GROUP_COLOUR = {
-  siddhiShakti: '#fff8c8',
-  ashtaMatrika: '#fff8c8',
-  mudraShakti:  '#fff8c8',
+  siddhiShakti: RED,
+  ashtaMatrika: TEAL,
+  mudraShakti:  GOLD,
 }
 
 const GROUP_LABEL = {
@@ -111,7 +116,7 @@ function DeityDot({ x, y, r, fill, selected, opacity, onClick, onMouseEnter, onM
   return (
     <circle
       cx={x.toFixed(1)} cy={y.toFixed(1)}
-      r={selected ? r + 2.5 : r}
+      r={r}
       fill={selected ? fill : fill + 'bb'}
       stroke={selected ? '#fff' : fill}
       strokeWidth={selected ? 1.2 : 0.8}
@@ -203,10 +208,10 @@ function Tooltip({ x, y, label, fill, script }) {
 // ── Filter config ─────────────────────────────────────────────────────────────
 
 const FILTERS = [
-  { id: 'all',          label: 'All'            },
-  { id: 'siddhiShakti', label: 'Siddhi Shaktis' },
-  { id: 'ashtaMatrika', label: 'Ashta Matrikas' },
-  { id: 'mudraShakti',  label: 'Mudra Shaktis'  },
+  { id: 'all',          label: 'All',            dot: null              },
+  { id: 'siddhiShakti', label: 'Siddhi Shaktis', dot: 'siddhiShakti'   },
+  { id: 'ashtaMatrika', label: 'Ashta Matrikas', dot: 'ashtaMatrika'   },
+  { id: 'mudraShakti',  label: 'Mudra Shaktis',  dot: 'mudraShakti'    },
 ]
 
 // ── Main component ────────────────────────────────────────────────────────────
@@ -229,6 +234,25 @@ export default function BhupuraView({
   const [activeFilter, setActiveFilter] = useState('all')
   const [contextMenu,  setContextMenu]  = useState(null)
   const clickTimer = useRef(null)
+  const yantraRef  = useRef(null)
+  const [yantraPos, setYantraPos] = useState({ top: 80, height: 300, right: 500 })
+
+  useEffect(() => {
+    const update = () => {
+      if (!yantraRef.current) return
+      const r = yantraRef.current.getBoundingClientRect()
+      setYantraPos({ top: r.top, height: r.height, right: r.right })
+    }
+    update()
+    const t = setTimeout(update, 50)
+    window.addEventListener('resize', update)
+    window.addEventListener('scroll', update, true)
+    return () => {
+      clearTimeout(t)
+      window.removeEventListener('resize', update)
+      window.removeEventListener('scroll', update, true)
+    }
+  }, [])
 
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
@@ -258,7 +282,7 @@ export default function BhupuraView({
     else if (results[seq] !== 'correct') onToggleResult(seq)
   }
 
-  const done = memorise && currentSeq > C1_TOTAL
+  const done = memorise && currentSeq > BHUPURA_TOTAL
 
   return (
     <div className="w-full p-4">
@@ -279,7 +303,8 @@ export default function BhupuraView({
       )}
 
       {/* Diagram — full Sri Yantra background + dot overlay */}
-      <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+      <div ref={yantraRef}
+           className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ paddingBottom: '100%' }}>
         <div className="absolute inset-0">
 
@@ -314,7 +339,8 @@ export default function BhupuraView({
                 const dimmed = isDimmed(group)
                 return (
                   <DeityDot key={d.id}
-                    x={pos.x} y={pos.y} r={9}
+                    x={pos.x} y={pos.y}
+                    r={selectedId === d.id ? DOT_R_FOCUS : DOT_R_NORMAL}
                     fill={fill}
                     selected={selectedId === d.id}
                     opacity={dimmed ? 0.15 : 1}
@@ -346,7 +372,9 @@ export default function BhupuraView({
 
               return (
                 <DeityDot key={`mem-${seq}`}
-                  x={pos.x} y={pos.y} r={9} fill={fill} selected={selected}
+                  x={pos.x} y={pos.y}
+                  r={isActive ? DOT_R_FOCUS : DOT_R_NORMAL}
+                  fill={fill} selected={selected}
                   opacity={isFuture ? 0.15 : 1}
                   onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                   onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
@@ -381,25 +409,7 @@ export default function BhupuraView({
               />
             )}
 
-            {/* Hint */}
-            {!memorise && !selectedId && !hoveredDot && (
-              <text x={CX} y={478}
-                textAnchor="middle" dominantBaseline="middle"
-                fontSize="14" fill={GOLD} opacity="0.55"
-                fontFamily="serif" fontStyle="italic">
-                Tap any position to reveal the deity
-              </text>
-            )}
 
-            {/* Memorise: instruction */}
-            {memorise && !done && (
-              <text x={CX} y={478}
-                textAnchor="middle" dominantBaseline="middle"
-                fontSize="13" fill={GOLD} opacity="0.55"
-                fontFamily="serif" fontStyle="italic">
-                double-tap = memorised · single-tap = not yet
-              </text>
-            )}
 
           </svg>
 
@@ -413,12 +423,12 @@ export default function BhupuraView({
                  style={{ maxWidth: '15rem', margin: '0 1rem' }}>
               <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">bhūpura · circuit 1</p>
               <p className="text-cream text-sm">
-                {Object.values(results).filter(v => v === 'correct').length === C1_TOTAL
+                {Object.values(results).filter(v => v === 'correct').length === BHUPURA_TOTAL
                   ? 'All memorised — well done!'
                   : 'Round complete.'}
               </p>
               <p className="text-muted text-xs">
-                {Object.values(results).filter(v => v === 'correct').length}/{C1_TOTAL} memorised
+                {Object.values(results).filter(v => v === 'correct').length}/{BHUPURA_TOTAL} memorised
               </p>
               <div className="flex flex-col gap-2 pt-1">
                 <button onClick={onStartMemorise}
@@ -435,48 +445,70 @@ export default function BhupuraView({
         )}
       </div>
 
-      {/* Filter buttons (explore only) */}
+      {/* Fixed filter strip — bottom-left of yantra, horizontal (explore only) */}
       {!memorise && (
-        <div className="flex flex-wrap justify-center gap-1.5 mt-3">
+        <div style={{
+          position: 'fixed',
+          left: 208,
+          top: yantraPos.top + yantraPos.height + 8,
+          zIndex: 30,
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 6,
+        }}>
           {FILTERS.map(f => (
-            <button key={f.id}
+            <button
+              key={f.id}
               onClick={() => { setActiveFilter(f.id); setSelectedId(null); onDeitySelect(null) }}
-              className={`text-xs px-3 py-1 rounded-full border transition-colors
-                ${activeFilter === f.id
-                  ? 'border-gold-600 text-gold-300 bg-gold-800/30'
-                  : 'border-surface-600 text-muted hover:text-cream'}`}
+              style={{
+                fontSize: 11,
+                fontFamily: 'serif',
+                letterSpacing: '0.04em',
+                color: activeFilter === f.id
+                  ? GOLD
+                  : 'rgba(201,168,76,0.40)',
+                fontWeight: activeFilter === f.id ? 600 : 400,
+                background: activeFilter === f.id
+                  ? 'rgba(201,168,76,0.12)'
+                  : 'transparent',
+                border: `1px solid ${activeFilter === f.id ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.20)'}`,
+                borderRadius: 20,
+                cursor: 'pointer',
+                padding: '3px 10px',
+                transition: 'color 0.2s, background 0.2s, border-color 0.2s',
+                whiteSpace: 'nowrap',
+              }}
             >
+              {f.dot && (
+                <span style={{
+                  display: 'inline-block',
+                  width: 6, height: 6,
+                  borderRadius: '50%',
+                  background: GROUP_COLOUR[f.dot],
+                  flexShrink: 0,
+                  marginRight: 4,
+                }} />
+              )}
               {f.label}
             </button>
           ))}
         </div>
       )}
 
-      {/* Legend */}
+
+
       {!memorise && (
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-muted">
-          {[
-            { colour: GOLD, label: 'Siddhi Shaktis (10)' },
-            { colour: TEAL, label: 'Ashta Matrikas (8)'  },
-            { colour: RED,  label: 'Mudra Shaktis (10)'  },
-          ].map(({ colour, label }) => (
-            <span key={label} className="flex items-center gap-1.5">
-              <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
-                    style={{ background: colour }} />
-              {label}
-            </span>
-          ))}
+        <div className="mt-2 text-center">
+          <p className="text-muted" style={{ fontSize: '10px' }}>
+            Hover or click any dot to reveal the deity
+          </p>
         </div>
       )}
-
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">
-          trailōkyamōhana cakra · prakaṭayōginī
+      {memorise && !done && (
+        <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
+          hover to reveal · dbl-click = memorised · click = not memorised
         </p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          Positions are approximate — verify against your lineage source
-        </p>
-      </div>
+      )}
 
       {/* Explore mode: deity panel */}
       {!memorise && selectedDeity && (
