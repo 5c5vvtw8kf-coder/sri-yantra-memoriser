@@ -1,0 +1,4751 @@
+{
+  "meta": {
+    "version": "1.1",
+    "source": "vignanam.org — IAST transliteration, corrected against Chris Hughes lineage",
+    "transliteration": "IAST",
+    "notes": "v1.1: Parameshvara-Parameshvari combined; Uddiishamayi added; Kaalataapaana corrected; Garima Siddhe removed; translation and note fields added."
+  },
+  "sections": [
+    {
+      "id": "invocation",
+      "label": "Devi Sambodhanam",
+      "labelIast": "śrī dēvī sambōdhanaṃ",
+      "type": "preamble",
+      "circuitNumber": null,
+      "count": 1,
+      "description": "Opening invocation"
+    },
+    {
+      "id": "nyasa",
+      "label": "Nyasa Devatas",
+      "labelIast": "nyāsāṅgadēvatāḥ",
+      "type": "preamble",
+      "circuitNumber": null,
+      "count": 6,
+      "description": "Six limb deities"
+    },
+    {
+      "id": "nitya",
+      "label": "Tithi Nitya Devatas",
+      "labelIast": "tithinityādēvatāḥ",
+      "type": "preamble",
+      "circuitNumber": null,
+      "count": 16,
+      "description": "The 16 Nitya goddesses"
+    },
+    {
+      "id": "guru-divya",
+      "label": "Divyaugha Gurus",
+      "labelIast": "divyaughaguravaḥ",
+      "type": "preamble",
+      "circuitNumber": null,
+      "count": 7,
+      "description": "Divine guru lineage"
+    },
+    {
+      "id": "guru-siddha",
+      "label": "Siddyaugha Gurus",
+      "labelIast": "siddhaughaguravaḥ",
+      "type": "preamble",
+      "circuitNumber": null,
+      "count": 4,
+      "description": "Siddha guru lineage"
+    },
+    {
+      "id": "guru-manava",
+      "label": "Maanavaugha Gurus",
+      "labelIast": "mānavaughaguravaḥ",
+      "type": "preamble",
+      "circuitNumber": null,
+      "count": 8,
+      "description": "Human guru lineage"
+    },
+    {
+      "id": "circuit-1",
+      "label": "Chakra Prathamāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 1,
+      "avarana": "Trailokya Mohana Chakra",
+      "avaranaIast": "trailōkyamōhana chakra",
+      "chakraSvamini": "Trailokya Mohana Chakra Svamini",
+      "chakraSvaminiIast": "trailōkyamōhana chakrasvāminī",
+      "yoginiType": "Prakata Yogini",
+      "yoginiTypeIast": "prakaṭayōginī",
+      "chakreshvari": "Tripura",
+      "chakreshvariIast": "tripurē",
+      "description": "Outer square enclosure with 4 gates",
+      "geometry": "square",
+      "labelIast": "Chakra Prathamāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "circuit-2",
+      "label": "Chakra Dvitīyāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 2,
+      "avarana": "Sarva Aasha Paripuraka Chakra",
+      "avaranaIast": "sarvāśāparipūraka chakra",
+      "chakraSvamini": "Sarva Aasha Paripuraka Chakra Svamini",
+      "chakraSvaminiIast": "sarvāśāparipūraka chakrasvāminī",
+      "yoginiType": "Gupta Yogini",
+      "yoginiTypeIast": "guptayōginī",
+      "chakreshvari": "Tripureshi",
+      "chakreshvariIast": "tripurēśī",
+      "description": "16-petal lotus",
+      "geometry": "lotus-16",
+      "petalCount": 16,
+      "labelIast": "Chakra Dvitīyāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "circuit-3",
+      "label": "Chakra Tṛtīyāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 3,
+      "avarana": "Sarva Sankshobhana Chakra",
+      "avaranaIast": "sarvasaṅkṣōbhaṇa chakra",
+      "chakraSvamini": "Sarva Sankshobhana Chakra Svamini",
+      "chakraSvaminiIast": "sarvasaṅkṣōbhaṇa chakrasvāminī",
+      "yoginiType": "Guptatara Yogini",
+      "yoginiTypeIast": "guptatarayōginī",
+      "chakreshvari": "Tripura Sundari",
+      "chakreshvariIast": "tripurasundarī",
+      "description": "8-petal lotus",
+      "geometry": "lotus-8",
+      "petalCount": 8,
+      "labelIast": "Chakra Tṛtīyāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "circuit-4",
+      "label": "Chakra Chaturthāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 4,
+      "avarana": "Sarva Saubhagyadayaka Chakra",
+      "avaranaIast": "sarvasaubhāgyadāyaka chakra",
+      "chakraSvamini": "Sarva Saubhagyadayaka Chakra Svamini",
+      "chakraSvaminiIast": "sarvasaubhāgyadāyaka chakrasvāminī",
+      "yoginiType": "Sampradaya Yogini",
+      "yoginiTypeIast": "sampradāyayōginī",
+      "chakreshvari": "Tripura Vasini",
+      "chakreshvariIast": "tripuravāsinī",
+      "description": "14 triangles",
+      "geometry": "triangles-14",
+      "triangleCount": 14,
+      "labelIast": "Chakra Chaturthāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "circuit-5",
+      "label": "Chakra Pañcamāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 5,
+      "avarana": "Sarva Artha Sadhaka Chakra",
+      "avaranaIast": "sarvārthasādhaka chakra",
+      "chakraSvamini": "Sarvartha Sadhaka Chakra Svamini",
+      "chakraSvaminiIast": "sarvārthasādhaka chakrasvāminī",
+      "yoginiType": "Kulottirna Yogini",
+      "yoginiTypeIast": "kulōttīrṇayōginī",
+      "chakreshvari": "Tripura Shri",
+      "chakreshvariIast": "tripurāśrīḥ",
+      "description": "10 outer triangles",
+      "geometry": "triangles-10-outer",
+      "triangleCount": 10,
+      "labelIast": "Chakra Pañcamāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "circuit-6",
+      "label": "Chakra Ṣaṣṭhāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 6,
+      "avarana": "Sarva Rakshakara Chakra",
+      "avaranaIast": "sarvarakṣākara chakra",
+      "chakraSvamini": "Sarva Rakshakara Chakra Svamini",
+      "chakraSvaminiIast": "sarvarakṣākara chakrasvāminī",
+      "yoginiType": "Nigarbha Yogini",
+      "yoginiTypeIast": "nigarbhayōginī",
+      "chakreshvari": "Tripura Malini",
+      "chakreshvariIast": "tripuramālinī",
+      "description": "10 inner triangles",
+      "geometry": "triangles-10-inner",
+      "triangleCount": 10,
+      "labelIast": "Chakra Ṣaṣṭhāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "circuit-7",
+      "label": "Chakra Saptamāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 7,
+      "avarana": "Sarva Rogahara Chakra",
+      "avaranaIast": "sarvarōgahara chakra",
+      "chakraSvamini": "Sarva Rogahara Chakra Svamini",
+      "chakraSvaminiIast": "sarvarōgahara chakrasvāminī",
+      "yoginiType": "Rahasya Yogini",
+      "yoginiTypeIast": "rahasyayōginī",
+      "chakreshvari": "Tripura Siddhe",
+      "chakreshvariIast": "tripurasiddhē",
+      "description": "8 triangles (Vagdevis)",
+      "geometry": "triangles-8",
+      "triangleCount": 8,
+      "labelIast": "Chakra Saptamāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "circuit-8",
+      "label": "Chakra Aṣṭamāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 8,
+      "avarana": "Sarva Siddhiprada Chakra",
+      "avaranaIast": "sarvasiddhiprada chakra",
+      "chakraSvamini": "Sarva Siddhiprada Chakra Svamini",
+      "chakraSvaminiIast": "sarvasiddhiprada chakrasvāminī",
+      "yoginiType": "Ati Rahasya Yogini",
+      "yoginiTypeIast": "atirahasyayōginī",
+      "chakreshvari": "Tripuramba",
+      "chakreshvariIast": "tripurāmbā",
+      "description": "Primary downward triangle",
+      "geometry": "triangle-primary",
+      "triangleCount": 1,
+      "labelIast": "Chakra Aṣṭamāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "circuit-9",
+      "label": "Chakra Navamāvaraṇa Devatāḥ",
+      "type": "circuit",
+      "circuitNumber": 9,
+      "avarana": "Sarva Anandamaya Chakra",
+      "avaranaIast": "sarvānandamaya chakra",
+      "chakraSvamini": "Sarva Anandamaya Chakra Svamini",
+      "chakraSvaminiIast": "sarvānandamaya chakrasvāminī",
+      "yoginiType": "Para Para Rahasya Yogini",
+      "yoginiTypeIast": "parāpararahasyayōginī",
+      "chakreshvari": "Maha Tripura Sundari",
+      "chakreshvariIast": "mahātripurasundarī",
+      "description": "The central point — bindu",
+      "geometry": "bindu",
+      "labelIast": "Chakra Navamāvaraṇa Devatāḥ"
+    },
+    {
+      "id": "chakreshvari",
+      "label": "Nava Chakreshvari",
+      "type": "closing",
+      "circuitNumber": null,
+      "count": 9,
+      "description": "The nine Tripura forms, one per circuit"
+    },
+    {
+      "id": "closing",
+      "label": "Closing Epithets",
+      "type": "closing",
+      "circuitNumber": null,
+      "count": 10,
+      "description": "Final salutations — Namaskara Navakshari"
+    }
+  ],
+  "deities": [
+    {
+      "id": "invocation-001",
+      "sectionId": "invocation",
+      "sequenceInChant": 1,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "ōṃ aiṃ hrīṃ śrīṃ aiṃ klīṃ sauḥ ōṃ namastripurasundarī",
+        "devanagari": "ओं ऐं ह्रीं श्रीं ऐं क्लीं सौः ओं नमस्त्रिपुरसुन्दरी",
+        "english": "Om Aim Hrim Shrim Aim Klim Sauh Om Namas Tripura Sundari",
+        "translation": null,
+        "marathi": "ओं ऐं ह्रीं श्रीं ऐं क्लीं सौः ओं नमस्त्रिपुरसुन्दरी",
+        "hindi": "ओं ऐं ह्रीं श्रीं ऐं क्लीं सौः ओं नमस्त्रिपुरसुन्दरी",
+        "telugu": "ఓం ఐం హ్రీం శ్రీం ఐం క్లీం సౌః ఓం నమస్త్రిపురసున్దరీ",
+        "tamil": "ஓம் ஐம் ஹ்ரீம் ஶ்ரீம் ஐம் க்லீம் ஸௌஃ ஓம் நமஸ்த்ரிபுரஸுந்தரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nyasa-001",
+      "sectionId": "nyasa",
+      "sequenceInChant": 2,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "hṛdayadēvī",
+        "devanagari": "हृदयदेवी",
+        "english": "Hridaya Devi",
+        "translation": "Heart Goddess",
+        "marathi": "हृदयदेवी",
+        "hindi": "हृदयदेवी",
+        "telugu": "హృదయదేవీ",
+        "tamil": "ஹருதயதேவீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Nyasa of the heart"
+    },
+    {
+      "id": "nyasa-002",
+      "sectionId": "nyasa",
+      "sequenceInChant": 3,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "śirōdēvī",
+        "devanagari": "शिरोदेवी",
+        "english": "Shiro Devi",
+        "translation": "Head Goddess",
+        "marathi": "शिरोदेवी",
+        "hindi": "शिरोदेवी",
+        "telugu": "శిరోదేవీ",
+        "tamil": "ஶிரோதேவீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Nyasa of the head"
+    },
+    {
+      "id": "nyasa-003",
+      "sectionId": "nyasa",
+      "sequenceInChant": 4,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "śikhādēvī",
+        "devanagari": "शिखादेवी",
+        "english": "Shikha Devi",
+        "translation": "Crown Goddess",
+        "marathi": "शिखादेवी",
+        "hindi": "शिखादेवी",
+        "telugu": "శిఖాదేవీ",
+        "tamil": "ஶிகாதேவீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Nyasa of the crown/topknot"
+    },
+    {
+      "id": "nyasa-004",
+      "sectionId": "nyasa",
+      "sequenceInChant": 5,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "kavacadēvī",
+        "devanagari": "कवचदेवी",
+        "english": "Kavacha Devi",
+        "translation": "Armour Goddess",
+        "marathi": "कवचदेवी",
+        "hindi": "कवचदेवी",
+        "telugu": "కవచదేవీ",
+        "tamil": "கவசதேவீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Nyasa of the armour/protective sheath"
+    },
+    {
+      "id": "nyasa-005",
+      "sectionId": "nyasa",
+      "sequenceInChant": 6,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "nētradēvī",
+        "devanagari": "नेत्रदेवी",
+        "english": "Netra Devi",
+        "translation": "Eye Goddess",
+        "marathi": "नेत्रदेवी",
+        "hindi": "नेत्रदेवी",
+        "telugu": "నేత్రదేవీ",
+        "tamil": "நேத்ரதேவீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Nyasa of the eyes"
+    },
+    {
+      "id": "nyasa-006",
+      "sectionId": "nyasa",
+      "sequenceInChant": 7,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "astradēvī",
+        "devanagari": "अस्त्रदेवी",
+        "english": "Astra Devi",
+        "translation": "Weapon Goddess",
+        "marathi": "अस्त्रदेवी",
+        "hindi": "अस्त्रदेवी",
+        "telugu": "అస్త్రదేవీ",
+        "tamil": "அஸ்த்ரதேவீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Nyasa of the weapon/astra"
+    },
+    {
+      "id": "nitya-001",
+      "sectionId": "nitya",
+      "sequenceInChant": 8,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "kāmēśvarī",
+        "devanagari": "कामेश्वरी",
+        "english": "Kameshvari",
+        "translation": "Goddess of Desire",
+        "marathi": "कामेश्वरी",
+        "hindi": "कामेश्वरी",
+        "telugu": "కామేశ్వరీ",
+        "tamil": "காமேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-002",
+      "sectionId": "nitya",
+      "sequenceInChant": 9,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "bhagamālinī",
+        "devanagari": "भगमालिनी",
+        "english": "Bhagamalini",
+        "translation": "Garlanded with Splendour",
+        "marathi": "भगमालिनी",
+        "hindi": "भगमालिनी",
+        "telugu": "భగమాలినీ",
+        "tamil": "பகமாலிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-003",
+      "sectionId": "nitya",
+      "sequenceInChant": 10,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "nityaklinnē",
+        "devanagari": "नित्यक्लिन्ने",
+        "english": "Nityaklinna",
+        "translation": "Ever Moist",
+        "marathi": "नित्यक्लिन्ने",
+        "hindi": "नित्यक्लिन्ने",
+        "telugu": "నిత్యక్లిన్నే",
+        "tamil": "நித்யக்லிந்நே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-004",
+      "sectionId": "nitya",
+      "sequenceInChant": 11,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "bhēruṇḍē",
+        "devanagari": "भेरुण्डे",
+        "english": "Bherunda",
+        "translation": "The Terrible",
+        "marathi": "भेरुण्डे",
+        "hindi": "भेरुण्डे",
+        "telugu": "భేరుణ్డే",
+        "tamil": "பேருண்டே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-005",
+      "sectionId": "nitya",
+      "sequenceInChant": 12,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "vahnivāsinī",
+        "devanagari": "वह्निवासिनी",
+        "english": "Vahnivasini",
+        "translation": "Dwelling in Fire",
+        "marathi": "वह्निवासिनी",
+        "hindi": "वह्निवासिनी",
+        "telugu": "వహ్నివాసినీ",
+        "tamil": "வஹ்நிவாஸிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-006",
+      "sectionId": "nitya",
+      "sequenceInChant": 13,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāvajrēśvarī",
+        "devanagari": "महावज्रेश्वरी",
+        "english": "Maha Vajreshvari",
+        "translation": "Great Goddess of the Vajra",
+        "marathi": "महावज्रेश्वरी",
+        "hindi": "महावज्रेश्वरी",
+        "telugu": "మహావజ్రేశ్వరీ",
+        "tamil": "மஹாவஜ்ரேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-007",
+      "sectionId": "nitya",
+      "sequenceInChant": 14,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "śivadūtī",
+        "devanagari": "शिवदूती",
+        "english": "Shivaduti",
+        "translation": "Shiva's Messenger",
+        "marathi": "शिवदूती",
+        "hindi": "शिवदूती",
+        "telugu": "శివదూతీ",
+        "tamil": "ஶிவதூதீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-008",
+      "sectionId": "nitya",
+      "sequenceInChant": 15,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tvaritē",
+        "devanagari": "त्वरिते",
+        "english": "Tvarite",
+        "translation": "The Swift One",
+        "marathi": "त्वरिते",
+        "hindi": "त्वरिते",
+        "telugu": "త్వరితే",
+        "tamil": "த்வரிதே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-009",
+      "sectionId": "nitya",
+      "sequenceInChant": 16,
+      "sequenceInSection": 9,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "kulasundarī",
+        "devanagari": "कुलसुन्दरी",
+        "english": "Kulasundari",
+        "translation": "Beautiful One of the Kula",
+        "marathi": "कुलसुन्दरी",
+        "hindi": "कुलसुन्दरी",
+        "telugu": "కులసున్దరీ",
+        "tamil": "குலஸுந்தரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-010",
+      "sectionId": "nitya",
+      "sequenceInChant": 17,
+      "sequenceInSection": 10,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "nityē",
+        "devanagari": "नित्ये",
+        "english": "Nitye",
+        "translation": "The Eternal",
+        "marathi": "नित्ये",
+        "hindi": "नित्ये",
+        "telugu": "నిత్యే",
+        "tamil": "நித்யே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-011",
+      "sectionId": "nitya",
+      "sequenceInChant": 18,
+      "sequenceInSection": 11,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "nīlapatākē",
+        "devanagari": "नीलपताके",
+        "english": "Nilapataka",
+        "translation": "Blue Banner",
+        "marathi": "नीलपताके",
+        "hindi": "नीलपताके",
+        "telugu": "నీలపతాకే",
+        "tamil": "நீலபதாகே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-012",
+      "sectionId": "nitya",
+      "sequenceInChant": 19,
+      "sequenceInSection": 12,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "vijayē",
+        "devanagari": "विजये",
+        "english": "Vijaye",
+        "translation": "The Victorious",
+        "marathi": "विजये",
+        "hindi": "विजये",
+        "telugu": "విజయే",
+        "tamil": "விஜயே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-013",
+      "sectionId": "nitya",
+      "sequenceInChant": 20,
+      "sequenceInSection": 13,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "sarvamaṅgaḻē",
+        "devanagari": "सर्वमङ्गळे",
+        "english": "Sarva Mangale",
+        "translation": "All Auspicious",
+        "marathi": "सर्वमङ्गळे",
+        "hindi": "सर्वमङ्गळे",
+        "telugu": "సర్వమఙ్గళే",
+        "tamil": "ஸர்வமங்களே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-014",
+      "sectionId": "nitya",
+      "sequenceInChant": 21,
+      "sequenceInSection": 14,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "jvālāmālinī",
+        "devanagari": "ज्वालामालिनी",
+        "english": "Jvalamalini",
+        "translation": "Garlanded with Flames",
+        "marathi": "ज्वालामालिनी",
+        "hindi": "ज्वालामालिनी",
+        "telugu": "జ్వాలామాలినీ",
+        "tamil": "ஜ்வாலாமாலிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-015",
+      "sectionId": "nitya",
+      "sequenceInChant": 22,
+      "sequenceInSection": 15,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "citrē",
+        "devanagari": "चित्रे",
+        "english": "Chitre",
+        "translation": "The Variegated",
+        "marathi": "चित्रे",
+        "hindi": "चित्रे",
+        "telugu": "చిత్రే",
+        "tamil": "சித்ரே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "nitya-016",
+      "sectionId": "nitya",
+      "sequenceInChant": 23,
+      "sequenceInSection": 16,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahānityē",
+        "devanagari": "महानित्ये",
+        "english": "Maha Nitye",
+        "translation": "The Great Eternal",
+        "marathi": "महानित्ये",
+        "hindi": "महानित्ये",
+        "telugu": "మహానిత్యే",
+        "tamil": "மஹாநித்யே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-divya-001",
+      "sectionId": "guru-divya",
+      "sequenceInChant": 24,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "paramēśvara-paramēśvarī",
+        "devanagari": "परमेश्वर-परमेश्वरी",
+        "english": "Parameshvara-Parameshvari",
+        "translation": "The Divine God and Divine Goddess",
+        "marathi": "परमेश्वर-परमेश्वरी",
+        "hindi": "परमेश्वर-परमेश्वरी",
+        "telugu": "పరమేశ్వర-పరమేశ్వరీ",
+        "tamil": "பரமேஶ்வர-பரமேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Chanted as a pair — the primordial divine couple"
+    },
+    {
+      "id": "guru-divya-002",
+      "sectionId": "guru-divya",
+      "sequenceInChant": 25,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mitrēśamayī",
+        "devanagari": "मित्रेशमयी",
+        "english": "Mitreshamayi",
+        "translation": null,
+        "marathi": "मित्रेशमयी",
+        "hindi": "मित्रेशमयी",
+        "telugu": "మిత్రేశమయీ",
+        "tamil": "மித்ரேஶமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-divya-003",
+      "sectionId": "guru-divya",
+      "sequenceInChant": 26,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "ṣaṣṭhīśamayī",
+        "devanagari": "षष्ठीशमयी",
+        "english": "Shashtishamayi",
+        "translation": null,
+        "marathi": "षष्ठीशमयी",
+        "hindi": "षष्ठीशमयी",
+        "telugu": "షష్ఠీశమయీ",
+        "tamil": "ஷஷ்டீஶமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-divya-004",
+      "sectionId": "guru-divya",
+      "sequenceInChant": 27,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "uddīśamayī",
+        "devanagari": "उद्दीशमयी",
+        "english": "Uddiishamayi",
+        "translation": null,
+        "marathi": "उद्दीशमयी",
+        "hindi": "उद्दीशमयी",
+        "telugu": "ఉద్దీశమయీ",
+        "tamil": "உத்தீஶமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Added per lineage correction v1.1"
+    },
+    {
+      "id": "guru-divya-005",
+      "sectionId": "guru-divya",
+      "sequenceInChant": 28,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "caryānāthamayī",
+        "devanagari": "चर्यानाथमयी",
+        "english": "Charyanathamayi",
+        "translation": null,
+        "marathi": "चर्यानाथमयी",
+        "hindi": "चर्यानाथमयी",
+        "telugu": "చర్యానాథమయీ",
+        "tamil": "சர்யாநாதமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-divya-006",
+      "sectionId": "guru-divya",
+      "sequenceInChant": 29,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "lōpāmudramayī",
+        "devanagari": "लोपामुद्रमयी",
+        "english": "Lopamudramayi",
+        "translation": null,
+        "marathi": "लोपामुद्रमयी",
+        "hindi": "लोपामुद्रमयी",
+        "telugu": "లోపాముద్రమయీ",
+        "tamil": "லோபாமுத்ரமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-divya-007",
+      "sectionId": "guru-divya",
+      "sequenceInChant": 30,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "agastyamayī",
+        "devanagari": "अगस्त्यमयी",
+        "english": "Agastyamayi",
+        "translation": null,
+        "marathi": "अगस्त्यमयी",
+        "hindi": "अगस्त्यमयी",
+        "telugu": "అగస్త్యమయీ",
+        "tamil": "அகஸ்த்யமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-siddha-001",
+      "sectionId": "guru-siddha",
+      "sequenceInChant": 31,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "kālatāpanamayī",
+        "devanagari": "कालतापनमयी",
+        "english": "Kaalataapanamayi",
+        "translation": null,
+        "marathi": "कालतापनमयी",
+        "hindi": "कालतापनमयी",
+        "telugu": "కాలతాపనమయీ",
+        "tamil": "காலதாபநமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Corrected from kālatāpaśamayī v1.1"
+    },
+    {
+      "id": "guru-siddha-002",
+      "sectionId": "guru-siddha",
+      "sequenceInChant": 32,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "dharmācāryamayī",
+        "devanagari": "धर्माचार्यमयी",
+        "english": "Dharmacharamayi",
+        "translation": null,
+        "marathi": "धर्माचार्यमयी",
+        "hindi": "धर्माचार्यमयी",
+        "telugu": "ధర్మాచార్యమయీ",
+        "tamil": "தர்மாசார்யமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-siddha-003",
+      "sectionId": "guru-siddha",
+      "sequenceInChant": 33,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "muktakēśīśvaramayī",
+        "devanagari": "मुक्तकेशीश्वरमयी",
+        "english": "Muktakeshishvaramayi",
+        "translation": null,
+        "marathi": "मुक्तकेशीश्वरमयी",
+        "hindi": "मुक्तकेशीश्वरमयी",
+        "telugu": "ముక్తకేశీశ్వరమయీ",
+        "tamil": "முக்தகேஶீஶ்வரமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-siddha-004",
+      "sectionId": "guru-siddha",
+      "sequenceInChant": 34,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "dīpakalānāthamayī",
+        "devanagari": "दीपकलानाथमयी",
+        "english": "Dipakalanatamayi",
+        "translation": null,
+        "marathi": "दीपकलानाथमयी",
+        "hindi": "दीपकलानाथमयी",
+        "telugu": "దీపకలానాథమయీ",
+        "tamil": "தீபகலாநாதமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-manava-001",
+      "sectionId": "guru-manava",
+      "sequenceInChant": 35,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "viṣṇudēvamayī",
+        "devanagari": "विष्णुदेवमयी",
+        "english": "Vishnu Devamayi",
+        "translation": null,
+        "marathi": "विष्णुदेवमयी",
+        "hindi": "विष्णुदेवमयी",
+        "telugu": "విష్ణుదేవమయీ",
+        "tamil": "விஷ்ணுதேவமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-manava-002",
+      "sectionId": "guru-manava",
+      "sequenceInChant": 36,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "prabhākaradēvamayī",
+        "devanagari": "प्रभाकरदेवमयी",
+        "english": "Prabhakara Devamayi",
+        "translation": null,
+        "marathi": "प्रभाकरदेवमयी",
+        "hindi": "प्रभाकरदेवमयी",
+        "telugu": "ప్రభాకరదేవమయీ",
+        "tamil": "ப்ரபாகரதேவமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-manava-003",
+      "sectionId": "guru-manava",
+      "sequenceInChant": 37,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tējōdēvamayī",
+        "devanagari": "तेजोदेवमयी",
+        "english": "Tejo Devamayi",
+        "translation": null,
+        "marathi": "तेजोदेवमयी",
+        "hindi": "तेजोदेवमयी",
+        "telugu": "తేజోదేవమయీ",
+        "tamil": "தேஜோதேவமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-manava-004",
+      "sectionId": "guru-manava",
+      "sequenceInChant": 38,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "manōjadēvamayī",
+        "devanagari": "मनोजदेवमयी",
+        "english": "Manoja Devamayi",
+        "translation": null,
+        "marathi": "मनोजदेवमयी",
+        "hindi": "मनोजदेवमयी",
+        "telugu": "మనోజదేవమయీ",
+        "tamil": "மநோஜதேவமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-manava-005",
+      "sectionId": "guru-manava",
+      "sequenceInChant": 39,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "kalyāṇadēvamayī",
+        "devanagari": "कल्याणदेवमयी",
+        "english": "Kalyana Devamayi",
+        "translation": null,
+        "marathi": "कल्याणदेवमयी",
+        "hindi": "कल्याणदेवमयी",
+        "telugu": "కల్యాణదేవమయీ",
+        "tamil": "கல்யாணதேவமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-manava-006",
+      "sectionId": "guru-manava",
+      "sequenceInChant": 40,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "vāsudēvamayī",
+        "devanagari": "वासुदेवमयी",
+        "english": "Vasudeva Devamayi",
+        "translation": null,
+        "marathi": "वासुदेवमयी",
+        "hindi": "वासुदेवमयी",
+        "telugu": "వాసుదేవమయీ",
+        "tamil": "வாஸுதேவமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-manava-007",
+      "sectionId": "guru-manava",
+      "sequenceInChant": 41,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "ratnadēvamayī",
+        "devanagari": "रत्नदेवमयी",
+        "english": "Ratna Devamayi",
+        "translation": null,
+        "marathi": "रत्नदेवमयी",
+        "hindi": "रत्नदेवमयी",
+        "telugu": "రత్నదేవమయీ",
+        "tamil": "ரத்நதேவமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "guru-manava-008",
+      "sectionId": "guru-manava",
+      "sequenceInChant": 42,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "śrīrāmānandamayī",
+        "devanagari": "श्रीरामानन्दमयी",
+        "english": "Shri Ramananda Mayi",
+        "translation": null,
+        "marathi": "श्रीरामानन्दमयी",
+        "hindi": "श्रीरामानन्दमयी",
+        "telugu": "శ్రీరామానన్దమయీ",
+        "tamil": "ஶ்ரீராமாநந்தமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "c1-siddhi-001",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 43,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "aṇimāsiddhē",
+        "devanagari": "अणिमासिद्धे",
+        "english": "Anima Siddhe",
+        "translation": "Power of Minuteness",
+        "marathi": "अणिमासिद्धे",
+        "hindi": "अणिमासिद्धे",
+        "telugu": "అణిమాసిద్ధే",
+        "tamil": "அணிமாஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-002",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 44,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "laghimāsiddhē",
+        "devanagari": "लघिमासिद्धे",
+        "english": "Laghima Siddhe",
+        "translation": "Power of Lightness",
+        "marathi": "लघिमासिद्धे",
+        "hindi": "लघिमासिद्धे",
+        "telugu": "లఘిమాసిద్ధే",
+        "tamil": "லகிமாஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-003",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 45,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "mahimāsiddhē",
+        "devanagari": "महिमासिद्धे",
+        "english": "Mahima Siddhe",
+        "translation": "Power of Greatness",
+        "marathi": "महिमासिद्धे",
+        "hindi": "महिमासिद्धे",
+        "telugu": "మహిమాసిద్ధే",
+        "tamil": "மஹிமாஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-004",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 46,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "īśitvasiddhē",
+        "devanagari": "ईशित्वसिद्धे",
+        "english": "Ishitva Siddhe",
+        "translation": "Power of Supremacy",
+        "marathi": "ईशित्वसिद्धे",
+        "hindi": "ईशित्वसिद्धे",
+        "telugu": "ఈశిత్వసిద్ధే",
+        "tamil": "ஈஶித்வஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-005",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 47,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "vaśitvasiddhē",
+        "devanagari": "वशित्वसिद्धे",
+        "english": "Vashitva Siddhe",
+        "translation": "Power of Subjugation",
+        "marathi": "वशित्वसिद्धे",
+        "hindi": "वशित्वसिद्धे",
+        "telugu": "వశిత్వసిద్ధే",
+        "tamil": "வஶித்வஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-006",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 48,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "prākāmyasiddhē",
+        "devanagari": "प्राकाम्यसिद्धे",
+        "english": "Prakamya Siddhe",
+        "translation": "Power of Irresistible Will",
+        "marathi": "प्राकाम्यसिद्धे",
+        "hindi": "प्राकाम्यसिद्धे",
+        "telugu": "ప్రాకామ్యసిద్ధే",
+        "tamil": "ப்ராகாம்யஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-007",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 49,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "bhuktisiddhē",
+        "devanagari": "भुक्तिसिद्धे",
+        "english": "Bhukti Siddhe",
+        "translation": "Power of Enjoyment",
+        "marathi": "भुक्तिसिद्धे",
+        "hindi": "भुक्तिसिद्धे",
+        "telugu": "భుక్తిసిద్ధే",
+        "tamil": "புக்திஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-008",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 50,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "icchāsiddhē",
+        "devanagari": "इच्छासिद्धे",
+        "english": "Iccha Siddhe",
+        "translation": "Power of Will",
+        "marathi": "इच्छासिद्धे",
+        "hindi": "इच्छासिद्धे",
+        "telugu": "ఇచ్ఛాసిద్ధే",
+        "tamil": "இச்சாஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-009",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 51,
+      "sequenceInSection": 9,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "prāptisiddhē",
+        "devanagari": "प्राप्तिसिद्धे",
+        "english": "Prapti Siddhe",
+        "translation": "Power of Attainment",
+        "marathi": "प्राप्तिसिद्धे",
+        "hindi": "प्राप्तिसिद्धे",
+        "telugu": "ప్రాప్తిసిద్ధే",
+        "tamil": "ப்ராப்திஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-010",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 52,
+      "sequenceInSection": 10,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
+        "iast": "sarvakāmasiddhē",
+        "devanagari": "सर्वकामसिद्धे",
+        "english": "Sarva Kama Siddhe",
+        "translation": "Perfection of All Desires",
+        "marathi": "सर्वकामसिद्धे",
+        "hindi": "सर्वकामसिद्धे",
+        "telugu": "సర్వకామసిద్ధే",
+        "tamil": "ஸர்வகாமஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Garima Siddhe removed per lineage v1.1 — 10 Siddhi Shaktis",
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-matrika-001",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 53,
+      "sequenceInSection": 11,
+      "role": "deity",
+      "group": "ashtaMatrika",
+      "scripts": {
+        "iast": "brāhmī",
+        "devanagari": "ब्राह्मी",
+        "english": "Brahmi",
+        "translation": "Shakti of Brahma",
+        "marathi": "ब्राह्मी",
+        "hindi": "ब्राह्मी",
+        "telugu": "బ్రాహ్మీ",
+        "tamil": "ப்ராஹ்மீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-matrika-002",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 54,
+      "sequenceInSection": 12,
+      "role": "deity",
+      "group": "ashtaMatrika",
+      "scripts": {
+        "iast": "māhēśvarī",
+        "devanagari": "माहेश्वरी",
+        "english": "Maheshvari",
+        "translation": "Shakti of Shiva",
+        "marathi": "माहेश्वरी",
+        "hindi": "माहेश्वरी",
+        "telugu": "మాహేశ్వరీ",
+        "tamil": "மாஹேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-matrika-003",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 55,
+      "sequenceInSection": 13,
+      "role": "deity",
+      "group": "ashtaMatrika",
+      "scripts": {
+        "iast": "kaumārī",
+        "devanagari": "कौमारी",
+        "english": "Kaumari",
+        "translation": "Shakti of Skanda",
+        "marathi": "कौमारी",
+        "hindi": "कौमारी",
+        "telugu": "కౌమారీ",
+        "tamil": "கௌமாரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-matrika-004",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 56,
+      "sequenceInSection": 14,
+      "role": "deity",
+      "group": "ashtaMatrika",
+      "scripts": {
+        "iast": "vaiṣṇavī",
+        "devanagari": "वैष्णवी",
+        "english": "Vaishnavi",
+        "translation": "Shakti of Vishnu",
+        "marathi": "वैष्णवी",
+        "hindi": "वैष्णवी",
+        "telugu": "వైష్ణవీ",
+        "tamil": "வைஷ்ணவீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-matrika-005",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 57,
+      "sequenceInSection": 15,
+      "role": "deity",
+      "group": "ashtaMatrika",
+      "scripts": {
+        "iast": "vārāhī",
+        "devanagari": "वाराही",
+        "english": "Varahi",
+        "translation": "Shakti of Varaha",
+        "marathi": "वाराही",
+        "hindi": "वाराही",
+        "telugu": "వారాహీ",
+        "tamil": "வாராஹீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-matrika-006",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 58,
+      "sequenceInSection": 16,
+      "role": "deity",
+      "group": "ashtaMatrika",
+      "scripts": {
+        "iast": "māhēndrī",
+        "devanagari": "माहेन्द्री",
+        "english": "Mahendri",
+        "translation": "Shakti of Indra",
+        "marathi": "माहेन्द्री",
+        "hindi": "माहेन्द्री",
+        "telugu": "మాహేన్ద్రీ",
+        "tamil": "மாஹேந்த்ரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-matrika-007",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 59,
+      "sequenceInSection": 17,
+      "role": "deity",
+      "group": "ashtaMatrika",
+      "scripts": {
+        "iast": "cāmuṇḍē",
+        "devanagari": "चामुण्डे",
+        "english": "Chamunde",
+        "translation": "Slayer of Chanda-Munda",
+        "marathi": "चामुण्डे",
+        "hindi": "चामुण्डे",
+        "telugu": "చాముణ్డే",
+        "tamil": "சாமுண்டே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-matrika-008",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 60,
+      "sequenceInSection": 18,
+      "role": "deity",
+      "group": "ashtaMatrika",
+      "scripts": {
+        "iast": "mahālakṣmī",
+        "devanagari": "महालक्ष्मी",
+        "english": "Maha Lakshmi",
+        "translation": "The Great Goddess of Abundance",
+        "marathi": "महालक्ष्मी",
+        "hindi": "महालक्ष्मी",
+        "telugu": "మహాలక్ష్మీ",
+        "tamil": "மஹாலக்ஷ்மீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-001",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 61,
+      "sequenceInSection": 19,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvasaṅkṣōbhiṇī",
+        "devanagari": "सर्वसङ्क्षोभिणी",
+        "english": "Sarva Sankshobhini",
+        "translation": "All-Agitating",
+        "marathi": "सर्वसङ्क्षोभिणी",
+        "hindi": "सर्वसङ्क्षोभिणी",
+        "telugu": "సర్వసఙ్క్షోభిణీ",
+        "tamil": "ஸர்வஸங்க்ஷோபிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-002",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 62,
+      "sequenceInSection": 20,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvavidrāviṇī",
+        "devanagari": "सर्वविद्राविणी",
+        "english": "Sarva Vidravini",
+        "translation": "All-Dispersing",
+        "marathi": "सर्वविद्राविणी",
+        "hindi": "सर्वविद्राविणी",
+        "telugu": "సర్వవిద్రావిణీ",
+        "tamil": "ஸர்வவித்ராவிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-003",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 63,
+      "sequenceInSection": 21,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvākarṣiṇī",
+        "devanagari": "सर्वाकर्षिणी",
+        "english": "Sarvakarshini",
+        "translation": "All-Attracting",
+        "marathi": "सर्वाकर्षिणी",
+        "hindi": "सर्वाकर्षिणी",
+        "telugu": "సర్వాకర్షిణీ",
+        "tamil": "ஸர்வாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-004",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 64,
+      "sequenceInSection": 22,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvavaśaṅkarī",
+        "devanagari": "सर्ववशङ्करी",
+        "english": "Sarva Vashankari",
+        "translation": "All-Subjugating",
+        "marathi": "सर्ववशङ्करी",
+        "hindi": "सर्ववशङ्करी",
+        "telugu": "సర్వవశఙ్కరీ",
+        "tamil": "ஸர்வவஶங்கரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-005",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 65,
+      "sequenceInSection": 23,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvōnmādinī",
+        "devanagari": "सर्वोन्मादिनी",
+        "english": "Sarvonmadini",
+        "translation": "All-Intoxicating",
+        "marathi": "सर्वोन्मादिनी",
+        "hindi": "सर्वोन्मादिनी",
+        "telugu": "సర్వోన్మాదినీ",
+        "tamil": "ஸர்வோந்மாதிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-006",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 66,
+      "sequenceInSection": 24,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvamahāṅkuśē",
+        "devanagari": "सर्वमहाङ्कुशे",
+        "english": "Sarva Mahankushe",
+        "translation": "Great All-Goading Hook",
+        "marathi": "सर्वमहाङ्कुशे",
+        "hindi": "सर्वमहाङ्कुशे",
+        "telugu": "సర్వమహాఙ్కుశే",
+        "tamil": "ஸர்வமஹாங்குஶே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-007",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 67,
+      "sequenceInSection": 25,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvakhēcarī",
+        "devanagari": "सर्वखेचरी",
+        "english": "Sarva Khechari",
+        "translation": "All Sky-Moving",
+        "marathi": "सर्वखेचरी",
+        "hindi": "सर्वखेचरी",
+        "telugu": "సర్వఖేచరీ",
+        "tamil": "ஸர்வகேசரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-008",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 68,
+      "sequenceInSection": 26,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvabījē",
+        "devanagari": "सर्वबीजे",
+        "english": "Sarva Bije",
+        "translation": "All Seed",
+        "marathi": "सर्वबीजे",
+        "hindi": "सर्वबीजे",
+        "telugu": "సర్వబీజే",
+        "tamil": "ஸர்வபீஜே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-009",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 69,
+      "sequenceInSection": 27,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvayōnē",
+        "devanagari": "सर्वयोने",
+        "english": "Sarva Yone",
+        "translation": "All Womb/Source",
+        "marathi": "सर्वयोने",
+        "hindi": "सर्वयोने",
+        "telugu": "సర్వయోనే",
+        "tamil": "ஸர்வயோநே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-mudra-010",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 70,
+      "sequenceInSection": 28,
+      "role": "deity",
+      "group": "mudraShakti",
+      "scripts": {
+        "iast": "sarvatrikhaṇḍē",
+        "devanagari": "सर्वत्रिखण्डे",
+        "english": "Sarva Trikhande",
+        "translation": "All Three-Sectioned",
+        "marathi": "सर्वत्रिखण्डे",
+        "hindi": "सर्वत्रिखण्डे",
+        "telugu": "సర్వత్రిఖణ్డే",
+        "tamil": "ஸர்வத்ரிகண்டே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-svamini",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 71,
+      "sequenceInSection": 29,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "trailōkyamōhana cakrasvāminī",
+        "devanagari": "त्रैलोक्यमोहन चक्रस्वामिनी",
+        "english": "Trailokya Mohana Chakra Svamini",
+        "translation": "Enchantress of the Three Worlds — Presiding Deity",
+        "marathi": "त्रैलोक्यमोहन चक्रस्वामिनी",
+        "hindi": "त्रैलोक्यमोहन चक्रस्वामिनी",
+        "telugu": "త్రైలోక్యమోహన చక్రస్వామినీ",
+        "tamil": "த்ரைலோக்யமோஹந சக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-yogini",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 72,
+      "sequenceInSection": 30,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "prakaṭayōginī",
+        "devanagari": "प्रकटयोगिनी",
+        "english": "Prakata Yogini",
+        "translation": "Manifest Yogini",
+        "marathi": "प्रकटयोगिनी",
+        "hindi": "प्रकटयोगिनी",
+        "telugu": "ప్రకటయోగినీ",
+        "tamil": "ப்ரகடயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c2-001",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 73,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "kāmākarṣiṇī",
+        "devanagari": "कामाकर्षिणी",
+        "english": "Kamakarshini",
+        "translation": "Attracting Desire/Kama",
+        "marathi": "कामाकर्षिणी",
+        "hindi": "कामाकर्षिणी",
+        "telugu": "కామాకర్షిణీ",
+        "tamil": "காமாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 0,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-002",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 74,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "buddhyākarṣiṇī",
+        "devanagari": "बुद्ध्याकर्षिणी",
+        "english": "Buddhyakarshini",
+        "translation": "Attracting Intellect",
+        "marathi": "बुद्ध्याकर्षिणी",
+        "hindi": "बुद्ध्याकर्षिणी",
+        "telugu": "బుద్ధ్యాకర్షిణీ",
+        "tamil": "புத்த்யாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 22.5,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-003",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 75,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "ahaṅkārākarṣiṇī",
+        "devanagari": "अहङ्काराकर्षिणी",
+        "english": "Ahankarakarshini",
+        "translation": "Attracting Ego",
+        "marathi": "अहङ्काराकर्षिणी",
+        "hindi": "अहङ्काराकर्षिणी",
+        "telugu": "అహఙ్కారాకర్షిణీ",
+        "tamil": "அஹங்காராகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 45,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-004",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 76,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "śabdākarṣiṇī",
+        "devanagari": "शब्दाकर्षिणी",
+        "english": "Shabdakarshini",
+        "translation": "Attracting Sound",
+        "marathi": "शब्दाकर्षिणी",
+        "hindi": "शब्दाकर्षिणी",
+        "telugu": "శబ్దాకర్షిణీ",
+        "tamil": "ஶப்தாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 67.5,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-005",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 77,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "sparśākarṣiṇī",
+        "devanagari": "स्पर्शाकर्षिणी",
+        "english": "Sparshakarshini",
+        "translation": "Attracting Touch",
+        "marathi": "स्पर्शाकर्षिणी",
+        "hindi": "स्पर्शाकर्षिणी",
+        "telugu": "స్పర్శాకర్షిణీ",
+        "tamil": "ஸ்பர்ஶாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 90,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-006",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 78,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "rūpākarṣiṇī",
+        "devanagari": "रूपाकर्षिणी",
+        "english": "Rupakarshini",
+        "translation": "Attracting Form",
+        "marathi": "रूपाकर्षिणी",
+        "hindi": "रूपाकर्षिणी",
+        "telugu": "రూపాకర్షిణీ",
+        "tamil": "ரூபாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 112.5,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-007",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 79,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "rasākarṣiṇī",
+        "devanagari": "रसाकर्षिणी",
+        "english": "Rasakarshini",
+        "translation": "Attracting Taste",
+        "marathi": "रसाकर्षिणी",
+        "hindi": "रसाकर्षिणी",
+        "telugu": "రసాకర్షిణీ",
+        "tamil": "ரஸாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 135,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-008",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 80,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "gandhākarṣiṇī",
+        "devanagari": "गन्धाकर्षिणी",
+        "english": "Gandhakarshini",
+        "translation": "Attracting Smell",
+        "marathi": "गन्धाकर्षिणी",
+        "hindi": "गन्धाकर्षिणी",
+        "telugu": "గన్ధాకర్షిణీ",
+        "tamil": "கந்தாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 157.5,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-009",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 81,
+      "sequenceInSection": 9,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "cittākarṣiṇī",
+        "devanagari": "चित्ताकर्षिणी",
+        "english": "Chittakarshini",
+        "translation": "Attracting Mind/Consciousness",
+        "marathi": "चित्ताकर्षिणी",
+        "hindi": "चित्ताकर्षिणी",
+        "telugu": "చిత్తాకర్షిణీ",
+        "tamil": "சித்தாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 180,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-010",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 82,
+      "sequenceInSection": 10,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "dhairyākarṣiṇī",
+        "devanagari": "धैर्याकर्षिणी",
+        "english": "Dhairyakarshini",
+        "translation": "Attracting Courage",
+        "marathi": "धैर्याकर्षिणी",
+        "hindi": "धैर्याकर्षिणी",
+        "telugu": "ధైర్యాకర్షిణీ",
+        "tamil": "தைர்யாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 202.5,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-011",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 83,
+      "sequenceInSection": 11,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "smṛtyākarṣiṇī",
+        "devanagari": "स्मृत्याकर्षिणी",
+        "english": "Smrityakarshini",
+        "translation": "Attracting Memory",
+        "marathi": "स्मृत्याकर्षिणी",
+        "hindi": "स्मृत्याकर्षिणी",
+        "telugu": "స్మృత్యాకర్షిణీ",
+        "tamil": "ஸ்மருத்யாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 225,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-012",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 84,
+      "sequenceInSection": 12,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "nāmākarṣiṇī",
+        "devanagari": "नामाकर्षिणी",
+        "english": "Namakarshini",
+        "translation": "Attracting Name",
+        "marathi": "नामाकर्षिणी",
+        "hindi": "नामाकर्षिणी",
+        "telugu": "నామాకర్షిణీ",
+        "tamil": "நாமாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 247.5,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-013",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 85,
+      "sequenceInSection": 13,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "bījākarṣiṇī",
+        "devanagari": "बीजाकर्षिणी",
+        "english": "Bijakarshini",
+        "translation": "Attracting Seed/Mantra",
+        "marathi": "बीजाकर्षिणी",
+        "hindi": "बीजाकर्षिणी",
+        "telugu": "బీజాకర్షిణీ",
+        "tamil": "பீஜாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 270,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-014",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 86,
+      "sequenceInSection": 14,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "ātmākarṣiṇī",
+        "devanagari": "आत्माकर्षिणी",
+        "english": "Atmakarshini",
+        "translation": "Attracting the Self/Soul",
+        "marathi": "आत्माकर्षिणी",
+        "hindi": "आत्माकर्षिणी",
+        "telugu": "ఆత్మాకర్షిణీ",
+        "tamil": "ஆத்மாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 292.5,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-015",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 87,
+      "sequenceInSection": 15,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "amṛtākarṣiṇī",
+        "devanagari": "अमृताकर्षिणी",
+        "english": "Amritakarshini",
+        "translation": "Attracting Nectar/Immortality",
+        "marathi": "अमृताकर्षिणी",
+        "hindi": "अमृताकर्षिणी",
+        "telugu": "అమృతాకర్షిణీ",
+        "tamil": "அமருதாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 315,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-016",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 88,
+      "sequenceInSection": 16,
+      "role": "deity",
+      "group": "guptaYogini",
+      "scripts": {
+        "iast": "śarīrākarṣiṇī",
+        "devanagari": "शरीराकर्षिणी",
+        "english": "Sharirakarsini",
+        "translation": "Attracting the Body",
+        "marathi": "शरीराकर्षिणी",
+        "hindi": "शरीराकर्षिणी",
+        "telugu": "శరీరాకర్షిణీ",
+        "tamil": "ஶரீராகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": 337.5,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-svamini",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 89,
+      "sequenceInSection": 17,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "sarvāśāparipūraka cakrasvāminī",
+        "devanagari": "सर्वाशापरिपूरक चक्रस्वामिनी",
+        "english": "Sarva Asha Paripuraka Chakra Svamini",
+        "translation": "Fulfiller of All Hopes — Presiding Deity",
+        "marathi": "सर्वाशापरिपूरक चक्रस्वामिनी",
+        "hindi": "सर्वाशापरिपूरक चक्रस्वामिनी",
+        "telugu": "సర్వాశాపరిపూరక చక్రస్వామినీ",
+        "tamil": "ஸர்வாஶாபரிபூரக சக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c2-yogini",
+      "sectionId": "circuit-2",
+      "sequenceInChant": 90,
+      "sequenceInSection": 18,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "guptayōginī",
+        "devanagari": "गुप्तयोगिनी",
+        "english": "Gupta Yogini",
+        "translation": "Secret Yogini",
+        "marathi": "गुप्तयोगिनी",
+        "hindi": "गुप्तयोगिनी",
+        "telugu": "గుప్తయోగినీ",
+        "tamil": "குப்தயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "c3-001",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 91,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "guptataraYogini",
+      "scripts": {
+        "iast": "anaṅgakusumē",
+        "devanagari": "अनङ्गकुसुमे",
+        "english": "Ananga Kusume",
+        "translation": "Flower of Love",
+        "marathi": "अनङ्गकुसुमे",
+        "hindi": "अनङ्गकुसुमे",
+        "telugu": "అనఙ్గకుసుమే",
+        "tamil": "அநங்ககுஸுமே"
+      },
+      "position": {
+        "angleDeg": 0,
+        "x": null,
+        "y": null
+      },
+      "note": "Represents speech",
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-002",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 92,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": "guptataraYogini",
+      "scripts": {
+        "iast": "anaṅgamēkhalē",
+        "devanagari": "अनङ्गमेखले",
+        "english": "Ananga Mekhale",
+        "translation": "Girdle of Love",
+        "marathi": "अनङ्गमेखले",
+        "hindi": "अनङ्गमेखले",
+        "telugu": "అనఙ్గమేఖలే",
+        "tamil": "அநங்கமேகலே"
+      },
+      "position": {
+        "angleDeg": 45,
+        "x": null,
+        "y": null
+      },
+      "note": "Represents grasping",
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-003",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 93,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": "guptataraYogini",
+      "scripts": {
+        "iast": "anaṅgamadanē",
+        "devanagari": "अनङ्गमदने",
+        "english": "Ananga Madane",
+        "translation": "Intoxication of Love",
+        "marathi": "अनङ्गमदने",
+        "hindi": "अनङ्गमदने",
+        "telugu": "అనఙ్గమదనే",
+        "tamil": "அநங்கமதநே"
+      },
+      "position": {
+        "angleDeg": 90,
+        "x": null,
+        "y": null
+      },
+      "note": "Represents sight",
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-004",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 94,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": "guptataraYogini",
+      "scripts": {
+        "iast": "anaṅgamadanāturē",
+        "devanagari": "अनङ्गमदनातुरे",
+        "english": "Ananga Madanature",
+        "translation": "Afflicted by Love",
+        "marathi": "अनङ्गमदनातुरे",
+        "hindi": "अनङ्गमदनातुरे",
+        "telugu": "అనఙ్గమదనాతురే",
+        "tamil": "அநங்கமதநாதுரே"
+      },
+      "position": {
+        "angleDeg": 135,
+        "x": null,
+        "y": null
+      },
+      "note": "Represents taste",
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-005",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 95,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": "guptataraYogini",
+      "scripts": {
+        "iast": "anaṅgarēkhē",
+        "devanagari": "अनङ्गरेखे",
+        "english": "Ananga Rekhe",
+        "translation": "Line/Mark of Love",
+        "marathi": "अनङ्गरेखे",
+        "hindi": "अनङ्गरेखे",
+        "telugu": "అనఙ్గరేఖే",
+        "tamil": "அநங்கரேகே"
+      },
+      "position": {
+        "angleDeg": 180,
+        "x": null,
+        "y": null
+      },
+      "note": "Represents smell",
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-006",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 96,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": "guptataraYogini",
+      "scripts": {
+        "iast": "anaṅgavēginī",
+        "devanagari": "अनङ्गवेगिनी",
+        "english": "Ananga Vegini",
+        "translation": "Speed of Love",
+        "marathi": "अनङ्गवेगिनी",
+        "hindi": "अनङ्गवेगिनी",
+        "telugu": "అనఙ్గవేగినీ",
+        "tamil": "அநங்கவேகிநீ"
+      },
+      "position": {
+        "angleDeg": 225,
+        "x": null,
+        "y": null
+      },
+      "note": "Represents thought",
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-007",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 97,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": "guptataraYogini",
+      "scripts": {
+        "iast": "anaṅgāṅkuśē",
+        "devanagari": "अनङ्गाङ्कुशे",
+        "english": "Anangankushe",
+        "translation": "Goad of Love",
+        "marathi": "अनङ्गाङ्कुशे",
+        "hindi": "अनङ्गाङ्कुशे",
+        "telugu": "అనఙ్గాఙ్కుశే",
+        "tamil": "அநங்காங்குஶே"
+      },
+      "position": {
+        "angleDeg": 270,
+        "x": null,
+        "y": null
+      },
+      "note": "Represents walking",
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-008",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 98,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": "guptataraYogini",
+      "scripts": {
+        "iast": "anaṅgamālinī",
+        "devanagari": "अनङ्गमालिनी",
+        "english": "Ananga Malini",
+        "translation": "Garland of Love",
+        "marathi": "अनङ्गमालिनी",
+        "hindi": "अनङ्गमालिनी",
+        "telugu": "అనఙ్గమాలినీ",
+        "tamil": "அநங்கமாலிநீ"
+      },
+      "position": {
+        "angleDeg": 315,
+        "x": null,
+        "y": null
+      },
+      "note": "Represents hearing",
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-svamini",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 99,
+      "sequenceInSection": 9,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "sarvasaṅkṣōbhaṇa cakrasvāminī",
+        "devanagari": "सर्वसङ्क्षोभणचक्रस्वामिनी",
+        "english": "Sarva Sankshobhana Chakra Svamini",
+        "translation": "All-Agitating — Presiding Deity",
+        "marathi": "सर्वसङ्क्षोभणचक्रस्वामिनी",
+        "hindi": "सर्वसङ्क्षोभणचक्रस्वामिनी",
+        "telugu": "సర్వసఙ్క్షోభణచక్రస్వామినీ",
+        "tamil": "ஸர்வஸங்க்ஷோபணசக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 3
+    },
+    {
+      "id": "c3-yogini",
+      "sectionId": "circuit-3",
+      "sequenceInChant": 100,
+      "sequenceInSection": 10,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "guptatarayōginī",
+        "devanagari": "गुप्ततरयोगिनी",
+        "english": "Guptatara Yogini",
+        "translation": "More Secret Yogini",
+        "marathi": "गुप्ततरयोगिनी",
+        "hindi": "गुप्ततरयोगिनी",
+        "telugu": "గుప్తతరయోగినీ",
+        "tamil": "குப்ததரயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 3
+    },
+    {
+      "id": "c4-001",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 101,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvasaṅkṣōbhiṇī",
+        "devanagari": "सर्वसङ्क्षोभिणी",
+        "english": "Sarva Sankshobhini",
+        "translation": "All-Agitating",
+        "marathi": "सर्वसङ्क्षोभिणी",
+        "hindi": "सर्वसङ्क्षोभिणी",
+        "telugu": "సర్వసఙ్క్షోభిణీ",
+        "tamil": "ஸர்வஸங்க்ஷோபிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-002",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 102,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvavidrāvinī",
+        "devanagari": "सर्वविद्राविनी",
+        "english": "Sarva Vidravini",
+        "translation": "All-Dispersing",
+        "marathi": "सर्वविद्राविनी",
+        "hindi": "सर्वविद्राविनी",
+        "telugu": "సర్వవిద్రావినీ",
+        "tamil": "ஸர்வவித்ராவிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-003",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 103,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvākarṣiṇī",
+        "devanagari": "सर्वाकर्षिणी",
+        "english": "Sarvakarshini",
+        "translation": "All-Attracting",
+        "marathi": "सर्वाकर्षिणी",
+        "hindi": "सर्वाकर्षिणी",
+        "telugu": "సర్వాకర్షిణీ",
+        "tamil": "ஸர்வாகர்ஷிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-004",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 104,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvahlādinī",
+        "devanagari": "सर्वह्लादिनी",
+        "english": "Sarva Hladini",
+        "translation": "All-Delighting",
+        "marathi": "सर्वह्लादिनी",
+        "hindi": "सर्वह्लादिनी",
+        "telugu": "సర్వహ్లాదినీ",
+        "tamil": "ஸர்வஹ்லாதிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-005",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 105,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvasammōhinī",
+        "devanagari": "सर्वसम्मोहिनी",
+        "english": "Sarva Sammohini",
+        "translation": "All-Deluding",
+        "marathi": "सर्वसम्मोहिनी",
+        "hindi": "सर्वसम्मोहिनी",
+        "telugu": "సర్వసమ్మోహినీ",
+        "tamil": "ஸர்வஸம்மோஹிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-006",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 106,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvastambhinī",
+        "devanagari": "सर्वस्तम्भिनी",
+        "english": "Sarva Stambhini",
+        "translation": "All-Paralyzing",
+        "marathi": "सर्वस्तम्भिनी",
+        "hindi": "सर्वस्तम्भिनी",
+        "telugu": "సర్వస్తమ్భినీ",
+        "tamil": "ஸர்வஸ்தம்பிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-007",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 107,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvajṛmbhiṇī",
+        "devanagari": "सर्वजृम्भिणी",
+        "english": "Sarva Jrimbhini",
+        "translation": "All-Expanding",
+        "marathi": "सर्वजृम्भिणी",
+        "hindi": "सर्वजृम्भिणी",
+        "telugu": "సర్వజృమ్భిణీ",
+        "tamil": "ஸர்வஜரும்பிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-008",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 108,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvavaśaṅkarī",
+        "devanagari": "सर्ववशङ्करी",
+        "english": "Sarva Vashankari",
+        "translation": "All-Subjugating",
+        "marathi": "सर्ववशङ्करी",
+        "hindi": "सर्ववशङ्करी",
+        "telugu": "సర్వవశఙ్కరీ",
+        "tamil": "ஸர்வவஶங்கரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-009",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 109,
+      "sequenceInSection": 9,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvarañjanī",
+        "devanagari": "सर्वरञ्जनी",
+        "english": "Sarva Ranjani",
+        "translation": "All-Pleasing",
+        "marathi": "सर्वरञ्जनी",
+        "hindi": "सर्वरञ्जनी",
+        "telugu": "సర్వరఞ్జనీ",
+        "tamil": "ஸர்வரஞ்ஜநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-010",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 110,
+      "sequenceInSection": 10,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvōnmādinī",
+        "devanagari": "सर्वोन्मादिनी",
+        "english": "Sarvonmadini",
+        "translation": "All-Maddening",
+        "marathi": "सर्वोन्मादिनी",
+        "hindi": "सर्वोन्मादिनी",
+        "telugu": "సర్వోన్మాదినీ",
+        "tamil": "ஸர்வோந்மாதிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-011",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 111,
+      "sequenceInSection": 11,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvārthasādhikē",
+        "devanagari": "सर्वार्थसाधिके",
+        "english": "Sarvartha Sadhike",
+        "translation": "Accomplisher of All Goals",
+        "marathi": "सर्वार्थसाधिके",
+        "hindi": "सर्वार्थसाधिके",
+        "telugu": "సర్వార్థసాధికే",
+        "tamil": "ஸர்வார்தஸாதிகே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-012",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 112,
+      "sequenceInSection": 12,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvasampattipūriṇī",
+        "devanagari": "सर्वसम्पत्तिपूरिणी",
+        "english": "Sarva Sampatti Purini",
+        "translation": "Fulfiller of All Wealth",
+        "marathi": "सर्वसम्पत्तिपूरिणी",
+        "hindi": "सर्वसम्पत्तिपूरिणी",
+        "telugu": "సర్వసమ్పత్తిపూరిణీ",
+        "tamil": "ஸர்வஸம்பத்திபூரிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-013",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 113,
+      "sequenceInSection": 13,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvamantramayī",
+        "devanagari": "सर्वमन्त्रमयी",
+        "english": "Sarva Mantramayi",
+        "translation": "Embodiment of All Mantras",
+        "marathi": "सर्वमन्त्रमयी",
+        "hindi": "सर्वमन्त्रमयी",
+        "telugu": "సర్వమన్త్రమయీ",
+        "tamil": "ஸர்வமந்த்ரமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-014",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 114,
+      "sequenceInSection": 14,
+      "role": "deity",
+      "group": "sampradayaYogini",
+      "scripts": {
+        "iast": "sarvadvandvakṣayaṅkarī",
+        "devanagari": "सर्वद्वन्द्वक्षयङ्करी",
+        "english": "Sarva Dvandva Kshayankari",
+        "translation": "Destroyer of All Dualities",
+        "marathi": "सर्वद्वन्द्वक्षयङ्करी",
+        "hindi": "सर्वद्वन्द्वक्षयङ्करी",
+        "telugu": "సర్వద్వన్ద్వక్షయఙ్కరీ",
+        "tamil": "ஸர்வத்வந்த்வக்ஷயங்கரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-svamini",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 115,
+      "sequenceInSection": 15,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "sarvasaubhāgyadāyaka cakrasvāminī",
+        "devanagari": "सर्वसौभाग्यदायक चक्रस्वामिनी",
+        "english": "Sarva Saubhagyadayaka Chakra Svamini",
+        "translation": "Bestower of All Good Fortune — Presiding Deity",
+        "marathi": "सर्वसौभाग्यदायक चक्रस्वामिनी",
+        "hindi": "सर्वसौभाग्यदायक चक्रस्वामिनी",
+        "telugu": "సర్వసౌభాగ్యదాయక చక్రస్వామినీ",
+        "tamil": "ஸர்வஸௌபாக்யதாயக சக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c4-yogini",
+      "sectionId": "circuit-4",
+      "sequenceInChant": 116,
+      "sequenceInSection": 16,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "sampradāyayōginī",
+        "devanagari": "सम्प्रदाययोगिनी",
+        "english": "Sampradaya Yogini",
+        "translation": "Traditional/Lineage Yogini",
+        "marathi": "सम्प्रदाययोगिनी",
+        "hindi": "सम्प्रदाययोगिनी",
+        "telugu": "సమ్ప్రదాయయోగినీ",
+        "tamil": "ஸம்ப்ரதாயயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "c5-001",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 117,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvasiddhipradē",
+        "devanagari": "सर्वसिद्धिप्रदे",
+        "english": "Sarva Siddhiprade",
+        "translation": "Bestower of All Perfections",
+        "marathi": "सर्वसिद्धिप्रदे",
+        "hindi": "सर्वसिद्धिप्रदे",
+        "telugu": "సర్వసిద్ధిప్రదే",
+        "tamil": "ஸர்வஸித்திப்ரதே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-002",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 118,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvasampatpradē",
+        "devanagari": "सर्वसम्पत्प्रदे",
+        "english": "Sarva Sampatprade",
+        "translation": "Bestower of All Wealth",
+        "marathi": "सर्वसम्पत्प्रदे",
+        "hindi": "सर्वसम्पत्प्रदे",
+        "telugu": "సర్వసమ్పత్ప్రదే",
+        "tamil": "ஸர்வஸம்பத்ப்ரதே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-003",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 119,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvapriyaṅkarī",
+        "devanagari": "सर्वप्रियङ्करी",
+        "english": "Sarva Priyankari",
+        "translation": "Maker of All that is Beloved",
+        "marathi": "सर्वप्रियङ्करी",
+        "hindi": "सर्वप्रियङ्करी",
+        "telugu": "సర్వప్రియఙ్కరీ",
+        "tamil": "ஸர்வப்ரியங்கரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-004",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 120,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvamaṅgaḻakāriṇī",
+        "devanagari": "सर्वमङ्गळकारिणी",
+        "english": "Sarva Mangalakaarini",
+        "translation": "Bringer of All Auspiciousness",
+        "marathi": "सर्वमङ्गळकारिणी",
+        "hindi": "सर्वमङ्गळकारिणी",
+        "telugu": "సర్వమఙ్గళకారిణీ",
+        "tamil": "ஸர்வமங்களகாரிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-005",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 121,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvakāmapradē",
+        "devanagari": "सर्वकामप्रदे",
+        "english": "Sarva Kamaprade",
+        "translation": "Fulfiller of All Desires",
+        "marathi": "सर्वकामप्रदे",
+        "hindi": "सर्वकामप्रदे",
+        "telugu": "సర్వకామప్రదే",
+        "tamil": "ஸர்வகாமப்ரதே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-006",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 122,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvaduḥkhavimōcanī",
+        "devanagari": "सर्वदुःखविमोचनी",
+        "english": "Sarva Duhkha Vimochani",
+        "translation": "Liberator from All Suffering",
+        "marathi": "सर्वदुःखविमोचनी",
+        "hindi": "सर्वदुःखविमोचनी",
+        "telugu": "సర్వదుఃఖవిమోచనీ",
+        "tamil": "ஸர்வதுஃகவிமோசநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-007",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 123,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvamṛtyupraśamanī",
+        "devanagari": "सर्वमृत्युप्रशमनी",
+        "english": "Sarva Mrityu Prashamani",
+        "translation": "Pacifier of All Deaths",
+        "marathi": "सर्वमृत्युप्रशमनी",
+        "hindi": "सर्वमृत्युप्रशमनी",
+        "telugu": "సర్వమృత్యుప్రశమనీ",
+        "tamil": "ஸர்வமருத்யுப்ரஶமநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-008",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 124,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvavighnanivāriṇī",
+        "devanagari": "सर्वविघ्ननिवारिणी",
+        "english": "Sarva Vighna Nivarini",
+        "translation": "Remover of All Obstacles",
+        "marathi": "सर्वविघ्ननिवारिणी",
+        "hindi": "सर्वविघ्ननिवारिणी",
+        "telugu": "సర్వవిఘ్ననివారిణీ",
+        "tamil": "ஸர்வவிக்நநிவாரிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-009",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 125,
+      "sequenceInSection": 9,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvāṅgasundarī",
+        "devanagari": "सर्वाङ्गसुन्दरी",
+        "english": "Sarva Anga Sundari",
+        "translation": "Beautiful in All Limbs",
+        "marathi": "सर्वाङ्गसुन्दरी",
+        "hindi": "सर्वाङ्गसुन्दरी",
+        "telugu": "సర్వాఙ్గసున్దరీ",
+        "tamil": "ஸர்வாங்கஸுந்தரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-010",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 126,
+      "sequenceInSection": 10,
+      "role": "deity",
+      "group": "kulottirnaYogini",
+      "scripts": {
+        "iast": "sarvasaubhāgyadāyinī",
+        "devanagari": "सर्वसौभाग्यदायिनी",
+        "english": "Sarva Saubhagya Dayini",
+        "translation": "Bestower of All Good Fortune",
+        "marathi": "सर्वसौभाग्यदायिनी",
+        "hindi": "सर्वसौभाग्यदायिनी",
+        "telugu": "సర్వసౌభాగ్యదాయినీ",
+        "tamil": "ஸர்வஸௌபாக்யதாயிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-svamini",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 127,
+      "sequenceInSection": 11,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "sarvārthasādhaka cakrasvāminī",
+        "devanagari": "सर्वार्थसाधक चक्रस्वामिनी",
+        "english": "Sarvartha Sadhaka Chakra Svamini",
+        "translation": "Accomplisher of All Goals — Presiding Deity",
+        "marathi": "सर्वार्थसाधक चक्रस्वामिनी",
+        "hindi": "सर्वार्थसाधक चक्रस्वामिनी",
+        "telugu": "సర్వార్థసాధక చక్రస్వామినీ",
+        "tamil": "ஸர்வார்தஸாதக சக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c5-yogini",
+      "sectionId": "circuit-5",
+      "sequenceInChant": 128,
+      "sequenceInSection": 12,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "kulōttīrṇayōginī",
+        "devanagari": "कुलोत्तीर्णयोगिनी",
+        "english": "Kulottirna Yogini",
+        "translation": "Yogini who Transcends the Kula",
+        "marathi": "कुलोत्तीर्णयोगिनी",
+        "hindi": "कुलोत्तीर्णयोगिनी",
+        "telugu": "కులోత్తీర్ణయోగినీ",
+        "tamil": "குலோத்தீர்ணயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "c6-001",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 129,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvajñē",
+        "devanagari": "सर्वज्ञे",
+        "english": "Sarvajna",
+        "translation": "Omniscient",
+        "marathi": "सर्वज्ञे",
+        "hindi": "सर्वज्ञे",
+        "telugu": "సర్వజ్ఞే",
+        "tamil": "ஸர்வஜ்ஞே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-002",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 130,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvaśaktē",
+        "devanagari": "सर्वशक्ते",
+        "english": "Sarva Shakte",
+        "translation": "Omnipotent",
+        "marathi": "सर्वशक्ते",
+        "hindi": "सर्वशक्ते",
+        "telugu": "సర్వశక్తే",
+        "tamil": "ஸர்வஶக்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-003",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 131,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvaiśvaryapradāyinī",
+        "devanagari": "सर्वैश्वर्यप्रदायिनी",
+        "english": "Sarvaishvarya Pradayini",
+        "translation": "Bestower of All Sovereignty",
+        "marathi": "सर्वैश्वर्यप्रदायिनी",
+        "hindi": "सर्वैश्वर्यप्रदायिनी",
+        "telugu": "సర్వైశ్వర్యప్రదాయినీ",
+        "tamil": "ஸர்வைஶ்வர்யப்ரதாயிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-004",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 132,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvajñānamayī",
+        "devanagari": "सर्वज्ञानमयी",
+        "english": "Sarva Jnanamayi",
+        "translation": "Embodiment of All Knowledge",
+        "marathi": "सर्वज्ञानमयी",
+        "hindi": "सर्वज्ञानमयी",
+        "telugu": "సర్వజ్ఞానమయీ",
+        "tamil": "ஸர்வஜ்ஞாநமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-005",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 133,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvavyādhivināśinī",
+        "devanagari": "सर्वव्याधिविनाशिनी",
+        "english": "Sarva Vyadhi Vinashini",
+        "translation": "Destroyer of All Disease",
+        "marathi": "सर्वव्याधिविनाशिनी",
+        "hindi": "सर्वव्याधिविनाशिनी",
+        "telugu": "సర్వవ్యాధివినాశినీ",
+        "tamil": "ஸர்வவ்யாதிவிநாஶிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-006",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 134,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvādhārasvarūpē",
+        "devanagari": "सर्वाधारस्वरूपे",
+        "english": "Sarvadhara Svarupe",
+        "translation": "The Form that Supports All",
+        "marathi": "सर्वाधारस्वरूपे",
+        "hindi": "सर्वाधारस्वरूपे",
+        "telugu": "సర్వాధారస్వరూపే",
+        "tamil": "ஸர்வாதாரஸ்வரூபே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-007",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 135,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvapāpaharē",
+        "devanagari": "सर्वपापहरे",
+        "english": "Sarva Papahare",
+        "translation": "Remover of All Sin",
+        "marathi": "सर्वपापहरे",
+        "hindi": "सर्वपापहरे",
+        "telugu": "సర్వపాపహరే",
+        "tamil": "ஸர்வபாபஹரே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-008",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 136,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvānandamayī",
+        "devanagari": "सर्वानन्दमयी",
+        "english": "Sarvananda Mayi",
+        "translation": "Embodiment of All Bliss",
+        "marathi": "सर्वानन्दमयी",
+        "hindi": "सर्वानन्दमयी",
+        "telugu": "సర్వానన్దమయీ",
+        "tamil": "ஸர்வாநந்தமயீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-009",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 137,
+      "sequenceInSection": 9,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvarakṣāsvarūpiṇī",
+        "devanagari": "सर्वरक्षास्वरूपिणी",
+        "english": "Sarva Raksha Svarupini",
+        "translation": "Form of All Protection",
+        "marathi": "सर्वरक्षास्वरूपिणी",
+        "hindi": "सर्वरक्षास्वरूपिणी",
+        "telugu": "సర్వరక్షాస్వరూపిణీ",
+        "tamil": "ஸர்வரக்ஷாஸ்வரூபிணீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-010",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 138,
+      "sequenceInSection": 10,
+      "role": "deity",
+      "group": "nigarbhaYogini",
+      "scripts": {
+        "iast": "sarvēpsitaphalapradē",
+        "devanagari": "सर्वेप्सितफलप्रदे",
+        "english": "Sarvepsita Phala Prade",
+        "translation": "Giver of All Desired Fruits",
+        "marathi": "सर्वेप्सितफलप्रदे",
+        "hindi": "सर्वेप्सितफलप्रदे",
+        "telugu": "సర్వేప్సితఫలప్రదే",
+        "tamil": "ஸர்வேப்ஸிதபலப்ரதே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-svamini",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 139,
+      "sequenceInSection": 11,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "sarvarakṣākara cakrasvāminī",
+        "devanagari": "सर्वरक्षाकरचक्रस्वामिनी",
+        "english": "Sarva Rakshakara Chakra Svamini",
+        "translation": "All-Protecting — Presiding Deity",
+        "marathi": "सर्वरक्षाकरचक्रस्वामिनी",
+        "hindi": "सर्वरक्षाकरचक्रस्वामिनी",
+        "telugu": "సర్వరక్షాకరచక్రస్వామినీ",
+        "tamil": "ஸர்வரக்ஷாகரசக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c6-yogini",
+      "sectionId": "circuit-6",
+      "sequenceInChant": 140,
+      "sequenceInSection": 12,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "nigarbhayōginī",
+        "devanagari": "निगर्भयोगिनी",
+        "english": "Nigarbha Yogini",
+        "translation": "Concealed/Womb Yogini",
+        "marathi": "निगर्भयोगिनी",
+        "hindi": "निगर्भयोगिनी",
+        "telugu": "నిగర్భయోగినీ",
+        "tamil": "நிகர்பயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "c7-001",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 141,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "rahasyaYogini",
+      "scripts": {
+        "iast": "vaśinī",
+        "devanagari": "वशिनी",
+        "english": "Vashini",
+        "translation": "Subjugating Power of Speech",
+        "marathi": "वशिनी",
+        "hindi": "वशिनी",
+        "telugu": "వశినీ",
+        "tamil": "வஶிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Vagdevi — Goddess of Speech",
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-002",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 142,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": "rahasyaYogini",
+      "scripts": {
+        "iast": "kāmēśvarī",
+        "devanagari": "कामेश्वरी",
+        "english": "Kameshvari",
+        "translation": "Goddess of Desire in Speech",
+        "marathi": "कामेश्वरी",
+        "hindi": "कामेश्वरी",
+        "telugu": "కామేశ్వరీ",
+        "tamil": "காமேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Vagdevi",
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-003",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 143,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": "rahasyaYogini",
+      "scripts": {
+        "iast": "mōdinī",
+        "devanagari": "मोदिनी",
+        "english": "Modini",
+        "translation": "Gladdening Speech",
+        "marathi": "मोदिनी",
+        "hindi": "मोदिनी",
+        "telugu": "మోదినీ",
+        "tamil": "மோதிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Vagdevi",
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-004",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 144,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": "rahasyaYogini",
+      "scripts": {
+        "iast": "vimalē",
+        "devanagari": "विमले",
+        "english": "Vimale",
+        "translation": "Pure Speech",
+        "marathi": "विमले",
+        "hindi": "विमले",
+        "telugu": "విమలే",
+        "tamil": "விமலே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Vagdevi",
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-005",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 145,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": "rahasyaYogini",
+      "scripts": {
+        "iast": "aruṇē",
+        "devanagari": "अरुणे",
+        "english": "Arune",
+        "translation": "Rosy/Dawn Speech",
+        "marathi": "अरुणे",
+        "hindi": "अरुणे",
+        "telugu": "అరుణే",
+        "tamil": "அருணே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Vagdevi",
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-006",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 146,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": "rahasyaYogini",
+      "scripts": {
+        "iast": "jayinī",
+        "devanagari": "जयिनी",
+        "english": "Jayini",
+        "translation": "Victorious Speech",
+        "marathi": "जयिनी",
+        "hindi": "जयिनी",
+        "telugu": "జయినీ",
+        "tamil": "ஜயிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Vagdevi",
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-007",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 147,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": "rahasyaYogini",
+      "scripts": {
+        "iast": "sarvēśvarī",
+        "devanagari": "सर्वेश्वरी",
+        "english": "Sarveshvari",
+        "translation": "Goddess of All Speech",
+        "marathi": "सर्वेश्वरी",
+        "hindi": "सर्वेश्वरी",
+        "telugu": "సర్వేశ్వరీ",
+        "tamil": "ஸர்வேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Vagdevi",
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-008",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 148,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": "rahasyaYogini",
+      "scripts": {
+        "iast": "kauḻinī",
+        "devanagari": "कौळिनी",
+        "english": "Kaulini",
+        "translation": "Of the Kula Lineage",
+        "marathi": "कौळिनी",
+        "hindi": "कौळिनी",
+        "telugu": "కౌళినీ",
+        "tamil": "கௌளிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": "Vagdevi",
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-svamini",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 149,
+      "sequenceInSection": 9,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "sarvarōgahara cakrasvāminī",
+        "devanagari": "सर्वरोगहरचक्रस्वामिनी",
+        "english": "Sarva Rogahara Chakra Svamini",
+        "translation": "Remover of All Disease — Presiding Deity",
+        "marathi": "सर्वरोगहरचक्रस्वामिनी",
+        "hindi": "सर्वरोगहरचक्रस्वामिनी",
+        "telugu": "సర్వరోగహరచక్రస్వామినీ",
+        "tamil": "ஸர்வரோகஹரசக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 7
+    },
+    {
+      "id": "c7-yogini",
+      "sectionId": "circuit-7",
+      "sequenceInChant": 150,
+      "sequenceInSection": 10,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "rahasyayōginī",
+        "devanagari": "रहस्ययोगिनी",
+        "english": "Rahasya Yogini",
+        "translation": "Secret Yogini",
+        "marathi": "रहस्ययोगिनी",
+        "hindi": "रहस्ययोगिनी",
+        "telugu": "రహస్యయోగినీ",
+        "tamil": "ரஹஸ்யயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 7
+    },
+    {
+      "id": "c8-001",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 151,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "atiRahasyaYogini",
+      "scripts": {
+        "iast": "bāṇinī",
+        "devanagari": "बाणिनी",
+        "english": "Banini",
+        "translation": "She Who Holds the Arrow",
+        "marathi": "बाणिनी",
+        "hindi": "बाणिनी",
+        "telugu": "బాణినీ",
+        "tamil": "பாணிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c8-002",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 152,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": "atiRahasyaYogini",
+      "scripts": {
+        "iast": "cāpinī",
+        "devanagari": "चापिनी",
+        "english": "Chapini",
+        "translation": "She Who Holds the Bow",
+        "marathi": "चापिनी",
+        "hindi": "चापिनी",
+        "telugu": "చాపినీ",
+        "tamil": "சாபிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c8-003",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 153,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": "atiRahasyaYogini",
+      "scripts": {
+        "iast": "pāśinī",
+        "devanagari": "पाशिनी",
+        "english": "Pashini",
+        "translation": "She Who Holds the Noose",
+        "marathi": "पाशिनी",
+        "hindi": "पाशिनी",
+        "telugu": "పాశినీ",
+        "tamil": "பாஶிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c8-004",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 154,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": "atiRahasyaYogini",
+      "scripts": {
+        "iast": "aṅkuśinī",
+        "devanagari": "अङ्कुशिनी",
+        "english": "Ankushini",
+        "translation": "She Who Holds the Goad",
+        "marathi": "अङ्कुशिनी",
+        "hindi": "अङ्कुशिनी",
+        "telugu": "అఙ్కుశినీ",
+        "tamil": "அங்குஶிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c8-005",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 155,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": "atiRahasyaYogini",
+      "scripts": {
+        "iast": "mahākāmēśvarī",
+        "devanagari": "महाकामेश्वरी",
+        "english": "Maha Kameshvari",
+        "translation": "Great Goddess of Desire",
+        "marathi": "महाकामेश्वरी",
+        "hindi": "महाकामेश्वरी",
+        "telugu": "మహాకామేశ్వరీ",
+        "tamil": "மஹாகாமேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c8-006",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 156,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": "atiRahasyaYogini",
+      "scripts": {
+        "iast": "mahāvajrēśvarī",
+        "devanagari": "महावज्रेश्वरी",
+        "english": "Maha Vajreshvari",
+        "translation": "Great Goddess of the Vajra",
+        "marathi": "महावज्रेश्वरी",
+        "hindi": "महावज्रेश्वरी",
+        "telugu": "మహావజ్రేశ్వరీ",
+        "tamil": "மஹாவஜ்ரேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c8-007",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 157,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": "atiRahasyaYogini",
+      "scripts": {
+        "iast": "mahābhagamālinī",
+        "devanagari": "महाभगमालिनी",
+        "english": "Maha Bhagamalini",
+        "translation": "Great Goddess Garlanded with Splendour",
+        "marathi": "महाभगमालिनी",
+        "hindi": "महाभगमालिनी",
+        "telugu": "మహాభగమాలినీ",
+        "tamil": "மஹாபகமாலிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c8-svamini",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 158,
+      "sequenceInSection": 8,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "sarvasiddhiprada cakrasvāminī",
+        "devanagari": "सर्वसिद्धिप्रदचक्रस्वामिनी",
+        "english": "Sarva Siddhiprada Chakra Svamini",
+        "translation": "Bestower of All Perfections — Presiding Deity",
+        "marathi": "सर्वसिद्धिप्रदचक्रस्वामिनी",
+        "hindi": "सर्वसिद्धिप्रदचक्रस्वामिनी",
+        "telugu": "సర్వసిద్ధిప్రదచక్రస్వామినీ",
+        "tamil": "ஸர்வஸித்திப்ரதசக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c8-yogini",
+      "sectionId": "circuit-8",
+      "sequenceInChant": 159,
+      "sequenceInSection": 9,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "atirahasyayōginī",
+        "devanagari": "अतिरहस्ययोगिनी",
+        "english": "Ati Rahasya Yogini",
+        "translation": "Most Secret Yogini",
+        "marathi": "अतिरहस्ययोगिनी",
+        "hindi": "अतिरहस्ययोगिनी",
+        "telugu": "అతిరహస్యయోగినీ",
+        "tamil": "அதிரஹஸ்யயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "c9-001",
+      "sectionId": "circuit-9",
+      "sequenceInChant": 160,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": "paraParaRahasyaYogini",
+      "scripts": {
+        "iast": "śrī śrī mahābhaṭṭārikē",
+        "devanagari": "श्री श्री महाभट्टारिके",
+        "english": "Shri Shri Maha Bhattarike",
+        "translation": "The Great Empress — Lalita Mahatripura Sundari",
+        "marathi": "श्री श्री महाभट्टारिके",
+        "hindi": "श्री श्री महाभट्टारिके",
+        "telugu": "శ్రీ శ్రీ మహాభట్టారికే",
+        "tamil": "ஶ்ரீ ஶ்ரீ மஹாபட்டாரிகே"
+      },
+      "position": {
+        "angleDeg": 0,
+        "x": 0,
+        "y": 0
+      },
+      "note": null,
+      "circuitNumber": 9
+    },
+    {
+      "id": "c9-svamini",
+      "sectionId": "circuit-9",
+      "sequenceInChant": 161,
+      "sequenceInSection": 2,
+      "role": "chakraSvamini",
+      "group": null,
+      "scripts": {
+        "iast": "sarvānandamaya cakrasvāminī",
+        "devanagari": "सर्वानन्दमयचक्रस्वामिनी",
+        "english": "Sarva Anandamaya Chakra Svamini",
+        "translation": "All-Blissful — Presiding Deity",
+        "marathi": "सर्वानन्दमयचक्रस्वामिनी",
+        "hindi": "सर्वानन्दमयचक्रस्वामिनी",
+        "telugu": "సర్వానన్దమయచక్రస్వామినీ",
+        "tamil": "ஸர்வாநந்தமயசக்ரஸ்வாமிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": 0,
+        "y": 0
+      },
+      "note": null,
+      "circuitNumber": 9
+    },
+    {
+      "id": "c9-yogini",
+      "sectionId": "circuit-9",
+      "sequenceInChant": 162,
+      "sequenceInSection": 3,
+      "role": "yoginiType",
+      "group": null,
+      "scripts": {
+        "iast": "parāpararahasyayōginī",
+        "devanagari": "परापररहस्ययोगिनी",
+        "english": "Para Para Rahasya Yogini",
+        "translation": "Supreme Secret Beyond Secret Yogini",
+        "marathi": "परापररहस्ययोगिनी",
+        "hindi": "परापररहस्ययोगिनी",
+        "telugu": "పరాపరరహస్యయోగినీ",
+        "tamil": "பராபரரஹஸ்யயோகிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": 0,
+        "y": 0
+      },
+      "note": null,
+      "circuitNumber": 9
+    },
+    {
+      "id": "chakreshvari-001",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 163,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tripurē",
+        "devanagari": "त्रिपुरे",
+        "english": "Tripure",
+        "translation": "Goddess of the Three Cities/Worlds",
+        "marathi": "त्रिपुरे",
+        "hindi": "त्रिपुरे",
+        "telugu": "త్రిపురే",
+        "tamil": "த்ரிபுரே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "chakreshvari-002",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 164,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tripurēśī",
+        "devanagari": "त्रिपुरेशी",
+        "english": "Tripureshi",
+        "translation": "Ruler of the Three Worlds",
+        "marathi": "त्रिपुरेशी",
+        "hindi": "त्रिपुरेशी",
+        "telugu": "త్రిపురేశీ",
+        "tamil": "த்ரிபுரேஶீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 2
+    },
+    {
+      "id": "chakreshvari-003",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 165,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tripurasundarī",
+        "devanagari": "त्रिपुरसुन्दरी",
+        "english": "Tripura Sundari",
+        "translation": "Beautiful Goddess of the Three Worlds",
+        "marathi": "त्रिपुरसुन्दरी",
+        "hindi": "त्रिपुरसुन्दरी",
+        "telugu": "త్రిపురసున్దరీ",
+        "tamil": "த்ரிபுரஸுந்தரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 3
+    },
+    {
+      "id": "chakreshvari-004",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 166,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tripuravāsinī",
+        "devanagari": "त्रिपुरवासिनी",
+        "english": "Tripura Vasini",
+        "translation": "Dweller of the Three Worlds",
+        "marathi": "त्रिपुरवासिनी",
+        "hindi": "त्रिपुरवासिनी",
+        "telugu": "త్రిపురవాసినీ",
+        "tamil": "த்ரிபுரவாஸிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 4
+    },
+    {
+      "id": "chakreshvari-005",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 167,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tripurāśrīḥ",
+        "devanagari": "त्रिपुराश्रीः",
+        "english": "Tripura Shri",
+        "translation": "Auspiciousness of the Three Worlds",
+        "marathi": "त्रिपुराश्रीः",
+        "hindi": "त्रिपुराश्रीः",
+        "telugu": "త్రిపురాశ్రీః",
+        "tamil": "த்ரிபுராஶ்ரீஃ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 5
+    },
+    {
+      "id": "chakreshvari-006",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 168,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tripuramālinī",
+        "devanagari": "त्रिपुरमालिनी",
+        "english": "Tripura Malini",
+        "translation": "Garlanded Goddess of the Three Worlds",
+        "marathi": "त्रिपुरमालिनी",
+        "hindi": "त्रिपुरमालिनी",
+        "telugu": "త్రిపురమాలినీ",
+        "tamil": "த்ரிபுரமாலிநீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 6
+    },
+    {
+      "id": "chakreshvari-007",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 169,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tripurasiddhē",
+        "devanagari": "त्रिपुरसिद्धे",
+        "english": "Tripura Siddhe",
+        "translation": "Perfected Goddess of the Three Worlds",
+        "marathi": "त्रिपुरसिद्धे",
+        "hindi": "त्रिपुरसिद्धे",
+        "telugu": "త్రిపురసిద్ధే",
+        "tamil": "த்ரிபுரஸித்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 7
+    },
+    {
+      "id": "chakreshvari-008",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 170,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "tripurāmbā",
+        "devanagari": "त्रिपुराम्बा",
+        "english": "Tripuramba",
+        "translation": "Mother of the Three Worlds",
+        "marathi": "त्रिपुराम्बा",
+        "hindi": "त्रिपुराम्बा",
+        "telugu": "త్రిపురామ్బా",
+        "tamil": "த்ரிபுராம்பா"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 8
+    },
+    {
+      "id": "chakreshvari-009",
+      "sectionId": "chakreshvari",
+      "sequenceInChant": 171,
+      "sequenceInSection": 9,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahātripurasundarī",
+        "devanagari": "महात्रिपुरसुन्दरी",
+        "english": "Maha Tripura Sundari",
+        "translation": "The Great Beautiful Goddess of the Three Worlds",
+        "marathi": "महात्रिपुरसुन्दरी",
+        "hindi": "महात्रिपुरसुन्दरी",
+        "telugu": "మహాత్రిపురసున్దరీ",
+        "tamil": "மஹாத்ரிபுரஸுந்தரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 9
+    },
+    {
+      "id": "closing-001",
+      "sectionId": "closing",
+      "sequenceInChant": 172,
+      "sequenceInSection": 1,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahēśvarī",
+        "devanagari": "महामहेश्वरी",
+        "english": "Maha Maheshvari",
+        "translation": "Great Great Goddess",
+        "marathi": "महामहेश्वरी",
+        "hindi": "महामहेश्वरी",
+        "telugu": "మహామహేశ్వరీ",
+        "tamil": "மஹாமஹேஶ்வரீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-002",
+      "sectionId": "closing",
+      "sequenceInChant": 173,
+      "sequenceInSection": 2,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahārājñī",
+        "devanagari": "महामहाराज्ञी",
+        "english": "Maha Maharajni",
+        "translation": "Great Great Queen",
+        "marathi": "महामहाराज्ञी",
+        "hindi": "महामहाराज्ञी",
+        "telugu": "మహామహారాజ్ఞీ",
+        "tamil": "மஹாமஹாராஜ்ஞீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-003",
+      "sectionId": "closing",
+      "sequenceInChant": 174,
+      "sequenceInSection": 3,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahāśaktē",
+        "devanagari": "महामहाशक्ते",
+        "english": "Maha Mahashakte",
+        "translation": "Great Great Power",
+        "marathi": "महामहाशक्ते",
+        "hindi": "महामहाशक्ते",
+        "telugu": "మహామహాశక్తే",
+        "tamil": "மஹாமஹாஶக்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-004",
+      "sectionId": "closing",
+      "sequenceInChant": 175,
+      "sequenceInSection": 4,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahāguptē",
+        "devanagari": "महामहागुप्ते",
+        "english": "Maha Mahagupte",
+        "translation": "Great Great Secret",
+        "marathi": "महामहागुप्ते",
+        "hindi": "महामहागुप्ते",
+        "telugu": "మహామహాగుప్తే",
+        "tamil": "மஹாமஹாகுப்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-005",
+      "sectionId": "closing",
+      "sequenceInChant": 176,
+      "sequenceInSection": 5,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahājñaptē",
+        "devanagari": "महामहाज्ञप्ते",
+        "english": "Maha Mahajnapte",
+        "translation": "Great Great Known One",
+        "marathi": "महामहाज्ञप्ते",
+        "hindi": "महामहाज्ञप्ते",
+        "telugu": "మహామహాజ్ఞప్తే",
+        "tamil": "மஹாமஹாஜ்ஞப்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-006",
+      "sectionId": "closing",
+      "sequenceInChant": 177,
+      "sequenceInSection": 6,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahānandē",
+        "devanagari": "महामहानन्दे",
+        "english": "Maha Mahanande",
+        "translation": "Great Great Bliss",
+        "marathi": "महामहानन्दे",
+        "hindi": "महामहानन्दे",
+        "telugu": "మహామహానన్దే",
+        "tamil": "மஹாமஹாநந்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-007",
+      "sectionId": "closing",
+      "sequenceInChant": 178,
+      "sequenceInSection": 7,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahāskandhē",
+        "devanagari": "महामहास्कन्धे",
+        "english": "Maha Mahaskandhe",
+        "translation": "Great Great Trunk/Support",
+        "marathi": "महामहास्कन्धे",
+        "hindi": "महामहास्कन्धे",
+        "telugu": "మహామహాస్కన్ధే",
+        "tamil": "மஹாமஹாஸ்கந்தே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-008",
+      "sectionId": "closing",
+      "sequenceInChant": 179,
+      "sequenceInSection": 8,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahāśayē",
+        "devanagari": "महामहाशये",
+        "english": "Maha Mahashaye",
+        "translation": "Great Great Resting Place",
+        "marathi": "महामहाशये",
+        "hindi": "महामहाशये",
+        "telugu": "మహామహాశయే",
+        "tamil": "மஹாமஹாஶயே"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-009",
+      "sectionId": "closing",
+      "sequenceInChant": 180,
+      "sequenceInSection": 9,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "mahāmahā śrīcakranagarasāmrājñī",
+        "devanagari": "महामहा श्रीचक्रनगरसाम्राज्ञी",
+        "english": "Maha Maha Shri Chakra Nagara Samrajni",
+        "translation": "Great Great Empress of the Shri Chakra City",
+        "marathi": "महामहा श्रीचक्रनगरसाम्राज्ञी",
+        "hindi": "महामहा श्रीचक्रनगरसाम्राज्ञी",
+        "telugu": "మహామహా శ్రీచక్రనగరసామ్రాజ్ఞీ",
+        "tamil": "மஹாமஹா ஶ்ரீசக்ரநகரஸாம்ராஜ்ஞீ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    },
+    {
+      "id": "closing-010",
+      "sectionId": "closing",
+      "sequenceInChant": 181,
+      "sequenceInSection": 10,
+      "role": "deity",
+      "group": null,
+      "scripts": {
+        "iast": "namastē namastē namastē namaḥ",
+        "devanagari": "नमस्ते नमस्ते नमस्ते नमः",
+        "english": "Namaste Namaste Namaste Namah",
+        "translation": "Salutations, Salutations, Salutations, I bow",
+        "marathi": "नमस्ते नमस्ते नमस्ते नमः",
+        "hindi": "नमस्ते नमस्ते नमस्ते नमः",
+        "telugu": "నమస్తే నమస్తే నమస్తే నమః",
+        "tamil": "நமஸ்தே நமஸ்தே நமஸ்தே நமஃ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null
+    }
+  ],
+  "lines": [
+    {
+      "id": "line-horizontal-mid",
+      "label": "Horizontal mid-line (left to right)",
+      "type": "predefined",
+      "direction": "left-to-right",
+      "note": "Deities aligned horizontally across circuits 4–7. Positions TBD — confirm against SVG geometry.",
+      "deityIds": [
+        "c4-011",
+        "c5-008",
+        "c6-007",
+        "c7-006",
+        "c7-004",
+        "c6-005",
+        "c5-004",
+        "c4-005"
+      ]
+    },
+    {
+      "id": "line-vertical-mid",
+      "label": "Vertical mid-line (bottom to top)",
+      "type": "predefined",
+      "direction": "bottom-to-top",
+      "note": "Deities aligned vertically across circuits 4–7. Positions TBD — confirm against SVG geometry.",
+      "deityIds": [
+        "c4-001",
+        "c5-001",
+        "c6-001",
+        "c7-001",
+        "c7-005",
+        "c6-006",
+        "c5-006",
+        "c4-008"
+      ]
+    }
+  ]
+}

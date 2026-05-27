@@ -15,6 +15,7 @@ import C8View from './components/C8View'
 import C9View from './components/C9View'
 import NavaChakreshvariView from './components/NavaChakreshvariView'
 import ClosingView from './components/ClosingView'
+import SpotCheckView from './components/SpotCheckView'
 import data from './data/khadgamala-canonical.json'
 import { displayName } from './utils.js'
 
@@ -49,6 +50,7 @@ const TABS = [
   { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: 'Deities of the Wheel of the 9th Veil', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: 'Circuit 9 · Bindu'    },
   { id: 'chakreshvari', navLabel: 'navacakrēśvarī nāmāni',         navLabelEn: 'Names of the Nine Chakras',            navLabelDev: 'नवचक्रेश्वरी नामानि', footerLabel: 'Nava Chakreshvarī'   },
   { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets and Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
+  { id: 'spotcheck',    navLabel: 'spot check',                    navLabelEn: 'Spot Check',                           navLabelDev: 'Spot Check',            footerLabel: 'Spot Check'           },
   { id: 'browser',      navLabel: 'Circuit Browser',               navLabelEn: 'Circuit Browser',                      navLabelDev: 'Circuit Browser',       footerLabel: 'Circuit Browser'      },
 ]
 
@@ -2384,6 +2386,31 @@ export default function App() {
         script={script}
       />
     )
+    if (activeTab === 'spotcheck') return (
+      <div className="px-5 py-6 space-y-4">
+        <p className="text-xs font-mono text-muted uppercase tracking-widest">Spot Check</p>
+        <p className="text-xs text-cream leading-relaxed">
+          All 181 deities in a random order. Hover to reveal the name, then mark your answer.
+        </p>
+        <div className="space-y-1.5 pt-1">
+          <div className="flex items-start gap-2">
+            <span className="text-green-400 text-xs mt-0.5">dbl-click</span>
+            <span className="text-xs text-muted">memorised</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-red-400 text-xs mt-0.5">click</span>
+            <span className="text-xs text-muted">not memorised</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-muted text-xs mt-0.5">skip →</span>
+            <span className="text-xs text-muted">pass without marking</span>
+          </div>
+        </div>
+        <p className="text-xs text-muted leading-relaxed pt-1 border-t border-surface-800">
+          Use the filter bar to focus on a single circuit or section.
+        </p>
+      </div>
+    )
     if (selectedDeity) return <DeityDetail deity={selectedDeity} script={script} />
     return <SectionInfo tabId={activeTab} script={script} />
   })()
@@ -2718,6 +2745,18 @@ export default function App() {
                 onToggleResult={handleClosingToggleResult}
                 flash={closingFlash}
                 onNavigate={handleNavigateToMemorise}
+              />
+            )}
+            {activeTab === 'spotcheck' && (
+              <SpotCheckView
+                script={script}
+                onUpdateStats={(c, t) =>
+                  setSessionStats(prev => ({
+                    correct: prev.correct + c,
+                    total:   prev.total   + t,
+                    rounds:  prev.rounds  + 1,
+                  }))
+                }
               />
             )}
             {activeTab === 'browser'      && <CircuitBrowser script={script} />}
