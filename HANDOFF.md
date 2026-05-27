@@ -65,6 +65,12 @@ git show 636da68:app/src/data/khadgamala-canonical.json > app/src/data/khadgamal
 - **Circuit Quiz mode**
 - **Sequence Drill mode**
 
+### Feature work — analytics
+- **Memo Map** — overlay performance data on the Sri Yantra diagram and/or circuit views. Colour-code each deity position: green = consistently memorised, amber = sometimes correct, red = not yet memorised. Draws from both Memo mode and Spot Check results.
+  - **Prerequisite:** results are currently ephemeral session state — they are lost on tab change / refresh. Memo Map requires persisted results (per deity, across sessions). Build a thin IndexedDB layer first (already specified in the architecture as the user-overlay store). Store `{ deityId, attempts, correct }` records and merge with canonical data at runtime.
+  - Once persisted, the map itself is a visual layer on SriYantraSVG (for circuits 2–9 with position data) + a grid/list view for sections without SVG positions (nyasa, nitya, gurus, closing).
+  - Consider: decay over time (older results count less) vs. simple cumulative — decide before implementing.
+
 ### Data
 - Multi-script: remaining vignanam.org scripts (research scraping approach before doing manually)
 
@@ -74,10 +80,13 @@ git show 636da68:app/src/data/khadgamala-canonical.json > app/src/data/khadgamal
 ---
 
 ## Git baseline
-Last commit: `636da68` — "Multi-script support: Telugu + Tamil; shared displayName utility"
-SpotCheckView + JSON repair NOT yet committed — commit from Windows terminal before next session:
+Last commit: `f2fa9c7` — "Spot Check mode; restore canonical JSON from truncation"
+
+Cleanup still needed (harmless but untidy):
 ```
+del "app\src\data\khadgamala-canonical.json.restored"
 git add -A
-git commit -m "Spot Check mode; restore canonical JSON from truncation"
+git commit -m "Remove temp .restored file"
 ```
+
 Git works from Windows terminal. OneDrive mount blocks git write operations from the Cowork sandbox (read-only git commands like `git log` work fine from sandbox).
