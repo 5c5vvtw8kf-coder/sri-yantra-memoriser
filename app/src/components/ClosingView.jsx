@@ -457,7 +457,7 @@ export default function ClosingView({
         <span style={{ color: GOLD, fontSize: '22px', lineHeight: 1 }}>↑</span>
         {memorise && !done && (
           <span style={{ color: CREAM, fontSize: '10px', whiteSpace: 'nowrap' }}>
-            Start here and move to the top
+            Ascend to the top from here
           </span>
         )}
       </div>

@@ -106,48 +106,6 @@ function DeityDot({ x, y, r, fill, selected, onClick, onDoubleClick, onContextMe
   )
 }
 
-function DeityPanel({ deity, script, onDismiss }) {
-  if (!deity) return null
-  const { scripts, sequenceInSection } = deity
-  const primary   = displayName(deity, script)
-  const isDevPrim = script === 'devanagari'
-  return (
-    <>
-      <div className="fixed inset-0 z-40" onClick={onDismiss} />
-      <div
-        className="fixed left-0 right-0 bottom-0 z-50 bg-surface-900 border-t border-surface-700 rounded-t-2xl shadow-2xl shadow-black/80"
-        style={{ maxHeight: '55vh', overflowY: 'auto' }}
-      >
-        <div className="flex justify-center pt-3 pb-1">
-          <div className="w-10 h-1 rounded-full bg-surface-600" />
-        </div>
-        <div className="px-5 pb-8 pt-2">
-          <div className="flex items-start justify-between mb-3">
-            <span className="text-xs font-mono text-gold-700 uppercase tracking-widest">
-              Āti Rahasya Yoginī · {sequenceInSection} of 7
-            </span>
-            <button onClick={onDismiss}
-              className="text-muted hover:text-cream transition-colors text-lg leading-none -mt-0.5">
-              ×
-            </button>
-          </div>
-          <h2 className={`${isDevPrim ? '' : 'iast'} text-gold-400 text-lg font-medium leading-snug mb-1`}>
-            {primary}
-          </h2>
-          {script !== 'iast' && scripts.iast && (
-            <p className="iast text-gold-600 text-sm mb-1">{scripts.iast}</p>
-          )}
-          {script !== 'english' && scripts.english && (
-            <p className="text-cream text-sm mb-2">{scripts.english}</p>
-          )}
-          {scripts.translation && (
-            <p className="text-muted text-xs italic">{scripts.translation}</p>
-          )}
-        </div>
-      </div>
-    </>
-  )
-}
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
@@ -269,7 +227,7 @@ export default function C8View({
             return (
               <DeityDot key={d.id}
                 x={pos[0]} y={pos[1]} r={14}
-                fill="#fff8c8"
+                fill={selectedId === d.id ? RED : "#fff8c8"}
                 selected={selectedId === d.id}
                 onClick={() => toggle(d.id)}
                 onMouseEnter={() => hover(d.id, pos[0], pos[1])}
@@ -380,10 +338,6 @@ export default function C8View({
 
       <div className="h-8" />
 
-      {/* Explore mode: deity panel */}
-      {!memorise && selectedDeity && (
-        <DeityPanel deity={selectedDeity} script={script} onDismiss={() => toggle(selectedDeity.id)} />
-      )}
     </div>
   )
 }

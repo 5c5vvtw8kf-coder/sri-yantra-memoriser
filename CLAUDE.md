@@ -1,8 +1,10 @@
-# Sri Yantra Memoriser — Project Brief
+# Sri Yantra Memoriser — for the Khadgamala Stotram
 
 ## What This Is
 
-A personal, cross-platform memorisation app to help Chris learn and internalise the structure of the Sri Yantra for chanting the Khadgamala Stotra. This is a fun weekend project — revenue potential is a secondary consideration. Enjoyment and learning come first.
+A personal, cross-platform memorisation app to help Chris learn and internalise the structure of the Sri Yantra for chanting the Khadgamala Stotram. This is a fun weekend project — revenue potential is a secondary consideration. Enjoyment and learning come first.
+
+**Name rationale:** The full title is *Sri Yantra Memoriser — for the Khadgamala Stotram*. The Sri Yantra leads because the interactive spatial geometry is the unique value proposition — something no existing app or PDF provides. The subtitle contextualises it for practitioners without demoting the yantra to a feature. "Khadgamala Stotram Memoriser" was considered and rejected: it sounds like a generic flashcard app, which this is not.
 
 ## Who Is Building It
 
@@ -10,11 +12,17 @@ Solo: Chris Hughes. Weekend-only work. No team, no deadlines, no client. The vib
 
 ## Target Users
 
-Three overlapping use cases — all three should be served:
+Three development stages, each building on the previous:
 
-1. **Chris (maintenance mode):** Already has the stotra largely memorised. Needs a clean revision tool and interactive reference to keep knowledge sharp without printed sheets.
-2. **Chris (knowledge decay recovery):** A structured way to re-learn if the chant fades after a period without practice.
-3. **Others starting from zero:** A genuine learning tool that encodes what Chris figured out the hard way, so others don't need to listen to recordings hundreds of times before names stick.
+**Stage 1 — Chris (primary user, now):**
+1. **Maintenance mode:** Already has the stotra largely memorised. Needs a clean revision tool and interactive reference to keep knowledge sharp without printed sheets.
+2. **Knowledge decay recovery:** A structured way to re-learn if the chant fades after a period without practice.
+
+**Stage 2 — Western practitioners:**
+People who have found the Khadgamala Stotram without a teacher or community, typically with no access to accessible learning tools. This group is motivated, will pay for a quality product, and is poorly served by existing resources (which assume Indian cultural context, Devanagari literacy, or access to a living teacher). This is the primary commercial target for Phase 1 commercialisation.
+
+**Stage 3 — Indian practitioners globally:**
+A large potential market but crowded with free content, recordings, and teachers. Commercialisation for this segment is a separate stage or project, to be considered only after Stage 2 is proven. Do not optimise for this group prematurely — it risks diluting the focus on what makes the app distinctive for Westerners.
 
 ## The Subject Matter
 
@@ -251,3 +259,7 @@ At the start of each session, Claude should:
 | Lineage editing | Option A: inline editing with IndexedDB overlay + JSON export/import |
 | Data source | vignanam.org Khadgamala Stotra (IAST version) as canonical baseline |
 | Backend | None — no database, no auth, no server |
+| App name | *Sri Yantra Memoriser — for the Khadgamala Stotram*. Sri Yantra leads; Khadgamala Stotram is the subtitle. |
+| App focus | The Sri Yantra spatial geometry is the unique differentiator. Keep it central. Do not let the app drift into a generic Khadgamala flashcard tool. |
+| Preamble sections (Prarthana, Dhyanam) | Include eventually for completeness, but only after the core spatial learning modes (Spot Check, Line Drill) are stable. They are text/sequence-based and require no yantra geometry work. |
+| Commercialisation sequence | Stage 1: build for Chris. Stage 2: Western practitioners (primary commercial target — motivated, underserved, will pay). Stage 3: Indian practitioners globally (separate stage; do not optimise for this group prematurely). |

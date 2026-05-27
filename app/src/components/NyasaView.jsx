@@ -368,7 +368,7 @@ export default function NyasaView({
             return (
               <DeityDot key={d.id}
                 x={pos[0]} y={pos[1]}
-                fill="#fff8c8"
+                fill={selectedId === d.id ? RED : "#fff8c8"}
                 selected={selectedId === d.id}
                 onClick={() => toggle(d.id)}
                 onMouseEnter={() => hover(d.id, pos[0], pos[1])}
@@ -381,7 +381,7 @@ export default function NyasaView({
           {!memorise && astraDeity && ASTRA_POSITIONS.map(([x, y], i) => (
             <DeityDot key={`astra-gate-${i}`}
               x={x} y={y}
-              fill="#fff8c8"
+              fill={selectedId === astraDeity.id ? RED : GOLD}
               selected={selectedId === astraDeity.id}
               onClick={() => toggle(astraDeity.id)}
               onMouseEnter={() => hover(astraDeity.id, x, y)}

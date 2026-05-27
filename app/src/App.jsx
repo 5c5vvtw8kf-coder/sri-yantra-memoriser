@@ -15,7 +15,7 @@ import C8View from './components/C8View'
 import C9View from './components/C9View'
 import NavaChakreshvariView from './components/NavaChakreshvariView'
 import ClosingView from './components/ClosingView'
-import SpotCheckView from './components/SpotCheckView'
+import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import data from './data/khadgamala-canonical.json'
 import { displayName } from './utils.js'
 
@@ -39,15 +39,15 @@ const TABS = [
   { id: 'nyasa',        navLabel: 'nyāsāṅga-devatāḥ',             navLabelEn: 'Nyāsa Deities',                         navLabelDev: 'न्यासांगदेवताः',        footerLabel: 'Nyāsa Deities'        },
   { id: 'inner',        navLabel: 'tithi-nitya-devatāḥ',           navLabelEn: 'Tithi Nitya Deities',                   navLabelDev: 'तिथिनित्यदेवताः',      footerLabel: 'Tithi Nitya'          },
   { id: 'gurava',       navLabel: 'guravaḥ',                       navLabelEn: 'Gurus',                                 navLabelDev: 'गुरवः',                 footerLabel: 'Guravaḥ'              },
-  { id: 'bhupura',      navLabel: 'cakra-prathamāvaraṇa-devatāḥ', navLabelEn: 'Deities of the Wheel of the 1st Veil', navLabelDev: 'चक्रप्रथमावरणदेवताः', footerLabel: 'Circuit 1 · Bhūpura' },
-  { id: 'c2',           navLabel: 'cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 2nd Veil', navLabelDev: 'चक्रद्वितीयावरणदेवताः',footerLabel: 'Circuit 2 · 16 petals'},
-  { id: 'c3',           navLabel: 'cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 3rd Veil', navLabelDev: 'चक्रतृतीयावरणदेवताः', footerLabel: 'Circuit 3 · 8 petals' },
-  { id: 'c4',           navLabel: 'cakra-caturthāvaraṇa-devatāḥ', navLabelEn: 'Deities of the Wheel of the 4th Veil', navLabelDev: 'चक्रचतुर्थावरणदेवताः',footerLabel: 'Circuit 4 · 14 △'    },
-  { id: 'c5',           navLabel: 'cakra-pañcamāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 5th Veil', navLabelDev: 'चक्रपञ्चमावरणदेवताः', footerLabel: 'Circuit 5 · 10 △'    },
-  { id: 'c6',           navLabel: 'cakra-ṣaṣṭhāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 6th Veil', navLabelDev: 'चक्रषष्ठावरणदेवताः',  footerLabel: 'Circuit 6 · 10 △'    },
-  { id: 'c7',           navLabel: 'cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 7th Veil', navLabelDev: 'चक्रसप्तमावरणदेवताः', footerLabel: 'Circuit 7 · 8 △'     },
-  { id: 'c8',           navLabel: 'cakra-aṣṭamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 8th Veil', navLabelDev: 'चक्राष्टमावरणदेवताः', footerLabel: 'Circuit 8 · Triangle' },
-  { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: 'Deities of the Wheel of the 9th Veil', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: 'Circuit 9 · Bindu'    },
+  { id: 'bhupura',      navLabel: 'cakra-prathamāvaraṇa-devatāḥ', navLabelEn: 'Deities of the Wheel of the 1st Veil', navLabelDev: 'चक्रप्रथमावरणदेवताः', footerLabel: '1st Āvaraṇa · Bhūpura' },
+  { id: 'c2',           navLabel: 'cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 2nd Veil', navLabelDev: 'चक्रद्वितीयावरणदेवताः',footerLabel: '2nd Āvaraṇa · 16 petals'},
+  { id: 'c3',           navLabel: 'cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 3rd Veil', navLabelDev: 'चक्रतृतीयावरणदेवताः', footerLabel: '3rd Āvaraṇa · 8 petals' },
+  { id: 'c4',           navLabel: 'cakra-caturthāvaraṇa-devatāḥ', navLabelEn: 'Deities of the Wheel of the 4th Veil', navLabelDev: 'चक्रचतुर्थावरणदेवताः',footerLabel: '4th Āvaraṇa · 14 △'    },
+  { id: 'c5',           navLabel: 'cakra-pañcamāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 5th Veil', navLabelDev: 'चक्रपञ्चमावरणदेवताः', footerLabel: '5th Āvaraṇa · 10 △'    },
+  { id: 'c6',           navLabel: 'cakra-ṣaṣṭhāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 6th Veil', navLabelDev: 'चक्रषष्ठावरणदेवताः',  footerLabel: '6th Āvaraṇa · 10 △'    },
+  { id: 'c7',           navLabel: 'cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 7th Veil', navLabelDev: 'चक्रसप्तमावरणदेवताः', footerLabel: '7th Āvaraṇa · 8 △'     },
+  { id: 'c8',           navLabel: 'cakra-aṣṭamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 8th Veil', navLabelDev: 'चक्राष्टमावरणदेवताः', footerLabel: '8th Āvaraṇa · Triangle' },
+  { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: 'Deities of the Wheel of the 9th Veil', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: '9th Āvaraṇa · Bindu'    },
   { id: 'chakreshvari', navLabel: 'navacakrēśvarī nāmāni',         navLabelEn: 'Names of the Nine Chakras',            navLabelDev: 'नवचक्रेश्वरी नामानि', footerLabel: 'Nava Chakreshvarī'   },
   { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets and Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
   { id: 'spotcheck',    navLabel: 'spot check',                    navLabelEn: 'Spot Check',                           navLabelDev: 'Spot Check',            footerLabel: 'Spot Check'           },
@@ -2238,6 +2238,13 @@ export default function App() {
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0, rounds: 0 })
   const handleResetSession = () => setSessionStats({ correct: 0, total: 0, rounds: 0 })
 
+  // ── Spot Check: filter, progress, skip ref ────────────────────────────────
+  const [scFilter,    setScFilter]    = useState('all')
+  const [scSubFilter, setScSubFilter] = useState(null)
+  const [scLimit,     setScLimit]     = useState(null)
+  const [scProgress, setScProgress] = useState({ idx: 0, total: 0, correct: 0, wrong: 0 })
+  const scSkipRef = useRef(null)
+
   // ── Handlers ───────────────────────────────────────────────────────────────
   const handleTabChange = (tabId) => {
     setActiveTab(tabId)
@@ -2387,28 +2394,148 @@ export default function App() {
       />
     )
     if (activeTab === 'spotcheck') return (
-      <div className="px-5 py-6 space-y-4">
-        <p className="text-xs font-mono text-muted uppercase tracking-widest">Spot Check</p>
-        <p className="text-xs text-cream leading-relaxed">
-          All 181 deities in a random order. Hover to reveal the name, then mark your answer.
-        </p>
-        <div className="space-y-1.5 pt-1">
-          <div className="flex items-start gap-2">
-            <span className="text-green-400 text-xs mt-0.5">dbl-click</span>
-            <span className="text-xs text-muted">memorised</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span className="text-red-400 text-xs mt-0.5">click</span>
-            <span className="text-xs text-muted">not memorised</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span className="text-muted text-xs mt-0.5">skip →</span>
-            <span className="text-xs text-muted">pass without marking</span>
+      <div className="px-5 py-6 space-y-5">
+        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">Spot Check</p>
+
+        {/* Filter buttons */}
+        <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>Segment</p>
+        <div className="flex flex-wrap gap-1.5">
+          {SC_FILTERS.map(f => (
+            <button
+              key={f.id}
+              onClick={() => { setScFilter(f.id); const filt = SC_FILTERS.find(sf => sf.id === f.id); const def = filt?.subFilters?.find(s => s.groupIds !== null); setScSubFilter(def?.id ?? null) }}
+              className={[
+                'px-2.5 py-1 rounded text-xs font-mono transition-colors',
+                scFilter === f.id
+                  ? 'bg-gold-400 text-surface-900 font-bold'
+                  : 'bg-surface-800 text-muted hover:text-cream',
+              ].join(' ')}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+
+        {/* Sub-filter row — shown when active segment has sub-groups */}
+        {(() => {
+          const activeFilt = SC_FILTERS.find(f => f.id === scFilter)
+          if (!activeFilt?.subFilters) return null
+          return (
+            <div className="flex gap-1">
+              {activeFilt.subFilters.map(s => (
+                <button
+                  key={s.id}
+                  onClick={() => setScSubFilter(s.id === 'c1-whole' || s.groupIds === null ? null : s.id)}
+                  className={[
+                    'flex-1 py-1 rounded text-xs font-mono transition-colors text-center',
+                    (s.groupIds === null ? scSubFilter === null : scSubFilter === s.id)
+                      ? 'bg-gold-400 text-surface-900 font-bold'
+                      : 'bg-surface-800 text-muted hover:text-cream',
+                  ].join(' ')}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          )
+        })()}
+
+        {/* Limit buttons */}
+        <div className="space-y-1.5">
+          <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>Round size</p>
+          <div className="flex gap-1.5">
+            {[10, 20, 50, 'whole'].map(n => (
+              <button
+                key={n}
+                onClick={() => setScLimit(n === 'whole' ? null : n)}
+                className={[
+                  'px-2.5 py-1 rounded text-xs font-mono transition-colors',
+                  (n === 'whole' ? scLimit === null : scLimit === n)
+                    ? 'bg-gold-400 text-surface-900 font-bold'
+                    : 'bg-surface-800 text-muted hover:text-cream',
+                ].join(' ')}
+              >
+                {n === 'whole' ? 'Whole' : n}
+              </button>
+            ))}
           </div>
         </div>
-        <p className="text-xs text-muted leading-relaxed pt-1 border-t border-surface-800">
-          Use the filter bar to focus on a single circuit or section.
-        </p>
+
+        {/* Progress */}
+        {scProgress.total > 0 && (
+          <div className="space-y-1.5">
+            <div className="flex justify-between text-xs text-muted">
+              <span>{scProgress.idx} / {scProgress.total}</span>
+              <span>
+                <span className="text-green-400">{scProgress.correct}✓</span>
+                {' '}
+                <span className="text-red-400">{scProgress.wrong}✗</span>
+              </span>
+            </div>
+            <div className="w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gold-400 rounded-full transition-all"
+                style={{ width: `${Math.round((scProgress.idx / scProgress.total) * 100)}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Skip button */}
+        <button
+          onClick={() => scSkipRef.current?.()}
+          className="w-full py-1.5 rounded bg-surface-800 text-xs text-muted hover:text-cream hover:bg-surface-700 transition-colors font-mono"
+        >
+          skip →
+        </button>
+
+        {/* Scores */}
+        {(scProgress.idx > 0 || sessionStats.total > 0) && (() => {
+          const roundPct  = scProgress.idx > 0 ? Math.round((scProgress.correct / scProgress.idx) * 100) : null
+          const sesCorrect = sessionStats.correct + scProgress.correct
+          const sesTotal   = sessionStats.total   + scProgress.idx
+          const sesPct     = sesTotal > 0 ? Math.round((sesCorrect / sesTotal) * 100) : null
+          return (
+            <div className="space-y-1.5 pt-1 border-t border-surface-800">
+              <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold" style={{ fontSize: '9px' }}>Scores</p>
+              {scProgress.idx > 0 && (
+                <div className="flex justify-between text-xs">
+                  <span className="text-muted">Round</span>
+                  <span>
+                    <span className="text-cream font-mono">{scProgress.correct}/{scProgress.idx}</span>
+                    <span className="text-muted ml-1.5">{roundPct}%</span>
+                  </span>
+                </div>
+              )}
+              {sesTotal > 0 && (
+                <div className="flex justify-between text-xs">
+                  <span className="text-muted">Session</span>
+                  <span>
+                    <span className="text-cream font-mono">{sesCorrect}/{sesTotal}</span>
+                    <span className="text-muted ml-1.5">{sesPct}%</span>
+                  </span>
+                </div>
+              )}
+            </div>
+          )
+        })()}
+
+        {/* Legend */}
+        <div className="space-y-1 pt-1 border-t border-surface-800">
+          <div className="flex items-center gap-2">
+            <span className="text-green-400 text-xs">dbl-click</span>
+            <span className="text-xs text-muted">memorised</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-red-400 text-xs">click</span>
+            <span className="text-xs text-muted">not memorised</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-muted text-xs">right-click</span>
+            <span className="text-xs text-muted">toggle selection</span>
+          </div>
+        </div>
       </div>
     )
     if (selectedDeity) return <DeityDetail deity={selectedDeity} script={script} />
@@ -2481,8 +2608,8 @@ export default function App() {
           <h1 className="iast text-gold-400 text-sm font-medium tracking-wide leading-tight">
             śrī yantra memoriser
           </h1>
-          <p className="mt-1" style={{ fontFamily: 'serif', color: '#c9a84c', opacity: 0.65, fontSize: '13px', letterSpacing: '0.04em' }}>
-            ॐ ऐं ह्रीं श्रीं
+          <p className="iast mt-0.5 text-muted italic" style={{ fontSize: '10px', letterSpacing: '0.03em' }}>
+            for the Khadgamala Stotram
           </p>
         </div>
 
@@ -2750,6 +2877,11 @@ export default function App() {
             {activeTab === 'spotcheck' && (
               <SpotCheckView
                 script={script}
+                filter={scFilter}
+                subFilter={scSubFilter}
+                limit={scLimit}
+                onProgressSync={p => setScProgress(p)}
+                onRegisterSkip={fn => { scSkipRef.current = fn }}
                 onUpdateStats={(c, t) =>
                   setSessionStats(prev => ({
                     correct: prev.correct + c,
