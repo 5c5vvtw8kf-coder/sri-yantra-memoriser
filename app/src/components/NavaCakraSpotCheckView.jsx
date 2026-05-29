@@ -133,6 +133,60 @@ function computeFills(activeCircuit, flashState) {
   return fills
 }
 
+// ── Answer SVG labels ─────────────────────────────────────────────────────────
+// SVG overlays sharing the yantra viewBox — scale with the container.
+
+function AnswerSVGLabel({ label, script }) {
+  const fontSize = script === 'devanagari' ? 16 : script === 'english' ? 15 : 14
+  const h        = script === 'devanagari' ? 30 : 28
+  const charW    = script === 'devanagari' ? 12 : script === 'telugu' ? 14 : script === 'tamil' ? 15 : script === 'english' ? 10 : 9
+  const w        = Math.max(80, label.length * charW + 24)
+  const tx = 260
+  const ty = 90
+  return (
+    <g pointerEvents="none">
+      <rect
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
+        width={w.toFixed(1)} height={h} rx={3}
+        fill="rgba(15,8,5,0.92)" stroke="rgba(201,168,76,0.45)" strokeWidth={0.7}
+      />
+      <text x={tx} y={ty} textAnchor="middle" dominantBaseline="middle"
+        fontSize={fontSize} fill="#c9a84c" fontFamily="serif">
+        {label}
+      </text>
+    </g>
+  )
+}
+
+function AnswerSVGLabel2({ line1, line2, script }) {
+  const fontSize = script === 'devanagari' ? 16 : script === 'english' ? 15 : 14
+  const lineH    = script === 'devanagari' ? 28 : 26
+  const charW    = script === 'devanagari' ? 12 : script === 'telugu' ? 14 : script === 'tamil' ? 15 : script === 'english' ? 10 : 9
+  const totalH   = lineH * 2 + 4
+  const w        = Math.max(80, Math.max(line1.length, line2.length) * charW + 24)
+  const tx = 260
+  const ty = 92   // shifted down slightly so top edge clears the viewBox
+  const y1 = ty - totalH / 2 + lineH / 2
+  const y2 = ty + totalH / 2 - lineH / 2
+  return (
+    <g pointerEvents="none">
+      <rect
+        x={(tx - w / 2).toFixed(1)} y={(ty - totalH / 2).toFixed(1)}
+        width={w.toFixed(1)} height={totalH} rx={3}
+        fill="rgba(15,8,5,0.92)" stroke="rgba(201,168,76,0.45)" strokeWidth={0.7}
+      />
+      <text x={tx} y={y1} textAnchor="middle" dominantBaseline="middle"
+        fontSize={fontSize} fill="#c9a84c" fontFamily="serif">
+        {line1}
+      </text>
+      <text x={tx} y={y2} textAnchor="middle" dominantBaseline="middle"
+        fontSize={fontSize} fill="#c9a84c" fontFamily="serif" opacity="0.65">
+        {line2}
+      </text>
+    </g>
+  )
+}
+
 // ── Completion overlay ────────────────────────────────────────────────────────
 
 function CompletionOverlay({ correct, total, onRestart }) {
@@ -309,64 +363,4 @@ export default function NavaCakraSpotCheckView({
 
             {/* Circuit 8: central triangle overlay (DFT5 apex clipped to DFT4 base) */}
             {parsed?.circuitNumber === 8 && (
-              <svg viewBox="45 55 430 430" xmlns="http://www.w3.org/2000/svg"
-                className="absolute inset-0 w-full h-full"
-                style={{ pointerEvents: 'none' }}>
-                <polygon
-                  points="260,283.301 248.565,263.193 271.435,263.193"
-                  fill={flash === 'correct' ? FLASH_RED : flash === 'wrong' ? FLASH_GOLD : HIGHLIGHT}
-                />
-              </svg>
-            )}
-
-            {/* Answer reveal overlay */}
-            {(hovered || flash) && answer && (
-              <div className="absolute inset-x-0 top-0 flex justify-center pt-5 pointer-events-none">
-                <div
-                  className="px-4 py-2 rounded-lg text-center"
-                  style={{
-                    background: 'rgba(15,8,5,0.92)',
-                    border: '1px solid rgba(201,168,76,0.45)',
-                    maxWidth: '85%',
-                  }}
-                >
-                  {parsed?.type === 'both' ? (
-                    <>
-                      <p className={`${script === 'devanagari' ? '' : 'iast'} text-gold-300`}
-                         style={{ fontSize: '15px', lineHeight: 1.4 }}>
-                        {svaminiAnswer}
-                      </p>
-                      <p className={`${script === 'devanagari' ? '' : 'iast'} text-gold-500`}
-                         style={{ fontSize: '15px', lineHeight: 1.4, marginTop: '2px' }}>
-                        {yoginiAnswer}
-                      </p>
-                    </>
-                  ) : (
-                    <p className={`${script === 'devanagari' ? '' : 'iast'} text-gold-300`}
-                       style={{ fontSize: '15px', lineHeight: 1.4 }}>
-                      {answer}
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
-
-          </div>
-        </div>
-      )}
-
-      {/* Instruction */}
-      {!done && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = change answer
-        </p>
-      )}
-
-      {/* Completion */}
-      {done && (
-        <CompletionOverlay correct={correct} total={total} onRestart={startNewRound} />
-      )}
-
-    </div>
-  )
-}
+              <svg v

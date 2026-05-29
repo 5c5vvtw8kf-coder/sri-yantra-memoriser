@@ -189,13 +189,7 @@ export default function C9View({
           )}
 
           {/* Explore hint */}
-          {!memorise && !selected && !hovered && (
-            <text x={250} y={630} textAnchor="middle"
-              fontSize="13" fill={GOLD} opacity="0.45"
-              fontFamily="serif" fontStyle="italic">
-              Tap the bindu to reveal the deity
-            </text>
-          )}
+
 
         </svg>
 
@@ -227,12 +221,13 @@ export default function C9View({
         )}
       </div>
 
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">sarvānandamaya cakra · parāpararahasyayōginī</p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          The central point — seat of Mahātripurasundarī
+      {!memorise && (
+        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+          Hover or click the dot to reveal the deity
         </p>
-      </div>
+      )}
+
+
 
       <div className="h-8" />
 

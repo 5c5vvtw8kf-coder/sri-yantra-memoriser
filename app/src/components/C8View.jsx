@@ -264,14 +264,7 @@ export default function C8View({
             )
           })()}
 
-          {/* Hint (explore only) */}
-          {!memorise && !selectedId && !hoveredDot && (
-            <text x={250} y={630} textAnchor="middle"
-              fontSize="13" fill={GOLD} opacity="0.45"
-              fontFamily="serif" fontStyle="italic">
-              Tap any position to reveal the deity
-            </text>
-          )}
+
 
 
         </svg>
@@ -307,18 +300,18 @@ export default function C8View({
       </div>
 
 
+      {!memorise && (
+        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+          Hover or click any dot to reveal the deity
+        </p>
+      )}
       {memorise && !done && (
         <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
           hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}
 
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">sarvasiddhiprada cakra · ātirahasya yoginī</p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          Primary triangle — seat of the three Mahā Shaktis
-        </p>
-      </div>
+
 
       <div className="h-8" />
 

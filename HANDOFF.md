@@ -65,6 +65,7 @@ Gold/red scheme standardised across all circuit views.
 4. **Circuit Browser** — Keep, repurpose, or remove?
 5. **American English variant** — UI strings only (Memorizer, Memorize). Future.
 6. **Preamble sections** (Prarthana, Dhyanam) — After core spatial modes are stable.
+7. **Śrī Meru 3D viewer** — STL file is in `cad/shri yantra.STL` (719 KB, binary). Render via Three.js STLLoader. Each tier maps to a circuit; highlight active circuit's tier in gold as user navigates tabs. Decide: right panel (narrow, 256 px) vs. expandable modal. Confirm STL has 9 discrete tiers before building per-tier highlighting. Do after Spot Check and Memo Map are solid.
 
 ---
 
@@ -85,11 +86,4 @@ git commit -m "Add IntroView, nav headings, progress dots, Sri Yantra display ta
 
 | File | Change |
 |------|--------|
-| `app/src/components/IntroView.jsx` | New — Welcome and Introduction page |
-| `app/src/App.jsx` | Nav headings, progress dots, NAVIGABLE_TABS, new tab renders, Sri Yantra pure display |
-| All `*View.jsx` circuit components | Click/double-click reversal, colour standardisation |
-| `app/src/data/khadgamala-canonical.json` | Data updates |
-
----
-
-*PTS Consulting (Australia) Pty Ltd — Sri Yantra Memoriser — internal*
+| `app/src/components/IntroView.jsx` 

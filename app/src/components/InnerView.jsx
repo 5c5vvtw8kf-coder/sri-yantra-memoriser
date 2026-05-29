@@ -250,14 +250,60 @@ export default function InnerView({
             const tEnd   = tStart + 0.20
             const [x1, y1] = lerp(APEX, BASE_R, tStart)
             const [x2, y2] = lerp(APEX, BASE_R, tEnd)
+            const ax1 = x1 + N_RIGHT[0] * off
+            const ay1 = y1 + N_RIGHT[1] * off
+            const ax2 = x2 + N_RIGHT[0] * off
+            const ay2 = y2 + N_RIGHT[1] * off
             return (
-              <line
-                x1={(x1 + N_RIGHT[0] * off).toFixed(1)}
-                y1={(y1 + N_RIGHT[1] * off).toFixed(1)}
-                x2={(x2 + N_RIGHT[0] * off).toFixed(1)}
-                y2={(y2 + N_RIGHT[1] * off).toFixed(1)}
-                stroke={GOLD} strokeWidth={2.5} opacity="0.65"
-                markerEnd="url(#flow-arrow-gold)" />
+              <g>
+                <line
+                  x1={ax1.toFixed(1)}
+                  y1={ay1.toFixed(1)}
+                  x2={ax2.toFixed(1)}
+                  y2={ay2.toFixed(1)}
+                  stroke={GOLD} strokeWidth={2.5} opacity="0.65"
+                  markerEnd="url(#flow-arrow-gold)" />
+                <text
+                  x={(ax1 + 12).toFixed(1)}
+                  y={(ay1 + 4).toFixed(1)}
+                  fontSize="12" fill={GOLD} opacity="0.65"
+                  fontFamily="serif" fontStyle="italic"
+                  textAnchor="start">
+                  Clockwise · waxing moon
+                </text>
+              </g>
+            )
+          })()}
+
+          {/* Flow arrow — left side near Citrā, anti-clockwise */}
+          {!memorise && (() => {
+            const off    = NITYA_OFFSET + 28
+            const tTail  = 0.88   // near Citrā
+            const tHead  = 0.68   // above Citrā — arrowhead points upward = anti-clockwise
+            const [x1, y1] = lerp(BASE_L, APEX, tTail)
+            const [x2, y2] = lerp(BASE_L, APEX, tHead)
+            const ax1 = x1 + N_LEFT[0] * off
+            const ay1 = y1 + N_LEFT[1] * off
+            const ax2 = x2 + N_LEFT[0] * off
+            const ay2 = y2 + N_LEFT[1] * off
+            return (
+              <g>
+                <line
+                  x1={ax1.toFixed(1)}
+                  y1={ay1.toFixed(1)}
+                  x2={ax2.toFixed(1)}
+                  y2={ay2.toFixed(1)}
+                  stroke={GOLD} strokeWidth={2.5} opacity="0.65"
+                  markerEnd="url(#flow-arrow-gold)" />
+                <text
+                  x={(ax1 - 8).toFixed(1)}
+                  y={(ay1 + 4).toFixed(1)}
+                  fontSize="12" fill={GOLD} opacity="0.65"
+                  fontFamily="serif" fontStyle="italic"
+                  textAnchor="end">
+                  Anti-clockwise · waning moon
+                </text>
+              </g>
             )
           })()}
 
@@ -331,14 +377,7 @@ export default function InnerView({
             />
           )}
 
-          {/* Hint (explore only) */}
-          {!memorise && !selectedId && !hoveredDot && (
-            <text x={250} y={590} textAnchor="middle"
-              fontSize="14" fill={GOLD} opacity="0.50"
-              fontFamily="serif" fontStyle="italic">
-              Tap any position to reveal the deity
-            </text>
-          )}
+
 
 
         </svg>
@@ -349,46 +388,4 @@ export default function InnerView({
                style={{ background: 'rgba(15,8,5,0.82)' }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
                  style={{ maxWidth: '15rem', margin: '0 1rem' }}>
-              <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">tithi nitya dēvatāḥ</p>
-              <p className="text-cream text-sm">
-                {Object.values(results).filter(v => v === 'correct').length === TOTAL
-                  ? 'All memorised — well done!'
-                  : 'Round complete.'}
-              </p>
-              <p className="text-muted text-xs">
-                {Object.values(results).filter(v => v === 'correct').length}/{TOTAL} memorised
-              </p>
-              <div className="flex flex-col gap-2 pt-1">
-                <button onClick={onStartMemorise}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors">
-                  Try again
-                </button>
-                <button onClick={() => onNavigate && onNavigate('gurava')}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
-                  Next →
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-
-      {memorise && !done && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
-
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">tithi nitya dēvatāḥ</p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          16 Nitya Devatas — the eternal faces of the Goddess
-        </p>
-      </div>
-
-      <div className="h-8" />
-
-    </div>
-  )
-}
+             

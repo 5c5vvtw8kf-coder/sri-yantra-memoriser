@@ -110,8 +110,8 @@ function dotsForSeq(seq) {
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 15 : script === 'english' ? 14 : 13
-  const h        = 30
+  const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
+  const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
   const charW    = script === 'devanagari' ? 14 : script === 'english' ? 11.5 : 10.5
   const w        = Math.max(60, label.length * charW + 18)
   const tx       = Math.min(Math.max(x, w / 2 + 4), 496 - w / 2)
@@ -362,9 +362,4 @@ export default function NyasaSpotCheckView({
 
       {/* Completion */}
       {done && (
-        <CompletionOverlay correct={correct} total={total} onRestart={startNewRound} />
-      )}
-
-    </div>
-  )
-}
+        <CompletionOverlay correct={correct} total={tota

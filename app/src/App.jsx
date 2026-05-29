@@ -417,13 +417,165 @@ function SectionInfo({ tabId, script = 'iast' }) {
       )
     }
 
+    if (tabId === 'inner') {
+      return (
+        <div className="p-4 space-y-2">
+          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
+            tithi nitya dēvatāḥ
+          </p>
+          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
+            ṣoḍaśa nitya dēvī
+          </h2>
+          <p className="text-cream text-xs leading-relaxed">
+            The sixteen eternal aspects of the Goddess, each presiding over one lunar day.
+          </p>
+          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
+              <span className="text-cream">After the Nyāsāṅga Devatāḥ</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
+              <span className="text-cream">16 devatāḥ</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">First</span>
+              <span className="iast text-gold-500">Kāmēśvarī</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Last</span>
+              <span className="iast text-gold-500">Mahā Nityē</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Waxing moon</span>
+              <span className="text-cream">Clockwise from Kāmēśvarī</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Waning moon</span>
+              <span className="iast text-cream">Anti-clockwise from Citrā</span>
+            </div>
+          </div>
+          <p className="text-muted text-xs italic pt-2 leading-relaxed">
+            Hover a dot to reveal the deity
+          </p>
+        </div>
+      )
+    }
+
+    if (tabId === 'gurava') {
+      return (
+        <div className="p-4 space-y-2">
+          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
+            guravaḥ
+          </p>
+          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
+            divyaugha · siddhaugha · mānavaugha
+          </h2>
+          <p className="text-cream text-xs leading-relaxed">
+            Three lineages transmitting the teaching from the divine source to the human practitioner.
+          </p>
+          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
+              <span className="text-cream">After the Tithi Nitya Devatāḥ</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
+              <span className="text-cream">19 gurus (7 + 4 + 8)</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Divyaugha</span>
+              <span className="text-cream">7 — divine lineage</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Siddhaugha</span>
+              <span className="text-cream">4 — siddha lineage</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Mānavaugha</span>
+              <span className="text-cream">8 — human lineage</span>
+            </div>
+          </div>
+          <p className="text-muted text-xs italic pt-2 leading-relaxed">
+            Hover a dot to reveal the deity
+          </p>
+        </div>
+      )
+    }
+
+    if (tabId === 'nyasa') {
+      return (
+        <div className="p-4 space-y-2">
+          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
+            nyāsāṅga dēvatāḥ
+          </p>
+          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
+            ṣaḍ-aṅga nyāsa
+          </h2>
+          <p className="text-cream text-xs leading-relaxed">
+            Six limb-deities invoked at the opening of the stotra — each consecrates a part of the body and the subtle body before worship begins.
+          </p>
+          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
+              <span className="text-cream">After the opening invocation</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
+              <span className="text-cream">6 devatāḥ</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Deities</span>
+              <span className="iast text-cream">Hṛdaya · Śiro · Śikhā · Kavaca · Netra · Astra</span>
+            </div>
+          </div>
+          <p className="text-muted text-xs italic pt-2 leading-relaxed">
+            Hover a dot to reveal the deity
+          </p>
+        </div>
+      )
+    }
+
+    if (tabId === 'chakreshvari') {
+      return (
+        <div className="p-4 space-y-2">
+          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
+            navacakrēśvarī nāmāni
+          </p>
+          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
+            nava tripurā rūpāṇi
+          </h2>
+          <p className="text-cream text-xs leading-relaxed">
+            Nine Tripurā forms — one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.
+          </p>
+          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
+              <span className="text-cream">After the nine circuits</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
+              <span className="text-cream">9 devatāḥ</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Outermost</span>
+              <span className="iast text-gold-500">Tripurā (Circuit 1)</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Innermost</span>
+              <span className="iast text-gold-500">Mahātripurasundarī (Circuit 9)</span>
+            </div>
+          </div>
+          <p className="text-muted text-xs italic pt-2 leading-relaxed">
+            Tap a dot to reveal the Tripurā form
+          </p>
+        </div>
+      )
+    }
+
     const hints = {
-      nyasa:   'Tap a dot to reveal one of the six Nyāsāṅga Devatāḥ',
-      inner:   'Tap a dot to reveal one of the 16 Tithi Nitya Devatāḥ',
-      gurava:  'Tap a dot to reveal a guru from the divine lineage',
       c8:           'Tap a position to reveal one of the 7 deities of Circuit 8',
       c9:           'Tap the bindu to reveal the deity of Circuit 9',
-      chakreshvari: 'Tap a dot to reveal the Tripura form presiding over that circuit',
       browser: null,
     }
     const hint = hints[tabId]
@@ -2355,21 +2507,6 @@ export default function App() {
           )
         })()}
 
-        {/* Legend */}
-        <div className="space-y-1 pt-1 border-t border-surface-800">
-          <div className="flex items-center gap-2">
-            <span className="text-red-400 text-xs">click</span>
-            <span className="text-xs text-muted">memorised</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-gold-400 text-xs">dbl-click</span>
-            <span className="text-xs text-muted">not memorised</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-muted text-xs">right-click</span>
-            <span className="text-xs text-muted">toggle selection</span>
-          </div>
-        </div>
       </div>
     )
     if (selectedDeity) return <DeityDetail deity={selectedDeity} script={script} />
@@ -2525,13 +2662,21 @@ export default function App() {
         <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto pt-8">
           <div className="w-full" style={{ maxWidth: 'min(100%, calc(100vh - 6rem))' }}>
             {activeTab === 'yantra'  && (
-              <div className="p-4">
-                <SriYantraSVG
-                  showTriangles={true}
-                  showLabels={false}
-                  showNumbers={false}
-                  filledRegions={MODEL_YANTRA_FILLS}
-                />
+              <div className="w-full p-4">
+                <div
+                  className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+                  style={{ paddingBottom: '100%' }}
+                >
+                  <div className="absolute inset-0">
+                    <SriYantraSVG
+                      className="w-full h-full"
+                      showTriangles={true}
+                      showLabels={false}
+                      showNumbers={false}
+                      filledRegions={MODEL_YANTRA_FILLS}
+                    />
+                  </div>
+                </div>
               </div>
             )}
             {activeTab === 'nyasa'   && <NyasaView
@@ -2796,12 +2941,88 @@ export default function App() {
 
       {/* ── Right panel ──────────────────────────────────────────────────── */}
       <aside className="w-64 flex-shrink-0 border-l border-surface-800 flex flex-col"
-             style={{ display: activeTab === 'yantra' ? 'none' : undefined }}>
+             style={{ visibility: activeTab === 'yantra' ? 'hidden' : undefined }}>
 
         {/* Scrollable info area */}
         <div className="flex-1 overflow-y-auto min-h-0">
           {rightPanel}
         </div>
+
+        {/* Nyasa Memorise controls */}
+        {activeTab === 'nyasa' && (
+          <div className="flex-shrink-0 border-t border-surface-800 p-3 space-y-2.5">
+            <div className="flex gap-1.5">
+              <button
+                onClick={handleNyasaExitMemorise}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  !nyasaMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
+                }`}
+              >Explore</button>
+              <button
+                onClick={handleNyasaStartMemorise}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  nyasaMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
+                }`}
+              >Memorise</button>
+              {nyasaMemorise && (
+                <button onClick={handleNyasaStartMemorise} title="Reset" className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
+              )}
+            </div>
+            {nyasaMemorise && nyasaCurrentSeq <= 6 && (() => {
+              const correctCount = Object.values(nyasaResults).filter(v => v === 'correct').length
+              return (
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-1.5 rounded-full bg-surface-700 overflow-hidden">
+                    <div className="h-full rounded-full bg-gold-600 transition-all duration-300"
+                         style={{ width: `${((nyasaCurrentSeq - 1) / 6) * 100}%` }} />
+                  </div>
+                  <span className="text-xs text-muted font-mono whitespace-nowrap">
+                    {nyasaCurrentSeq - 1} / 6
+                    {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
+                  </span>
+                </div>
+              )
+            })()}
+            {nyasaPrevResults !== null && (
+              <div className="pt-1 border-t border-surface-700 space-y-1">
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                {(() => {
+                  const correct = Object.values(nyasaPrevResults).filter(v => v === 'correct').length
+                  return (
+                    <p className="text-xs">
+                      <span className="text-red-400">{correct}/6 memorised</span>
+                      {6 - correct > 0 && <span className="text-muted"> · {6 - correct} not memorised</span>}
+                    </p>
+                  )
+                })()}
+              </div>
+            )}
+            {nyasaPrevResults !== null && (() => {
+              const notMem = deities
+                .filter(d => d.sectionId === 'nyasa')
+                .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+                .filter(d => nyasaPrevResults[d.sequenceInSection] !== 'correct')
+                .map(d => displayName(d, script))
+              if (notMem.length === 0) return null
+              return (
+                <div className="pt-1 border-t border-surface-700 space-y-1">
+                  <button className="flex items-center justify-between w-full text-left"
+                    onClick={() => setShowErrors(e => !e)}>
+                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Not memorised ({notMem.length})</span>
+                    <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
+                  </button>
+                  {showErrors && (
+                    <ul className="space-y-0.5 pt-0.5">
+                      {notMem.map((name, i) => (
+                        <li key={i} className={`text-xs leading-snug ${script !== 'english' ? 'iast ' : ''}text-amber-300`}>{name}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )
+            })()}
+          </div>
+        )}
 
         {/* Inner (Tithi Nitya) Memorise controls */}
         {activeTab === 'inner' && (

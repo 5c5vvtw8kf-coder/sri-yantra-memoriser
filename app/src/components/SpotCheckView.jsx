@@ -30,6 +30,7 @@ import NavaCakraSpotCheckView from './NavaCakraSpotCheckView'
 import NyasaSpotCheckView from './NyasaSpotCheckView'
 import NityaSpotCheckView from './NityaSpotCheckView'
 import GuravahSpotCheckView from './GuravahSpotCheckView'
+import ChakreshvariSpotCheckView from './ChakreshvariSpotCheckView'
 
 const { deities } = data
 const deityById = Object.fromEntries(deities.map(d => [d.id, d]))
@@ -102,6 +103,7 @@ export const SC_FILTERS = [
       { id: 'nc-both',    label: 'Both',    groupIds: null },
     ],
   },
+  { id: 'chakreshvari', label: 'Tripurā', visualMode: 'chakreshvari' },
   { id: 'all',       label: 'All', sectionIds: null },
 ]
 
@@ -230,8 +232,8 @@ function buildQueue(filterId, subFilterId) {
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
   const charW    = script === 'devanagari' ? 14 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11.5 : 10.5
-  const fontSize = script === 'devanagari' ? 15 : script === 'english' ? 14 : 13
-  const h = 30
+  const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
+  const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
   const w = Math.max(60, label.length * charW + 18)
   const tx = Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
   const ty = y > CY ? y - h / 2 - 18 : y + h / 2 + 18
@@ -535,6 +537,16 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
       />
     )
   }
+  if (activeFilterDef?.visualMode === 'chakreshvari') {
+    return (
+      <ChakreshvariSpotCheckView
+        script={script}
+        onProgressSync={onProgressSync}
+        onRegisterSkip={onRegisterSkip}
+        onUpdateStats={onUpdateStats}
+      />
+    )
+  }
 
   return (
     <div className="w-full p-4 flex flex-col gap-3">
@@ -647,7 +659,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         </div>
         )}
         <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
-          hover to reveal · click = memorised · dbl-click = not memorised · right-click = change answer
+          hover to reveal
         </p>
         </>
       )}
@@ -666,16 +678,4 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         const pC = Object.values(prevResults).filter(v => v === 'correct').length
         const pT = Object.keys(prevResults).length
         return (
-          <div className="pt-1 border-t border-surface-800">
-            <p className="text-xs text-muted font-mono uppercase tracking-widest mb-1">Last round</p>
-            <p className="text-xs">
-              <span className="text-red-400">{pC}</span>
-              <span className="text-muted">/{pT} memorised</span>
-            </p>
-          </div>
-        )
-      })()}
-
-    </div>
-  )
-}
+       

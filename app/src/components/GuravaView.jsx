@@ -348,13 +348,7 @@ export default function GuravaView({
           )}
 
           {/* Hint */}
-          {!memorise && !selectedId && !hoveredDot && (
-            <text x={250} y={590} textAnchor="middle"
-              fontSize="14" fill={GOLD} opacity="0.50"
-              fontFamily="serif">
-              Tap any position to reveal the deity
-            </text>
-          )}
+
 
 
         </svg>
@@ -390,18 +384,18 @@ export default function GuravaView({
       </div>
 
 
+      {!memorise && (
+        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+          Hover or click any dot to reveal the deity
+        </p>
+      )}
       {memorise && !done && (
         <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
           hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}
 
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">guravaḥ · divyaugha · siddhaugha · mānavaugha</p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          Three lineages — 19 gurus leading to the source
-        </p>
-      </div>
+
 
       <div className="h-8" />
 

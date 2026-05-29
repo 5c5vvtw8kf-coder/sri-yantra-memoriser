@@ -318,15 +318,6 @@ export default function NityaSpotCheckView({
             )
           })()}
 
-          {/* Instruction */}
-          {!done && !flash && (
-            <text x={250} y={630} textAnchor="middle"
-              fontSize="13" fill={GOLD} opacity="0.55"
-              fontFamily="serif" fontStyle="italic">
-              hover to reveal · click = memorised · dbl-click = not yet
-            </text>
-          )}
-
         </svg>
 
         {/* Completion overlay */}
@@ -355,11 +346,12 @@ export default function NityaSpotCheckView({
         )}
       </div>
 
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">tithi nitya devātāḥ · 16 goddesses of the lunar phases</p>
-      </div>
+      <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
+        hover to reveal · click = memorised · dbl-click = not memorised · right-click = change answer
+      </p>
 
       <div className="h-8" />
     </div>
   )
 }
+                                                                                                                                                                                                                                                                                            

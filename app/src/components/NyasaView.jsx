@@ -492,52 +492,25 @@ export default function NyasaView({
 
       {/* ── Idle hint ── */}
       {!memorise && !hoveredDot && (
-        <p className="mt-2 text-center text-xs text-muted italic" style={{ fontFamily: 'serif' }}>
-          {navStep === 4
-            ? 'Tap any gate to restart from Hṛdaya'
-            : 'Tap any position to reveal the deity'}
-        </p>
+        <div className="mt-2 text-center">
+          <p className="text-muted" style={{ fontSize: '10px' }}>
+            {navStep === 4
+              ? 'Tap any gate to restart from Hṛdaya'
+              : 'Hover or click any dot to reveal the deity'}
+          </p>
+        </div>
       )}
 
-      {/* ── Legend ── */}
-      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-muted">
-        <span className="flex items-center gap-1.5">
-          <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{ background: RED }} />
-          {memorise ? 'Memorised' : 'Nyāsa Devatāḥ'}
-        </span>
-        {memorise && (
-          <>
-            <span className="flex items-center gap-1.5">
-              <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
-                    style={{ background: ACTIVE_FILL }} />
-              Active
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
-                    style={{ background: GOLD }} />
-              Not memorised
-            </span>
-          </>
-        )}
-      </div>
-
-      {/* ── Caption ── */}
+      {/* ── Instructions (memorise) ── */}
       {memorise && !done && (
-        <p className="mt-2 text-center text-xs text-muted italic">
+        <p className="mt-3 text-center text-xs text-muted italic">
           hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}
-
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">nyāsāṅgadēvatāḥ</p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          Positions are approximate — verify against your lineage source
-        </p>
-      </div>
 
 
       <div className="h-8" />
     </div>
   )
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

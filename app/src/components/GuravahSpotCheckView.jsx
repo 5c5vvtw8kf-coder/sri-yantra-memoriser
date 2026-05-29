@@ -385,15 +385,6 @@ export default function GuravahSpotCheckView({
             )
           })()}
 
-          {/* Instruction */}
-          {!done && !flash && (
-            <text x={250} y={620} textAnchor="middle"
-              fontSize="13" fill={GOLD} opacity="0.55"
-              fontFamily="serif" fontStyle="italic">
-              hover to reveal · click = memorised · dbl-click = not yet
-            </text>
-          )}
-
         </svg>
 
         {/* Completion overlay */}
@@ -422,11 +413,12 @@ export default function GuravahSpotCheckView({
         )}
       </div>
 
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">guravaḥ · divyaugha · siddhaugha · mānavaugha</p>
-      </div>
+      <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
+        hover to reveal · click = memorised · dbl-click = not memorised · right-click = change answer
+      </p>
 
       <div className="h-8" />
     </div>
   )
 }
+                                                                                                                                                                                                                                                                                    

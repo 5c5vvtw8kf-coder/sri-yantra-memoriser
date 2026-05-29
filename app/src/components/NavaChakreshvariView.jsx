@@ -63,14 +63,21 @@ const RED         = '#c0392b'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
 const FILL_GOLD_HI = 'rgba(201,168,76,0.92)'  // bindu hover — gold (contrasts with c8 cream)
 
-// hovered  — transient, cream; accumulates: hovering circuit N fills 1..N + Valayam rings
+// tri-c7-03, tri-c7-05, tri-c7-07 are geometrically inside the c8 primary triangle.
+// When c8 is lit (hovered or selected), c8's fill bleeds through their transparent
+// area and the base yantra gold outlines make them appear as three filled triangles.
+// Paint them background-dark (#0f0805) as cutouts — same mechanism as tri-c8-bg-01/02.
+const C8_INNER_C7 = new Set(['tri-c7-03', 'tri-c7-05', 'tri-c7-07'])
+
+// hovered  — transient, cream; only the hovered circuit fills
 // selected — persistent after click, red
 function buildFills(hovered, selected) {
+  const c8Lit = (hovered === 8 || selected === 8)
+
   // f(n): fill for circuit n given hover/select state.
-  // Hover accumulates inward: all circuits 1..hovered get cream.
   const f = (n) => {
-    if (hovered != null && n <= hovered) return FILL_HI   // accumulated cream
-    if (n === selected)                  return FILL_SEL  // clicked = red
+    if (n === hovered)   return FILL_HI   // cream — hovered circuit only
+    if (n === selected)  return FILL_SEL  // clicked = red
     if (hovered != null || selected != null) return FILL_DIM
     return FILL_NORM
   }
@@ -80,27 +87,32 @@ function buildFills(hovered, selected) {
   const c1Color = f(1)
   const c1Fill  = (c1Color === FILL_NORM) ? 'transparent' : c1Color
 
+  const pad2 = n => String(n).padStart(2, '0')
+
   return {
     'c1':       'transparent',   // hit-test only
     'c1-outer': c1Fill,
     'c1-mid':   c1Fill,
     'c1-inner': 'transparent',   // never fill space between bhupura and Valayam
-    // Valayam rings — fill cream on any hover, dim when selection active, hidden at idle
-    'outer-rings': hovered != null ? FILL_HI
+    // Valayam rings — fill cream only when hovering circuit 1 (bhupura)
+    'outer-rings': hovered === 1 ? FILL_HI
                   : selected != null ? FILL_DIM
                   : null,
     ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
-      [`petal-c2-${String(i + 1).padStart(2, '0')}`, f(2)])),
+      [`petal-c2-${pad2(i + 1)}`, f(2)])),
     ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
-      [`petal-c3-${String(i + 1).padStart(2, '0')}`, f(3)])),
+      [`petal-c3-${pad2(i + 1)}`, f(3)])),
     ...Object.fromEntries(Array.from({ length: 14 }, (_, i) =>
-      [`tri-c4-${String(i + 1).padStart(2, '0')}`, f(4)])),
+      [`tri-c4-${pad2(i + 1)}`, f(4)])),
     ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
-      [`tri-c5-${String(i + 1).padStart(2, '0')}`, f(5)])),
+      [`tri-c5-${pad2(i + 1)}`, f(5)])),
     ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
-      [`tri-c6-${String(i + 1).padStart(2, '0')}`, f(6)])),
-    ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
-      [`tri-c7-${String(i + 1).padStart(2, '0')}`, f(7)])),
+      [`tri-c6-${pad2(i + 1)}`, f(6)])),
+    ...Object.fromEntries(Array.from({ length: 8 }, (_, i) => {
+      const id = `tri-c7-${pad2(i + 1)}`
+      if (c8Lit && C8_INNER_C7.has(id)) return [id, '#0f0805']
+      return [id, f(7)]
+    })),
     'tri-c8-01':    f(8),
     'tri-c8-bg-01': '#0f0805',
     'tri-c8-bg-02': '#0f0805',
@@ -115,10 +127,10 @@ function buildFills(hovered, selected) {
 //   past wrong          → gold (FILL_NORM)
 //   future              → dim
 //   flash               → all cream
-// hoveredCircuit: when set, circuits 1..hoveredCircuit override to cream (accumulating hover).
+// hoveredCircuit: when set, only that circuit overrides to cream.
 function buildMemFills(colorFn, hoveredCircuit) {
-  // Accumulating hover overrides drill colours for circuits 1..hoveredCircuit
-  const c = (n) => (hoveredCircuit != null && n <= hoveredCircuit) ? FILL_HI : colorFn(n)
+  // Hover overrides only the hovered circuit
+  const c = (n) => (n === hoveredCircuit) ? FILL_HI : colorFn(n)
   const c1Color = c(1)
   // Bindu: only cream/red/black — never dim gold.
   const c9raw = colorFn(9)
@@ -126,25 +138,39 @@ function buildMemFills(colorFn, hoveredCircuit) {
            : c9raw === FILL_SEL   ? FILL_SEL
            : c9raw === FILL_HI    ? FILL_HI
            : '#000000'
+
+  // c8 is "lit" if it has any non-dim fill — active (FILL_HI), past-correct (FILL_SEL),
+  // or past-wrong (FILL_NORM) all bleed through the three inner c7 triangles.
+  // Only FILL_DIM (future, 18% opacity) is safe to leave unmasked.
+  // Cutout is only applied when c7's own fill is also DIM — if c7 is active or
+  // answered it has a solid-enough fill to cover c8's bleed naturally.
+  const c8Color = c(8)
+  const c8Lit   = c8Color === FILL_HI || c8Color === FILL_SEL || c8Color === FILL_NORM
+  const c7Color = c(7)
+
+  const pad2 = n => String(n).padStart(2, '0')
   return {
     'c1': 'transparent',
     'c1-outer': c1Color,
     'c1-mid':   c1Color,
     'c1-inner': 'transparent',
-    // Valayam rings — cream on hover, hidden otherwise
-    'outer-rings': hoveredCircuit != null ? FILL_HI : null,
+    // Valayam rings — cream only when hovering circuit 1 (bhupura)
+    'outer-rings': hoveredCircuit === 1 ? FILL_HI : null,
     ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
-      [`petal-c2-${String(i + 1).padStart(2, '0')}`, c(2)])),
+      [`petal-c2-${pad2(i + 1)}`, c(2)])),
     ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
-      [`petal-c3-${String(i + 1).padStart(2, '0')}`, c(3)])),
+      [`petal-c3-${pad2(i + 1)}`, c(3)])),
     ...Object.fromEntries(Array.from({ length: 14 }, (_, i) =>
-      [`tri-c4-${String(i + 1).padStart(2, '0')}`, c(4)])),
+      [`tri-c4-${pad2(i + 1)}`, c(4)])),
     ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
-      [`tri-c5-${String(i + 1).padStart(2, '0')}`, c(5)])),
+      [`tri-c5-${pad2(i + 1)}`, c(5)])),
     ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
-      [`tri-c6-${String(i + 1).padStart(2, '0')}`, c(6)])),
-    ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
-      [`tri-c7-${String(i + 1).padStart(2, '0')}`, c(7)])),
+      [`tri-c6-${pad2(i + 1)}`, c(6)])),
+    ...Object.fromEntries(Array.from({ length: 8 }, (_, i) => {
+      const id = `tri-c7-${pad2(i + 1)}`
+      if (c8Lit && C8_INNER_C7.has(id) && c7Color === FILL_DIM) return [id, '#0f0805']
+      return [id, c7Color]
+    })),
     'tri-c8-01':    c(8),
     'tri-c8-bg-01': '#0f0805',
     'tri-c8-bg-02': '#0f0805',
@@ -398,8 +424,8 @@ export default function NavaChakreshvariView({
 
       {/* Idle hint */}
       {!memorise && !hoveredCircuit && !selectedCircuit && (
-        <p className="mt-2 text-center text-xs text-muted italic" >
-          Hover or click from outside in towards the Bindu to reveal the Chakresvaris in order
+        <p className="mt-2 text-center text-xs text-muted italic">
+          Hover any circuit to reveal its Tripura form · click to select
         </p>
       )}
 
@@ -407,28 +433,4 @@ export default function NavaChakreshvariView({
 
       {/* Legend */}
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-muted">
-        <span className="flex items-center gap-1.5">
-          <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{ background: RED }} />
-          Nava Chakreshvarī
-        </span>
-      </div>
-
-      {/* Caption */}
-      {memorise && !done && (
-        <p className="mt-2 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
-
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">navacakrēśvarī</p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          One Tripura form presides over each of the nine circuits
-        </p>
-      </div>
-
-      <div className="h-8" />
-    </div>
-  )
-}
+        <span className="flex
