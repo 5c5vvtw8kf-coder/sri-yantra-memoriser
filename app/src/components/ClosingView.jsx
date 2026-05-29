@@ -112,7 +112,6 @@ export default function ClosingView({
   onNavigate,
 }) {
   const [hoveredEpithet, setHoveredEpithet] = useState(null)
-  const [contextMenu, setContextMenu]       = useState(null)
   const clickTimer = useRef(null)
 
   // Track yantra position for the fixed number strip
@@ -167,20 +166,20 @@ export default function ClosingView({
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === n) onMarkResult(n, 'wrong')
+      if (currentSeq === n) onMarkResult(n, 'correct')
     }, 280)
   }
 
   const handleMemDblClick = (n) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === n) onMarkResult(n, 'correct')
+    if (currentSeq === n) onMarkResult(n, 'wrong')
   }
 
   const handleMemContextMenu = (e, n) => {
     if (!memorise) return
     if (n >= currentSeq) return   // only past numbers
     e.preventDefault()
-    setContextMenu({ seq: n, x: e.clientX, y: e.clientY })
+    onToggleResult(n)
   }
 
   // ── Yantra fills ───────────────────────────────────────────────────────────
@@ -193,23 +192,6 @@ export default function ClosingView({
   return (
     <div className="w-full p-4">
 
-      {/* Context menu — right-click on past numbers to toggle */}
-      {contextMenu && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
-          <div
-            className="fixed z-50 bg-surface-800 border border-surface-600 rounded-lg shadow-xl py-1"
-            style={{ left: contextMenu.x, top: contextMenu.y }}
-          >
-            <button
-              className="block w-full text-left px-4 py-2 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Mark as not memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
 
       {/* SVG filter: converts blue channel to red, leaves yellow/gold untouched.
           R'=R+B  G'=G  B'=0 — blue pixels become red, yellow/orange stay yellow/orange. */}
@@ -469,8 +451,8 @@ export default function ClosingView({
         </p>
       )}
       {memorise && !done && (
-        <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
-          double-tap = memorised · single-tap = not yet
+        <p className="text-center text-muted mt-1" style={{ fontSize: '10px' }}>
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}
 

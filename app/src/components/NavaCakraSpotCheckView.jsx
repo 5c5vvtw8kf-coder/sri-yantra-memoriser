@@ -48,8 +48,8 @@ const CIRCUIT_FILL_IDS = {
 
 const DIM          = 'rgba(201,168,76,0.07)'
 const HIGHLIGHT    = 'rgba(255,248,200,0.90)'
-const FLASH_GREEN  = 'rgba(74,222,128,0.62)'
-const FLASH_RED    = 'rgba(248,113,113,0.52)'
+const FLASH_RED    = 'rgba(248,113,113,0.62)'   // correct = memorised = red
+const FLASH_GOLD   = 'rgba(201,168,76,0.52)'    // wrong = not memorised = gold
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -110,8 +110,8 @@ function regionToCircuit(id) {
 }
 
 function computeFills(activeCircuit, flashState) {
-  const activeColor = flashState === 'correct' ? FLASH_GREEN
-                    : flashState === 'wrong'   ? FLASH_RED
+  const activeColor = flashState === 'correct' ? FLASH_RED
+                    : flashState === 'wrong'   ? FLASH_GOLD
                     : HIGHLIGHT
 
   // Dim the outer circuits; leave triangle sub-regions unfilled so they render
@@ -143,7 +143,7 @@ function CompletionOverlay({ correct, total, onRestart }) {
       <p className="text-cream text-sm">Round complete</p>
       <div>
         <p className="text-4xl font-medium">
-          <span className="text-green-400">{correct}</span>
+          <span className="text-red-400">{correct}</span>
           <span className="text-muted text-2xl">/{total}</span>
         </p>
         <p className="text-xs text-muted mt-1">{pct}% memorised</p>
@@ -238,14 +238,14 @@ export default function NavaCakraSpotCheckView({
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      advance('wrong')
+      advance('correct')
     }, 260)
   }, [done, flash, advance])
 
   const handleDblClick = useCallback(() => {
     if (done || flash) return
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    advance('correct')
+    advance('wrong')
   }, [done, flash, advance])
 
   const handleContextMenu = useCallback((e) => {
@@ -314,7 +314,7 @@ export default function NavaCakraSpotCheckView({
                 style={{ pointerEvents: 'none' }}>
                 <polygon
                   points="260,283.301 248.565,263.193 271.435,263.193"
-                  fill={flash === 'correct' ? FLASH_GREEN : flash === 'wrong' ? FLASH_RED : HIGHLIGHT}
+                  fill={flash === 'correct' ? FLASH_RED : flash === 'wrong' ? FLASH_GOLD : HIGHLIGHT}
                 />
               </svg>
             )}
@@ -358,7 +358,7 @@ export default function NavaCakraSpotCheckView({
       {/* Instruction */}
       {!done && (
         <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
-          hover to reveal · <span className="text-red-400">dbl-click</span> = memorised · <span className="text-gold-400">click</span> = not memorised · right-click = change answer
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = change answer
         </p>
       )}
 

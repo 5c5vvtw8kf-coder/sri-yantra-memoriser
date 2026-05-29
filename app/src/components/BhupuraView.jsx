@@ -177,7 +177,6 @@ export default function BhupuraView({
   const [selectedId,   setSelectedId]   = useState(null)
   const [hoveredDot,   setHoveredDot]   = useState(null)
   const [activeFilter, setActiveFilter] = useState('all')
-  const [contextMenu,  setContextMenu]  = useState(null)
   const clickTimer = useRef(null)
   const yantraRef  = useRef(null)
   const [yantraPos, setYantraPos] = useState({ top: 80, height: 300, right: 500 })
@@ -216,15 +215,15 @@ export default function BhupuraView({
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === seq) onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq) onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleMemDblClick = (seq) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq) onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq) onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const done = memorise && currentSeq > BHUPURA_TOTAL
@@ -232,20 +231,6 @@ export default function BhupuraView({
   return (
     <div className="w-full p-4">
 
-      {/* Context menu */}
-      {contextMenu && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
-          <div className="fixed z-50 bg-surface-800 border border-surface-600 rounded-lg shadow-xl py-1"
-               style={{ left: contextMenu.x, top: contextMenu.y }}>
-            <button
-              className="block w-full text-left px-4 py-2 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}>
-              {results[contextMenu.seq] === 'correct' ? 'Mark as not memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
 
       {/* Diagram — full Sri Yantra background + dot overlay */}
       <div ref={yantraRef}
@@ -323,7 +308,7 @@ export default function BhupuraView({
                   opacity={isFuture ? 0.15 : 1}
                   onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                   onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
-                  onContextMenu={!flash && isPast ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) } : undefined}
+                  onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
                   onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, pos.x, pos.y) : undefined}
                   onMouseLeave={!flash && (isActive || isPast) ? unhover : undefined}
                 />
@@ -450,8 +435,8 @@ export default function BhupuraView({
         </div>
       )}
       {memorise && !done && (
-        <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
-          hover to reveal · dbl-click = memorised · click = not memorised
+        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}
 

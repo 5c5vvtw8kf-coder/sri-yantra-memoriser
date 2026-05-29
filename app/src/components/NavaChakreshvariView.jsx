@@ -61,28 +61,34 @@ const FILL_SEL    = 'rgba(192,57,43,0.82)'      // selected (clicked) — red
 const GOLD        = '#c9a84c'
 const RED         = '#c0392b'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
+const FILL_GOLD_HI = 'rgba(201,168,76,0.92)'  // bindu hover — gold (contrasts with c8 cream)
 
-// hovered  — transient, cream (also used for memorise activeCircuit)
+// hovered  — transient, cream; accumulates: hovering circuit N fills 1..N + Valayam rings
 // selected — persistent after click, red
 function buildFills(hovered, selected) {
-  const active = hovered ?? selected   // anything lit?
+  // f(n): fill for circuit n given hover/select state.
+  // Hover accumulates inward: all circuits 1..hovered get cream.
   const f = (n) => {
-    if (n === selected)  return FILL_SEL  // selected (clicked) wins even while still hovering
-    if (n === hovered)   return FILL_HI
-    if (active != null)  return FILL_DIM
+    if (hovered != null && n <= hovered) return FILL_HI   // accumulated cream
+    if (n === selected)                  return FILL_SEL  // clicked = red
+    if (hovered != null || selected != null) return FILL_DIM
     return FILL_NORM
   }
 
-  // C1 bhupura: fill only the two wall bands (c1-outer + c1-mid) so the Valayam
-  // (the annular ring between the inner bhupura square and the three circles) stays
-  // empty. 'c1' is always transparent — it exists solely as a hit-test polygon for hover.
-  const c1Color = selected === 1 ? FILL_SEL : hovered === 1 ? FILL_HI : active != null ? FILL_DIM : null
+  // C1 bhupura: fill only the two wall bands (c1-outer + c1-mid).
+  // c1-inner (space between bhupura and Valayam rings) stays transparent.
+  const c1Color = f(1)
+  const c1Fill  = (c1Color === FILL_NORM) ? 'transparent' : c1Color
 
   return {
-    'c1': 'transparent',              // full-ring hit area (belt)
-    'c1-outer': c1Color || 'transparent',  // outer wall band — coloured when active, transparent otherwise
-    'c1-mid':   c1Color || 'transparent',  // mid wall band
-    'c1-inner': 'transparent',            // zone between inner bhupura square and Valayam — hit area only, never coloured
+    'c1':       'transparent',   // hit-test only
+    'c1-outer': c1Fill,
+    'c1-mid':   c1Fill,
+    'c1-inner': 'transparent',   // never fill space between bhupura and Valayam
+    // Valayam rings — fill cream on any hover, dim when selection active, hidden at idle
+    'outer-rings': hovered != null ? FILL_HI
+                  : selected != null ? FILL_DIM
+                  : null,
     ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
       [`petal-c2-${String(i + 1).padStart(2, '0')}`, f(2)])),
     ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
@@ -98,8 +104,8 @@ function buildFills(hovered, selected) {
     'tri-c8-01':    f(8),
     'tri-c8-bg-01': '#0f0805',
     'tri-c8-bg-02': '#0f0805',
-    // Bindu: red when clicked (even while hovering), cream on hover, black otherwise.
-    'c9': selected === 9 ? FILL_SEL : hovered === 9 ? FILL_HI : '#000000',
+    // Bindu: red when clicked, gold on hover (contrasts with c8 cream), black otherwise
+    'c9': selected === 9 ? FILL_SEL : hovered === 9 ? FILL_GOLD_HI : '#000000',
   }
 }
 
@@ -109,17 +115,24 @@ function buildFills(hovered, selected) {
 //   past wrong          → gold (FILL_NORM)
 //   future              → dim
 //   flash               → all cream
-function buildMemFills(colorFn) {
-  const c = colorFn   // shorthand
+// hoveredCircuit: when set, circuits 1..hoveredCircuit override to cream (accumulating hover).
+function buildMemFills(colorFn, hoveredCircuit) {
+  // Accumulating hover overrides drill colours for circuits 1..hoveredCircuit
+  const c = (n) => (hoveredCircuit != null && n <= hoveredCircuit) ? FILL_HI : colorFn(n)
   const c1Color = c(1)
   // Bindu: only cream/red/black — never dim gold.
-  const c9raw = c(9)
-  const c9 = c9raw === FILL_SEL ? FILL_SEL : c9raw === FILL_HI ? FILL_HI : '#000000'
+  const c9raw = colorFn(9)
+  const c9 = hoveredCircuit === 9 ? FILL_GOLD_HI
+           : c9raw === FILL_SEL   ? FILL_SEL
+           : c9raw === FILL_HI    ? FILL_HI
+           : '#000000'
   return {
     'c1': 'transparent',
     'c1-outer': c1Color,
     'c1-mid':   c1Color,
     'c1-inner': 'transparent',
+    // Valayam rings — cream on hover, hidden otherwise
+    'outer-rings': hoveredCircuit != null ? FILL_HI : null,
     ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
       [`petal-c2-${String(i + 1).padStart(2, '0')}`, c(2)])),
     ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
@@ -172,8 +185,8 @@ function Tooltip({ circuitNum, script }) {
   const charW    = script === 'devanagari' ? 14 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11.5 : 10.5
   const w        = Math.max(60, label.length * charW + 18)
 
-  // Fixed anchor — left-align box from TOOLTIP_ANCHOR
-  const tx = TOOLTIP_ANCHOR.x + w / 2
+  // Centred horizontally on the bindu (SVG_CX = 260); y fixed at top-left area
+  const tx = SVG_CX
   const ty = TOOLTIP_ANCHOR.y
 
   return (
@@ -211,7 +224,6 @@ export default function NavaChakreshvariView({
 }) {
   const [selectedCircuit, setSelectedCircuit] = useState(null)
   const [hoveredCircuit,  setHoveredCircuit]  = useState(null)
-  const [contextMenu,     setContextMenu]     = useState(null)
   const clickTimer         = useRef(null)
   const lastHoveredCircuit = useRef(null)   // used by right-click handler
 
@@ -243,15 +255,15 @@ export default function NavaChakreshvariView({
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === seq) onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq) onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleMemDblClick = (seq) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq) onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq) onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const handleMemRegionClick = (id) => {
@@ -282,7 +294,7 @@ export default function NavaChakreshvariView({
     const seq = deity.sequenceInSection
     if (currentSeq > seq) {
       e.preventDefault()
-      setContextMenu({ seq, x: e.clientX, y: e.clientY })
+      onToggleResult(seq)
     }
   }
 
@@ -305,7 +317,7 @@ export default function NavaChakreshvariView({
         if (seq === currentSeq) return FILL_HI
         if (seq < currentSeq)   return results[seq] === 'correct' ? FILL_SEL : FILL_NORM
         return FILL_DIM
-      })
+      }, flash ? null : hoveredCircuit)
     : buildFills(hoveredCircuit, selectedCircuit)
 
   // Tooltip shown on hover in both modes (suppressed during flash).
@@ -314,20 +326,6 @@ export default function NavaChakreshvariView({
   return (
     <div className="w-full p-4">
 
-      {/* Context menu */}
-      {contextMenu && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
-          <div className="fixed z-50 bg-surface-800 border border-surface-600 rounded-lg shadow-xl py-1"
-               style={{ left: contextMenu.x, top: contextMenu.y }}>
-            <button
-              className="block w-full text-left px-4 py-2 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}>
-              {results[contextMenu.seq] === 'correct' ? 'Mark as not memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
 
       <div
         className="relative w-full"
@@ -400,17 +398,12 @@ export default function NavaChakreshvariView({
 
       {/* Idle hint */}
       {!memorise && !hoveredCircuit && !selectedCircuit && (
-        <p className="mt-2 text-center text-xs text-muted italic" style={{ fontFamily: 'serif' }}>
+        <p className="mt-2 text-center text-xs text-muted italic" >
           Hover or click from outside in towards the Bindu to reveal the Chakresvaris in order
         </p>
       )}
 
       {/* Memorise instruction */}
-      {memorise && !done && (
-        <p className="mt-2 text-center text-xs text-muted italic" style={{ fontFamily: 'serif' }}>
-          double-tap = memorised · single-tap = not yet
-        </p>
-      )}
 
       {/* Legend */}
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-muted">
@@ -422,6 +415,12 @@ export default function NavaChakreshvariView({
       </div>
 
       {/* Caption */}
+      {memorise && !done && (
+        <p className="mt-2 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
+      )}
+
       <div className="mt-3 text-center">
         <p className="iast text-gold-600 text-xs">navacakrēśvarī</p>
         <p className="text-muted mt-1" style={{ fontSize: '10px' }}>

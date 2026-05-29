@@ -1177,8 +1177,8 @@
     {
       "id": "guru-manava-006",
       "sectionId": "guru-manava",
-      "sequenceInChant": 40,
-      "sequenceInSection": 6,
+      "sequenceInChant": 41,
+      "sequenceInSection": 7,
       "role": "deity",
       "group": null,
       "scripts": {
@@ -1201,8 +1201,8 @@
     {
       "id": "guru-manava-007",
       "sectionId": "guru-manava",
-      "sequenceInChant": 41,
-      "sequenceInSection": 7,
+      "sequenceInChant": 40,
+      "sequenceInSection": 6,
       "role": "deity",
       "group": null,
       "scripts": {

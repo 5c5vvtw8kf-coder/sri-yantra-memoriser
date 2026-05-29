@@ -81,9 +81,9 @@ const { deities, sections } = data
 const deityById   = Object.fromEntries(deities.map(d => [d.id, d]))
 const sectionById = Object.fromEntries(sections.map(s => [s.id, s]))
 
-const guruDivya  = deities.filter(d => d.sectionId === 'guru-divya')
-const guruSiddha = deities.filter(d => d.sectionId === 'guru-siddha')
-const guruManava = deities.filter(d => d.sectionId === 'guru-manava')
+const guruDivya  = deities.filter(d => d.sectionId === 'guru-divya').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+const guruSiddha = deities.filter(d => d.sectionId === 'guru-siddha').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+const guruManava = deities.filter(d => d.sectionId === 'guru-manava').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 
 // Combined in chant order: divya → siddha → manava
 const guruAll = [...guruDivya, ...guruSiddha, ...guruManava]
@@ -175,7 +175,6 @@ export default function GuravaView({
 }) {
   const [selectedId, setSelectedId] = useState(null)
   const [hoveredDot, setHoveredDot] = useState(null)
-  const [contextMenu, setContextMenu] = useState(null)
   const clickTimer = useRef(null)
 
   const toggle  = (id) => {
@@ -194,15 +193,15 @@ export default function GuravaView({
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === seq) onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq) onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleMemDblClick = (seq) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq) onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq) onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const done = memorise && currentSeq > GURU_TOTAL
@@ -213,20 +212,6 @@ export default function GuravaView({
   return (
     <div className="w-full p-4">
 
-      {/* Context menu */}
-      {contextMenu && (
-        <>
-          <div className="fixed inset-0 z-40" onClick={() => setContextMenu(null)} />
-          <div className="fixed z-50 bg-surface-800 border border-surface-600 rounded-lg shadow-xl py-1"
-               style={{ left: contextMenu.x, top: contextMenu.y }}>
-            <button
-              className="block w-full text-left px-4 py-2 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}>
-              {results[contextMenu.seq] === 'correct' ? 'Mark as not memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
 
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
@@ -332,7 +317,7 @@ export default function GuravaView({
                 dimStyle={isFuture ? { opacity: 0.15 } : undefined}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
-                onContextMenu={!flash && isPast ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) } : undefined}
+                onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
                 onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, pos[0], pos[1]) : undefined}
                 onMouseLeave={!flash && (isActive || isPast) ? unhover : undefined}
               />
@@ -371,14 +356,6 @@ export default function GuravaView({
             </text>
           )}
 
-          {/* Memorise: instruction */}
-          {memorise && !done && (
-            <text x={250} y={590} textAnchor="middle"
-              fontSize="13" fill={GOLD} opacity="0.55"
-              fontFamily="serif">
-              double-tap = memorised · single-tap = not yet
-            </text>
-          )}
 
         </svg>
 
@@ -411,6 +388,13 @@ export default function GuravaView({
           </div>
         )}
       </div>
+
+
+      {memorise && !done && (
+        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
+      )}
 
       <div className="mt-3 text-center">
         <p className="iast text-gold-600 text-xs">guravaḥ · divyaugha · siddhaugha · mānavaugha</p>

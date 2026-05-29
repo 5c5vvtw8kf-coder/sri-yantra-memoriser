@@ -219,7 +219,6 @@ export default function C2View({
   // Explore mode state (local)
   const [selectedId,  setSelectedId]  = useState(null)
   const [hoveredDot,  setHoveredDot]  = useState(null)
-  const [contextMenu, setContextMenu] = useState(null)  // { seq, x, y }
 
   const clickTimer     = useRef(null)   // active petal
   const pastClickTimer = useRef(null)   // past petals
@@ -243,13 +242,13 @@ export default function C2View({
     setHoveredDot(null)
   }
 
-  // Single-click waits 280 ms to rule out a double-click, then skips (stays gold).
+  // Single-click waits 280 ms to rule out a double-click, then marks memorised (red).
   const handleMemoriseClick = (seq) => {
     if (seq !== currentSeq) return
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      markResult(seq, 'wrong')   // wrong = advance only, no color change
+      markResult(seq, 'correct')   // correct = memorised, red fill
     }, 280)
   }
 
@@ -258,22 +257,22 @@ export default function C2View({
     if (pastClickTimer.current) return
     pastClickTimer.current = setTimeout(() => {
       pastClickTimer.current = null
-      if (results[seq] === 'correct') onToggleResult(seq)   // unmark
+      if (results[seq] !== 'correct') onToggleResult(seq)   // mark
     }, 280)
   }
   const handlePastPetalDoubleClick = (seq) => {
     if (pastClickTimer.current) { clearTimeout(pastClickTimer.current); pastClickTimer.current = null }
-    if (results[seq] !== 'correct') onToggleResult(seq)     // mark
+    if (results[seq] === 'correct') onToggleResult(seq)     // unmark
   }
 
-  // Double-click cancels the pending single-click timer and marks correct (red).
+  // Double-click cancels the pending single-click timer and marks not memorised (stays gold).
   const handleMemoriseDoubleClick = (seq) => {
     if (seq !== currentSeq) return
     if (clickTimer.current) {
       clearTimeout(clickTimer.current)
       clickTimer.current = null
     }
-    markResult(seq, 'correct')
+    markResult(seq, 'wrong')
   }
 
   // Petals: seq 1–16. Extra items: seq 17 (Chakra Svāminī), 18 (Yoginī).
@@ -412,10 +411,7 @@ export default function C2View({
                       style={{ cursor: 'pointer' }}
                       onClick={() => handlePastPetalClick(seq)}
                       onDoubleClick={() => handlePastPetalDoubleClick(seq)}
-                      onContextMenu={e => {
-                        e.preventDefault()
-                        setContextMenu({ seq, x: e.clientX, y: e.clientY })
-                      }}
+                      onContextMenu={e => { e.preventDefault(); onToggleResult(seq) }}
                     />
                   )
                 })}
@@ -474,40 +470,14 @@ export default function C2View({
               Hover or click any petal to reveal the deity
             </p>
           )}
-          {memorise && currentSeq <= 16 && (
+          {memorise && (
             <p className="text-muted" style={{ fontSize: '10px' }}>
-              hover to reveal · dbl-click = memorised · click = not memorised
+              hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
             </p>
           )}
         </div>
       )}
 
-      {/* Right-click context menu for correcting past petals */}
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => {
-                onToggleResult(contextMenu.seq)
-                setContextMenu(null)
-              }}
-            >
-              {results[contextMenu.seq] === 'correct'
-                ? 'Unmark as memorised'
-                : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
 
     </div>
   )

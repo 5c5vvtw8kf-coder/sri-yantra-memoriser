@@ -25,16 +25,25 @@ import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { getPosition, DEITY_POSITIONS } from '../deityPositions.js'
 import SriYantraSVG from './SriYantraSVG'
+import C89SpotCheckView from './C89SpotCheckView'
+import NavaCakraSpotCheckView from './NavaCakraSpotCheckView'
+import NyasaSpotCheckView from './NyasaSpotCheckView'
+import NityaSpotCheckView from './NityaSpotCheckView'
+import GuravahSpotCheckView from './GuravahSpotCheckView'
 
 const { deities } = data
 const deityById = Object.fromEntries(deities.map(d => [d.id, d]))
 
-// Only circuit deities with yantra positions (102 total, C1-C9)
+// Only circuit deities with yantra positions (102 total, C1-C7)
 const positionedDeities = deities.filter(d =>
   DEITY_POSITIONS[d.id] != null &&
   d.sectionId !== 'circuit-8' &&
   d.sectionId !== 'circuit-9'
 )
+
+// Card-mode sections — no unique yantra position; displayed as cards not yantra highlights
+const CARD_SECTION_IDS = ['circuit-8', 'circuit-9', 'nitya', 'guru-divya', 'guru-siddha', 'guru-manava']
+const cardDeities = deities.filter(d => CARD_SECTION_IDS.includes(d.sectionId))
 
 // ── Filter definitions (circuit-only — no preamble/nava/closing) ──────────────
 
@@ -43,7 +52,19 @@ const positionedDeities = deities.filter(d =>
 // recall. They'll get card-based spot-check views when their dedicated pages
 // are built. Tithi Nitya and Guravah likewise need dedicated pages.
 export const SC_FILTERS = [
-  { id: 'all',       label: 'All', sectionIds: null },
+  { id: 'nyasa',     label: 'Nyāsa', visualMode: 'nyasa' },
+  { id: 'nitya',     label: 'Nitya', visualMode: 'nitya' },
+  {
+    id: 'guravah', label: 'Gurus',
+    sectionIds: ['guru-divya', 'guru-siddha', 'guru-manava'],
+    visualMode: 'guravah',
+    subFilters: [
+      { id: 'gurus-divya',  label: 'Divya',  filterSectionIds: ['guru-divya']  },
+      { id: 'gurus-siddha', label: 'Siddha', filterSectionIds: ['guru-siddha'] },
+      { id: 'gurus-manava', label: 'Manava', filterSectionIds: ['guru-manava'] },
+      { id: 'gurus-whole',  label: 'Whole',  groupIds: null },
+    ],
+  },
   {
     id: 'circuit-1', label: '1st', sectionIds: ['circuit-1'],
     subFilters: [
@@ -59,6 +80,29 @@ export const SC_FILTERS = [
   { id: 'circuit-5', label: '5th', sectionIds: ['circuit-5'] },
   { id: 'circuit-6', label: '6th', sectionIds: ['circuit-6'] },
   { id: 'circuit-7', label: '7th', sectionIds: ['circuit-7'] },
+  // ── Card-mode sections (no unique yantra position) ──────────────────────
+  {
+    id: 'c8-c9', label: '8·9',
+    sectionIds: ['circuit-8', 'circuit-9'],
+    visualMode: 'c8c9',
+    defaultSubFilter: null,
+    subFilters: [
+      { id: 'c8c9-8th',   label: '8th',   filterSectionIds: ['circuit-8'] },
+      { id: 'c8c9-9th',   label: '9th',   filterSectionIds: ['circuit-9'] },
+      { id: 'c8c9-whole', label: 'Whole', groupIds: null },
+    ],
+  },
+  {
+    id: 'nava-cakra', label: 'Cakra',
+    visualMode: 'navaCakra',
+    defaultSubFilter: null,
+    subFilters: [
+      { id: 'nc-svamini', label: 'Svāminī' },
+      { id: 'nc-yogini',  label: 'Yoginī'  },
+      { id: 'nc-both',    label: 'Both',    groupIds: null },
+    ],
+  },
+  { id: 'all',       label: 'All', sectionIds: null },
 ]
 
 // ── Region-ID lookup ──────────────────────────────────────────────────────────
@@ -87,13 +131,13 @@ function getRegionId(deity) {
 // ── Dynamic fill computation ──────────────────────────────────────────────────
 
 const ACTIVE_FILL  = 'rgba(255,248,200,0.90)'
-const ACTIVE_GREEN = 'rgba(74,222,128,0.90)'
-const ACTIVE_RED   = 'rgba(248,113,113,0.80)'
+const ACTIVE_RED   = 'rgba(248,113,113,0.88)'   // correct = memorised = red
+const ACTIVE_GOLD  = 'rgba(201,168,76,0.80)'    // wrong = not memorised = gold
 const BG_DIM       = 'rgba(201,168,76,0.10)'
 const BG_NORMAL    = 'rgba(201,168,76,0.80)'
 const SEGMENT_GOLD   = 'rgba(201,168,76,0.55)'
-const RESULT_GREEN   = 'rgba(74,222,128,0.55)'
-const RESULT_RED     = 'rgba(248,113,113,0.45)'
+const RESULT_RED     = 'rgba(248,113,113,0.55)'  // past correct = red dot
+const RESULT_GOLD    = 'rgba(201,168,76,0.35)'   // past wrong = muted gold dot
 
 // All SVG region IDs per circuit (for segment highlight)
 const pad = n => String(n).padStart(2, '0')
@@ -109,8 +153,8 @@ const CIRCUIT_REGIONS = {
 function computeFills(activeRegionId, flashState, filterId, results) {
   const segmentIds = filterId && filterId !== 'all' ? (CIRCUIT_REGIONS[filterId] ?? []) : []
   const bg = activeRegionId ? BG_DIM : BG_NORMAL
-  const activeColor = flashState === 'correct' ? ACTIVE_GREEN
-                    : flashState === 'wrong'   ? ACTIVE_RED
+  const activeColor = flashState === 'correct' ? ACTIVE_RED
+                    : flashState === 'wrong'   ? ACTIVE_GOLD
                     : ACTIVE_FILL
 
   const fills = {
@@ -136,7 +180,7 @@ function computeFills(activeRegionId, flashState, filterId, results) {
     Object.entries(results).forEach(([deityId, verdict]) => {
       const regionId = getRegionId(deityById[deityId])
       if (regionId && regionId !== activeRegionId) {
-        fills[regionId] = verdict === 'correct' ? RESULT_GREEN : RESULT_RED
+        fills[regionId] = verdict === 'correct' ? RESULT_RED : RESULT_GOLD
       }
     })
   }
@@ -168,13 +212,15 @@ function shuffle(arr) {
 }
 
 function buildQueue(filterId, subFilterId) {
-  const filter = SC_FILTERS.find(f => f.id === filterId) ?? SC_FILTERS[0]
+  const filter     = SC_FILTERS.find(f => f.id === filterId) ?? SC_FILTERS[0]
+  const sourcePool = filter.cardMode ? cardDeities : positionedDeities
   let pool = filter.sectionIds
-    ? positionedDeities.filter(d => filter.sectionIds.includes(d.sectionId))
+    ? sourcePool.filter(d => filter.sectionIds.includes(d.sectionId))
     : positionedDeities
   if (subFilterId && filter.subFilters) {
     const sub = filter.subFilters.find(s => s.id === subFilterId)
-    if (sub?.groupIds) pool = pool.filter(d => sub.groupIds.includes(d.group))
+    if (sub?.groupIds)              pool = pool.filter(d => sub.groupIds.includes(d.group))
+    else if (sub?.filterSectionIds) pool = pool.filter(d => sub.filterSectionIds.includes(d.sectionId))
   }
   return shuffle(pool.map(d => d.id))
 }
@@ -215,7 +261,7 @@ function CompletionOverlay({ correct, total, onRestart }) {
       <p className="text-cream text-sm">Round complete</p>
       <div>
         <p className="text-4xl font-medium">
-          <span className="text-green-400">{correct}</span>
+          <span className="text-red-400">{correct}</span>
           <span className="text-muted text-2xl">/{total}</span>
         </p>
         <p className="text-xs text-muted mt-1">{pct}% memorised</p>
@@ -226,6 +272,87 @@ function CompletionOverlay({ correct, total, onRestart }) {
       >
         New round
       </button>
+    </div>
+  )
+}
+
+// ── Card-mode section metadata ────────────────────────────────────────────────
+
+const CARD_SECTION_META = {
+  'circuit-8':  { iastLabel: 'aṣṭama āvaraṇa',     enLabel: '8th Āvaraṇa', context: 'Primary Triangle', total: 9  },
+  'circuit-9':  { iastLabel: 'navama āvaraṇa',      enLabel: '9th Āvaraṇa', context: 'Bindu',            total: 3  },
+  'nitya':      { iastLabel: 'tithi nitya dēvatāḥ', enLabel: 'Tithi Nitya', context: 'Nitya Devatā',     total: 16 },
+  'guru-divya': { iastLabel: 'divyaugha guravaḥ',   enLabel: 'Divyaugha',   context: 'Divine Lineage',   total: 7  },
+  'guru-siddha':{ iastLabel: 'siddhaugha guravaḥ',  enLabel: 'Siddhaugha',  context: 'Siddha Lineage',   total: 4  },
+  'guru-manava':{ iastLabel: 'mānavaugha guravaḥ',  enLabel: 'Mānavaugha',  context: 'Human Lineage',    total: 8  },
+}
+
+function roleHint(deity) {
+  if (deity.role === 'chakraSvamini') return 'Cakra Svāminī'
+  if (deity.role === 'yoginiType')    return 'Yoginī Type'
+  if (deity.sectionId === 'circuit-8') {
+    return deity.sequenceInSection <= 4 ? 'Weapon Shakti' : 'Mahā Shakti'
+  }
+  return null
+}
+
+function CardPrompt({ deity, script, hovered, onMouseEnter, onMouseLeave, onClick, onDoubleClick, flash }) {
+  const meta = CARD_SECTION_META[deity.sectionId]
+  const hint = roleHint(deity)
+  const name = displayName(deity, script)
+
+  const flashBg     = flash === 'correct' ? 'rgba(248,113,113,0.10)'
+                    : flash === 'wrong'   ? 'rgba(201,168,76,0.08)'
+                    : 'transparent'
+  const flashBorder = flash === 'correct' ? 'rgba(248,113,113,0.55)'
+                    : flash === 'wrong'   ? 'rgba(201,168,76,0.35)'
+                    : 'rgba(201,168,76,0.18)'
+
+  return (
+    <div className="relative w-full" style={{ paddingBottom: '100%' }}>
+      <div
+        className="absolute inset-0 rounded-xl shadow-2xl shadow-black/60"
+        style={{
+          background: 'rgba(15,8,5,0.97)',
+          border: `1px solid ${flashBorder}`,
+          transition: 'border-color 0.25s',
+        }}
+      >
+        <div
+          className="w-full h-full flex flex-col items-center justify-center gap-3 cursor-pointer select-none px-8"
+          style={{ background: flashBg, transition: 'background 0.25s', borderRadius: '0.75rem' }}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onClick={onClick}
+          onDoubleClick={onDoubleClick}
+        >
+          {meta && (
+            <p className="iast text-gold-600" style={{ fontSize: '11px', letterSpacing: '0.06em' }}>
+              {meta.iastLabel}
+            </p>
+          )}
+          {meta && (
+            <p className="text-muted text-xs">{meta.context}</p>
+          )}
+
+          <div className="flex items-baseline gap-1.5 mt-3">
+            <span className="text-5xl font-light text-cream">{deity.sequenceInSection}</span>
+            <span className="text-xl text-muted">/ {meta?.total ?? '?'}</span>
+          </div>
+
+          {hint && (
+            <p className="text-xs text-muted italic">{hint}</p>
+          )}
+
+          <div className="mt-6 min-h-[2rem] flex items-center justify-center text-center">
+            {(hovered || flash) ? (
+              <p className="iast text-gold-300 text-xl leading-snug">{name}</p>
+            ) : (
+              <p className="text-muted italic" style={{ fontSize: '11px' }}>hover to reveal</p>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
@@ -247,7 +374,8 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
   const pos     = current ? getPosition(current.id) : null
   const hasPos  = pos != null
 
-  const activeRegionId = current ? getRegionId(current) : null
+  const isCardMode     = !!SC_FILTERS.find(f => f.id === filter)?.cardMode
+  const activeRegionId = current && !isCardMode ? getRegionId(current) : null
   const hasRegion      = activeRegionId != null
   const showDot        = hasPos && !hasRegion   // C1 only
 
@@ -318,14 +446,14 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      advance('wrong')
+      advance('correct')
     }, 260)
   }, [done, flash, advance])
 
   const handleDblClick = useCallback(() => {
     if (done || flash) return
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    advance('correct')
+    advance('wrong')
   }, [done, flash, advance])
 
   const handleRightClick = useCallback((e, deityId) => {
@@ -352,12 +480,80 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
   const dotFill   = flash === 'correct' ? GREEN : flash === 'wrong' ? RED : 'rgba(255,248,200,0.95)'
   const dotStroke = flash === 'correct' ? '#166534' : flash === 'wrong' ? '#7f1d1d' : GOLD
 
+  // Delegate to dedicated visual components for special-mode filters
+  const activeFilterDef = SC_FILTERS.find(f => f.id === filter)
+  if (activeFilterDef?.visualMode === 'c8c9') {
+    return (
+      <C89SpotCheckView
+        script={script}
+        subFilter={subFilter}
+        onProgressSync={onProgressSync}
+        onRegisterSkip={onRegisterSkip}
+        onUpdateStats={onUpdateStats}
+      />
+    )
+  }
+  if (activeFilterDef?.visualMode === 'navaCakra') {
+    return (
+      <NavaCakraSpotCheckView
+        script={script}
+        subFilter={subFilter}
+        onProgressSync={onProgressSync}
+        onRegisterSkip={onRegisterSkip}
+        onUpdateStats={onUpdateStats}
+      />
+    )
+  }
+  if (activeFilterDef?.visualMode === 'nyasa') {
+    return (
+      <NyasaSpotCheckView
+        script={script}
+        onProgressSync={onProgressSync}
+        onRegisterSkip={onRegisterSkip}
+        onUpdateStats={onUpdateStats}
+      />
+    )
+  }
+  if (activeFilterDef?.visualMode === 'nitya') {
+    return (
+      <NityaSpotCheckView
+        script={script}
+        onProgressSync={onProgressSync}
+        onRegisterSkip={onRegisterSkip}
+        onUpdateStats={onUpdateStats}
+      />
+    )
+  }
+  if (activeFilterDef?.visualMode === 'guravah') {
+    return (
+      <GuravahSpotCheckView
+        script={script}
+        subFilter={subFilter}
+        onProgressSync={onProgressSync}
+        onRegisterSkip={onRegisterSkip}
+        onUpdateStats={onUpdateStats}
+      />
+    )
+  }
+
   return (
     <div className="w-full p-4 flex flex-col gap-3">
 
       {/* Sri Yantra — always at top */}
       {!done && (
         <>
+        {isCardMode ? (
+          <CardPrompt
+            deity={current}
+            script={script}
+            hovered={hovered}
+            flash={flash}
+            onMouseEnter={() => { if (!flash) setHovered(true) }}
+            onMouseLeave={() => { if (!flash) setHovered(false) }}
+            onClick={handleClick}
+            onDoubleClick={handleDblClick}
+          />
+        ) : (
         <div
           className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
           style={{ paddingBottom: '100%' }}
@@ -449,8 +645,9 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
             </svg>
           </div>
         </div>
+        )}
         <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
-          hover to reveal · dbl-click = memorised · click = not memorised · right-click = change answer
+          hover to reveal · click = memorised · dbl-click = not memorised · right-click = change answer
         </p>
         </>
       )}
@@ -472,7 +669,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
           <div className="pt-1 border-t border-surface-800">
             <p className="text-xs text-muted font-mono uppercase tracking-widest mb-1">Last round</p>
             <p className="text-xs">
-              <span className="text-green-400">{pC}</span>
+              <span className="text-red-400">{pC}</span>
               <span className="text-muted">/{pT} memorised</span>
             </p>
           </div>

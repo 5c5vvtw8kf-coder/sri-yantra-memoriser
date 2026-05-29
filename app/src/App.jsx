@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import CircuitBrowser from './components/CircuitBrowser'
+import IntroView from './components/IntroView'
 import SriYantraSVG from './components/SriYantraSVG'
 import NyasaView from './components/NyasaView'
 import InnerView from './components/InnerView'
@@ -36,6 +37,8 @@ const YOGINI_SECRECY = {
 
 const TABS = [
   { id: 'yantra',       navLabel: 'śrī yantra',                    navLabelEn: 'Śrī Yantra',                            navLabelDev: 'श्री यन्त्र',           footerLabel: 'Śrī Yantra'           },
+  { id: 'intro',        navLabel: 'Welcome and Introduction',      navLabelEn: 'Welcome and Introduction',              navLabelDev: 'Welcome and Introduction', footerLabel: 'Introduction'        },
+  { id: 'h-explore-memorise', heading: 'EXPLORE AND MEMORISE' },
   { id: 'nyasa',        navLabel: 'nyāsāṅga-devatāḥ',             navLabelEn: 'Nyāsa Deities',                         navLabelDev: 'न्यासांगदेवताः',        footerLabel: 'Nyāsa Deities'        },
   { id: 'inner',        navLabel: 'tithi-nitya-devatāḥ',           navLabelEn: 'Tithi Nitya Deities',                   navLabelDev: 'तिथिनित्यदेवताः',      footerLabel: 'Tithi Nitya'          },
   { id: 'gurava',       navLabel: 'guravaḥ',                       navLabelEn: 'Gurus',                                 navLabelDev: 'गुरवः',                 footerLabel: 'Guravaḥ'              },
@@ -50,9 +53,16 @@ const TABS = [
   { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: 'Deities of the Wheel of the 9th Veil', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: '9th Āvaraṇa · Bindu'    },
   { id: 'chakreshvari', navLabel: 'navacakrēśvarī nāmāni',         navLabelEn: 'Names of the Nine Chakras',            navLabelDev: 'नवचक्रेश्वरी नामानि', footerLabel: 'Nava Chakreshvarī'   },
   { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets and Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
-  { id: 'spotcheck',    navLabel: 'spot check',                    navLabelEn: 'Spot Check',                           navLabelDev: 'Spot Check',            footerLabel: 'Spot Check'           },
+  { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMO MAP' },
+  { id: 'spotcheck',    navLabel: 'Spot Check',                    navLabelEn: 'Spot Check',                           navLabelDev: 'Spot Check',            footerLabel: 'Spot Check'           },
+  { id: 'memomap',      navLabel: 'Memo Map',                      navLabelEn: 'Memo Map',                              navLabelDev: 'Memo Map',              footerLabel: 'Memo Map'             },
+  { id: 'h-references', heading: 'REFERENCES' },
+  { id: 'references',   navLabel: 'References',                    navLabelEn: 'References',                           navLabelDev: 'References',            footerLabel: 'References'           },
   { id: 'browser',      navLabel: 'Circuit Browser',               navLabelEn: 'Circuit Browser',                      navLabelDev: 'Circuit Browser',       footerLabel: 'Circuit Browser'      },
 ]
+
+// Navigable tabs only (excludes heading entries — used for footer prev/next)
+const NAVIGABLE_TABS = TABS.filter(t => !t.heading)
 
 // Maps tab id → circuit number (for right-panel SectionInfo)
 const TAB_TO_CIRCUIT = {
@@ -62,6 +72,16 @@ const TAB_TO_CIRCUIT = {
 // Maps circuit number → tab id (for "Go to circuit" button)
 const CIRCUIT_TO_TAB = {
   1: 'bhupura', 2: 'c2', 3: 'c3', 4: 'c4', 5: 'c5', 6: 'c6', 7: 'c7', 8: 'c8', 9: 'c9'
+}
+
+// Returns dot state for a nav tab based on session results.
+//   null   → never started (no dot)
+//   'gold' → in progress or partial complete
+//   'red'  → last completed round was 100%
+function getTabDot(results, prevResults) {
+  if (prevResults === null && Object.keys(results).length === 0) return null
+  if (prevResults !== null && Object.values(prevResults).every(v => v === 'correct')) return 'red'
+  return 'gold'
 }
 
 // ── Circuit colour palette (for region fills) ─────────────────────────────────
@@ -511,7 +531,6 @@ function CircuitTable({ selectedCircuit, onCircuitSelect }) {
 
 function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
-  const [contextMenu,  setContextMenu]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 1)
@@ -523,15 +542,15 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
     if (extraTimer.current) return
     extraTimer.current = setTimeout(() => {
       extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleItemDoubleClick = (seq) => {
     if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
@@ -575,7 +594,7 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
-          ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+          ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
       >
         <span
@@ -601,13 +620,6 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
         {renderRow('Yoginī',         'yoginiType',    30)}
       </div>
 
-      {(currentSeq === 29 || currentSeq === 30) && (
-        <p className="text-xs text-muted italic leading-snug pt-1">
-          hover to reveal<br />
-          dbl-click = memorised · click = not memorised
-        </p>
-      )}
-
       {currentSeq > 30 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
@@ -632,27 +644,6 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
         </div>
       )}
 
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
-
     </div>
   )
 }
@@ -671,7 +662,6 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
 
 function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
-  const [contextMenu,  setContextMenu]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 2)
@@ -737,7 +727,7 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
-          ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+          ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
       >
         <span
@@ -766,13 +756,6 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
       </div>
 
       {/* Hint during active extra phases */}
-      {(currentSeq === 17 || currentSeq === 18) && (
-        <p className="text-xs text-muted italic leading-snug pt-1">
-          hover to reveal<br />
-          dbl-click = memorised · click = not memorised
-        </p>
-      )}
-
       {/* Completion — show once all 18 items have been attempted */}
       {currentSeq > 18 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
@@ -798,28 +781,6 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         </div>
       )}
 
-      {/* Context menu for past-item correction */}
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
-
     </div>
   )
 }
@@ -834,7 +795,6 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
-  const [contextMenu,  setContextMenu]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 3)
@@ -846,15 +806,15 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (extraTimer.current) return
     extraTimer.current = setTimeout(() => {
       extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleItemDoubleClick = (seq) => {
     if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
@@ -898,7 +858,7 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
-          ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+          ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
       >
         <span
@@ -924,13 +884,6 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         {renderRow('Yoginī',         'yoginiType',    10)}
       </div>
 
-      {(currentSeq === 9 || currentSeq === 10) && (
-        <p className="text-xs text-muted italic leading-snug pt-1">
-          hover to reveal<br />
-          dbl-click = memorised · click = not memorised
-        </p>
-      )}
-
       {currentSeq > 10 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
@@ -955,27 +908,6 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         </div>
       )}
 
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
-
     </div>
   )
 }
@@ -990,7 +922,6 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
-  const [contextMenu,  setContextMenu]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 4)
@@ -1002,15 +933,15 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (extraTimer.current) return
     extraTimer.current = setTimeout(() => {
       extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleItemDoubleClick = (seq) => {
     if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
@@ -1054,7 +985,7 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
-          ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+          ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
       >
         <span
@@ -1080,13 +1011,6 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         {renderRow('Yoginī',         'yoginiType',    16)}
       </div>
 
-      {(currentSeq === 15 || currentSeq === 16) && (
-        <p className="text-xs text-muted italic leading-snug pt-1">
-          hover to reveal<br />
-          dbl-click = memorised · click = not memorised
-        </p>
-      )}
-
       {currentSeq > 16 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
@@ -1111,27 +1035,6 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         </div>
       )}
 
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
-
     </div>
   )
 }
@@ -1145,7 +1048,6 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
-  const [contextMenu,  setContextMenu]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 5)
@@ -1157,15 +1059,15 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (extraTimer.current) return
     extraTimer.current = setTimeout(() => {
       extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleItemDoubleClick = (seq) => {
     if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
@@ -1209,7 +1111,7 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
-          ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+          ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
       >
         <span
@@ -1235,13 +1137,6 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         {renderRow('Yoginī',         'yoginiType',    12)}
       </div>
 
-      {(currentSeq === 11 || currentSeq === 12) && (
-        <p className="text-xs text-muted italic leading-snug pt-1">
-          hover to reveal<br />
-          dbl-click = memorised · click = not memorised
-        </p>
-      )}
-
       {currentSeq > 12 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
@@ -1266,27 +1161,6 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         </div>
       )}
 
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
-
     </div>
   )
 }
@@ -1300,7 +1174,6 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
-  const [contextMenu,  setContextMenu]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 6)
@@ -1312,15 +1185,15 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (extraTimer.current) return
     extraTimer.current = setTimeout(() => {
       extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleItemDoubleClick = (seq) => {
     if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
@@ -1364,7 +1237,7 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
-          ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+          ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
       >
         <span
@@ -1390,13 +1263,6 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         {renderRow('Yoginī',         'yoginiType',    12)}
       </div>
 
-      {(currentSeq === 11 || currentSeq === 12) && (
-        <p className="text-xs text-muted italic leading-snug pt-1">
-          hover to reveal<br />
-          dbl-click = memorised · click = not memorised
-        </p>
-      )}
-
       {currentSeq > 12 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
@@ -1421,27 +1287,6 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         </div>
       )}
 
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
-
     </div>
   )
 }
@@ -1455,7 +1300,6 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
-  const [contextMenu,  setContextMenu]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 7)
@@ -1467,15 +1311,15 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (extraTimer.current) return
     extraTimer.current = setTimeout(() => {
       extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleItemDoubleClick = (seq) => {
     if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
@@ -1519,7 +1363,7 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
-          ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+          ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
       >
         <span
@@ -1545,13 +1389,6 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         {renderRow('Yoginī',         'yoginiType',    10)}
       </div>
 
-      {(currentSeq === 9 || currentSeq === 10) && (
-        <p className="text-xs text-muted italic leading-snug pt-1">
-          hover to reveal<br />
-          dbl-click = memorised · click = not memorised
-        </p>
-      )}
-
       {currentSeq > 10 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
@@ -1574,27 +1411,6 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
             </button>
           </div>
         </div>
-      )}
-
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
       )}
 
     </div>
@@ -2245,6 +2061,27 @@ export default function App() {
   const [scProgress, setScProgress] = useState({ idx: 0, total: 0, correct: 0, wrong: 0 })
   const scSkipRef = useRef(null)
 
+  // ── Nav progress dots ──────────────────────────────────────────────────────
+  const tabDotMap = {
+    yantra:       null,
+    nyasa:        getTabDot(nyasaResults,    nyasaPrevResults),
+    inner:        getTabDot(innerResults,    innerPrevResults),
+    gurava:       getTabDot(guravaResults,   guravaPrevResults),
+    bhupura:      getTabDot(bhupuraResults,  bhupuraPrevResults),
+    c2:           getTabDot(c2Results,       c2PrevResults),
+    c3:           getTabDot(c3Results,       c3PrevResults),
+    c4:           getTabDot(c4Results,       c4PrevResults),
+    c5:           getTabDot(c5Results,       c5PrevResults),
+    c6:           getTabDot(c6Results,       c6PrevResults),
+    c7:           getTabDot(c7Results,       c7PrevResults),
+    c8:           getTabDot(c8Results,       c8PrevResults),
+    c9:           getTabDot(c9Results,       c9PrevResults),
+    chakreshvari: getTabDot(ncResults,       ncPrevResults),
+    closing:      getTabDot(closingResults,  closingPrevResults),
+    spotcheck:    null,
+    browser:      null,
+  }
+
   // ── Handlers ───────────────────────────────────────────────────────────────
   const handleTabChange = (tabId) => {
     setActiveTab(tabId)
@@ -2306,16 +2143,13 @@ export default function App() {
   }
 
   // ── Sequential navigation ──────────────────────────────────────────────────
-  const currentTabIdx = TABS.findIndex(t => t.id === activeTab)
-  const prevTab = currentTabIdx > 0 ? TABS[currentTabIdx - 1] : null
-  const nextTab = currentTabIdx < TABS.length - 1 ? TABS[currentTabIdx + 1] : null
+  const currentTabIdx = NAVIGABLE_TABS.findIndex(t => t.id === activeTab)
+  const prevTab = currentTabIdx > 0 ? NAVIGABLE_TABS[currentTabIdx - 1] : null
+  const nextTab = currentTabIdx < NAVIGABLE_TABS.length - 1 ? NAVIGABLE_TABS[currentTabIdx + 1] : null
 
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {
-    if (activeTab === 'yantra') {
-      if (selectedCircuit) return <CircuitDetail circuitNumber={selectedCircuit} script={script} onNavigate={handleTabChange} />
-      return <CircuitTable selectedCircuit={selectedCircuit} onCircuitSelect={handleCircuitSelect} />
-    }
+    if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
     if (activeTab === 'bhupura' && bhupuraMemorise) return (
       <BhupuraMemoriseInfo
         currentSeq={bhupuraCurrentSeq}
@@ -2403,7 +2237,7 @@ export default function App() {
           {SC_FILTERS.map(f => (
             <button
               key={f.id}
-              onClick={() => { setScFilter(f.id); const filt = SC_FILTERS.find(sf => sf.id === f.id); const def = filt?.subFilters?.find(s => s.groupIds !== null); setScSubFilter(def?.id ?? null) }}
+              onClick={() => { setScFilter(f.id); const filt = SC_FILTERS.find(sf => sf.id === f.id); const def = 'defaultSubFilter' in (filt ?? {}) ? filt.defaultSubFilter : (filt?.subFilters?.find(s => s.groupIds !== null)?.id ?? null); setScSubFilter(def) }}
               className={[
                 'px-2.5 py-1 rounded text-xs font-mono transition-colors',
                 scFilter === f.id
@@ -2426,7 +2260,7 @@ export default function App() {
               {activeFilt.subFilters.map(s => (
                 <button
                   key={s.id}
-                  onClick={() => setScSubFilter(s.id === 'c1-whole' || s.groupIds === null ? null : s.id)}
+                  onClick={() => setScSubFilter(s.groupIds === null ? null : s.id)}
                   className={[
                     'flex-1 py-1 rounded text-xs font-mono transition-colors text-center',
                     (s.groupIds === null ? scSubFilter === null : scSubFilter === s.id)
@@ -2468,9 +2302,9 @@ export default function App() {
             <div className="flex justify-between text-xs text-muted">
               <span>{scProgress.idx} / {scProgress.total}</span>
               <span>
-                <span className="text-green-400">{scProgress.correct}✓</span>
+                <span className="text-red-400">{scProgress.correct}✓</span>
                 {' '}
-                <span className="text-red-400">{scProgress.wrong}✗</span>
+                <span className="text-gold-400">{scProgress.wrong}✗</span>
               </span>
             </div>
             <div className="w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
@@ -2524,11 +2358,11 @@ export default function App() {
         {/* Legend */}
         <div className="space-y-1 pt-1 border-t border-surface-800">
           <div className="flex items-center gap-2">
-            <span className="text-green-400 text-xs">dbl-click</span>
+            <span className="text-red-400 text-xs">click</span>
             <span className="text-xs text-muted">memorised</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-red-400 text-xs">click</span>
+            <span className="text-gold-400 text-xs">dbl-click</span>
             <span className="text-xs text-muted">not memorised</span>
           </div>
           <div className="flex items-center gap-2">
@@ -2542,8 +2376,8 @@ export default function App() {
     return <SectionInfo tabId={activeTab} script={script} />
   })()
 
-  // ── Yantra-tab sidebar controls ────────────────────────────────────────────
-  const yantraControls = activeTab === 'yantra' && (
+  // ── Yantra-tab sidebar controls (removed — Yantra tab is now a pure display) ─
+  const yantraControls = false && activeTab === 'yantra' && (
     <div className="border-t border-surface-800 flex-shrink-0">
       {/* Collapsible header */}
       <button
@@ -2605,33 +2439,53 @@ export default function App() {
 
         {/* Title block */}
         <div className="px-4 pt-4 pb-3 border-b border-surface-800 flex-shrink-0">
-          <h1 className="iast text-gold-400 text-sm font-medium tracking-wide leading-tight">
+          <h1 className="iast text-gold-400 text-base font-semibold tracking-wide leading-tight">
             śrī yantra memoriser
           </h1>
-          <p className="iast mt-0.5 text-muted italic" style={{ fontSize: '10px', letterSpacing: '0.03em' }}>
+          <p className="iast mt-1 text-muted italic" style={{ fontSize: '13px', letterSpacing: '0.03em' }}>
             for the Khadgamala Stotram
           </p>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-2 px-2 min-h-0">
-          {TABS.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabChange(tab.id)}
-              className={`w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors
-                ${script !== 'devanagari' ? 'iast' : ''}
-                ${activeTab === tab.id
-                  ? 'text-gold-300 bg-gold-900/30'
-                  : 'text-muted hover:text-cream'}`}
-            >
-              {script === 'devanagari'
-                ? (tab.navLabelDev || tab.navLabel)
-                : script === 'english'
-                ? (tab.navLabelEn || tab.navLabel)
-                : tab.navLabel}
-            </button>
-          ))}
+          {TABS.map((tab, i) => {
+            if (tab.heading) {
+              return (
+                <p key={tab.id}
+                   className={`text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em] px-2 pb-0.5 select-none ${i === 0 ? 'pt-1' : 'pt-3'}`}>
+                  {tab.heading}
+                </p>
+              )
+            }
+            const dot = tabDotMap[tab.id]
+            return (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id)}
+                className={`w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors flex items-start justify-between gap-1
+                  ${script !== 'devanagari' ? 'iast' : ''}
+                  ${activeTab === tab.id
+                    ? 'text-gold-300 bg-gold-900/30'
+                    : 'text-muted hover:text-cream'}`}
+              >
+                <span className="flex-1 min-w-0">
+                  {script === 'devanagari'
+                    ? (tab.navLabelDev || tab.navLabel)
+                    : script === 'english'
+                    ? (tab.navLabelEn || tab.navLabel)
+                    : tab.navLabel}
+                </span>
+                {dot && (
+                  <span
+                    className={`flex-shrink-0 w-1.5 h-1.5 rounded-full mt-0.5 ${
+                      dot === 'red' ? 'bg-red-400' : 'bg-gold-500'
+                    }`}
+                  />
+                )}
+              </button>
+            )
+          })}
         </nav>
 
         {/* Yantra controls (yantra tab only) */}
@@ -2671,18 +2525,14 @@ export default function App() {
         <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto pt-8">
           <div className="w-full" style={{ maxWidth: 'min(100%, calc(100vh - 6rem))' }}>
             {activeTab === 'yantra'  && (
-              <YantraView
-                showTriangles={showTriangles}
-                showNumbers={showNumbers}
-                showLabels={showLabels}
-                showSeedOfLife={showSeedOfLife}
-                seedR={seedR}
-                selectedCircuit={selectedCircuit}
-                onCircuitSelect={handleCircuitSelect}
-                filledRegions={filledRegions}
-                onRegionClick={handleRegionClick}
-                lastTapped={lastTapped}
-              />
+              <div className="p-4">
+                <SriYantraSVG
+                  showTriangles={true}
+                  showLabels={false}
+                  showNumbers={false}
+                  filledRegions={MODEL_YANTRA_FILLS}
+                />
+              </div>
             )}
             {activeTab === 'nyasa'   && <NyasaView
                                           script={script}
@@ -2892,11 +2742,25 @@ export default function App() {
               />
             )}
             {activeTab === 'browser'      && <CircuitBrowser script={script} />}
+            {activeTab === 'intro'        && <IntroView script={script} />}
+            {activeTab === 'memomap'      && (
+              <div className="flex flex-col items-center justify-center py-20 gap-3 text-center px-6">
+                <p className="text-gold-700 font-mono text-xs uppercase tracking-widest">Coming soon</p>
+                <p className="text-muted text-sm">Memo Map will be added here.</p>
+              </div>
+            )}
+            {activeTab === 'references'   && (
+              <div className="flex flex-col items-center justify-center py-20 gap-3 text-center px-6">
+                <p className="text-gold-700 font-mono text-xs uppercase tracking-widest">Coming soon</p>
+                <p className="text-muted text-sm">References and source materials will be added here.</p>
+              </div>
+            )}
           </div>
         </div>
 
         {/* ── Sequential navigation footer ─────────────────────────────────── */}
-        <div className="flex-shrink-0 border-t border-surface-800 flex items-center px-2 py-1.5 gap-1">
+        <div className="flex-shrink-0 border-t border-surface-800 flex items-center px-2 py-1.5 gap-1"
+             style={{ display: activeTab === 'yantra' ? 'none' : undefined }}>
           <button
             onClick={() => prevTab && handleTabChange(prevTab.id)}
             disabled={!prevTab}
@@ -2911,7 +2775,7 @@ export default function App() {
             </span>
           </button>
           <span className="flex-shrink-0 text-xs font-mono text-surface-600 px-2 select-none">
-            {currentTabIdx + 1}/{TABS.length}
+            {currentTabIdx + 1}/{NAVIGABLE_TABS.length}
           </span>
           <button
             onClick={() => nextTab && handleTabChange(nextTab.id)}
@@ -2931,137 +2795,13 @@ export default function App() {
       </main>
 
       {/* ── Right panel ──────────────────────────────────────────────────── */}
-      <aside className="w-64 flex-shrink-0 border-l border-surface-800 flex flex-col">
+      <aside className="w-64 flex-shrink-0 border-l border-surface-800 flex flex-col"
+             style={{ display: activeTab === 'yantra' ? 'none' : undefined }}>
 
         {/* Scrollable info area */}
         <div className="flex-1 overflow-y-auto min-h-0">
           {rightPanel}
         </div>
-
-        {/* Nyasa Memorise controls — pinned to the bottom */}
-        {activeTab === 'nyasa' && (
-          <div className="flex-shrink-0 border-t border-surface-800 p-3 space-y-2.5">
-
-            {/* Explore / Memorise toggle + Reset */}
-            <div className="flex gap-1.5">
-              <button
-                onClick={handleNyasaExitMemorise}
-                className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                  !nyasaMemorise
-                    ? 'bg-gold-700 text-black'
-                    : 'bg-surface-700 text-muted hover:text-cream'
-                }`}
-              >
-                Explore
-              </button>
-              <button
-                onClick={handleNyasaStartMemorise}
-                className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                  nyasaMemorise
-                    ? 'bg-gold-700 text-black'
-                    : 'bg-surface-700 text-muted hover:text-cream'
-                }`}
-              >
-                Memorise
-              </button>
-              {nyasaMemorise && (
-                <button
-                  onClick={handleNyasaStartMemorise}
-                  title="Reset whole level"
-                  className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
-                >
-                  ↺
-                </button>
-              )}
-            </div>
-
-            {/* Progress bar — visible during an active round */}
-            {nyasaMemorise && nyasaCurrentSeq <= 6 && (() => {
-              const correctCount = Object.values(nyasaResults).length
-              return (
-                <div className="space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1.5 rounded-full bg-surface-700 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-gold-600 transition-all duration-300"
-                        style={{ width: `${((nyasaCurrentSeq - 1) / 6) * 100}%` }}
-                      />
-                    </div>
-                    <span className="text-xs text-muted font-mono whitespace-nowrap">
-                      {nyasaCurrentSeq - 1} / 6
-                      {correctCount > 0 && (
-                        <span className="text-red-400"> · {correctCount}✓</span>
-                      )}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    double-click = memorised · click = not memorised
-                  </p>
-                </div>
-              )
-            })()}
-
-            {/* Previous attempt summary */}
-            {nyasaPrevResults !== null && (
-              <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
-                {(() => {
-                  const correct = Object.values(nyasaPrevResults).filter(v => v === 'correct').length
-                  const missed  = 6 - correct
-                  return (
-                    <p className="text-xs">
-                      <span className="text-red-400">{correct}/6 memorised</span>
-                      {missed > 0 && <span className="text-muted"> · {missed} not memorised</span>}
-                    </p>
-                  )
-                })()}
-              </div>
-            )}
-
-            {/* Not memorised list */}
-            {nyasaPrevResults !== null && (() => {
-              const notMem = deities
-                .filter(d => d.sectionId === 'nyasa')
-                .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
-                .filter(d => nyasaPrevResults[d.sequenceInSection] !== 'correct')
-                .map(d => displayName(d, script))
-              if (notMem.length === 0) return null
-              return (
-                <div className="pt-1 border-t border-surface-700 space-y-1">
-                  <button className="flex items-center justify-between w-full text-left"
-                    onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
-                    </span>
-                    <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
-                  </button>
-                  {showErrors && (
-                    <ul className="space-y-0.5 pt-0.5">
-                      {notMem.map((name, i) => (
-                        <li key={i} className={`text-xs leading-snug ${script !== 'english' ? 'iast ' : ''}text-amber-300`}>{name}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              )
-            })()}
-
-            {/* Session counter */}
-            {sessionStats.rounds > 0 && (
-              <div className="pt-1 border-t border-surface-700 space-y-1">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
-                </div>
-                <p className="text-xs">
-                  <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
-                </p>
-              </div>
-            )}
-
-          </div>
-        )}
 
         {/* Inner (Tithi Nitya) Memorise controls */}
         {activeTab === 'inner' && (
@@ -3097,8 +2837,10 @@ export default function App() {
                       {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    double-click = memorised · click = not memorised
+                  <p className="text-xs text-muted italic leading-snug">
+                    · <span className="text-red-400">click</span> = memorised<br />
+                    · <span className="text-gold-400">dbl-click</span> = not memorised<br />
+                    · right-click = toggle
                   </p>
                 </div>
               )
@@ -3190,8 +2932,10 @@ export default function App() {
                       {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    double-click = memorised · click = not memorised
+                  <p className="text-xs text-muted italic leading-snug">
+                    · <span className="text-red-400">click</span> = memorised<br />
+                    · <span className="text-gold-400">dbl-click</span> = not memorised<br />
+                    · right-click = toggle
                   </p>
                 </div>
               )
@@ -3286,8 +3030,10 @@ export default function App() {
                       {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    double-click = memorised · click = not memorised
+                  <p className="text-xs text-muted italic leading-snug">
+                    · <span className="text-red-400">click</span> = memorised<br />
+                    · <span className="text-gold-400">dbl-click</span> = not memorised<br />
+                    · right-click = toggle
                   </p>
                 </div>
               )
@@ -3406,10 +3152,6 @@ export default function App() {
                       )}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    hover to reveal<br />
-                    dbl-click = memorised · click = not memorised
-                  </p>
                 </div>
               )
             })()}
@@ -3526,10 +3268,6 @@ export default function App() {
                       )}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    hover to reveal<br />
-                    dbl-click = memorised · click = not memorised
-                  </p>
                 </div>
               )
             })()}
@@ -3642,10 +3380,6 @@ export default function App() {
                       )}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    hover to reveal<br />
-                    dbl-click = memorised · click = not memorised
-                  </p>
                 </div>
               )
             })()}
@@ -3759,10 +3493,6 @@ export default function App() {
                       )}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    hover to reveal<br />
-                    dbl-click = memorised · click = not memorised
-                  </p>
                 </div>
               )
             })()}
@@ -3876,10 +3606,6 @@ export default function App() {
                       )}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    hover to reveal<br />
-                    dbl-click = memorised · click = not memorised
-                  </p>
                 </div>
               )
             })()}
@@ -3993,10 +3719,6 @@ export default function App() {
                       )}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    hover to reveal<br />
-                    dbl-click = memorised · click = not memorised
-                  </p>
                 </div>
               )
             })()}
@@ -4098,9 +3820,9 @@ export default function App() {
             </div>
 
             {c9Memorise && c9CurrentSeq <= 1 && (
-              <p className="text-xs text-muted italic text-center leading-snug">
-                dbl-click the bindu = memorised<br />
-                single-click = not yet
+              <p className="text-xs text-muted italic leading-snug">
+                click the bindu = memorised<br />
+                dbl-click = not yet
               </p>
             )}
 
@@ -4185,10 +3907,6 @@ export default function App() {
                       )}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    hover to reveal<br />
-                    dbl-click = memorised · click = not memorised
-                  </p>
                 </div>
               )
             })()}
@@ -4369,10 +4087,6 @@ export default function App() {
                       )}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic text-center leading-snug">
-                    hover to reveal<br />
-                    dbl-click = memorised · click = not memorised
-                  </p>
                 </div>
               )
             })()}

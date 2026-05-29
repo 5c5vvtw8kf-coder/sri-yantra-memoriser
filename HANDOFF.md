@@ -1,159 +1,95 @@
-# Sri Yantra Memoriser — Handoff Notes
+# Sri Yantra Memoriser — Session Handoff
 
-**Date:** 28 May 2026
-
----
-
-## Next task — START HERE
-
-**Line Drill mode** — next major feature after Spot Check views are validated.
-
-Open question to resolve before coding: how many pre-defined geometric lines across the triangular circuits, and who defines them — manually by Chris, or derived from SVG geometry?
-
-If testing the Cakra Spot Check view, refer to the NavaCakraSpotCheckView notes below for the circuit geometry details.
+**Date:** 29 May 2026
+**Branch:** master
 
 ---
 
-## What was completed this session
+## What Was Completed This Session
 
-### File changed
-- `app/src/components/NavaCakraSpotCheckView.jsx` — significant rework (see below)
+### 1. Sri Yantra Tab — Pure Display
+The Sri Yantra tab is now a clean, uninterrupted display of the fully coloured yantra geometry. All click targets, interaction hints, right panel, and footer navigation have been removed. The intent is that the yantra draws the user in visually before they begin studying.
 
-All other five Spot Check views (C89, Nyāsa, Nitya, Guravaḥ, plus SpotCheckView itself) were validated and are unchanged.
+### 2. Welcome and Introduction Page (IntroView.jsx)
+New component at `app/src/components/IntroView.jsx`. Appears as the second tab, immediately after the Sri Yantra.
 
-### NavaCakraSpotCheckView — full change log
+Content structure:
+- Opening invocation: Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ (larger gold text)
+- Salutation: Namastripurasundari (IAST, larger)
+- Welcome paragraph (gold-400, IAST font): "Namaskaram and welcome to the Śrī Yantra Memoriser..."
+- **The Śrī Yantra** section: geometry, nine āvaraṇas or 'veils', Śrī Vidyā school
+- **The Khadgamala Stotram** section: 102 circuit deities, ~160 total including Nyāsa Devatāḥ, Tithi Nitya Devatāḥ, Divyaugha/Siddaugha/Mānavaugha gurus, Nava (nine) Cakreśvarī
+- **How this app works** section: spatial memory approach, feature descriptions, YouTube chanting link
+- Watermark: full SriYantraSVG at opacity 0.07, 160% width centred via `left: 50%; transform: translateX(-50%)`
 
-**Circuit highlights — `computeFills` and `CIRCUIT_FILL_IDS`:**
-- C4–C8 triangle sub-region DIM fills removed from the base fills. Those sub-regions now render `fill="transparent"` with no stroke, preventing inner-circuit gold outlines from showing over the active circuit's cream fill.
-- `c9` base fill (`'#000000'`) removed — the default gold bindu in SriYantraSVG renders only when `filledRegions['c9']` is unset. Restoring it to unset lets the gold dot show; circuit 9 still turns cream when active.
-- `CIRCUIT_FILL_IDS[1]` = `['c1-outer', 'c1-mid']` — fills only the two bhupura wall bands. `'c1-inner'` (the open space between the inner bhupura line and the Valayam circles) is no longer filled.
-- `CIRCUIT_FILL_IDS[8]` = `[]` — no `filledRegions` fill for circuit 8. Instead a separate SVG overlay renders the correct shape (see below).
+Design decisions:
+- No em-dashes (replaced with commas throughout)
+- Feature names (Explore, Memorise, Spot Check, Memo Map) in gold-400, not cream
+- "most revered sacred geometric diagrams in Hinduism, especially within the Śrī Vidyā school"
+- Nine circuits described as "nine circuits or 'veils' (āvaraṇas)"
+- No āvaraṇa table on Intro page (will live in References)
 
-**Circuit 8 central triangle overlay:**
+### 3. Nav Sidebar Restructure
+Section headings added:
+- **EXPLORE AND MEMORISE** — between Sri Yantra and Nyāsa Devatāḥ
+- **SPOT CHECK AND MEMO MAP** — before Spot Check
+- **REFERENCES** — before References
 
-The correct circuit 8 region is the small central triangle formed by DFT5's apex clipped to DFT4's base line — NOT the full DFT4 triangle. Vertices in SriYantraSVG coordinate space:
+`NAVIGABLE_TABS = TABS.filter(t => !t.heading)` used for all sequential nav logic so headings do not break the footer prev/next sequence.
+
+### 4. Nav Progress Dots
+Small dot to the right of each nav label:
+- No dot: never started
+- Gold dot: in progress
+- Red dot: last round was 100% correct
+
+### 5. New Placeholder Pages
+Memo Map, References, and Circuit Browser added as "Coming soon" placeholders.
+
+### 6. Click/Double-Click Reversal
+Single click = memorised (red), double-click = not memorised (gold). Applied across all circuit views.
+
+### 7. Colour Standardisation
+Gold/red scheme standardised across all circuit views.
+
+---
+
+## Pending — Next Session Priorities
+
+### High Priority
+1. **Memo Map** — Sequential run-through of the full stotram mapping memorised vs. not. Needs design thinking before coding.
+2. **References page** — YouTube link, āvaraṇa table, Nava Cakreśvarī details, vignanam.org attribution.
+
+### Backlog
+3. **Numbers mode retirement** — Remove Numbers toggle from Yantra tab (decided, not yet done).
+4. **Circuit Browser** — Keep, repurpose, or remove?
+5. **American English variant** — UI strings only (Memorizer, Memorize). Future.
+6. **Preamble sections** (Prarthana, Dhyanam) — After core spatial modes are stable.
+
+---
+
+## Git State
+
+A stale `.git/index.lock` is blocking commits from the sandbox. All changes are saved. To commit manually from your terminal:
 
 ```
-"260,283.301 248.565,263.193 271.435,263.193"
-```
-
-Derivation: DFT5 apex = (260, 283.301); DFT4 base y = 263.193;
-t = (263.193 − 283.301) / (182.872 − 283.301) ≈ 0.20022;
-left x = 260 − 0.20022 × 57.112 ≈ 248.565, right x ≈ 271.435.
-
-This matches the korvinGeometry.js `centralTriangle()` computation (KORVIN_CENTRAL), but in the raw Korvin/SriYantraSVG coordinate space (not the `toScreen` transformed space used by InnerView etc.).
-
-The overlay is a second `<svg>` element with `viewBox="45 55 430 430"` (identical to SriYantraSVG) positioned `absolute inset-0 w-full h-full` with `pointerEvents: 'none'`. The polygon fill switches between HIGHLIGHT / FLASH_GREEN / FLASH_RED based on `flash` state. Hover detection for circuit 8 still works via the transparent `tri-c8-xx` polygons that the SriYantraSVG renders in hoverable mode.
-
-**Hover detection:**
-- `onMouseEnter` removed from the container div. Hover is now driven by `onRegionHover` passed to SriYantraSVG, which fires per SVG region.
-- `regionToCircuit(id)` maps region IDs to circuit numbers (c1/c1-*, petal-c2-*, petal-c3-*, tri-c4-* … tri-c8-*, c8, c9).
-- `handleRegionHover(id)` sets `hovered = true` only when `regionToCircuit(id) === parsed.circuitNumber`.
-- Container `onMouseLeave` still resets hover when the mouse leaves the yantra entirely.
-
-**Tooltip:**
-- Positioned at `top-0 pt-5` (north gate), not bottom.
-- Only shows when hovering the active circuit (not the whole yantra).
-- Yoginī font size matched to Svāminī (both 15px).
-- `parsed.type === 'both'`: two rows (Svāminī gold-300, Yoginī gold-500); single type: one row.
-
-**Timing — `scheduleAdvance` + right-click toggle:**
-- `advanceTimer` ref stores the advance-to-next timeout so it can be cancelled.
-- Flash hold is **3 000 ms** (3 seconds).
-- `handleContextMenu` (right-click during flash): toggles correct ↔ wrong, resets the 3-second clock.
-- `scheduleAdvance()` extracted as a `useCallback` used by both `advance` and `handleContextMenu`.
-- Both `clickTimer` and `advanceTimer` are cleared in the cleanup `useEffect`.
-
----
-
-## App architecture reminder
-- Sidebar: `w-52` (208px) | Main: `flex-1`, centered `maxWidth: min(100%, calc(100vh - 6rem))` | Right panel: `w-64` (256px)
-- All pages: yantra outer = `relative w-full` + `paddingBottom:100%`; inner = `absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60`
-- `displayName(deity, script)` lives in `app/src/utils.js` — import from there, never define locally
-- **SC_FILTERS** exported from SpotCheckView.jsx — import in App.jsx for right panel rendering
-- **Devanagari text:** never italicised, never fake-bolded — use colour or spacing for emphasis
-- **OneDrive write truncation:** the Edit tool truncates large files on the OneDrive mount with null bytes. After every Edit call on a large file, run: `python3 -c "path='...'; f=open(path,'rb'); r=f.read(); f.close(); r=r.rstrip(b'\x00'); open(path,'wb').write(r)"`. Also verify line count with `wc -l`. If truncated mid-JSX, append the missing tail using Python read/strip/append pattern.
-- **Git:** works from Windows terminal only. OneDrive blocks git write operations from Cowork sandbox.
-
-### SriYantraSVG filledRegions — key region IDs
-| ID pattern | What it fills |
-|---|---|
-| `c1` | Full bhupura ring (with mask-c1) |
-| `c1-outer` | Outer bhupura wall band (OUTER→MAIN polygon) |
-| `c1-mid` | Middle bhupura wall band (MAIN→INNER polygon) |
-| `c1-inner` | Open space inside INNER polygon down to Valayam circle |
-| `petal-c2-01…16` | Individual C2 petals (applied directly to `<path>`, via c2PetalFills) |
-| `petal-c3-01…08` | Individual C3 petals |
-| `tri-c4-01…14` | C4 triangle sub-regions (non-overlapping) |
-| `tri-c5-01…10` | C5 triangle sub-regions |
-| `tri-c6-01…10` | C6 triangle sub-regions |
-| `tri-c7-01…08` | C7 triangle sub-regions |
-| `tri-c8-01` | Full DFT4 triangle polygon (too large for C8 highlight — use overlay instead) |
-| `tri-c8-bg-01/02` | Sub-polygons inside DFT4; render ON TOP of tri-c8-01 — do not set unless setting all three |
-| `c8` | DFT4 hit zone with mask-c8 (bindu cut out) — also too large for C8 highlight |
-| `c9` | Bindu circle r=1.4. When unset, default gold bindu renders. Set only to cream/flash or leave unset. |
-
-C8 correct highlight = SVG overlay polygon `"260,283.301 248.565,263.193 271.435,263.193"` (central triangle).
-
-### SC_FILTERS current state
-```js
-export const SC_FILTERS = [
-  { id: 'nyasa',     label: 'Nyāsa', visualMode: 'nyasa' },
-  { id: 'nitya',     label: 'Nitya', visualMode: 'nitya' },
-  { id: 'guravah',   label: 'Gurus', sectionIds: [...], visualMode: 'guravah', subFilters: [...] },
-  { id: 'circuit-1', label: '1st',   sectionIds: ['circuit-1'], subFilters: [...] },
-  { id: 'circuit-2', label: '2nd',   sectionIds: ['circuit-2'] },
-  { id: 'circuit-3', label: '3rd',   sectionIds: ['circuit-3'] },
-  { id: 'circuit-4', label: '4th',   sectionIds: ['circuit-4'] },
-  { id: 'circuit-5', label: '5th',   sectionIds: ['circuit-5'] },
-  { id: 'circuit-6', label: '6th',   sectionIds: ['circuit-6'] },
-  { id: 'circuit-7', label: '7th',   sectionIds: ['circuit-7'] },
-  { id: 'c8-c9',     label: '8·9',   sectionIds: [...], visualMode: 'c8c9', defaultSubFilter: null, subFilters: [...] },
-  { id: 'nava-cakra',label: 'Cakra',                   visualMode: 'navaCakra', defaultSubFilter: null, subFilters: [...] },
-  { id: 'all',       label: 'All',   sectionIds: null },
-]
+cd "C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser"
+del .git\index.lock
+git add -A
+git commit -m "Add IntroView, nav headings, progress dots, Sri Yantra display tab, and UX refinements"
 ```
 
 ---
 
-## Outstanding to-do list
+## Key Files Modified
 
-### Feature work — learning modes
-- **Line Drill mode** ← NEXT (resolve geometric line definitions first)
-- **Circuit Quiz mode**
-- **Sequence Drill mode**
-- **Preamble sections** (Sri Devi Prarthana, Dhyanam) — after core spatial modes are stable
-
-### Feature work — analytics
-- **Memo Map** — overlay persisted performance data on the Sri Yantra. Requires IndexedDB layer first (results currently ephemeral).
-
-### Tech debt
-- `guravaMemorse` typo in App.jsx → `guravaMemorise` (low priority)
-
-### Data
-- Multi-script: remaining vignanam.org scripts (research scraping approach before doing manually)
-
-### Phase 2
-- PWA manifest + service worker (offline support)
+| File | Change |
+|------|--------|
+| `app/src/components/IntroView.jsx` | New — Welcome and Introduction page |
+| `app/src/App.jsx` | Nav headings, progress dots, NAVIGABLE_TABS, new tab renders, Sri Yantra pure display |
+| All `*View.jsx` circuit components | Click/double-click reversal, colour standardisation |
+| `app/src/data/khadgamala-canonical.json` | Data updates |
 
 ---
 
-## Git baseline
-Last commit: `fc415df` — "Spot Check overhaul; right panel controls; UI consistency pass"
-One file modified this session: `app/src/components/NavaCakraSpotCheckView.jsx`
-
-Suggested commit message:
-```
-NavaCakra Spot Check: circuit fills, hover, tooltip, timing fixes
-
-- Circuit 8: SVG overlay for correct central triangle shape
-- Circuit 1: fill bhupura walls only (remove c1-inner)
-- Remove C4–C8 DIM fills from base to prevent stroke bleed-through
-- Remove c9 black fill; default gold bindu now visible
-- Hover restricted to active circuit via onRegionHover
-- Tooltip moved to north gate (top-0)
-- Yogini font size matched to Svamini (15px)
-- 3-second flash hold; right-click toggles correct/wrong
-```
-
-Git works from Windows terminal only.
+*PTS Consulting (Australia) Pty Ltd — Sri Yantra Memoriser — internal*

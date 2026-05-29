@@ -146,7 +146,6 @@ export default function C5View({
 }) {
   const [selectedId,  setSelectedId]  = useState(null)
   const [hoveredDot,  setHoveredDot]  = useState(null)
-  const [contextMenu, setContextMenu] = useState(null)
 
   const clickTimer     = useRef(null)
   const pastClickTimer = useRef(null)
@@ -166,26 +165,26 @@ export default function C5View({
   const handleMemoriseClick = (seq) => {
     if (seq !== currentSeq) return
     if (clickTimer.current) return
-    clickTimer.current = setTimeout(() => { clickTimer.current = null; markResult(seq, 'wrong') }, 280)
+    clickTimer.current = setTimeout(() => { clickTimer.current = null; markResult(seq, 'correct') }, 280)
   }
 
   const handleMemoriseDoubleClick = (seq) => {
     if (seq !== currentSeq) return
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    markResult(seq, 'correct')
+    markResult(seq, 'wrong')
   }
 
   const handlePastClick = (seq) => {
     if (pastClickTimer.current) return
     pastClickTimer.current = setTimeout(() => {
       pastClickTimer.current = null
-      if (results[seq] === 'correct') onToggleResult(seq)
+      if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handlePastDoubleClick = (seq) => {
     if (pastClickTimer.current) { clearTimeout(pastClickTimer.current); pastClickTimer.current = null }
-    if (results[seq] !== 'correct') onToggleResult(seq)
+    if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const done = memorise && currentSeq > 12
@@ -266,7 +265,7 @@ export default function C5View({
                            style={{ cursor: 'pointer' }}
                            onClick={() => handlePastClick(seq)}
                            onDoubleClick={() => handlePastDoubleClick(seq)}
-                           onContextMenu={e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }} />
+                           onContextMenu={e => { e.preventDefault(); onToggleResult(seq) }} />
                 })}
                 {currentSeq <= 10 && (() => {
                   const d   = c5Deities[currentSeq - 1]
@@ -297,24 +296,10 @@ export default function C5View({
       {!done && (
         <div className="mt-2 text-center">
           {!memorise && <p className="text-muted" style={{ fontSize: '10px' }}>Hover or click any triangle to reveal the deity</p>}
-          {memorise && currentSeq <= 10 && <p className="text-muted" style={{ fontSize: '10px' }}>hover to reveal · dbl-click = memorised · click = not memorised</p>}
+          {memorise && <p className="text-muted" style={{ fontSize: '10px' }}>hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle</p>}
         </div>
       )}
 
-      {contextMenu && (
-        <>
-          <div className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }} />
-          <div className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-               style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}>
-            <button className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}>
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
 
     </div>
   )

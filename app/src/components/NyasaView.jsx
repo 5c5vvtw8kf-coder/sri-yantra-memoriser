@@ -252,7 +252,6 @@ export default function NyasaView({
   const [selectedId,  setSelectedId]  = useState(null)
   const [hoveredDot,  setHoveredDot]  = useState(null)   // { id, x, y }
   const [navStep,     setNavStep]     = useState(0)       // 0–4: navigation arrow stage
-  const [contextMenu, setContextMenu] = useState(null)    // { seq, x, y }
   const clickTimer = useRef(null)
 
   // ── Explore mode ────────────────────────────────────────────────────────────
@@ -288,16 +287,16 @@ export default function NyasaView({
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
-  // Double-click: mark correct (if active) or toggle (if past-wrong)
+  // Double-click: mark wrong (if active) or toggle (if past-correct)
   const handleMemDblClick = (seq) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const done = memorise && currentSeq > 6
@@ -440,7 +439,7 @@ export default function NyasaView({
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                 onContextMenu={!flash && isPast
-                  ? e => { e.preventDefault(); setContextMenu({ seq, x: e.clientX, y: e.clientY }) }
+                  ? e => { e.preventDefault(); onToggleResult(seq) }
                   : undefined}
                 onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, x, y) : undefined}
                 onMouseLeave={!flash && (isActive || isPast) ? unhover : undefined}
@@ -499,11 +498,6 @@ export default function NyasaView({
             : 'Tap any position to reveal the deity'}
         </p>
       )}
-      {memorise && !done && (
-        <p className="mt-2 text-center text-xs text-muted italic">
-          double-click = memorised · click = not memorised
-        </p>
-      )}
 
       {/* ── Legend ── */}
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-muted">
@@ -529,6 +523,12 @@ export default function NyasaView({
       </div>
 
       {/* ── Caption ── */}
+      {memorise && !done && (
+        <p className="mt-2 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
+      )}
+
       <div className="mt-3 text-center">
         <p className="iast text-gold-600 text-xs">nyāsāṅgadēvatāḥ</p>
         <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
@@ -536,27 +536,6 @@ export default function NyasaView({
         </p>
       </div>
 
-      {/* ── Context menu (memorise mode past-item correction) ── */}
-      {contextMenu && (
-        <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setContextMenu(null)}
-            onContextMenu={e => { e.preventDefault(); setContextMenu(null) }}
-          />
-          <div
-            className="fixed z-50 bg-surface-900 border border-surface-600 rounded-lg shadow-2xl overflow-hidden"
-            style={{ left: contextMenu.x, top: contextMenu.y, minWidth: '11rem' }}
-          >
-            <button
-              className="w-full text-left px-4 py-2.5 text-sm text-cream hover:bg-surface-700 transition-colors"
-              onClick={() => { onToggleResult(contextMenu.seq); setContextMenu(null) }}
-            >
-              {results[contextMenu.seq] === 'correct' ? 'Unmark as memorised' : 'Mark as memorised'}
-            </button>
-          </div>
-        </>
-      )}
 
       <div className="h-8" />
     </div>
