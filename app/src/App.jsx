@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import CircuitBrowser from './components/CircuitBrowser'
 import IntroView from './components/IntroView'
 import SriYantraSVG from './components/SriYantraSVG'
@@ -18,7 +18,7 @@ import NavaChakreshvariView from './components/NavaChakreshvariView'
 import ClosingView from './components/ClosingView'
 import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import data from './data/khadgamala-canonical.json'
-import { displayName } from './utils.js'
+import { displayName, loadMemoStorage, saveMemoStorage } from './utils.js'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -1567,6 +1567,11 @@ function YantraView({
 export default function App() {
   const [activeTab, setActiveTab] = useState('yantra')
   const [script,    setScript]    = useState('iast')
+  const [openSections, setOpenSections] = useState({
+    'h-explore-memorise': true,
+    'h-spotcheck':        true,
+    'h-references':       true,
+  })
 
   // ── Yantra-tab state ───────────────────────────────────────────────────────
   const [showTriangles,   setShowTriangles]   = useState(true)
@@ -1587,7 +1592,7 @@ export default function App() {
   // ── C2 Memorise mode (lifted so right panel can render controls) ───────────
   const [c2Memorise,    setC2Memorise]    = useState(false)
   const [c2CurrentSeq,  setC2CurrentSeq]  = useState(1)
-  const [c2Results,     setC2Results]     = useState({})    // seq → 'correct'
+  const [c2Results,     setC2Results]     = useState(() => loadMemoStorage('c2'))
   const [c2PrevResults, setC2PrevResults] = useState(null)  // null = no attempt yet
   const [c2Flash,       setC2Flash]       = useState(false)  // true during all-correct flash
   const [c2HighlightId, setC2HighlightId] = useState(null)
@@ -1633,7 +1638,7 @@ export default function App() {
   const [c3ShowList,    setC3ShowList]    = useState(true)
   const [c3Memorise,    setC3Memorise]    = useState(false)
   const [c3CurrentSeq,  setC3CurrentSeq]  = useState(1)
-  const [c3Results,     setC3Results]     = useState({})
+  const [c3Results,     setC3Results]     = useState(() => loadMemoStorage('c3'))
   const [c3PrevResults, setC3PrevResults] = useState(null)
   const [c3Flash,       setC3Flash]       = useState(false)
 
@@ -1676,7 +1681,7 @@ export default function App() {
   const [c4ShowList,    setC4ShowList]    = useState(true)
   const [c4Memorise,    setC4Memorise]    = useState(false)
   const [c4CurrentSeq,  setC4CurrentSeq]  = useState(1)
-  const [c4Results,     setC4Results]     = useState({})
+  const [c4Results,     setC4Results]     = useState(() => loadMemoStorage('c4'))
   const [c4PrevResults, setC4PrevResults] = useState(null)
   const [c4Flash,       setC4Flash]       = useState(false)
 
@@ -1719,7 +1724,7 @@ export default function App() {
   const [c5ShowList,    setC5ShowList]    = useState(true)
   const [c5Memorise,    setC5Memorise]    = useState(false)
   const [c5CurrentSeq,  setC5CurrentSeq]  = useState(1)
-  const [c5Results,     setC5Results]     = useState({})
+  const [c5Results,     setC5Results]     = useState(() => loadMemoStorage('c5'))
   const [c5PrevResults, setC5PrevResults] = useState(null)
   const [c5Flash,       setC5Flash]       = useState(false)
 
@@ -1762,7 +1767,7 @@ export default function App() {
   const [c6ShowList,    setC6ShowList]    = useState(true)
   const [c6Memorise,    setC6Memorise]    = useState(false)
   const [c6CurrentSeq,  setC6CurrentSeq]  = useState(1)
-  const [c6Results,     setC6Results]     = useState({})
+  const [c6Results,     setC6Results]     = useState(() => loadMemoStorage('c6'))
   const [c6PrevResults, setC6PrevResults] = useState(null)
   const [c6Flash,       setC6Flash]       = useState(false)
 
@@ -1805,7 +1810,7 @@ export default function App() {
   const [c7ShowList,    setC7ShowList]    = useState(true)
   const [c7Memorise,    setC7Memorise]    = useState(false)
   const [c7CurrentSeq,  setC7CurrentSeq]  = useState(1)
-  const [c7Results,     setC7Results]     = useState({})
+  const [c7Results,     setC7Results]     = useState(() => loadMemoStorage('c7'))
   const [c7PrevResults, setC7PrevResults] = useState(null)
   const [c7Flash,       setC7Flash]       = useState(false)
 
@@ -1848,7 +1853,7 @@ export default function App() {
   const [c8ShowList,    setC8ShowList]    = useState(true)
   const [c8Memorise,    setC8Memorise]    = useState(false)
   const [c8CurrentSeq,  setC8CurrentSeq]  = useState(1)
-  const [c8Results,     setC8Results]     = useState({})
+  const [c8Results,     setC8Results]     = useState(() => loadMemoStorage('c8'))
   const [c8PrevResults, setC8PrevResults] = useState(null)
   const [c8Flash,       setC8Flash]       = useState(false)
 
@@ -1885,7 +1890,7 @@ export default function App() {
   // ── C9 Memorise mode ───────────────────────────────────────────────────────
   const [c9Memorise,    setC9Memorise]    = useState(false)
   const [c9CurrentSeq,  setC9CurrentSeq]  = useState(1)
-  const [c9Results,     setC9Results]     = useState({})
+  const [c9Results,     setC9Results]     = useState(() => loadMemoStorage('c9'))
   const [c9PrevResults, setC9PrevResults] = useState(null)
   const [c9Flash,       setC9Flash]       = useState(false)
 
@@ -1925,7 +1930,7 @@ export default function App() {
   const [ncShowList,         setNcShowList]         = useState(true)
   const [ncMemorise,    setNcMemorise]    = useState(false)
   const [ncCurrentSeq,  setNcCurrentSeq]  = useState(1)
-  const [ncResults,     setNcResults]     = useState({})
+  const [ncResults,     setNcResults]     = useState(() => loadMemoStorage('nc'))
   const [ncPrevResults, setNcPrevResults] = useState(null)
   const [ncFlash,       setNcFlash]       = useState(false)
 
@@ -1964,7 +1969,7 @@ export default function App() {
   const [closingListHighlight, setClosingListHighlight] = useState(false)
   const [closingMemorise,      setClosingMemorise]      = useState(false)
   const [closingCurrentSeq,  setClosingCurrentSeq]  = useState(1)
-  const [closingResults,     setClosingResults]     = useState({})
+  const [closingResults,     setClosingResults]     = useState(() => loadMemoStorage('closing'))
   const [closingPrevResults, setClosingPrevResults] = useState(null)
   const [closingFlash,       setClosingFlash]       = useState(false)
 
@@ -2001,7 +2006,7 @@ export default function App() {
   // ── Nyasa Memorise mode ────────────────────────────────────────────────────
   const [nyasaMemorise,    setNyasaMemorise]    = useState(false)
   const [nyasaCurrentSeq,  setNyasaCurrentSeq]  = useState(1)
-  const [nyasaResults,     setNyasaResults]     = useState({})
+  const [nyasaResults,     setNyasaResults]     = useState(() => loadMemoStorage('nyasa'))
   const [nyasaPrevResults, setNyasaPrevResults] = useState(null)
   const [nyasaFlash,       setNyasaFlash]       = useState(false)
   const [nyasaHighlightId, setNyasaHighlightId] = useState(null)
@@ -2044,7 +2049,7 @@ export default function App() {
   // ── Inner (Nitya Devatas) Memorise mode ────────────────────────────────────
   const [innerMemorise,    setInnerMemorise]    = useState(false)
   const [innerCurrentSeq,  setInnerCurrentSeq]  = useState(1)
-  const [innerResults,     setInnerResults]     = useState({})
+  const [innerResults,     setInnerResults]     = useState(() => loadMemoStorage('inner'))
   const [innerPrevResults, setInnerPrevResults] = useState(null)
   const [innerFlash,       setInnerFlash]       = useState(false)
   const [innerHighlightId, setInnerHighlightId] = useState(null)
@@ -2088,7 +2093,7 @@ export default function App() {
   // ── Gurava (Guru lineage) Memorise mode ────────────────────────────────────
   const [guravaMemorse,     setGuravaMemorse]     = useState(false)
   const [guravaCurrentSeq,  setGuravaCurrentSeq]  = useState(1)
-  const [guravaResults,     setGuravaResults]     = useState({})
+  const [guravaResults,     setGuravaResults]     = useState(() => loadMemoStorage('gurava'))
   const [guravaPrevResults, setGuravaPrevResults] = useState(null)
   const [guravaFlash,       setGuravaFlash]       = useState(false)
   const [guravaHighlightId, setGuravaHighlightId] = useState(null)
@@ -2127,7 +2132,7 @@ export default function App() {
   // ── Bhupura (Circuit 1) Memorise mode ─────────────────────────────────────
   const [bhupuraMemorise,    setBhupuraMemorise]    = useState(false)
   const [bhupuraCurrentSeq,  setBhupuraCurrentSeq]  = useState(1)
-  const [bhupuraResults,     setBhupuraResults]     = useState({})
+  const [bhupuraResults,     setBhupuraResults]     = useState(() => loadMemoStorage('bhupura'))
   const [bhupuraPrevResults, setBhupuraPrevResults] = useState(null)
   const [bhupuraFlash,       setBhupuraFlash]       = useState(false)
   const [bhupuraHighlightId, setBhupuraHighlightId] = useState(null)
@@ -2172,6 +2177,22 @@ export default function App() {
   // ── Show not-memorised list toggle (shared; reset on tab change) ──────────
   const [showErrors,      setShowErrors]      = useState(false)
   const [circuitFillAll,  setCircuitFillAll]  = useState(false)
+
+  // ── Persist memo results to localStorage ──────────────────────────────────
+  useEffect(() => { saveMemoStorage('nyasa',   nyasaResults)   }, [nyasaResults])
+  useEffect(() => { saveMemoStorage('inner',   innerResults)   }, [innerResults])
+  useEffect(() => { saveMemoStorage('gurava',  guravaResults)  }, [guravaResults])
+  useEffect(() => { saveMemoStorage('bhupura', bhupuraResults) }, [bhupuraResults])
+  useEffect(() => { saveMemoStorage('c2',      c2Results)      }, [c2Results])
+  useEffect(() => { saveMemoStorage('c3',      c3Results)      }, [c3Results])
+  useEffect(() => { saveMemoStorage('c4',      c4Results)      }, [c4Results])
+  useEffect(() => { saveMemoStorage('c5',      c5Results)      }, [c5Results])
+  useEffect(() => { saveMemoStorage('c6',      c6Results)      }, [c6Results])
+  useEffect(() => { saveMemoStorage('c7',      c7Results)      }, [c7Results])
+  useEffect(() => { saveMemoStorage('c8',      c8Results)      }, [c8Results])
+  useEffect(() => { saveMemoStorage('c9',      c9Results)      }, [c9Results])
+  useEffect(() => { saveMemoStorage('nc',      ncResults)      }, [ncResults])
+  useEffect(() => { saveMemoStorage('closing', closingResults) }, [closingResults])
 
   // ── Session stats (cumulative across all circuits and rounds) ──────────────
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0, rounds: 0 })
@@ -3000,43 +3021,51 @@ export default function App() {
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-2 px-2 min-h-0">
-          {TABS.map((tab, i) => {
-            if (tab.heading) {
+          {(() => {
+            let currentHeadingId = null
+            return TABS.map((tab, i) => {
+              if (tab.heading) {
+                currentHeadingId = tab.id
+                const isOpen = openSections[tab.id]
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setOpenSections(s => ({ ...s, [tab.id]: !s[tab.id] }))}
+                    className={`w-full flex items-center justify-between px-2 pb-0.5 select-none hover:text-surface-400 transition-colors ${i === 0 ? 'pt-1' : 'pt-3'}`}
+                  >
+                    <span className="text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em]">
+                      {tab.heading}
+                    </span>
+                    <span className="text-surface-600 text-[10px]">{isOpen ? '▾' : '▸'}</span>
+                  </button>
+                )
+              }
+              if (currentHeadingId !== null && !openSections[currentHeadingId]) return null
+              const dot = tabDotMap[tab.id]
               return (
-                <p key={tab.id}
-                   className={`text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em] px-2 pb-0.5 select-none ${i === 0 ? 'pt-1' : 'pt-3'}`}>
-                  {tab.heading}
-                </p>
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id)}
+                  className={`w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors flex items-start justify-between gap-1
+                    ${script !== 'devanagari' ? 'iast' : ''}
+                    ${activeTab === tab.id
+                      ? 'text-gold-300 bg-gold-900/30'
+                      : 'text-muted hover:text-cream'}`}
+                >
+                  <span className="flex-1 min-w-0">
+                    {script === 'devanagari'
+                      ? (tab.navLabelDev || tab.navLabel)
+                      : script === 'english'
+                      ? (tab.navLabelEn || tab.navLabel)
+                      : tab.navLabel}
+                  </span>
+                  {dot && (
+                    <span className={`flex-shrink-0 w-1.5 h-1.5 rounded-full mt-0.5 ${dot === 'red' ? 'bg-red-400' : 'bg-gold-500'}`} />
+                  )}
+                </button>
               )
-            }
-            const dot = tabDotMap[tab.id]
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleTabChange(tab.id)}
-                className={`w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors flex items-start justify-between gap-1
-                  ${script !== 'devanagari' ? 'iast' : ''}
-                  ${activeTab === tab.id
-                    ? 'text-gold-300 bg-gold-900/30'
-                    : 'text-muted hover:text-cream'}`}
-              >
-                <span className="flex-1 min-w-0">
-                  {script === 'devanagari'
-                    ? (tab.navLabelDev || tab.navLabel)
-                    : script === 'english'
-                    ? (tab.navLabelEn || tab.navLabel)
-                    : tab.navLabel}
-                </span>
-                {dot && (
-                  <span
-                    className={`flex-shrink-0 w-1.5 h-1.5 rounded-full mt-0.5 ${
-                      dot === 'red' ? 'bg-red-400' : 'bg-gold-500'
-                    }`}
-                  />
-                )}
-              </button>
-            )
-          })}
+            })
+          })()}
         </nav>
 
         {/* Yantra controls (yantra tab only) */}
@@ -3044,7 +3073,7 @@ export default function App() {
 
         {/* Script selector */}
         <div className="px-3 py-3 border-t border-surface-800 flex-shrink-0">
-          <p className="text-xs text-muted uppercase tracking-widest font-mono px-2 mb-1.5">Script</p>
+          <p className="text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
           <div className="flex gap-1 px-1">
             {[
               { id: 'iast',       label: 'IAST' },

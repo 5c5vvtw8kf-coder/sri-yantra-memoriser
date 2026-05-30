@@ -2,6 +2,19 @@
  * utils.js — shared display helpers used across all view components.
  */
 
+// ── Memo result persistence ───────────────────────────────────────────────────
+
+export function loadMemoStorage(key) {
+  try {
+    const v = localStorage.getItem(`memo-${key}`)
+    return v ? JSON.parse(v) : {}
+  } catch { return {} }
+}
+
+export function saveMemoStorage(key, data) {
+  try { localStorage.setItem(`memo-${key}`, JSON.stringify(data)) } catch {}
+}
+
 /**
  * Returns the display name for a deity in the requested script,
  * falling back to IAST if the requested script is unavailable.

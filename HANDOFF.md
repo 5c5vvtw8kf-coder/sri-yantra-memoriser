@@ -7,102 +7,127 @@
 
 ## What Was Completed This Session
 
-### 1. Memo Mode Hint Styling — All Views
-Standardised the hint text below the diagram to `mt-3 text-center text-xs text-muted italic` across all circuit and section views (Nyāsa, Tithi Nitya, Guravah, Bhupura, C2–C9, Closing). Removed all inline `style={{ fontSize: '10px' }}` wrappers.
+### 1. Nav Section Collapsing
+The three section headings in the left nav (EXPLORE AND MEMORISE, SPOT CHECK AND MEMO MAP, REFERENCES) are now clickable toggles with ▾/▸ chevrons. Sri Yantra and Introduction always remain visible (they sit before the first heading). State: `openSections` in App.jsx.
 
-### 2. Deity List in Right Panel — All Explore Pages
-Added a collapsible "Deity list" toggle (default open) to the right panel for every Explore page from Nyāsāṅga through Śrīdevī Viśēṣaṇāni:
-- Hover a list item → corresponding dot/petal/triangle highlights red on the yantra
-- For Bhupura: grouped by Siddhi Shaktis / Ashta Matrikas / Mudra Shaktis; Plain/Colours dot toggle
-- For Guravah: grouped by Divyaugha / Siddhaugha / Mānavaugha with subheadings
-- For Tithi Nitya: Waxing ☽ / Waning ☾ toggle (reverses 1–15; Mahā Nityē always last); also in Memo mode
-- For Circuit 9: single deity shown as "Deity" (no toggle)
-- For Chakreshvari: 9 Tripurā forms; hover highlights the whole circuit red on the full yantra
-- For Closing: hover any item → entire yantra fills red, bindu dark red (`#5a0f0f`)
+### 2. SCRIPT Label Styling
+The "SCRIPT" label above the script selector now matches the section heading style (`text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em]`).
 
-### 3. CircuitRows — Chakra Svāminī / Yoginī / Chakreshvarī Hover
-All circuit right panels (C1–C9) have `CircuitRows` below the deity list. Hovering any row fills the whole circuit red on the yantra:
-- C1 Bhupura: `c1-outer` + `c1-mid` bands fill red (with overlay masks for colour matching)
-- C2–C7: petal/triangle overlay polygons with dark-red stroke cover gold lines
-- C8: fills `tri-c8-01` (small primary triangle) via `buildFills`; C7 inner triangles correctly cutout
-- C9: bindu dot turns red; gold triangle removed from C9 view permanently
+### 3. Memo Results Persistence — HALF DONE
+All 14 memo result states now persist across refreshes via localStorage.
 
-### 4. Bhupura (Circuit 1) Memo Mode
-- Group filter: All / Siddhi Shaktis / Ashta Matrikas / Mudra Shaktis (2×2 grid)
-- Switching group resets drill progress; progress bar adjusts total accordingly
-- Future dots hidden; counter above active dot removed
+**Completed:**
+- `utils.js`: Added `loadMemoStorage(key)` and `saveMemoStorage(key, data)` helpers
+- `App.jsx`: All 14 result `useState({})` changed to `useState(() => loadMemoStorage('...'))`
+- `App.jsx`: 14 `useEffect` hooks sync results back to localStorage on each change
 
-### 5. Tithi Nitya Memo Mode
-- Waxing/Waning toggle in both Explore and Memo right panels
-- In Memo mode, switches drill order (Citrā first for Waning); resets on toggle
-- Future dots hidden; counter removed
-
-### 6. C8 View
-- Triangle always has solid gold fill with permanent black bindu dot
-- Future dots hidden in Memo mode
-- `fillAll` prop → triangle fills red on Chakreshvari row hover
-
-### 7. Navacakresvari — Deity List Hover → Circuit Fills Red
-- `listHighlightCircuit` prop (1–9) turns the corresponding circuit red via `buildFills(null, listHighlightCircuit)`
-- Stroke-cover overlay SVG hides gold lines for C1–C7 (C8 excluded to avoid C7 bleed-through)
-- `FILL_SEL` changed to `rgba(200,70,70,0.85)` to match overlay colour
-- C1 bhupura overlay: double-layered fill + bright stroke for colour parity with other circuits
-- C9 bindu turns red on Tripurambā hover
-
-### 8. Closing View
-- "Ascend to the top from here" text now shown in Explore mode (previously Memo-only)
-- Right panel: removed Position / Count rows and old hint paragraph
-- Deity list added (default open); hover fills entire yantra red with dark-red bindu
-- Both hints reformatted to standard style
-
-### 9. SectionInfo Improvements
-- `showRows` prop added; circuit explore cases use `showRows={false}` + `<CircuitRows>` below list
-- Chakra Svāminī / Yoginī / Chakreshvarī rows now appear below the deity list (C1, C2)
-- `CircuitRows` accepts `onHoverFill` for all circuits
-
-### 10. Guru Data
-- Added translations and notes for all 19 gurus (Divyaugha, Siddhaugha, Mānavaugha)
-- Removed two version notes ("Added per lineage correction v1.1", "Corrected from kālatāpaśamayī v1.1")
-- `DeityDetail` subtitle fixed: now shows "Divyaugha Guravaḥ · N of 7" etc.
-- Tithi Nitya subtitle fix: was checking wrong `sectionId` ('inner' → 'nitya')
+**Keys used:** `memo-nyasa`, `memo-inner`, `memo-gurava`, `memo-bhupura`, `memo-c2` through `memo-c9`, `memo-nc`, `memo-closing`
 
 ---
 
-## Pending — Next Session Priorities
+## THE NEXT TASK — Memo Map View
 
-1. **NavaChakreshvariView rebuild** — replace nine dots with whole-circuit interaction (still in NEXT-SESSION-PROMPT)
-2. **Memo Map** — sequential run-through mapping memorised vs not
-3. **References page** — YouTube link, āvaraṇa table, vignanam.org attribution
-4. **Numbers mode retirement** — remove Numbers toggle from Yantra tab
+Build `MemoMapView.jsx` and wire it into App.jsx for the `memomap` tab.
 
----
+### Spec
 
-## Key Files Modified This Session
+**Table columns:** # (sequenceInChant), Name (IAST), Section, Status
 
-| File | Change |
-|------|--------|
-| `app/src/App.jsx` | Deity lists, CircuitRows, rightPanel cases, states for all lists/highlights |
-| `app/src/components/ClosingView.jsx` | listHighlight prop, LIST_RED_FILLS, hint styles, arrow text |
-| `app/src/components/NavaChakreshvariView.jsx` | listHighlightCircuit, stroke overlays, FILL_SEL colour |
-| `app/src/components/BhupuraView.jsx` | Group filter, fillAll, dynamic fills, future dots hidden |
-| `app/src/components/InnerView.jsx` | Waning/Waxing drill order, future dots hidden |
-| `app/src/components/C8View.jsx` | Gold fill, black bindu dot, fillAll, future dots hidden |
-| `app/src/components/C9View.jsx` | Bindu size, triangle removed, hint styles |
-| `app/src/components/C2View.jsx`–`C7View.jsx` | highlightId, fillAll, hint styles |
-| `app/src/components/GuravaView.jsx` | highlightId, hint styles, labels in Memo |
-| `app/src/components/SriYantraSVG.jsx` | Exported BHUPURA_OUTER/MAIN/INNER_PTS |
-| `app/src/data/khadgamala-canonical.json` | Guru translations/notes |
+**Sections covered:** Full stotra — Nyāsa → Tithi Nitya → Guravah → Bhūpura → C2–C9 → Chakreshvarī → Closing
+
+**Status values:** ✓ Memorised (correct) / — Not yet (not in results)
+
+**Filters:** Section dropdown (All + each section) + Status dropdown (All / Memorised / Not yet)
+
+**Persistence:** Reads from the 14 localStorage-backed result states passed as props from App.jsx
+
+### Result key mapping
+
+Each deity's result key within its section:
+
+| sectionId | store key | result key |
+|-----------|-----------|------------|
+| nyasa | nyasa | sequenceInSection (1–6) |
+| nitya | inner | sequenceInSection (1–16) |
+| guru-divya | gurava | sequenceInSection (1–7) |
+| guru-siddha | gurava | 7 + sequenceInSection (8–11) |
+| guru-manava | gurava | 11 + sequenceInSection (12–19) |
+| circuit-1 | bhupura | sequenceInSection (1–28) |
+| circuit-2 | c2 | sequenceInSection |
+| circuit-3 | c3 | sequenceInSection |
+| circuit-4 | c4 | sequenceInSection |
+| circuit-5 | c5 | sequenceInSection |
+| circuit-6 | c6 | sequenceInSection |
+| circuit-7 | c7 | sequenceInSection |
+| circuit-8 | c8 | sequenceInSection (1–7) |
+| circuit-9 | c9 | 1 |
+| chakreshvari | nc | sequenceInSection |
+| closing | closing | sequenceInSection |
+
+### Section display labels
+
+```js
+const SECTION_LABELS = {
+  nyasa:        'Nyāsāṅga',
+  nitya:        'Tithi Nitya',
+  'guru-divya': 'Divyaugha Guravaḥ',
+  'guru-siddha':'Siddhaugha Guravaḥ',
+  'guru-manava':'Mānavaugha Guravaḥ',
+  'circuit-1':  'Bhūpura',
+  'circuit-2':  '16-petal lotus',
+  'circuit-3':  '8-petal lotus',
+  'circuit-4':  '14 triangles',
+  'circuit-5':  '10 triangles (outer)',
+  'circuit-6':  '10 triangles (inner)',
+  'circuit-7':  '8 triangles',
+  'circuit-8':  'Primary triangle',
+  'circuit-9':  'Bindu',
+  chakreshvari: 'Nava Chakreshvarī',
+  closing:      'Śrīdevī Epithets',
+}
+```
+
+### Props to pass from App.jsx to MemoMapView
+
+Pass a single `allResults` object:
+
+```js
+const allResults = {
+  nyasa:   nyasaResults,
+  inner:   innerResults,
+  gurava:  guravaResults,
+  bhupura: bhupuraResults,
+  c2: c2Results, c3: c3Results, c4: c4Results,
+  c5: c5Results, c6: c6Results, c7: c7Results,
+  c8: c8Results, c9: c9Results,
+  nc:      ncResults,
+  closing: closingResults,
+}
+```
+
+### Wiring in App.jsx
+
+Add import: `import MemoMapView from './components/MemoMapView'`
+
+In the main content render (near 'memomap' tab):
+```jsx
+{activeTab === 'memomap' && <MemoMapView allResults={allResults} />}
+```
+
+Also add a "Clear all results" button somewhere in MemoMapView that calls:
+```js
+Object.keys(allResults).forEach(k => saveMemoStorage(k, {}))
+// then force re-read — simplest: window.location.reload()
+```
 
 ---
 
 ## Git State
 
-Run from Windows terminal:
-
 ```
 cd "C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser"
 git add -A
-git commit -m "Deity list with highlights, circuit fills, closing view, Navacakresvari hover fills"
+git commit -m "Nav collapsing, SCRIPT label, memo result persistence (localStorage)"
 ```
 
 ---
