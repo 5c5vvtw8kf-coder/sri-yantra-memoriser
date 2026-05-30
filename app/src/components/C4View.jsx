@@ -166,6 +166,8 @@ function CompletionPanel({ results, onRestart, onNavigate }) {
 export default function C4View({
   script          = 'iast',
   onDeitySelect   = () => {},
+  highlightId     = null,
+  fillAll         = false,
   memorise        = false,
   currentSeq      = 1,
   results         = {},
@@ -243,10 +245,16 @@ export default function C4View({
       }
       return fills
     }
-    // Explore: all 14 C4 triangles cream; selected turns red
+    // Explore: all 14 C4 triangles cream; selected/highlighted/fillAll turns red
     const fills = { ...YANTRA_FILLS }
-    for (let i = 1; i <= 14; i++) fills[triangleIdForSeq(i)] = ACTIVE_REGION
-    if (selectedDeity) fills[triangleIdForSeq(selectedDeity.sequenceInSection)] = 'rgba(200,70,70,0.85)'
+    const RED = 'rgba(200,70,70,0.85)'
+    if (fillAll) {
+      for (let i = 1; i <= 14; i++) fills[triangleIdForSeq(i)] = RED
+    } else {
+      for (let i = 1; i <= 14; i++) fills[triangleIdForSeq(i)] = ACTIVE_REGION
+      if (selectedDeity) fills[triangleIdForSeq(selectedDeity.sequenceInSection)] = RED
+      else if (highlightId) { const hd = deityById[highlightId]; if (hd) fills[triangleIdForSeq(hd.sequenceInSection)] = RED }
+    }
     return fills
   })()
 
@@ -281,19 +289,18 @@ export default function C4View({
             {/* ── Explore mode ── */}
             {!memorise && (
               <>
-                {/* Red fill overlay for selected triangle */}
-                {selectedDeity && (() => {
-                  const pts = trianglePointsForSeq(selectedDeity.sequenceInSection)
+                {/* Red fill overlay — covers gold stroke */}
+                {fillAll && c4Deities.map(d => {
+                  const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
-                  return (
-                    <polygon
-                      points={pts}
-                      fill="rgba(200,70,70,0.85)"
-                      stroke="#7a1a1a"
-                      strokeWidth={0.75}
-                      style={{ pointerEvents: 'none' }}
-                    />
-                  )
+                  return <polygon key={`fill-${d.id}`} points={pts} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
+                })}
+                {!fillAll && (selectedDeity || highlightId) && (() => {
+                  const d = selectedDeity ?? deityById[highlightId]
+                  if (!d) return null
+                  const pts = trianglePointsForSeq(d.sequenceInSection)
+                  if (!pts) return null
+                  return <polygon points={pts} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
                 })()}
 
                 {/* Transparent hit areas over all 14 triangles */}
@@ -405,20 +412,15 @@ export default function C4View({
         />
       )}
 
-      {/* Hint line below yantra */}
-      {!done && (
-        <div className="mt-2 text-center">
-          {!memorise && (
-            <p className="text-muted" style={{ fontSize: '10px' }}>
-              Hover or click any triangle to reveal the deity
-            </p>
-          )}
-          {memorise && (
-            <p className="text-muted" style={{ fontSize: '10px' }}>
-              hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-            </p>
-          )}
-        </div>
+      {!memorise && !done && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          Hover or click any triangle to reveal the deity
+        </p>
+      )}
+      {memorise && !done && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
       )}
 
 

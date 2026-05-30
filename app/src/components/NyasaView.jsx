@@ -122,7 +122,7 @@ function NavArrow({ from, to, length = 39, gap = 12 }) {
 // ── DeityDot ──────────────────────────────────────────────────────────────────
 
 function DeityDot({
-  x, y, r = 9, fill, selected,
+  x, y, r = 9, fill, selected, highlighted,
   onClick, onMouseEnter, onMouseLeave,
   onDoubleClick, onContextMenu,
   dimStyle,
@@ -132,9 +132,9 @@ function DeityDot({
     <circle
       cx={x.toFixed(1)} cy={y.toFixed(1)}
       r={selected ? r + 2.5 : r}
-      fill={selected ? fill : fill + 'bb'}
-      stroke={selected ? '#fff' : 'none'}
-      strokeWidth={selected ? 0.8 : 0}
+      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
+      stroke="none"
+      strokeWidth={0}
       style={{
         cursor: isInteractive ? 'pointer' : 'default',
         pointerEvents: isInteractive ? 'all' : 'none',
@@ -238,6 +238,7 @@ function DeityPanel({ deity, script, onDismiss }) {
 export default function NyasaView({
   script       = 'iast',
   onDeitySelect = () => {},
+  highlightId  = null,
   // Memorise mode props
   memorise         = false,
   currentSeq       = 1,
@@ -369,6 +370,7 @@ export default function NyasaView({
                 x={pos[0]} y={pos[1]}
                 fill={selectedId === d.id ? RED : "#fff8c8"}
                 selected={selectedId === d.id}
+                highlighted={!selectedId && highlightId === d.id}
                 onClick={() => toggle(d.id)}
                 onMouseEnter={() => hover(d.id, pos[0], pos[1])}
                 onMouseLeave={unhover}
@@ -380,8 +382,9 @@ export default function NyasaView({
           {!memorise && astraDeity && ASTRA_POSITIONS.map(([x, y], i) => (
             <DeityDot key={`astra-gate-${i}`}
               x={x} y={y}
-              fill={selectedId === astraDeity.id ? RED : GOLD}
+              fill={selectedId === astraDeity.id ? RED : "#fff8c8"}
               selected={selectedId === astraDeity.id}
+              highlighted={!selectedId && highlightId === astraDeity.id}
               onClick={() => toggle(astraDeity.id)}
               onMouseEnter={() => hover(astraDeity.id, x, y)}
               onMouseLeave={unhover}
@@ -416,6 +419,8 @@ export default function NyasaView({
             const positions = dotsForSeq(seq)
             const isFuture  = !isActive && !isPast
 
+            if (isFuture) return null
+
             let fill, selected
             if (flash) {
               fill = ACTIVE_FILL; selected = true
@@ -423,11 +428,8 @@ export default function NyasaView({
               fill = ACTIVE_FILL; selected = true
             } else if (isPast && isCorrect) {
               fill = RED; selected = false
-            } else if (isPast) {
-              fill = GOLD; selected = false
             } else {
-              // Future dot — dim and non-interactive
-              fill = RED; selected = false
+              fill = GOLD; selected = false
             }
 
             return positions.map(([x, y], pi) => (
@@ -435,7 +437,6 @@ export default function NyasaView({
                 x={x} y={y}
                 fill={fill}
                 selected={selected}
-                dimStyle={isFuture ? { opacity: 0.15 } : undefined}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                 onContextMenu={!flash && isPast
@@ -492,13 +493,11 @@ export default function NyasaView({
 
       {/* ── Idle hint ── */}
       {!memorise && !hoveredDot && (
-        <div className="mt-2 text-center">
-          <p className="text-muted" style={{ fontSize: '10px' }}>
-            {navStep === 4
-              ? 'Tap any gate to restart from Hṛdaya'
-              : 'Hover or click any dot to reveal the deity'}
-          </p>
-        </div>
+        <p className="mt-3 text-center text-xs text-muted italic">
+          {navStep === 4
+            ? 'Tap any gate to restart from Hṛdaya'
+            : 'Hover or click any dot to reveal the deity'}
+        </p>
       )}
 
       {/* ── Instructions (memorise) ── */}
@@ -513,4 +512,3 @@ export default function NyasaView({
     </div>
   )
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

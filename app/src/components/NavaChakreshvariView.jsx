@@ -18,9 +18,25 @@
  */
 
 import { useState, useRef } from 'react'
-import SriYantraSVG from './SriYantraSVG'
+import SriYantraSVG, { C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_PTS, BHUPURA_INNER_PTS } from './SriYantraSVG'
+import triangleData from '../data/triangle-regions.json'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+
+// ── Stroke-cover overlay data ─────────────────────────────────────────────────
+
+const C2_PATHS = C2_PETALS.map(p => p.path)
+const C3_PATHS = C3_PETALS.map(p => p.path)
+
+const TRI_CIRCUIT_POLYS = {}
+for (const t of triangleData) {
+  if (t.id.startsWith('tri-c8-bg')) continue
+  const c = t.circuit
+  if (!TRI_CIRCUIT_POLYS[c]) TRI_CIRCUIT_POLYS[c] = []
+  TRI_CIRCUIT_POLYS[c].push(t.points)
+}
+
+const BHUPURA_SQUARES = [BHUPURA_OUTER_PTS, BHUPURA_MAIN_PTS, BHUPURA_INNER_PTS]
 
 // ── SriYantraSVG coordinate space ────────────────────────────────────────────
 //   CX = 260, CY = 270, viewBox "45 55 430 430"
@@ -57,7 +73,7 @@ function regionToCircuit(id) {
 const FILL_NORM   = 'rgba(201,168,76,0.70)'
 const FILL_DIM    = 'rgba(201,168,76,0.18)'
 const FILL_HI     = 'rgba(255,248,200,0.92)'   // hover — cream
-const FILL_SEL    = 'rgba(192,57,43,0.82)'      // selected (clicked) — red
+const FILL_SEL    = 'rgba(200,70,70,0.85)'      // selected (clicked) — red
 const GOLD        = '#c9a84c'
 const RED         = '#c0392b'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
@@ -238,6 +254,7 @@ function Tooltip({ circuitNum, script }) {
 export default function NavaChakreshvariView({
   script = 'iast',
   onDeitySelect = () => {},
+  listHighlightCircuit = null,
   memorise = false,
   currentSeq = 1,
   results = {},
@@ -344,7 +361,7 @@ export default function NavaChakreshvariView({
         if (seq < currentSeq)   return results[seq] === 'correct' ? FILL_SEL : FILL_NORM
         return FILL_DIM
       }, flash ? null : hoveredCircuit)
-    : buildFills(hoveredCircuit, selectedCircuit)
+    : buildFills(hoveredCircuit, listHighlightCircuit ?? selectedCircuit)
 
   // Tooltip shown on hover in both modes (suppressed during flash).
   const tooltipCircuit = flash ? null : hoveredCircuit
@@ -379,6 +396,43 @@ export default function NavaChakreshvariView({
             }
           />
         </div>
+
+        {/* Stroke-cover overlay — hides gold lines when a circuit is list-highlighted */}
+        {!memorise && listHighlightCircuit && (
+          <svg className="absolute inset-0 w-full h-full" viewBox="45 55 430 430"
+            style={{ pointerEvents: 'none' }} xmlns="http://www.w3.org/2000/svg">
+            {listHighlightCircuit === 1 && (
+              <>
+                <defs>
+                  <mask id="nc-c1-outer-mask">
+                    <polygon points={BHUPURA_OUTER_PTS} fill="white" />
+                    <polygon points={BHUPURA_MAIN_PTS}  fill="black" />
+                  </mask>
+                  <mask id="nc-c1-mid-mask">
+                    <polygon points={BHUPURA_MAIN_PTS}  fill="white" />
+                    <polygon points={BHUPURA_INNER_PTS} fill="black" />
+                  </mask>
+                </defs>
+                <polygon points={BHUPURA_OUTER_PTS} fill="#7a1a1a" stroke="none" mask="url(#nc-c1-outer-mask)" />
+                <polygon points={BHUPURA_MAIN_PTS}  fill="#7a1a1a" stroke="none" mask="url(#nc-c1-mid-mask)" />
+                {BHUPURA_SQUARES.map((pts, i) => (
+                  <polygon key={i} points={pts} fill="none" stroke="rgba(200,70,70,0.85)" strokeWidth={2.5} />
+                ))}
+              </>
+            )}
+            {listHighlightCircuit === 2 && C2_PATHS.map((d, i) => (
+              <path key={i} d={d} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} />
+            ))}
+            {listHighlightCircuit === 3 && C3_PATHS.map((d, i) => (
+              <path key={i} d={d} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} />
+            ))}
+            {listHighlightCircuit >= 4 && listHighlightCircuit <= 7 &&
+              (TRI_CIRCUIT_POLYS[listHighlightCircuit] || []).map((pts, i) => (
+                <polygon key={i} points={pts} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} />
+              ))
+            }
+          </svg>
+        )}
 
         {/* Tooltip overlay — same viewBox as SriYantraSVG so coordinates match */}
         {tooltipCircuit && (
@@ -433,4 +487,28 @@ export default function NavaChakreshvariView({
 
       {/* Legend */}
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-muted">
-        <span className="flex
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
+                style={{ background: RED }} />
+          Nava Chakreshvarī
+        </span>
+      </div>
+
+      {/* Caption */}
+      {memorise && !done && (
+        <p className="mt-2 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
+      )}
+
+      <div className="mt-3 text-center">
+        <p className="iast text-gold-600 text-xs">navacakrēśvarī</p>
+        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
+          One Tripura form presides over each of the nine circuits
+        </p>
+      </div>
+
+      <div className="h-8" />
+    </div>
+  )
+}

@@ -205,6 +205,8 @@ function CompletionPanel({ results, onRestart, onNavigate }) {
 export default function C2View({
   script           = 'iast',
   onDeitySelect    = () => {},
+  highlightId      = null,
+  fillAll          = false,
   // Memorise mode — controlled by App.jsx
   memorise         = false,
   currentSeq       = 1,
@@ -293,10 +295,16 @@ export default function C2View({
       }
       return fills
     }
-    // Explore mode: all petals cream to highlight the avarana; selected petal turns red
+    // Explore mode: all petals cream; selected/highlighted/fillAll turns red
     const fills = { ...YANTRA_FILLS }
-    for (let i = 1; i <= 16; i++) fills[petalIdForSeq(i)] = ACTIVE_PETAL
-    if (selectedDeity) fills[petalIdForSeq(selectedDeity.sequenceInSection)] = 'rgba(200,70,70,0.85)'
+    const RED_PETAL = 'rgba(200,70,70,0.85)'
+    if (fillAll) {
+      for (let i = 1; i <= 16; i++) fills[petalIdForSeq(i)] = RED_PETAL
+    } else {
+      for (let i = 1; i <= 16; i++) fills[petalIdForSeq(i)] = ACTIVE_PETAL
+      if (selectedDeity) fills[petalIdForSeq(selectedDeity.sequenceInSection)] = RED_PETAL
+      else if (highlightId) { const hd = deityById[highlightId]; if (hd) fills[petalIdForSeq(hd.sequenceInSection)] = RED_PETAL }
+    }
     return fills
   })()
 
@@ -334,19 +342,18 @@ export default function C2View({
             {/* ── Explore mode: full petal hit areas ── */}
             {!memorise && (
               <>
-                {/* Dark-red stroke overlay for the selected petal */}
-                {selectedDeity && (() => {
-                  const pathD = petalPathForSeq(selectedDeity.sequenceInSection)
+                {/* Dark-red stroke overlay — covers gold stroke for selected/highlighted/fillAll */}
+                {fillAll && c2Deities.map(d => {
+                  const pathD = petalPathForSeq(d.sequenceInSection)
                   if (!pathD) return null
-                  return (
-                    <path
-                      d={pathD}
-                      fill="rgba(200,70,70,0.85)"
-                      stroke="#7a1a1a"
-                      strokeWidth={0.75}
-                      style={{ pointerEvents: 'none' }}
-                    />
-                  )
+                  return <path key={`fill-${d.id}`} d={pathD} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
+                })}
+                {!fillAll && (selectedDeity || highlightId) && (() => {
+                  const d = selectedDeity ?? deityById[highlightId]
+                  if (!d) return null
+                  const pathD = petalPathForSeq(d.sequenceInSection)
+                  if (!pathD) return null
+                  return <path d={pathD} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
                 })()}
 
                 {/* Transparent hit areas for every petal */}
@@ -462,20 +469,15 @@ export default function C2View({
         />
       )}
 
-      {/* Hint line below yantra */}
-      {!done && (
-        <div className="mt-2 text-center">
-          {!memorise && (
-            <p className="text-muted" style={{ fontSize: '10px' }}>
-              Hover or click any petal to reveal the deity
-            </p>
-          )}
-          {memorise && (
-            <p className="text-muted" style={{ fontSize: '10px' }}>
-              hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-            </p>
-          )}
-        </div>
+      {!memorise && !done && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          Hover or click any petal to reveal the deity
+        </p>
+      )}
+      {memorise && !done && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
       )}
 
 

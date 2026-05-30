@@ -825,7 +825,7 @@
         "iast": "mitrēśamayī",
         "devanagari": "मित्रेशमयी",
         "english": "Mitreshamayi",
-        "translation": null,
+        "translation": "She who embodies Mitrēśa",
         "marathi": "मित्रेशमयी",
         "hindi": "मित्रेशमयी",
         "telugu": "మిత్రేశమయీ",
@@ -836,7 +836,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Mitrēśa ('lord of friends') is a form of Śiva; second in the divine lineage"
     },
     {
       "id": "guru-divya-003",
@@ -849,7 +849,7 @@
         "iast": "ṣaṣṭhīśamayī",
         "devanagari": "षष्ठीशमयी",
         "english": "Shashtishamayi",
-        "translation": null,
+        "translation": "She who embodies Ṣaṣṭhīśa",
         "marathi": "षष्ठीशमयी",
         "hindi": "षष्ठीशमयी",
         "telugu": "షష్ఠీశమయీ",
@@ -860,7 +860,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Ṣaṣṭhīśa is a form of Śiva; third in the divine lineage"
     },
     {
       "id": "guru-divya-004",
@@ -873,7 +873,7 @@
         "iast": "uddīśamayī",
         "devanagari": "उद्दीशमयी",
         "english": "Uddiishamayi",
-        "translation": null,
+        "translation": "She who embodies Uddīśa",
         "marathi": "उद्दीशमयी",
         "hindi": "उद्दीशमयी",
         "telugu": "ఉద్దీశమయీ",
@@ -884,7 +884,7 @@
         "x": null,
         "y": null
       },
-      "note": "Added per lineage correction v1.1"
+      "note": "Fourth in the divine lineage"
     },
     {
       "id": "guru-divya-005",
@@ -897,7 +897,7 @@
         "iast": "caryānāthamayī",
         "devanagari": "चर्यानाथमयी",
         "english": "Charyanathamayi",
-        "translation": null,
+        "translation": "She who embodies Caryānātha",
         "marathi": "चर्यानाथमयी",
         "hindi": "चर्यानाथमयी",
         "telugu": "చర్యానాథమయీ",
@@ -908,7 +908,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Caryānātha is a master revered in both Śaiva and Nātha traditions; fifth in the divine lineage"
     },
     {
       "id": "guru-divya-006",
@@ -921,7 +921,7 @@
         "iast": "lōpāmudramayī",
         "devanagari": "लोपामुद्रमयी",
         "english": "Lopamudramayi",
-        "translation": null,
+        "translation": "She who embodies Lōpāmudrā",
         "marathi": "लोपामुद्रमयी",
         "hindi": "लोपामुद्रमयी",
         "telugu": "లోపాముద్రమయీ",
@@ -932,7 +932,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Wife of Agastya and a great adept in her own right; co-revealer of Śrī Vidyā and author of hymns in the Ṛgveda"
     },
     {
       "id": "guru-divya-007",
@@ -945,7 +945,7 @@
         "iast": "agastyamayī",
         "devanagari": "अगस्त्यमयी",
         "english": "Agastyamayi",
-        "translation": null,
+        "translation": "She who embodies Agastya",
         "marathi": "अगस्त्यमयी",
         "hindi": "अगस्त्यमयी",
         "telugu": "అగస్త్యమయీ",
@@ -956,7 +956,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Vedic sage and one of the Saptaṛṣis; widely credited with transmitting Śrī Vidyā to South India"
     },
     {
       "id": "guru-siddha-001",
@@ -969,7 +969,7 @@
         "iast": "kālatāpanamayī",
         "devanagari": "कालतापनमयी",
         "english": "Kaalataapanamayi",
-        "translation": null,
+        "translation": "She who embodies Kālatāpana",
         "marathi": "कालतापनमयी",
         "hindi": "कालतापनमयी",
         "telugu": "కాలతాపనమయీ",
@@ -980,7 +980,7 @@
         "x": null,
         "y": null
       },
-      "note": "Corrected from kālatāpaśamayī v1.1"
+      "note": "Kālatāpana means 'one who burns away time'; first of the perfected (siddha) lineage"
     },
     {
       "id": "guru-siddha-002",
@@ -993,7 +993,7 @@
         "iast": "dharmācāryamayī",
         "devanagari": "धर्माचार्यमयी",
         "english": "Dharmacharamayi",
-        "translation": null,
+        "translation": "She who embodies Dharmācārya",
         "marathi": "धर्माचार्यमयी",
         "hindi": "धर्माचार्यमयी",
         "telugu": "ధర్మాచార్యమయీ",
@@ -1004,7 +1004,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Dharmācārya means 'teacher of dharma'; second of the perfected lineage"
     },
     {
       "id": "guru-siddha-003",
@@ -1017,7 +1017,7 @@
         "iast": "muktakēśīśvaramayī",
         "devanagari": "मुक्तकेशीश्वरमयी",
         "english": "Muktakeshishvaramayi",
-        "translation": null,
+        "translation": "She who embodies Muktakēśīśvara",
         "marathi": "मुक्तकेशीश्वरमयी",
         "hindi": "मुक्तकेशीश्वरमयी",
         "telugu": "ముక్తకేశీశ్వరమయీ",
@@ -1028,7 +1028,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Muktakēśīśvara means 'lord of unbound hair'; third of the perfected lineage"
     },
     {
       "id": "guru-siddha-004",
@@ -1041,7 +1041,7 @@
         "iast": "dīpakalānāthamayī",
         "devanagari": "दीपकलानाथमयी",
         "english": "Dipakalanatamayi",
-        "translation": null,
+        "translation": "She who embodies Dīpakalānātha",
         "marathi": "दीपकलानाथमयी",
         "hindi": "दीपकलानाथमयी",
         "telugu": "దీపకలానాథమయీ",
@@ -1052,7 +1052,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Dīpakalānātha means 'lord of the art of light'; fourth of the perfected lineage"
     },
     {
       "id": "guru-manava-001",
@@ -1065,7 +1065,7 @@
         "iast": "viṣṇudēvamayī",
         "devanagari": "विष्णुदेवमयी",
         "english": "Vishnu Devamayi",
-        "translation": null,
+        "translation": "She who embodies Viṣṇudēva",
         "marathi": "विष्णुदेवमयी",
         "hindi": "विष्णुदेवमयी",
         "telugu": "విష్ణుదేవమయీ",
@@ -1076,7 +1076,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "First of the human lineage masters"
     },
     {
       "id": "guru-manava-002",
@@ -1089,7 +1089,7 @@
         "iast": "prabhākaradēvamayī",
         "devanagari": "प्रभाकरदेवमयी",
         "english": "Prabhakara Devamayi",
-        "translation": null,
+        "translation": "She who embodies Prabhākaradēva",
         "marathi": "प्रभाकरदेवमयी",
         "hindi": "प्रभाकरदेवमयी",
         "telugu": "ప్రభాకరదేవమయీ",
@@ -1100,7 +1100,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Prabhākara means 'he who makes radiant'; second of the human lineage"
     },
     {
       "id": "guru-manava-003",
@@ -1113,7 +1113,7 @@
         "iast": "tējōdēvamayī",
         "devanagari": "तेजोदेवमयी",
         "english": "Tejo Devamayi",
-        "translation": null,
+        "translation": "She who embodies Tējōdēva",
         "marathi": "तेजोदेवमयी",
         "hindi": "तेजोदेवमयी",
         "telugu": "తేజోదేవమయీ",
@@ -1124,7 +1124,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Tējas means 'radiance' or 'splendour'; third of the human lineage"
     },
     {
       "id": "guru-manava-004",
@@ -1137,7 +1137,7 @@
         "iast": "manōjadēvamayī",
         "devanagari": "मनोजदेवमयी",
         "english": "Manoja Devamayi",
-        "translation": null,
+        "translation": "She who embodies Manōjadēva",
         "marathi": "मनोजदेवमयी",
         "hindi": "मनोजदेवमयी",
         "telugu": "మనోజదేవమయీ",
@@ -1148,7 +1148,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Manōja means 'born of the mind'; fourth of the human lineage"
     },
     {
       "id": "guru-manava-005",
@@ -1161,7 +1161,7 @@
         "iast": "kalyāṇadēvamayī",
         "devanagari": "कल्याणदेवमयी",
         "english": "Kalyana Devamayi",
-        "translation": null,
+        "translation": "She who embodies Kalyāṇadēva",
         "marathi": "कल्याणदेवमयी",
         "hindi": "कल्याणदेवमयी",
         "telugu": "కల్యాణదేవమయీ",
@@ -1172,7 +1172,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Kalyāṇa means 'auspicious' or 'well-being'; fifth of the human lineage"
     },
     {
       "id": "guru-manava-006",
@@ -1185,7 +1185,7 @@
         "iast": "vāsudēvamayī",
         "devanagari": "वासुदेवमयी",
         "english": "Vasudeva Devamayi",
-        "translation": null,
+        "translation": "She who embodies Vāsudēva",
         "marathi": "वासुदेवमयी",
         "hindi": "वासुदेवमयी",
         "telugu": "వాసుదేవమయీ",
@@ -1196,7 +1196,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Vāsudēva is a name of Viṣṇu-Kṛṣṇa meaning 'son of Vasudeva'; seventh of the human lineage"
     },
     {
       "id": "guru-manava-007",
@@ -1209,7 +1209,7 @@
         "iast": "ratnadēvamayī",
         "devanagari": "रत्नदेवमयी",
         "english": "Ratna Devamayi",
-        "translation": null,
+        "translation": "She who embodies Ratnadēva",
         "marathi": "रत्नदेवमयी",
         "hindi": "रत्नदेवमयी",
         "telugu": "రత్నదేవమయీ",
@@ -1220,7 +1220,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "Ratna means 'jewel' or 'gem'; sixth of the human lineage"
     },
     {
       "id": "guru-manava-008",
@@ -1233,7 +1233,7 @@
         "iast": "śrīrāmānandamayī",
         "devanagari": "श्रीरामानन्दमयी",
         "english": "Shri Ramananda Mayi",
-        "translation": null,
+        "translation": "She who embodies Śrī Rāmānanda",
         "marathi": "श्रीरामानन्दमयी",
         "hindi": "श्रीरामानन्दमयी",
         "telugu": "శ్రీరామానన్దమయీ",
@@ -1244,7 +1244,7 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": "The final human teacher in the lineage, through whom the living tradition reaches the practitioner"
     },
     {
       "id": "c1-siddhi-001",

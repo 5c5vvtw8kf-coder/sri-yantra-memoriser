@@ -678,4 +678,16 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         const pC = Object.values(prevResults).filter(v => v === 'correct').length
         const pT = Object.keys(prevResults).length
         return (
-       
+          <div className="pt-1 border-t border-surface-800">
+            <p className="text-xs text-muted font-mono uppercase tracking-widest mb-1">Last round</p>
+            <p className="text-xs">
+              <span className="text-red-400">{pC}</span>
+              <span className="text-muted">/{pT} memorised</span>
+            </p>
+          </div>
+        )
+      })()}
+
+    </div>
+  )
+}

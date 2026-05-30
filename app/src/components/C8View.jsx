@@ -87,15 +87,15 @@ const c8Deities = deities
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, onClick, onDoubleClick, onContextMenu, onMouseEnter, onMouseLeave, dimStyle }) {
+function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onDoubleClick, onContextMenu, onMouseEnter, onMouseLeave, dimStyle }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
     <circle
       cx={x.toFixed(1)} cy={y.toFixed(1)}
       r={selected ? r + 2.5 : r}
-      fill={selected ? fill : fill + 'bb'}
-      stroke={selected ? '#fff' : 'none'}
-      strokeWidth={selected ? 0.8 : 0}
+      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
+      stroke="none"
+      strokeWidth={0}
       style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
@@ -136,6 +136,8 @@ function Tooltip({ x, y, label, script }) {
 export default function C8View({
   script = 'iast',
   onDeitySelect = () => {},
+  highlightId = null,
+  fillAll = false,
   memorise = false,
   currentSeq = 1,
   results = {},
@@ -200,10 +202,15 @@ export default function C8View({
               fill="none" stroke={GOLD} strokeWidth={0.6} opacity={0.14} />
           ))}
 
-          {/* Central triangle — the main triangle */}
+          {/* Central triangle — gold fill; red on fillAll hover */}
           <polygon points={mainTriPts}
-            fill="rgba(201,168,76,0.04)" stroke={GOLD}
-            strokeWidth={3} strokeLinejoin="miter" />
+            fill={!memorise && fillAll ? 'rgba(200,70,70,0.85)' : 'rgba(201,168,76,0.80)'}
+            stroke={!memorise && fillAll ? 'none' : GOLD}
+            strokeWidth={!memorise && fillAll ? 0 : 3}
+            strokeLinejoin="miter" />
+          {/* Black dot marking the bindu position — always visible */}
+          <circle cx={CENTROID[0].toFixed(1)} cy={CENTROID[1].toFixed(1)} r={8}
+            fill="#000000" opacity={1} style={{ pointerEvents: 'none' }} />
 
           {/* ── Explore mode dots ─────────────────────────────────────────── */}
           {!memorise && c8Deities.map((d, i) => {
@@ -214,6 +221,7 @@ export default function C8View({
                 x={pos[0]} y={pos[1]} r={14}
                 fill={selectedId === d.id ? RED : "#fff8c8"}
                 selected={selectedId === d.id}
+                highlighted={!selectedId && highlightId === d.id}
                 onClick={() => toggle(d.id)}
                 onMouseEnter={() => hover(d.id, pos[0], pos[1])}
                 onMouseLeave={unhover} />
@@ -231,17 +239,17 @@ export default function C8View({
             const isFuture  = !isActive && !isPast
             const isCorrect = results[seq] === 'correct'
 
+            if (isFuture) return null
+
             let fill, selected
             if (flash)                    { fill = ACTIVE_FILL; selected = true  }
             else if (isActive)            { fill = ACTIVE_FILL; selected = true  }
             else if (isPast && isCorrect) { fill = RED;         selected = false }
-            else if (isPast)              { fill = GOLD;        selected = false }
-            else                          { fill = RED;         selected = false }
+            else                          { fill = GOLD;        selected = false }
 
             return (
               <DeityDot key={`mem-${seq}`}
                 x={pos[0]} y={pos[1]} r={14} fill={fill} selected={selected}
-                dimStyle={isFuture ? { opacity: 0.15 } : undefined}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                 onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
@@ -301,12 +309,12 @@ export default function C8View({
 
 
       {!memorise && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+        <p className="mt-3 text-center text-xs text-muted italic">
           Hover or click any dot to reveal the deity
         </p>
       )}
       {memorise && !done && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+        <p className="mt-3 text-center text-xs text-muted italic">
           hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}

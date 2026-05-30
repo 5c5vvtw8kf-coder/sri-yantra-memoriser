@@ -105,15 +105,15 @@ const GROUP_LABEL = {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, opacity, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
+function DeityDot({ x, y, r, fill, selected, highlighted, opacity, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
     <circle
       cx={x.toFixed(1)} cy={y.toFixed(1)}
       r={r}
-      fill={selected ? fill : fill + 'bb'}
-      stroke={selected ? '#fff' : fill}
-      strokeWidth={selected ? 1.2 : 0.8}
+      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
+      stroke="none"
+      strokeWidth={0}
       opacity={opacity ?? 1}
       style={{ cursor: isInteractive ? 'pointer' : 'default', transition: 'opacity 0.2s' }}
       onClick={onClick}
@@ -164,6 +164,10 @@ const FILTERS = [
 export default function BhupuraView({
   script = 'iast',
   onDeitySelect = () => {},
+  highlightId = null,
+  showColors = false,
+  fillAll = false,
+  memoGroup = 'all',
   memorise = false,
   currentSeq = 1,
   results = {},
@@ -226,7 +230,19 @@ export default function BhupuraView({
     else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
-  const done = memorise && currentSeq > BHUPURA_TOTAL
+  // Memo mode: filtered deity list and total
+  const memoDeities = memoGroup === 'siddhiShakti' ? siddhiDeities
+    : memoGroup === 'ashtaMatrika' ? matrikaDeities
+    : memoGroup === 'mudraShakti'  ? mudraDeities
+    : c1Deities
+  const MEMO_TOTAL = memoGroup === 'all' ? BHUPURA_TOTAL : memoDeities.length
+
+  const done = memorise && currentSeq > MEMO_TOTAL
+
+  // Dynamic fills — add bhupura band fills when fillAll is active in Explore mode
+  const dynamicFills = (!memorise && fillAll)
+    ? { ...YANTRA_FILLS, 'c1-outer': 'rgba(200,70,70,0.85)', 'c1-mid': 'rgba(200,70,70,0.85)' }
+    : YANTRA_FILLS
 
   return (
     <div className="w-full p-4">
@@ -244,7 +260,7 @@ export default function BhupuraView({
             showTriangles={true}
             showLabels={false}
             showNumbers={false}
-            filledRegions={YANTRA_FILLS}
+            filledRegions={dynamicFills}
           />
 
           {/* Layer 2: deity dots + tooltip + hint */}
@@ -265,7 +281,7 @@ export default function BhupuraView({
               list.map(d => {
                 const pos    = BHUPURA_POSITIONS[d.sequenceInSection]
                 if (!pos) return null
-                const fill   = GROUP_COLOUR[group]
+                const fill   = showColors ? GROUP_COLOUR[group] : '#fff8c8'
                 const dimmed = isDimmed(group)
                 return (
                   <DeityDot key={d.id}
@@ -273,6 +289,7 @@ export default function BhupuraView({
                     r={selectedId === d.id ? DOT_R_FOCUS : DOT_R_NORMAL}
                     fill={fill}
                     selected={selectedId === d.id}
+                    highlighted={!selectedId && highlightId === d.id}
                     opacity={dimmed ? 0.15 : 1}
                     onClick={() => !dimmed && toggle(d.id)}
                     onMouseEnter={() => !dimmed && hover(d.id, pos.x, pos.y)}
@@ -283,9 +300,9 @@ export default function BhupuraView({
             )}
 
             {/* ── Memorise mode dots ─────────────────────────────────────── */}
-            {memorise && c1Deities.map(d => {
-              const seq = d.sequenceInSection
-              const pos = BHUPURA_POSITIONS[seq]
+            {memorise && memoDeities.map((d, idx) => {
+              const seq = idx + 1
+              const pos = BHUPURA_POSITIONS[d.sequenceInSection]
               if (!pos) return null
 
               const isActive  = currentSeq === seq
@@ -293,19 +310,20 @@ export default function BhupuraView({
               const isFuture  = !isActive && !isPast
               const isCorrect = results[seq] === 'correct'
 
+              if (isFuture) return null
+
               let fill, selected
-              if (flash)                        { fill = ACTIVE_FILL; selected = true  }
-              else if (isActive)                { fill = ACTIVE_FILL; selected = true  }
-              else if (isPast && isCorrect)     { fill = RED;         selected = false }
-              else if (isPast)                  { fill = GOLD;        selected = false }
-              else                              { fill = RED;         selected = false }
+              if (flash)                    { fill = ACTIVE_FILL; selected = true  }
+              else if (isActive)            { fill = ACTIVE_FILL; selected = true  }
+              else if (isPast && isCorrect) { fill = RED;         selected = false }
+              else                          { fill = GOLD;        selected = false }
 
               return (
                 <DeityDot key={`mem-${seq}`}
                   x={pos.x} y={pos.y}
                   r={isActive ? DOT_R_FOCUS : DOT_R_NORMAL}
                   fill={fill} selected={selected}
-                  opacity={isFuture ? 0.15 : 1}
+                  opacity={1}
                   onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                   onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                   onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
@@ -315,20 +333,6 @@ export default function BhupuraView({
               )
             })}
 
-            {/* Memorise: position counter near active dot */}
-            {memorise && !done && !flash && currentSeq <= C1_TOTAL && (() => {
-              const d   = c1Deities.find(d => d.sequenceInSection === currentSeq)
-              const pos = d ? BHUPURA_POSITIONS[currentSeq] : null
-              if (!pos) return null
-              const labelY = pos.y > CY ? pos.y - 16 : pos.y + 16
-              return (
-                <text x={pos.x.toFixed(1)} y={labelY.toFixed(1)}
-                  textAnchor="middle" fontSize="12" fill={ACTIVE_FILL}
-                  fontFamily="serif" pointerEvents="none">
-                  {currentSeq} / {C1_TOTAL}
-                </text>
-              )
-            })()}
 
             {/* Hover tooltip (both modes; suppressed during flash) */}
             {hoveredDot && !flash && (!memorise ? !selectedId : true) && (
@@ -353,12 +357,12 @@ export default function BhupuraView({
                  style={{ maxWidth: '15rem', margin: '0 1rem' }}>
               <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">bhūpura · circuit 1</p>
               <p className="text-cream text-sm">
-                {Object.values(results).filter(v => v === 'correct').length === BHUPURA_TOTAL
+                {Object.values(results).filter(v => v === 'correct').length === MEMO_TOTAL
                   ? 'All memorised — well done!'
                   : 'Round complete.'}
               </p>
               <p className="text-muted text-xs">
-                {Object.values(results).filter(v => v === 'correct').length}/{BHUPURA_TOTAL} memorised
+                {Object.values(results).filter(v => v === 'correct').length}/{MEMO_TOTAL} memorised
               </p>
               <div className="flex flex-col gap-2 pt-1">
                 <button onClick={onStartMemorise}
@@ -428,14 +432,12 @@ export default function BhupuraView({
 
 
       {!memorise && (
-        <div className="mt-2 text-center">
-          <p className="text-muted" style={{ fontSize: '10px' }}>
-            Hover or click any dot to reveal the deity
-          </p>
-        </div>
+        <p className="mt-3 text-center text-xs text-muted italic">
+          Hover or click any dot to reveal the deity
+        </p>
       )}
       {memorise && !done && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+        <p className="mt-3 text-center text-xs text-muted italic">
           hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}

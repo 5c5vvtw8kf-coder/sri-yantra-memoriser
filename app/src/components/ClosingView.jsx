@@ -93,6 +93,9 @@ const ALL_RED_FILLS = {
   'c9': CREAM,
 }
 
+// All circuits red, bindu darker red — list hover fill
+const LIST_RED_FILLS = { ...ALL_RED_FILLS, 'c9': '#5a0f0f' }
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 
@@ -101,6 +104,7 @@ const ALL_RED_FILLS = {
 export default function ClosingView({
   script = 'iast',
   onDeitySelect = () => {},
+  listHighlight = false,
   memorise = false,
   currentSeq = 1,
   results = {},
@@ -184,8 +188,8 @@ export default function ClosingView({
 
   // ── Yantra fills ───────────────────────────────────────────────────────────
 
-  const memFills = allMemorised ? ALL_RED_FILLS : ALL_CREAM_FILLS
-  const exploreFills = hoveredEpithet ? ALL_CREAM_FILLS : {}
+  const memFills = allMemorised ? ALL_RED_FILLS : listHighlight ? LIST_RED_FILLS : ALL_CREAM_FILLS
+  const exploreFills = listHighlight ? LIST_RED_FILLS : hoveredEpithet ? ALL_CREAM_FILLS : {}
 
   // ── Render ─────────────────────────────────────────────────────────────────
 
@@ -437,7 +441,7 @@ export default function ClosingView({
         }}
       >
         <span style={{ color: GOLD, fontSize: '22px', lineHeight: 1 }}>↑</span>
-        {memorise && !done && (
+        {!done && (
           <span style={{ color: CREAM, fontSize: '10px', whiteSpace: 'nowrap' }}>
             Ascend to the top from here
           </span>
@@ -446,12 +450,12 @@ export default function ClosingView({
 
       {/* Hint / instruction below yantra */}
       {!memorise && (
-        <p className="text-center text-muted mt-1" style={{ fontSize: '10px' }}>
+        <p className="mt-3 text-center text-xs text-muted italic">
           Hover a number to illuminate the Yantra · tap to reveal the epithet
         </p>
       )}
       {memorise && !done && (
-        <p className="text-center text-muted mt-1" style={{ fontSize: '10px' }}>
+        <p className="mt-3 text-center text-xs text-muted italic">
           hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}

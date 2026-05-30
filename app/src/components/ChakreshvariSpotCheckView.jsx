@@ -320,4 +320,36 @@ export default function ChakreshvariSpotCheckView({
               showLabels={false}
               showNumbers={false}
               filledRegions={yantraFills}
-              onRegionHover
+              onRegionHover={!flash ? handleRegionHover : null}
+            />
+
+            {/* Answer reveal overlay — SVG so it scales with the yantra */}
+            {(hovered || flash) && name && (
+              <svg
+                viewBox="45 55 430 430"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute inset-0 w-full h-full"
+                style={{ pointerEvents: 'none' }}
+              >
+                <AnswerSVGLabel label={name} script={script} />
+              </svg>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Instruction */}
+      {!done && (
+        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px', fontStyle: 'italic' }}>
+          hover to reveal · click = memorised · dbl-click = not memorised · right-click = change answer
+        </p>
+      )}
+
+      {/* Completion */}
+      {done && (
+        <CompletionOverlay correct={correct} total={total} onRestart={startNewRound} />
+      )}
+
+    </div>
+  )
+}

@@ -68,6 +68,7 @@ function Tooltip({ x, y, label, script }) {
 export default function C9View({
   script = 'iast',
   onDeitySelect = () => {},
+  fillAll = false,
   memorise = false,
   currentSeq = 1,
   results = {},
@@ -94,13 +95,13 @@ export default function C9View({
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === 1) onMarkResult(1, 'wrong')
+      if (currentSeq === 1) onMarkResult(1, 'correct')
     }, 280)
   }
 
   const handleMemDblClick = () => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === 1) onMarkResult(1, 'correct')
+    if (currentSeq === 1) onMarkResult(1, 'wrong')
   }
 
   const done = memorise && currentSeq > TOTAL
@@ -135,10 +136,6 @@ export default function C9View({
               fill="none" stroke={GOLD} strokeWidth={0.6} opacity={0.14} />
           ))}
 
-          {/* Central triangle — the main triangle */}
-          <polygon points={mainTriPts}
-            fill="rgba(201,168,76,0.04)" stroke={GOLD}
-            strokeWidth={3} strokeLinejoin="miter" />
 
           {/* ── Explore mode bindu ────────────────────────────────────── */}
           {!memorise && (
@@ -148,9 +145,9 @@ export default function C9View({
                style={{ cursor: 'pointer' }}>
               <circle
                 cx={bx.toFixed(1)} cy={by.toFixed(1)}
-                r={selected ? 16 : 11}
-                fill={selected ? RED : "#fff8c8"}
-                opacity={selected ? 1 : 0.85} />
+                r={8}
+                fill={selected ? RED : fillAll ? RED : "#fff8c8"}
+                opacity={selected || fillAll ? 1 : 0.85} />
             </g>
           )}
 
@@ -164,20 +161,12 @@ export default function C9View({
               style={{ cursor: flash ? 'default' : 'pointer' }}>
               <circle
                 cx={bx.toFixed(1)} cy={by.toFixed(1)}
-                r={20}
+                r={8}
                 fill={bindufill}
                 opacity={1} />
             </g>
           )}
 
-          {/* Memorise mode: instruction */}
-          {memorise && !done && !flash && (
-            <text x={250} y={630} textAnchor="middle"
-              fontSize="13" fill={GOLD} opacity="0.55"
-              fontFamily="serif" fontStyle="italic">
-              double-tap = memorised · single-tap = not yet
-            </text>
-          )}
 
           {/* Hover tooltip */}
           {hovered && !flash && c9Deity && (
@@ -222,8 +211,13 @@ export default function C9View({
       </div>
 
       {!memorise && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+        <p className="mt-3 text-center text-xs text-muted italic">
           Hover or click the dot to reveal the deity
+        </p>
+      )}
+      {memorise && !done && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}
 

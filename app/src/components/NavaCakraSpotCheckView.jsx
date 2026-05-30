@@ -363,4 +363,47 @@ export default function NavaCakraSpotCheckView({
 
             {/* Circuit 8: central triangle overlay (DFT5 apex clipped to DFT4 base) */}
             {parsed?.circuitNumber === 8 && (
-              <svg v
+              <svg viewBox="45 55 430 430" xmlns="http://www.w3.org/2000/svg"
+                className="absolute inset-0 w-full h-full"
+                style={{ pointerEvents: 'none' }}>
+                <polygon
+                  points="260,283.301 248.565,263.193 271.435,263.193"
+                  fill={flash === 'correct' ? FLASH_RED : flash === 'wrong' ? FLASH_GOLD : HIGHLIGHT}
+                />
+              </svg>
+            )}
+
+            {/* Answer reveal overlay — SVG so it scales with the yantra */}
+            {(hovered || flash) && answer && (
+              <svg
+                viewBox="45 55 430 430"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute inset-0 w-full h-full"
+                style={{ pointerEvents: 'none' }}
+              >
+                {parsed?.type === 'both'
+                  ? <AnswerSVGLabel2 line1={svaminiAnswer} line2={yoginiAnswer} script={script} />
+                  : <AnswerSVGLabel  label={answer} script={script} />
+                }
+              </svg>
+            )}
+
+          </div>
+        </div>
+      )}
+
+      {/* Instruction */}
+      {!done && (
+        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = change answer
+        </p>
+      )}
+
+      {/* Completion */}
+      {done && (
+        <CompletionOverlay correct={correct} total={total} onRestart={startNewRound} />
+      )}
+
+    </div>
+  )
+}

@@ -432,6 +432,7 @@ function RegionFills({ filledRegions = {}, onRegionClick = null, onRegionHover =
           <polygon points={HIT_ZONE_POLYGONS[8]} fill="white" />
           <circle cx={CX} cy={BINDU_CY} r={8} fill="black" />
         </mask>
+
       </defs>
 
       {/* Inner circle base fill */}
@@ -547,6 +548,7 @@ function RegionFills({ filledRegions = {}, onRegionClick = null, onRegionHover =
           onMouseLeave={onRegionLeave || undefined}
           onDoubleClick={onRegionDoubleClick ? () => onRegionDoubleClick('c8') : undefined} />
       )}
+
 
       {/* Triangle sub-region fills / click targets (C4–C8)
           Render C8 first (background), C4 last (foreground) so inner fills don't overwrite outer */}
@@ -687,7 +689,7 @@ const CIRCUIT_NUMBER_POSITIONS = [
 // Imported by BhupuraView (BHUPURA_MARKERS), C2View (C2_PETALS), C3View (C3_PETALS).
 // Centroids (cx, cy) are in the same SVG coordinate space as the main yantra
 // (CX=260, CY=270, viewBox "45 55 430 430").
-export { BHUPURA_MARKERS, C2_PETALS, C3_PETALS }
+export { BHUPURA_MARKERS, C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_PTS, BHUPURA_INNER_PTS }
 
 // ── Main SVG component ────────────────────────────────────────────────────────
 

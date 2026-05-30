@@ -380,4 +380,9 @@ export default function C89SpotCheckView({
 
       {/* Completion */}
       {done && (
-        <CompletionOverlay correct={correct} total={tota
+        <CompletionOverlay correct={correct} total={total} onRestart={startNewRound} />
+      )}
+
+    </div>
+  )
+}

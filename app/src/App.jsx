@@ -305,10 +305,12 @@ function DeityDetail({ deity, script = 'iast' }) {
 
   let subtitle = ''
   if (section)              subtitle = `Circuit ${section.circuitNumber} · ${sequenceInSection} of ${section.triangleCount || section.petalCount || '?'}`
-  else if (sectionId === 'nyasa')  subtitle = `Nyāsāṅga · ${sequenceInSection} of 6`
-  else if (sectionId === 'inner')  subtitle = `Tithi Nitya · ${sequenceInSection} of 16`
-  else if (sectionId === 'gurava') subtitle = `Gurava · ${sequenceInSection}`
-  else                             subtitle = sectionId?.replace('circuit-', 'Circuit ') ?? ''
+  else if (sectionId === 'nyasa')       subtitle = `Nyāsāṅga · ${sequenceInSection} of 6`
+  else if (sectionId === 'nitya')       subtitle = `Tithi Nitya · ${sequenceInSection} of 16`
+  else if (sectionId === 'guru-divya')  subtitle = `Divyaugha Guravaḥ · ${sequenceInSection} of 7`
+  else if (sectionId === 'guru-siddha') subtitle = `Siddhaugha Guravaḥ · ${sequenceInSection} of 4`
+  else if (sectionId === 'guru-manava') subtitle = `Mānavaugha Guravaḥ · ${sequenceInSection} of 8`
+  else                                  subtitle = sectionId?.replace('circuit-', 'Circuit ') ?? ''
 
   return (
     <div className="p-4 space-y-2">
@@ -380,7 +382,35 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate }) {
   )
 }
 
-function SectionInfo({ tabId, script = 'iast' }) {
+function CircuitRows({ circuitNumber, script, onHoverFill = null }) {
+  const section = circuitSections.find(s => s.circuitNumber === circuitNumber)
+  if (!section) return null
+  const secrecy = YOGINI_SECRECY[section.yoginiType]
+  const fillProps = onHoverFill
+    ? { onMouseEnter: () => onHoverFill(true), onMouseLeave: () => onHoverFill(false), style: { cursor: 'default' } }
+    : {}
+  return (
+    <div className="border-t border-surface-700 px-4 pb-4 pt-3 space-y-1.5 text-xs">
+      <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
+        <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
+        <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
+      </div>
+      <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
+        <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
+        <span className="text-gold-500">
+          {sectionName(section, 'yoginiType', script)}
+          {secrecy && <span className="text-muted ml-1">· {secrecy}</span>}
+        </span>
+      </div>
+      <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
+        <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
+        <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
+      </div>
+    </div>
+  )
+}
+
+function SectionInfo({ tabId, script = 'iast', showRows = true }) {
   const circuitNumber = TAB_TO_CIRCUIT[tabId]
   const section       = circuitNumber
     ? circuitSections.find(s => s.circuitNumber === circuitNumber)
@@ -400,19 +430,6 @@ function SectionInfo({ tabId, script = 'iast' }) {
           <p className="text-cream text-xs leading-relaxed">
             Nine special epithets of Śrīdevī, followed by the closing Namaskāra Navākṣarī.
           </p>
-          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
-              <span className="text-cream">After the Nava Chakreshvarī</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
-              <span className="text-cream">9 epithets + Namaskāra</span>
-            </div>
-          </div>
-          <p className="text-muted text-xs italic pt-2 leading-relaxed">
-            Hover a number to illuminate the Yantra · tap to reveal the name
-          </p>
         </div>
       )
     }
@@ -427,36 +444,7 @@ function SectionInfo({ tabId, script = 'iast' }) {
             ṣoḍaśa nitya dēvī
           </h2>
           <p className="text-cream text-xs leading-relaxed">
-            The sixteen eternal aspects of the Goddess, each presiding over one lunar day.
-          </p>
-          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
-              <span className="text-cream">After the Nyāsāṅga Devatāḥ</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
-              <span className="text-cream">16 devatāḥ</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">First</span>
-              <span className="iast text-gold-500">Kāmēśvarī</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Last</span>
-              <span className="iast text-gold-500">Mahā Nityē</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Waxing moon</span>
-              <span className="text-cream">Clockwise from Kāmēśvarī</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Waning moon</span>
-              <span className="iast text-cream">Anti-clockwise from Citrā</span>
-            </div>
-          </div>
-          <p className="text-muted text-xs italic pt-2 leading-relaxed">
-            Hover a dot to reveal the deity
+            The devis representing the 15 lunar phases of the moon's cycle plus Mahānityē.
           </p>
         </div>
       )
@@ -472,32 +460,7 @@ function SectionInfo({ tabId, script = 'iast' }) {
             divyaugha · siddhaugha · mānavaugha
           </h2>
           <p className="text-cream text-xs leading-relaxed">
-            Three lineages transmitting the teaching from the divine source to the human practitioner.
-          </p>
-          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
-              <span className="text-cream">After the Tithi Nitya Devatāḥ</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
-              <span className="text-cream">19 gurus (7 + 4 + 8)</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Divyaugha</span>
-              <span className="text-cream">7 — divine lineage</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Siddhaugha</span>
-              <span className="text-cream">4 — siddha lineage</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Mānavaugha</span>
-              <span className="text-cream">8 — human lineage</span>
-            </div>
-          </div>
-          <p className="text-muted text-xs italic pt-2 leading-relaxed">
-            Hover a dot to reveal the deity
+            Three classes of spiritual masters representing the divine, perfected and human currents of transmission.
           </p>
         </div>
       )
@@ -513,7 +476,7 @@ function SectionInfo({ tabId, script = 'iast' }) {
             ṣaḍ-aṅga nyāsa
           </h2>
           <p className="text-cream text-xs leading-relaxed">
-            Six limb-deities invoked at the opening of the stotra — each consecrates a part of the body and the subtle body before worship begins.
+            Six limb-deities invoked at the opening of the stotra, each consecrates a part of the body and the subtle body before worship begins.
           </p>
           <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
             <div className="flex gap-2">
@@ -524,14 +487,7 @@ function SectionInfo({ tabId, script = 'iast' }) {
               <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
               <span className="text-cream">6 devatāḥ</span>
             </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Deities</span>
-              <span className="iast text-cream">Hṛdaya · Śiro · Śikhā · Kavaca · Netra · Astra</span>
-            </div>
           </div>
-          <p className="text-muted text-xs italic pt-2 leading-relaxed">
-            Hover a dot to reveal the deity
-          </p>
         </div>
       )
     }
@@ -546,28 +502,7 @@ function SectionInfo({ tabId, script = 'iast' }) {
             nava tripurā rūpāṇi
           </h2>
           <p className="text-cream text-xs leading-relaxed">
-            Nine Tripurā forms — one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.
-          </p>
-          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
-              <span className="text-cream">After the nine circuits</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
-              <span className="text-cream">9 devatāḥ</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Outermost</span>
-              <span className="iast text-gold-500">Tripurā (Circuit 1)</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Innermost</span>
-              <span className="iast text-gold-500">Mahātripurasundarī (Circuit 9)</span>
-            </div>
-          </div>
-          <p className="text-muted text-xs italic pt-2 leading-relaxed">
-            Tap a dot to reveal the Tripurā form
+            Nine Tripurā forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.
           </p>
         </div>
       )
@@ -602,31 +537,28 @@ function SectionInfo({ tabId, script = 'iast' }) {
       {script !== 'english' && (
         <p className="text-cream text-xs">{section.avarana}</p>
       )}
-      <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
-        <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0 pt-px">Deities</span>
-          <span className="text-muted">{deityCount}</span>
-        </div>
-        <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
-          <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
-        </div>
-        <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
-          <span className="text-gold-500">{sectionName(section, 'yoginiType', script)}</span>
-        </div>
-        {secrecy && (
+      {showRows && (
+        <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
           <div className="flex gap-2">
-            <span className="text-muted w-24 flex-shrink-0 pt-px">Secrecy</span>
-            <span className="text-muted">{secrecy}</span>
+            <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
+            <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
           </div>
-        )}
-        <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
-          <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
+          <div className="flex gap-2">
+            <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
+            <span className="text-gold-500">{sectionName(section, 'yoginiType', script)}</span>
+          </div>
+          {secrecy && (
+            <div className="flex gap-2">
+              <span className="text-muted w-24 flex-shrink-0 pt-px">Secrecy</span>
+              <span className="text-muted">{secrecy}</span>
+            </div>
+          )}
+          <div className="flex gap-2">
+            <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
+            <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
+          </div>
         </div>
-      </div>
-      <p className="text-muted text-xs pt-1 italic">Tap a dot to reveal a deity</p>
+      )}
     </div>
   )
 }
@@ -1658,6 +1590,8 @@ export default function App() {
   const [c2Results,     setC2Results]     = useState({})    // seq → 'correct'
   const [c2PrevResults, setC2PrevResults] = useState(null)  // null = no attempt yet
   const [c2Flash,       setC2Flash]       = useState(false)  // true during all-correct flash
+  const [c2HighlightId, setC2HighlightId] = useState(null)
+  const [c2ShowList,    setC2ShowList]    = useState(true)
 
   const handleC2StartMemorise = () => {
     setC2Memorise(true)
@@ -1695,6 +1629,8 @@ export default function App() {
   }
 
   // ── C3 Memorise mode ───────────────────────────────────────────────────────
+  const [c3HighlightId, setC3HighlightId] = useState(null)
+  const [c3ShowList,    setC3ShowList]    = useState(true)
   const [c3Memorise,    setC3Memorise]    = useState(false)
   const [c3CurrentSeq,  setC3CurrentSeq]  = useState(1)
   const [c3Results,     setC3Results]     = useState({})
@@ -1736,6 +1672,8 @@ export default function App() {
   }
 
   // ── C4 Memorise mode ───────────────────────────────────────────────────────
+  const [c4HighlightId, setC4HighlightId] = useState(null)
+  const [c4ShowList,    setC4ShowList]    = useState(true)
   const [c4Memorise,    setC4Memorise]    = useState(false)
   const [c4CurrentSeq,  setC4CurrentSeq]  = useState(1)
   const [c4Results,     setC4Results]     = useState({})
@@ -1777,6 +1715,8 @@ export default function App() {
   }
 
   // ── C5 Memorise mode ───────────────────────────────────────────────────────
+  const [c5HighlightId, setC5HighlightId] = useState(null)
+  const [c5ShowList,    setC5ShowList]    = useState(true)
   const [c5Memorise,    setC5Memorise]    = useState(false)
   const [c5CurrentSeq,  setC5CurrentSeq]  = useState(1)
   const [c5Results,     setC5Results]     = useState({})
@@ -1818,6 +1758,8 @@ export default function App() {
   }
 
   // ── C6 Memorise mode ───────────────────────────────────────────────────────
+  const [c6HighlightId, setC6HighlightId] = useState(null)
+  const [c6ShowList,    setC6ShowList]    = useState(true)
   const [c6Memorise,    setC6Memorise]    = useState(false)
   const [c6CurrentSeq,  setC6CurrentSeq]  = useState(1)
   const [c6Results,     setC6Results]     = useState({})
@@ -1859,6 +1801,8 @@ export default function App() {
   }
 
   // ── C7 Memorise mode ───────────────────────────────────────────────────────
+  const [c7HighlightId, setC7HighlightId] = useState(null)
+  const [c7ShowList,    setC7ShowList]    = useState(true)
   const [c7Memorise,    setC7Memorise]    = useState(false)
   const [c7CurrentSeq,  setC7CurrentSeq]  = useState(1)
   const [c7Results,     setC7Results]     = useState({})
@@ -1900,6 +1844,8 @@ export default function App() {
   }
 
   // ── C8 Memorise mode ───────────────────────────────────────────────────────
+  const [c8HighlightId, setC8HighlightId] = useState(null)
+  const [c8ShowList,    setC8ShowList]    = useState(true)
   const [c8Memorise,    setC8Memorise]    = useState(false)
   const [c8CurrentSeq,  setC8CurrentSeq]  = useState(1)
   const [c8Results,     setC8Results]     = useState({})
@@ -1974,6 +1920,9 @@ export default function App() {
   }
 
   // ── Nava Chakreshvari Memorise mode ────────────────────────────────────────
+  const [ncHighlightId,      setNcHighlightId]      = useState(null)
+  const [ncHighlightCircuit, setNcHighlightCircuit] = useState(null)
+  const [ncShowList,         setNcShowList]         = useState(true)
   const [ncMemorise,    setNcMemorise]    = useState(false)
   const [ncCurrentSeq,  setNcCurrentSeq]  = useState(1)
   const [ncResults,     setNcResults]     = useState({})
@@ -2011,7 +1960,9 @@ export default function App() {
   }
 
   // ── Closing Memorise mode ──────────────────────────────────────────────────
-  const [closingMemorise,    setClosingMemorise]    = useState(false)
+  const [closingShowList,      setClosingShowList]      = useState(true)
+  const [closingListHighlight, setClosingListHighlight] = useState(false)
+  const [closingMemorise,      setClosingMemorise]      = useState(false)
   const [closingCurrentSeq,  setClosingCurrentSeq]  = useState(1)
   const [closingResults,     setClosingResults]     = useState({})
   const [closingPrevResults, setClosingPrevResults] = useState(null)
@@ -2053,6 +2004,8 @@ export default function App() {
   const [nyasaResults,     setNyasaResults]     = useState({})
   const [nyasaPrevResults, setNyasaPrevResults] = useState(null)
   const [nyasaFlash,       setNyasaFlash]       = useState(false)
+  const [nyasaHighlightId, setNyasaHighlightId] = useState(null)
+  const [nyasaShowList,    setNyasaShowList]    = useState(true)
 
   const handleNyasaStartMemorise = () => {
     setNyasaMemorise(true)
@@ -2094,6 +2047,9 @@ export default function App() {
   const [innerResults,     setInnerResults]     = useState({})
   const [innerPrevResults, setInnerPrevResults] = useState(null)
   const [innerFlash,       setInnerFlash]       = useState(false)
+  const [innerHighlightId, setInnerHighlightId] = useState(null)
+  const [innerShowList,    setInnerShowList]    = useState(true)
+  const [innerWaning,      setInnerWaning]      = useState(false)
 
   const handleInnerStartMemorise = () => {
     setInnerMemorise(true)
@@ -2124,13 +2080,19 @@ export default function App() {
       return next
     })
   }
+  const handleInnerSetWaning = (val) => {
+    setInnerWaning(val)
+    if (innerMemorise) { setInnerCurrentSeq(1); setInnerResults({}); setInnerFlash(false) }
+  }
 
   // ── Gurava (Guru lineage) Memorise mode ────────────────────────────────────
-  const [guravaMemorse,    setGuravaMemorse]    = useState(false)
-  const [guravaCurrentSeq, setGuravaCurrentSeq] = useState(1)
-  const [guravaResults,    setGuravaResults]    = useState({})
-  const [guravaPrevResults,setGuravaPrevResults] = useState(null)
-  const [guravaFlash,      setGuravaFlash]      = useState(false)
+  const [guravaMemorse,     setGuravaMemorse]     = useState(false)
+  const [guravaCurrentSeq,  setGuravaCurrentSeq]  = useState(1)
+  const [guravaResults,     setGuravaResults]     = useState({})
+  const [guravaPrevResults, setGuravaPrevResults] = useState(null)
+  const [guravaFlash,       setGuravaFlash]       = useState(false)
+  const [guravaHighlightId, setGuravaHighlightId] = useState(null)
+  const [guravaShowList,    setGuravaShowList]    = useState(true)
 
   const handleGuravaStartMemorise = () => {
     setGuravaMemorse(true)
@@ -2168,6 +2130,10 @@ export default function App() {
   const [bhupuraResults,     setBhupuraResults]     = useState({})
   const [bhupuraPrevResults, setBhupuraPrevResults] = useState(null)
   const [bhupuraFlash,       setBhupuraFlash]       = useState(false)
+  const [bhupuraHighlightId, setBhupuraHighlightId] = useState(null)
+  const [bhupuraShowList,    setBhupuraShowList]    = useState(true)
+  const [bhupuraShowColors,  setBhupuraShowColors]  = useState(false)
+  const [bhupuraMemoGroup,   setBhupuraMemoGroup]   = useState('all')
 
   const handleBhupuraStartMemorise = () => {
     setBhupuraMemorise(true)
@@ -2198,9 +2164,14 @@ export default function App() {
       return next
     })
   }
+  const handleBhupuraSetMemoGroup = (group) => {
+    setBhupuraMemoGroup(group)
+    if (bhupuraMemorise) { setBhupuraCurrentSeq(1); setBhupuraResults({}); setBhupuraFlash(false) }
+  }
 
   // ── Show not-memorised list toggle (shared; reset on tab change) ──────────
-  const [showErrors, setShowErrors] = useState(false)
+  const [showErrors,      setShowErrors]      = useState(false)
+  const [circuitFillAll,  setCircuitFillAll]  = useState(false)
 
   // ── Session stats (cumulative across all circuits and rounds) ──────────────
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0, rounds: 0 })
@@ -2302,7 +2273,7 @@ export default function App() {
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {
     if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
-    if (activeTab === 'bhupura' && bhupuraMemorise) return (
+    if (activeTab === 'bhupura' && bhupuraMemorise && bhupuraMemoGroup === 'all') return (
       <BhupuraMemoriseInfo
         currentSeq={bhupuraCurrentSeq}
         results={bhupuraResults}
@@ -2510,6 +2481,449 @@ export default function App() {
       </div>
     )
     if (selectedDeity) return <DeityDetail deity={selectedDeity} script={script} />
+
+    // Inner (Tithi Nitya) memo — moon toggle in same position as explore
+    if (activeTab === 'inner' && innerMemorise) {
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="inner" script={script} />
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <div className="flex gap-1.5 pt-2">
+              <button
+                className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${!innerWaning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
+                onClick={() => handleInnerSetWaning(false)}
+              >☽ Waxing</button>
+              <button
+                className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${innerWaning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
+                onClick={() => handleInnerSetWaning(true)}
+              >☾ Waning</button>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    // Inner (Tithi Nitya) explore list
+    if (activeTab === 'inner' && !innerMemorise) {
+      const allNitya  = deities.filter(d => d.sectionId === 'nitya').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      const maha      = allNitya[15]
+      const first15   = allNitya.slice(0, 15)
+      const innerList = innerWaning ? [...first15.slice().reverse(), maha] : allNitya
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="inner" script={script} />
+          <div className="border-t border-surface-700 px-3 pb-1">
+            <div className="flex gap-1.5 pt-2 pb-1">
+              <button
+                className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${!innerWaning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
+                onClick={() => setInnerWaning(false)}
+              >☽ Waxing</button>
+              <button
+                className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${innerWaning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
+                onClick={() => setInnerWaning(true)}
+              >☾ Waning</button>
+            </div>
+          </div>
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <button
+              className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+              onClick={() => setInnerShowList(l => !l)}
+            >
+              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span>{innerShowList ? '↑' : '↓'}</span>
+            </button>
+            {innerShowList && (
+              <div className="space-y-0.5">
+                {innerList.map((d, i) => (
+                  <div key={d.id}
+                    className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                    onMouseEnter={() => setInnerHighlightId(d.id)}
+                    onMouseLeave={() => setInnerHighlightId(null)}
+                  >
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                      {displayName(d, script)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    // Gurava explore list
+    if (activeTab === 'gurava' && !guravaMemorse) {
+      const guravaGroups = [
+        { sectionId: 'guru-divya',  label: 'divyaugha guravaḥ'  },
+        { sectionId: 'guru-siddha', label: 'siddhaugha guravaḥ' },
+        { sectionId: 'guru-manava', label: 'mānavaugha guravaḥ' },
+      ].map(g => ({
+        ...g,
+        list: deities.filter(d => d.sectionId === g.sectionId).sort((a, b) => a.sequenceInSection - b.sequenceInSection),
+      }))
+      let runningIdx = 0
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="gurava" script={script} />
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <button
+              className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+              onClick={() => setGuravaShowList(l => !l)}
+            >
+              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span>{guravaShowList ? '↑' : '↓'}</span>
+            </button>
+            {guravaShowList && (
+              <div className="space-y-2">
+                {guravaGroups.map(({ label, list }) => (
+                  <div key={label}>
+                    <p className="iast text-xs font-mono text-muted uppercase tracking-widest pb-0.5">{label}</p>
+                    <div>
+                      {list.map(d => {
+                        const n = ++runningIdx
+                        return (
+                          <div key={d.id}
+                            className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                            onMouseEnter={() => setGuravaHighlightId(d.id)}
+                            onMouseLeave={() => setGuravaHighlightId(null)}
+                          >
+                            <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{n}.</span>
+                            <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                              {displayName(d, script)}
+                            </span>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    // Nyasa explore list
+    if (activeTab === 'nyasa' && !nyasaMemorise) {
+      const nyasaList = deities
+        .filter(d => d.sectionId === 'nyasa')
+        .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="nyasa" script={script} />
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <button
+              className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+              onClick={() => setNyasaShowList(l => !l)}
+            >
+              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span>{nyasaShowList ? '↑' : '↓'}</span>
+            </button>
+            {nyasaShowList && (
+              <div className="space-y-0.5">
+                {nyasaList.map(d => (
+                  <div key={d.id}
+                    className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                    onMouseEnter={() => setNyasaHighlightId(d.id)}
+                    onMouseLeave={() => setNyasaHighlightId(null)}
+                  >
+                    <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
+                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                      {displayName(d, script)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    // Circuits 3–7 explore lists
+    for (const [tab, cNum, total, hSet, showList, setShowList, setHighlight, isMem] of [
+      ['c3', 3,  8, setC3HighlightId, c3ShowList, setC3ShowList, setC3HighlightId, c3Memorise],
+      ['c4', 4, 14, setC4HighlightId, c4ShowList, setC4ShowList, setC4HighlightId, c4Memorise],
+      ['c5', 5, 10, setC5HighlightId, c5ShowList, setC5ShowList, setC5HighlightId, c5Memorise],
+      ['c6', 6, 10, setC6HighlightId, c6ShowList, setC6ShowList, setC6HighlightId, c6Memorise],
+      ['c7', 7,  8, setC7HighlightId, c7ShowList, setC7ShowList, setC7HighlightId, c7Memorise],
+    ]) {
+      if (activeTab === tab && !isMem) {
+        const list = deities
+          .filter(d => d.sectionId === `circuit-${cNum}` && d.role === 'deity')
+          .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+        return (
+          <div className="overflow-y-auto">
+            <SectionInfo tabId={tab} script={script} showRows={false} />
+            <div className="border-t border-surface-700 px-3 pb-3">
+              <button
+                className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+                onClick={() => setShowList(l => !l)}
+              >
+                <span className="font-mono uppercase tracking-widest">Deity list</span>
+                <span>{showList ? '↑' : '↓'}</span>
+              </button>
+              {showList && (
+                <div>
+                  {list.map((d, i) => (
+                    <div key={d.id}
+                      className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                      onMouseEnter={() => setHighlight(d.id)}
+                      onMouseLeave={() => setHighlight(null)}
+                    >
+                      <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                      <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                        {displayName(d, script)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <CircuitRows circuitNumber={cNum} script={script} onHoverFill={setCircuitFillAll} />
+          </div>
+        )
+      }
+    }
+
+    // Circuit 2 explore list
+    if (activeTab === 'c2' && !c2Memorise) {
+      const c2List = deities
+        .filter(d => d.sectionId === 'circuit-2' && d.role === 'deity')
+        .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="c2" script={script} showRows={false} />
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <button
+              className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+              onClick={() => setC2ShowList(l => !l)}
+            >
+              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span>{c2ShowList ? '↑' : '↓'}</span>
+            </button>
+            {c2ShowList && (
+              <div>
+                {c2List.map((d, i) => (
+                  <div key={d.id}
+                    className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                    onMouseEnter={() => setC2HighlightId(d.id)}
+                    onMouseLeave={() => setC2HighlightId(null)}
+                  >
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                      {displayName(d, script)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <CircuitRows circuitNumber={2} script={script} onHoverFill={setCircuitFillAll} />
+        </div>
+      )
+    }
+
+    // Nava Chakreshvari explore list
+    if (activeTab === 'chakreshvari' && !ncMemorise) {
+      const ncList = deities
+        .filter(d => d.sectionId === 'chakreshvari')
+        .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="chakreshvari" script={script} />
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <button
+              className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+              onClick={() => setNcShowList(l => !l)}
+            >
+              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span>{ncShowList ? '↑' : '↓'}</span>
+            </button>
+            {ncShowList && (
+              <div>
+                {ncList.map((d, i) => (
+                  <div key={d.id}
+                    className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                    onMouseEnter={() => setNcHighlightCircuit(d.circuitNumber ?? d.sequenceInSection)}
+                    onMouseLeave={() => setNcHighlightCircuit(null)}
+                  >
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                      {displayName(d, script)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    // Circuit 9 explore — single deity
+    if (activeTab === 'c9' && !c9Memorise) {
+      const c9d = deities.find(d => d.sectionId === 'circuit-9' && d.role === 'deity')
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="c9" script={script} showRows={false} />
+          <div className="border-t border-surface-700 px-3 pb-3 pt-2">
+            <p className="font-mono uppercase tracking-widest text-xs text-muted pb-1.5">Deity</p>
+            {c9d && (
+              <p
+                className={`text-sm text-gold-400 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors cursor-default${script !== 'english' ? ' iast' : ''}`}
+                onMouseEnter={() => setCircuitFillAll(true)}
+                onMouseLeave={() => setCircuitFillAll(false)}
+              >
+                {displayName(c9d, script)}
+              </p>
+            )}
+          </div>
+          <CircuitRows circuitNumber={9} script={script} onHoverFill={setCircuitFillAll} />
+        </div>
+      )
+    }
+
+    // Circuit 8 explore list
+    if (activeTab === 'c8' && !c8Memorise) {
+      const c8List = deities
+        .filter(d => d.sectionId === 'circuit-8' && d.role === 'deity')
+        .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="c8" script={script} showRows={false} />
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <button
+              className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+              onClick={() => setC8ShowList(l => !l)}
+            >
+              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span>{c8ShowList ? '↑' : '↓'}</span>
+            </button>
+            {c8ShowList && (
+              <div>
+                {c8List.map((d, i) => (
+                  <div key={d.id}
+                    className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                    onMouseEnter={() => setC8HighlightId(d.id)}
+                    onMouseLeave={() => setC8HighlightId(null)}
+                  >
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                      {displayName(d, script)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <CircuitRows circuitNumber={8} script={script} onHoverFill={setCircuitFillAll} />
+        </div>
+      )
+    }
+
+    // Bhupura (Circuit 1) explore list
+    if (activeTab === 'bhupura' && !bhupuraMemorise) {
+      const siddhiList  = deities.filter(d => d.sectionId === 'circuit-1' && d.group === 'siddhiShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      const matrikaList = deities.filter(d => d.sectionId === 'circuit-1' && d.group === 'ashtaMatrika').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      const mudraList   = deities.filter(d => d.sectionId === 'circuit-1' && d.group === 'mudraShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      const groups = [
+        { label: 'Siddhi Shaktis', list: siddhiList  },
+        { label: 'Ashta Matrikas', list: matrikaList },
+        { label: 'Mudra Shaktis',  list: mudraList   },
+      ]
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="bhupura" script={script} showRows={false} />
+          <div className="border-t border-surface-700 px-3 pb-1">
+            <div className="flex gap-1.5 pt-2 pb-1">
+              <button
+                className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${!bhupuraShowColors ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
+                onClick={() => setBhupuraShowColors(false)}
+              >Plain</button>
+              <button
+                className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${bhupuraShowColors ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
+                onClick={() => setBhupuraShowColors(true)}
+              >Colours</button>
+            </div>
+          </div>
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <button
+              className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+              onClick={() => setBhupuraShowList(l => !l)}
+            >
+              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span>{bhupuraShowList ? '↑' : '↓'}</span>
+            </button>
+            {bhupuraShowList && (
+              <div className="space-y-2">
+                {groups.map(({ label, list }) => (
+                  <div key={label}>
+                    <p className="text-xs font-mono text-muted uppercase tracking-widest pb-0.5">{label}</p>
+                    <div>
+                      {list.map(d => (
+                        <div key={d.id}
+                          className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                          onMouseEnter={() => setBhupuraHighlightId(d.id)}
+                          onMouseLeave={() => setBhupuraHighlightId(null)}
+                        >
+                          <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
+                          <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                            {displayName(d, script)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <CircuitRows circuitNumber={1} script={script} onHoverFill={setCircuitFillAll} />
+        </div>
+      )
+    }
+
+    // Closing explore list
+    if (activeTab === 'closing' && !closingMemorise) {
+      const closingList = deities
+        .filter(d => d.sectionId === 'closing')
+        .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      return (
+        <div className="overflow-y-auto">
+          <SectionInfo tabId="closing" script={script} />
+          <div className="border-t border-surface-700 px-3 pb-3">
+            <button
+              className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
+              onClick={() => setClosingShowList(l => !l)}
+            >
+              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span>{closingShowList ? '↑' : '↓'}</span>
+            </button>
+            {closingShowList && (
+              <div>
+                {closingList.map((d, i) => (
+                  <div key={d.id}
+                    className="px-2 py-px rounded-lg text-sm transition-colors hover:bg-surface-700 flex items-center gap-2 cursor-default"
+                    onMouseEnter={() => setClosingListHighlight(true)}
+                    onMouseLeave={() => setClosingListHighlight(false)}
+                  >
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                      {displayName(d, script)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    }
+
     return <SectionInfo tabId={activeTab} script={script} />
   })()
 
@@ -2691,6 +3105,7 @@ export default function App() {
                                           onToggleResult={handleNyasaToggleResult}
                                           flash={nyasaFlash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={nyasaHighlightId}
                                         />}
             {activeTab === 'inner'   && <InnerView
                                           script={script}
@@ -2704,6 +3119,8 @@ export default function App() {
                                           onToggleResult={handleInnerToggleResult}
                                           flash={innerFlash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={innerHighlightId}
+                                          waning={innerWaning}
                                         />}
             {activeTab === 'gurava'  && <GuravaView
                                           script={script}
@@ -2717,6 +3134,7 @@ export default function App() {
                                           onToggleResult={handleGuravaToggleResult}
                                           flash={guravaFlash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={guravaHighlightId}
                                         />}
             {activeTab === 'bhupura' && <BhupuraView
                                           script={script}
@@ -2730,6 +3148,10 @@ export default function App() {
                                           onToggleResult={handleBhupuraToggleResult}
                                           flash={bhupuraFlash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={bhupuraHighlightId}
+                                          showColors={bhupuraShowColors}
+                                          fillAll={circuitFillAll}
+                                          memoGroup={bhupuraMemoGroup}
                                         />}
             {activeTab === 'c2'      && <C2View
                                           script={script}
@@ -2743,6 +3165,8 @@ export default function App() {
                                           onToggleResult={handleC2ToggleResult}
                                           flash={c2Flash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={c2HighlightId}
+                                          fillAll={circuitFillAll}
                                         />}
             {activeTab === 'c3'      && <C3View
                                           script={script}
@@ -2756,6 +3180,8 @@ export default function App() {
                                           onToggleResult={handleC3ToggleResult}
                                           flash={c3Flash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={c3HighlightId}
+                                          fillAll={circuitFillAll}
                                         />}
             {activeTab === 'c4'      && <C4View
                                           script={script}
@@ -2769,6 +3195,8 @@ export default function App() {
                                           onToggleResult={handleC4ToggleResult}
                                           flash={c4Flash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={c4HighlightId}
+                                          fillAll={circuitFillAll}
                                         />}
             {activeTab === 'c5'      && <C5View
                                           script={script}
@@ -2782,6 +3210,8 @@ export default function App() {
                                           onToggleResult={handleC5ToggleResult}
                                           flash={c5Flash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={c5HighlightId}
+                                          fillAll={circuitFillAll}
                                         />}
             {activeTab === 'c6'      && <C6View
                                           script={script}
@@ -2795,6 +3225,8 @@ export default function App() {
                                           onToggleResult={handleC6ToggleResult}
                                           flash={c6Flash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={c6HighlightId}
+                                          fillAll={circuitFillAll}
                                         />}
             {activeTab === 'c7'      && <C7View
                                           script={script}
@@ -2808,6 +3240,8 @@ export default function App() {
                                           onToggleResult={handleC7ToggleResult}
                                           flash={c7Flash}
                                           onNavigate={handleNavigateToMemorise}
+                                          highlightId={c7HighlightId}
+                                          fillAll={circuitFillAll}
                                         />}
             {activeTab === 'c8' && (
               <C8View
@@ -2822,6 +3256,8 @@ export default function App() {
                 onToggleResult={handleC8ToggleResult}
                 flash={c8Flash}
                 onNavigate={handleNavigateToMemorise}
+                highlightId={c8HighlightId}
+                fillAll={circuitFillAll}
               />
             )}
             {activeTab === 'c9' && (
@@ -2837,6 +3273,7 @@ export default function App() {
                 onToggleResult={handleC9ToggleResult}
                 flash={c9Flash}
                 onNavigate={handleNavigateToMemorise}
+                fillAll={circuitFillAll}
               />
             )}
             {activeTab === 'chakreshvari' && (
@@ -2852,6 +3289,7 @@ export default function App() {
                 onToggleResult={handleNcToggleResult}
                 flash={ncFlash}
                 onNavigate={handleNavigateToMemorise}
+                listHighlightCircuit={ncHighlightCircuit}
               />
             )}
             {activeTab === 'closing' && (
@@ -2867,6 +3305,7 @@ export default function App() {
                 onToggleResult={handleClosingToggleResult}
                 flash={closingFlash}
                 onNavigate={handleNavigateToMemorise}
+                listHighlight={closingListHighlight}
               />
             )}
             {activeTab === 'spotcheck' && (
@@ -3058,11 +3497,6 @@ export default function App() {
                       {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic leading-snug">
-                    · <span className="text-red-400">click</span> = memorised<br />
-                    · <span className="text-gold-400">dbl-click</span> = not memorised<br />
-                    · right-click = toggle
-                  </p>
                 </div>
               )
             })()}
@@ -3153,11 +3587,6 @@ export default function App() {
                       {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
                     </span>
                   </div>
-                  <p className="text-xs text-muted italic leading-snug">
-                    · <span className="text-red-400">click</span> = memorised<br />
-                    · <span className="text-gold-400">dbl-click</span> = not memorised<br />
-                    · right-click = toggle
-                  </p>
                 </div>
               )
             })()}
@@ -3220,6 +3649,22 @@ export default function App() {
         {/* Bhupura (Circuit 1) Memorise controls */}
         {activeTab === 'bhupura' && (
           <div className="flex-shrink-0 border-t border-surface-800 p-3 space-y-2.5">
+            {bhupuraMemorise && (
+              <div className="grid grid-cols-2 gap-1.5">
+                {[
+                  { id: 'all',          label: 'All',            title: null              },
+                  { id: 'siddhiShakti', label: 'Siddhi Shaktis', title: 'Outer level'    },
+                  { id: 'ashtaMatrika', label: 'Ashta Matrikas', title: 'Middle level'   },
+                  { id: 'mudraShakti',  label: 'Mudra Shaktis',  title: 'Inner level'    },
+                ].map(g => (
+                  <button key={g.id}
+                    title={g.title ?? undefined}
+                    className={`py-1 rounded-lg text-xs font-medium transition-colors ${bhupuraMemoGroup === g.id ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
+                    onClick={() => handleBhupuraSetMemoGroup(g.id)}
+                  >{g.label}</button>
+                ))}
+              </div>
+            )}
             <div className="flex gap-1.5">
               <button
                 onClick={handleBhupuraExitMemorise}
@@ -3237,25 +3682,20 @@ export default function App() {
                 <button onClick={handleBhupuraStartMemorise} title="Reset" className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
               )}
             </div>
-            {bhupuraMemorise && bhupuraCurrentSeq <= 30 && (() => {
+            {bhupuraMemorise && (() => {
+              const memoTotal = bhupuraMemoGroup === 'all' ? 30 : bhupuraMemoGroup === 'siddhiShakti' ? 10 : bhupuraMemoGroup === 'ashtaMatrika' ? 8 : 10
               const correctCount = Object.values(bhupuraResults).filter(v => v === 'correct').length
+              if (bhupuraCurrentSeq > memoTotal) return null
               return (
-                <div className="space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1.5 rounded-full bg-surface-700 overflow-hidden">
-                      <div className="h-full rounded-full bg-gold-600 transition-all duration-300"
-                           style={{ width: `${((bhupuraCurrentSeq - 1) / 30) * 100}%` }} />
-                    </div>
-                    <span className="text-xs text-muted font-mono whitespace-nowrap">
-                      {bhupuraCurrentSeq - 1} / 30
-                      {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
-                    </span>
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-1.5 rounded-full bg-surface-700 overflow-hidden">
+                    <div className="h-full rounded-full bg-gold-600 transition-all duration-300"
+                         style={{ width: `${((bhupuraCurrentSeq - 1) / memoTotal) * 100}%` }} />
                   </div>
-                  <p className="text-xs text-muted italic leading-snug">
-                    · <span className="text-red-400">click</span> = memorised<br />
-                    · <span className="text-gold-400">dbl-click</span> = not memorised<br />
-                    · right-click = toggle
-                  </p>
+                  <span className="text-xs text-muted font-mono whitespace-nowrap">
+                    {bhupuraCurrentSeq - 1} / {memoTotal}
+                    {correctCount > 0 && <span className="text-red-400"> · {correctCount}✓</span>}
+                  </span>
                 </div>
               )
             })()}
@@ -4040,12 +4480,6 @@ export default function App() {
               )}
             </div>
 
-            {c9Memorise && c9CurrentSeq <= 1 && (
-              <p className="text-xs text-muted italic leading-snug">
-                click the bindu = memorised<br />
-                dbl-click = not yet
-              </p>
-            )}
 
             {c9PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">

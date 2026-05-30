@@ -114,15 +114,15 @@ const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
+function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
     <circle
       cx={x.toFixed(1)} cy={y.toFixed(1)}
       r={selected ? r + 2.5 : r}
-      fill={selected ? fill : fill + 'bb'}
-      stroke={selected ? '#fff' : 'none'}
-      strokeWidth={selected ? 0.8 : 0}
+      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
+      stroke="none"
+      strokeWidth={0}
       style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
@@ -163,6 +163,7 @@ function Tooltip({ x, y, label, fill, script }) {
 export default function GuravaView({
   script = 'iast',
   onDeitySelect = () => {},
+  highlightId = null,
   memorise = false,
   currentSeq = 1,
   results = {},
@@ -252,7 +253,7 @@ export default function GuravaView({
           })()}
 
           {/* Guru row labels */}
-          {!memorise && (() => {
+          {(() => {
             const sharedX = (GURU_POSITIONS['guru-manava'][0][0] - 9 - 8).toFixed(1)
             return [
               { iast: 'divyaugha guravaḥ',  devanagari: 'दिव्यौघ गुरवः', english: 'Divine Gurus', y: GURU_Y.divya  },
@@ -285,6 +286,7 @@ export default function GuravaView({
                   x={pos[0]} y={pos[1]} r={DOT_R}
                   fill={selectedId === d.id ? RED : "#fff8c8"}
                   selected={selectedId === d.id}
+                  highlighted={!selectedId && highlightId === d.id}
                   onClick={() => toggle(d.id)}
                   onMouseEnter={() => hover(d.id, pos[0], pos[1])}
                   onMouseLeave={unhover}
@@ -304,17 +306,17 @@ export default function GuravaView({
             const isFuture  = !isActive && !isPast
             const isCorrect = results[seq] === 'correct'
 
+            if (isFuture) return null
+
             let fill, selected
-            if (flash)                        { fill = ACTIVE_FILL; selected = true  }
-            else if (isActive)                { fill = ACTIVE_FILL; selected = true  }
-            else if (isPast && isCorrect)     { fill = RED;         selected = false }
-            else if (isPast)                  { fill = GOLD;        selected = false }
-            else                              { fill = RED;         selected = false }
+            if (flash)                    { fill = ACTIVE_FILL; selected = true  }
+            else if (isActive)            { fill = ACTIVE_FILL; selected = true  }
+            else if (isPast && isCorrect) { fill = RED;         selected = false }
+            else                          { fill = GOLD;        selected = false }
 
             return (
               <DeityDot key={`mem-${seq}`}
                 x={pos[0]} y={pos[1]} r={DOT_R} fill={fill} selected={selected}
-                dimStyle={isFuture ? { opacity: 0.15 } : undefined}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                 onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
@@ -325,18 +327,6 @@ export default function GuravaView({
           })}
 
           {/* Memorise: active position counter */}
-          {memorise && !done && !flash && currentSeq <= GURU_TOTAL && (() => {
-            const d   = guruAll[currentSeq - 1]
-            const pos = getGuruPos(d)
-            if (!pos) return null
-            return (
-              <text x={pos[0].toFixed(1)} y={(pos[1] - 17).toFixed(1)}
-                textAnchor="middle" fontSize="12" fill={ACTIVE_FILL}
-                fontFamily="serif" pointerEvents="none">
-                {currentSeq} / {GURU_TOTAL}
-              </text>
-            )
-          })()}
 
           {/* Hover tooltip (both modes; suppressed during flash) */}
           {hoveredDot && !flash && (!memorise ? !selectedId : true) && (
@@ -385,12 +375,12 @@ export default function GuravaView({
 
 
       {!memorise && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+        <p className="mt-3 text-center text-xs text-muted italic">
           Hover or click any dot to reveal the deity
         </p>
       )}
       {memorise && !done && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px' }}>
+        <p className="mt-3 text-center text-xs text-muted italic">
           hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}

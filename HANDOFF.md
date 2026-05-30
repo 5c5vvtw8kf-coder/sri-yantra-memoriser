@@ -1,89 +1,110 @@
 # Sri Yantra Memoriser — Session Handoff
 
-**Date:** 29 May 2026
+**Date:** 30 May 2026
 **Branch:** master
 
 ---
 
 ## What Was Completed This Session
 
-### 1. Sri Yantra Tab — Pure Display
-The Sri Yantra tab is now a clean, uninterrupted display of the fully coloured yantra geometry. All click targets, interaction hints, right panel, and footer navigation have been removed. The intent is that the yantra draws the user in visually before they begin studying.
+### 1. Memo Mode Hint Styling — All Views
+Standardised the hint text below the diagram to `mt-3 text-center text-xs text-muted italic` across all circuit and section views (Nyāsa, Tithi Nitya, Guravah, Bhupura, C2–C9, Closing). Removed all inline `style={{ fontSize: '10px' }}` wrappers.
 
-### 2. Welcome and Introduction Page (IntroView.jsx)
-New component at `app/src/components/IntroView.jsx`. Appears as the second tab, immediately after the Sri Yantra.
+### 2. Deity List in Right Panel — All Explore Pages
+Added a collapsible "Deity list" toggle (default open) to the right panel for every Explore page from Nyāsāṅga through Śrīdevī Viśēṣaṇāni:
+- Hover a list item → corresponding dot/petal/triangle highlights red on the yantra
+- For Bhupura: grouped by Siddhi Shaktis / Ashta Matrikas / Mudra Shaktis; Plain/Colours dot toggle
+- For Guravah: grouped by Divyaugha / Siddhaugha / Mānavaugha with subheadings
+- For Tithi Nitya: Waxing ☽ / Waning ☾ toggle (reverses 1–15; Mahā Nityē always last); also in Memo mode
+- For Circuit 9: single deity shown as "Deity" (no toggle)
+- For Chakreshvari: 9 Tripurā forms; hover highlights the whole circuit red on the full yantra
+- For Closing: hover any item → entire yantra fills red, bindu dark red (`#5a0f0f`)
 
-Content structure:
-- Opening invocation: Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ (larger gold text)
-- Salutation: Namastripurasundari (IAST, larger)
-- Welcome paragraph (gold-400, IAST font): "Namaskaram and welcome to the Śrī Yantra Memoriser..."
-- **The Śrī Yantra** section: geometry, nine āvaraṇas or 'veils', Śrī Vidyā school
-- **The Khadgamala Stotram** section: 102 circuit deities, ~160 total including Nyāsa Devatāḥ, Tithi Nitya Devatāḥ, Divyaugha/Siddaugha/Mānavaugha gurus, Nava (nine) Cakreśvarī
-- **How this app works** section: spatial memory approach, feature descriptions, YouTube chanting link
-- Watermark: full SriYantraSVG at opacity 0.07, 160% width centred via `left: 50%; transform: translateX(-50%)`
+### 3. CircuitRows — Chakra Svāminī / Yoginī / Chakreshvarī Hover
+All circuit right panels (C1–C9) have `CircuitRows` below the deity list. Hovering any row fills the whole circuit red on the yantra:
+- C1 Bhupura: `c1-outer` + `c1-mid` bands fill red (with overlay masks for colour matching)
+- C2–C7: petal/triangle overlay polygons with dark-red stroke cover gold lines
+- C8: fills `tri-c8-01` (small primary triangle) via `buildFills`; C7 inner triangles correctly cutout
+- C9: bindu dot turns red; gold triangle removed from C9 view permanently
 
-Design decisions:
-- No em-dashes (replaced with commas throughout)
-- Feature names (Explore, Memorise, Spot Check, Memo Map) in gold-400, not cream
-- "most revered sacred geometric diagrams in Hinduism, especially within the Śrī Vidyā school"
-- Nine circuits described as "nine circuits or 'veils' (āvaraṇas)"
-- No āvaraṇa table on Intro page (will live in References)
+### 4. Bhupura (Circuit 1) Memo Mode
+- Group filter: All / Siddhi Shaktis / Ashta Matrikas / Mudra Shaktis (2×2 grid)
+- Switching group resets drill progress; progress bar adjusts total accordingly
+- Future dots hidden; counter above active dot removed
 
-### 3. Nav Sidebar Restructure
-Section headings added:
-- **EXPLORE AND MEMORISE** — between Sri Yantra and Nyāsa Devatāḥ
-- **SPOT CHECK AND MEMO MAP** — before Spot Check
-- **REFERENCES** — before References
+### 5. Tithi Nitya Memo Mode
+- Waxing/Waning toggle in both Explore and Memo right panels
+- In Memo mode, switches drill order (Citrā first for Waning); resets on toggle
+- Future dots hidden; counter removed
 
-`NAVIGABLE_TABS = TABS.filter(t => !t.heading)` used for all sequential nav logic so headings do not break the footer prev/next sequence.
+### 6. C8 View
+- Triangle always has solid gold fill with permanent black bindu dot
+- Future dots hidden in Memo mode
+- `fillAll` prop → triangle fills red on Chakreshvari row hover
 
-### 4. Nav Progress Dots
-Small dot to the right of each nav label:
-- No dot: never started
-- Gold dot: in progress
-- Red dot: last round was 100% correct
+### 7. Navacakresvari — Deity List Hover → Circuit Fills Red
+- `listHighlightCircuit` prop (1–9) turns the corresponding circuit red via `buildFills(null, listHighlightCircuit)`
+- Stroke-cover overlay SVG hides gold lines for C1–C7 (C8 excluded to avoid C7 bleed-through)
+- `FILL_SEL` changed to `rgba(200,70,70,0.85)` to match overlay colour
+- C1 bhupura overlay: double-layered fill + bright stroke for colour parity with other circuits
+- C9 bindu turns red on Tripurambā hover
 
-### 5. New Placeholder Pages
-Memo Map, References, and Circuit Browser added as "Coming soon" placeholders.
+### 8. Closing View
+- "Ascend to the top from here" text now shown in Explore mode (previously Memo-only)
+- Right panel: removed Position / Count rows and old hint paragraph
+- Deity list added (default open); hover fills entire yantra red with dark-red bindu
+- Both hints reformatted to standard style
 
-### 6. Click/Double-Click Reversal
-Single click = memorised (red), double-click = not memorised (gold). Applied across all circuit views.
+### 9. SectionInfo Improvements
+- `showRows` prop added; circuit explore cases use `showRows={false}` + `<CircuitRows>` below list
+- Chakra Svāminī / Yoginī / Chakreshvarī rows now appear below the deity list (C1, C2)
+- `CircuitRows` accepts `onHoverFill` for all circuits
 
-### 7. Colour Standardisation
-Gold/red scheme standardised across all circuit views.
+### 10. Guru Data
+- Added translations and notes for all 19 gurus (Divyaugha, Siddhaugha, Mānavaugha)
+- Removed two version notes ("Added per lineage correction v1.1", "Corrected from kālatāpaśamayī v1.1")
+- `DeityDetail` subtitle fixed: now shows "Divyaugha Guravaḥ · N of 7" etc.
+- Tithi Nitya subtitle fix: was checking wrong `sectionId` ('inner' → 'nitya')
 
 ---
 
 ## Pending — Next Session Priorities
 
-### High Priority
-1. **Memo Map** — Sequential run-through of the full stotram mapping memorised vs. not. Needs design thinking before coding.
-2. **References page** — YouTube link, āvaraṇa table, Nava Cakreśvarī details, vignanam.org attribution.
+1. **NavaChakreshvariView rebuild** — replace nine dots with whole-circuit interaction (still in NEXT-SESSION-PROMPT)
+2. **Memo Map** — sequential run-through mapping memorised vs not
+3. **References page** — YouTube link, āvaraṇa table, vignanam.org attribution
+4. **Numbers mode retirement** — remove Numbers toggle from Yantra tab
 
-### Backlog
-3. **Numbers mode retirement** — Remove Numbers toggle from Yantra tab (decided, not yet done).
-4. **Circuit Browser** — Keep, repurpose, or remove?
-5. **American English variant** — UI strings only (Memorizer, Memorize). Future.
-6. **Preamble sections** (Prarthana, Dhyanam) — After core spatial modes are stable.
-7. **Śrī Meru 3D viewer** — STL file is in `cad/shri yantra.STL` (719 KB, binary). Render via Three.js STLLoader. Each tier maps to a circuit; highlight active circuit's tier in gold as user navigates tabs. Decide: right panel (narrow, 256 px) vs. expandable modal. Confirm STL has 9 discrete tiers before building per-tier highlighting. Do after Spot Check and Memo Map are solid.
+---
+
+## Key Files Modified This Session
+
+| File | Change |
+|------|--------|
+| `app/src/App.jsx` | Deity lists, CircuitRows, rightPanel cases, states for all lists/highlights |
+| `app/src/components/ClosingView.jsx` | listHighlight prop, LIST_RED_FILLS, hint styles, arrow text |
+| `app/src/components/NavaChakreshvariView.jsx` | listHighlightCircuit, stroke overlays, FILL_SEL colour |
+| `app/src/components/BhupuraView.jsx` | Group filter, fillAll, dynamic fills, future dots hidden |
+| `app/src/components/InnerView.jsx` | Waning/Waxing drill order, future dots hidden |
+| `app/src/components/C8View.jsx` | Gold fill, black bindu dot, fillAll, future dots hidden |
+| `app/src/components/C9View.jsx` | Bindu size, triangle removed, hint styles |
+| `app/src/components/C2View.jsx`–`C7View.jsx` | highlightId, fillAll, hint styles |
+| `app/src/components/GuravaView.jsx` | highlightId, hint styles, labels in Memo |
+| `app/src/components/SriYantraSVG.jsx` | Exported BHUPURA_OUTER/MAIN/INNER_PTS |
+| `app/src/data/khadgamala-canonical.json` | Guru translations/notes |
 
 ---
 
 ## Git State
 
-A stale `.git/index.lock` is blocking commits from the sandbox. All changes are saved. To commit manually from your terminal:
+Run from Windows terminal:
 
 ```
 cd "C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser"
-del .git\index.lock
 git add -A
-git commit -m "Add IntroView, nav headings, progress dots, Sri Yantra display tab, and UX refinements"
+git commit -m "Deity list with highlights, circuit fills, closing view, Navacakresvari hover fills"
 ```
 
 ---
 
-## Key Files Modified
-
-| File | Change |
-|------|--------|
-| `app/src/components/IntroView.jsx` 
+*PTS Consulting (Australia) Pty Ltd — Sri Yantra Memoriser — internal*

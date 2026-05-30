@@ -114,15 +114,15 @@ const TOTAL = 16
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
+function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
     <circle
       cx={x.toFixed(1)} cy={y.toFixed(1)}
       r={selected ? r + 2.5 : r}
-      fill={selected ? fill : fill + 'bb'}
-      stroke={selected ? '#fff' : 'none'}
-      strokeWidth={selected ? 0.8 : 0}
+      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
+      stroke="none"
+      strokeWidth={0}
       style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
@@ -165,6 +165,8 @@ function Tooltip({ x, y, label, fill, script }) {
 export default function InnerView({
   script = 'iast',
   onDeitySelect = () => {},
+  highlightId = null,
+  waning = false,
   memorise = false,
   currentSeq = 1,
   results = {},
@@ -178,6 +180,12 @@ export default function InnerView({
   const [selectedId,  setSelectedId]  = useState(null)
   const [hoveredDot,  setHoveredDot]  = useState(null)
   const clickTimer = useRef(null)
+
+  // Drill order: waning reverses deities 1–15; Mahā Nityē always last
+  const drillOrder = waning
+    ? [...nityaDeities.slice(0, 15).reverse(), nityaDeities[15]]
+    : nityaDeities
+  const drillPos = (d) => drillOrder.findIndex(x => x.id === d.id) + 1
 
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
@@ -316,6 +324,7 @@ export default function InnerView({
                 x={pos[0]} y={pos[1]} r={10}
                 fill={selectedId === d.id ? RED : "#fff8c8"}
                 selected={selectedId === d.id}
+                highlighted={!selectedId && highlightId === d.id}
                 onClick={() => toggle(d.id)}
                 onMouseEnter={() => hover(d.id, pos[0], pos[1])}
                 onMouseLeave={unhover}
@@ -325,7 +334,7 @@ export default function InnerView({
 
           {/* ── Memorise mode dots ────────────────────────────────────────── */}
           {memorise && nityaDeities.map((d, i) => {
-            const seq = d.sequenceInSection
+            const seq = drillPos(d)
             const pos = NITYA_POSITIONS[i]
             if (!pos) return null
 
@@ -334,17 +343,17 @@ export default function InnerView({
             const isFuture  = !isActive && !isPast
             const isCorrect = results[seq] === 'correct'
 
+            if (isFuture) return null
+
             let fill, selected
-            if (flash)           { fill = ACTIVE_FILL; selected = true }
-            else if (isActive)   { fill = ACTIVE_FILL; selected = true }
-            else if (isPast && isCorrect) { fill = RED;  selected = false }
-            else if (isPast)     { fill = GOLD; selected = false }
-            else                 { fill = RED;  selected = false }
+            if (flash)                    { fill = ACTIVE_FILL; selected = true  }
+            else if (isActive)            { fill = ACTIVE_FILL; selected = true  }
+            else if (isPast && isCorrect) { fill = RED;         selected = false }
+            else                          { fill = GOLD;        selected = false }
 
             return (
               <DeityDot key={`mem-${seq}`}
                 x={pos[0]} y={pos[1]} r={10} fill={fill} selected={selected}
-                dimStyle={isFuture ? { opacity: 0.15 } : undefined}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                 onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
@@ -355,18 +364,6 @@ export default function InnerView({
           })}
 
           {/* Memorise mode: active deity label */}
-          {memorise && !done && !flash && currentSeq <= TOTAL && (() => {
-            const d = nityaDeities.find(d => d.sequenceInSection === currentSeq)
-            const pos = d ? NITYA_POSITIONS[currentSeq - 1] : null
-            if (!d || !pos) return null
-            return (
-              <text x={pos[0].toFixed(1)} y={(pos[1] - 18).toFixed(1)}
-                textAnchor="middle" fontSize="13" fill={ACTIVE_FILL}
-                fontFamily="serif" pointerEvents="none">
-                {currentSeq} / {TOTAL}
-              </text>
-            )
-          })()}
 
           {/* Hover tooltip (both modes; suppressed during flash) */}
           {hoveredDot && !flash && (!memorise ? !selectedId : true) && (
@@ -388,4 +385,46 @@ export default function InnerView({
                style={{ background: 'rgba(15,8,5,0.82)' }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
                  style={{ maxWidth: '15rem', margin: '0 1rem' }}>
-             
+              <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">tithi nitya dēvatāḥ</p>
+              <p className="text-cream text-sm">
+                {Object.values(results).filter(v => v === 'correct').length === TOTAL
+                  ? 'All memorised — well done!'
+                  : 'Round complete.'}
+              </p>
+              <p className="text-muted text-xs">
+                {Object.values(results).filter(v => v === 'correct').length}/{TOTAL} memorised
+              </p>
+              <div className="flex flex-col gap-2 pt-1">
+                <button onClick={onStartMemorise}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors">
+                  Try again
+                </button>
+                <button onClick={() => onNavigate && onNavigate('gurava')}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
+                  Next →
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+
+      {!memorise && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          Hover or click any dot to reveal the deity
+        </p>
+      )}
+      {memorise && !done && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
+      )}
+
+
+
+      <div className="h-8" />
+
+    </div>
+  )
+}

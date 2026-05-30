@@ -150,6 +150,8 @@ function CompletionPanel({ results, onRestart, onNavigate }) {
 export default function C3View({
   script          = 'iast',
   onDeitySelect   = () => {},
+  highlightId     = null,
+  fillAll         = false,
   memorise        = false,
   currentSeq      = 1,
   results         = {},
@@ -227,10 +229,16 @@ export default function C3View({
       }
       return fills
     }
-    // Explore: all 8 petals cream; selected turns red
+    // Explore: all 8 petals cream; selected/highlighted/fillAll turns red
     const fills = { ...YANTRA_FILLS }
-    for (let i = 1; i <= 8; i++) fills[petalIdForSeq(i)] = ACTIVE_PETAL
-    if (selectedDeity) fills[petalIdForSeq(selectedDeity.sequenceInSection)] = 'rgba(200,70,70,0.85)'
+    const RED_PETAL = 'rgba(200,70,70,0.85)'
+    if (fillAll) {
+      for (let i = 1; i <= 8; i++) fills[petalIdForSeq(i)] = RED_PETAL
+    } else {
+      for (let i = 1; i <= 8; i++) fills[petalIdForSeq(i)] = ACTIVE_PETAL
+      if (selectedDeity) fills[petalIdForSeq(selectedDeity.sequenceInSection)] = RED_PETAL
+      else if (highlightId) { const hd = deityById[highlightId]; if (hd) fills[petalIdForSeq(hd.sequenceInSection)] = RED_PETAL }
+    }
     return fills
   })()
 
@@ -266,18 +274,17 @@ export default function C3View({
             {/* ── Explore mode ── */}
             {!memorise && (
               <>
-                {selectedDeity && (() => {
-                  const pathD = petalPathForSeq(selectedDeity.sequenceInSection)
+                {fillAll && c3Deities.map(d => {
+                  const pathD = petalPathForSeq(d.sequenceInSection)
                   if (!pathD) return null
-                  return (
-                    <path
-                      d={pathD}
-                      fill="rgba(200,70,70,0.85)"
-                      stroke="#7a1a1a"
-                      strokeWidth={0.75}
-                      style={{ pointerEvents: 'none' }}
-                    />
-                  )
+                  return <path key={`fill-${d.id}`} d={pathD} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
+                })}
+                {!fillAll && (selectedDeity || highlightId) && (() => {
+                  const d = selectedDeity ?? deityById[highlightId]
+                  if (!d) return null
+                  const pathD = petalPathForSeq(d.sequenceInSection)
+                  if (!pathD) return null
+                  return <path d={pathD} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
                 })()}
 
                 {c3Deities.map(d => {
@@ -388,20 +395,15 @@ export default function C3View({
         />
       )}
 
-      {/* Hint line below yantra */}
-      {!done && (
-        <div className="mt-2 text-center">
-          {!memorise && (
-            <p className="text-muted" style={{ fontSize: '10px' }}>
-              Hover or click any petal to reveal the deity
-            </p>
-          )}
-          {memorise && (
-            <p className="text-muted" style={{ fontSize: '10px' }}>
-              hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-            </p>
-          )}
-        </div>
+      {!memorise && !done && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          Hover or click any petal to reveal the deity
+        </p>
+      )}
+      {memorise && !done && (
+        <p className="mt-3 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
       )}
 
 
