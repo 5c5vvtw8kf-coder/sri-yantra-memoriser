@@ -13,41 +13,30 @@ Workspace: C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Worksp
 
 Start-of-session checklist:
 1. Read CLAUDE.md and HANDOFF.md in the workspace root.
-2. Run: git status  — confirm git is set up (handed to Chris; may still be pending).
-3. Start the NEXT TASK below, scoped to a 1-4 hour window.
+2. Check what files exist in the workspace folder.
+3. Ask Chris what he wants to work on before starting anything.
 
-THE NEXT TASK — NavaChakreshvariView rebuild:
-Replace the nine dots on the Nava Chakreshvarī page with whole-circuit
-interaction, consistent with the other avarana pages. In Explore mode,
-hovering any circuit (c1-c9) highlights the whole circuit and shows a
-tooltip; clicking reveals that circuit's Tripura form (Tripurā, Tripureśī,
-...). In Memorise mode, click/double-click any part of a circuit works
-exactly like the other avaranas. The bindu (c9) stays black. Change the
-idle hint from "Tap any dot to reveal the Tripura form for that circuit"
-to "Hover or click from outside in towards the Bindu to reveal the
-Chakresvaris in order". FULL SPEC with the recommended implementation
-approach is at the top of HANDOFF.md — read it first.
+Last commit: 05dc696 — Nav collapsing, SCRIPT label, memo result persistence (localStorage)
+
+THE NEXT TASK — Memo Map View:
+Build MemoMapView.jsx — a full table of all ~160 deities in chant order
+showing memorisation status. FULL SPEC including result key mappings, section
+labels, props structure, and wiring instructions is in HANDOFF.md — read it first.
+
+Summary:
+- Table columns: # (chant sequence), Name (IAST), Section, Status (✓ / —)
+- Covers full stotra: Nyāsa → Tithi Nitya → Guravah → Bhūpura → C2–C9 → Chakreshvarī → Closing
+- Filter by section and by status
+- Reads from allResults prop (14 result objects passed from App.jsx)
+- Persistence is already wired: localStorage sync added last session
 
 What's working:
-- Full memorise chain: nyasa -> inner -> gurava -> bhupura -> c2 -> c3 -> c4 ->
-  c5 -> c6 -> c7 -> c8 -> c9 -> chakreshvari -> closing -> "Start from
-  beginning" -> nyasa.
-- Every view has an Explore mode and a Memorise mode.
-- Geometry is now driven by app/src/korvinGeometry.js (single source of truth).
-  InnerView, GuravaView, C8View, C9View are built on the central triangle.
-
-Other suggested work (after the next task):
-- Finish git setup (Chris, Windows). Avoid large App.jsx edits until done.
-- Live browser walkthrough of the memorise chain.
-- Fix the guravaMemorse typo -> guravaMemorise (only after git is set up).
-- Session stats panel; PWA manifest + service worker (Phase 2).
-
-Known gotcha — App.jsx truncation:
-The Edit tool silently truncates App.jsx on large insertions. After ANY
-App.jsx edit, verify:
-  wc -l app/src/App.jsx     (must stay at 4075)
-  tail -5 app/src/App.jsx   (must end with </aside> </div> ) })
-If git is set up, recover a bad edit with: git checkout -- app/src/App.jsx
+- Full memorise chain across all sections, with Explore and Memorise modes
+- Deity list in right panel for all sections (Explore mode), with dot/triangle highlights
+- Circuit fills red on hover in Navacakresvari list and Closing list
+- Nav section collapsing (EXPLORE AND MEMORISE, SPOT CHECK AND MEMO MAP, REFERENCES)
+- Memo results persist across refresh via localStorage
+- All hint text standardised to text-xs text-muted italic style
 
 Environment note: git CANNOT be run from the Cowork sandbox — this folder is
 OneDrive-synced and the mount blocks git's file operations. All git commands
@@ -62,15 +51,8 @@ Start the Vite dev server:
     cd "C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser\app"
     npm run dev
 
-Then open the app in a browser at:
+Then open: http://localhost:5173
 
-    http://localhost:5173
-
-Useful variations:
-- `npm run dev -- --open`  — starts the server AND opens the browser automatically
-- `Ctrl + C` in the terminal — stops the server
-- `npm install`  — run once first if node_modules is missing, or after pulling changes
-- `npm run build`  — production build; also catches compile errors
-
-Standalone preview pages (just double-click the file in Explorer — no server needed):
-korvin-construction.html, petal-preview.html, verify_triangles.html, face_picker.html
+Useful:
+- `npm run build` — catches compile errors
+- git commands must be run by Chris in Windows terminal, not from Cowork sandbox

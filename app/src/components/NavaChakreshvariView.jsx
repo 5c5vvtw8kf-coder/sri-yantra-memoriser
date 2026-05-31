@@ -92,8 +92,8 @@ function buildFills(hovered, selected) {
 
   // f(n): fill for circuit n given hover/select state.
   const f = (n) => {
-    if (n === hovered)   return FILL_HI   // cream — hovered circuit only
-    if (n === selected)  return FILL_SEL  // clicked = red
+    if (n === selected)  return FILL_SEL  // clicked = red (priority over hover)
+    if (n === hovered)   return FILL_HI   // cream — hovered
     if (hovered != null || selected != null) return FILL_DIM
     return FILL_NORM
   }

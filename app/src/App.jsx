@@ -17,8 +17,10 @@ import C9View from './components/C9View'
 import NavaChakreshvariView from './components/NavaChakreshvariView'
 import ClosingView from './components/ClosingView'
 import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
+import MemoMapView from './components/MemoMapView'
+import ActivityLogView from './components/ActivityLogView'
 import data from './data/khadgamala-canonical.json'
-import { displayName, loadMemoStorage, saveMemoStorage } from './utils.js'
+import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog } from './utils.js'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -56,6 +58,7 @@ const TABS = [
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMO MAP' },
   { id: 'spotcheck',    navLabel: 'Spot Check',                    navLabelEn: 'Spot Check',                           navLabelDev: 'Spot Check',            footerLabel: 'Spot Check'           },
   { id: 'memomap',      navLabel: 'Memo Map',                      navLabelEn: 'Memo Map',                              navLabelDev: 'Memo Map',              footerLabel: 'Memo Map'             },
+  { id: 'activity-log', navLabel: 'Activity Log',                  navLabelEn: 'Activity Log',                          navLabelDev: 'Activity Log',          footerLabel: 'Activity Log'         },
   { id: 'h-references', heading: 'REFERENCES' },
   { id: 'references',   navLabel: 'References',                    navLabelEn: 'References',                           navLabelDev: 'References',            footerLabel: 'References'           },
   { id: 'browser',      navLabel: 'Circuit Browser',               navLabelEn: 'Circuit Browser',                      navLabelDev: 'Circuit Browser',       footerLabel: 'Circuit Browser'      },
@@ -478,16 +481,6 @@ function SectionInfo({ tabId, script = 'iast', showRows = true }) {
           <p className="text-cream text-xs leading-relaxed">
             Six limb-deities invoked at the opening of the stotra, each consecrates a part of the body and the subtle body before worship begins.
           </p>
-          <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Position</span>
-              <span className="text-cream">After the opening invocation</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Count</span>
-              <span className="text-cream">6 devatāḥ</span>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1503,6 +1496,250 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 // ── Simplified Yantra view (props driven) ─────────────────────────────────────
 
+// ── C8 Memorise right-panel info ──────────────────────────────────────────────
+//
+// Phases:  1–7  = triangle phase (handled by C8View dots)
+//          8    = Chakra Svāminī active
+//          9    = Yoginī active
+//          > 9  = done
+
+function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+  const [hoveredField, setHoveredField] = useState(null)
+  const extraTimer = useRef(null)
+
+  const section = circuitSections.find(s => s.circuitNumber === 8)
+  if (!section) return null
+
+  const trianglesDone = currentSeq > 7
+
+  const handleItemClick = (seq) => {
+    if (extraTimer.current) return
+    extraTimer.current = setTimeout(() => {
+      extraTimer.current = null
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
+    }, 280)
+  }
+
+  const handleItemDoubleClick = (seq) => {
+    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
+  }
+
+  const renderRow = (labelText, fieldKey, seq) => {
+    const isActive  = currentSeq === seq
+    const isPast    = currentSeq > seq
+    const isCorrect = results[seq] === 'correct'
+    const isHovered = hoveredField === fieldKey
+    const value     = sectionName(section, fieldKey, script)
+
+    let valueContent
+    if (!trianglesDone && !isActive) {
+      valueContent = <span className="text-surface-600 tracking-widest">···</span>
+    } else if (isActive && !isHovered) {
+      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
+    } else if (isActive && isHovered) {
+      valueContent = <span className="text-gold-800">{value}</span>
+    } else if (isPast && isCorrect) {
+      valueContent = <span className="text-red-400">{value}</span>
+    } else if (isPast) {
+      valueContent = <span className="text-muted">{value}</span>
+    } else {
+      valueContent = <span className="text-surface-600 tracking-widest">···</span>
+    }
+
+    const interactive = trianglesDone
+
+    return (
+      <div
+        key={fieldKey}
+        className={[
+          'flex gap-2 rounded-lg px-2 py-1.5 -mx-2 transition-colors',
+          interactive ? 'cursor-pointer' : '',
+          !trianglesDone && !isActive ? 'opacity-40' : '',
+        ].join(' ')}
+        style={isActive ? {
+          background: 'rgba(255,248,200,0.10)',
+          boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
+        } : undefined}
+        onClick={interactive ? () => handleItemClick(seq) : undefined}
+        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
+        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onContextMenu={interactive && isPast
+          ? e => { e.preventDefault(); onToggleResult(seq) }
+          : undefined}
+      >
+        <span
+          className={`w-24 flex-shrink-0 pt-px text-xs ${isActive ? '' : 'text-muted'}`}
+          style={isActive ? { color: 'rgba(255,248,200,0.92)' } : undefined}
+        >
+          {labelText}
+        </span>
+        <span className="text-xs flex-1">{valueContent}</span>
+      </div>
+    )
+  }
+
+  return (
+    <div className="p-4 space-y-2">
+      <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script === 'iast' ? ' iast' : ''}`}>
+        {circuitLabel(8, script)}
+      </p>
+      <div className="pt-3 border-t border-surface-700 space-y-1">
+        {renderRow('Chakra Svāminī', 'chakraSvamini', 8)}
+        {renderRow('Yoginī',         'yoginiType',    9)}
+      </div>
+      {currentSeq > 9 && (
+        <div className="pt-3 border-t border-surface-700 space-y-2">
+          <p className="text-xs text-muted italic leading-snug">
+            {Object.values(results).filter(v => v === 'correct').length === 9
+              ? 'All memorised — well done!'
+              : 'Round complete.'}
+          </p>
+          <div className="flex flex-col gap-1.5">
+            <button
+              onClick={onRestart}
+              className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
+            >
+              Try again
+            </button>
+            <button
+              onClick={() => onNavigate('c9')}
+              className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
+            >
+              Next circuit →
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── C9 Memorise right-panel info ──────────────────────────────────────────────
+//
+// Phases:  1    = bindu (handled by C9View)
+//          2    = Chakra Svāminī active
+//          3    = Yoginī active
+//          > 3  = done
+
+function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+  const [hoveredField, setHoveredField] = useState(null)
+  const extraTimer = useRef(null)
+
+  const section = circuitSections.find(s => s.circuitNumber === 9)
+  if (!section) return null
+
+  const binduDone = currentSeq > 1
+
+  const handleItemClick = (seq) => {
+    if (extraTimer.current) return
+    extraTimer.current = setTimeout(() => {
+      extraTimer.current = null
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
+    }, 280)
+  }
+
+  const handleItemDoubleClick = (seq) => {
+    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
+  }
+
+  const renderRow = (labelText, fieldKey, seq) => {
+    const isActive  = currentSeq === seq
+    const isPast    = currentSeq > seq
+    const isCorrect = results[seq] === 'correct'
+    const isHovered = hoveredField === fieldKey
+    const value     = sectionName(section, fieldKey, script)
+
+    let valueContent
+    if (!binduDone && !isActive) {
+      valueContent = <span className="text-surface-600 tracking-widest">···</span>
+    } else if (isActive && !isHovered) {
+      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
+    } else if (isActive && isHovered) {
+      valueContent = <span className="text-gold-800">{value}</span>
+    } else if (isPast && isCorrect) {
+      valueContent = <span className="text-red-400">{value}</span>
+    } else if (isPast) {
+      valueContent = <span className="text-muted">{value}</span>
+    } else {
+      valueContent = <span className="text-surface-600 tracking-widest">···</span>
+    }
+
+    const interactive = binduDone
+
+    return (
+      <div
+        key={fieldKey}
+        className={[
+          'flex gap-2 rounded-lg px-2 py-1.5 -mx-2 transition-colors',
+          interactive ? 'cursor-pointer' : '',
+          !binduDone && !isActive ? 'opacity-40' : '',
+        ].join(' ')}
+        style={isActive ? {
+          background: 'rgba(255,248,200,0.10)',
+          boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
+        } : undefined}
+        onClick={interactive ? () => handleItemClick(seq) : undefined}
+        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
+        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onContextMenu={interactive && isPast
+          ? e => { e.preventDefault(); onToggleResult(seq) }
+          : undefined}
+      >
+        <span
+          className={`w-24 flex-shrink-0 pt-px text-xs ${isActive ? '' : 'text-muted'}`}
+          style={isActive ? { color: 'rgba(255,248,200,0.92)' } : undefined}
+        >
+          {labelText}
+        </span>
+        <span className="text-xs flex-1">{valueContent}</span>
+      </div>
+    )
+  }
+
+  return (
+    <div className="p-4 space-y-2">
+      <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script === 'iast' ? ' iast' : ''}`}>
+        {circuitLabel(9, script)}
+      </p>
+      <div className="pt-3 border-t border-surface-700 space-y-1">
+        {renderRow('Chakra Svāminī', 'chakraSvamini', 2)}
+        {renderRow('Yoginī',         'yoginiType',    3)}
+      </div>
+      {currentSeq > 3 && (
+        <div className="pt-3 border-t border-surface-700 space-y-2">
+          <p className="text-xs text-muted italic leading-snug">
+            {Object.values(results).filter(v => v === 'correct').length === 3
+              ? 'All memorised — well done!'
+              : 'Round complete.'}
+          </p>
+          <div className="flex flex-col gap-1.5">
+            <button
+              onClick={onRestart}
+              className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
+            >
+              Try again
+            </button>
+            <button
+              onClick={() => onNavigate('chakreshvari')}
+              className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
+            >
+              Next →
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function YantraView({
   showTriangles, showNumbers, showLabels, showSeedOfLife, seedR,
   selectedCircuit, onCircuitSelect,
@@ -1616,6 +1853,7 @@ export default function App() {
     if (nextSeq > 18) {
       setC2PrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 18, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'c2', correct: Object.keys(newResults).length, total: 18 })
       const allCorrect = Array.from({ length: 18 }, (_, i) => i + 1)
         .every(s => newResults[s] === 'correct')
       if (allCorrect) {
@@ -1659,6 +1897,7 @@ export default function App() {
     if (nextSeq > 10) {
       setC3PrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 10, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'c3', correct: Object.keys(newResults).length, total: 10 })
       const allCorrect = Array.from({ length: 10 }, (_, i) => i + 1)
         .every(s => newResults[s] === 'correct')
       if (allCorrect) {
@@ -1702,6 +1941,7 @@ export default function App() {
     if (nextSeq > 16) {
       setC4PrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 16, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'c4', correct: Object.keys(newResults).length, total: 16 })
       const allCorrect = Array.from({ length: 16 }, (_, i) => i + 1)
         .every(s => newResults[s] === 'correct')
       if (allCorrect) {
@@ -1745,6 +1985,7 @@ export default function App() {
     if (nextSeq > 12) {
       setC5PrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 12, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'c5', correct: Object.keys(newResults).length, total: 12 })
       const allCorrect = Array.from({ length: 12 }, (_, i) => i + 1)
         .every(s => newResults[s] === 'correct')
       if (allCorrect) {
@@ -1788,6 +2029,7 @@ export default function App() {
     if (nextSeq > 12) {
       setC6PrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 12, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'c6', correct: Object.keys(newResults).length, total: 12 })
       const allCorrect = Array.from({ length: 12 }, (_, i) => i + 1)
         .every(s => newResults[s] === 'correct')
       if (allCorrect) {
@@ -1831,6 +2073,7 @@ export default function App() {
     if (nextSeq > 10) {
       setC7PrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 10, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'c7', correct: Object.keys(newResults).length, total: 10 })
       const allCorrect = Array.from({ length: 10 }, (_, i) => i + 1)
         .every(s => newResults[s] === 'correct')
       if (allCorrect) {
@@ -1871,10 +2114,11 @@ export default function App() {
     if (result === 'correct') setC8Results(newResults)
     const nextSeq = seq + 1
     setC8CurrentSeq(nextSeq)
-    if (nextSeq > 7) {
+    if (nextSeq > 9) {
       setC8PrevResults(newResults)
-      setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 7, rounds: prev.rounds + 1 }))
-      const allCorrect = Array.from({ length: 7 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
+      setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 9, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'c8', correct: Object.keys(newResults).length, total: 9 })
+      const allCorrect = Array.from({ length: 9 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setC8Flash(true); setTimeout(() => setC8Flash(false), 1000) }
     }
   }
@@ -1908,10 +2152,11 @@ export default function App() {
     if (result === 'correct') setC9Results(newResults)
     const nextSeq = seq + 1
     setC9CurrentSeq(nextSeq)
-    if (nextSeq > 1) {
+    if (nextSeq > 3) {
       setC9PrevResults(newResults)
-      setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 1, rounds: prev.rounds + 1 }))
-      const allCorrect = newResults[1] === 'correct'
+      setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 3, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'c9', correct: Object.keys(newResults).length, total: 3 })
+      const allCorrect = Array.from({ length: 3 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setC9Flash(true); setTimeout(() => setC9Flash(false), 1000) }
     }
   }
@@ -1951,6 +2196,7 @@ export default function App() {
     if (nextSeq > 9) {
       setNcPrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 9, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'nc', correct: Object.keys(newResults).length, total: 9 })
       const allCorrect = Array.from({ length: 9 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setNcFlash(true); setTimeout(() => setNcFlash(false), 1000) }
     }
@@ -1990,6 +2236,7 @@ export default function App() {
     if (nextSeq > 10) {
       setClosingPrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 10, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'closing', correct: Object.keys(newResults).length, total: 10 })
       const allCorrect = Array.from({ length: 10 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setClosingFlash(true); setTimeout(() => setClosingFlash(false), 1000) }
     }
@@ -2029,6 +2276,7 @@ export default function App() {
     if (nextSeq > 6) {
       setNyasaPrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 6, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'nyasa', correct: Object.keys(newResults).length, total: 6 })
       const allCorrect = Array.from({ length: 6 }, (_, i) => i + 1)
         .every(s => newResults[s] === 'correct')
       if (allCorrect) {
@@ -2073,6 +2321,7 @@ export default function App() {
     if (nextSeq > 16) {
       setInnerPrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 16, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'inner', correct: Object.keys(newResults).length, total: 16 })
       const allCorrect = Array.from({ length: 16 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setInnerFlash(true); setTimeout(() => setInnerFlash(false), 1000) }
     }
@@ -2116,6 +2365,7 @@ export default function App() {
     if (nextSeq > 19) {
       setGuravaPrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 19, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'gurava', correct: Object.keys(newResults).length, total: 19 })
       const allCorrect = Array.from({ length: 19 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setGuravaFlash(true); setTimeout(() => setGuravaFlash(false), 1000) }
     }
@@ -2157,6 +2407,7 @@ export default function App() {
     if (nextSeq > 30) {
       setBhupuraPrevResults(newResults)
       setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 30, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'bhupura', correct: Object.keys(newResults).length, total: 30 })
       const allCorrect = Array.from({ length: 30 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setBhupuraFlash(true); setTimeout(() => setBhupuraFlash(false), 1000) }
     }
@@ -2367,6 +2618,28 @@ export default function App() {
         onMarkResult={handleC7MarkResult}
         onToggleResult={handleC7ToggleResult}
         onRestart={handleC7StartMemorise}
+        onNavigate={handleNavigateToMemorise}
+        script={script}
+      />
+    )
+    if (activeTab === 'c8' && c8Memorise) return (
+      <C8MemoriseInfo
+        currentSeq={c8CurrentSeq}
+        results={c8Results}
+        onMarkResult={handleC8MarkResult}
+        onToggleResult={handleC8ToggleResult}
+        onRestart={handleC8StartMemorise}
+        onNavigate={handleNavigateToMemorise}
+        script={script}
+      />
+    )
+    if (activeTab === 'c9' && c9Memorise) return (
+      <C9MemoriseInfo
+        currentSeq={c9CurrentSeq}
+        results={c9Results}
+        onMarkResult={handleC9MarkResult}
+        onToggleResult={handleC9ToggleResult}
+        onRestart={handleC9StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
       />
@@ -3046,7 +3319,7 @@ export default function App() {
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
-                  className={`w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors flex items-start justify-between gap-1
+                  className={`w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors flex items-center justify-between gap-1
                     ${script !== 'devanagari' ? 'iast' : ''}
                     ${activeTab === tab.id
                       ? 'text-gold-300 bg-gold-900/30'
@@ -3060,7 +3333,9 @@ export default function App() {
                       : tab.navLabel}
                   </span>
                   {dot && (
-                    <span className={`flex-shrink-0 w-1.5 h-1.5 rounded-full mt-0.5 ${dot === 'red' ? 'bg-red-400' : 'bg-gold-500'}`} />
+                    <span className={`flex-shrink-0 text-[10px] font-mono leading-none ${dot === 'red' ? 'text-red-400' : 'text-gold-500'}`}>
+                      {dot === 'red' ? '✓' : '~'}
+                    </span>
                   )}
                 </button>
               )
@@ -3356,12 +3631,6 @@ export default function App() {
             )}
             {activeTab === 'browser'      && <CircuitBrowser script={script} />}
             {activeTab === 'intro'        && <IntroView script={script} />}
-            {activeTab === 'memomap'      && (
-              <div className="flex flex-col items-center justify-center py-20 gap-3 text-center px-6">
-                <p className="text-gold-700 font-mono text-xs uppercase tracking-widest">Coming soon</p>
-                <p className="text-muted text-sm">Memo Map will be added here.</p>
-              </div>
-            )}
             {activeTab === 'references'   && (
               <div className="flex flex-col items-center justify-center py-20 gap-3 text-center px-6">
                 <p className="text-gold-700 font-mono text-xs uppercase tracking-widest">Coming soon</p>
@@ -3369,6 +3638,32 @@ export default function App() {
               </div>
             )}
           </div>
+
+          {/* Memomap renders outside the w-full wrapper so flex-1 min-h-0 gives
+              MemoMapView a real defined height for its internal h-full flex-col layout */}
+          {activeTab === 'memomap' && (
+            <div className="flex-1 min-h-0 w-full max-w-lg flex flex-col">
+              <MemoMapView
+                script={script}
+                allResults={{
+                  nyasa:   nyasaResults,
+                  inner:   innerResults,
+                  gurava:  guravaResults,
+                  bhupura: bhupuraResults,
+                  c2: c2Results, c3: c3Results, c4: c4Results,
+                  c5: c5Results, c6: c6Results, c7: c7Results,
+                  c8: c8Results, c9: c9Results,
+                  nc:      ncResults,
+                  closing: closingResults,
+                }}
+              />
+            </div>
+          )}
+          {activeTab === 'activity-log' && (
+            <div className="flex-1 min-h-0 w-full max-w-lg flex flex-col">
+              <ActivityLogView />
+            </div>
+          )}
         </div>
 
         {/* ── Sequential navigation footer ─────────────────────────────────── */}
@@ -4399,11 +4694,11 @@ export default function App() {
                     <div className="flex-1 h-1.5 rounded-full bg-surface-700 overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gold-600 transition-all duration-300"
-                        style={{ width: `${((c8CurrentSeq - 1) / 7) * 100}%` }}
+                        style={{ width: `${((c8CurrentSeq - 1) / 9) * 100}%` }}
                       />
                     </div>
                     <span className="text-xs text-muted font-mono whitespace-nowrap">
-                      {c8CurrentSeq - 1} / 7
+                      {c8CurrentSeq - 1} / 9
                       {correctCount > 0 && (
                         <span className="text-red-400"> · {correctCount}✓</span>
                       )}
@@ -4418,10 +4713,10 @@ export default function App() {
                 <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
                 {(() => {
                   const correct = Object.values(c8PrevResults).filter(v => v === 'correct').length
-                  const skipped = 7 - correct
+                  const skipped = 9 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/7 memorised</span>
+                      <span className="text-red-400">{correct}/9 memorised</span>
                       {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
                     </p>
                   )
