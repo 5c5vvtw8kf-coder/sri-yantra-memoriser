@@ -3632,13 +3632,14 @@ export default function App() {
                 limit={scLimit}
                 onProgressSync={p => setScProgress(p)}
                 onRegisterSkip={fn => { scSkipRef.current = fn }}
-                onUpdateStats={(c, t) =>
+                onUpdateStats={(c, t) => {
                   setSessionStats(prev => ({
                     correct: prev.correct + c,
                     total:   prev.total   + t,
                     rounds:  prev.rounds  + 1,
                   }))
-                }
+                  saveSessionLog({ ts: Date.now(), section: 'spot-check', correct: c, total: t })
+                }}
               />
             )}
             {activeTab === 'browser'      && <CircuitBrowser script={script} />}

@@ -139,7 +139,7 @@ const BG_DIM       = 'rgba(201,168,76,0.10)'
 const BG_NORMAL    = 'rgba(201,168,76,0.80)'
 const SEGMENT_GOLD   = 'rgba(201,168,76,0.55)'
 const RESULT_RED     = 'rgba(248,113,113,0.55)'  // past correct = red dot
-const RESULT_GOLD    = 'rgba(201,168,76,0.35)'   // past wrong = muted gold dot
+const RESULT_GOLD    = 'rgba(201,168,76,0.80)'   // past wrong = gold dot
 
 // All SVG region IDs per circuit (for segment highlight)
 const pad = n => String(n).padStart(2, '0')
@@ -154,7 +154,7 @@ const CIRCUIT_REGIONS = {
 
 function computeFills(activeRegionId, flashState, filterId, results) {
   const segmentIds = filterId && filterId !== 'all' ? (CIRCUIT_REGIONS[filterId] ?? []) : []
-  const bg = activeRegionId ? BG_DIM : BG_NORMAL
+  const bg = BG_DIM
   const activeColor = flashState === 'correct' ? ACTIVE_RED
                     : flashState === 'wrong'   ? ACTIVE_GOLD
                     : ACTIVE_FILL
@@ -198,8 +198,6 @@ function computeFills(activeRegionId, flashState, filterId, results) {
 // ── Colours ───────────────────────────────────────────────────────────────────
 
 const GOLD  = '#c9a84c'
-const GREEN = '#4ade80'
-const RED   = '#f87171'
 const CY    = 270
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -368,7 +366,8 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
   const [hovered,     setHovered]     = useState(false)
   const [flash,       setFlash]       = useState(null)
   const [prevResults, setPrevResults] = useState(null)
-  const clickTimer = useRef(null)
+  const clickTimer     = useRef(null)
+  const roundLoggedRef = useRef(false)
 
   const total   = queue.length
   const done    = idx >= total
@@ -385,6 +384,13 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
   const wrong   = Object.values(results).filter(v => v === 'wrong').length
 
   const yantraFills = computeFills(activeRegionId, flash, filter, results)
+
+  // Regions with an answer (correct or wrong) get no gold outline
+  const noStrokeRegions = Object.fromEntries(
+    Object.keys(results)
+      .map(id => [getRegionId(deityById[id]), true])
+      .filter(([regionId]) => regionId != null)
+  )
 
   // Reset queue when filter or limit changes
   useEffect(() => {
@@ -411,11 +417,22 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
   // Clean up click timer
   useEffect(() => () => { if (clickTimer.current) clearTimeout(clickTimer.current) }, [])
 
+  // Log session as soon as the round completes — don't wait for "New round" click
+  useEffect(() => {
+    if (!done) { roundLoggedRef.current = false; return }
+    if (roundLoggedRef.current) return
+    const doneCount = Object.keys(results).length
+    if (doneCount === 0) return
+    roundLoggedRef.current = true
+    if (onUpdateStats) onUpdateStats(Object.values(results).filter(v => v === 'correct').length, doneCount)
+  }, [done]) // eslint-disable-line
+
   const finishRound = useCallback(() => {
     const doneCount = Object.keys(results).length
     if (doneCount > 0) {
       setPrevResults({ ...results })
-      if (onUpdateStats) {
+      // onUpdateStats already fired from the done useEffect — skip to avoid double-logging
+      if (onUpdateStats && !roundLoggedRef.current) {
         onUpdateStats(Object.values(results).filter(v => v === 'correct').length, doneCount)
       }
     }
@@ -479,8 +496,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
   }, [handleSkip, onRegisterSkip])
 
   const name   = current ? displayName(current, script) : ''
-  const dotFill   = flash === 'correct' ? GREEN : flash === 'wrong' ? RED : 'rgba(255,248,200,0.95)'
-  const dotStroke = flash === 'correct' ? '#166534' : flash === 'wrong' ? '#7f1d1d' : GOLD
+  const dotFill = flash === 'correct' ? ACTIVE_RED : flash === 'wrong' ? ACTIVE_GOLD : 'rgba(255,248,200,0.95)'
 
   // Delegate to dedicated visual components for special-mode filters
   const activeFilterDef = SC_FILTERS.find(f => f.id === filter)
@@ -577,6 +593,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
               showLabels={false}
               showNumbers={false}
               filledRegions={yantraFills}
+              noStrokeRegions={noStrokeRegions}
             />
             <svg
               viewBox="45 55 430 430"
@@ -591,8 +608,8 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
                 const p = getPosition(d.id)
                 if (!p) return null
                 const res = results[d.id]
-                const fill = res === 'correct' ? 'rgba(74,222,128,0.65)'
-                           : res === 'wrong'   ? 'rgba(248,113,113,0.55)'
+                const fill = res === 'correct' ? RESULT_RED
+                           : res === 'wrong'   ? RESULT_GOLD
                            : 'rgba(201,168,76,0.22)'
                 const answered = !!res
                 return (
@@ -608,7 +625,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
                 <circle
                   cx={pos.x.toFixed(1)} cy={pos.y.toFixed(1)}
                   r={9}
-                  fill={dotFill} stroke={dotStroke} strokeWidth={1.5}
+                  fill={dotFill} stroke="none"
                   style={{ cursor: 'pointer', transition: 'fill 0.25s, stroke 0.25s' }}
                   onMouseEnter={() => { if (!flash) setHovered(true) }}
                   onMouseLeave={() => { if (!flash) setHovered(false) }}
@@ -658,8 +675,8 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
           </div>
         </div>
         )}
-        <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
-          hover to reveal
+        <p className="mt-3 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
         </>
       )}

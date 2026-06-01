@@ -171,7 +171,8 @@ export default function NyasaSpotCheckView({
   const [results, setResults] = useState({})
   const [hoveredSeq, setHoveredSeq] = useState(null)
   const [flash,   setFlash]   = useState(null)
-  const clickTimer = useRef(null)
+  const clickTimer     = useRef(null)
+  const roundLoggedRef = useRef(false)
 
   const total   = queue.length
   const done    = idx >= total
@@ -199,6 +200,16 @@ export default function NyasaSpotCheckView({
   }, [idx, total, correct, wrong, onProgressSync])
 
   useEffect(() => () => { if (clickTimer.current) clearTimeout(clickTimer.current) }, [])
+
+  // Log session as soon as the round completes
+  useEffect(() => {
+    if (!done) { roundLoggedRef.current = false; return }
+    if (roundLoggedRef.current) return
+    const doneCount = Object.keys(results).length
+    if (doneCount === 0) return
+    roundLoggedRef.current = true
+    if (onUpdateStats) onUpdateStats(Object.values(results).filter(v => v === 'correct').length, doneCount)
+  }, [done]) // eslint-disable-line
 
   const advance = useCallback((result) => {
     if (!current || done) return
@@ -247,9 +258,10 @@ export default function NyasaSpotCheckView({
 
   const startNewRound = useCallback(() => {
     const doneCount = Object.keys(results).length
-    if (doneCount > 0 && onUpdateStats) {
+    if (doneCount > 0 && onUpdateStats && !roundLoggedRef.current) {
       onUpdateStats(Object.values(results).filter(v => v === 'correct').length, doneCount)
     }
+    roundLoggedRef.current = false
     setQueue(shuffle(nyasaDeities.map(d => d.id)))
     setIdx(0)
     setResults({})
@@ -355,8 +367,8 @@ export default function NyasaSpotCheckView({
 
       {/* Instruction */}
       {!done && (
-        <p className="text-center text-muted" style={{ fontSize: '10px', fontStyle: 'italic' }}>
-          hover to reveal · click = memorised · dbl-click = not memorised · right-click = change answer
+        <p className="mt-3 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}
 

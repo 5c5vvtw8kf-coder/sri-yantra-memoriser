@@ -4,20 +4,21 @@ import { loadSessionLog, clearSessionLog } from '../utils.js'
 // ── Section label map (store key → display label) ─────────────────────────────
 
 const SECTION_LABEL = {
-  nyasa:   'Nyāsāṅga',
-  inner:   'Tithi Nitya',
-  gurava:  'Guravaḥ',
-  bhupura: '1st Āvaraṇa',
-  c2:      '2nd Āvaraṇa',
-  c3:      '3rd Āvaraṇa',
-  c4:      '4th Āvaraṇa',
-  c5:      '5th Āvaraṇa',
-  c6:      '6th Āvaraṇa',
-  c7:      '7th Āvaraṇa',
-  c8:      '8th Āvaraṇa',
-  c9:      '9th Āvaraṇa',
-  nc:      'Nava Chakreshvarī',
-  closing: 'Śrīdevī Epithets',
+  nyasa:       'Nyāsāṅga',
+  inner:       'Tithi Nitya',
+  gurava:      'Guravaḥ',
+  bhupura:     '1st Āvaraṇa',
+  c2:          '2nd Āvaraṇa',
+  c3:          '3rd Āvaraṇa',
+  c4:          '4th Āvaraṇa',
+  c5:          '5th Āvaraṇa',
+  c6:          '6th Āvaraṇa',
+  c7:          '7th Āvaraṇa',
+  c8:          '8th Āvaraṇa',
+  c9:          '9th Āvaraṇa',
+  nc:          'Nava Chakreshvarī',
+  closing:     'Śrīdevī Epithets',
+  'spot-check': 'Spot Check',
 }
 
 // ── Date / time helpers ───────────────────────────────────────────────────────
@@ -138,7 +139,7 @@ export default function ActivityLogView() {
         <div className="border-x border-b border-surface-700 rounded-b-lg overflow-hidden">
           {log.length === 0 ? (
             <p className="px-3 py-8 text-center text-muted italic text-xs">
-              No sessions yet — complete a Memo round to start logging.
+              No sessions yet — complete a Memo or Spot Check round to start logging.
             </p>
           ) : filtered.length === 0 ? (
             <p className="px-3 py-8 text-center text-muted italic text-xs">

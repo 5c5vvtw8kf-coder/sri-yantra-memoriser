@@ -340,8 +340,8 @@ export default function ChakreshvariSpotCheckView({
 
       {/* Instruction */}
       {!done && (
-        <p className="text-muted mt-1 text-center" style={{ fontSize: '10px', fontStyle: 'italic' }}>
-          hover to reveal · click = memorised · dbl-click = not memorised · right-click = change answer
+        <p className="mt-3 text-center text-xs text-muted italic">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}
 

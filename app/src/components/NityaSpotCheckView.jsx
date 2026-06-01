@@ -346,8 +346,8 @@ export default function NityaSpotCheckView({
         )}
       </div>
 
-      <p className="text-center text-muted mt-1" style={{ fontSize: '10px', fontStyle: 'italic' }}>
-        hover to reveal · click = memorised · dbl-click = not memorised · right-click = change answer
+      <p className="mt-3 text-center text-xs text-muted italic">
+        hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
       </p>
 
       <div className="h-8" />

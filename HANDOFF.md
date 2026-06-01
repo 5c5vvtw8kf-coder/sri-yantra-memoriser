@@ -2,41 +2,73 @@
 
 **Date:** 1 June 2026
 **Branch:** master
+**Last commit:** ab7317b
+**Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan)
 
 ---
 
 ## What Was Completed This Session
 
-### 1. Memo Map history bug fixed
-`saveMemoStorage(key, {})` was wiping the history store every time a round started (because `setC8Results({})` etc. fired via useEffect). Fixed by adding a `clearHistory` option flag — history is now only cleared when explicitly requested (the "Clear all" button). History accumulates correctly across rounds going forward; existing history was already wiped by prior sessions.
+### Bug fixes
+- **Memo Map history bug** — `saveMemoStorage({})` was wiping history on every round start. Fixed with `clearHistory` flag — history now accumulates correctly going forward.
+- **Memo Map: Hridayadevi now #1** — sequence numbers offset by 1 to account for excluded invocation (seq 1).
+- **Memo Map: removed unnumbered svamini/yogini rows** — EXTRA_ROWS and CIRCUIT_EXTRA_SEQS removed entirely. Table now shows deity rows only.
+- **C8/C9 premature "Memorised" overlay** — fixed by passing `done` prop from App.jsx (waits for svamini + yogini right-panel steps).
+- **C2 svamini/yogini click convention** — was reversed vs all other views. Fixed: single-click = correct (red), double-click = skip.
+- **NavaChakreshvarī Memo mode** — circuits now show result colour immediately on click (no hover-off needed).
+- **Closing view text red** — changed from `#c0392b` to standard `text-red-400` (`#f87171`).
 
-### 2. Activity Log — section and date filters
-Two filter controls added above the Activity Log table:
-- Date search: text input, searches the formatted date string (e.g. "Jun", "1 Jun", "2026")
-- Section dropdown: All sections + each section by name
-- Count in header updates to show "N of M sessions" when filtered
+### UX / nav
+- **Nav dot** — red ✓ replaced with muted brown •; partial shows left-half SVG circle in gold.
+- **Footer arrows** — `←` / `→` enlarged to `text-base`.
+- **NC page** — legend removed; Memo mode shows "Proceed from outer Bhūpura to inner Bindu" instruction on two rows.
+- **Closing arrow flash** — `↑` and "Ascend to the top from here" pulse cream for 2.8s on page open.
+- **Arrow heads** — solid (opacity removed) in Nyāsa, Tithi Nitya, Guravah; shafts shortened 30%; triangles moved to line end (refX=0).
 
-### 3. C8/C9 premature "Memorised — well done!" overlay
-Both C8View and C9View were computing `done = currentSeq > TOTAL` (TOTAL=7 for C8, TOTAL=1 for C9), but the App.jsx round ends at `nextSeq > 9` and `nextSeq > 3` respectively (deities + Chakra Svamini + Yogini). Fixed by accepting a `done` prop from App.jsx (`done={c8Memorise && c8CurrentSeq > 9}` / `done={c9Memorise && c9CurrentSeq > 3}`). C9View bindu interaction also tightened to hide after seq 1 is answered (not after the full round).
+### Activity Log
+- Section filter dropdown + date search text input added.
 
-### 4. Śrīdevī Epithets text red → standard red
-ClosingView was using `RED_ACCENT = '#c0392b'` for the number strip and revealed label text. Added `RED_TEXT = '#f87171'` (Tailwind text-red-400, the standard across the rest of the app) and applied it to those two text elements. SVG `accentColor` still uses `#c0392b`.
+### References page (ReferencesView.jsx)
+- Courses: Dr. Anya Golovkova (YS 133 Śrīvidyā) and Dr. Antonia Ruppel (SKT 101-103).
+- Geometry: Zak Korvin YouTube, SriYantraResearch.com.
+- Canonical text source: Vaidika Vignanam.
 
-### 5. Nava Chakreshvarī Memo mode — immediate circuit colour on click
-`buildMemFills` was overriding all hovered circuits with cream (FILL_HI), so after clicking a circuit correct/wrong, the result colour (red/gold) only appeared after hovering away. Fixed: hover cream now only applies to future (dim) circuits. Past-answered circuits show their result colour immediately. Bindu hover gold likewise only applies when the bindu is still in the future.
+### Khadgamala Stotram page (formerly Circuit Browser)
+- Tab renamed to "śrī devī khaḍgamālā stōtram"; moved above References in nav.
+- Left panel: INTRODUCTION heading with Prārthana and Dhyānam as selectable items (section-item style); NINE ĀVARAṆAS heading (was "Nine Circuits").
+- Prārthana content: verse + translation + viniyoga paragraph + translation.
+- Dhyānam content: phalashruti verse + translation + dhyāna verse + translation + pañcopacāra pūjā + translation.
 
-### Spot Check → Memo Map
-Confirmed: Spot Check results do **not** feed into Memo Map or Activity Log. SpotCheckView makes no calls to `saveMemoStorage` or `saveSessionLog`. Feasible to add — each deity's `sectionId` and `sequenceInSection` are available to derive the store key — but not implemented this session. Raise if wanted.
+### Deployment
+- Deployed to Vercel Hobby plan.
+- **Live URL:** https://app-one-sigma-31.vercel.app
+- To redeploy: `npm run build` then `vercel --prod` from the `app` folder.
+- Base font size increased to 19px (was 16px default — app had been viewed at 120% zoom).
+
+### Lineage variation research (documented, not implemented)
+- Garimāsiddhe: only in Dakṣiṇāmūrti Sampradāya; not a swap for Mahimāsiddhe.
+- Closing epithets: Sringeri adds mahāmahāspandē (our canonical has 8, Sringeri has 9).
+- Guru Paramparā: biggest variation between lineages.
+- Lineage editing deferred — feasible but non-trivial.
 
 ---
 
-## Git State
+## Spot Check → Memo Map
+Not implemented. SpotCheckView makes no calls to `saveMemoStorage`. Feasible to add — deferred.
 
-```
-cd "C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser"
-git add -A
-git commit -m "History bug fix, Activity Log filters, C8/C9 overlay timing, closing text red, NC memo colour fix"
-```
+---
+
+## Run it (Windows terminal)
+
+    cd "C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser\app"
+    npm run dev
+
+Then open: http://localhost:5173
+
+Redeploy to Vercel:
+
+    npm run build
+    vercel --prod
 
 ---
 

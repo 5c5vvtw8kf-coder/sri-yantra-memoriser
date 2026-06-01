@@ -351,7 +351,7 @@ function HitZones({ onCircuitSelect, selectedCircuit }) {
 
 // ── Region fills ──────────────────────────────────────────────────────────────
 
-function RegionFills({ filledRegions = {}, onRegionClick = null, onRegionHover = null, onRegionLeave = null, onRegionDoubleClick = null }) {
+function RegionFills({ filledRegions = {}, noStrokeRegions = {}, onRegionClick = null, onRegionHover = null, onRegionLeave = null, onRegionDoubleClick = null }) {
   const hoverable   = onRegionHover != null
   if (Object.keys(filledRegions).length === 0 && !onRegionClick && !hoverable) return null
 
@@ -558,8 +558,8 @@ function RegionFills({ filledRegions = {}, onRegionClick = null, onRegionHover =
         return (
           <polygon key={t.id} id={t.id} points={t.points}
             fill={fill || 'transparent'}
-            stroke={fill ? 'rgba(201,168,76,0.3)' : 'none'}
-            strokeWidth={fill ? '0.5' : '0'}
+            stroke={fill && !noStrokeRegions[t.id] ? 'rgba(201,168,76,0.3)' : 'none'}
+            strokeWidth={fill && !noStrokeRegions[t.id] ? '0.5' : '0'}
             style={style}
             onClick={clickable ? () => onRegionClick(t.id) : undefined}
             onMouseEnter={hoverable ? () => onRegionHover(t.id) : undefined}
@@ -708,6 +708,7 @@ export default function SriYantraSVG({
   onRegionLeave       = null,
   onRegionDoubleClick = null,
   accentColor         = null,
+  noStrokeRegions     = {},
 }) {
   const gold             = accentColor || '#c9a84c'
   const bhupuraGold      = accentColor || '#b89840'   // slightly richer to match petal stroke appearance
@@ -746,9 +747,9 @@ export default function SriYantraSVG({
       <rect x={45} y={55} width={430} height={430} fill={bg} />
 
       {/* Region fills rendered before strokes so lines stay visible on top */}
-      <RegionFills filledRegions={filledRegions} onRegionClick={onRegionClick}
-        onRegionHover={onRegionHover} onRegionLeave={onRegionLeave}
-        onRegionDoubleClick={onRegionDoubleClick} />
+      <RegionFills filledRegions={filledRegions} noStrokeRegions={noStrokeRegions}
+        onRegionClick={onRegionClick} onRegionHover={onRegionHover}
+        onRegionLeave={onRegionLeave} onRegionDoubleClick={onRegionDoubleClick} />
 
       {/* Circuit 1: Bhupura — Korvin construction: outer square + 4 stepped T-gates */}
       {/* Three concentric stepped-cross polygons: outer border, main outline, inner border */}
@@ -779,7 +780,7 @@ export default function SriYantraSVG({
           const petalFill = c2PetalFills[id] || goldFill
           return (
             <g key={id}>
-              <path id={id} d={path} fill={petalFill} stroke={gold} strokeWidth={0.75}
+              <path id={id} d={path} fill={petalFill} stroke={noStrokeRegions[id] ? 'none' : gold} strokeWidth={0.75}
                 style={(handlePetalClick || handlePetalHover) ? { cursor: 'pointer' } : undefined}
                 onClick={handlePetalClick ? () => handlePetalClick(id) : undefined}
                 onMouseEnter={handlePetalHover ? () => handlePetalHover(id) : undefined}
@@ -806,7 +807,7 @@ export default function SriYantraSVG({
           const petalFill = c3PetalFills[id] || goldFill
           return (
             <g key={id}>
-              <path id={id} d={path} fill={petalFill} stroke={gold} strokeWidth={0.75}
+              <path id={id} d={path} fill={petalFill} stroke={noStrokeRegions[id] ? 'none' : gold} strokeWidth={0.75}
                 style={(handlePetalClick || handlePetalHover) ? { cursor: 'pointer' } : undefined}
                 onClick={handlePetalClick ? () => handlePetalClick(id) : undefined}
                 onMouseEnter={handlePetalHover ? () => handlePetalHover(id) : undefined}
