@@ -16,19 +16,7 @@ Start-of-session checklist:
 2. Check what files exist in the workspace folder.
 3. Ask Chris what he wants to work on before starting anything.
 
-Last commit: 05dc696 — Nav collapsing, SCRIPT label, memo result persistence (localStorage)
-
-THE NEXT TASK — Memo Map View:
-Build MemoMapView.jsx — a full table of all ~160 deities in chant order
-showing memorisation status. FULL SPEC including result key mappings, section
-labels, props structure, and wiring instructions is in HANDOFF.md — read it first.
-
-Summary:
-- Table columns: # (chant sequence), Name (IAST), Section, Status (✓ / —)
-- Covers full stotra: Nyāsa → Tithi Nitya → Guravah → Bhūpura → C2–C9 → Chakreshvarī → Closing
-- Filter by section and by status
-- Reads from allResults prop (14 result objects passed from App.jsx)
-- Persistence is already wired: localStorage sync added last session
+Last commit: b2e10df — MemoMapView, ActivityLogView, App wiring updates
 
 What's working:
 - Full memorise chain across all sections, with Explore and Memorise modes
@@ -36,7 +24,15 @@ What's working:
 - Circuit fills red on hover in Navacakresvari list and Closing list
 - Nav section collapsing (EXPLORE AND MEMORISE, SPOT CHECK AND MEMO MAP, REFERENCES)
 - Memo results persist across refresh via localStorage
-- All hint text standardised to text-xs text-muted italic style
+- Memo Map with progress tracking (history bug fixed — accumulates correctly going forward)
+- Activity Log with section + date filters
+- C8/C9 completion overlay now fires only after all items done (deities + svamini + yogini)
+- Navacakresvari Memo mode: circuit colour updates immediately on click (no hover-off needed)
+- Śrīdevī Epithets text uses standard red (#f87171 / text-red-400)
+
+Pending / suggested next:
+- Spot Check results → Memo Map / Activity Log (not yet implemented; feasible, raise if wanted)
+- Any other UX polish
 
 Environment note: git CANNOT be run from the Cowork sandbox — this folder is
 OneDrive-synced and the mount blocks git's file operations. All git commands

@@ -78,6 +78,7 @@ export default function C9View({
   onToggleResult,
   flash = false,
   onNavigate,
+  done: doneProp = null,
 }) {
   const [selected, setSelected] = useState(false)
   const [hovered,  setHovered]  = useState(false)
@@ -104,21 +105,23 @@ export default function C9View({
     if (currentSeq === 1) onMarkResult(1, 'wrong')
   }
 
-  const done = memorise && currentSeq > TOTAL
+  const done = doneProp !== null ? doneProp : (memorise && currentSeq > TOTAL)
 
   const [bx, by] = CENTROID
 
   const mainTriPts = [APEX, BASE_L, BASE_R]
     .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
 
-  // Memorise mode visual state for the bindu
+  // Memorise mode visual state for the bindu.
+  // The bindu interaction hides after seq 1 is answered (currentSeq > 1),
+  // so only cream (active/flash) states matter here. But if for any reason
+  // it's still rendered, show result color correctly.
   const isCorrect = results[1] === 'correct'
   let bindufill = GOLD
   if (memorise) {
-    if (flash)                          bindufill = ACTIVE_FILL
-    else if (currentSeq === 1)          bindufill = ACTIVE_FILL
-    else if (done && isCorrect)         bindufill = RED
-    else if (done)                      bindufill = GOLD
+    if (flash || currentSeq === 1) bindufill = ACTIVE_FILL
+    else if (isCorrect)            bindufill = RED
+    // else: GOLD (answered wrong)
   }
 
   return (
@@ -152,7 +155,8 @@ export default function C9View({
           )}
 
           {/* ── Memorise mode bindu ───────────────────────────────────── */}
-          {memorise && !done && (
+          {/* Bindu interaction only while seq 1 is active; hidden once answered */}
+          {memorise && currentSeq === 1 && (
             <g
               onClick={!flash ? handleMemClick : undefined}
               onDoubleClick={!flash ? handleMemDblClick : undefined}

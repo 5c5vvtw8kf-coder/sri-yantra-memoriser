@@ -40,15 +40,16 @@ export function loadMemoStorage(key) {
   } catch { return {} }
 }
 
-export function saveMemoStorage(key, data) {
+export function saveMemoStorage(key, data, { clearHistory = false } = {}) {
   try {
     const storageKey = `memo-${key}`
     const histKey    = `memo-history-${key}`
 
     if (Object.keys(data).length === 0) {
-      // Clear all: wipe current results and history
+      // Empty data = round reset. Always clear current results.
+      // Only clear history when explicitly requested (e.g. "Clear all" button).
       localStorage.setItem(storageKey, JSON.stringify(data))
-      localStorage.removeItem(histKey)
+      if (clearHistory) localStorage.removeItem(histKey)
       return
     }
 

@@ -3562,6 +3562,7 @@ export default function App() {
                 onNavigate={handleNavigateToMemorise}
                 highlightId={c8HighlightId}
                 fillAll={circuitFillAll}
+                done={c8Memorise && c8CurrentSeq > 9}
               />
             )}
             {activeTab === 'c9' && (
@@ -3578,6 +3579,7 @@ export default function App() {
                 flash={c9Flash}
                 onNavigate={handleNavigateToMemorise}
                 fillAll={circuitFillAll}
+                done={c9Memorise && c9CurrentSeq > 3}
               />
             )}
             {activeTab === 'chakreshvari' && (

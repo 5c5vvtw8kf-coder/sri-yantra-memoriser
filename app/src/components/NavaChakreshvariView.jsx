@@ -143,17 +143,24 @@ function buildFills(hovered, selected) {
 //   past wrong          → gold (FILL_NORM)
 //   future              → dim
 //   flash               → all cream
-// hoveredCircuit: when set, only that circuit overrides to cream.
+// hoveredCircuit: hover glow only applies to future (dim) circuits — not to circuits
+// already answered, so the result colour shows immediately on click without waiting
+// for the user to hover away.
 function buildMemFills(colorFn, hoveredCircuit) {
-  // Hover overrides only the hovered circuit
-  const c = (n) => (n === hoveredCircuit) ? FILL_HI : colorFn(n)
+  const c = (n) => {
+    const base = colorFn(n)
+    // Only apply cream hover glow if the circuit is still in the future (dim)
+    if (n === hoveredCircuit && base === FILL_DIM) return FILL_HI
+    return base
+  }
   const c1Color = c(1)
   // Bindu: only cream/red/black — never dim gold.
+  // Apply hover gold only if the bindu is still in the future (dim); once answered, show result.
   const c9raw = colorFn(9)
-  const c9 = hoveredCircuit === 9 ? FILL_GOLD_HI
-           : c9raw === FILL_SEL   ? FILL_SEL
-           : c9raw === FILL_HI    ? FILL_HI
-           : '#000000'
+  const c9 = c9raw === FILL_SEL ? FILL_SEL                                    // answered correct → red
+           : c9raw === FILL_HI  ? FILL_HI                                     // active → cream
+           : hoveredCircuit === 9 && c9raw === FILL_DIM ? FILL_GOLD_HI        // future + hover → gold
+           : '#000000'                                                         // future/not hovered → black
 
   // c8 is "lit" if it has any non-dim fill — active (FILL_HI), past-correct (FILL_SEL),
   // or past-wrong (FILL_NORM) all bleed through the three inner c7 triangles.

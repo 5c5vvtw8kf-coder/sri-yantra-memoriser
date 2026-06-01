@@ -220,7 +220,7 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
 
   const handleClearAll = () => {
     if (!window.confirm('Clear all memo results and history? This cannot be undone.')) return
-    HISTORY_STORES.forEach(k => saveMemoStorage(k, {}))
+    HISTORY_STORES.forEach(k => saveMemoStorage(k, {}, { clearHistory: true }))
     window.location.reload()
   }
 

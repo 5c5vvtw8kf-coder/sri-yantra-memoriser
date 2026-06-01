@@ -43,17 +43,32 @@ function Cols() {
   )
 }
 
+// ── Filter section options ────────────────────────────────────────────────────
+
+const SECTION_OPTIONS = Object.entries(SECTION_LABEL).map(([id, label]) => ({ id, label }))
+
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function ActivityLogView() {
   // Load newest-first; re-read when cleared
   const [log, setLog] = useState(() => [...loadSessionLog()].reverse())
+  const [sectionFilter, setSectionFilter] = useState('all')
+  const [dateSearch,    setDateSearch]    = useState('')
 
   const handleClear = () => {
     if (!window.confirm('Clear activity log? This cannot be undone.')) return
     clearSessionLog()
     setLog([])
   }
+
+  const filtered = log.filter(entry => {
+    if (sectionFilter !== 'all' && entry.section !== sectionFilter) return false
+    if (dateSearch.trim()) {
+      const dateStr = fmtDate(entry.ts).toLowerCase()
+      if (!dateStr.includes(dateSearch.trim().toLowerCase())) return false
+    }
+    return true
+  })
 
   return (
     <div className="h-full flex flex-col px-4">
@@ -65,7 +80,7 @@ export default function ActivityLogView() {
           <div>
             <h1 className="text-cream text-sm font-medium">Activity Log</h1>
             <p className="text-muted text-xs mt-0.5">
-              {log.length} {log.length === 1 ? 'session' : 'sessions'}
+              {filtered.length}{filtered.length !== log.length ? ` of ${log.length}` : ''} {log.length === 1 ? 'session' : 'sessions'}
             </p>
           </div>
           {log.length > 0 && (
@@ -77,6 +92,29 @@ export default function ActivityLogView() {
             </button>
           )}
         </div>
+
+        {/* Filters */}
+        {log.length > 0 && (
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Search date…"
+              value={dateSearch}
+              onChange={e => setDateSearch(e.target.value)}
+              className="w-28 flex-shrink-0 text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 placeholder:text-surface-500 focus:outline-none focus:border-gold-700 transition-colors"
+            />
+            <select
+              value={sectionFilter}
+              onChange={e => setSectionFilter(e.target.value)}
+              className="flex-1 min-w-0 text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
+            >
+              <option value="all">All sections</option>
+              {SECTION_OPTIONS.map(({ id, label }) => (
+                <option key={id} value={id}>{label}</option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* Frozen column headers */}
         <div className="border border-surface-700 rounded-t-lg overflow-hidden">
@@ -102,11 +140,15 @@ export default function ActivityLogView() {
             <p className="px-3 py-8 text-center text-muted italic text-xs">
               No sessions yet — complete a Memo round to start logging.
             </p>
+          ) : filtered.length === 0 ? (
+            <p className="px-3 py-8 text-center text-muted italic text-xs">
+              No entries match
+            </p>
           ) : (
             <table className="w-full table-fixed text-xs">
               <Cols />
               <tbody>
-                {log.map((entry, i) => {
+                {filtered.map((entry, i) => {
                   const pct = entry.total > 0 ? entry.correct / entry.total : 0
                   const scoreClass = pct === 1
                     ? 'text-red-400'

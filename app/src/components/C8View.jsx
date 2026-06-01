@@ -147,6 +147,7 @@ export default function C8View({
   onToggleResult,
   flash = false,
   onNavigate,
+  done: doneProp = null,
 }) {
   const [selectedId,  setSelectedId]  = useState(null)
   const [hoveredDot,  setHoveredDot]  = useState(null)
@@ -179,7 +180,7 @@ export default function C8View({
     else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
-  const done = memorise && currentSeq > TOTAL
+  const done = doneProp !== null ? doneProp : (memorise && currentSeq > TOTAL)
 
   const mainTriPts = [APEX, BASE_L, BASE_R]
     .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')

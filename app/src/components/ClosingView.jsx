@@ -47,7 +47,8 @@ const TOTAL = closingDeities.length   // 10
 // ── Colours ───────────────────────────────────────────────────────────────────
 
 const GOLD        = '#c9a84c'
-const RED_ACCENT  = '#c0392b'
+const RED_ACCENT  = '#c0392b'   // SVG accentColor (circuit fills, completion flash)
+const RED_TEXT    = '#f87171'   // standard text red — matches text-red-400 across the app
 const CREAM       = 'rgba(255,248,200,0.92)'
 const CREAM_FILL  = 'rgba(255,248,200,0.85)'
 const RED_FILL    = 'rgba(192,57,43,0.82)'
@@ -282,7 +283,7 @@ export default function ClosingView({
 
             const numColor = memorise
               ? isActive  ? CREAM
-              : isPast && isCorrect ? RED_ACCENT
+              : isPast && isCorrect ? RED_TEXT
               : isPast    ? GOLD
               : /* future */ 'rgba(201,168,76,0.28)'
               : (hoveredEpithet === n ? CREAM : GOLD)
@@ -384,7 +385,7 @@ export default function ClosingView({
                 whiteSpace: 'nowrap',
               }}
             >
-              <p className="iast" style={{ color: isCorrect ? RED_ACCENT : GOLD, fontSize: '13px', fontWeight: 700 }}>
+              <p className="iast" style={{ color: isCorrect ? RED_TEXT : GOLD, fontSize: '13px', fontWeight: 700 }}>
                 {displayName(d, script)}
               </p>
             </div>
