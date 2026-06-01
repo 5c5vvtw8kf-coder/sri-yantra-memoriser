@@ -96,7 +96,7 @@ const ACTIVE_FILL = 'rgba(255,248,200,0.92)'  // cream — active item in Memori
 
 // ── NavArrow ──────────────────────────────────────────────────────────────────
 
-function NavArrow({ from, to, length = 39, gap = 12 }) {
+function NavArrow({ from, to, length = 27, gap = 12 }) {
   const dx = to[0] - from[0]
   const dy = to[1] - from[1]
   const dist = Math.sqrt(dx * dx + dy * dy)
@@ -332,15 +332,15 @@ export default function NyasaView({
         >
           <defs>
             <marker id="nav-arrow-green" markerWidth="7" markerHeight="5"
-              refX="7" refY="2.5" orient="auto">
-              <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} opacity="0.7" />
+              refX="0" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
             </marker>
           </defs>
 
           {/* ── Explore mode: navigation arrows ── */}
           {!memorise && navStep === 0 && (
             <line
-              x1={462} y1={15} x2={423} y2={15}
+              x1={462} y1={15} x2={435} y2={15}
               stroke={GREEN} strokeWidth={2.5} opacity="0.65"
               markerEnd="url(#nav-arrow-green)"
             />

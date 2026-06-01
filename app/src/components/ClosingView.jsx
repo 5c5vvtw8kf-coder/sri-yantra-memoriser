@@ -119,6 +119,13 @@ export default function ClosingView({
   const [hoveredEpithet, setHoveredEpithet] = useState(null)
   const clickTimer = useRef(null)
 
+  // Flash the direction arrow on page open to draw attention
+  const [arrowFlash, setArrowFlash] = useState(true)
+  useEffect(() => {
+    const t = setTimeout(() => setArrowFlash(false), 2800)
+    return () => clearTimeout(t)
+  }, [])
+
   // Track yantra position for the fixed number strip
   const yantraRef = useRef(null)
   const [yantraPos, setYantraPos] = useState({ top: 80, height: 300 })
@@ -441,9 +448,15 @@ export default function ClosingView({
           gap: 6,
         }}
       >
-        <span style={{ color: GOLD, fontSize: '22px', lineHeight: 1 }}>↑</span>
+        <span
+          className={arrowFlash ? 'animate-pulse' : ''}
+          style={{ color: arrowFlash ? CREAM : GOLD, fontSize: '22px', lineHeight: 1, transition: 'color 0.6s' }}
+        >↑</span>
         {!done && (
-          <span style={{ color: CREAM, fontSize: '10px', whiteSpace: 'nowrap' }}>
+          <span
+            className={arrowFlash ? 'animate-pulse' : ''}
+            style={{ color: arrowFlash ? CREAM : 'rgba(255,248,200,0.45)', fontSize: '10px', whiteSpace: 'nowrap', transition: 'color 0.6s' }}
+          >
             Ascend to the top from here
           </span>
         )}

@@ -232,8 +232,8 @@ export default function InnerView({
           {/* Arrowhead markers */}
           <defs>
             <marker id="flow-arrow-gold" markerWidth="7" markerHeight="5"
-              refX="7" refY="2.5" orient="auto">
-              <polygon points="0 0, 7 2.5, 0 5" fill={GOLD} opacity="0.7" />
+              refX="0" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill={GOLD} />
             </marker>
           </defs>
 
@@ -255,7 +255,7 @@ export default function InnerView({
             const off = NITYA_OFFSET + 28
             const kamBottomY = lerp(APEX, BASE_R, 0.10)[1] + N_RIGHT[1] * NITYA_OFFSET + 10
             const tStart = (kamBottomY - N_RIGHT[1] * off - APEX[1]) / (BASE_R[1] - APEX[1])
-            const tEnd   = tStart + 0.20
+            const tEnd   = tStart + 0.14
             const [x1, y1] = lerp(APEX, BASE_R, tStart)
             const [x2, y2] = lerp(APEX, BASE_R, tEnd)
             const ax1 = x1 + N_RIGHT[0] * off
@@ -287,7 +287,7 @@ export default function InnerView({
           {!memorise && (() => {
             const off    = NITYA_OFFSET + 28
             const tTail  = 0.88   // near Citrā
-            const tHead  = 0.68   // above Citrā — arrowhead points upward = anti-clockwise
+            const tHead  = 0.74   // above Citrā — arrowhead points upward = anti-clockwise
             const [x1, y1] = lerp(BASE_L, APEX, tTail)
             const [x2, y2] = lerp(BASE_L, APEX, tHead)
             const ax1 = x1 + N_LEFT[0] * off

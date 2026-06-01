@@ -483,37 +483,20 @@ export default function NavaChakreshvariView({
         )}
       </div>
 
-      {/* Idle hint */}
+      {/* Idle hint — explore mode */}
       {!memorise && !hoveredCircuit && !selectedCircuit && (
         <p className="mt-2 text-center text-xs text-muted italic">
           Hover any circuit to reveal its Tripura form · click to select
         </p>
       )}
 
-      {/* Memorise instruction */}
-
-      {/* Legend */}
-      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-muted">
-        <span className="flex items-center gap-1.5">
-          <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{ background: RED }} />
-          Nava Chakreshvarī
-        </span>
-      </div>
-
-      {/* Caption */}
+      {/* Instruction + hint — memo mode */}
       {memorise && !done && (
-        <p className="mt-2 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
+        <div className="mt-2 space-y-0.5 text-center text-xs text-muted italic">
+          <p>Proceed from the outer Bhūpura to the inner Bindu</p>
+          <p>hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle</p>
+        </div>
       )}
-
-      <div className="mt-3 text-center">
-        <p className="iast text-gold-600 text-xs">navacakrēśvarī</p>
-        <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-          One Tripura form presides over each of the nine circuits
-        </p>
-      </div>
 
       <div className="h-8" />
     </div>

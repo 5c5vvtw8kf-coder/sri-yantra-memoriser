@@ -746,21 +746,21 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const petalsDone = currentSeq > 16
 
-  // Single-click: skip if active, unmark if past-correct
+  // Single-click: memorised (red) if active; mark if past-skipped
   const handleItemClick = (seq) => {
     if (extraTimer.current) return
     extraTimer.current = setTimeout(() => {
       extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      if (currentSeq === seq)              onMarkResult(seq, 'correct')
+      else if (results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
-  // Double-click: mark if active or past-skipped
+  // Double-click: skip (not memorised) if active; unmark if past-correct
   const handleItemDoubleClick = (seq) => {
     if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'correct')
-    else if (results[seq] !== 'correct') onToggleResult(seq)
+    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
+    else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
@@ -3333,9 +3333,18 @@ export default function App() {
                       : tab.navLabel}
                   </span>
                   {dot && (
-                    <span className={`flex-shrink-0 text-[10px] font-mono leading-none ${dot === 'red' ? 'text-red-400' : 'text-gold-500'}`}>
-                      {dot === 'red' ? '✓' : '~'}
-                    </span>
+                    <svg width="9" height="9" viewBox="0 0 9 9" className="flex-shrink-0" style={{ overflow: 'visible' }}>
+                      {dot === 'red' ? (
+                        /* Full dot — memorised */
+                        <circle cx="4.5" cy="4.5" r="4" fill="#8a7560" />
+                      ) : (
+                        /* Left-half dot — partial */
+                        <>
+                          <circle cx="4.5" cy="4.5" r="4" fill="none" stroke="#c9a84c" strokeWidth="0.8" />
+                          <path d="M 4.5 0.5 A 4 4 0 0 0 4.5 8.5 Z" fill="#c9a84c" />
+                        </>
+                      )}
+                    </svg>
                   )}
                 </button>
               )
@@ -3679,8 +3688,8 @@ export default function App() {
               disabled:opacity-20 disabled:cursor-default disabled:hover:bg-transparent disabled:hover:text-muted
               transition-colors overflow-hidden"
           >
-            <span className="flex items-center gap-1 min-w-0">
-              <span className="flex-shrink-0">←</span>
+            <span className="flex items-center gap-1.5 min-w-0">
+              <span className="flex-shrink-0 text-base leading-none">←</span>
               <span className="truncate">{prevTab?.footerLabel ?? ''}</span>
             </span>
           </button>
@@ -3695,9 +3704,9 @@ export default function App() {
               disabled:opacity-20 disabled:cursor-default disabled:hover:bg-transparent disabled:hover:text-muted
               transition-colors overflow-hidden"
           >
-            <span className="flex items-center justify-end gap-1 min-w-0">
+            <span className="flex items-center justify-end gap-1.5 min-w-0">
               <span className="truncate">{nextTab?.footerLabel ?? ''}</span>
-              <span className="flex-shrink-0">→</span>
+              <span className="flex-shrink-0 text-base leading-none">→</span>
             </span>
           </button>
         </div>

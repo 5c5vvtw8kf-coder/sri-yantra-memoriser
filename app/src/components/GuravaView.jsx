@@ -222,8 +222,8 @@ export default function GuravaView({
 
           <defs>
             <marker id="gurava-flow-arrow-red" markerWidth="7" markerHeight="5"
-              refX="7" refY="2.5" orient="auto">
-              <polygon points="0 0, 7 2.5, 0 5" fill={RED} opacity="0.7" />
+              refX="0" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill={RED} />
             </marker>
           </defs>
 
@@ -246,7 +246,7 @@ export default function GuravaView({
             return (
               <line
                 x1={INNER_L.toFixed(1)} y1={ay.toFixed(1)}
-                x2={(INNER_L + 39).toFixed(1)} y2={ay.toFixed(1)}
+                x2={(INNER_L + 27).toFixed(1)} y2={ay.toFixed(1)}
                 stroke={RED} strokeWidth={2.5} opacity="0.65"
                 markerEnd="url(#gurava-flow-arrow-red)" />
             )
