@@ -491,21 +491,6 @@ export default function NyasaView({
 
       </div>
 
-      {/* ── Idle hint ── */}
-      {!memorise && !hoveredDot && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          {navStep === 4
-            ? 'Tap any gate to restart from Hṛdaya'
-            : 'Hover or click any dot to reveal the deity'}
-        </p>
-      )}
-
-      {/* ── Instructions (memorise) ── */}
-      {memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
 
 
       <div className="h-8" />

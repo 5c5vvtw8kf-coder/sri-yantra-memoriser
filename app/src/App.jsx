@@ -2588,15 +2588,44 @@ export default function App() {
     'bhupura','c2','c3','c4','c5','c6','c7','c8','c9',
     'chakreshvari','closing','nyasa','inner','gurava',
   ])
+  const EXPLORE_HINT = {
+    bhupura:      'Hover or click any dot to reveal the deity',
+    nyasa:        'Hover or click any dot to reveal the deity',
+    inner:        'Hover or click any dot to reveal the deity',
+    gurava:       'Hover or click any dot to reveal the deity',
+    c2:           'Hover or click any petal to reveal the deity',
+    c3:           'Hover or click any petal to reveal the deity',
+    c4:           'Hover or click any triangle to reveal the deity',
+    c5:           'Hover or click any triangle to reveal the deity',
+    c6:           'Hover or click any triangle to reveal the deity',
+    c7:           'Hover or click any triangle to reveal the deity',
+    c8:           'Hover or click to reveal the deity',
+    c9:           'Hover or click the bindu to reveal the deity',
+    chakreshvari: 'Hover any circuit to reveal its Tripura form',
+    closing:      'Hover a number to illuminate the Yantra · tap to reveal the epithet',
+  }
+  const INSTR_STYLE = { fontSize: '0.75rem', fontFamily: 'monospace', letterSpacing: '0.03em' }
+  const memoInstr = (
+    <span className="text-muted" style={INSTR_STYLE}>
+      hover to reveal ·{' '}
+      <span className="text-red-400">click</span> = memorised ·{' '}
+      <span className="text-gold-400">dbl-click</span> = not memorised
+    </span>
+  )
   const footerInstruction = !EXPLORE_TABS.has(activeTab) ? null
     : isInMemoriseMode
-      ? <span className="text-muted" style={{ fontSize: 10, fontFamily: 'monospace', letterSpacing: '0.03em' }}>
-          hover to reveal ·{' '}
-          <span className="text-red-400">click</span> = memorised ·{' '}
-          <span className="text-gold-400">dbl</span> = not memorised
-        </span>
-      : <span className="text-muted" style={{ fontSize: 10, fontFamily: 'monospace', letterSpacing: '0.03em' }}>
-          tap to reveal
+      ? activeTab === 'chakreshvari'
+        ? <span className="text-center flex flex-col gap-0.5" style={INSTR_STYLE}>
+            <span className="text-muted">Proceed from the outer Bhūpura to the inner Bindu</span>
+            <span className="text-muted">
+              hover to reveal ·{' '}
+              <span className="text-red-400">click</span> = memorised ·{' '}
+              <span className="text-gold-400">dbl-click</span> = not memorised
+            </span>
+          </span>
+        : memoInstr
+      : <span className="text-muted" style={INSTR_STYLE}>
+          {EXPLORE_HINT[activeTab] ?? 'Hover or click to reveal the deity'}
         </span>
 
   // ── Right panel ────────────────────────────────────────────────────────────

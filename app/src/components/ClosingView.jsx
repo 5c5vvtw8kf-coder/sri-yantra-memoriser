@@ -455,25 +455,14 @@ export default function ClosingView({
         {!done && (
           <span
             className={arrowFlash ? 'animate-pulse' : ''}
-            style={{ color: arrowFlash ? CREAM : 'rgba(255,248,200,0.45)', fontSize: '10px', whiteSpace: 'nowrap', transition: 'color 0.6s' }}
+            style={{ color: arrowFlash ? CREAM : 'rgba(255,248,200,0.45)', fontSize: '0.75rem', whiteSpace: 'nowrap', transition: 'color 0.6s' }}
           >
-            Ascend to the top from here
+            Ascent to the top from here
           </span>
         )}
       </div>
 
-      {/* Hint / instruction below yantra */}
-      {!memorise && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          Hover a number to illuminate the Yantra · tap to reveal the epithet
-        </p>
-      )}
-      {memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
-
+      <div className="h-8" />
     </div>
   )
 }
