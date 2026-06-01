@@ -4,6 +4,7 @@
 
 @layer base {
   html {
+    font-size: 19px;
     @apply bg-surface-900 text-cream;
   }
 
