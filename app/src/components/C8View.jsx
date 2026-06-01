@@ -87,13 +87,13 @@ const c8Deities = deities
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onDoubleClick, onContextMenu, onMouseEnter, onMouseLeave, dimStyle }) {
+function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, onClick, onDoubleClick, onContextMenu, onMouseEnter, onMouseLeave, dimStyle }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
     <circle
       cx={x.toFixed(1)} cy={y.toFixed(1)}
       r={selected ? r + 2.5 : r}
-      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
+      fill={selected ? fill : (highlighted || isHovered) ? RED : fill + 'bb'}
       stroke="none"
       strokeWidth={0}
       style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
@@ -223,6 +223,7 @@ export default function C8View({
                 fill={selectedId === d.id ? RED : "#fff8c8"}
                 selected={selectedId === d.id}
                 highlighted={!selectedId && highlightId === d.id}
+                isHovered={hoveredDot?.id === d.id}
                 onClick={() => toggle(d.id)}
                 onMouseEnter={() => hover(d.id, pos[0], pos[1])}
                 onMouseLeave={unhover} />
@@ -307,23 +308,7 @@ export default function C8View({
           </div>
         )}
       </div>
-
-
-      {!memorise && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          Hover or click any dot to reveal the deity
-        </p>
-      )}
-      {memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
-
-
-
       <div className="h-8" />
-
     </div>
   )
 }

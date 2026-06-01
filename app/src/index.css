@@ -76,6 +76,13 @@
   }
 }
 
+/* ── Site tour (TourGuide.jsx) body content ──────────────────────────────── */
+.syt-tour-body p + p   { margin-top: 8px; }
+.syt-tour-body em      { color: #d4b96a; font-style: normal; }
+.syt-tour-body strong  { color: #e8d08a; font-weight: 600; }
+.syt-tour-red          { color: #c45c5c; }
+.syt-tour-gold         { color: #c9a84c; }
+
 /* Scrollbar styling for dark theme */
 ::-webkit-scrollbar {
   width: 4px;

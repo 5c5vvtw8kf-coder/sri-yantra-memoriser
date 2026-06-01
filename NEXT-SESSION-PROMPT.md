@@ -16,24 +16,25 @@ Start-of-session checklist:
 2. Check what files exist in the workspace folder.
 3. Ask Chris what he wants to work on before starting anything.
 
-Last commit: ab7317b — Base font size 19px; Khadgamala Stotram page complete; deployed to Vercel
+Last commit: Spot Check colour scheme, legend, no-stroke answered regions, Activity Log integration
 Live URL: https://app-one-sigma-31.vercel.app
 Redeploy: cd app && npm run build && vercel --prod
 
 What's working:
 - Full memorise chain across all sections (Explore + Memorise modes)
-- Memo Map with history tracking (history bug fixed)
-- Activity Log with section + date filters
-- Khadgamala Stotram page (formerly Circuit Browser): Introduction/Prārthana/Dhyānam
-  as left nav items; complete with viniyoga, phalashruti, pancha puja + translations
-- References page: courses, geometry resources, text source
+- Memo Map with history tracking
+- Activity Log with section + date filters (now includes Spot Check sessions)
+- Spot Check: correct colour scheme (red = memorised, gold = not memorised, cream = focus),
+  no gold outline on answered regions, legend matches Memo mode format
+- Khadgamala Stotram page: Prārthana, Dhyānam, viniyoga, phalashruti, pancha puja + translations
+- References page
 - Deployed live on Vercel (Hobby plan)
 - Base font 19px
 
 Pending / suggested next:
 - Feedback from friends — iterate based on responses
-- Khadgamala Stotram page further refinement (Chris noted this)
-- Lineage editing (deferred — feasible when needed for Stage 2)
+- Khadgamala Stotram page further refinement
+- Lineage editing (deferred)
 - Spot Check → Memo Map integration (deferred)
 - Domain: sriyantramem.org when ready to go public
 

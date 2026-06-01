@@ -105,13 +105,13 @@ const GROUP_LABEL = {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, highlighted, opacity, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
+function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
     <circle
       cx={x.toFixed(1)} cy={y.toFixed(1)}
       r={r}
-      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
+      fill={selected ? fill : (highlighted || isHovered) ? RED : fill + 'bb'}
       stroke="none"
       strokeWidth={0}
       opacity={opacity ?? 1}
@@ -273,12 +273,16 @@ export default function BhupuraView({
           >
 
             {/* ── Explore mode dots ──────────────────────────────────────── */}
-            {!memorise && [
-              { list: siddhiDeities,  group: 'siddhiShakti' },
-              { list: matrikaDeities, group: 'ashtaMatrika' },
-              { list: mudraDeities,   group: 'mudraShakti'  },
-            ].flatMap(({ list, group }) =>
-              list.map(d => {
+            {!memorise && (() => {
+              // Build all dot descriptors, then render non-front dots first and
+              // the highlighted/hovered dot last so it paints on top in SVG order.
+              const frontId = hoveredDot?.id ?? highlightId ?? selectedId
+              const allGroups = [
+                { list: siddhiDeities,  group: 'siddhiShakti' },
+                { list: matrikaDeities, group: 'ashtaMatrika' },
+                { list: mudraDeities,   group: 'mudraShakti'  },
+              ]
+              const makeDot = (d, group) => {
                 const pos    = BHUPURA_POSITIONS[d.sequenceInSection]
                 if (!pos) return null
                 const fill   = showColors ? GROUP_COLOUR[group] : '#fff8c8'
@@ -290,14 +294,20 @@ export default function BhupuraView({
                     fill={fill}
                     selected={selectedId === d.id}
                     highlighted={!selectedId && highlightId === d.id}
+                    isHovered={hoveredDot?.id === d.id}
                     opacity={dimmed ? 0.15 : 1}
                     onClick={() => !dimmed && toggle(d.id)}
                     onMouseEnter={() => !dimmed && hover(d.id, pos.x, pos.y)}
                     onMouseLeave={unhover}
                   />
                 )
-              })
-            )}
+              }
+              const dots = allGroups.flatMap(({ list, group }) => list.map(d => ({ d, group })))
+              return [
+                dots.filter(({ d }) => d.id !== frontId).map(({ d, group }) => makeDot(d, group)),
+                dots.filter(({ d }) => d.id === frontId).map(({ d, group }) => makeDot(d, group)),
+              ]
+            })()}
 
             {/* ── Memorise mode dots ─────────────────────────────────────── */}
             {memorise && memoDeities.map((d, idx) => {
@@ -419,7 +429,7 @@ export default function BhupuraView({
                   width: 6, height: 6,
                   borderRadius: '50%',
                   background: GROUP_COLOUR[f.dot],
-                  flexShrink: 0,
+                           flexShrink: 0,
                   marginRight: 4,
                 }} />
               )}
@@ -428,20 +438,6 @@ export default function BhupuraView({
           ))}
         </div>
       )}
-
-
-
-      {!memorise && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          Hover or click any dot to reveal the deity
-        </p>
-      )}
-      {memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
-
 
       <div className="h-8" />
     </div>

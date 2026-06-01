@@ -236,8 +236,10 @@ export default function C3View({
       for (let i = 1; i <= 8; i++) fills[petalIdForSeq(i)] = RED_PETAL
     } else {
       for (let i = 1; i <= 8; i++) fills[petalIdForSeq(i)] = ACTIVE_PETAL
-      if (selectedDeity) fills[petalIdForSeq(selectedDeity.sequenceInSection)] = RED_PETAL
-      else if (highlightId) { const hd = deityById[highlightId]; if (hd) fills[petalIdForSeq(hd.sequenceInSection)] = RED_PETAL }
+      const focusDeity = selectedDeity
+        || (hoveredDot ? deityById[hoveredDot.id] : null)
+        || (highlightId ? deityById[highlightId] : null)
+      if (focusDeity) fills[petalIdForSeq(focusDeity.sequenceInSection)] = RED_PETAL
     }
     return fills
   })()
@@ -393,17 +395,6 @@ export default function C3View({
           onRestart={onStartMemorise}
           onNavigate={onNavigate}
         />
-      )}
-
-      {!memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          Hover or click any petal to reveal the deity
-        </p>
-      )}
-      {memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
       )}
 
 

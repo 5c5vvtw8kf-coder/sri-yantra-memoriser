@@ -483,20 +483,6 @@ export default function NavaChakreshvariView({
         )}
       </div>
 
-      {/* Idle hint — explore mode */}
-      {!memorise && !hoveredCircuit && !selectedCircuit && (
-        <p className="mt-2 text-center text-xs text-muted italic">
-          Hover any circuit to reveal its Tripura form · click to select
-        </p>
-      )}
-
-      {/* Instruction + hint — memo mode */}
-      {memorise && !done && (
-        <div className="mt-2 space-y-0.5 text-center text-xs text-muted italic">
-          <p>Proceed from the outer Bhūpura to the inner Bindu</p>
-          <p>hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle</p>
-        </div>
-      )}
 
       <div className="h-8" />
     </div>

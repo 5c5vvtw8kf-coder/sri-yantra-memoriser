@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { useTour } from './components/TourGuide'
 import CircuitBrowser from './components/CircuitBrowser'
 import ReferencesView from './components/ReferencesView'
 import IntroView from './components/IntroView'
@@ -67,6 +68,18 @@ const TABS = [
 
 // Navigable tabs only (excludes heading entries — used for footer prev/next)
 const NAVIGABLE_TABS = TABS.filter(t => !t.heading)
+
+// data-tour IDs for the site tour (TourGuide.jsx)
+const TOUR_NAV_IDS = {
+  yantra:    'nav-yantra',
+  bhupura:   'nav-bhupura',
+  spotcheck: 'nav-spotcheck',
+  memomap:   'nav-memomap',
+  browser:   'nav-browser',
+}
+const TOUR_HEADING_IDS = {
+  'h-explore-memorise': 'heading-explore',
+}
 
 // Maps tab id → circuit number (for right-panel SectionInfo)
 const TAB_TO_CIRCUIT = {
@@ -1811,6 +1824,15 @@ export default function App() {
     'h-references':       true,
   })
 
+  // ── Site tour ──────────────────────────────────────────────────────────────
+  const { startTour, tourElement } = useTour({
+    onBeforeStart: () => setOpenSections({
+      'h-explore-memorise': true,
+      'h-spotcheck':        true,
+      'h-references':       true,
+    }),
+  })
+
   // ── Yantra-tab state ───────────────────────────────────────────────────────
   const [showTriangles,   setShowTriangles]   = useState(true)
   const [showNumbers,     setShowNumbers]     = useState(false)
@@ -2542,6 +2564,40 @@ export default function App() {
   const currentTabIdx = NAVIGABLE_TABS.findIndex(t => t.id === activeTab)
   const prevTab = currentTabIdx > 0 ? NAVIGABLE_TABS[currentTabIdx - 1] : null
   const nextTab = currentTabIdx < NAVIGABLE_TABS.length - 1 ? NAVIGABLE_TABS[currentTabIdx + 1] : null
+
+  // ── Footer instruction (replaces n/N counter) ─────────────────────────────
+  // Shows context-appropriate hint in the footer bar so individual views don't
+  // need instruction text below the SVG (freeing vertical space).
+  const isInMemoriseMode =
+    (activeTab === 'bhupura'      && bhupuraMemorise)  ||
+    (activeTab === 'c2'           && c2Memorise)        ||
+    (activeTab === 'c3'           && c3Memorise)        ||
+    (activeTab === 'c4'           && c4Memorise)        ||
+    (activeTab === 'c5'           && c5Memorise)        ||
+    (activeTab === 'c6'           && c6Memorise)        ||
+    (activeTab === 'c7'           && c7Memorise)        ||
+    (activeTab === 'c8'           && c8Memorise)        ||
+    (activeTab === 'c9'           && c9Memorise)        ||
+    (activeTab === 'chakreshvari' && ncMemorise)        ||
+    (activeTab === 'closing'      && closingMemorise)   ||
+    (activeTab === 'nyasa'        && nyasaMemorise)     ||
+    (activeTab === 'inner'        && innerMemorise)     ||
+    (activeTab === 'gurava'       && guravaMemorse)
+
+  const EXPLORE_TABS = new Set([
+    'bhupura','c2','c3','c4','c5','c6','c7','c8','c9',
+    'chakreshvari','closing','nyasa','inner','gurava',
+  ])
+  const footerInstruction = !EXPLORE_TABS.has(activeTab) ? null
+    : isInMemoriseMode
+      ? <span className="text-muted" style={{ fontSize: 10, fontFamily: 'monospace', letterSpacing: '0.03em' }}>
+          hover to reveal ·{' '}
+          <span className="text-red-400">click</span> = memorised ·{' '}
+          <span className="text-gold-400">dbl</span> = not memorised
+        </span>
+      : <span className="text-muted" style={{ fontSize: 10, fontFamily: 'monospace', letterSpacing: '0.03em' }}>
+          tap to reveal
+        </span>
 
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {
@@ -3280,17 +3336,34 @@ export default function App() {
   return (
     <div className="h-screen flex bg-surface-950 text-cream overflow-hidden">
 
+      {/* ── Site tour portal (renders to document.body via createPortal) ──── */}
+      {tourElement}
+
       {/* ── Left sidebar ─────────────────────────────────────────────────── */}
-      <aside className="w-52 flex-shrink-0 flex flex-col border-r border-surface-800 overflow-hidden">
+      <aside data-tour="sidebar" className="w-52 flex-shrink-0 flex flex-col border-r border-surface-800 overflow-hidden">
 
         {/* Title block */}
         <div className="px-4 pt-4 pb-3 border-b border-surface-800 flex-shrink-0">
-          <h1 className="iast text-gold-400 text-base font-semibold tracking-wide leading-tight">
-            śrī yantra memoriser
-          </h1>
-          <p className="iast mt-1 text-muted italic" style={{ fontSize: '13px', letterSpacing: '0.03em' }}>
-            for the Khadgamala Stotram
-          </p>
+          <div className="flex items-start justify-between gap-1">
+            <div className="flex-1 min-w-0">
+              <h1 className="iast text-gold-400 text-base font-semibold tracking-wide leading-tight">
+                śrī yantra memoriser
+              </h1>
+              <p className="iast mt-1 text-muted italic" style={{ fontSize: '13px', letterSpacing: '0.03em' }}>
+                for the Khadgamala Stotram
+              </p>
+            </div>
+            {/* Tour trigger button */}
+            <button
+              data-tour="tour-btn"
+              onClick={startTour}
+              title="Take the tour"
+              className="flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
+              style={{ fontSize: 11 }}
+            >
+              ?
+            </button>
+          </div>
         </div>
 
         {/* Navigation */}
@@ -3306,6 +3379,7 @@ export default function App() {
                     key={tab.id}
                     onClick={() => setOpenSections(s => ({ ...s, [tab.id]: !s[tab.id] }))}
                     className={`w-full flex items-center justify-between px-2 pb-0.5 select-none hover:text-surface-400 transition-colors ${i === 0 ? 'pt-1' : 'pt-3'}`}
+                    {...(TOUR_HEADING_IDS[tab.id] ? { 'data-tour': TOUR_HEADING_IDS[tab.id] } : {})}
                   >
                     <span className="text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em]">
                       {tab.heading}
@@ -3325,6 +3399,7 @@ export default function App() {
                     ${activeTab === tab.id
                       ? 'text-gold-300 bg-gold-900/30'
                       : 'text-muted hover:text-cream'}`}
+                  {...(TOUR_NAV_IDS[tab.id] ? { 'data-tour': TOUR_NAV_IDS[tab.id] } : {})}
                 >
                   <span className="flex-1 min-w-0">
                     {script === 'devanagari'
@@ -3690,9 +3765,11 @@ export default function App() {
               <span className="truncate">{prevTab?.footerLabel ?? ''}</span>
             </span>
           </button>
-          <span className="flex-shrink-0 text-xs font-mono text-surface-600 px-2 select-none">
-            {currentTabIdx + 1}/{NAVIGABLE_TABS.length}
-          </span>
+          {footerInstruction && (
+            <span className="flex-shrink-0 px-1 text-center select-none">
+              {footerInstruction}
+            </span>
+          )}
           <button
             onClick={() => nextTab && handleTabChange(nextTab.id)}
             disabled={!nextTab}

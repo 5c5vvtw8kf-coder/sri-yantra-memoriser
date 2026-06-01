@@ -207,8 +207,10 @@ export default function C5View({
       for (let i = 1; i <= 10; i++) fills[triangleIdForSeq(i)] = RED
     } else {
       for (let i = 1; i <= 10; i++) fills[triangleIdForSeq(i)] = ACTIVE_REGION
-      if (selectedDeity) fills[triangleIdForSeq(selectedDeity.sequenceInSection)] = RED
-      else if (highlightId) { const hd = deityById[highlightId]; if (hd) fills[triangleIdForSeq(hd.sequenceInSection)] = RED }
+      const focusDeity = selectedDeity
+        || (hoveredDot ? deityById[hoveredDot.id] : null)
+        || (highlightId ? deityById[highlightId] : null)
+      if (focusDeity) fills[triangleIdForSeq(focusDeity.sequenceInSection)] = RED
     }
     return fills
   })()
@@ -306,17 +308,6 @@ export default function C5View({
       </div>
 
       {done && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
-
-      {!memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          Hover or click any triangle to reveal the deity
-        </p>
-      )}
-      {memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
 
 
     </div>

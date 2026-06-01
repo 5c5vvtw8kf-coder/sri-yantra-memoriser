@@ -149,8 +149,8 @@ export default function C9View({
               <circle
                 cx={bx.toFixed(1)} cy={by.toFixed(1)}
                 r={8}
-                fill={selected ? RED : fillAll ? RED : "#fff8c8"}
-                opacity={selected || fillAll ? 1 : 0.85} />
+                fill={selected ? RED : (fillAll || hovered) ? RED : "#fff8c8"}
+                opacity={selected || fillAll || hovered ? 1 : 0.85} />
             </g>
           )}
 
@@ -213,22 +213,7 @@ export default function C9View({
           </div>
         )}
       </div>
-
-      {!memorise && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          Hover or click the dot to reveal the deity
-        </p>
-      )}
-      {memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
-
-
-
       <div className="h-8" />
-
     </div>
   )
 }

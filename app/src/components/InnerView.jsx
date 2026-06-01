@@ -410,18 +410,6 @@ export default function InnerView({
       </div>
 
 
-      {!memorise && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          Hover or click any dot to reveal the deity
-        </p>
-      )}
-      {memorise && !done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
-
-
 
       <div className="h-8" />
 
