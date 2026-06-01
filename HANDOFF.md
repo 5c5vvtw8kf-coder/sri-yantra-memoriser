@@ -2,7 +2,7 @@
 
 **Date:** 1 June 2026
 **Branch:** master
-**Last commit:** Tour, hover fills, footer instruction, corner dots, file repairs
+**Last commit:** Spot Check instruction moved to footer bar
 **Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan)
 
 ---

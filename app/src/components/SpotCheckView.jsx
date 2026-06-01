@@ -675,35 +675,8 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
           </div>
         </div>
         )}
-        <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
         </>
       )}
-
-      {/* Completion overlay */}
-      {done && (
-        <CompletionOverlay
-          correct={correct}
-          total={total}
-          onRestart={startNewRound}
-        />
-      )}
-
-      {/* Previous round summary */}
-      {!done && prevResults && (() => {
-        const pC = Object.values(prevResults).filter(v => v === 'correct').length
-        const pT = Object.keys(prevResults).length
-        return (
-          <div className="pt-1 border-t border-surface-800">
-            <p className="text-xs text-muted font-mono uppercase tracking-widest mb-1">Last round</p>
-            <p className="text-xs">
-              <span className="text-red-400">{pC}</span>
-              <span className="text-muted">/{pT} memorised</span>
-            </p>
-          </div>
-        )
-      })()}
 
     </div>
   )

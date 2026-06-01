@@ -2582,11 +2582,12 @@ export default function App() {
     (activeTab === 'closing'      && closingMemorise)   ||
     (activeTab === 'nyasa'        && nyasaMemorise)     ||
     (activeTab === 'inner'        && innerMemorise)     ||
-    (activeTab === 'gurava'       && guravaMemorse)
+    (activeTab === 'gurava'       && guravaMemorse)  ||
+    activeTab === 'spotcheck'    // Spot Check is always in recall mode
 
   const EXPLORE_TABS = new Set([
     'bhupura','c2','c3','c4','c5','c6','c7','c8','c9',
-    'chakreshvari','closing','nyasa','inner','gurava',
+    'chakreshvari','closing','nyasa','inner','gurava','spotcheck',
   ])
   const EXPLORE_HINT = {
     bhupura:      'Hover or click any dot to reveal the deity',
