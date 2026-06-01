@@ -57,17 +57,6 @@ const CIRCUIT_STORE = {
   'circuit-7': 'c7',      'circuit-8': 'c8', 'circuit-9': 'c9',
 }
 
-const CIRCUIT_EXTRA_SEQS = {
-  'circuit-1': { svamini: 29, yogini: 30 },
-  'circuit-2': { svamini: 17, yogini: 18 },
-  'circuit-3': { svamini:  9, yogini: 10 },
-  'circuit-4': { svamini: 15, yogini: 16 },
-  'circuit-5': { svamini: 11, yogini: 12 },
-  'circuit-6': { svamini: 11, yogini: 12 },
-  'circuit-7': { svamini:  9, yogini: 10 },
-  'circuit-8': { svamini:  8, yogini:  9 },
-  'circuit-9': { svamini:  2, yogini:  3 },
-}
 
 // ── Status helpers ────────────────────────────────────────────────────────────
 
@@ -116,44 +105,17 @@ const STATUS_DISPLAY = {
 
 // ── Build combined row list ───────────────────────────────────────────────────
 
-const circuitSections = sections.filter(s => s.type === 'circuit')
-
-const allCircuitsMaxChant = deities
-  .filter(d => d.sectionId in CIRCUIT_STORE)
-  .reduce((max, d) => Math.max(max, d.sequenceInChant), 0)
-
 const DEITY_ROWS = deities
   .filter(d => STOTRA_SECTION_IDS.has(d.sectionId))
   .sort((a, b) => a.sequenceInChant - b.sequenceInChant)
   .map(d => ({
     rowType: 'deity', rowKey: d.id, sectionId: d.sectionId,
-    seqNum: d.sequenceInChant, scripts: d.scripts, deity: d,
+    seqNum: d.sequenceInChant - 1, scripts: d.scripts, deity: d,
     sortKey: d.sequenceInChant, store: null, resultKey: null,
   }))
 
-const EXTRA_ROWS = circuitSections.flatMap(section => {
-  const sectionId = `circuit-${section.circuitNumber}`
-  const store     = CIRCUIT_STORE[sectionId]
-  const seqs      = CIRCUIT_EXTRA_SEQS[sectionId]
-  if (!store || !seqs) return []
-  const base = allCircuitsMaxChant + section.circuitNumber * 2
-  return [
-    {
-      rowType: 'svamini', rowKey: `svamini-${sectionId}`, sectionId,
-      seqNum: null,
-      scripts: { iast: section.chakraSvaminiIast || section.chakraSvamini, english: section.chakraSvamini, devanagari: section.chakraSvaminiIast || section.chakraSvamini },
-      sortKey: base, store, resultKey: seqs.svamini,
-    },
-    {
-      rowType: 'yogini', rowKey: `yogini-${sectionId}`, sectionId,
-      seqNum: null,
-      scripts: { iast: section.yoginiTypeIast || section.yoginiType, english: section.yoginiType, devanagari: section.yoginiTypeIast || section.yoginiType },
-      sortKey: base + 1, store, resultKey: seqs.yogini,
-    },
-  ]
-})
 
-const ALL_STATIC_ROWS = [...DEITY_ROWS, ...EXTRA_ROWS]
+const ALL_STATIC_ROWS = [...DEITY_ROWS]
   .sort((a, b) => a.sortKey - b.sortKey)
 
 // ── Store keys ────────────────────────────────────────────────────────────────

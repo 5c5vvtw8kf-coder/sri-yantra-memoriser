@@ -242,19 +242,25 @@ function SecrecyBar({ selectedSection }) {
 
 // ── Main Component ──────────────────────────────────────────────────────────
 
+// Selectable intro items under the Introduction heading
+const INTRO_ITEMS = [
+  { id: 'prarthana', label: 'Prārthana' },
+  { id: 'dhyanam',   label: 'Dhyānam' },
+]
+const ALL_NAV_IDS = [...INTRO_ITEMS.map(i => i.id), ...sections.map(s => s.id)]
+
 export default function CircuitBrowser({ script = 'iast' }) {
-  const [selectedId, setSelectedId] = useState('circuit-1')
+  const [selectedId, setSelectedId] = useState('prarthana')
 
   const selectedSection = sections.find(s => s.id === selectedId)
 
-  // Navigate between sections
-  const sectionIds = sections.map(s => s.id)
-  const currentIdx = sectionIds.indexOf(selectedId)
+  // Navigate across all items (intro + sections)
+  const currentIdx = ALL_NAV_IDS.indexOf(selectedId)
   const canPrev = currentIdx > 0
-  const canNext = currentIdx < sectionIds.length - 1
+  const canNext = currentIdx < ALL_NAV_IDS.length - 1
 
   const navigate = (dir) => {
-    const next = sectionIds[currentIdx + dir]
+    const next = ALL_NAV_IDS[currentIdx + dir]
     if (next) setSelectedId(next)
   }
 
@@ -263,7 +269,24 @@ export default function CircuitBrowser({ script = 'iast' }) {
 
       {/* ── Left panel: section list ── */}
       <div className="w-64 flex-shrink-0 border-r border-surface-700 overflow-y-auto hidden md:block">
+        {/* Introduction heading + Prārthana / Dhyānam items */}
         <div className="p-3 text-xs font-medium uppercase tracking-widest text-muted border-b border-surface-700">
+          Introduction
+        </div>
+        {INTRO_ITEMS.map(item => (
+          <button
+            key={item.id}
+            onClick={() => setSelectedId(item.id)}
+            className={`section-item iast ${selectedId === item.id ? 'selected' : 'text-muted'}`}
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-5 flex-shrink-0" />
+              <span className="font-medium">{item.label}</span>
+            </div>
+          </button>
+        ))}
+
+        <div className="p-3 text-xs font-medium uppercase tracking-widest text-muted border-b border-surface-700 mt-2">
           Preamble
         </div>
         {sections.filter(s => s.type === 'preamble').map(s => (
@@ -276,7 +299,7 @@ export default function CircuitBrowser({ script = 'iast' }) {
         ))}
 
         <div className="p-3 text-xs font-medium uppercase tracking-widest text-muted border-b border-surface-700 mt-2">
-          Nine Circuits
+          Nine Āvaraṇas
         </div>
         {sections.filter(s => s.type === 'circuit').map(s => (
           <SectionListItem
@@ -311,12 +334,17 @@ export default function CircuitBrowser({ script = 'iast' }) {
               value={selectedId}
               onChange={e => setSelectedId(e.target.value)}
             >
+              <optgroup label="Introduction">
+                {INTRO_ITEMS.map(i => (
+                  <option key={i.id} value={i.id}>{i.label}</option>
+                ))}
+              </optgroup>
               <optgroup label="Preamble">
                 {sections.filter(s => s.type === 'preamble').map(s => (
                   <option key={s.id} value={s.id}>{s.label}</option>
                 ))}
               </optgroup>
-              <optgroup label="Nine Circuits">
+              <optgroup label="Nine Āvaraṇas">
                 {sections.filter(s => s.type === 'circuit').map(s => (
                   <option key={s.id} value={s.id}>{s.label}</option>
                 ))}
@@ -328,6 +356,77 @@ export default function CircuitBrowser({ script = 'iast' }) {
               </optgroup>
             </select>
           </div>
+
+          {/* ── Intro items (conditional) ── */}
+          {selectedId === 'prarthana' && (
+            <div className="space-y-3">
+              <p className="text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em]">Prārthana, Prayer</p>
+              <div className="bg-surface-800 rounded-lg p-3 border border-surface-700">
+                <p className="iast text-gold-400 text-xs leading-relaxed whitespace-pre-line">{
+`hrīṅkārāsanagarbhitānalaśikhāṃ sauḥ klīṃ kalāṃ bibhratīṃ
+sauvarṇāmbaradhāriṇīṃ varasudhādhautāṃ triṇētrōjjvalām |
+vandē pustakapāśamaṅkuśadharāṃ sragbhūṣitāmujjvalāṃ
+tvāṃ gaurīṃ tripurāṃ parātparakalāṃ śrīcakrasañcāriṇīm ||`
+                }</p>
+              </div>
+              <p className="text-muted text-xs leading-relaxed italic">
+                I worship You, Gaurī, Tripurā, the supreme transcendent art, who moves through the Śrīcakra, blazing on Hrīṃ's seat, bearing the flame and the digits of Sauḥ and Klīṃ; robed in gold; gleaming with nectar divine; resplendent with three eyes; holding the book, the noose, and the goad; adorned with garlands.
+              </p>
+              <div className="bg-surface-800 rounded-lg p-3 border border-surface-700">
+                <p className="iast text-gold-400 text-xs leading-relaxed">
+                  asya śrīśuddhaśaktimālāmahāmantrasya, upasthēndriyādhiṣṭhāyī varuṇāditya ṛṣiḥ, daivī gāyatrī chandaḥ, sāttvika kakārabhaṭṭārakapīṭhasthita kāmēśvarāṅkanilayā mahākāmēśvarī śrī lalitā bhaṭṭārikā dēvatā, aiṃ bījaṃ klīṃ śaktiḥ sauḥ kīlakaṃ mama khaḍgasiddhyarthē sarvābhīṣṭasiddhyarthē japē viniyōgaḥ | mūlamantrēṇa ṣaḍaṅganyāsaṃ kuryāt ||
+                </p>
+              </div>
+              <p className="text-muted text-xs leading-relaxed italic">
+                Of this Śrī Śuddha Śakti Mālā Mahāmantra: Varuṇāditya, presiding over the organ of generation, is the seer (ṛṣi); the divine Gāyatrī is the metre (chandas); the sattvic Mahākāmēśvarī, Śrī Lalitā Bhaṭṭārikā, who abides on the lap of Kāmēśvara enthroned at the Kakāra shrine, is the presiding deity (dēvatā); Aiṃ is the seed (bīja); Klīṃ is the power (śakti); Sauḥ is the pin (kīlaka). For the purpose of japa, for attaining Khaḍga-siddhi and the fulfilment of all desires, the application (viniyōga) is declared. The six-limbed nyāsa is to be performed with the root mantra.
+              </p>
+            </div>
+          )}
+
+          {selectedId === 'dhyanam' && (
+            <div className="space-y-3">
+              <p className="text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em]">Dhyānam, Meditation</p>
+              <div className="bg-surface-800 rounded-lg p-3 border border-surface-700">
+                <p className="iast text-gold-400 text-xs leading-relaxed">
+                  tādṛśaṃ khaḍgamāpnoti yēna hastasthitēna vai | aṣṭādaśa mahādvīpa samrāḍ bhoktā bhaviṣyati ||
+                </p>
+              </div>
+              <p className="text-muted text-xs leading-relaxed italic">
+                One who obtains such a sword as this, bearing it in hand, shall become the sovereign enjoyer of all eighteen great island-continents.
+              </p>
+              <div className="bg-surface-800 rounded-lg p-3 border border-surface-700">
+                <p className="iast text-gold-400 text-xs leading-relaxed whitespace-pre-line">{
+`āraktābhāṃ triṇetrāmaruṇimavasanāṃ ratnatāṭaṅkaramyāṃ |
+hastāmbhōjaissapāśāṅkuśamadanadhanussāyakairvisphurantīm |
+āpīnōttuṅgavakṣōruhakalaśaluṭhattārahārōjjvalāṅgīṃ |
+dhyāyēdambhōruhasthāmaruṇimavasanāmīśvarīmīśvarāṇām ||`
+                }</p>
+              </div>
+              <p className="text-muted text-xs leading-relaxed italic">
+                Meditate on the Goddess of goddesses, red as the rising sun, three-eyed, beautiful with jewelled earrings; her lotus hands bearing the noose, the goad, and Kāmadeva's bow and arrows; her body radiant, a garland of gems hanging over her full, high breasts; clad in red.
+              </p>
+              <div className="bg-surface-800 rounded-lg p-3 border border-surface-700">
+                <p className="iast text-gold-400 text-xs leading-relaxed whitespace-pre-line">{
+`laṃ ityādi pañca pūjāṃ kuryāt, yathāśakti mūlamantraṃ japēt |
+laṃ pṛthivītattvātmikāyai śrīlalitātripurasundarī parābhaṭṭārikāyai gandhaṃ parikalpayāmi namaḥ
+haṃ ākāśatattvātmikāyai śrīlalitātripurasundarī parābhaṭṭārikāyai puṣpaṃ parikalpayāmi namaḥ
+yaṃ vāyutattvātmikāyai śrīlalitātripurasundarī parābhaṭṭārikāyai dhūpaṃ parikalpayāmi namaḥ
+raṃ tējastattvātmikāyai śrīlalitātripurasundarī parābhaṭṭārikāyai dīpaṃ parikalpayāmi namaḥ
+vaṃ amṛtatattvātmikāyai śrīlalitātripurasundarī parābhaṭṭārikāyai amṛtanaivēdyaṃ parikalpayāmi namaḥ
+saṃ sarvatattvātmikāyai śrīlalitātripurasundarī parābhaṭṭārikāyai tāmbūlādisarvōpacārān parikalpayāmi namaḥ`
+                }</p>
+              </div>
+              <p className="text-muted text-xs leading-relaxed italic">
+                Perform the sixfold worship beginning with Laṃ; chant the root mantra as many times as possible.
+                Laṃ — to Śrī Lalitā Tripurasundarī Parābhaṭṭārikā, embodiment of the earth element, I offer fragrance — salutations.
+                Haṃ — embodiment of the ether element, I offer flowers — salutations.
+                Yaṃ — embodiment of the wind element, I offer incense — salutations.
+                Raṃ — embodiment of the fire element, I offer light — salutations.
+                Vaṃ — embodiment of the nectar element, I offer nectar as food — salutations.
+                Saṃ — embodiment of all elements, I offer all ritual services beginning with betel — salutations.
+              </p>
+            </div>
+          )}
 
           {/* Depth indicator for circuits */}
           <SecrecyBar selectedSection={selectedSection} />

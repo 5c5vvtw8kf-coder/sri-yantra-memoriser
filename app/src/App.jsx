@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import CircuitBrowser from './components/CircuitBrowser'
+import ReferencesView from './components/ReferencesView'
 import IntroView from './components/IntroView'
 import SriYantraSVG from './components/SriYantraSVG'
 import NyasaView from './components/NyasaView'
@@ -60,8 +61,8 @@ const TABS = [
   { id: 'memomap',      navLabel: 'Memo Map',                      navLabelEn: 'Memo Map',                              navLabelDev: 'Memo Map',              footerLabel: 'Memo Map'             },
   { id: 'activity-log', navLabel: 'Activity Log',                  navLabelEn: 'Activity Log',                          navLabelDev: 'Activity Log',          footerLabel: 'Activity Log'         },
   { id: 'h-references', heading: 'REFERENCES' },
+  { id: 'browser',      navLabel: 'śrī devī khaḍgamālā stōtram',  navLabelEn: 'Sri Devi Khadgamala Stotram',          navLabelDev: 'श्री देवी खड्गमाला स्तोत्रम्', footerLabel: 'Khadgamala Stotram'   },
   { id: 'references',   navLabel: 'References',                    navLabelEn: 'References',                           navLabelDev: 'References',            footerLabel: 'References'           },
-  { id: 'browser',      navLabel: 'Circuit Browser',               navLabelEn: 'Circuit Browser',                      navLabelDev: 'Circuit Browser',       footerLabel: 'Circuit Browser'      },
 ]
 
 // Navigable tabs only (excludes heading entries — used for footer prev/next)
@@ -3642,12 +3643,7 @@ export default function App() {
             )}
             {activeTab === 'browser'      && <CircuitBrowser script={script} />}
             {activeTab === 'intro'        && <IntroView script={script} />}
-            {activeTab === 'references'   && (
-              <div className="flex flex-col items-center justify-center py-20 gap-3 text-center px-6">
-                <p className="text-gold-700 font-mono text-xs uppercase tracking-widest">Coming soon</p>
-                <p className="text-muted text-sm">References and source materials will be added here.</p>
-              </div>
-            )}
+            {activeTab === 'references'   && <ReferencesView />}
           </div>
 
           {/* Memomap renders outside the w-full wrapper so flex-1 min-h-0 gives
