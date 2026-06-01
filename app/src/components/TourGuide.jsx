@@ -15,7 +15,7 @@ const STEPS = [
     // No selector = centred welcome modal
     title: 'Welcome to Śrī Yantra Memoriser',
     body:
-      '<p>This app helps you learn the <em>Khadgamala Stotram</em>, over 300 deity ' +
+      '<p>This app helps you learn the <em>Khadgamala Stotram</em>, around 180 deity ' +
       'names, by building spatial memory of the Śrī Yantra geometry.</p>' +
       '<p>Rather than drilling a word list, you learn <em>where</em> each deity lives ' +
       'in the yantra. Spatial memory makes sequential recall natural.</p>',
@@ -235,7 +235,7 @@ function TourOverlay({ onDone }) {
 
         {/* Step counter */}
         <p style={{
-          fontSize: 10, color: '#4a3420',
+          fontSize: 10, color: '#c8600a',
           fontFamily: 'monospace', textTransform: 'uppercase',
           letterSpacing: '0.10em', marginBottom: 10,
         }}>

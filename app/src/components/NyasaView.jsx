@@ -173,7 +173,7 @@ function Tooltip({ x, y, label, fill, script }) {
       <text
         x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill={fill} fontFamily="serif"
+        fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif"
       >
         {label}
       </text>

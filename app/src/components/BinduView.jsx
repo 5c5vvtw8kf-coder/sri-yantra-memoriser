@@ -186,7 +186,7 @@ function Tooltip({ x, y, label, fill, script }) {
       />
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill={fill} fontFamily="serif">
+        fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
     </g>
@@ -274,7 +274,7 @@ export default function BinduView({ script = 'iast', onDeitySelect = () => {} })
             {!selectedId && !hoveredDot && (
               <text x={250} y={590} textAnchor="middle"
                 fontSize="8" fill={GOLD} opacity="0.35"
-                fontFamily="serif" fontStyle="italic">
+                fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
                 Tap any position to reveal the deity
               </text>
             )}

@@ -151,7 +151,7 @@ function AnswerSVGLabel({ label, script }) {
       <text
         x={tx} y={ty}
         textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill="#c9a84c" fontFamily="serif"
+        fontSize={fontSize} fill="#c9a84c" fontFamily="'Gentium Plus', Georgia, serif"
       >
         {label}
       </text>

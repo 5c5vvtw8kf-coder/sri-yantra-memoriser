@@ -100,7 +100,7 @@ function Tooltip({ x, y, label, script }) {
             fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6} />
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
             textAnchor="middle" dominantBaseline="middle"
-            fontSize={fontSize} fill={GOLD} fontFamily="serif">
+            fontSize={fontSize} fill={GOLD} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
     </g>

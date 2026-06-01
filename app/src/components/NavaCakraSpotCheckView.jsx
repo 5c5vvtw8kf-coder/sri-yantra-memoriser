@@ -151,7 +151,7 @@ function AnswerSVGLabel({ label, script }) {
         fill="rgba(15,8,5,0.92)" stroke="rgba(201,168,76,0.45)" strokeWidth={0.7}
       />
       <text x={tx} y={ty} textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill="#c9a84c" fontFamily="serif">
+        fontSize={fontSize} fill="#c9a84c" fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
     </g>
@@ -176,11 +176,11 @@ function AnswerSVGLabel2({ line1, line2, script }) {
         fill="rgba(15,8,5,0.92)" stroke="rgba(201,168,76,0.45)" strokeWidth={0.7}
       />
       <text x={tx} y={y1} textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill="#c9a84c" fontFamily="serif">
+        fontSize={fontSize} fill="#c9a84c" fontFamily="'Gentium Plus', Georgia, serif">
         {line1}
       </text>
       <text x={tx} y={y2} textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill="#c9a84c" fontFamily="serif" opacity="0.65">
+        fontSize={fontSize} fill="#c9a84c" fontFamily="'Gentium Plus', Georgia, serif" opacity="0.65">
         {line2}
       </text>
     </g>

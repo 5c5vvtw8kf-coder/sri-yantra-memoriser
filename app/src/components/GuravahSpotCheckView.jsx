@@ -142,7 +142,7 @@ function Tooltip({ x, y, label, script }) {
       />
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill={GOLD} fontFamily="serif">
+        fontSize={fontSize} fill={GOLD} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
     </g>
@@ -319,7 +319,7 @@ export default function GuravahSpotCheckView({
                 <text key={iast} x={sharedX} y={y.toFixed(1)}
                   textAnchor="end" dominantBaseline="middle"
                   fontSize="12" fill={GOLD} opacity={dim ? '0.20' : '0.65'}
-                  fontFamily="serif">
+                  fontFamily="'Gentium Plus', Georgia, serif">
                   {label}
                 </text>
               )

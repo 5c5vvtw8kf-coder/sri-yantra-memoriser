@@ -46,15 +46,15 @@ const TABS = [
   { id: 'nyasa',        navLabel: 'nyāsāṅga-devatāḥ',             navLabelEn: 'Nyāsa Deities',                         navLabelDev: 'न्यासांगदेवताः',        footerLabel: 'Nyāsa Deities'        },
   { id: 'inner',        navLabel: 'tithi-nitya-devatāḥ',           navLabelEn: 'Tithi Nitya Deities',                   navLabelDev: 'तिथिनित्यदेवताः',      footerLabel: 'Tithi Nitya'          },
   { id: 'gurava',       navLabel: 'guravaḥ',                       navLabelEn: 'Gurus',                                 navLabelDev: 'गुरवः',                 footerLabel: 'Guravaḥ'              },
-  { id: 'bhupura',      navLabel: 'cakra-prathamāvaraṇa-devatāḥ', navLabelEn: 'Deities of the Wheel of the 1st Veil', navLabelDev: 'चक्रप्रथमावरणदेवताः', footerLabel: '1st Āvaraṇa · Bhūpura' },
-  { id: 'c2',           navLabel: 'cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 2nd Veil', navLabelDev: 'चक्रद्वितीयावरणदेवताः',footerLabel: '2nd Āvaraṇa · 16 petals'},
-  { id: 'c3',           navLabel: 'cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 3rd Veil', navLabelDev: 'चक्रतृतीयावरणदेवताः', footerLabel: '3rd Āvaraṇa · 8 petals' },
-  { id: 'c4',           navLabel: 'cakra-caturthāvaraṇa-devatāḥ', navLabelEn: 'Deities of the Wheel of the 4th Veil', navLabelDev: 'चक्रचतुर्थावरणदेवताः',footerLabel: '4th Āvaraṇa · 14 △'    },
-  { id: 'c5',           navLabel: 'cakra-pañcamāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 5th Veil', navLabelDev: 'चक्रपञ्चमावरणदेवताः', footerLabel: '5th Āvaraṇa · 10 △'    },
-  { id: 'c6',           navLabel: 'cakra-ṣaṣṭhāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the Wheel of the 6th Veil', navLabelDev: 'चक्रषष्ठावरणदेवताः',  footerLabel: '6th Āvaraṇa · 10 △'    },
-  { id: 'c7',           navLabel: 'cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 7th Veil', navLabelDev: 'चक्रसप्तमावरणदेवताः', footerLabel: '7th Āvaraṇa · 8 △'     },
-  { id: 'c8',           navLabel: 'cakra-aṣṭamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the Wheel of the 8th Veil', navLabelDev: 'चक्राष्टमावरणदेवताः', footerLabel: '8th Āvaraṇa · Triangle' },
-  { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: 'Deities of the Wheel of the 9th Veil', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: '9th Āvaraṇa · Bindu'    },
+  { id: 'bhupura',      navLabel: 'cakra-prathamāvaraṇa-devatāḥ', navLabelEn: 'Deities of the 1st Avarana', navLabelDev: 'चक्रप्रथमावरणदेवताः', footerLabel: '1st Āvaraṇa' },
+  { id: 'c2',           navLabel: 'cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the 2nd Avarana', navLabelDev: 'चक्रद्वितीयावरणदेवताः',footerLabel: '2nd Āvaraṇa' },
+  { id: 'c3',           navLabel: 'cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the 3rd Avarana', navLabelDev: 'चक्रतृतीयावरणदेवताः', footerLabel: '3rd Āvaraṇa' },
+  { id: 'c4',           navLabel: 'cakra-caturthāvaraṇa-devatāḥ', navLabelEn: 'Deities of the 4th Avarana', navLabelDev: 'चक्रचतुर्थावरणदेवताः',footerLabel: '4th Āvaraṇa' },
+  { id: 'c5',           navLabel: 'cakra-pañcamāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the 5th Avarana', navLabelDev: 'चक्रपञ्चमावरणदेवताः', footerLabel: '5th Āvaraṇa' },
+  { id: 'c6',           navLabel: 'cakra-ṣaṣṭhāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the 6th Avarana', navLabelDev: 'चक्रषष्ठावरणदेवताः',  footerLabel: '6th Āvaraṇa' },
+  { id: 'c7',           navLabel: 'cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the 7th Avarana', navLabelDev: 'चक्रसप्तमावरणदेवताः', footerLabel: '7th Āvaraṇa' },
+  { id: 'c8',           navLabel: 'cakra-aṣṭamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the 8th Avarana', navLabelDev: 'चक्राष्टमावरणदेवताः', footerLabel: '8th Āvaraṇa' },
+  { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: 'Deities of the 9th Avarana', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: '9th Āvaraṇa' },
   { id: 'chakreshvari', navLabel: 'navacakrēśvarī nāmāni',         navLabelEn: 'Names of the Nine Chakras',            navLabelDev: 'नवचक्रेश्वरी नामानि', footerLabel: 'Nava Chakreshvarī'   },
   { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets and Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMO MAP' },
@@ -247,7 +247,7 @@ const CIRCUIT_LABELS = {
 }
 
 function circuitLabel(circuitNumber, script) {
-  if (script === 'english') return `Wheel of the ${ordinal(circuitNumber)} Veil`
+  if (script === 'english') return `${ordinal(circuitNumber)} Āvaraṇa`
   const labels = CIRCUIT_LABELS[circuitNumber]
   if (!labels) return `Circuit ${circuitNumber}`
   return script === 'devanagari' ? labels.dev : labels.iast
@@ -258,7 +258,7 @@ function sectionName(section, field, script) {
   const iastKey = field + 'Iast'
   if (script === 'english') {
     if (field === 'avarana' && section.circuitNumber)
-      return `Wheel of the ${ordinal(section.circuitNumber)} Veil`
+      return `${ordinal(section.circuitNumber)} Āvaraṇa`
     return section[field] || section[iastKey] || ''
   }
   return section[iastKey] || section[field] || ''
@@ -373,18 +373,18 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate }) {
       <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
-          <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
+          <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
         </div>
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
-          <span className="text-gold-500">
+          <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>
             {sectionName(section, 'yoginiType', script)}
             {secrecy && <span className="text-muted ml-1">· {secrecy}</span>}
           </span>
         </div>
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
-          <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
+          <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
         </div>
       </div>
       {onNavigate && targetTab && (
@@ -410,18 +410,18 @@ function CircuitRows({ circuitNumber, script, onHoverFill = null }) {
     <div className="border-t border-surface-700 px-4 pb-4 pt-3 space-y-1.5 text-xs">
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
-        <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
+        <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
-        <span className="text-gold-500">
+        <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>
           {sectionName(section, 'yoginiType', script)}
           {secrecy && <span className="text-muted ml-1">· {secrecy}</span>}
         </span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
-        <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
+        <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
       </div>
     </div>
   )
@@ -2605,7 +2605,7 @@ export default function App() {
     chakreshvari: 'Hover any circuit to reveal its Tripura form',
     closing:      'Hover a number to illuminate the Yantra · tap to reveal the epithet',
   }
-  const INSTR_STYLE = { fontSize: '0.75rem', fontFamily: 'monospace', letterSpacing: '0.03em' }
+  const INSTR_STYLE = { fontSize: '0.75rem', fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '0.03em' }
   const memoInstr = (
     <span className="text-muted" style={INSTR_STYLE}>
       hover to reveal ·{' '}
@@ -2922,7 +2922,7 @@ export default function App() {
                     onMouseLeave={() => setInnerHighlightId(null)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
-                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -2971,7 +2971,7 @@ export default function App() {
                             onMouseLeave={() => setGuravaHighlightId(null)}
                           >
                             <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{n}.</span>
-                            <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                            <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                               {displayName(d, script)}
                             </span>
                           </div>
@@ -3012,7 +3012,7 @@ export default function App() {
                     onMouseLeave={() => setNyasaHighlightId(null)}
                   >
                     <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
-                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3056,7 +3056,7 @@ export default function App() {
                       onMouseLeave={() => setHighlight(null)}
                     >
                       <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
-                      <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                      <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                         {displayName(d, script)}
                       </span>
                     </div>
@@ -3095,7 +3095,7 @@ export default function App() {
                     onMouseLeave={() => setC2HighlightId(null)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
-                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3133,7 +3133,7 @@ export default function App() {
                     onMouseLeave={() => setNcHighlightCircuit(null)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
-                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3155,7 +3155,7 @@ export default function App() {
             <p className="font-mono uppercase tracking-widest text-xs text-muted pb-1.5">Deity</p>
             {c9d && (
               <p
-                className={`text-sm text-gold-400 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors cursor-default${script !== 'english' ? ' iast' : ''}`}
+                className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-400 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors cursor-default`}
                 onMouseEnter={() => setCircuitFillAll(true)}
                 onMouseLeave={() => setCircuitFillAll(false)}
               >
@@ -3193,7 +3193,7 @@ export default function App() {
                     onMouseLeave={() => setC8HighlightId(null)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
-                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3252,7 +3252,7 @@ export default function App() {
                           onMouseLeave={() => setBhupuraHighlightId(null)}
                         >
                           <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
-                          <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                          <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                             {displayName(d, script)}
                           </span>
                         </div>
@@ -3293,7 +3293,7 @@ export default function App() {
                     onMouseLeave={() => setClosingListHighlight(false)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
-                    <span className={`${script !== 'english' ? 'iast ' : ''}text-gold-400`}>
+                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3408,13 +3408,13 @@ export default function App() {
                   <button
                     key={tab.id}
                     onClick={() => setOpenSections(s => ({ ...s, [tab.id]: !s[tab.id] }))}
-                    className={`w-full flex items-center justify-between px-2 pb-0.5 select-none hover:text-surface-400 transition-colors ${i === 0 ? 'pt-1' : 'pt-3'}`}
+                    className={`w-full flex items-center justify-between px-2 pb-0.5 select-none hover:text-saffron-400 transition-colors ${i === 0 ? 'pt-1' : 'pt-3'}`}
                     {...(TOUR_HEADING_IDS[tab.id] ? { 'data-tour': TOUR_HEADING_IDS[tab.id] } : {})}
                   >
-                    <span className="text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em]">
+                    <span className="text-[11px] font-mono text-saffron-600 uppercase tracking-[0.12em]">
                       {tab.heading}
                     </span>
-                    <span className="text-surface-600 text-[10px]">{isOpen ? '▾' : '▸'}</span>
+                    <span className="text-saffron-600 text-[11px]">{isOpen ? '▾' : '▸'}</span>
                   </button>
                 )
               }
@@ -3463,7 +3463,7 @@ export default function App() {
 
         {/* Script selector */}
         <div className="px-3 py-3 border-t border-surface-800 flex-shrink-0">
-          <p className="text-[10px] font-mono text-surface-500 uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
+          <p className="text-[11px] font-mono text-saffron-600 uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
           <div className="flex gap-1 px-1">
             {[
               { id: 'iast',       label: 'IAST' },

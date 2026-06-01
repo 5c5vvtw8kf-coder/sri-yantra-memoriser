@@ -153,7 +153,7 @@ function Tooltip({ x, y, label, fill, script }) {
       />
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill={fill} fontFamily="serif">
+        fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
     </g>
@@ -275,7 +275,7 @@ export default function InnerView({
                   x={(ax1 + 12).toFixed(1)}
                   y={(ay1 + 4).toFixed(1)}
                   fontSize="12" fill={GOLD} opacity="0.65"
-                  fontFamily="serif" fontStyle="italic"
+                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="start">
                   Clockwise · waxing moon
                 </text>
@@ -307,7 +307,7 @@ export default function InnerView({
                   x={(ax1 - 8).toFixed(1)}
                   y={(ay1 + 4).toFixed(1)}
                   fontSize="12" fill={GOLD} opacity="0.65"
-                  fontFamily="serif" fontStyle="italic"
+                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="end">
                   Anti-clockwise · waning moon
                 </text>

@@ -143,7 +143,7 @@ function Tooltip({ x, y, label, fill, script }) {
       />
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill={fill} fontFamily="serif">
+        fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
     </g>
@@ -405,8 +405,8 @@ export default function BhupuraView({
               key={f.id}
               onClick={() => { setActiveFilter(f.id); setSelectedId(null); onDeitySelect(null) }}
               style={{
-                fontSize: 11,
-                fontFamily: 'serif',
+                fontSize: 12,
+                fontFamily: "'Inter', system-ui, sans-serif",
                 letterSpacing: '0.04em',
                 color: activeFilter === f.id
                   ? GOLD

@@ -151,7 +151,7 @@ function Tooltip({ x, y, label, fill, script }) {
       />
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill={fill} fontFamily="serif">
+        fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
     </g>
@@ -265,7 +265,7 @@ export default function GuravaView({
                 <text key={iast} x={sharedX} y={y.toFixed(1)}
                   textAnchor="end" dominantBaseline="middle"
                   fontSize="12" fill={GOLD} opacity="0.70"
-                  fontFamily="serif">
+                  fontFamily="'Gentium Plus', Georgia, serif">
                   {label}
                 </text>
               )
