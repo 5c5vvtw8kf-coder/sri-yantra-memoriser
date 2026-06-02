@@ -2,12 +2,23 @@
 
 **Date:** 2 June 2026
 **Branch:** master
-**Last commit:** Fix cream headings, reinstate circuit numbers for IAST and Devanagari
+**Last commit:** Next → button label, 700ms completion overlay delay for Nyasa/Inner/Gurava/NC views
 **Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan)
 
 ---
 
 ## What Was Completed This Session (2 June 2026 — second session)
+
+### Completion overlay — 700 ms delay (NyasaView, InnerView, GuravaView, NavaChakreshvariView)
+- `done` flag still computed immediately; `showCompletion` state trails it by 700ms via `useEffect` + `setTimeout`.
+- Overlay switches from `{done && (` to `{showCompletion && (` in all four views.
+- Gives user a window to right-click/toggle the last answer before the overlay appears.
+- `useEffect` cleanup clears the timer; resetting (`onStartMemorise`) resets `showCompletion` immediately.
+- ClosingView not affected (Chris did not report an issue there).
+
+### "Next circuit →" → "Next →"
+- Replaced in App.jsx (8× CxMemoriseInfo components), C2View–C7View.
+- C8View, C9View, GuravaView, InnerView, NavaChakreshvariView, NyasaView already used "Next →".
 
 ### Left sidebar — nav collapse button (re-implemented)
 - `navCollapsed` state added to App.jsx.
