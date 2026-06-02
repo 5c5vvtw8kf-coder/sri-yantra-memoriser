@@ -3408,13 +3408,13 @@ export default function App() {
                   <button
                     key={tab.id}
                     onClick={() => setOpenSections(s => ({ ...s, [tab.id]: !s[tab.id] }))}
-                    className={`w-full flex items-center justify-between px-2 pb-0.5 select-none hover:text-saffron-400 transition-colors ${i === 0 ? 'pt-1' : 'pt-3'}`}
+                    className={`w-full flex items-center justify-between px-2 pb-0.5 select-none hover:text-white transition-colors ${i === 0 ? 'pt-1' : 'pt-3'}`}
                     {...(TOUR_HEADING_IDS[tab.id] ? { 'data-tour': TOUR_HEADING_IDS[tab.id] } : {})}
                   >
-                    <span className="text-[11px] font-mono text-saffron-600 uppercase tracking-[0.12em]">
+                    <span className="text-[11px] font-mono text-cream uppercase tracking-[0.12em]">
                       {tab.heading}
                     </span>
-                    <span className="text-saffron-600 text-[11px]">{isOpen ? '▾' : '▸'}</span>
+                    <span className="text-cream text-[11px]">{isOpen ? '▾' : '▸'}</span>
                   </button>
                 )
               }
@@ -3463,7 +3463,7 @@ export default function App() {
 
         {/* Script selector */}
         <div className="px-3 py-3 border-t border-surface-800 flex-shrink-0">
-          <p className="text-[11px] font-mono text-saffron-600 uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
+          <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
           <div className="flex gap-1 px-1">
             {[
               { id: 'iast',       label: 'IAST' },
