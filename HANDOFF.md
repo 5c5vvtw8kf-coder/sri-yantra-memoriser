@@ -7,6 +7,39 @@
 
 ---
 
+## What Was Completed This Session (2 June 2026 — third session)
+
+### Memo Map — visual maps carousel
+
+**New file:** `app/src/components/MemoMapVisuals.jsx` (~600 lines)
+
+- 14-panel carousel, one panel per stotra section in chant order:
+  1. Nyāsāṅga — full Sri Yantra with 9 status-coloured overlay dots (body corners + gate positions)
+  2. Tithi Nitya — Korvin central triangle with 16 dots
+  3. Guravaḥ — Korvin trapezoid with 19 dots (three lineage rows)
+  4–10. 1st–7th Āvaraṇa — full Sri Yantra with target circuit status-coloured, all others dimmed
+  11. 8th Āvaraṇa — Korvin inner triangle with 7 dots
+  12. 9th Āvaraṇa — Korvin inner triangle with bindu dot
+  13. Nava Chakreshvarī — styled list with status rows
+  14. Śrīdevī Viśeṣaṇāni — styled list with status rows
+
+- **Navigation:** ← / → buttons with "N / total" counter and section label
+- **Filter toggle:** "All" shows all 14 panels; "✗ only" hides any section with no not-memorised items (jumps directly to weak spots). Shows "No sections with unmemorised items" when filter is active and nothing is weak.
+- **Status colours:** green = memorised, gold = partial, red = not memorised, barely-visible gold = not attempted
+- **Geometry:** Nyāsa dots use the 500×500 overlay coordinate system (same as NyasaView); Tithi Nitya / Guravah / C8 / C9 use `korvinGeometry.js` (same geometry as their respective Spot Check views); C1–C7 use `filledRegions` in SriYantraSVG with the `C4_ORDER`–`C7_ORDER` chant→geometric-deitySeq maps.
+
+**Modified:** `app/src/components/MemoMapView.jsx`
+
+- Added `import MemoMapVisuals` and `const [view, setView] = useState('list')`.
+- Maps | List toggle buttons added inline next to the "Memo Map" title (gold-highlighted active state).
+- Filter dropdowns and frozen table header are list-mode only (`{view === 'list' && ...}`).
+- Scrollable body conditionally renders `<MemoMapVisuals>` (maps mode) or existing table (list mode).
+- Existing table and all list filters remain fully intact — List mode is unchanged from previous session.
+
+**Commit needed:** nothing is committed yet — commit before deploying.
+
+---
+
 ## What Was Completed This Session (2 June 2026 — second session)
 
 ### Completion overlay — 700 ms delay (NyasaView, InnerView, GuravaView, NavaChakreshvariView)
@@ -96,15 +129,29 @@ The canonical dataset (Vignanam source) has **181 deity entries** across all sec
 ---
 
 ## Pending / suggested next
-- Mobile layout refactor (was priority last session — still pending):
+- **Memo Map maps — round 4 fixes applied (not yet committed):**
+  - **Maps is now the default view** when opening Memo Map
+  - **Status key** (✓/~/✗/— with descriptions) shown in List view only; Maps view is uncluttered
+  - **Svāminī / Yoginī boxes**: two coloured rounded-rect badges above each C1–C9 map. Colour = circuit aggregate status (green/orange/red/dim). Label always "Svāminī" / "Yoginī". Hover shows full name only when partial or not memorised (via `title` attribute).
+  - **Yantra image size** increased to `min(100%, 440px)` — bigger without overflowing
+  - **All / ✗ only filter removed** — carousel always shows all 14 maps
+  - **Amber partial** — `rgba(251,191,36,0.85)` / `text-amber-400` (warmer, more distinctly amber vs gold)
+  - **Svāminī + Yoginī as side boxes** — `CircuitSideBox` components sit left/right of each circuit map (flex row layout). Tooltip shows full name only on hover when partial/notMemorised. `tooltipSide` prop controls direction.
+  - **Larger yantra image** — `YantraContainer` now `w-full flex-1` (no max constraint); image fills available width minus the two 40px side boxes + gaps.
+  - **Maps/List buttons** moved below "Memo Map" heading, not inline with it.
+  - **Architecture notes:**
+    - `CircuitSideBox({ label, tipText, status, tooltipSide })` — coloured side pill with hover reveal tooltip
+    - `SectionHeader` removed; replaced by `CircuitSideBox` used in flex row in `KorvinBase`/`YantraContainer`
+    - Both container components now compute `circuitAggregateStatus` internally
+  - Commit after testing
+- Mobile layout refactor (still pending):
   1. Navigation — bottom tab bar or hamburger drawer on narrow screens
   2. Right panel — deity info as bottom sheet on mobile
   3. Touch events — SVG uses onMouseEnter/onMouseLeave; needs tap handling
-  4. BhupuraView filter strip — hardcoded `left: 208` assumes sidebar (apply same `sidebarRight` DOM-measurement pattern used in ClosingView)
+  4. BhupuraView filter strip — hardcoded `left: 208` (apply `sidebarRight` DOM-measurement pattern)
 - Feedback from friends — iterate based on responses
 - Khadgamala Stotram page: Telugu/Tamil scripts (data exists in vignanam.org)
 - Lineage editing (deferred — Stage 2)
-- Spot Check → Memo Map integration (deferred)
 - Domain: sriyantramem.org when ready to go public
 
 ---

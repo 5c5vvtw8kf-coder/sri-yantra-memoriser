@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { saveMemoStorage, loadMemoHistory, displayName } from '../utils.js'
+import MemoMapVisuals from './MemoMapVisuals'
 
 const { deities, sections } = data
 
@@ -147,6 +148,7 @@ function SharedColgroup() {
 // No sticky positioning needed — internal scroll handles everything.
 
 export default function MemoMapView({ allResults, script = 'iast' }) {
+  const [view,          setView]          = useState('maps')   // 'maps' | 'list'
   const [sectionFilter, setSectionFilter] = useState('all')
   const [statusFilter,  setStatusFilter]  = useState('all')
 
@@ -200,7 +202,18 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
         {/* Title + key + clear */}
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
-            <h1 className="text-cream text-sm font-medium">Memo Map</h1>
+            <h1 className="text-cream text-sm font-medium">Memory Map</h1>
+            <div className="flex gap-1 mt-2">
+              <button onClick={() => setView('maps')}
+                className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'maps' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>
+                Maps
+              </button>
+              <button onClick={() => setView('list')}
+                className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'list' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>
+                List
+              </button>
+            </div>
+            {view === 'list' && (
             <div className="space-y-0.5 text-[11px] font-mono">
               <div className="flex items-center gap-2">
                 <span className="text-red-400 w-3 flex-shrink-0">✓</span>
@@ -223,6 +236,7 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
                 <span className="text-muted">not attempted</span>
               </div>
             </div>
+            )}
           </div>
           <button
             onClick={handleClearAll}
@@ -239,8 +253,8 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
           <div className="h-full bg-slate-500 transition-all duration-300" style={{ width: `${notMemoisedPct}%` }} />
         </div>
 
-        {/* Filters */}
-        <div className="flex gap-2">
+        {/* Filters -- list mode only */}
+        {view === 'list' && <div className="flex gap-2">
           <select
             value={sectionFilter}
             onChange={e => setSectionFilter(e.target.value)}
@@ -262,10 +276,10 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
             <option value="notMemorised">✗ Not memorised</option>
             <option value="notAttempted">— Not attempted</option>
           </select>
-        </div>
+        </div>}
 
-        {/* Frozen table header row */}
-        <div className="border border-surface-700 rounded-t-lg overflow-hidden">
+        {/* Frozen table header row -- list mode only */}
+        {view === 'list' && <div className="border border-surface-700 rounded-t-lg overflow-hidden">
           <table className="w-full table-fixed text-xs">
             <SharedColgroup />
             <thead>
@@ -277,12 +291,20 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
               </tr>
             </thead>
           </table>
-        </div>
+        </div>}
 
       </div>{/* end frozen */}
 
-      {/* ── Scrollable table body ── */}
-      <div className="flex-1 overflow-y-auto -mt-px pb-4">
+      {/* -- Scrollable body -- */}
+      <div className="flex-1 overflow-y-auto pb-4">
+
+        {/* Maps view */}
+        {view === 'maps' && (
+          <MemoMapVisuals allHistory={allHistory} script={script} />
+        )}
+
+        {/* List view */}
+        {view === 'list' && <>
         <div className="border-x border-b border-surface-700 rounded-b-lg overflow-hidden">
           <table className="w-full table-fixed text-xs">
             <SharedColgroup />
@@ -326,6 +348,8 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
             {sectionFilter !== 'all' || statusFilter !== 'all' ? ' (filtered)' : ''}
           </p>
         )}
+        </>}
+
       </div>
 
     </div>

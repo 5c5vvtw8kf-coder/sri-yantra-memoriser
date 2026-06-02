@@ -57,9 +57,9 @@ const TABS = [
   { id: 'c9',           navLabel: '9. cakra-navamāvaraṇa-devatāḥ',    navLabelEn: '9th Enclosure Goddess', navLabelDev: '९. चक्रनवमावरणदेवताः',   footerLabel: '9th Āvaraṇa' },
   { id: 'chakreshvari', navLabel: 'navacakrēśvarī nāmāni',         navLabelEn: 'Names of the Nine Chakras',            navLabelDev: 'नवचक्रेश्वरी नामानि', footerLabel: 'Nava Chakreshvarī'   },
   { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets and Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
-  { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMO MAP' },
+  { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP' },
   { id: 'spotcheck',    navLabel: 'Spot Check',                    navLabelEn: 'Spot Check',                           navLabelDev: 'Spot Check',            footerLabel: 'Spot Check'           },
-  { id: 'memomap',      navLabel: 'Memo Map',                      navLabelEn: 'Memo Map',                              navLabelDev: 'Memo Map',              footerLabel: 'Memo Map'             },
+  { id: 'memomap',      navLabel: 'Memory Map',                      navLabelEn: 'Memory Map',                              navLabelDev: 'Memory Map',              footerLabel: 'Memory Map'             },
   { id: 'activity-log', navLabel: 'Activity Log',                  navLabelEn: 'Activity Log',                          navLabelDev: 'Activity Log',          footerLabel: 'Activity Log'         },
   { id: 'h-references', heading: 'REFERENCES' },
   { id: 'browser',      navLabel: 'śrī devī khaḍgamālā stōtram',  navLabelEn: 'Sri Devi Khadgamala Stotram',          navLabelDev: 'श्री देवी खड्गमाला स्तोत्रम्', footerLabel: 'Khadgamala Stotram'   },
@@ -1815,6 +1815,25 @@ function YantraView({
 
 // ── Main App ──────────────────────────────────────────────────────────────────
 
+// -- Section IAST labels for Explore/Memorise header -------------------------
+
+const SECTION_IAST_LABELS = {
+  nyasa:       'Nyāsāṅga Devatāḥ',
+  inner:       'Tithi Nitya Devatāḥ',
+  gurava:      'Guravaḥ',
+  bhupura:     '1st Āvaraṇa',
+  c2:          '2nd Āvaraṇa',
+  c3:          '3rd Āvaraṇa',
+  c4:          '4th Āvaraṇa',
+  c5:          '5th Āvaraṇa',
+  c6:          '6th Āvaraṇa',
+  c7:          '7th Āvaraṇa',
+  c8:          '8th Āvaraṇa',
+  c9:          '9th Āvaraṇa',
+  chakreshvari:'Nava Chakreshvarī',
+  closing:     'Śrīdevī Viśeṣaṇāni',
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('yantra')
   const [script,    setScript]    = useState('iast')
@@ -3511,7 +3530,10 @@ export default function App() {
       <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
         {/* Scrollable content area */}
-        <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto pt-8">
+        <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto pt-8 relative">
+          {SECTION_IAST_LABELS[activeTab] && (
+            <p className="iast text-center text-cream/60 text-sm px-4 select-none pointer-events-none absolute top-3 left-0 right-0 z-10">{SECTION_IAST_LABELS[activeTab]}</p>
+          )}
           <div className="w-full" style={{ maxWidth: 'min(100%, calc(100vh - 6rem))' }}>
             {activeTab === 'yantra'  && (
               <div className="w-full p-4">

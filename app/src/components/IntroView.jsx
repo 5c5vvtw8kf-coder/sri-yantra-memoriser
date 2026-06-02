@@ -126,7 +126,7 @@ export default function IntroView({ script = 'iast' }) {
             focus object in your mind before hovering over it to reveal the deity and recording
             whether it is memorised or not. Then further test your recall with the random{' '}
             <span className="text-gold-400">Spot Check</span> feature. The{' '}
-            <span className="text-gold-400">Memo Map</span> exists to map out your strengths and
+            <span className="text-gold-400">Memory Map</span> exists to map out your strengths and
             weaknesses and where to focus further efforts.
           </p>
           <p className="text-muted text-xs leading-relaxed">

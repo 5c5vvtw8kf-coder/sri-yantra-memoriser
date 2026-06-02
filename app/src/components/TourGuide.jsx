@@ -25,7 +25,7 @@ const STEPS = [
     title: 'Navigation',
     body:
       'The sidebar lists the main chant sections — Nyāsa Deities, Gurus, all nine ' +
-      'āvaraṇas through to the bindu — plus tools like Spot Check and Memo Map. ' +
+      'āvaraṇas through to the bindu — plus tools like Spot Check and Memory Map. ' +
       'The Prārthana and Dhyānam are on the full stotram page. Click any section to open it.',
   },
   {
@@ -62,9 +62,9 @@ const STEPS = [
   },
   {
     selector: '[data-tour="nav-memomap"]',
-    title: 'Memo Map',
+    title: 'Memory Map',
     body:
-      'The <strong>Memo Map</strong> shows your progress across the entire yantra at a ' +
+      'The <strong>Memory Map</strong> shows your progress across the entire yantra at a ' +
       'glance — <span class="syt-tour-red">red</span> for memorised, ' +
       '<span class="syt-tour-gold">gold</span> for still learning.',
   },
