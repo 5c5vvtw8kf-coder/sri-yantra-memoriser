@@ -6,16 +6,17 @@ Paste the block between the lines below at the start of the next session.
 
 Sri Yantra Memoriser — session handoff.
 Project: React/Vite/Tailwind web app for memorising the Khadgamala Stotra by spatial recall of the Sri Yantra geometry. No backend, no auth.
-Workspace: C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser\
+Workspace: C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser
 Start-of-session checklist:
 
 1. Read CLAUDE.md and HANDOFF.md in the workspace root.
 2. Check what files exist in the workspace folder.
 3. Ask Chris what he wants to work on before starting anything.
-Last commit: Spot Check instruction moved to footer bar + tour deity count corrected (around 180, not 300)
+
+Last commit: Typography and colour polish: saffron headings, Gentium Plus consistency, font size fixes (1bbcc89)
 Live URL: https://app-one-sigma-31.vercel.app
 Redeploy: cd app && npm run build && vercel --prod
-Git: run from repo root (Sri Yantra Memoriser\), not from app\ subfolder.
+Git: run from repo root (Sri Yantra Memoriser), not from app\ subfolder.
 
 What's working:
 
@@ -27,25 +28,34 @@ What's working:
 * References page
 * Site tour: 9-step guided tour, auto-triggers on first visit, ? button to replay
 * Hover fills: hovering any dot/petal/triangle in Explore mode fills it red
-* Footer instruction bar: context-aware per tab, replaces n/N counter; font 0.75rem
-* Nava Chakreshvarī memo: two-line footer instruction
-* ClosingView: ↑ arrow + "Ascent to the top from here" at 0.75rem
-* BhupuraView: hovered/highlighted dot rendered on top (z-order fix)
+* Footer instruction bar: context-aware per tab, Inter font, 0.75rem
+* Typography: saffron sidebar headings (11px), Gentium Plus across nav + right panel deity lists, SVG tooltips
 * Base font 19px
 * Deployed live on Vercel (Hobby plan)
 
-Pending / suggested next:
+Priority for next session — Mobile layout refactor:
 
-* Test tour on mobile (popover may need responsive tweaks on narrow viewports)
+The app is hard to use on mobile in its current state (Chris tested live URL on phone). Layout assumes desktop (sidebar + main + right panel simultaneously). On ~375px the yantra is too small to use.
+
+Four things needed for minimum viable mobile:
+1. Navigation — left sidebar collapses on narrow screens; replace with bottom tab bar or hamburger drawer
+2. Right panel — disappears on mobile; deity info slides up as a bottom sheet (C2View's DeityPanel already works this way — extend to all other views)
+3. Touch events — SVG uses onMouseEnter/onMouseLeave which don't fire on touch; tap needs to handle reveal and dismiss
+4. BhupuraView filter strip — hardcoded left: 208 assumes sidebar; needs repositioning on mobile
+
+Suggested breakpoint: 768px (Tailwind md:). The yantra SVG itself scales fine via viewBox — everything around it needs rethinking.
+
+Other pending:
+
 * Feedback from friends — iterate based on responses
 * Khadgamala Stotram page further refinement
 * Lineage editing (deferred)
 * Spot Check → Memo Map integration (deferred)
 * Domain: sriyantramem.org when ready to go public
 
-Environment note: git CANNOT be run from the Cowork sandbox — this folder is OneDrive-synced. All git commands must be run by Chris in a Windows terminal from the repo root (Sri Yantra Memoriser\), not the app\ subfolder.
+Environment note: git CANNOT be run from the Cowork sandbox — this folder is OneDrive-synced. All git commands must be run by Chris in a Windows terminal from the repo root (Sri Yantra Memoriser), not the app\ subfolder.
 
-File truncation warning: OneDrive can truncate files mid-write during sandbox sessions. Pattern: file ends with null bytes or mid-JSX. Fix: strip null bytes + append correct closing structure. Commit frequently to preserve working state.
+File truncation warning: OneDrive can truncate files mid-write during sandbox sessions. Pattern: file ends with null bytes or mid-JSX. After every sed operation: strip null bytes with python3, verify tail -6 shows clean closing structure, check line count matches git. Commit frequently.
 
 Data note: The canonical dataset has 181 deity entries (Vignanam source). Tour says "around 180" — do not revert to "over 300".
 

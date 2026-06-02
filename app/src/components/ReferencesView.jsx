@@ -41,27 +41,30 @@ export default function ReferencesView() {
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-6 space-y-10">
 
-      {/* Study Resources */}
+      {/* ── Recordings ───────────────────────────────────────────────────────── */}
       <section>
-        <SectionHeading>Courses</SectionHeading>
+        <SectionHeading>Recordings</SectionHeading>
 
-        <div className="space-y-3">
-          <ResourceCard
-            title="Śrīvidyā: Tantric Wisdom of the Goddess"
-            subtitle="Dr. Anya Golovkova · Yogic Studies · YS 133"
-            description="4-week self-study course. Covers the Vāmakeśvarīmata and Yoginīhṛdaya tantras, the historical development of Śrīvidyā, and the Śrīcakra's ritual structure. Dr. Golovkova (Cornell PhD) is the leading English-language academic on Śrīvidyā."
-            url="https://www.yogicstudies.com/ys-133"
-            urlLabel="yogicstudies.com/ys-133"
-          />
+        <ResourceCard
+          title="Khaḍgamālā Stotram authentic"
+          subtitle="Sri Vidyalay · YouTube"
+          description="Reference recording used for this app."
+          url="https://youtu.be/Ro701GJzg4c?si=YPV1Uwy-B8VFCHoD"
+          urlLabel="youtu.be/Ro701GJzg4c"
+        />
+      </section>
 
-          <ResourceCard
-            title="Elementary Sanskrit I, II, III"
-            subtitle="Dr. Antonia M. Ruppel · Yogic Studies · SKT 101, 102, 103"
-            description="Based on her Cambridge Introduction to Sanskrit (CUP, 2017). Dr. Ruppel has taught Sanskrit at Cornell, Oxford, and LMU Munich for over 20 years. Intermediate and advanced courses also available."
-            url="https://www.yogicstudies.com/faculty/antonia-ruppel"
-            urlLabel="yogicstudies.com/faculty/antonia-ruppel"
-          />
-        </div>
+      {/* ── Text Source ───────────────────────────────────────────────────────── */}
+      <section>
+        <SectionHeading>Canonical Text Source</SectionHeading>
+
+        <ResourceCard
+          title="Vaidika Vignanam"
+          subtitle="vignanam.org"
+          description="Source for the canonical deity names in this app. Khaḍgamālā Stotram in IAST, Devanāgarī, Telugu, Tamil, Kannada, Malayalam and more."
+          url="https://vignanam.org/english/sri-devi-khadgamala-stotram.html"
+          urlLabel="vignanam.org, Śrī Devī Khaḍgamālā Stotram"
+        />
       </section>
 
       {/* Sri Yantra Geometry */}
@@ -87,17 +90,27 @@ export default function ReferencesView() {
         </div>
       </section>
 
-      {/* ── Text Source ───────────────────────────────────────────────────────── */}
+      {/* Study Resources */}
       <section>
-        <SectionHeading>Canonical Text Source</SectionHeading>
+        <SectionHeading>Courses</SectionHeading>
 
-        <ResourceCard
-          title="Vaidika Vignanam"
-          subtitle="vignanam.org"
-          description="Source for the canonical deity names in this app. Khaḍgamālā Stotram in IAST, Devanāgarī, Telugu, Tamil, Kannada, Malayalam and more."
-          url="https://vignanam.org/english/sri-devi-khadgamala-stotram.html"
-          urlLabel="vignanam.org, Śrī Devī Khaḍgamālā Stotram"
-        />
+        <div className="space-y-3">
+          <ResourceCard
+            title="Śrīvidyā: Tantric Wisdom of the Goddess"
+            subtitle="Dr. Anya Golovkova · Yogic Studies · YS 133"
+            description="4-week self-study course. Covers the Vāmakeśvarīmata and Yoginīhṛdaya tantras, the historical development of Śrīvidyā, and the Śrīcakra's ritual structure. Dr. Golovkova (Cornell PhD) is the leading English-language academic on Śrīvidyā."
+            url="https://www.yogicstudies.com/ys-133"
+            urlLabel="yogicstudies.com/ys-133"
+          />
+
+          <ResourceCard
+            title="Elementary Sanskrit I, II, III"
+            subtitle="Dr. Antonia M. Ruppel · Yogic Studies · SKT 101, 102, 103"
+            description="Based on her Cambridge Introduction to Sanskrit (CUP, 2017). Dr. Ruppel has taught Sanskrit at Cornell, Oxford, and LMU Munich for over 20 years. Intermediate and advanced courses also available."
+            url="https://www.yogicstudies.com/faculty/antonia-ruppel"
+            urlLabel="yogicstudies.com/faculty/antonia-ruppel"
+          />
+        </div>
       </section>
 
       <div className="h-4" />

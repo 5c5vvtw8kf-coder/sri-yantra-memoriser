@@ -161,12 +161,12 @@ export default function ActivityLogView() {
                       key={i}
                       className="border-b border-surface-700/40 last:border-b-0 hover:bg-surface-800/50 transition-colors"
                     >
-                      <td className="px-3 py-2 text-muted">{fmtDate(entry.ts)}</td>
-                      <td className="px-3 py-2 text-muted">{fmtTime(entry.ts)}</td>
-                      <td className="px-3 py-2 iast text-gold-400 truncate">
+                      <td className="px-3 py-2 iast text-muted text-[15px]">{fmtDate(entry.ts)}</td>
+                      <td className="px-3 py-2 iast text-muted text-[15px]">{fmtTime(entry.ts)}</td>
+                      <td className="px-3 py-2 iast text-gold-400 truncate text-[15px]">
                         {SECTION_LABEL[entry.section] ?? entry.section}
                       </td>
-                      <td className={`px-3 py-2 text-right font-mono ${scoreClass}`}>
+                      <td className={`px-3 py-2 iast text-right text-[15px] ${scoreClass}`}>
                         {entry.correct}/{entry.total}
                       </td>
                     </tr>

@@ -135,7 +135,7 @@ function getRegionId(deity) {
 const ACTIVE_FILL  = 'rgba(255,248,200,0.90)'
 const ACTIVE_RED   = 'rgba(248,113,113,0.88)'   // correct = memorised = red
 const ACTIVE_GOLD  = 'rgba(201,168,76,0.80)'    // wrong = not memorised = gold
-const BG_DIM       = 'rgba(201,168,76,0.10)'
+const BG_DIM       = 'rgba(138,117,96,0.35)'
 const BG_NORMAL    = 'rgba(201,168,76,0.80)'
 const SEGMENT_GOLD   = 'rgba(201,168,76,0.55)'
 const RESULT_RED     = 'rgba(248,113,113,0.55)'  // past correct = red dot

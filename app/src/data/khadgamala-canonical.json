@@ -73,7 +73,7 @@
       "yoginiTypeIast": "prakaṭayōginī",
       "chakreshvari": "Tripura",
       "chakreshvariIast": "tripurē",
-      "description": "Outer square enclosure with 4 gates",
+      "description": "Devis of the 1st Avarana Chakra",
       "geometry": "square",
       "labelIast": "Chakra Prathamāvaraṇa Devatāḥ"
     },
@@ -90,7 +90,7 @@
       "yoginiTypeIast": "guptayōginī",
       "chakreshvari": "Tripureshi",
       "chakreshvariIast": "tripurēśī",
-      "description": "16-petal lotus",
+      "description": "Devis of the 2nd Avarana Chakra",
       "geometry": "lotus-16",
       "petalCount": 16,
       "labelIast": "Chakra Dvitīyāvaraṇa Devatāḥ"
@@ -108,7 +108,7 @@
       "yoginiTypeIast": "guptatarayōginī",
       "chakreshvari": "Tripura Sundari",
       "chakreshvariIast": "tripurasundarī",
-      "description": "8-petal lotus",
+      "description": "Devis of the 3rd Avarana Chakra",
       "geometry": "lotus-8",
       "petalCount": 8,
       "labelIast": "Chakra Tṛtīyāvaraṇa Devatāḥ"
@@ -126,7 +126,7 @@
       "yoginiTypeIast": "sampradāyayōginī",
       "chakreshvari": "Tripura Vasini",
       "chakreshvariIast": "tripuravāsinī",
-      "description": "14 triangles",
+      "description": "Devis of the 4th Avarana Chakra",
       "geometry": "triangles-14",
       "triangleCount": 14,
       "labelIast": "Chakra Chaturthāvaraṇa Devatāḥ"
@@ -144,7 +144,7 @@
       "yoginiTypeIast": "kulōttīrṇayōginī",
       "chakreshvari": "Tripura Shri",
       "chakreshvariIast": "tripurāśrīḥ",
-      "description": "10 outer triangles",
+      "description": "Devis of the 5th Avarana Chakra",
       "geometry": "triangles-10-outer",
       "triangleCount": 10,
       "labelIast": "Chakra Pañcamāvaraṇa Devatāḥ"
@@ -162,7 +162,7 @@
       "yoginiTypeIast": "nigarbhayōginī",
       "chakreshvari": "Tripura Malini",
       "chakreshvariIast": "tripuramālinī",
-      "description": "10 inner triangles",
+      "description": "Devis of the 6th Avarana Chakra",
       "geometry": "triangles-10-inner",
       "triangleCount": 10,
       "labelIast": "Chakra Ṣaṣṭhāvaraṇa Devatāḥ"
@@ -180,7 +180,7 @@
       "yoginiTypeIast": "rahasyayōginī",
       "chakreshvari": "Tripura Siddhe",
       "chakreshvariIast": "tripurasiddhē",
-      "description": "8 triangles (Vagdevis)",
+      "description": "Devis of the 7th Avarana Chakra (Vagdevis)",
       "geometry": "triangles-8",
       "triangleCount": 8,
       "labelIast": "Chakra Saptamāvaraṇa Devatāḥ"
@@ -198,7 +198,7 @@
       "yoginiTypeIast": "atirahasyayōginī",
       "chakreshvari": "Tripuramba",
       "chakreshvariIast": "tripurāmbā",
-      "description": "Primary downward triangle",
+      "description": "Devis of the 8th Avarana Chakra",
       "geometry": "triangle-primary",
       "triangleCount": 1,
       "labelIast": "Chakra Aṣṭamāvaraṇa Devatāḥ"
@@ -216,7 +216,7 @@
       "yoginiTypeIast": "parāpararahasyayōginī",
       "chakreshvari": "Maha Tripura Sundari",
       "chakreshvariIast": "mahātripurasundarī",
-      "description": "The central point — bindu",
+      "description": "Devi of the 9th Avarana Chakra (Bindu)",
       "geometry": "bindu",
       "labelIast": "Chakra Navamāvaraṇa Devatāḥ"
     },
@@ -226,7 +226,7 @@
       "type": "closing",
       "circuitNumber": null,
       "count": 9,
-      "description": "The nine Tripura forms, one per circuit"
+      "description": "Nine Enclosures"
     },
     {
       "id": "closing",

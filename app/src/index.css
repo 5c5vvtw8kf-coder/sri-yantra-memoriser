@@ -34,12 +34,13 @@
 
   .section-item {
     @apply w-full text-left px-4 py-3 text-sm transition-colors duration-100
-           border-b border-surface-700
-           hover:bg-surface-700;
+           border-b border-surface-700 text-muted
+           hover:bg-surface-700 hover:text-cream;
   }
 
   .section-item.selected {
-    @apply bg-surface-700 text-gold-400;
+    @apply text-gold-300;
+    background-color: rgba(201, 168, 76, 0.12);
   }
 
   .deity-row {

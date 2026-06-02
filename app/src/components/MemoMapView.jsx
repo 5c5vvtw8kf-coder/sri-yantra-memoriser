@@ -307,7 +307,7 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
                     <td className={`px-3 py-2 text-sm leading-snug${isExtra ? ' text-gold-600 italic' : ' text-gold-400'}${script === 'iast' ? ' iast' : ''}`}>
                       {displayName({ scripts: row.scripts }, script)}
                     </td>
-                    <td className="px-3 py-2 text-muted truncate">
+                    <td className="px-3 py-2 iast text-muted truncate text-[15px]">
                       {SECTION_COL_LABEL[row.sectionId]}
                     </td>
                     <td className={`px-3 py-2 text-right ${className}`}>

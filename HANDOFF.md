@@ -1,74 +1,80 @@
 # Sri Yantra Memoriser — Session Handoff
 
-**Date:** 1 June 2026
+**Date:** 2 June 2026
 **Branch:** master
-**Last commit:** Spot Check instruction moved to footer bar (06a96cc)
+**Last commit:** Khadgamala Stotram page overhaul, UI polish, Devanagari content
 **Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan)
 
 ---
 
 ## What Was Completed This Session
 
-### Site tour (TourGuide.jsx)
-- New file `app/src/components/TourGuide.jsx` — custom 9-step guided tour, zero external dependencies.
-- Auto-triggers 1.2 s after first load. Tracked in `localStorage` key `sriYantra_tourSeen_v1`.
-- Re-trigger: small `?` button in top-right of sidebar header.
-- Tour steps: Welcome → Navigation → Śrī Yantra → Explore & Memorise → Nine Āvaraṇas → Spot Check → Memo Map → Full Stotram → You're all set.
-- Overlay cuts a rectangular hole revealing the highlighted element; gold focus ring around it.
-- To reset during development: `localStorage.removeItem('sriYantra_tourSeen_v1')` in browser console.
-- To add/edit steps: edit `STEPS` array in TourGuide.jsx.
+### Left sidebar
+- Section headings reverted from saffron to `text-cream` (white); hover brightens to `text-white`.
+- "SCRIPT" label likewise reverted to `text-cream`.
+- Circuit nav items numbered 1.–9. in IAST/En; Devanagari uses १.–९.
+- Nav collapse button `«`/`»` added to title block — hides nav + yantra controls, keeps script icons and title visible. "SCRIPT" label hides when collapsed; icon buttons remain.
+- Script selector **removed** from sidebar entirely.
+- English circuit nav labels updated: "Nth Enclosure Goddesses" (plural 1–8), "9th Enclosure Goddess" (singular).
 
-### Hover fills — Explore mode
-- Hovering any dot, petal, or triangle in Explore mode now fills it red (not just tooltip).
-- BhupuraView: `isHovered` prop on DeityDot; hovered/highlighted dot rendered last (on top) for z-ordering.
-- C2–C7: `hoveredDot` included in `filledRegions` explore calculation → fills petal/triangle red.
-- C8: `isHovered` on DeityDot.
-- C9: bindu fills red on hover.
+### Spot Check
+- SEGMENT and ROUND SIZE labels: 9px → 11px.
+- Unfocused region fill: `BG_DIM` changed from `rgba(201,168,76,0.10)` to `rgba(138,117,96,0.35)` — warm grey, much better contrast against dark background and clearly distinct from the not-memorised gold.
 
-### Footer instruction bar
-- Removed `n/N` tab counter from footer.
-- Added context-aware instruction text instead — specific per tab and mode:
-  - Dot views (bhupura, nyasa, inner, gurava): "Hover or click any dot to reveal the deity"
-  - Petal views (c2, c3): "Hover or click any petal to reveal the deity"
-  - Triangle views (c4–c7): "Hover or click any triangle to reveal the deity"
-  - c8: "Hover or click to reveal the deity"
-  - c9: "Hover or click the bindu to reveal the deity"
-  - chakreshvari: "Hover any circuit to reveal its Tripura form"
-  - closing: "Hover a number to illuminate the Yantra · tap to reveal the epithet"
-  - spotcheck: always shows memo instruction (Spot Check is always in recall mode)
-- Memo mode instruction: `hover to reveal · click = memorised · dbl-click = not memorised`
-- Special case: Nava Chakreshvarī memo mode shows two lines — "Proceed from the outer Bhūpura to the inner Bindu" above the standard memo instruction.
-- Font size: `0.75rem` (matches footer nav label size).
-- Instruction `<p>` blocks removed from all views: BhupuraView, C2–C9, NavaChakreshvariView, NyasaView, InnerView, GuravaView, ClosingView, SpotCheckView, NityaSpotCheckView, GuravahSpotCheckView, ChakreshvariSpotCheckView.
+### Activity Log
+- Date, Time, Section, Score columns: Gentium Plus, 15px.
 
-### ClosingView (Śrīdevī Epithets)
-- "Ascent to the top from here" message restored next to the ↑ arrow; font increased to `0.75rem`.
-- Old explore and memo instruction `<p>` blocks removed.
+### Memo Map
+- Section column: Gentium Plus, 15px.
 
-### BhupuraView corner dots
-- Level 2 and 3 corner dots restored to original geometric positions (on their respective square lines).
-- Z-ordering fix: hovered or list-highlighted dot is rendered last in SVG, so it always appears on top of neighbours regardless of overlap.
+### Closing View (Śrīdevī Viśeṣaṇāni)
+- Hover tooltip names: 13px → 16px; IAST subtitle: 11px → 13px.
 
-### File repairs (OneDrive sync truncations)
-- Several files were truncated mid-code due to OneDrive sync interruptions during the session.
-- Repaired: BhupuraView, C2View, C8View, C9View, GuravaView, InnerView, NyasaView, ClosingView, SpotCheckView, ChakreshvariSpotCheckView.
-- Pattern: file ends mid-JSX → stripped null bytes → appended correct closing structure.
-- **Recommendation:** After each session, run `git status` to confirm all files are fully written before closing the laptop.
+### References page
+- New "Recordings" section added at top: "Khaḍgamālā Stotram authentic" by Sri Vidyalay (YouTube).
+- Section order: Recordings → Canonical Text Source → Śrī Yantra Geometry → Courses.
+
+### Sri Devi Khadgamala Stotram page — major overhaul
+- Left panel: all group headings (Introduction, Preamble, Nine Āvaraṇas, Closing) removed. Flat uniform list. All items same muted light brown; gold-300 highlight on selection.
+- Right panel: `max-w` constraint removed; fills available width.
+- All sections now use consistent formatting: 12px muted uppercase label, gold `text-sm` boxes, 15px Gentium Plus translations indented with `pl-3`, italics removed.
+- Custom render blocks added for: Prārthana, Dhyānam, Devī Sambodhanam, Nyāsa Devatās, Tithi Nitya Devatās, Divyaugha Gurus, Siddyaugha Gurus, Maanavaugha Gurus.
+- CircuitMeta block (Āvaraṇa / Chakra Svāminī / Yoginī / Chakreshvarī) removed from avarana pages.
+- Group labels (Siddhi Shakti, Ashta Matrikas etc.) removed from avarana pages.
+- **Devanagari support**: all gold text blocks switch to Devanagari when देव script selected; IAST shown below as subtitle. Full text sourced from vignanam.org/samskritam. Devanagari is now **hardcoded** as the script for this page (global script selector removed).
+- Tithi Nitya Devatās: Waxing Moon (☽) / Waning Moon (☾) toggle reverses order of first 15; Mahānityē always last.
+- Section descriptions updated in `app/src/data/khadgamala-canonical.json`: circuits 1–9 now read "Devis of the Nth Avarana Chakra" (with Vagdevis on 7th, Bindu on 9th; 9th uses singular "Devi").
+- Nava Chakreshvarī description: "Nine Enclosures".
+- Guru section labels shortened: "Divine Gurus", "Siddha Gurus", "Human Gurus".
+- "Āvaraṇa" consistently translated as "Enclosure" throughout English mode.
+- "Deity List" → "Goddess List" across all 9 occurrences in App.jsx.
+
+### Terminology
+- "Āvaraṇa" = "Enclosure" (established this session as the preferred English translation).
 
 ---
 
 ## Data notes
 
 ### Deity count
-The canonical dataset (Vignanam source) has **181 deity entries** across all sections. The tour step 1 text says "around 180 deity names" — do not change this back to "over 300" (which was incorrect). Breakdown: Circuit 1 (30), Circuit 2 (18), Nitya (16), Circuit 4 (16), Circuit 5 (12), Circuit 6 (12), Circuit 3 (10), Circuit 7 (10), Closing (10), Circuit 8 (9), Nava Chakreshvarī (9), Maanavaugha (8), Divyaugha (7), Nyāsa (6), Siddyaugha (4), Circuit 9 (3), Invocation (1).
+The canonical dataset (Vignanam source) has **181 deity entries** across all sections. The tour step 1 text says "around 180 deity names" — do not change this back to "over 300" (which was incorrect).
+
+### Script architecture
+- Global `script` state in App.jsx still exists and drives the main explore/memorise views.
+- `CircuitBrowser` (Stotram page) is **hardcoded** to `script="devanagari"` — it does not respond to global script state.
+- The global script selector has been removed from the sidebar.
 
 ---
 
 ## Pending / suggested next
-- Test tour on mobile (popover may need responsive tweaks on narrow viewports)
+- Mobile layout refactor (was priority last session — still pending):
+  1. Navigation — bottom tab bar or hamburger drawer on narrow screens
+  2. Right panel — deity info as bottom sheet on mobile
+  3. Touch events — SVG uses onMouseEnter/onMouseLeave; needs tap handling
+  4. BhupuraView filter strip — hardcoded `left: 208` assumes sidebar
 - Feedback from friends — iterate based on responses
-- Khadgamala Stotram page further refinement
-- Lineage editing (deferred — feasible when needed for Stage 2)
+- Khadgamala Stotram page: Telugu/Tamil scripts (data exists in vignanam.org)
+- Lineage editing (deferred — Stage 2)
 - Spot Check → Memo Map integration (deferred)
 - Domain: sriyantramem.org when ready to go public
 
@@ -76,24 +82,34 @@ The canonical dataset (Vignanam source) has **181 deity entries** across all sec
 
 ## Architecture notes
 
-### TourGuide.jsx
-- `useTour({ onBeforeStart })` hook — call once in App, renders via `createPortal` to `document.body`.
-- `TOUR_KEY = 'sriYantra_tourSeen_v1'` — increment version string to force retrigger for all users.
-- `PAD = 8, GAP = 16, POP_W = 290` — layout constants at top of file.
-- To reset the tour: `localStorage.removeItem('sriYantra_tourSeen_v1')` in browser console.
+### Colour palette (tailwind.config.js)
+- `saffron`: 400 (#e8790a), 600 (#c8600a), 700 (#a04d08) — tour step counter only (headings reverted to cream this session).
+- `gold`: 300–700 — accents, active states, not-memorised fills.
+- `surface`: 900–500 — backgrounds.
+- `cream` (#f0e6d3), `muted` (#8a7560) — text.
 
-### Footer instruction
-- Computed in App.jsx as `footerInstruction` JSX, rendered in the footer bar between prev/next buttons.
-- `EXPLORE_TABS` set controls which tabs show an instruction.
-- `isInMemoriseMode` boolean controls which instruction variant shows.
-- `EXPLORE_HINT` object maps tab ID → explore-mode instruction string.
-- Special case for `chakreshvari` memo: two-line instruction with `flex flex-col`.
+### Font rules (as implemented)
+- **Gentium Plus** (`iast` class): Sanskrit IAST names, nav labels, deity names in lists, translations in Stotram page.
+- **Inter**: footer instructions, filter pill labels, UI buttons/controls.
+- **Devanagari**: system font (no `iast` class applied).
+- **Key pattern:** `script !== 'devanagari' ? 'iast' : ''` for nav items and right panel lists.
+
+### CircuitBrowser.jsx
+- Custom render blocks for 8 preamble sections (Prārthana, Dhyānam, Sambodhanam, Nyāsa, Nitya, 3× Gurus).
+- `NityaSection` is a standalone component (needs `useState`) with waxing/waning toggle.
+- Deity entries use `DeityEntry` component (gold box + translation sub-line).
+- `SectionDetail` used for avarana + closing sections; `CircuitMeta` removed.
+- Devanagari data is inline in CircuitBrowser.jsx for custom blocks; circuit deities pull from JSON.
+
+### TourGuide.jsx
+- `TOUR_KEY = 'sriYantra_tourSeen_v1'` — increment to force retrigger.
+- To reset: `localStorage.removeItem('sriYantra_tourSeen_v1')` in browser console.
 
 ### File truncation pattern
 - The sandbox writes files via Linux paths on an OneDrive-synced Windows folder.
-- OneDrive can interrupt mid-write, leaving files truncated with null bytes at the end.
-- Fix: `raw.rstrip(b'\x00')` + append correct closing JSX.
-- Prevention: commit frequently; don't close the laptop mid-session.
+- OneDrive can interrupt mid-write, truncating files.
+- Fix: restore from `git show HEAD:app/src/App.jsx` and re-apply changes via Python.
+- Prevention: commit frequently; verify `tail -6` after large edits.
 
 ---
 

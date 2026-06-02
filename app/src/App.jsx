@@ -46,15 +46,15 @@ const TABS = [
   { id: 'nyasa',        navLabel: 'nyāsāṅga-devatāḥ',             navLabelEn: 'Nyāsa Deities',                         navLabelDev: 'न्यासांगदेवताः',        footerLabel: 'Nyāsa Deities'        },
   { id: 'inner',        navLabel: 'tithi-nitya-devatāḥ',           navLabelEn: 'Tithi Nitya Deities',                   navLabelDev: 'तिथिनित्यदेवताः',      footerLabel: 'Tithi Nitya'          },
   { id: 'gurava',       navLabel: 'guravaḥ',                       navLabelEn: 'Gurus',                                 navLabelDev: 'गुरवः',                 footerLabel: 'Guravaḥ'              },
-  { id: 'bhupura',      navLabel: 'cakra-prathamāvaraṇa-devatāḥ', navLabelEn: 'Deities of the 1st Avarana', navLabelDev: 'चक्रप्रथमावरणदेवताः', footerLabel: '1st Āvaraṇa' },
-  { id: 'c2',           navLabel: 'cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the 2nd Avarana', navLabelDev: 'चक्रद्वितीयावरणदेवताः',footerLabel: '2nd Āvaraṇa' },
-  { id: 'c3',           navLabel: 'cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the 3rd Avarana', navLabelDev: 'चक्रतृतीयावरणदेवताः', footerLabel: '3rd Āvaraṇa' },
-  { id: 'c4',           navLabel: 'cakra-caturthāvaraṇa-devatāḥ', navLabelEn: 'Deities of the 4th Avarana', navLabelDev: 'चक्रचतुर्थावरणदेवताः',footerLabel: '4th Āvaraṇa' },
-  { id: 'c5',           navLabel: 'cakra-pañcamāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the 5th Avarana', navLabelDev: 'चक्रपञ्चमावरणदेवताः', footerLabel: '5th Āvaraṇa' },
-  { id: 'c6',           navLabel: 'cakra-ṣaṣṭhāvaraṇa-devatāḥ',  navLabelEn: 'Deities of the 6th Avarana', navLabelDev: 'चक्रषष्ठावरणदेवताः',  footerLabel: '6th Āvaraṇa' },
-  { id: 'c7',           navLabel: 'cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the 7th Avarana', navLabelDev: 'चक्रसप्तमावरणदेवताः', footerLabel: '7th Āvaraṇa' },
-  { id: 'c8',           navLabel: 'cakra-aṣṭamāvaraṇa-devatāḥ',   navLabelEn: 'Deities of the 8th Avarana', navLabelDev: 'चक्राष्टमावरणदेवताः', footerLabel: '8th Āvaraṇa' },
-  { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: 'Deities of the 9th Avarana', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: '9th Āvaraṇa' },
+  { id: 'bhupura',      navLabel: 'cakra-prathamāvaraṇa-devatāḥ', navLabelEn: '1st Enclosure Goddesses', navLabelDev: 'चक्रप्रथमावरणदेवताः', footerLabel: '1st Āvaraṇa' },
+  { id: 'c2',           navLabel: 'cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: '2nd Enclosure Goddesses', navLabelDev: 'चक्रद्वितीयावरणदेवताः',footerLabel: '2nd Āvaraṇa' },
+  { id: 'c3',           navLabel: 'cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: '3rd Enclosure Goddesses', navLabelDev: 'चक्रतृतीयावरणदेवताः', footerLabel: '3rd Āvaraṇa' },
+  { id: 'c4',           navLabel: 'cakra-caturthāvaraṇa-devatāḥ', navLabelEn: '4th Enclosure Goddesses', navLabelDev: 'चक्रचतुर्थावरणदेवताः',footerLabel: '4th Āvaraṇa' },
+  { id: 'c5',           navLabel: 'cakra-pañcamāvaraṇa-devatāḥ',  navLabelEn: '5th Enclosure Goddesses', navLabelDev: 'चक्रपञ्चमावरणदेवताः', footerLabel: '5th Āvaraṇa' },
+  { id: 'c6',           navLabel: 'cakra-ṣaṣṭhāvaraṇa-devatāḥ',  navLabelEn: '6th Enclosure Goddesses', navLabelDev: 'चक्रषष्ठावरणदेवताः',  footerLabel: '6th Āvaraṇa' },
+  { id: 'c7',           navLabel: 'cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: '7th Enclosure Goddesses', navLabelDev: 'चक्रसप्तमावरणदेवताः', footerLabel: '7th Āvaraṇa' },
+  { id: 'c8',           navLabel: 'cakra-aṣṭamāvaraṇa-devatāḥ',   navLabelEn: '8th Enclosure Goddesses', navLabelDev: 'चक्राष्टमावरणदेवताः', footerLabel: '8th Āvaraṇa' },
+  { id: 'c9',           navLabel: 'cakra-navamāvaraṇa-devatāḥ',    navLabelEn: '9th Enclosure Goddess', navLabelDev: 'चक्रनवमावरणदेवताः',   footerLabel: '9th Āvaraṇa' },
   { id: 'chakreshvari', navLabel: 'navacakrēśvarī nāmāni',         navLabelEn: 'Names of the Nine Chakras',            navLabelDev: 'नवचक्रेश्वरी नामानि', footerLabel: 'Nava Chakreshvarī'   },
   { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets and Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMO MAP' },
@@ -2910,7 +2910,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setInnerShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">Goddess list</span>
               <span>{innerShowList ? '↑' : '↓'}</span>
             </button>
             {innerShowList && (
@@ -2953,7 +2953,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setGuravaShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">Goddess list</span>
               <span>{guravaShowList ? '↑' : '↓'}</span>
             </button>
             {guravaShowList && (
@@ -3000,7 +3000,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setNyasaShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">Goddess list</span>
               <span>{nyasaShowList ? '↑' : '↓'}</span>
             </button>
             {nyasaShowList && (
@@ -3044,7 +3044,7 @@ export default function App() {
                 className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
                 onClick={() => setShowList(l => !l)}
               >
-                <span className="font-mono uppercase tracking-widest">Deity list</span>
+                <span className="font-mono uppercase tracking-widest">Goddess list</span>
                 <span>{showList ? '↑' : '↓'}</span>
               </button>
               {showList && (
@@ -3083,7 +3083,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setC2ShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">Goddess list</span>
               <span>{c2ShowList ? '↑' : '↓'}</span>
             </button>
             {c2ShowList && (
@@ -3121,7 +3121,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setNcShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">Goddess list</span>
               <span>{ncShowList ? '↑' : '↓'}</span>
             </button>
             {ncShowList && (
@@ -3181,7 +3181,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setC8ShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">Goddess list</span>
               <span>{c8ShowList ? '↑' : '↓'}</span>
             </button>
             {c8ShowList && (
@@ -3236,7 +3236,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setBhupuraShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">Goddess list</span>
               <span>{bhupuraShowList ? '↑' : '↓'}</span>
             </button>
             {bhupuraShowList && (
@@ -3281,7 +3281,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setClosingShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">Goddess list</span>
               <span>{closingShowList ? '↑' : '↓'}</span>
             </button>
             {closingShowList && (
@@ -3747,7 +3747,7 @@ export default function App() {
                 }}
               />
             )}
-            {activeTab === 'browser'      && <CircuitBrowser script={script} />}
+            {activeTab === 'browser'      && <CircuitBrowser script="devanagari" />}
             {activeTab === 'intro'        && <IntroView script={script} />}
             {activeTab === 'references'   && <ReferencesView />}
           </div>

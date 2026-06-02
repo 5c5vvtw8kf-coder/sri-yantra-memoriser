@@ -421,11 +421,11 @@ export default function ClosingView({
                 className="px-2 py-1.5 rounded shadow-lg"
                 style={{ background: 'rgba(15,8,5,0.95)', border: '0.6px solid rgba(255,248,200,0.6)' }}
               >
-                <p className="iast" style={{ color: GOLD, fontSize: '13px', fontWeight: 700 }}>
+                <p className="iast" style={{ color: GOLD, fontSize: '16px', fontWeight: 700 }}>
                   {displayName(d, script)}
                 </p>
                 {script !== 'iast' && d.scripts.iast && (
-                  <p className="iast mt-0.5" style={{ color: 'rgba(201,168,76,0.55)', fontSize: '11px' }}>
+                  <p className="iast mt-0.5" style={{ color: 'rgba(201,168,76,0.55)', fontSize: '13px' }}>
                     {d.scripts.iast}
                   </p>
                 )}
