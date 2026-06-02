@@ -2,7 +2,7 @@
 
 **Date:** 2 June 2026
 **Branch:** master
-**Last commit:** Next → button label, 700ms completion overlay delay for Nyasa/Inner/Gurava/NC views
+**Last commit:** Memory Map: carousel polish, IAST labels, section names, rename from Memo Map (68b8bcf)
 **Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan)
 
 ---

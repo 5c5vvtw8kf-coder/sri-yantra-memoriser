@@ -306,17 +306,25 @@ const C8_DOT_POSITIONS = [
 
 function DotTooltip({ tooltip }) {
   if (!tooltip) return null
-  const tx = Math.min(Math.max(tooltip.x, 60), 440)
-  const ty = tooltip.y - 18
+  const tx  = Math.min(Math.max(tooltip.x, 70), 430)
+  const ty  = tooltip.y - 20
+  const w   = Math.max(60, tooltip.text.length * 8.5 + 16)
+  const h   = 22
   return (
-    <text x={tx.toFixed(1)} y={ty.toFixed(1)}
-      textAnchor="middle" dominantBaseline="middle"
-      fontSize={15} fill={GOLD}
-      fontFamily="'Gentium Plus', Georgia, serif"
-      style={{ filter: 'drop-shadow(0 1px 4px rgba(0,0,0,1))' }}
-      pointerEvents="none">
-      {tooltip.text}
-    </text>
+    <g pointerEvents="none">
+      <rect
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
+        width={w.toFixed(1)} height={h} rx={3}
+        fill="rgba(0,0,0,0.88)"
+      />
+      <text x={tx.toFixed(1)} y={ty.toFixed(1)}
+        textAnchor="middle" dominantBaseline="middle"
+        fontSize={15} fill="white"
+        fontFamily="'Gentium Plus', Georgia, serif"
+        pointerEvents="none">
+        {tooltip.text}
+      </text>
+    </g>
   )
 }
 
