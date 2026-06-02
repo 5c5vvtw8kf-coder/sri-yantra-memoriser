@@ -17,7 +17,7 @@
  * The bindu (c9) stays black throughout — buildFills enforces this.
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG, { C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_PTS, BHUPURA_INNER_PTS } from './SriYantraSVG'
 import triangleData from '../data/triangle-regions.json'
 import data from '../data/khadgamala-canonical.json'
@@ -352,6 +352,18 @@ export default function NavaChakreshvariView({
 
   const done = memorise && currentSeq > TOTAL
 
+  const [showCompletion, setShowCompletion] = useState(false)
+  const completionTimer = useRef(null)
+  useEffect(() => {
+    if (done) {
+      completionTimer.current = setTimeout(() => setShowCompletion(true), 700)
+    } else {
+      clearTimeout(completionTimer.current)
+      setShowCompletion(false)
+    }
+    return () => clearTimeout(completionTimer.current)
+  }, [done])
+
   const activeCircuit = memorise && !done && !flash
     ? ncDeities.find(d => d.sequenceInSection === currentSeq)?.circuitNumber ?? null
     : null
@@ -453,8 +465,8 @@ export default function NavaChakreshvariView({
           </svg>
         )}
 
-        {/* Completion overlay */}
-        {done && (
+        {/* Completion overlay (delayed 700 ms) */}
+        {showCompletion && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"

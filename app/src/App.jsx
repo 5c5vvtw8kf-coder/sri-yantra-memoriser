@@ -729,7 +729,7 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
               onClick={() => onNavigate('c2')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next circuit →
+              Next →
             </button>
           </div>
         </div>
@@ -866,7 +866,7 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
               onClick={() => onNavigate('c3')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next circuit →
+              Next →
             </button>
           </div>
         </div>
@@ -993,7 +993,7 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
               onClick={() => onNavigate('c4')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next circuit →
+              Next →
             </button>
           </div>
         </div>
@@ -1120,7 +1120,7 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
               onClick={() => onNavigate('c5')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next circuit →
+              Next →
             </button>
           </div>
         </div>
@@ -1246,7 +1246,7 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
               onClick={() => onNavigate('c6')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next circuit →
+              Next →
             </button>
           </div>
         </div>
@@ -1372,7 +1372,7 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
               onClick={() => onNavigate('c7')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next circuit →
+              Next →
             </button>
           </div>
         </div>
@@ -1498,7 +1498,7 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
               onClick={() => onNavigate('c8')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next circuit →
+              Next →
             </button>
           </div>
         </div>
@@ -1623,7 +1623,7 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
               onClick={() => onNavigate('c9')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next circuit →
+              Next →
             </button>
           </div>
         </div>

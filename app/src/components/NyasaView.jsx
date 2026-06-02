@@ -20,7 +20,7 @@
  * Bindu:                   (CX, CY)  — bindu maps to exact centre of 0 0 500 500 overlay
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
@@ -302,6 +302,19 @@ export default function NyasaView({
 
   const done = memorise && currentSeq > 6
 
+  // Delay the completion overlay by 700 ms so the user can toggle the last answer
+  const [showCompletion, setShowCompletion] = useState(false)
+  const completionTimer = useRef(null)
+  useEffect(() => {
+    if (done) {
+      completionTimer.current = setTimeout(() => setShowCompletion(true), 700)
+    } else {
+      clearTimeout(completionTimer.current)
+      setShowCompletion(false)
+    }
+    return () => clearTimeout(completionTimer.current)
+  }, [done])
+
   // dotsForSeq: returns list of [x, y] positions for this sequence number
   const dotsForSeq = (seq) => {
     if (seq >= 1 && seq <= 5) return [BODY_POSITIONS[seq - 1]]
@@ -450,8 +463,8 @@ export default function NyasaView({
 
         </svg>
 
-        {/* ── Memorise mode: completion overlay ── */}
-        {done && (
+        {/* ── Memorise mode: completion overlay (delayed 700 ms) ── */}
+        {showCompletion && (
           <div
             className="absolute inset-0 flex items-center justify-center rounded-xl"
             style={{ background: 'rgba(15,8,5,0.82)' }}

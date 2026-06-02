@@ -124,7 +124,7 @@ function CompletionPanel({ results, onRestart, onNavigate }) {
         </button>
         <button onClick={() => onNavigate('c7')}
           className="px-4 py-2 rounded-lg bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 text-sm transition-colors">
-          Next circuit →
+          Next →
         </button>
       </div>
     </div>
