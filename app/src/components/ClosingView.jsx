@@ -130,11 +130,17 @@ export default function ClosingView({
   const yantraRef = useRef(null)
   const [yantraPos, setYantraPos] = useState({ top: 80, height: 300 })
 
+  // Measure the sidebar's actual right edge so the strip always sits just past it
+  const [sidebarRight, setSidebarRight] = useState(208)
+
   useEffect(() => {
     const update = () => {
       if (!yantraRef.current) return
       const r = yantraRef.current.getBoundingClientRect()
       setYantraPos({ top: r.top, height: r.height })
+      // Measure sidebar right edge directly from DOM (sidebar has data-tour="sidebar")
+      const sidebar = document.querySelector('[data-tour="sidebar"]')
+      if (sidebar) setSidebarRight(sidebar.getBoundingClientRect().right)
     }
     update()
     const t = setTimeout(update, 50)
@@ -268,12 +274,12 @@ export default function ClosingView({
         )}
       </div>{/* end relative yantra wrapper */}
 
-      {/* Number strip — fixed, in the left margin beside the sidebar */}
+      {/* Number strip — fixed, just right of the sidebar (measured from DOM) */}
       <div
         className="pointer-events-none"
         style={{
           position: 'fixed',
-          left: 208,
+          left: sidebarRight + 6,
           top: yantraPos.top,
           height: yantraPos.height,
           width: 26,
@@ -392,7 +398,7 @@ export default function ClosingView({
                 whiteSpace: 'nowrap',
               }}
             >
-              <p className="iast" style={{ color: isCorrect ? RED_TEXT : GOLD, fontSize: '13px', fontWeight: 700 }}>
+              <p className="iast" style={{ color: isCorrect ? RED_TEXT : GOLD, fontSize: '16px', fontWeight: 700 }}>
                 {displayName(d, script)}
               </p>
             </div>
@@ -440,7 +446,7 @@ export default function ClosingView({
         className="pointer-events-none"
         style={{
           position: 'fixed',
-          left: 208,
+          left: sidebarRight + 6,
           top: yantraPos.top + yantraPos.height + 4,
           zIndex: 30,
           display: 'flex',

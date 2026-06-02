@@ -2,12 +2,30 @@
 
 **Date:** 2 June 2026
 **Branch:** master
-**Last commit:** Khadgamala Stotram page overhaul, UI polish, Devanagari content
+**Last commit:** Fix cream headings, reinstate circuit numbers for IAST and Devanagari
 **Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan)
 
 ---
 
-## What Was Completed This Session
+## What Was Completed This Session (2 June 2026 — second session)
+
+### Left sidebar — nav collapse button (re-implemented)
+- `navCollapsed` state added to App.jsx.
+- `«`/`»` toggle button added to the title block (always visible).
+- When collapsed: nav list, yantraControls, subtitle, tour `?` button, and "SCRIPT" label all hide.
+- Script selector buttons always remain visible.
+- Sidebar stays `w-52`; script buttons fill the width in collapsed state.
+- Note: button was previously added in an earlier session but lost in a `git restore`. Re-implemented from the HANDOFF spec.
+
+### Closing View (Śrīdevī Viśeṣaṇāni) — number strip fixes
+- **Number strip positioning**: was hardcoded `left: 208`. Now measures the actual sidebar right edge via `document.querySelector('[data-tour="sidebar"]').getBoundingClientRect().right` and uses `sidebarRight + 6`. Fixes overlap with sidebar nav progress dots on all screen sizes and base font sizes.
+- **Revealed label font**: 13px → 16px (now matches the hover tooltip size).
+- Architecture: `yantraPos` reverted to `{ top, height }` only; sidebar right edge tracked separately as `sidebarRight` state. Both updated on resize/scroll.
+- Note: `BhupuraView` filter strip still uses hardcoded `left: 208` — same fix pattern applies there when mobile refactor is done.
+
+---
+
+## What Was Completed Previous Session
 
 ### Left sidebar
 - Section headings reverted from saffron to `text-cream` (white); hover brightens to `text-white`.
@@ -71,7 +89,7 @@ The canonical dataset (Vignanam source) has **181 deity entries** across all sec
   1. Navigation — bottom tab bar or hamburger drawer on narrow screens
   2. Right panel — deity info as bottom sheet on mobile
   3. Touch events — SVG uses onMouseEnter/onMouseLeave; needs tap handling
-  4. BhupuraView filter strip — hardcoded `left: 208` assumes sidebar
+  4. BhupuraView filter strip — hardcoded `left: 208` assumes sidebar (apply same `sidebarRight` DOM-measurement pattern used in ClosingView)
 - Feedback from friends — iterate based on responses
 - Khadgamala Stotram page: Telugu/Tamil scripts (data exists in vignanam.org)
 - Lineage editing (deferred — Stage 2)

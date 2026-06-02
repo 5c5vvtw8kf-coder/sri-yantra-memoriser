@@ -1845,6 +1845,7 @@ export default function App() {
 
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)
+  const [navCollapsed, setNavCollapsed] = useState(false)
 
   // ── Global deity selection ─────────────────────────────────────────────────
   const [selectedDeity, setSelectedDeity] = useState(null)
@@ -3379,24 +3380,40 @@ export default function App() {
               <h1 className="iast text-gold-400 text-base font-semibold tracking-wide leading-tight">
                 śrī yantra memoriser
               </h1>
-              <p className="iast mt-1 text-muted italic" style={{ fontSize: '13px', letterSpacing: '0.03em' }}>
-                for the Khadgamala Stotram
-              </p>
+              {!navCollapsed && (
+                <p className="iast mt-1 text-muted italic" style={{ fontSize: '13px', letterSpacing: '0.03em' }}>
+                  for the Khadgamala Stotram
+                </p>
+              )}
             </div>
-            {/* Tour trigger button */}
-            <button
-              data-tour="tour-btn"
-              onClick={startTour}
-              title="Take the tour"
-              className="flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
-              style={{ fontSize: 11 }}
-            >
-              ?
-            </button>
+            <div className="flex items-center gap-1 flex-shrink-0 mt-0.5">
+              {/* Tour trigger button */}
+              {!navCollapsed && (
+                <button
+                  data-tour="tour-btn"
+                  onClick={startTour}
+                  title="Take the tour"
+                  className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
+                  style={{ fontSize: 11 }}
+                >
+                  ?
+                </button>
+              )}
+              {/* Collapse toggle */}
+              <button
+                onClick={() => setNavCollapsed(c => !c)}
+                title={navCollapsed ? 'Expand navigation' : 'Collapse navigation'}
+                className="w-5 h-5 rounded border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
+                style={{ fontSize: 11, fontFamily: 'monospace' }}
+              >
+                {navCollapsed ? '»' : '«'}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation — hidden when collapsed */}
+        {!navCollapsed && (<>
         <nav className="flex-1 overflow-y-auto py-2 px-2 min-h-0">
           {(() => {
             let currentHeadingId = null
@@ -3457,13 +3474,15 @@ export default function App() {
             })
           })()}
         </nav>
-
         {/* Yantra controls (yantra tab only) */}
         {yantraControls}
+        </>)} {/* end !navCollapsed */}
 
-        {/* Script selector */}
-        <div className="px-3 py-3 border-t border-surface-800 flex-shrink-0">
-          <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
+        {/* Script selector — always visible; label hidden when collapsed; mt-auto pins to bottom */}
+        <div className="mt-auto px-3 py-3 border-t border-surface-800 flex-shrink-0">
+          {!navCollapsed && (
+            <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
+          )}
           <div className="flex gap-1 px-1">
             {[
               { id: 'iast',       label: 'IAST' },
