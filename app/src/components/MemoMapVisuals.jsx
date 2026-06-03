@@ -694,6 +694,7 @@ function StatusCounts({ counts }) {
       <span className="text-amber-400">~ {counts.partial}</span>
       <span className="text-red-400">✗ {counts.notMemorised}</span>
       <span className="text-surface-600">— {counts.notAttempted}</span>
+      <span className="text-surface-600 font-sans">(last 3 attempts)</span>
     </div>
   )
 }
