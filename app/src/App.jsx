@@ -3399,6 +3399,24 @@ export default function App() {
     </div>
   )
 
+  // ── Mobile Explore/Memorise control lookup ───────────────────────────────
+  const mobileCtrl = {
+    nyasa:        { isMemorise: nyasaMemorise,   onExplore: handleNyasaExitMemorise,   onMemorise: handleNyasaStartMemorise   },
+    inner:        { isMemorise: innerMemorise,   onExplore: handleInnerExitMemorise,   onMemorise: handleInnerStartMemorise   },
+    gurava:       { isMemorise: guravaMemorse,   onExplore: handleGuravaExitMemorise,  onMemorise: handleGuravaStartMemorise  },
+    bhupura:      { isMemorise: bhupuraMemorise, onExplore: handleBhupuraExitMemorise, onMemorise: handleBhupuraStartMemorise },
+    c2:           { isMemorise: c2Memorise,      onExplore: handleC2ExitMemorise,      onMemorise: handleC2StartMemorise      },
+    c3:           { isMemorise: c3Memorise,      onExplore: handleC3ExitMemorise,      onMemorise: handleC3StartMemorise      },
+    c4:           { isMemorise: c4Memorise,      onExplore: handleC4ExitMemorise,      onMemorise: handleC4StartMemorise      },
+    c5:           { isMemorise: c5Memorise,      onExplore: handleC5ExitMemorise,      onMemorise: handleC5StartMemorise      },
+    c6:           { isMemorise: c6Memorise,      onExplore: handleC6ExitMemorise,      onMemorise: handleC6StartMemorise      },
+    c7:           { isMemorise: c7Memorise,      onExplore: handleC7ExitMemorise,      onMemorise: handleC7StartMemorise      },
+    c8:           { isMemorise: c8Memorise,      onExplore: handleC8ExitMemorise,      onMemorise: handleC8StartMemorise      },
+    c9:           { isMemorise: c9Memorise,      onExplore: handleC9ExitMemorise,      onMemorise: handleC9StartMemorise      },
+    chakreshvari: { isMemorise: ncMemorise,      onExplore: handleNcExitMemorise,      onMemorise: handleNcStartMemorise      },
+    closing:      { isMemorise: closingMemorise, onExplore: handleClosingExitMemorise, onMemorise: handleClosingStartMemorise },
+  }[activeTab] ?? null
+
   return (
     <div className="h-screen flex flex-col bg-surface-950 text-cream overflow-hidden">
 
@@ -3881,9 +3899,28 @@ export default function App() {
           )}
         </div>
 
+        {/* ── Mobile Explore / Memorise bar ────────────────────────────────── */}
+        {mobileCtrl && (
+          <div className="flex md:hidden flex-shrink-0 border-t border-surface-800 px-3 py-2 gap-2">
+            <button onClick={mobileCtrl.onExplore}
+              className={`flex-1 py-2 rounded-lg text-xs font-medium transition-colors
+                ${!mobileCtrl.isMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}>
+              Explore
+            </button>
+            <button onClick={mobileCtrl.onMemorise}
+              className={`flex-1 py-2 rounded-lg text-xs font-medium transition-colors
+                ${mobileCtrl.isMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}>
+              Memorise
+            </button>
+          </div>
+        )}
+
         {/* ── Sequential navigation footer ─────────────────────────────────── */}
         <div className="flex-shrink-0 border-t border-surface-800 flex items-center px-2 py-1.5 gap-1"
-             style={{ display: activeTab === 'yantra' ? 'none' : undefined }}>
+             style={{
+               display: activeTab === 'yantra' ? 'none' : undefined,
+               paddingBottom: 'max(6px, env(safe-area-inset-bottom))',
+             }}>
           <button
             onClick={() => prevTab && handleTabChange(prevTab.id)}
             disabled={!prevTab}
