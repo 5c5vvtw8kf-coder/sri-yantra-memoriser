@@ -424,10 +424,12 @@ function YantraContainer({ children, sectionId, allHistory }) {
 // -- Map panel components -----------------------------------------------------
 
 function NyasaMap({ allHistory }) {
+  const [tooltips, setTooltips] = useState([])
   const nyasaDeities = deityBySection['nyasa'] || []
   return (
     <YantraContainer>
       <SriYantraSVG className="w-full h-full" />
+      {/* pointer-events-none on the SVG; interactive circles opt-in via pointerEvents="all" */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none"
            viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
         {nyasaDeities.map(d => {
@@ -435,15 +437,28 @@ function NyasaMap({ allHistory }) {
           const fill   = STATUS_FILL[status]
           const r      = status === 'notAttempted' ? 6 : 10
           const op     = status === 'notAttempted' ? 0.4 : 0.92
+          const tip    = status === 'partial' || status === 'notMemorised'
           const seq    = d.sequenceInSection
           const dots   = seq >= 1 && seq <= 5
             ? [BODY_POSITIONS[seq - 1]]
             : seq === 6 ? ASTRA_POSITIONS : []
+          const text   = d.scripts?.iast || ''
+          // Astra (seq 6): hovering any dot shows tooltips at all 4 positions
+          const handleEnter = tip ? () => setTooltips(
+            seq === 6
+              ? ASTRA_POSITIONS.map(([cx, cy]) => ({ text, x: cx, y: cy }))
+              : [{ text, x: dots[0][0], y: dots[0][1] }]
+          ) : undefined
+          const handleLeave = tip ? () => setTooltips([]) : undefined
           return dots.map(([cx, cy], i) => (
             <circle key={`${d.id}-${i}`}
-              cx={cx} cy={cy} r={r} fill={fill} opacity={op} />
+              cx={cx} cy={cy} r={r} fill={fill} opacity={op}
+              pointerEvents={tip ? 'all' : 'none'}
+              onMouseEnter={handleEnter}
+              onMouseLeave={handleLeave} />
           ))
         })}
+        {tooltips.map((t, i) => <DotTooltip key={i} tooltip={t} />)}
       </svg>
     </YantraContainer>
   )
@@ -451,6 +466,7 @@ function NyasaMap({ allHistory }) {
 
 function YantraCircuitMap({ sectionId, allHistory }) {
   const [hoveredName, setHoveredName] = useState(null)
+  const [mousePos,    setMousePos]    = useState(null)  // { x, y } as 0..1 fractions
   const targetDeities = deityBySection[sectionId] || []
 
   const filledRegions = { ...ALL_YANTRA_DIM }
@@ -471,17 +487,33 @@ function YantraCircuitMap({ sectionId, allHistory }) {
     setHoveredName(null)
   }
 
+  // Position tooltip: above cursor when cursor is in lower 80%, below when near top
+  const tipTop = mousePos
+    ? mousePos.y > 0.15
+      ? `${(mousePos.y * 100 - 2).toFixed(1)}%`
+      : `${(mousePos.y * 100 + 8).toFixed(1)}%`
+    : '50%'
+  const tipTransform = mousePos && mousePos.y > 0.15 ? 'translateY(-100%)' : 'translateY(0)'
+  const tipLeft = mousePos ? `${Math.min(Math.max(mousePos.x * 100, 2), 60).toFixed(1)}%` : '50%'
+
   return (
     <YantraContainer sectionId={sectionId} allHistory={allHistory}>
-      <SriYantraSVG
-        className="w-full h-full"
-        filledRegions={filledRegions}
-        onRegionHover={handleRegionHover}
-        onRegionLeave={() => setHoveredName(null)}
-      />
-      {hoveredName && (
-        <div className="absolute bottom-1 left-0 right-0 flex justify-center pointer-events-none">
-          <span className="iast text-sm text-cream bg-surface-900/95 border border-surface-700/60 px-2 py-1 rounded">
+      <div className="w-full h-full"
+           onMouseMove={e => {
+             const r = e.currentTarget.getBoundingClientRect()
+             setMousePos({ x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height })
+           }}>
+        <SriYantraSVG
+          className="w-full h-full"
+          filledRegions={filledRegions}
+          onRegionHover={handleRegionHover}
+          onRegionLeave={() => { setHoveredName(null); setMousePos(null) }}
+        />
+      </div>
+      {hoveredName && mousePos && (
+        <div className="absolute pointer-events-none z-10"
+             style={{ left: tipLeft, top: tipTop, transform: tipTransform }}>
+          <span className="iast text-sm text-cream bg-surface-900/95 border border-surface-700/60 px-2 py-1 rounded whitespace-nowrap shadow-lg">
             {hoveredName}
           </span>
         </div>
@@ -597,38 +629,26 @@ function C9Map({ allHistory }) {
 }
 
 function ListMap({ sectionId, allHistory, script }) {
-  const ds = [...(deityBySection[sectionId] || [])].reverse()
-
-  const STATUS_SYM  = { memorised: '✓', partial: '~', notMemorised: '✗', notAttempted: '—' }
-  const STATUS_TEXT = {
-    memorised:    'text-green-400',
-    partial:      'text-amber-400',
-    notMemorised: 'text-red-400',
-    notAttempted: 'text-surface-600',
-  }
-  const STATUS_ROW = {
-    memorised:    'bg-green-950/30 border-green-900/30',
-    partial:      'bg-amber-950/30 border-amber-900/30',
-    notMemorised: 'bg-red-950/40 border-red-900/40',
-    notAttempted: 'bg-surface-800/30 border-surface-700/20',
-  }
+  const ds    = [...(deityBySection[sectionId] || [])].reverse()
+  const isNC  = sectionId === 'chakreshvari'
 
   return (
     <div className="space-y-1 py-1">
       {ds.map(d => {
-        const status = getDeityStatus(d, allHistory)
-        const isNC   = sectionId === 'chakreshvari'
+        const status    = getDeityStatus(d, allHistory)
+        const attempted = status !== 'notAttempted'
+        const bg        = attempted ? STATUS_FILL[status] : 'rgba(201,168,76,0.07)'
+        const textCol   = attempted ? 'rgba(15,8,5,0.9)' : '#8a7560'
+        const subCol    = attempted ? 'rgba(15,8,5,0.6)' : '#5a4535'
         return (
           <div key={d.id}
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg border ${STATUS_ROW[status]}`}>
-            <span className={`text-xs font-mono w-4 flex-shrink-0 ${STATUS_TEXT[status]}`}>
-              {STATUS_SYM[status]}
-            </span>
-            <span className={`text-sm leading-snug flex-1 ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
+            className={`flex items-center gap-2 px-3 py-2 rounded-md ${script !== 'devanagari' ? 'iast' : ''}`}
+            style={{ background: bg }}>
+            <span className="text-sm leading-snug flex-1 font-semibold" style={{ color: textCol }}>
               {displayName(d, script)}
             </span>
             {isNC && (
-              <span className="text-xs text-muted flex-shrink-0 font-mono">
+              <span className="text-xs font-mono flex-shrink-0" style={{ color: subCol }}>
                 C{d.sequenceInSection}
               </span>
             )}

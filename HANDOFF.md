@@ -1,42 +1,59 @@
 # Sri Yantra Memoriser — Session Handoff
 
-**Date:** 2 June 2026
+**Date:** 3 June 2026
 **Branch:** master
-**Last commit:** Memory Map: carousel polish, IAST labels, section names, rename from Memo Map (68b8bcf)
-**Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan)
+**Last commit:** Memory Map: white-on-black dot tooltips for Korvin maps (99c1b4e)
+**Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan) — **current and deployed**
 
 ---
 
-## What Was Completed This Session (2 June 2026 — third session)
+## What Was Completed This Session (3 June 2026)
 
-### Memo Map — visual maps carousel
+### Memory Map (formerly Memo Map) — complete visual maps feature
 
-**New file:** `app/src/components/MemoMapVisuals.jsx` (~600 lines)
+**New file:** `app/src/components/MemoMapVisuals.jsx` (~715 lines)
 
-- 14-panel carousel, one panel per stotra section in chant order:
-  1. Nyāsāṅga — full Sri Yantra with 9 status-coloured overlay dots (body corners + gate positions)
-  2. Tithi Nitya — Korvin central triangle with 16 dots
-  3. Guravaḥ — Korvin trapezoid with 19 dots (three lineage rows)
-  4–10. 1st–7th Āvaraṇa — full Sri Yantra with target circuit status-coloured, all others dimmed
-  11. 8th Āvaraṇa — Korvin inner triangle with 7 dots
-  12. 9th Āvaraṇa — Korvin inner triangle with bindu dot
-  13. Nava Chakreshvarī — styled list with status rows
-  14. Śrīdevī Viśeṣaṇāni — styled list with status rows
+**14-panel carousel** — one panel per stotra section, in chant order:
+1. Nyāsāṅga Devatāḥ — full Sri Yantra + 9 status-coloured overlay dots
+2. Tithi Nitya Devatāḥ — Korvin central triangle, 16 dots
+3. Guravaḥ — Korvin trapezoid, 19 dots (3 lineage rows)
+4–10. 1st–7th Āvaraṇa — full yantra, target circuit coloured, others dimmed
+11. 8th Āvaraṇa — Korvin inner triangle, 7 dots
+12. 9th Āvaraṇa — Korvin inner triangle, bindu
+13. Nava Chakreshvarī — styled list, reversed (innermost first)
+14. Śrīdevī Viśeṣaṇāni — styled list, reversed
 
-- **Navigation:** ← / → buttons with "N / total" counter and section label
-- **Filter toggle:** "All" shows all 14 panels; "✗ only" hides any section with no not-memorised items (jumps directly to weak spots). Shows "No sections with unmemorised items" when filter is active and nothing is weak.
-- **Status colours:** green = memorised, gold = partial, red = not memorised, barely-visible gold = not attempted
-- **Geometry:** Nyāsa dots use the 500×500 overlay coordinate system (same as NyasaView); Tithi Nitya / Guravah / C8 / C9 use `korvinGeometry.js` (same geometry as their respective Spot Check views); C1–C7 use `filledRegions` in SriYantraSVG with the `C4_ORDER`–`C7_ORDER` chant→geometric-deitySeq maps.
+**Key design decisions (all implemented):**
+- **Maps view is default** — opens straight to the carousel
+- **Status colours:** green = memorised, amber = partial, red = not memorised, barely-visible = not attempted
+- **Svāminī + Yoginī pills** — horizontal amber/green/red badges above each C1–C9 map. IAST names from `SECTION_IAST` lookup. Hover shows full IAST name only when partial or not memorised.
+- **Tooltips:**
+  - Yantra maps: hover a weak region → name appears at bottom of image
+  - Korvin dot maps: white text on dark background rect SVG tooltip
+  - Pills: hover tooltip (matching yantra tooltip styling)
+- **No C1 bhupura dots** on C2–C7 maps — `ALL_YANTRA_DIM` excludes bhupura
+- **Reversed NC/Closing lists** — innermost deity first
+- **Counters / legend** — ← / → nav, "8 / 14" position counter, status legend at bottom
+- **Status key** (✓/~/✗/— with descriptions) shown in **List view only**
+- **Section name overlay** in Explore/Memorise mode — IAST label floats in `pt-8` gap above image (absolute positioning, zero layout impact)
+
+**Architecture — MemoMapVisuals.jsx:**
+- `circuitAggregateStatus(sectionId, allHistory)` → notMemorised > partial > memorised > notAttempted
+- `CircuitSideBox({ label, tipText, status, tooltipSide })` — horizontal pill with hover tooltip
+- `KorvinBase({ children, sectionId, allHistory })` — flex col: pills above, full-width SVG below
+- `YantraContainer({ children, sectionId, allHistory })` — flex col: pills above, 90% width square image
+- `DotTooltip({ tooltip })` — white text on `rgba(0,0,0,0.88)` background rect
+- `SECTION_IAST` — lookup object with proper IAST diacritics for Svāminī/Yoginī tooltip text
 
 **Modified:** `app/src/components/MemoMapView.jsx`
+- Renamed "Memo Map" → "Memory Map" (global rename across App.jsx, IntroView, TourGuide, MemoMapView, MemoMapVisuals)
+- Maps default view; Maps/List toggle below heading
+- Status key list-only; frozen table header list-only
 
-- Added `import MemoMapVisuals` and `const [view, setView] = useState('list')`.
-- Maps | List toggle buttons added inline next to the "Memo Map" title (gold-highlighted active state).
-- Filter dropdowns and frozen table header are list-mode only (`{view === 'list' && ...}`).
-- Scrollable body conditionally renders `<MemoMapVisuals>` (maps mode) or existing table (list mode).
-- Existing table and all list filters remain fully intact — List mode is unchanged from previous session.
-
-**Commit needed:** nothing is committed yet — commit before deploying.
+**Modified:** `app/src/App.jsx`
+- `SECTION_IAST_LABELS` constant — maps activeTab → IAST section name
+- Floating label rendered `absolute top-3` in `pt-8` gap above each circuit view (zero layout impact)
+- `SPOT CHECK AND MEMO MAP` heading → `SPOT CHECK AND MEMORY MAP`
 
 ---
 
@@ -129,21 +146,6 @@ The canonical dataset (Vignanam source) has **181 deity entries** across all sec
 ---
 
 ## Pending / suggested next
-- **Memo Map maps — round 4 fixes applied (not yet committed):**
-  - **Maps is now the default view** when opening Memo Map
-  - **Status key** (✓/~/✗/— with descriptions) shown in List view only; Maps view is uncluttered
-  - **Svāminī / Yoginī boxes**: two coloured rounded-rect badges above each C1–C9 map. Colour = circuit aggregate status (green/orange/red/dim). Label always "Svāminī" / "Yoginī". Hover shows full name only when partial or not memorised (via `title` attribute).
-  - **Yantra image size** increased to `min(100%, 440px)` — bigger without overflowing
-  - **All / ✗ only filter removed** — carousel always shows all 14 maps
-  - **Amber partial** — `rgba(251,191,36,0.85)` / `text-amber-400` (warmer, more distinctly amber vs gold)
-  - **Svāminī + Yoginī as side boxes** — `CircuitSideBox` components sit left/right of each circuit map (flex row layout). Tooltip shows full name only on hover when partial/notMemorised. `tooltipSide` prop controls direction.
-  - **Larger yantra image** — `YantraContainer` now `w-full flex-1` (no max constraint); image fills available width minus the two 40px side boxes + gaps.
-  - **Maps/List buttons** moved below "Memo Map" heading, not inline with it.
-  - **Architecture notes:**
-    - `CircuitSideBox({ label, tipText, status, tooltipSide })` — coloured side pill with hover reveal tooltip
-    - `SectionHeader` removed; replaced by `CircuitSideBox` used in flex row in `KorvinBase`/`YantraContainer`
-    - Both container components now compute `circuitAggregateStatus` internally
-  - Commit after testing
 - Mobile layout refactor (still pending):
   1. Navigation — bottom tab bar or hamburger drawer on narrow screens
   2. Right panel — deity info as bottom sheet on mobile

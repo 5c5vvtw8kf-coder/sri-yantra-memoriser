@@ -102,6 +102,19 @@ export function clearSessionLog() {
   try { localStorage.removeItem('memo-session-log') } catch {}
 }
 
+// Write a single answer (correct or wrong) directly to history for a given store key + seq.
+// Used for wrong answers, which don't update React state and therefore bypass saveMemoStorage.
+export function recordHistoryEntry(key, seq, result) {
+  try {
+    const histKey = `memo-history-${key}`
+    const hist = JSON.parse(localStorage.getItem(histKey) || '{}')
+    if (!hist[seq]) hist[seq] = []
+    hist[seq].push(result)
+    if (hist[seq].length > 3) hist[seq].shift()
+    localStorage.setItem(histKey, JSON.stringify(hist))
+  } catch {}
+}
+
 /**
  * Returns the display name for a deity in the requested script,
  * falling back to IAST if the requested script is unavailable.

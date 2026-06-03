@@ -22,7 +22,7 @@ import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import data from './data/khadgamala-canonical.json'
-import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog } from './utils.js'
+import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -661,7 +661,7 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -794,7 +794,7 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -925,7 +925,7 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1052,7 +1052,7 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1178,7 +1178,7 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1304,7 +1304,7 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1430,7 +1430,7 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1558,7 +1558,7 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1680,7 +1680,7 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
     } else if (isPast) {
-      valueContent = <span className="text-muted">{value}</span>
+      valueContent = <span className="text-gold-600">{value}</span>
     } else {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     }
@@ -1891,6 +1891,7 @@ export default function App() {
       ? { ...c2Results, [seq]: 'correct' }
       : { ...c2Results }
     if (result === 'correct') setC2Results(newResults)
+    else recordHistoryEntry('c2', seq, 'wrong')
     const nextSeq = seq + 1
     setC2CurrentSeq(nextSeq)
     if (nextSeq > 18) {
@@ -1935,6 +1936,7 @@ export default function App() {
       ? { ...c3Results, [seq]: 'correct' }
       : { ...c3Results }
     if (result === 'correct') setC3Results(newResults)
+    else recordHistoryEntry('c3', seq, 'wrong')
     const nextSeq = seq + 1
     setC3CurrentSeq(nextSeq)
     if (nextSeq > 10) {
@@ -1979,6 +1981,7 @@ export default function App() {
       ? { ...c4Results, [seq]: 'correct' }
       : { ...c4Results }
     if (result === 'correct') setC4Results(newResults)
+    else recordHistoryEntry('c4', seq, 'wrong')
     const nextSeq = seq + 1
     setC4CurrentSeq(nextSeq)
     if (nextSeq > 16) {
@@ -2023,6 +2026,7 @@ export default function App() {
       ? { ...c5Results, [seq]: 'correct' }
       : { ...c5Results }
     if (result === 'correct') setC5Results(newResults)
+    else recordHistoryEntry('c5', seq, 'wrong')
     const nextSeq = seq + 1
     setC5CurrentSeq(nextSeq)
     if (nextSeq > 12) {
@@ -2067,6 +2071,7 @@ export default function App() {
       ? { ...c6Results, [seq]: 'correct' }
       : { ...c6Results }
     if (result === 'correct') setC6Results(newResults)
+    else recordHistoryEntry('c6', seq, 'wrong')
     const nextSeq = seq + 1
     setC6CurrentSeq(nextSeq)
     if (nextSeq > 12) {
@@ -2111,6 +2116,7 @@ export default function App() {
       ? { ...c7Results, [seq]: 'correct' }
       : { ...c7Results }
     if (result === 'correct') setC7Results(newResults)
+    else recordHistoryEntry('c7', seq, 'wrong')
     const nextSeq = seq + 1
     setC7CurrentSeq(nextSeq)
     if (nextSeq > 10) {
@@ -2155,6 +2161,7 @@ export default function App() {
       ? { ...c8Results, [seq]: 'correct' }
       : { ...c8Results }
     if (result === 'correct') setC8Results(newResults)
+    else recordHistoryEntry('c8', seq, 'wrong')
     const nextSeq = seq + 1
     setC8CurrentSeq(nextSeq)
     if (nextSeq > 9) {
@@ -2193,6 +2200,7 @@ export default function App() {
       ? { ...c9Results, [seq]: 'correct' }
       : { ...c9Results }
     if (result === 'correct') setC9Results(newResults)
+    else recordHistoryEntry('c9', seq, 'wrong')
     const nextSeq = seq + 1
     setC9CurrentSeq(nextSeq)
     if (nextSeq > 3) {
@@ -2234,6 +2242,7 @@ export default function App() {
       ? { ...ncResults, [seq]: 'correct' }
       : { ...ncResults }
     if (result === 'correct') setNcResults(newResults)
+    else recordHistoryEntry('nc', seq, 'wrong')
     const nextSeq = seq + 1
     setNcCurrentSeq(nextSeq)
     if (nextSeq > 9) {
@@ -2274,6 +2283,7 @@ export default function App() {
       ? { ...closingResults, [seq]: 'correct' }
       : { ...closingResults }
     if (result === 'correct') setClosingResults(newResults)
+    else recordHistoryEntry('closing', seq, 'wrong')
     const nextSeq = seq + 1
     setClosingCurrentSeq(nextSeq)
     if (nextSeq > 10) {
@@ -2314,6 +2324,7 @@ export default function App() {
       ? { ...nyasaResults, [seq]: 'correct' }
       : { ...nyasaResults }
     if (result === 'correct') setNyasaResults(newResults)
+    else recordHistoryEntry('nyasa', seq, 'wrong')
     const nextSeq = seq + 1
     setNyasaCurrentSeq(nextSeq)
     if (nextSeq > 6) {
@@ -2359,6 +2370,7 @@ export default function App() {
       ? { ...innerResults, [seq]: 'correct' }
       : { ...innerResults }
     if (result === 'correct') setInnerResults(newResults)
+    else recordHistoryEntry('inner', seq, 'wrong')
     const nextSeq = seq + 1
     setInnerCurrentSeq(nextSeq)
     if (nextSeq > 16) {
@@ -2403,6 +2415,7 @@ export default function App() {
       ? { ...guravaResults, [seq]: 'correct' }
       : { ...guravaResults }
     if (result === 'correct') setGuravaResults(newResults)
+    else recordHistoryEntry('gurava', seq, 'wrong')
     const nextSeq = seq + 1
     setGuravaCurrentSeq(nextSeq)
     if (nextSeq > 19) {
@@ -2445,6 +2458,7 @@ export default function App() {
       ? { ...bhupuraResults, [seq]: 'correct' }
       : { ...bhupuraResults }
     if (result === 'correct') setBhupuraResults(newResults)
+    else recordHistoryEntry('bhupura', seq, 'wrong')
     const nextSeq = seq + 1
     setBhupuraCurrentSeq(nextSeq)
     if (nextSeq > 30) {

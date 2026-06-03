@@ -83,6 +83,11 @@ export default function ActivityLogView() {
             <p className="text-muted text-xs mt-0.5">
               {filtered.length}{filtered.length !== log.length ? ` of ${log.length}` : ''} {log.length === 1 ? 'session' : 'sessions'}
             </p>
+            <div className="flex gap-3 mt-1.5 text-[11px] font-mono">
+              <span className="text-red-400">100%</span>
+              <span className="text-gold-500">≥ 75%</span>
+              <span className="text-muted">&lt; 75%</span>
+            </div>
           </div>
           {log.length > 0 && (
             <button
