@@ -2512,7 +2512,9 @@ export default function App() {
   const [scSubFilter, setScSubFilter] = useState(null)
   const [scLimit,     setScLimit]     = useState(null)
   const [scProgress, setScProgress] = useState({ idx: 0, total: 0, correct: 0, wrong: 0 })
-  const scSkipRef = useRef(null)
+  const scSkipRef      = useRef(null)
+  const swipeStartX    = useRef(null)
+  const swipeStartY    = useRef(null)
 
   // ── Nav progress dots ──────────────────────────────────────────────────────
   const tabDotMap = {
@@ -2556,6 +2558,22 @@ export default function App() {
     if (tabId !== 'chakreshvari') setNcMemorise(false)
     if (tabId !== 'closing') setClosingMemorise(false)
     setMobileNavOpen(false)
+  }
+
+  const handleSwipeStart = (e) => {
+    swipeStartX.current = e.touches[0].clientX
+    swipeStartY.current = e.touches[0].clientY
+  }
+  const handleSwipeEnd = (e) => {
+    if (swipeStartX.current === null) return
+    const dx = e.changedTouches[0].clientX - swipeStartX.current
+    const dy = e.changedTouches[0].clientY - swipeStartY.current
+    swipeStartX.current = null
+    swipeStartY.current = null
+    // Only act on predominantly horizontal swipes ≥ 60 px
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy)) return
+    if (dx < 0 && nextTab) handleTabChange(nextTab.id)
+    if (dx > 0 && prevTab) handleTabChange(prevTab.id)
   }
 
   const handleDeitySelect = (deity) => setSelectedDeity(deity)
@@ -3606,7 +3624,9 @@ export default function App() {
       </aside>
 
       {/* ── Centre (active view) ──────────────────────────────────────────── */}
-      <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <main className="flex-1 flex flex-col min-w-0 overflow-hidden"
+            onTouchStart={handleSwipeStart}
+            onTouchEnd={handleSwipeEnd}>
 
         {/* Scrollable content area */}
         <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto pt-8 relative">
@@ -3914,6 +3934,19 @@ export default function App() {
             </button>
           </div>
         )}
+
+        {/* ── Mobile tab position segments ─────────────────────────────────── */}
+        <div className="flex md:hidden flex-shrink-0 px-2 py-1.5 gap-px">
+          {NAVIGABLE_TABS.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => handleTabChange(tab.id)}
+              className={`flex-1 h-1 rounded-full transition-colors
+                ${tab.id === activeTab ? 'bg-gold-400' : 'bg-surface-700 hover:bg-surface-600'}`}
+              aria-label={tab.footerLabel}
+            />
+          ))}
+        </div>
 
         {/* ── Sequential navigation footer ─────────────────────────────────── */}
         <div className="flex-shrink-0 border-t border-surface-800 flex items-center px-2 py-1.5 gap-1"
