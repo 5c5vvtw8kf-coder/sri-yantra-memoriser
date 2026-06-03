@@ -144,6 +144,39 @@ for (let i = 1; i <= 10; i++) ALL_YANTRA_DIM[`tri-c5-${String(i).padStart(2, '0'
 for (let i = 1; i <= 10; i++) ALL_YANTRA_DIM[`tri-c6-${String(i).padStart(2, '0')}`]   = DIM
 for (let i = 1; i <= 8;  i++) ALL_YANTRA_DIM[`tri-c7-${String(i).padStart(2, '0')}`]   = DIM
 
+// -- Svamini / Yogini seq numbers per circuit (in the memorise-mode store) ----
+// These are the seq values used by handleCxMarkResult for the two extra items
+// that follow the deity sequence in each circuit's memorise round.
+
+const CIRCUIT_STORE = {
+  'circuit-1': 'bhupura', 'circuit-2': 'c2', 'circuit-3': 'c3',
+  'circuit-4': 'c4',      'circuit-5': 'c5', 'circuit-6': 'c6',
+  'circuit-7': 'c7',      'circuit-8': 'c8', 'circuit-9': 'c9',
+}
+
+const SVAMINI_YOGINI_SEQS = {
+  'circuit-1': { svamini: 29, yogini: 30 },
+  'circuit-2': { svamini: 17, yogini: 18 },
+  'circuit-3': { svamini: 9,  yogini: 10 },
+  'circuit-4': { svamini: 15, yogini: 16 },
+  'circuit-5': { svamini: 11, yogini: 12 },
+  'circuit-6': { svamini: 11, yogini: 12 },
+  'circuit-7': { svamini: 9,  yogini: 10 },
+  'circuit-8': { svamini: 8,  yogini: 9  },
+  'circuit-9': { svamini: 2,  yogini: 3  },
+}
+
+function getSvaminiYoginiStatus(sectionId, allHistory) {
+  const sySeqs = SVAMINI_YOGINI_SEQS[sectionId]
+  const store  = CIRCUIT_STORE[sectionId]
+  if (!sySeqs || !store || !allHistory)
+    return { svamini: 'notAttempted', yogini: 'notAttempted' }
+  return {
+    svamini: statusFromHistory(store, sySeqs.svamini, allHistory),
+    yogini:  statusFromHistory(store, sySeqs.yogini,  allHistory),
+  }
+}
+
 // -- Section status counting --------------------------------------------------
 
 function getSectionStatusCounts(sectionIds, allHistory) {
@@ -373,14 +406,14 @@ const MAIN_TRI_PTS = [APEX, BASE_L, BASE_R]
 
 function KorvinBase({ children, sectionId, allHistory }) {
   const section  = sectionId ? sectionById[sectionId] : null
-  const status   = section && allHistory ? circuitAggregateStatus(sectionId, allHistory) : 'notAttempted'
+  const svYog    = sectionId ? getSvaminiYoginiStatus(sectionId, allHistory) : { svamini: 'notAttempted', yogini: 'notAttempted' }
   const showBoxes = !!section
   return (
     <div>
       {showBoxes && (
         <div className="flex justify-between items-end pb-2">
-          <CircuitSideBox label="Svāminī" tipText={SECTION_IAST[sectionId]?.svamini || section.chakraSvamini || ''} status={status} tooltipSide="right" />
-          <CircuitSideBox label="Yoginī" tipText={SECTION_IAST[sectionId]?.yogini || section.yoginiType || ''} status={status} tooltipSide="left" />
+          <CircuitSideBox label="Svāminī" tipText={SECTION_IAST[sectionId]?.svamini || section.chakraSvamini || ''} status={svYog.svamini} tooltipSide="right" />
+          <CircuitSideBox label="Yoginī" tipText={SECTION_IAST[sectionId]?.yogini || section.yoginiType || ''} status={svYog.yogini} tooltipSide="left" />
         </div>
       )}
       <div className="w-full rounded-lg overflow-hidden" style={{ background: BG }}>
@@ -404,14 +437,14 @@ function KorvinBase({ children, sectionId, allHistory }) {
 
 function YantraContainer({ children, sectionId, allHistory }) {
   const section  = sectionId ? sectionById[sectionId] : null
-  const status   = section && allHistory ? circuitAggregateStatus(sectionId, allHistory) : 'notAttempted'
+  const svYog    = sectionId ? getSvaminiYoginiStatus(sectionId, allHistory) : { svamini: 'notAttempted', yogini: 'notAttempted' }
   const showBoxes = !!section
   return (
     <div className="w-full">
       {showBoxes && (
         <div className="flex justify-between items-end pb-2">
-          <CircuitSideBox label="Svāminī" tipText={SECTION_IAST[sectionId]?.svamini || section.chakraSvamini || ''} status={status} tooltipSide="right" />
-          <CircuitSideBox label="Yoginī" tipText={SECTION_IAST[sectionId]?.yogini || section.yoginiType || ''} status={status} tooltipSide="left" />
+          <CircuitSideBox label="Svāminī" tipText={SECTION_IAST[sectionId]?.svamini || section.chakraSvamini || ''} status={svYog.svamini} tooltipSide="right" />
+          <CircuitSideBox label="Yoginī" tipText={SECTION_IAST[sectionId]?.yogini || section.yoginiType || ''} status={svYog.yogini} tooltipSide="left" />
         </div>
       )}
       <div className="relative w-[90%] mx-auto rounded-lg overflow-hidden" style={{ aspectRatio: '1' }}>

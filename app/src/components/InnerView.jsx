@@ -95,6 +95,7 @@ const deityById   = Object.fromEntries(deities.map(d => [d.id, d]))
 const sectionById = Object.fromEntries(sections.map(s => [s.id, s]))
 
 const nityaDeities = deities.filter(d => d.sectionId === 'nitya')
+  .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 
 // ── Colours ───────────────────────────────────────────────────────────────────
 
