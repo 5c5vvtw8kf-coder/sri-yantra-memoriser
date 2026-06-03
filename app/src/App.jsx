@@ -69,6 +69,10 @@ const TABS = [
 // Navigable tabs only (excludes heading entries — used for footer prev/next)
 const NAVIGABLE_TABS = TABS.filter(t => !t.heading)
 
+// The 14 Explore & Memorise sections — used for swipe navigation and segment bar
+const EXPLORE_TAB_IDS = ['nyasa','inner','gurava','bhupura','c2','c3','c4','c5','c6','c7','c8','c9','chakreshvari','closing']
+const EXPLORE_TABS    = NAVIGABLE_TABS.filter(t => EXPLORE_TAB_IDS.includes(t.id))
+
 // data-tour IDs for the site tour (TourGuide.jsx)
 const TOUR_NAV_IDS = {
   yantra:    'nav-yantra',
@@ -2570,10 +2574,12 @@ export default function App() {
     const dy = e.changedTouches[0].clientY - swipeStartY.current
     swipeStartX.current = null
     swipeStartY.current = null
-    // Only act on predominantly horizontal swipes ≥ 60 px
+    // Only act on predominantly horizontal swipes ≥ 60 px within the 14 explore sections
     if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy)) return
-    if (dx < 0 && nextTab) handleTabChange(nextTab.id)
-    if (dx > 0 && prevTab) handleTabChange(prevTab.id)
+    const idx = EXPLORE_TAB_IDS.indexOf(activeTab)
+    if (idx === -1) return
+    if (dx < 0 && idx < EXPLORE_TAB_IDS.length - 1) handleTabChange(EXPLORE_TAB_IDS[idx + 1])
+    if (dx > 0 && idx > 0) handleTabChange(EXPLORE_TAB_IDS[idx - 1])
   }
 
   const handleDeitySelect = (deity) => setSelectedDeity(deity)
@@ -3935,9 +3941,9 @@ export default function App() {
           </div>
         )}
 
-        {/* ── Mobile tab position segments ─────────────────────────────────── */}
+        {/* ── Mobile explore section segments (14) ─────────────────────────── */}
         <div className="flex md:hidden flex-shrink-0 px-2 py-1.5 gap-px">
-          {NAVIGABLE_TABS.map(tab => (
+          {EXPLORE_TABS.map(tab => (
             <button
               key={tab.id}
               onClick={() => handleTabChange(tab.id)}
