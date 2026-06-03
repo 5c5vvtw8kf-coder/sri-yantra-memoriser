@@ -70,8 +70,8 @@ const TABS = [
 const NAVIGABLE_TABS = TABS.filter(t => !t.heading)
 
 // The 14 Explore & Memorise sections — used for swipe navigation and segment bar
-const EXPLORE_TAB_IDS = ['nyasa','inner','gurava','bhupura','c2','c3','c4','c5','c6','c7','c8','c9','chakreshvari','closing']
-const EXPLORE_TABS    = NAVIGABLE_TABS.filter(t => EXPLORE_TAB_IDS.includes(t.id))
+const EXPLORE_TAB_IDS  = ['nyasa','inner','gurava','bhupura','c2','c3','c4','c5','c6','c7','c8','c9','chakreshvari','closing']
+const EXPLORE_NAV_TABS = NAVIGABLE_TABS.filter(t => EXPLORE_TAB_IDS.includes(t.id))
 
 // data-tour IDs for the site tour (TourGuide.jsx)
 const TOUR_NAV_IDS = {
@@ -3942,13 +3942,13 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) ─────────────────────────── */}
-        <div className="flex md:hidden flex-shrink-0 px-2 py-1.5 gap-px">
-          {EXPLORE_TABS.map(tab => (
+        <div className="flex md:hidden flex-shrink-0 px-2 py-2 gap-1">
+          {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}
               onClick={() => handleTabChange(tab.id)}
-              className={`flex-1 h-1 rounded-full transition-colors
-                ${tab.id === activeTab ? 'bg-gold-400' : 'bg-surface-700 hover:bg-surface-600'}`}
+              className={`flex-1 h-2 rounded-full transition-colors
+                ${tab.id === activeTab ? 'bg-gold-400' : 'bg-surface-600'}`}
               aria-label={tab.footerLabel}
             />
           ))}
