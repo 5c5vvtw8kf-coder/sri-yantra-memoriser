@@ -1865,6 +1865,7 @@ export default function App() {
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)
   const [navCollapsed, setNavCollapsed] = useState(false)
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   // ── Global deity selection ─────────────────────────────────────────────────
   const [selectedDeity, setSelectedDeity] = useState(null)
@@ -2554,6 +2555,7 @@ export default function App() {
     if (tabId !== 'c9') setC9Memorise(false)
     if (tabId !== 'chakreshvari') setNcMemorise(false)
     if (tabId !== 'closing') setClosingMemorise(false)
+    setMobileNavOpen(false)
   }
 
   const handleDeitySelect = (deity) => setSelectedDeity(deity)
@@ -3398,13 +3400,58 @@ export default function App() {
   )
 
   return (
-    <div className="h-screen flex bg-surface-950 text-cream overflow-hidden">
+    <div className="h-screen flex flex-col bg-surface-950 text-cream overflow-hidden">
 
       {/* ── Site tour portal (renders to document.body via createPortal) ──── */}
       {tourElement}
 
+      {/* ── Mobile drawer backdrop ───────────────────────────────────────── */}
+      {mobileNavOpen && (
+        <div className="fixed inset-0 z-40 bg-black/60 md:hidden"
+             onClick={() => setMobileNavOpen(false)} />
+      )}
+
+      {/* ── Mobile top bar (portrait only) ──────────────────────────────── */}
+      <div className="flex md:hidden flex-shrink-0 h-11 items-center px-3 gap-2 bg-surface-950 border-b border-surface-800 z-30">
+        <button
+          onClick={() => setMobileNavOpen(o => !o)}
+          className="w-8 h-8 flex items-center justify-center text-muted hover:text-cream transition-colors"
+          style={{ fontSize: 20 }}
+          aria-label="Open navigation"
+        >
+          ☰
+        </button>
+        <span className={`flex-1 text-xs font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
+          {TABS.find(t => t.id === activeTab)?.footerLabel ?? ''}
+        </span>
+        <div className="flex gap-1">
+          {[
+            { id: 'iast',       label: 'IAST' },
+            { id: 'devanagari', label: 'देव'  },
+            { id: 'telugu',     label: 'తె'   },
+            { id: 'tamil',      label: 'த'    },
+            { id: 'english',    label: 'En'   },
+          ].map(s => (
+            <button key={s.id} onClick={() => setScript(s.id)}
+              className={`px-1.5 py-0.5 rounded text-[11px] transition-colors border
+                ${script === s.id
+                  ? 'text-gold-300 bg-gold-900/30 border-gold-700/50'
+                  : 'text-muted border-surface-700 hover:text-cream'}`}>
+              {s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 3-column content row ─────────────────────────────────────────── */}
+      <div className="flex-1 flex min-h-0 overflow-hidden">
+
       {/* ── Left sidebar ─────────────────────────────────────────────────── */}
-      <aside data-tour="sidebar" className="w-52 flex-shrink-0 flex flex-col border-r border-surface-800 overflow-hidden">
+      <aside data-tour="sidebar"
+        className={`w-52 flex-shrink-0 flex flex-col border-r border-surface-800 overflow-hidden
+          fixed inset-y-0 left-0 z-50 transition-transform duration-300
+          md:relative md:translate-x-0 md:transition-none md:z-auto
+          ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full'}`}>
 
         {/* Title block */}
         <div className="px-4 pt-4 pb-3 border-b border-surface-800 flex-shrink-0">
@@ -3873,7 +3920,7 @@ export default function App() {
       </main>
 
       {/* ── Right panel ──────────────────────────────────────────────────── */}
-      <aside className="w-64 flex-shrink-0 border-l border-surface-800 flex flex-col"
+      <aside className="hidden md:flex w-64 flex-shrink-0 border-l border-surface-800 flex-col"
              style={{ visibility: activeTab === 'yantra' ? 'hidden' : undefined }}>
 
         {/* Scrollable info area */}
@@ -5296,6 +5343,8 @@ export default function App() {
         )}
 
       </aside>
+
+      </div>{/* end 3-column content row */}
 
     </div>
   )
