@@ -229,9 +229,9 @@ function Tooltip({ circuitNum, script }) {
   const label = displayName(deity, script)
   if (!label) return null
 
-  const fontSize = script === 'devanagari' ? 19 : script === 'english' ? 18 : 17
-  const h        = script === 'devanagari' ? 38 : script === 'english' ? 36 : 34
-  const charW    = script === 'devanagari' ? 14 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11.5 : 10.5
+  const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
+  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
+  const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
 
   // Centred horizontally on the bindu (SVG_CX = 260); y fixed at top-left area
