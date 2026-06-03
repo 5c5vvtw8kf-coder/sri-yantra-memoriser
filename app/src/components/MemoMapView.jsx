@@ -98,9 +98,9 @@ function getDeityStatus(deity, allHistory) {
 // ── Status display ────────────────────────────────────────────────────────────
 
 const STATUS_DISPLAY = {
-  memorised:    { symbol: '✓', className: 'text-red-400 font-semibold'   },
-  partial:      { symbol: '~', className: 'text-gold-500 font-semibold'  },
-  notMemorised: { symbol: '✗', className: 'text-slate-400 font-semibold' },
+  memorised:    { symbol: '✓', className: 'text-green-400 font-semibold' },
+  partial:      { symbol: '~', className: 'text-amber-400 font-semibold' },
+  notMemorised: { symbol: '✗', className: 'text-red-400 font-semibold'   },
   notAttempted: { symbol: '—', className: 'text-surface-600'             },
 }
 
@@ -216,17 +216,17 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
             {view === 'list' && (
             <div className="space-y-0.5 text-[11px] font-mono">
               <div className="flex items-center gap-2">
-                <span className="text-red-400 w-3 flex-shrink-0">✓</span>
+                <span className="text-green-400 w-3 flex-shrink-0">✓</span>
                 <span className="text-muted w-5 flex-shrink-0">{memorisedCount}</span>
                 <span className="text-muted">correct on last 3 attempts</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-gold-500 w-3 flex-shrink-0">~</span>
+                <span className="text-amber-400 w-3 flex-shrink-0">~</span>
                 <span className="text-muted w-5 flex-shrink-0">{partialCount}</span>
                 <span className="text-muted">correct on &lt; last 3 attempts</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-slate-400 w-3 flex-shrink-0">✗</span>
+                <span className="text-red-400 w-3 flex-shrink-0">✗</span>
                 <span className="text-muted w-5 flex-shrink-0">{notMemoisedCount}</span>
                 <span className="text-muted">none of last 3 correct</span>
               </div>
@@ -247,10 +247,15 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
         </div>
 
         {/* Progress bar */}
-        <div className="h-1 bg-surface-800 rounded-full overflow-hidden flex">
-          <div className="h-full bg-red-500 transition-all duration-300"   style={{ width: `${memorisedPct}%`   }} />
-          <div className="h-full bg-gold-600 transition-all duration-300"  style={{ width: `${partialPct}%`     }} />
-          <div className="h-full bg-slate-500 transition-all duration-300" style={{ width: `${notMemoisedPct}%` }} />
+        <div>
+          <div className="flex justify-end mb-0.5">
+            <span className="text-[10px] font-mono text-surface-500">overall progress</span>
+          </div>
+          <div className="h-1 bg-surface-800 rounded-full overflow-hidden flex">
+            <div className="h-full bg-green-400 transition-all duration-300"  style={{ width: `${memorisedPct}%`   }} />
+            <div className="h-full bg-amber-400 transition-all duration-300"  style={{ width: `${partialPct}%`     }} />
+            <div className="h-full bg-red-400   transition-all duration-300"  style={{ width: `${notMemoisedPct}%` }} />
+          </div>
         </div>
 
         {/* Filters -- list mode only */}
