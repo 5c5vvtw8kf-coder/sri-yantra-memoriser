@@ -629,8 +629,7 @@ function C9Map({ allHistory }) {
 }
 
 function ListMap({ sectionId, allHistory, script }) {
-  const ds    = [...(deityBySection[sectionId] || [])].reverse()
-  const isNC  = sectionId === 'chakreshvari'
+  const ds = [...(deityBySection[sectionId] || [])].reverse()
 
   return (
     <div className="space-y-1 py-1">
@@ -639,7 +638,6 @@ function ListMap({ sectionId, allHistory, script }) {
         const attempted = status !== 'notAttempted'
         const bg        = attempted ? STATUS_FILL[status] : 'rgba(201,168,76,0.07)'
         const textCol   = attempted ? 'rgba(15,8,5,0.9)' : '#8a7560'
-        const subCol    = attempted ? 'rgba(15,8,5,0.6)' : '#5a4535'
         return (
           <div key={d.id}
             className={`flex items-center gap-2 px-3 py-2 rounded-md ${script !== 'devanagari' ? 'iast' : ''}`}
@@ -647,11 +645,6 @@ function ListMap({ sectionId, allHistory, script }) {
             <span className="text-sm leading-snug flex-1 font-semibold" style={{ color: textCol }}>
               {displayName(d, script)}
             </span>
-            {isNC && (
-              <span className="text-xs font-mono flex-shrink-0" style={{ color: subCol }}>
-                C{d.sequenceInSection}
-              </span>
-            )}
           </div>
         )
       })}
