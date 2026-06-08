@@ -137,14 +137,14 @@ function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter,
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 
-function Tooltip({ x, y, label, fill, script }) {
+function Tooltip({ x, y, label, fill, script, below = false }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
   const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
   const tx       = Math.min(Math.max(x, -116 + w / 2), 496 - w / 2)
-  const ty       = y - h / 2 - 12
+  const ty       = below ? y + h / 2 + 12 : y - h / 2 - 12
   return (
     <g pointerEvents="none">
       <rect
@@ -290,7 +290,7 @@ export default function InnerView({
                   fontSize="12" fill={GOLD} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="start">
-                  Clockwise · waxing moon
+                  Anti-clockwise · waxing moon
                 </text>
               </g>
             )
@@ -322,7 +322,7 @@ export default function InnerView({
                   fontSize="12" fill={GOLD} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="end">
-                  Anti-clockwise · waning moon
+                  Clockwise · waning moon
                 </text>
               </g>
             )
@@ -378,19 +378,41 @@ export default function InnerView({
 
           {/* Memorise mode: active deity label */}
 
-          {/* Hover tooltip (both modes; suppressed during flash) */}
-          {hoveredDot && !flash && (!memorise ? !selectedId : true) && (
-            <Tooltip
-              x={hoveredDot.x} y={hoveredDot.y}
-              label={displayName(deityById[hoveredDot.id], script)}
-              fill={GOLD} script={script}
-            />
-          )}
+          {/* Tooltip — Explore mode only (avoids covering adjacent deities in Memorise).
+              In Explore: shows from hover (desktop) or from selectedId position (mobile tap). */}
+          {!memorise && !flash && (() => {
+            if (hoveredDot) {
+              const hdIdx = nityaDeities.findIndex(x => x.id === hoveredDot.id)
+              return (
+                <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                  label={displayName(deityById[hoveredDot.id], script)}
+                  fill={GOLD} script={script}
+                  below={hdIdx >= 0 && hdIdx <= 5} />
+              )
+            }
+            if (selectedId) {
+              const d   = deityById[selectedId]
+              const idx = nityaDeities.findIndex(x => x.id === selectedId)
+              const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
+              if (!pos) return null
+              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={idx >= 0 && idx <= 5} />
+            }
+            return null
+          })()}
 
 
 
 
         </svg>
+
+        {/* Mobile: active deity name below yantra in Memorise mode (no SVG tooltip overlap) */}
+        {memorise && hoveredDot && !flash && (
+          <div className="md:hidden mt-2 text-center min-h-[1.5rem]">
+            <span className={`${script === 'iast' || script === 'devanagari' ? 'iast' : ''} text-gold-400 text-sm`}>
+              {displayName(deityById[hoveredDot.id], script)}
+            </span>
+          </div>
+        )}
 
         {/* Completion overlay (delayed 700 ms) */}
         {showCompletion && (

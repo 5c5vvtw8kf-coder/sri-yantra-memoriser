@@ -151,6 +151,66 @@ Devanagari, Telugu, Tamil, Kannada, Malayalam, Gujarati, Odia, Bengali, Marathi,
 - Fast to load, works offline once cached (Phase 2)
 - Sanskrit names in both IAST and Devanagari as minimum
 
+### UI/UX Standards
+
+#### Colour System
+
+These constants are the source of truth. Use them consistently across all circuit view components.
+
+| Constant | Hex | Usage |
+|----------|-----|-------|
+| `GOLD` | `#c9a84c` | Yantra structural colour; Explore: past-visited elements |
+| `CREAM` | `#fff8c8` | Current focus — the active element in both modes |
+| `RED` | `#c0392b` | Memorise only: correctly memorised |
+| `TERRACOTTA` | `#8b4513` | Memorise only: answered wrong (not memorised) |
+| `DIM_GOLD` | `rgba(201,168,76,0.35)` | Not yet reached — fades into background in both modes |
+
+**Explore mode states:**
+
+| Element state | Colour |
+|---|---|
+| Not yet visited | `DIM_GOLD` (low opacity) |
+| Current focus / selected | `CREAM` |
+| Past visited / revealed | `GOLD` (full opacity) |
+
+**Memorise mode states:**
+
+| Element state | Colour |
+|---|---|
+| Not yet reached | `DIM_GOLD` |
+| Current focus (active) | `CREAM` |
+| Answered correct | `RED` |
+| Answered wrong | `TERRACOTTA` |
+
+The yantra's structural SVG lines/outlines remain gold at their existing low opacities — these are geometry, not interactive state.
+
+#### Mobile Interaction Standards
+
+**Tap behaviour (all interactive elements — dots, petals, triangles, Svāminī/Yoginī buttons):**
+- **Explore mode:** Single tap = reveal name in below-yantra strip (tap-to-reveal, not auto-reveal)
+- **Memorise mode — active element:** Single tap = reveal name AND mark correct simultaneously. No two-step flow.
+- **Memorise mode — active element:** Double-tap (within 300ms) = mark wrong
+- **Memorise mode — past element:** Single tap = no action; double-tap = toggle result
+
+**Name reveal:**
+- Name is always shown in a below-yantra HTML strip, not as an SVG tooltip
+- SVG tooltips are desktop-only (hover state)
+- Strip shows "tap to reveal" until tapped; never auto-reveals
+- Strip is `md:hidden` — invisible on desktop, which uses the right-panel MemoriseInfo
+
+**Desktop interaction (unchanged):**
+- Single click = correct
+- Double click = wrong
+
+#### Sequence Indicators and Direction Labels
+
+Arrows (green, red, gold) are being phased out. Replace with:
+- **Sequence order:** Numbered labels on the dots/petals/triangles themselves, or rely on the focus highlighting + planned auto-animation
+- **Direction (clockwise/anti-clockwise):** Small text badge adjacent to the diagram, e.g. "↺ anti-clockwise" / "↻ clockwise"
+- **Row direction (Guruvah):** Numbered sequence on nodes; no directional arrow needed
+
+Do not introduce new arrow-based navigation. The planned auto-animation feature (Explore mode) will make sequence direction self-evident once built.
+
 ## Data Schema
 
 **Per deity/name entry:**
@@ -263,3 +323,6 @@ At the start of each session, Claude should:
 | App focus | The Sri Yantra spatial geometry is the unique differentiator. Keep it central. Do not let the app drift into a generic Khadgamala flashcard tool. |
 | Preamble sections (Prarthana, Dhyanam) | Include eventually for completeness, but only after the core spatial learning modes (Spot Check, Line Drill) are stable. They are text/sequence-based and require no yantra geometry work. |
 | Commercialisation sequence | Stage 1: build for Chris. Stage 2: Western practitioners (primary commercial target — motivated, underserved, will pay). Stage 3: Indian practitioners globally (separate stage; do not optimise for this group prematurely). |
+| Colour system | CREAM = current focus (both modes). GOLD = past visited (Explore) / structural yantra. RED = correct (Memorise only). TERRACOTTA (#8b4513) = wrong (Memorise only). DIM_GOLD = not yet reached. See UI/UX Standards section. |
+| Mobile tap behaviour | Single tap = reveal + mark correct. Double-tap = mark wrong. No two-step reveal-then-mark flow. Strip is tap-to-reveal, never auto-reveals. Desktop unchanged (single click = correct, double click = wrong). |
+| Sequence/direction indicators | Arrows (green/red/gold) being phased out. Replace with numbered labels and text badges. Auto-animation (planned) will handle sequence direction in Explore. |

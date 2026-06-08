@@ -16,10 +16,11 @@
  * Supports Explore mode (tap to reveal) and Memorise mode (drill sequentially).
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
+import MobileSvaminiButtons from './MobileSvaminiButtons'
 
 // ── Coordinate system (matches InnerView / BinduView) ─────────────────────────
 
@@ -81,9 +82,9 @@ const deityById = Object.fromEntries(deities.map(d => [d.id, d]))
 const c8Deities = deities
   .filter(d => d.sectionId === 'circuit-8' && d.role === 'deity')
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+const c8Section = data.sections?.find(s => s.circuitNumber === 8 && s.type === 'circuit') || {}
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
@@ -98,14 +99,12 @@ function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, onClick, on
       strokeWidth={0}
       style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
       onClick={onClick}
-      onDoubleClick={onDoubleClick}
       onContextMenu={onContextMenu}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     />
   )
 }
-
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
@@ -149,35 +148,56 @@ export default function C8View({
   onNavigate,
   done: doneProp = null,
 }) {
-  const [selectedId,  setSelectedId]  = useState(null)
-  const [hoveredDot,  setHoveredDot]  = useState(null)
+  const [selectedId,    setSelectedId]    = useState(null)
+  const [hoveredDot,    setHoveredDot]    = useState(null)
+  const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
+  const lastTapRef     = useRef({ seq: null, time: 0 })
 
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
     setSelectedId(newId)
+    setHoveredDot(null)
     onDeitySelect(newId ? deityById[newId] : null)
   }
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
+
+  // Auto-reveal active dot in Memorise mode (mobile: hover never fires)
+  useEffect(() => {
+    if (!memorise || flash) { setHoveredDot(null); return }
+    const i = c8Deities.findIndex(d => d.sequenceInSection === currentSeq)
+    if (i < 0) { setHoveredDot(null); return }
+    const pos = C8_POSITIONS[i]
+    const d   = c8Deities[i]
+    if (d && pos) setHoveredDot({ id: d.id, x: pos[0], y: pos[1] })
+    else          setHoveredDot(null)
+  }, [memorise, flash, currentSeq])
+
+  // Reset reveal state when sequence advances (mobile tap-to-reveal)
+  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
 
   const selectedDeity = selectedId ? deityById[selectedId] : null
 
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    if (clickTimer.current) return
-    clickTimer.current = setTimeout(() => {
-      clickTimer.current = null
-      if (currentSeq === seq) onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleMemDblClick = (seq) => {
-    if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq) onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    if (window.innerWidth < 768 && currentSeq === seq) setMobileRevealed(true)
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+      if (currentSeq === seq) onMarkResult(seq, 'wrong')
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (clickTimer.current) return
+      clickTimer.current = setTimeout(() => {
+        clickTimer.current = null
+        if (currentSeq === seq) onMarkResult(seq, 'correct')
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const done = doneProp !== null ? doneProp : (memorise && currentSeq > TOTAL)
@@ -187,7 +207,6 @@ export default function C8View({
 
   return (
     <div className="w-full p-4">
-
 
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
@@ -253,7 +272,6 @@ export default function C8View({
               <DeityDot key={`mem-${seq}`}
                 x={pos[0]} y={pos[1]} r={14} fill={fill} selected={selected}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
-                onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                 onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
                 onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, pos[0], pos[1]) : undefined}
                 onMouseLeave={!flash && (isActive || isPast) ? unhover : undefined}
@@ -261,26 +279,40 @@ export default function C8View({
             )
           })}
 
-          {/* Hover tooltip */}
-          {hoveredDot && !flash && (() => {
-            const d = deityById[hoveredDot.id]
-            if (!d) return null
-            return (
-              <Tooltip
-                x={hoveredDot.x} y={hoveredDot.y}
-                label={displayName(d, script)}
-                script={script}
-              />
-            )
+          {/* Tooltip: auto-reveals in Memorise; Explore also falls back to selectedId tap */}
+          {!flash && (() => {
+            if (hoveredDot) {
+              const d = deityById[hoveredDot.id]
+              if (!d) return null
+              return <Tooltip x={hoveredDot.x} y={hoveredDot.y} label={displayName(d, script)} script={script} />
+            }
+            if (!memorise && selectedId) {
+              const idx = c8Deities.findIndex(d => d.id === selectedId)
+              const pos = idx >= 0 ? C8_POSITIONS[idx] : null
+              if (!pos) return null
+              const d = deityById[selectedId]
+              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} script={script} />
+            }
+            return null
           })()}
-
-
-
 
         </svg>
 
         {/* Completion overlay */}
-        {done && (
+
+      <MobileSvaminiButtons
+        section={c8Section}
+        script={script}
+        svaminiSeq={8}
+        yoginiSeq={9}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {done && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"

@@ -100,7 +100,6 @@ const BG    = '#0f0805'
 
 // ── Script helper ─────────────────────────────────────────────────────────────
 
-
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 function DeityDot({ x, y, r, fill, selected, onClick, onMouseEnter, onMouseLeave }) {
@@ -202,6 +201,7 @@ export default function BinduView({ script = 'iast', onDeitySelect = () => {} })
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
     setSelectedId(newId)
+    setHoveredDot(null)
     onDeitySelect(newId ? deityById[newId] : null)
   }
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })

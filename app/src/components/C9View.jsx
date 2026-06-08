@@ -10,10 +10,11 @@
  * Supports Explore mode (tap to reveal) and Memorise mode (single interaction).
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
+import MobileSvaminiButtons from './MobileSvaminiButtons'
 
 // ── Geometry ──────────────────────────────────────────────────────────────────
 // The central (main) triangle and the nine context triangles come from the
@@ -31,7 +32,8 @@ const TOTAL = 1
 // ── Static data ───────────────────────────────────────────────────────────────
 
 const { deities } = data
-const c9Deity = deities.find(d => d.sectionId === 'circuit-9' && d.role === 'deity')
+const c9Deity   = deities.find(d => d.sectionId === 'circuit-9' && d.role === 'deity')
+const c9Section = data.sections?.find(s => s.circuitNumber === 9 && s.type === 'circuit') || {}
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -80,9 +82,13 @@ export default function C9View({
   onNavigate,
   done: doneProp = null,
 }) {
-  const [selected, setSelected] = useState(false)
-  const [hovered,  setHovered]  = useState(false)
+  const [selected,      setSelected]      = useState(false)
+  const [hovered,       setHovered]       = useState(false)
+  const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
+
+  // Reset reveal state when mode changes (mobile tap-to-reveal)
+  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
 
   const toggle = () => {
     const next = !selected
@@ -93,6 +99,7 @@ export default function C9View({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = () => {
+    if (window.innerWidth < 768 && currentSeq === 1) setMobileRevealed(true)
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
@@ -172,8 +179,8 @@ export default function C9View({
           )}
 
 
-          {/* Hover tooltip */}
-          {hovered && !flash && c9Deity && (
+          {/* Tooltip: hover/select (Explore); auto-show in Memorise when bindu is active */}
+          {(hovered || selected || (memorise && currentSeq === 1)) && !flash && c9Deity && (
             <Tooltip
               x={bx} y={by}
               label={displayName(c9Deity, script)}
@@ -187,7 +194,8 @@ export default function C9View({
         </svg>
 
         {/* Completion overlay */}
-        {done && (
+
+      {done && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
@@ -213,7 +221,19 @@ export default function C9View({
           </div>
         )}
       </div>
-      <div className="h-8" />
+
+      <MobileSvaminiButtons
+        section={c9Section}
+        script={script}
+        svaminiSeq={2}
+        yoginiSeq={3}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
     </div>
   )
 }

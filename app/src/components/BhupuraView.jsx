@@ -22,6 +22,7 @@ import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG, { BHUPURA_MARKERS } from './SriYantraSVG'
+import MobileSvaminiButtons from './MobileSvaminiButtons'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
 
@@ -67,6 +68,7 @@ const BHUPURA_POSITIONS = Object.fromEntries(
 const { deities, sections } = data
 const deityById   = Object.fromEntries(deities.map(d => [d.id, d]))
 const sectionById = Object.fromEntries(sections.map(s => [s.id, s]))
+const bhupuraSection = sections.find(s => s.circuitNumber === 1 && s.type === 'circuit') || {}
 
 const c1Deities      = deities.filter(d => d.sectionId === 'circuit-1')
 const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti')
@@ -102,7 +104,6 @@ const GROUP_LABEL = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
@@ -117,14 +118,12 @@ function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, on
       opacity={opacity ?? 1}
       style={{ cursor: isInteractive ? 'pointer' : 'default', transition: 'opacity 0.2s' }}
       onClick={onClick}
-      onDoubleClick={onDoubleClick}
       onContextMenu={onContextMenu}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     />
   )
 }
-
 
 function Tooltip({ x, y, label, fill, script }) {
   if (!label) return null
@@ -178,10 +177,12 @@ export default function BhupuraView({
   flash = false,
   onNavigate,
 }) {
-  const [selectedId,   setSelectedId]   = useState(null)
-  const [hoveredDot,   setHoveredDot]   = useState(null)
-  const [activeFilter, setActiveFilter] = useState('all')
+  const [selectedId,    setSelectedId]    = useState(null)
+  const [hoveredDot,    setHoveredDot]    = useState(null)
+  const [activeFilter,  setActiveFilter]  = useState('all')
+  const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
+  const lastTapRef     = useRef({ seq: null, time: 0 })
   const yantraRef  = useRef(null)
   const [yantraPos, setYantraPos] = useState({ top: 80, height: 300, right: 500 })
 
@@ -205,10 +206,23 @@ export default function BhupuraView({
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
     setSelectedId(newId)
+    setHoveredDot(null)
     onDeitySelect(newId ? deityById[newId] : null)
   }
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
+
+  // Reset reveal state when sequence advances or mode changes
+  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
+
+  // Auto-reveal active dot position in Memorise mode (hover never fires on mobile)
+  useEffect(() => {
+    if (!memorise || flash || currentSeq < 1 || currentSeq > MEMO_TOTAL) { setHoveredDot(null); return }
+    const d   = memoDeities[currentSeq - 1]
+    const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
+    if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
+    else          setHoveredDot(null)
+  }, [memorise, flash, currentSeq, memoGroup])
 
   const selectedDeity = selectedId ? deityById[selectedId] : null
   const isDimmed      = (group) => activeFilter !== 'all' && activeFilter !== group
@@ -216,18 +230,22 @@ export default function BhupuraView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    if (clickTimer.current) return
-    clickTimer.current = setTimeout(() => {
-      clickTimer.current = null
-      if (currentSeq === seq) onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleMemDblClick = (seq) => {
-    if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq) onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    if (window.innerWidth < 768 && currentSeq === seq) setMobileRevealed(true)
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+      if (currentSeq === seq) onMarkResult(seq, 'wrong')
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (clickTimer.current) return
+      clickTimer.current = setTimeout(() => {
+        clickTimer.current = null
+        if (currentSeq === seq) onMarkResult(seq, 'correct')
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   // Memo mode: filtered deity list and total
@@ -246,7 +264,6 @@ export default function BhupuraView({
 
   return (
     <div className="w-full p-4">
-
 
       {/* Diagram — full Sri Yantra background + dot overlay */}
       <div ref={yantraRef}
@@ -335,7 +352,6 @@ export default function BhupuraView({
                   fill={fill} selected={selected}
                   opacity={1}
                   onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
-                  onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                   onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
                   onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, pos.x, pos.y) : undefined}
                   onMouseLeave={!flash && (isActive || isPast) ? unhover : undefined}
@@ -343,24 +359,30 @@ export default function BhupuraView({
               )
             })}
 
-
-            {/* Hover tooltip (both modes; suppressed during flash) */}
-            {hoveredDot && !flash && (!memorise ? !selectedId : true) && (
-              <Tooltip
-                x={hoveredDot.x} y={hoveredDot.y}
-                label={displayName(deityById[hoveredDot.id], script)}
-                fill={GOLD} script={script}
-              />
-            )}
-
-
+            {/* Tooltip — Explore mode only (desktop hover or mobile tap-to-persist).
+                Not shown in Memorise mode; name appears in the below-yantra strip instead. */}
+            {!flash && !memorise && (() => {
+              if (hoveredDot) return (
+                <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                  label={displayName(deityById[hoveredDot.id], script)}
+                  fill={GOLD} script={script} />
+              )
+              if (selectedId) {
+                const d   = deityById[selectedId]
+                const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
+                if (!pos) return null
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} fill={GOLD} script={script} />
+              }
+              return null
+            })()}
 
           </svg>
 
         </div>
 
         {/* Completion overlay — inside the diagram container */}
-        {done && (
+
+      {done && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)', zIndex: 10 }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
@@ -388,6 +410,31 @@ export default function BhupuraView({
           </div>
         )}
       </div>
+
+      {/* Mobile: active deity name below yantra in Memorise mode (tap-to-reveal) */}
+      {memorise && hoveredDot && currentSeq <= MEMO_TOTAL && !flash && (
+        <div className="md:hidden mt-2 text-center min-h-[1.5rem]">
+          {mobileRevealed ? (
+            <span className={`${script === 'iast' || script === 'devanagari' ? 'iast' : ''} text-gold-400 text-sm`}>
+              {displayName(deityById[hoveredDot.id], script)}
+            </span>
+          ) : (
+            <span className="text-muted text-sm italic">tap to reveal</span>
+          )}
+        </div>
+      )}
+
+      <MobileSvaminiButtons
+        section={bhupuraSection}
+        script={script}
+        svaminiSeq={29}
+        yoginiSeq={30}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
 
       {/* Fixed filter strip — bottom-left of yantra, horizontal (explore only) */}
       {!memorise && (

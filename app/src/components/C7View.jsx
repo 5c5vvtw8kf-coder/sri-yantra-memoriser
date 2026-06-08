@@ -18,11 +18,12 @@
  *            > 10   = done
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import triangleData from '../data/triangle-regions.json'
 import SriYantraSVG from './SriYantraSVG'
+import MobileSvaminiButtons from './MobileSvaminiButtons'
 
 const CX = 260
 const CY = 270
@@ -83,7 +84,7 @@ const deityById = Object.fromEntries(deities.map(d => [d.id, d]))
 const c7Deities = deities
   .filter(d => d.sectionId === 'circuit-7' && d.role === 'deity')
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
-
+const c7Section = data.sections?.find(s => s.circuitNumber === 7 && s.type === 'circuit') || {}
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
@@ -146,19 +147,34 @@ export default function C7View({
   flash           = false,
   onNavigate      = () => {},
 }) {
-  const [selectedId,  setSelectedId]  = useState(null)
-  const [hoveredDot,  setHoveredDot]  = useState(null)
+  const [selectedId,    setSelectedId]    = useState(null)
+  const [hoveredDot,    setHoveredDot]    = useState(null)
+  const [mobileRevealed, setMobileRevealed] = useState(false)
 
   const clickTimer     = useRef(null)
+  const lastTapRef     = useRef({ seq: null, time: 0 })
   const pastClickTimer = useRef(null)
 
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
     setSelectedId(newId)
+    setHoveredDot(null)
     onDeitySelect(newId ? deityById[newId] : null)
   }
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
+
+  // Auto-reveal active triangle in Memorise mode (mobile: hover never fires)
+  useEffect(() => {
+    if (!memorise || flash || currentSeq < 1 || currentSeq > 8) { setHoveredDot(null); return }
+    const d   = c7Deities[currentSeq - 1]
+    const pos = C7_DOT_POSITIONS[currentSeq]
+    if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
+    else          setHoveredDot(null)
+  }, [memorise, flash, currentSeq])
+
+  // Reset reveal state when sequence advances (mobile tap-to-reveal)
+  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
 
   const selectedDeity = selectedId ? deityById[selectedId] : null
 
@@ -166,27 +182,34 @@ export default function C7View({
 
   const handleMemoriseClick = (seq) => {
     if (seq !== currentSeq) return
-    if (clickTimer.current) return
-    clickTimer.current = setTimeout(() => { clickTimer.current = null; markResult(seq, 'correct') }, 280)
+    if (window.innerWidth < 768) setMobileRevealed(true)
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+      markResult(seq, 'wrong')
+    } else {
+      if (clickTimer.current) return
+      clickTimer.current = setTimeout(() => { clickTimer.current = null; markResult(seq, 'correct') }, 280)
+    }
   }
 
-  const handleMemoriseDoubleClick = (seq) => {
-    if (seq !== currentSeq) return
-    if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    markResult(seq, 'wrong')
-  }
-
+  const lastPastTapRef = useRef({ seq: null, time: 0 })
   const handlePastClick = (seq) => {
-    if (pastClickTimer.current) return
-    pastClickTimer.current = setTimeout(() => {
-      pastClickTimer.current = null
-      if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handlePastDoubleClick = (seq) => {
-    if (pastClickTimer.current) { clearTimeout(pastClickTimer.current); pastClickTimer.current = null }
-    if (results[seq] === 'correct') onToggleResult(seq)
+    const now = Date.now()
+    const isDoubleTap = lastPastTapRef.current.seq === seq && (now - lastPastTapRef.current.time) < 300
+    lastPastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (pastClickTimer.current) { clearTimeout(pastClickTimer.current); pastClickTimer.current = null }
+      if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (pastClickTimer.current) return
+      pastClickTimer.current = setTimeout(() => {
+        pastClickTimer.current = null
+        if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const done = memorise && currentSeq > 10
@@ -280,7 +303,6 @@ export default function C7View({
                   return <polygon key={`past-${d.id}`} points={pts} fill="transparent" stroke="none"
                            style={{ cursor: 'pointer' }}
                            onClick={() => handlePastClick(seq)}
-                           onDoubleClick={() => handlePastDoubleClick(seq)}
                            onContextMenu={e => { e.preventDefault(); onToggleResult(seq) }} />
                 })}
                 {currentSeq <= 8 && (() => {
@@ -291,24 +313,44 @@ export default function C7View({
                   return <polygon key={d.id} points={pts} fill="transparent" stroke="none"
                            style={{ cursor: 'pointer' }}
                            onClick={() => handleMemoriseClick(currentSeq)}
-                           onDoubleClick={() => handleMemoriseDoubleClick(currentSeq)}
                            onMouseEnter={() => hover(d.id, pos.x, pos.y)}
                            onMouseLeave={unhover} />
                 })()}
               </>
             )}
 
-            {hoveredDot && (
-              <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                label={displayName(deityById[hoveredDot.id], script)} script={script} />
-            )}
+            {/* Tooltip: auto-reveals in Memorise; Explore also falls back to selectedId tap */}
+            {!flash && (() => {
+              if (hoveredDot) return (
+                <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                  label={displayName(deityById[hoveredDot.id], script)} script={script} />
+              )
+              if (!memorise && selectedId) {
+                const d   = deityById[selectedId]
+                const pos = d ? C7_DOT_POSITIONS[d.sequenceInSection] : null
+                if (!pos) return null
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} />
+              }
+              return null
+            })()}
 
           </svg>
         </div>
       </div>
 
-      {done && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
+      <MobileSvaminiButtons
+        section={c7Section}
+        script={script}
+        svaminiSeq={9}
+        yoginiSeq={10}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
 
+      {done && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
 
     </div>
   )

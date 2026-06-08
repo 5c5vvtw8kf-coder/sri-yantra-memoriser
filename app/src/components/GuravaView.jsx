@@ -174,9 +174,22 @@ export default function GuravaView({
   flash = false,
   onNavigate,
 }) {
-  const [selectedId, setSelectedId] = useState(null)
-  const [hoveredDot, setHoveredDot] = useState(null)
+  const [selectedId,    setSelectedId]    = useState(null)
+  const [hoveredDot,    setHoveredDot]    = useState(null)
+  const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
+
+  // Reset reveal state when sequence advances or mode changes
+  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
+
+  // Auto-set hoveredDot in Memorise so SVG tooltip shows for active deity
+  useEffect(() => {
+    if (!memorise || flash || currentSeq < 1 || currentSeq > GURU_TOTAL) { setHoveredDot(null); return }
+    const d = guruAll[currentSeq - 1]
+    const pos = d ? getGuruPos(d) : null
+    if (d && pos) setHoveredDot({ id: d.id, x: pos[0], y: pos[1] })
+    else setHoveredDot(null)
+  }, [memorise, flash, currentSeq])
 
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
@@ -191,6 +204,7 @@ export default function GuravaView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
+    if (window.innerWidth < 768 && currentSeq === seq) setMobileRevealed(true)
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
@@ -340,14 +354,21 @@ export default function GuravaView({
 
           {/* Memorise: active position counter */}
 
-          {/* Hover tooltip (both modes; suppressed during flash) */}
-          {hoveredDot && !flash && (!memorise ? !selectedId : true) && (
-            <Tooltip
-              x={hoveredDot.x} y={hoveredDot.y}
-              label={displayName(deityById[hoveredDot.id], script)}
-              fill={GOLD} script={script}
-            />
-          )}
+          {/* Tooltip: auto-reveals in Memorise; Explore falls back to selectedId tap */}
+          {!flash && (() => {
+            if (hoveredDot) return (
+              <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                label={displayName(deityById[hoveredDot.id], script)}
+                fill={GOLD} script={script} />
+            )
+            if (!memorise && selectedId) {
+              const d   = deityById[selectedId]
+              const pos = d ? getGuruPos(d) : null
+              if (!pos) return null
+              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} />
+            }
+            return null
+          })()}
 
           {/* Hint */}
 

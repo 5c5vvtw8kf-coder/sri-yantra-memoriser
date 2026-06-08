@@ -1,193 +1,155 @@
 # Sri Yantra Memoriser — Session Handoff
 
-**Date:** 3 June 2026
+**Date:** 8 June 2026 (updated end of day)
 **Branch:** master
-**Last commit:** Memory Map: white-on-black dot tooltips for Korvin maps (99c1b4e)
+**Last commit:** Revert C4–C9 and GuravaView to SVG tooltips; increase top bar font size
 **Live URL:** https://app-one-sigma-31.vercel.app (Vercel, Hobby plan) — **current and deployed**
 
 ---
 
-## What Was Completed This Session (3 June 2026)
+## ⚠️ Outstanding bugs at session end (8 June 2026)
 
-### Memory Map (formerly Memo Map) — complete visual maps feature
+Chris reported "Still lots to fix — things I've already mentioned but still not fixed" but was too tired to re-list them. **Start next session by asking Chris to walk through the app on his phone and list what's still broken before touching any code.**
 
-**New file:** `app/src/components/MemoMapVisuals.jsx` (~715 lines)
-
-**14-panel carousel** — one panel per stotra section, in chant order:
-1. Nyāsāṅga Devatāḥ — full Sri Yantra + 9 status-coloured overlay dots
-2. Tithi Nitya Devatāḥ — Korvin central triangle, 16 dots
-3. Guravaḥ — Korvin trapezoid, 19 dots (3 lineage rows)
-4–10. 1st–7th Āvaraṇa — full yantra, target circuit coloured, others dimmed
-11. 8th Āvaraṇa — Korvin inner triangle, 7 dots
-12. 9th Āvaraṇa — Korvin inner triangle, bindu
-13. Nava Chakreshvarī — styled list, reversed (innermost first)
-14. Śrīdevī Viśeṣaṇāni — styled list, reversed
-
-**Key design decisions (all implemented):**
-- **Maps view is default** — opens straight to the carousel
-- **Status colours:** green = memorised, amber = partial, red = not memorised, barely-visible = not attempted
-- **Svāminī + Yoginī pills** — horizontal amber/green/red badges above each C1–C9 map. IAST names from `SECTION_IAST` lookup. Hover shows full IAST name only when partial or not memorised.
-- **Tooltips:**
-  - Yantra maps: hover a weak region → name appears at bottom of image
-  - Korvin dot maps: white text on dark background rect SVG tooltip
-  - Pills: hover tooltip (matching yantra tooltip styling)
-- **No C1 bhupura dots** on C2–C7 maps — `ALL_YANTRA_DIM` excludes bhupura
-- **Reversed NC/Closing lists** — innermost deity first
-- **Counters / legend** — ← / → nav, "8 / 14" position counter, status legend at bottom
-- **Status key** (✓/~/✗/— with descriptions) shown in **List view only**
-- **Section name overlay** in Explore/Memorise mode — IAST label floats in `pt-8` gap above image (absolute positioning, zero layout impact)
-
-**Architecture — MemoMapVisuals.jsx:**
-- `circuitAggregateStatus(sectionId, allHistory)` → notMemorised > partial > memorised > notAttempted
-- `CircuitSideBox({ label, tipText, status, tooltipSide })` — horizontal pill with hover tooltip
-- `KorvinBase({ children, sectionId, allHistory })` — flex col: pills above, full-width SVG below
-- `YantraContainer({ children, sectionId, allHistory })` — flex col: pills above, 90% width square image
-- `DotTooltip({ tooltip })` — white text on `rgba(0,0,0,0.88)` background rect
-- `SECTION_IAST` — lookup object with proper IAST diacritics for Svāminī/Yoginī tooltip text
-
-**Modified:** `app/src/components/MemoMapView.jsx`
-- Renamed "Memo Map" → "Memory Map" (global rename across App.jsx, IntroView, TourGuide, MemoMapView, MemoMapVisuals)
-- Maps default view; Maps/List toggle below heading
-- Status key list-only; frozen table header list-only
-
-**Modified:** `app/src/App.jsx`
-- `SECTION_IAST_LABELS` constant — maps activeTab → IAST section name
-- Floating label rendered `absolute top-3` in `pt-8` gap above each circuit view (zero layout impact)
-- `SPOT CHECK AND MEMO MAP` heading → `SPOT CHECK AND MEMORY MAP`
+Known pending item (from mid-session feedback, not yet investigated):
+- **Svāminī/Yoginī — pause before popup**: There's a timing issue where the Svāminī/Yoginī completion panel appears before the user expects it. Needs investigation — likely related to the `clickTimer`/`currentSeq` advancement flow in `MobileSvaminiButtons`.
 
 ---
 
-## What Was Completed This Session (2 June 2026 — second session)
+## What Was Completed This Session (8 June 2026)
 
-### Completion overlay — 700 ms delay (NyasaView, InnerView, GuravaView, NavaChakreshvariView)
-- `done` flag still computed immediately; `showCompletion` state trails it by 700ms via `useEffect` + `setTimeout`.
-- Overlay switches from `{done && (` to `{showCompletion && (` in all four views.
-- Gives user a window to right-click/toggle the last answer before the overlay appears.
-- `useEffect` cleanup clears the timer; resetting (`onStartMemorise`) resets `showCompletion` immediately.
-- ClosingView not affected (Chris did not report an issue there).
+### UI/UX standards — captured in CLAUDE.md
+New standards section added covering colour system, mobile tap behaviour, and sequence indicators:
+- **Colour system**: CREAM = current focus (both modes); GOLD = past visited (Explore) / structural; RED = correct (Memorise only); TERRACOTTA `#8b4513` = wrong (Memorise only); DIM_GOLD = not yet reached
+- **Mobile tap**: single tap = reveal + mark correct simultaneously; double-tap (300ms) = mark wrong; no two-step flow
+- **Sequence/direction indicators**: arrows (green/red/gold) phased out; replaced with numbered labels on dots/petals/triangles and small text badges (e.g. "↺ anti-clockwise")
 
-### "Next circuit →" → "Next →"
-- Replaced in App.jsx (8× CxMemoriseInfo components), C2View–C7View.
-- C8View, C9View, GuravaView, InnerView, NavaChakreshvariView, NyasaView already used "Next →".
+### Tooltip revert — C2–C9 and GuravaView Memorise mode
+Previous session had added below-yantra text strips for Memorise mode. These were broken — the 280ms marking timer caused the strip to disappear before the user could read it. Reverted all circuits back to SVG tooltips:
+- **C2, C3**: already done last session
+- **C4–C7**: tooltip condition `!memorise && (…)` → `!flash && (…)`; `selectedId` fallback scoped to `!memorise`; strip removed
+- **C8**: same changes (was `!memorise && !flash`)
+- **C9**: tooltip condition extended to `(hovered || selected || (memorise && currentSeq === 1))` — auto-shows in Memorise; strip removed
+- **GuravaView**: added `useEffect` to auto-set `hoveredDot` from `guruAll[currentSeq - 1]` in Memorise mode (mirrors C2–C8 pattern); tooltip condition `!memorise && !flash` → `!flash`; strip removed
 
-### Left sidebar — nav collapse button (re-implemented)
-- `navCollapsed` state added to App.jsx.
-- `«`/`»` toggle button added to the title block (always visible).
-- When collapsed: nav list, yantraControls, subtitle, tour `?` button, and "SCRIPT" label all hide.
-- Script selector buttons always remain visible.
-- Sidebar stays `w-52`; script buttons fill the width in collapsed state.
-- Note: button was previously added in an earlier session but lost in a `git restore`. Re-implemented from the HANDOFF spec.
+### BhupuraView fixes
+- `MobileSvaminiButtons` moved outside the `relative overflow-hidden` div — was being clipped by the fixed-height container
+- SVG tooltip scoped to `!memorise` (suppressed in Memorise mode)
+- Mobile strip (below yantra, tap-to-reveal) working
 
-### Closing View (Śrīdevī Viśeṣaṇāni) — number strip fixes
-- **Number strip positioning**: was hardcoded `left: 208`. Now measures the actual sidebar right edge via `document.querySelector('[data-tour="sidebar"]').getBoundingClientRect().right` and uses `sidebarRight + 6`. Fixes overlap with sidebar nav progress dots on all screen sizes and base font sizes.
-- **Revealed label font**: 13px → 16px (now matches the hover tooltip size).
-- Architecture: `yantraPos` reverted to `{ top, height }` only; sidebar right edge tracked separately as `sidebarRight` state. Both updated on resize/scroll.
-- Note: `BhupuraView` filter strip still uses hardcoded `left: 208` — same fix pattern applies there when mobile refactor is done.
+### MobileSvaminiButtons — one-tap alignment
+Removed two-step tap flow (tap 1 = reveal, tap 2 = mark). Now: single tap = reveal + mark correct simultaneously, matching dot/petal/triangle behaviour.
 
----
+### InnerView fixes
+- Tooltip `below` prop added for positions 0–5 (right-side dots) — tooltip now appears below those dots rather than overlapping them
+- Arrow direction labels swapped (were reversed): right arrow = "Anti-clockwise · waxing moon"; left arrow = "Clockwise · waning moon"
 
-## What Was Completed Previous Session
-
-### Left sidebar
-- Section headings reverted from saffron to `text-cream` (white); hover brightens to `text-white`.
-- "SCRIPT" label likewise reverted to `text-cream`.
-- Circuit nav items numbered 1.–9. in IAST/En; Devanagari uses १.–९.
-- Nav collapse button `«`/`»` added to title block — hides nav + yantra controls, keeps script icons and title visible. "SCRIPT" label hides when collapsed; icon buttons remain.
-- Script selector **removed** from sidebar entirely.
-- English circuit nav labels updated: "Nth Enclosure Goddesses" (plural 1–8), "9th Enclosure Goddess" (singular).
-
-### Spot Check
-- SEGMENT and ROUND SIZE labels: 9px → 11px.
-- Unfocused region fill: `BG_DIM` changed from `rgba(201,168,76,0.10)` to `rgba(138,117,96,0.35)` — warm grey, much better contrast against dark background and clearly distinct from the not-memorised gold.
-
-### Activity Log
-- Date, Time, Section, Score columns: Gentium Plus, 15px.
-
-### Memo Map
-- Section column: Gentium Plus, 15px.
-
-### Closing View (Śrīdevī Viśeṣaṇāni)
-- Hover tooltip names: 13px → 16px; IAST subtitle: 11px → 13px.
-
-### References page
-- New "Recordings" section added at top: "Khaḍgamālā Stotram authentic" by Sri Vidyalay (YouTube).
-- Section order: Recordings → Canonical Text Source → Śrī Yantra Geometry → Courses.
-
-### Sri Devi Khadgamala Stotram page — major overhaul
-- Left panel: all group headings (Introduction, Preamble, Nine Āvaraṇas, Closing) removed. Flat uniform list. All items same muted light brown; gold-300 highlight on selection.
-- Right panel: `max-w` constraint removed; fills available width.
-- All sections now use consistent formatting: 12px muted uppercase label, gold `text-sm` boxes, 15px Gentium Plus translations indented with `pl-3`, italics removed.
-- Custom render blocks added for: Prārthana, Dhyānam, Devī Sambodhanam, Nyāsa Devatās, Tithi Nitya Devatās, Divyaugha Gurus, Siddyaugha Gurus, Maanavaugha Gurus.
-- CircuitMeta block (Āvaraṇa / Chakra Svāminī / Yoginī / Chakreshvarī) removed from avarana pages.
-- Group labels (Siddhi Shakti, Ashta Matrikas etc.) removed from avarana pages.
-- **Devanagari support**: all gold text blocks switch to Devanagari when देव script selected; IAST shown below as subtitle. Full text sourced from vignanam.org/samskritam. Devanagari is now **hardcoded** as the script for this page (global script selector removed).
-- Tithi Nitya Devatās: Waxing Moon (☽) / Waning Moon (☾) toggle reverses order of first 15; Mahānityē always last.
-- Section descriptions updated in `app/src/data/khadgamala-canonical.json`: circuits 1–9 now read "Devis of the Nth Avarana Chakra" (with Vagdevis on 7th, Bindu on 9th; 9th uses singular "Devi").
-- Nava Chakreshvarī description: "Nine Enclosures".
-- Guru section labels shortened: "Divine Gurus", "Siddha Gurus", "Human Gurus".
-- "Āvaraṇa" consistently translated as "Enclosure" throughout English mode.
-- "Deity List" → "Goddess List" across all 9 occurrences in App.jsx.
-
-### Terminology
-- "Āvaraṇa" = "Enclosure" (established this session as the preferred English translation).
+### App.jsx
+- Removed duplicate section title floating above central image (was also shown in top bar)
+- `pt-8` → `pt-2` on scrollable content div (more space below)
+- Top bar section title font size: `text-xs` → `text-sm`
 
 ---
 
-## Data notes
+## What Was Completed This Session (3 June 2026 — second session)
 
-### Deity count
-The canonical dataset (Vignanam source) has **181 deity entries** across all sections. The tour step 1 text says "around 180 deity names" — do not change this back to "over 300" (which was incorrect).
+### Memory Map — wrong-answer tracking fix
+- `recordHistoryEntry(key, seq, result)` added to `app/src/utils.js`
+- All 14 `handleXxxMarkResult` handlers in `App.jsx` now call `recordHistoryEntry(key, seq, 'wrong')` for wrong answers
+- Previously, wrong answers were never written to history (`memo-history-*`) because state only tracked correct answers; Memory Map showed everything as "not attempted"
 
-### Script architecture
-- Global `script` state in App.jsx still exists and drives the main explore/memorise views.
-- `CircuitBrowser` (Stotram page) is **hardcoded** to `script="devanagari"` — it does not respond to global script state.
-- The global script selector has been removed from the sidebar.
+### Memory Map — visual fixes
+- **NyasaMap tooltips**: Overlay SVG had `pointer-events-none` blocking hover. Individual circles now opt-in with `pointerEvents="all"`. Astrādevī hover shows all 4 dot tooltips simultaneously.
+- **YantraCircuitMap tooltip position**: Was pinned to bottom of image. Now follows mouse cursor (tracks via `onMouseMove` on wrapper div).
+- **NC/Closing ListMap**: Changed from subtle tinted rows to solid `STATUS_FILL` background with `rgba(15,8,5,0.9)` black text — matching the Svāminī/Yoginī pills.
+- **renderRow wrong-answer colour**: Changed `text-muted` (brown) to `text-gold-600` in all 9 CxMemoriseInfo right-panel functions.
+- **Circuit number badges removed** from NC list in Memory Map.
+- **Svāminī/Yoginī pills** now read their own dedicated history entries rather than the circuit aggregate. `getSvaminiYoginiStatus(sectionId, allHistory)` uses `SVAMINI_YOGINI_SEQS` map (seqs: C1=29/30, C2=17/18, C3=9/10, C4=15/16, C5=11/12, C6=11/12, C7=9/10, C8=8/9, C9=2/3).
+- **Colour unification**: Progress bar, List view key, and table status symbols all changed to green/amber/red (was red/gold/slate).
+- **"overall progress" label** added above progress bar (right-aligned, mono).
+- **"(last 3 attempts)" label** added to status counts in carousel.
+- **Activity Log score key** added: `100%` / `≥ 75%` / `< 75%` in matching colours.
+
+### Memory Map — Tithi Nitya seq order fix
+- `nityaDeities` in `InnerView.jsx` was not sorted by `sequenceInSection`. Added `.sort((a, b) => a.sequenceInSection - b.sequenceInSection)`. Mahāvajrēśvarī (seq 6) and Vijayē (seq 12) were at wrong array positions → history was written at wrong keys → Memory Map showed them as "not attempted" rather than "not memorised". Mahā Nityē (seq 16) coincidentally matched in both modes.
+
+### Mobile Phase 1 — responsive layout
+- Root div changed to `flex-col`; 3-column content row wrapped in `flex-1 flex min-h-0 overflow-hidden`
+- **Mobile top bar** (`flex md:hidden`, `h-11`): hamburger ☰ + current section name + script selector buttons
+- **Sidebar drawer**: `fixed inset-y-0 left-0 z-50 transition-transform` on mobile; slides in via `mobileNavOpen` state; `md:relative md:translate-x-0` restores desktop behaviour
+- **Mobile drawer backdrop**: `fixed inset-0 z-40 bg-black/60 md:hidden` — tap to close
+- **Right panel**: `hidden md:flex` — hidden on mobile
+- **`viewport-fit=cover`** added to `index.html` meta viewport
+- **Safe-area padding** on footer nav: `paddingBottom: 'max(6px, env(safe-area-inset-bottom))'`
+- **Mobile Explore/Memorise bar**: `mobileCtrl` lookup maps all 14 explore/memorise tabs to their handlers; rendered as two-button bar (`flex md:hidden`) above the footer nav
+- **Swipe navigation**: `handleSwipeStart`/`handleSwipeEnd` on `<main>`; only fires within the 14 `EXPLORE_TAB_IDS`; threshold ≥ 60px horizontally with `|dx| > |dy|`
+- **14-segment position bar**: `EXPLORE_NAV_TABS` (module-level, distinct from the existing component-level `EXPLORE_TABS = new Set(...)`) — renders 14 tappable `h-2` rounded segments; active tab gold, others `bg-surface-600`
+
+### Tooltip size increase
+- All explore/memorise view `Tooltip` components updated: fontSize `17/18/19` → `24/25/26`; rect height `34/36/38` → `48/50/52`; charW `10.5/11.5/14` → `13.5/14.5/18` (and Telugu/Tamil proportionally)
+- Applied via Python script across 19 component files
+- **InnerView.jsx** was found to have a pre-existing truncation (missing 4 closing lines). Fixed by appending `</div></div>)}`
+
+---
+
+## Architecture notes (updated)
+
+### Name collision warning
+`EXPLORE_TABS` is used as a `Set` inside the App component function (for footer hint logic). The module-level navigation array of the 14 stotra sections is named **`EXPLORE_NAV_TABS`** to avoid shadowing. Do not rename.
+
+### File truncation pattern (reminder)
+The sandbox writes files via Linux paths on an OneDrive-synced Windows folder. Python bulk writes can truncate files mid-write. Fix: restore with `git checkout HEAD -- <file>` from Windows terminal, then use the Edit tool for targeted changes. Prevention: commit frequently; verify `tail -6` after any Python file write.
+
+### Mobile layout structure
+```
+<div h-screen flex-col>
+  {tourElement}          ← portal, no layout impact
+  {backdrop}             ← fixed overlay, md:hidden
+  <div mobile-top-bar>   ← h-11, md:hidden
+  <div flex-1 flex>      ← 3-column row
+    <aside sidebar>      ← fixed on mobile (drawer), relative on desktop
+    <main>               ← flex-1, swipe handlers
+      scrollable content
+      mobile control bar ← md:hidden
+      segment bar        ← md:hidden, 14 segments
+      footer nav         ← safe-area padding
+    </main>
+    <aside right-panel>  ← hidden md:flex
+  </div>
+</div>
+```
+
+### Colour palette (memory map status — now unified)
+- **Memorised**: `rgba(74,222,128,0.85)` = `bg-green-400`
+- **Partial**: `rgba(251,191,36,0.85)` = `bg-amber-400`
+- **Not memorised**: `rgba(248,113,113,0.85)` = `bg-red-400`
+- **Not attempted**: `rgba(201,168,76,0.07)` = barely visible gold
 
 ---
 
 ## Pending / suggested next
-- Mobile layout refactor (still pending):
-  1. Navigation — bottom tab bar or hamburger drawer on narrow screens
-  2. Right panel — deity info as bottom sheet on mobile
-  3. Touch events — SVG uses onMouseEnter/onMouseLeave; needs tap handling
-  4. BhupuraView filter strip — hardcoded `left: 208` (apply `sidebarRight` DOM-measurement pattern)
-- Feedback from friends — iterate based on responses
+
+### Mobile (Phase 2)
+- **Touch tooltips**: First-touch on iOS Safari fires `mouseenter` briefly then fires `mouseleave` immediately — tooltip flashes and disappears. User is evaluating whether larger tooltips (now deployed) fix this sufficiently, or whether a different approach is needed.
+- **Proposed name-box approach** (if tooltips don't work): Persistent text box above each diagram showing the last-touched deity name. Mobile-only. Discussed but not yet built.
+- **Sequential guided explore mode** (mobile-only, discussed): One cream dot visible at a time; tap → turns red → name revealed in name box → next dot appears. Replaces simultaneous dot display in explore mode. Significant rework — separate session.
+- **Chakrasvamini/Yogini reveal buttons** on avarana pages (mobile): buttons below Sri Yantra to reveal in name box on tap.
+- **Zoom in** on triangle pages: Tithi Nitya, Guravaḥ, C8, C9 — adjust SVG viewBox to fill more of the screen.
+- **Right panel** as bottom sheet on mobile (Phase 2).
+- **BhupuraView filter strip**: still uses hardcoded `left: 208` — apply `sidebarRight` DOM-measurement pattern when mobile refactor continues.
+- **Portrait-only enforcement**: considered for initial mobile release; not yet implemented.
+
+### Commercialisation (deferred)
+- Complete mobile refactor before charging
+- Domain: sriyantramem.org when ready to go public
+- Payment: Gumroad/LemonSqueezy one-time purchase (~USD $15–25), no auth required initially
+- vignanam.org content licensing: check terms before public launch
+- Register domain before announcing publicly
+
+### Data / content
 - Khadgamala Stotram page: Telugu/Tamil scripts (data exists in vignanam.org)
 - Lineage editing (deferred — Stage 2)
-- Domain: sriyantramem.org when ready to go public
-
----
-
-## Architecture notes
-
-### Colour palette (tailwind.config.js)
-- `saffron`: 400 (#e8790a), 600 (#c8600a), 700 (#a04d08) — tour step counter only (headings reverted to cream this session).
-- `gold`: 300–700 — accents, active states, not-memorised fills.
-- `surface`: 900–500 — backgrounds.
-- `cream` (#f0e6d3), `muted` (#8a7560) — text.
-
-### Font rules (as implemented)
-- **Gentium Plus** (`iast` class): Sanskrit IAST names, nav labels, deity names in lists, translations in Stotram page.
-- **Inter**: footer instructions, filter pill labels, UI buttons/controls.
-- **Devanagari**: system font (no `iast` class applied).
-- **Key pattern:** `script !== 'devanagari' ? 'iast' : ''` for nav items and right panel lists.
-
-### CircuitBrowser.jsx
-- Custom render blocks for 8 preamble sections (Prārthana, Dhyānam, Sambodhanam, Nyāsa, Nitya, 3× Gurus).
-- `NityaSection` is a standalone component (needs `useState`) with waxing/waning toggle.
-- Deity entries use `DeityEntry` component (gold box + translation sub-line).
-- `SectionDetail` used for avarana + closing sections; `CircuitMeta` removed.
-- Devanagari data is inline in CircuitBrowser.jsx for custom blocks; circuit deities pull from JSON.
-
-### TourGuide.jsx
-- `TOUR_KEY = 'sriYantra_tourSeen_v1'` — increment to force retrigger.
-- To reset: `localStorage.removeItem('sriYantra_tourSeen_v1')` in browser console.
-
-### File truncation pattern
-- The sandbox writes files via Linux paths on an OneDrive-synced Windows folder.
-- OneDrive can interrupt mid-write, truncating files.
-- Fix: restore from `git show HEAD:app/src/App.jsx` and re-apply changes via Python.
-- Prevention: commit frequently; verify `tail -6` after large edits.
+- Feedback from friends — iterate based on responses
 
 ---
 

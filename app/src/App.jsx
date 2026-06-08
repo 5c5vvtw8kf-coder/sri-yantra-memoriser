@@ -231,7 +231,6 @@ const MODEL_YANTRA_FILLS = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-
 function ordinal(n) {
   const s = ['th', 'st', 'nd', 'rd']
   const v = n % 100
@@ -626,6 +625,7 @@ function CircuitTable({ selectedCircuit, onCircuitSelect }) {
 
 function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 1)
@@ -633,34 +633,44 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
 
   const dotsDone = currentSeq > 28
 
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!dotsDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -685,7 +695,6 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -757,6 +766,7 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
 
 function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 2)
@@ -764,36 +774,45 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const petalsDone = currentSeq > 16
 
-  // Single-click: memorised (red) if active; mark if past-skipped
+  // Single-tap: memorised (red) if active; mark if past-skipped. Double-tap: skip/unmark.
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  // Double-click: skip (not memorised) if active; unmark if past-correct
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!petalsDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -818,7 +837,6 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -890,6 +908,7 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 3)
@@ -897,34 +916,44 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const petalsDone = currentSeq > 8
 
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!petalsDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -949,7 +978,6 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -1017,6 +1045,7 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 4)
@@ -1024,34 +1053,44 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 14
 
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -1076,7 +1115,6 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -1143,6 +1181,7 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 5)
@@ -1150,34 +1189,44 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 10
 
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -1202,7 +1251,6 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -1269,6 +1317,7 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 6)
@@ -1276,34 +1325,44 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 10
 
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -1328,7 +1387,6 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -1395,6 +1453,7 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 7)
@@ -1402,34 +1461,44 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 8
 
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -1454,7 +1523,6 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -1523,6 +1591,7 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 8)
@@ -1530,34 +1599,44 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 7
 
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -1582,7 +1661,6 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -1645,6 +1723,7 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
 function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
   const [hoveredField, setHoveredField] = useState(null)
+  const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
 
   const section = circuitSections.find(s => s.circuitNumber === 9)
@@ -1652,34 +1731,44 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const binduDone = currentSeq > 1
 
+  const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
-    if (extraTimer.current) return
-    extraTimer.current = setTimeout(() => {
-      extraTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
-  }
-
-  const handleItemDoubleClick = (seq) => {
-    if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    // First tap on active seq: reveal the name (no mark yet)
+    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+      setRevealedSeq(seq)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq, time: now }
+    if (isDoubleTap) {
+      if (extraTimer.current) { clearTimeout(extraTimer.current); extraTimer.current = null }
+      if (currentSeq === seq)              { onMarkResult(seq, 'wrong');   setRevealedSeq(null) }
+      else if (results[seq] === 'correct') onToggleResult(seq)
+    } else {
+      if (extraTimer.current) return
+      extraTimer.current = setTimeout(() => {
+        extraTimer.current = null
+        if (currentSeq === seq)              { onMarkResult(seq, 'correct'); setRevealedSeq(null) }
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const renderRow = (labelText, fieldKey, seq) => {
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isHovered = hoveredField === fieldKey
+    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
     if (!binduDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
-    } else if (isActive && !isHovered) {
-      valueContent = <span className="text-gold-300 italic text-xs">hover to reveal</span>
-    } else if (isActive && isHovered) {
+    } else if (isActive && !isRevealed) {
+      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+    } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
       valueContent = <span className="text-red-400">{value}</span>
@@ -1704,7 +1793,6 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onDoubleClick={interactive ? () => handleItemDoubleClick(seq) : undefined}
         onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
         onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
@@ -2814,7 +2902,6 @@ export default function App() {
           ))}
         </div>
 
-
         {/* Sub-filter row — shown when active segment has sub-groups */}
         {(() => {
           const activeFilt = SC_FILTERS.find(f => f.id === scFilter)
@@ -3463,7 +3550,7 @@ export default function App() {
         >
           ☰
         </button>
-        <span className={`flex-1 text-xs font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
+        <span className={`flex-1 text-sm font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
           {TABS.find(t => t.id === activeTab)?.footerLabel ?? ''}
         </span>
         <div className="flex gap-1">
@@ -3635,10 +3722,7 @@ export default function App() {
             onTouchEnd={handleSwipeEnd}>
 
         {/* Scrollable content area */}
-        <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto pt-8 relative">
-          {SECTION_IAST_LABELS[activeTab] && (
-            <p className="iast text-center text-cream/60 text-sm px-4 select-none pointer-events-none absolute top-3 left-0 right-0 z-10">{SECTION_IAST_LABELS[activeTab]}</p>
-          )}
+        <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto pt-2 relative">
           <div className="w-full" style={{ maxWidth: 'min(100%, calc(100vh - 6rem))' }}>
             {activeTab === 'yantra'  && (
               <div className="w-full p-4">
@@ -5096,7 +5180,6 @@ export default function App() {
                 </button>
               )}
             </div>
-
 
             {c9PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
