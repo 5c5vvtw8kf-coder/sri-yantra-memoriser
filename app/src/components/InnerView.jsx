@@ -101,6 +101,7 @@ const nityaDeities = deities.filter(d => d.sectionId === 'nitya')
 
 const GOLD        = '#c9a84c'
 const AMBER       = '#e6a817'
+const GREEN       = '#27ae60'
 const RED         = '#c0392b'
 const BG          = '#0f0805'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
@@ -238,15 +239,15 @@ export default function InnerView({
 
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
-        <svg viewBox="-30 181 560 500" xmlns="http://www.w3.org/2000/svg"
+        <svg viewBox="10 320 510 245" xmlns="http://www.w3.org/2000/svg"
              style={{ background: BG, display: 'block', width: '100%' }}
              aria-label="Tithi Nitya Devatas around DFT5">
 
           {/* Arrowhead markers */}
           <defs>
-            <marker id="flow-arrow-gold" markerWidth="7" markerHeight="5"
+            <marker id="flow-arrow-green-inner" markerWidth="7" markerHeight="5"
               refX="0" refY="2.5" orient="auto">
-              <polygon points="0 0, 7 2.5, 0 5" fill={GOLD} />
+              <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
             </marker>
           </defs>
 
@@ -282,12 +283,12 @@ export default function InnerView({
                   y1={ay1.toFixed(1)}
                   x2={ax2.toFixed(1)}
                   y2={ay2.toFixed(1)}
-                  stroke={GOLD} strokeWidth={2.5} opacity="0.65"
-                  markerEnd="url(#flow-arrow-gold)" />
+                  stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+                  markerEnd="url(#flow-arrow-green-inner)" />
                 <text
                   x={(ax1 + 12).toFixed(1)}
                   y={(ay1 + 4).toFixed(1)}
-                  fontSize="12" fill={GOLD} opacity="0.65"
+                  fontSize="12" fill={GREEN} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="start">
                   Anti-clockwise · waxing moon
@@ -314,12 +315,12 @@ export default function InnerView({
                   y1={ay1.toFixed(1)}
                   x2={ax2.toFixed(1)}
                   y2={ay2.toFixed(1)}
-                  stroke={GOLD} strokeWidth={2.5} opacity="0.65"
-                  markerEnd="url(#flow-arrow-gold)" />
+                  stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+                  markerEnd="url(#flow-arrow-green-inner)" />
                 <text
                   x={(ax1 - 8).toFixed(1)}
                   y={(ay1 + 4).toFixed(1)}
-                  fontSize="12" fill={GOLD} opacity="0.65"
+                  fontSize="12" fill={GREEN} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="end">
                   Clockwise · waning moon

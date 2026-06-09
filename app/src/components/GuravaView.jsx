@@ -102,6 +102,7 @@ function getGuruPos(d) {
 // ── Colours ───────────────────────────────────────────────────────────────────
 
 const GOLD        = '#c9a84c'
+const GREEN       = '#27ae60'
 const RED         = '#c0392b'
 const BG          = '#0f0805'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
@@ -242,14 +243,14 @@ export default function GuravaView({
 
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
-        <svg viewBox="-30 181 560 500" xmlns="http://www.w3.org/2000/svg"
+        <svg viewBox="5 288 350 262" xmlns="http://www.w3.org/2000/svg"
              style={{ background: BG, display: 'block', width: '100%' }}
              aria-label="Guravaḥ — three guru lineages">
 
           <defs>
-            <marker id="gurava-flow-arrow-red" markerWidth="7" markerHeight="5"
+            <marker id="gurava-flow-arrow-green" markerWidth="7" markerHeight="5"
               refX="0" refY="2.5" orient="auto">
-              <polygon points="0 0, 7 2.5, 0 5" fill={RED} />
+              <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
             </marker>
           </defs>
 
@@ -273,8 +274,8 @@ export default function GuravaView({
               <line
                 x1={INNER_L.toFixed(1)} y1={ay.toFixed(1)}
                 x2={(INNER_L + 27).toFixed(1)} y2={ay.toFixed(1)}
-                stroke={RED} strokeWidth={2.5} opacity="0.65"
-                markerEnd="url(#gurava-flow-arrow-red)" />
+                stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+                markerEnd="url(#gurava-flow-arrow-green)" />
             )
           })()}
 

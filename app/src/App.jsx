@@ -2773,9 +2773,7 @@ export default function App() {
             </span>
           </span>
         : memoInstr
-      : <span className="text-muted" style={INSTR_STYLE}>
-          {EXPLORE_HINT[activeTab] ?? 'Hover or click to reveal the deity'}
-        </span>
+      : null
 
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {

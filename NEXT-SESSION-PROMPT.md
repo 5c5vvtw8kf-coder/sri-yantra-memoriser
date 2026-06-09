@@ -11,46 +11,40 @@ Start-of-session checklist:
 
 1. Read CLAUDE.md and HANDOFF.md in the workspace root.
 2. Check what files exist in the workspace folder.
-3. Ask Chris what he wants to work on before starting anything.
+3. Ask Chris to walk through the app on his phone and describe what's still broken BEFORE touching any code.
 
-Last commit: Typography and colour polish: saffron headings, Gentium Plus consistency, font size fixes (1bbcc89)
+Last commit: Remove junk files created by terminal paste (2517693)
 Live URL: https://app-one-sigma-31.vercel.app
 Redeploy: cd app && npm run build && vercel --prod
 Git: run from repo root (Sri Yantra Memoriser), not from app\ subfolder.
 
+⚠️ IMPORTANT — outstanding bugs (unresolved at end of 8 June 2026 session):
+Chris reported "Still lots to fix — things I've already mentioned but still not fixed" but was too tired to re-list them. Do not assume the app is working correctly on mobile. Ask Chris to test and list issues before doing anything.
+
+Known pending item:
+* Svāminī/Yoginī — pause before popup: timing issue where the completion panel appears before expected. Needs investigation in MobileSvaminiButtons clickTimer / currentSeq advancement flow.
+
+UI/UX standards locked in (do not revert):
+* Colour system: CREAM = current focus; GOLD = past visited / structural; RED = correct (Memorise only); TERRACOTTA #8b4513 = wrong (Memorise only); DIM_GOLD = not yet reached
+* Mobile tap: single tap = reveal + mark correct; double-tap (300ms) = mark wrong; no two-step flow
+* Sequence indicators: no arrows; use numbered labels on dots/petals/triangles + small text badges for direction
+
 What's working:
 
 * Full memorise chain across all sections (Explore + Memorise modes)
+* SVG tooltips auto-show in Memorise mode across all circuits (C2–C9, GuravaView)
+* Mobile top bar, hamburger drawer, swipe navigation, 14-segment position bar
 * Memo Map with history tracking
-* Activity Log with section + date filters (includes Spot Check sessions)
-* Spot Check: correct colour scheme, legend, no-stroke answered regions
-* Khadgamala Stotram page: Prārthana, Dhyānam, viniyoga, phalashruti, pancha puja + translations
-* References page
-* Site tour: 9-step guided tour, auto-triggers on first visit, ? button to replay
-* Hover fills: hovering any dot/petal/triangle in Explore mode fills it red
-* Footer instruction bar: context-aware per tab, Inter font, 0.75rem
-* Typography: saffron sidebar headings (11px), Gentium Plus across nav + right panel deity lists, SVG tooltips
-* Base font 19px
+* Activity Log with section + date filters
+* Spot Check modes
+* Khadgamala Stotram page, References page, Site tour
 * Deployed live on Vercel (Hobby plan)
 
-Priority for next session — Mobile layout refactor:
-
-The app is hard to use on mobile in its current state (Chris tested live URL on phone). Layout assumes desktop (sidebar + main + right panel simultaneously). On ~375px the yantra is too small to use.
-
-Four things needed for minimum viable mobile:
-1. Navigation — left sidebar collapses on narrow screens; replace with bottom tab bar or hamburger drawer
-2. Right panel — disappears on mobile; deity info slides up as a bottom sheet (C2View's DeityPanel already works this way — extend to all other views)
-3. Touch events — SVG uses onMouseEnter/onMouseLeave which don't fire on touch; tap needs to handle reveal and dismiss
-4. BhupuraView filter strip — hardcoded left: 208 assumes sidebar; needs repositioning on mobile
-
-Suggested breakpoint: 768px (Tailwind md:). The yantra SVG itself scales fine via viewBox — everything around it needs rethinking.
-
-Other pending:
+Other pending (lower priority):
 
 * Feedback from friends — iterate based on responses
 * Khadgamala Stotram page further refinement
 * Lineage editing (deferred)
-* Spot Check → Memo Map integration (deferred)
 * Domain: sriyantramem.org when ready to go public
 
 Environment note: git CANNOT be run from the Cowork sandbox — this folder is OneDrive-synced. All git commands must be run by Chris in a Windows terminal from the repo root (Sri Yantra Memoriser), not the app\ subfolder.
