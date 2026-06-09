@@ -162,9 +162,9 @@ const FILTERS = [
 // ── Mobile band config (Explore mode navigation) ──────────────────────────────
 
 const BAND_CONFIG = [
-  { id: 'siddhiShakti', list: siddhiDeities,  label: 'Outer Band'  },
-  { id: 'ashtaMatrika', list: matrikaDeities, label: 'Middle Band' },
-  { id: 'mudraShakti',  list: mudraDeities,   label: 'Inner Band'  },
+  { id: 'siddhiShakti', list: siddhiDeities,  label: 'Outer Band',  groupLabel: 'Siddhi Shaktis' },
+  { id: 'ashtaMatrika', list: matrikaDeities, label: 'Middle Band', groupLabel: 'Ashta Matrikas' },
+  { id: 'mudraShakti',  list: mudraDeities,   label: 'Inner Band',  groupLabel: 'Mudra Shaktis'  },
 ]
 
 // ── NavArrow ──────────────────────────────────────────────────────────────────
@@ -289,6 +289,16 @@ export default function BhupuraView({
 
   // Reset selection and navStep when band changes
   useEffect(() => { setLastTappedId(null); setHoveredDot(null); setNavStep(0) }, [bandStep])
+
+  // Auto-advance to next band after last dot in current band is tapped (mobile only)
+  useEffect(() => {
+    if (memorise || !isMobile) return
+    const band = BAND_CONFIG[bandStep]
+    if (navStep < band.list.length) return          // not at end yet
+    if (bandStep >= BAND_CONFIG.length - 1) return  // already on last band
+    const timer = setTimeout(() => setBandStep(b => b + 1), 1400)
+    return () => clearTimeout(timer)
+  }, [navStep, bandStep, memorise, isMobile])
 
   const selectedDeity = lastTappedId ? deityById[lastTappedId] : null
 
@@ -522,7 +532,7 @@ export default function BhupuraView({
       {/* Filter strip — Explore mode only */}
       {!memorise && (
         <div className="flex items-center justify-center gap-2 mt-3">
-          {(isMobile ? BAND_CONFIG.map((b, i) => ({ id: b.id, label: b.label, active: bandStep === i, onSelect: () => setBandStep(i) }))
+          {(isMobile ? BAND_CONFIG.map((b, i) => ({ id: b.id, label: b.label, groupLabel: b.groupLabel, active: bandStep === i, onSelect: () => setBandStep(i) }))
                      : FILTERS.map(f => ({ id: f.id, label: f.label, active: activeFilter === f.id, onSelect: () => setActiveFilter(f.id) }))
           ).map(item => (
             <button
@@ -543,7 +553,12 @@ export default function BhupuraView({
                 transition: 'color 0.2s, background 0.2s, border-color 0.2s',
               }}
             >
-              {item.label}
+              {item.active && item.groupLabel ? (
+                <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.3 }}>
+                  <span style={{ fontSize: 10 }}>{item.label}</span>
+                  <span style={{ fontSize: 9, opacity: 0.75 }}>{item.groupLabel}</span>
+                </span>
+              ) : item.label}
             </button>
           ))}
         </div>

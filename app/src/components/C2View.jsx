@@ -152,8 +152,20 @@ function Tooltip({ x, y, label, script }) {
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
   const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
-  const tx       = Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
-  const ty       = y > CY ? y - h / 2 - 18 : y + h / 2 + 18
+  const hw = w / 2, hh = h / 2
+
+  // Four fixed zones in the corners of the yantra — always outside the petal ring.
+  // Quadrant determined by the petal's position relative to the yantra centre.
+  const dx = x - CX
+  const dy = y - CY
+  let zx, zy
+  if      (dx >= 0 && dy <= 0) { zx = 405; zy = 90  }  // top-right
+  else if (dx >= 0 && dy >  0) { zx = 405; zy = 450 }  // bottom-right
+  else if (dx <  0 && dy >  0) { zx = 115; zy = 450 }  // bottom-left
+  else                          { zx = 115; zy = 90  }  // top-left
+
+  const tx = Math.min(Math.max(zx, hw + 49), 471 - hw)
+  const ty = Math.min(Math.max(zy, hh + 57), 485 - hh - 2)
   return (
     <g pointerEvents="none">
       <rect
@@ -360,6 +372,13 @@ export default function C2View({
             aria-label="Circuit 2 — 16-petal lotus deity positions"
           >
 
+            <defs>
+              {/* Arrowhead for sequence direction indicator */}
+              <marker id="c2-ccw-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60" />
+              </marker>
+            </defs>
+
             {/* ── Explore mode: full petal hit areas ── */}
             {!memorise && (
               <>
@@ -396,6 +415,17 @@ export default function C2View({
                     />
                   )
                 })}
+
+                {/* Sequence direction indicator — back of arrow aligns with tip of Kāmākarṣiṇī
+                    petal (x=260), arcs anti-clockwise. Radius 157 sits just outside petal ring. */}
+                <path
+                  d="M 260,427 A 157,157 0 0,0 339,406"
+                  fill="none"
+                  stroke="#27ae60"
+                  strokeWidth="2.5"
+                  markerEnd="url(#c2-ccw-arrow)"
+                  style={{ pointerEvents: 'none' }}
+                />
               </>
             )}
 
@@ -465,8 +495,7 @@ export default function C2View({
               </>
             )}
 
-            {/* Tooltip: auto-reveals in Memorise (hoveredDot set by useEffect); Explore also
-                falls back to selectedId tap position on mobile. */}
+            {/* Tooltip: four fixed zones at the yantra corners — always clear of the ring. */}
             {!flash && (() => {
               if (hoveredDot) return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
