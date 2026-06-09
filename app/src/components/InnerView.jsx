@@ -144,7 +144,7 @@ function Tooltip({ x, y, label, fill, script, below = false }) {
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
   const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
-  const tx       = Math.min(Math.max(x, -116 + w / 2), 496 - w / 2)
+  const tx       = Math.min(Math.max(x, 25 + w / 2), 490 - w / 2)
   const ty       = below ? y + h / 2 + 12 : y - h / 2 - 12
   return (
     <g pointerEvents="none">
@@ -239,7 +239,7 @@ export default function InnerView({
 
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
-        <svg viewBox="10 320 510 245" xmlns="http://www.w3.org/2000/svg"
+        <svg viewBox="25 165 465 445" xmlns="http://www.w3.org/2000/svg"
              style={{ background: BG, display: 'block', width: '100%' }}
              aria-label="Tithi Nitya Devatas around DFT5">
 
@@ -288,7 +288,7 @@ export default function InnerView({
                 <text
                   x={(ax1 + 12).toFixed(1)}
                   y={(ay1 + 4).toFixed(1)}
-                  fontSize="12" fill={GREEN} opacity="0.65"
+                  fontSize="16" fill={GOLD} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="start">
                   Anti-clockwise · waxing moon
@@ -320,7 +320,7 @@ export default function InnerView({
                 <text
                   x={(ax1 - 8).toFixed(1)}
                   y={(ay1 + 4).toFixed(1)}
-                  fontSize="12" fill={GREEN} opacity="0.65"
+                  fontSize="16" fill={GOLD} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="end">
                   Clockwise · waning moon

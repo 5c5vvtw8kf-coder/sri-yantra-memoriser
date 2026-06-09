@@ -4009,14 +4009,14 @@ export default function App() {
 
         {/* ── Mobile Explore / Memorise bar ────────────────────────────────── */}
         {mobileCtrl && (
-          <div className="flex md:hidden flex-shrink-0 border-t border-surface-800 px-3 py-2 gap-2">
+          <div className="flex md:hidden flex-shrink-0 border-t border-surface-800 px-3 py-1 gap-2">
             <button onClick={mobileCtrl.onExplore}
-              className={`flex-1 py-2 rounded-lg text-xs font-medium transition-colors
+              className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors
                 ${!mobileCtrl.isMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}>
               Explore
             </button>
             <button onClick={mobileCtrl.onMemorise}
-              className={`flex-1 py-2 rounded-lg text-xs font-medium transition-colors
+              className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors
                 ${mobileCtrl.isMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}>
               Memorise
             </button>
@@ -4024,7 +4024,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) ─────────────────────────── */}
-        <div className="flex md:hidden flex-shrink-0 px-2 py-2 gap-1">
+        <div className="flex md:hidden flex-shrink-0 px-2 py-1 gap-1">
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}

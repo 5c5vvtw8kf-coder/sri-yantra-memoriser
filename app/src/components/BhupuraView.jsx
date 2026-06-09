@@ -71,9 +71,9 @@ const sectionById = Object.fromEntries(sections.map(s => [s.id, s]))
 const bhupuraSection = sections.find(s => s.circuitNumber === 1 && s.type === 'circuit') || {}
 
 const c1Deities      = deities.filter(d => d.sectionId === 'circuit-1')
-const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti')
-const matrikaDeities = c1Deities.filter(d => d.group === 'ashtaMatrika')
-const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti')
+const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+const matrikaDeities = c1Deities.filter(d => d.group === 'ashtaMatrika').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 
 const C1_TOTAL     = c1Deities.length  // 28 — dot-phase deities only
 const BHUPURA_TOTAL = 30               // 28 deities + Chakra Svāminī (29) + Yoginī (30)
@@ -82,6 +82,7 @@ const BHUPURA_TOTAL = 30               // 28 deities + Chakra Svāminī (29) + Y
 
 const GOLD        = '#c9a84c'
 const TEAL        = '#b4b6b8'
+const GREEN       = '#27ae60'
 const RED         = '#c0392b'
 const BG          = '#0f0805'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
@@ -149,14 +150,38 @@ function Tooltip({ x, y, label, fill, script }) {
   )
 }
 
-// ── Filter config ─────────────────────────────────────────────────────────────
+// ── Desktop filter config ─────────────────────────────────────────────────────
 
 const FILTERS = [
-  { id: 'all',          label: 'All',            dot: null              },
-  { id: 'siddhiShakti', label: 'Siddhi Shaktis', dot: 'siddhiShakti'   },
-  { id: 'ashtaMatrika', label: 'Ashta Matrikas', dot: 'ashtaMatrika'   },
-  { id: 'mudraShakti',  label: 'Mudra Shaktis',  dot: 'mudraShakti'    },
+  { id: 'all',          label: 'All'            },
+  { id: 'siddhiShakti', label: 'Siddhi Shaktis' },
+  { id: 'ashtaMatrika', label: 'Ashta Matrikas'  },
+  { id: 'mudraShakti',  label: 'Mudra Shaktis'   },
 ]
+
+// ── Mobile band config (Explore mode navigation) ──────────────────────────────
+
+const BAND_CONFIG = [
+  { id: 'siddhiShakti', list: siddhiDeities,  label: 'Outer Band'  },
+  { id: 'ashtaMatrika', list: matrikaDeities, label: 'Middle Band' },
+  { id: 'mudraShakti',  list: mudraDeities,   label: 'Inner Band'  },
+]
+
+// ── NavArrow ──────────────────────────────────────────────────────────────────
+
+function NavArrow({ from, to, gap = 14, length = 27 }) {
+  const dx = to[0] - from[0], dy = to[1] - from[1]
+  const dist = Math.sqrt(dx * dx + dy * dy)
+  const nx = dx / dist, ny = dy / dist
+  const x1 = from[0] + nx * gap,  y1 = from[1] + ny * gap
+  const x2 = x1 + nx * length,    y2 = y1 + ny * length
+  return (
+    <line x1={x1.toFixed(1)} y1={y1.toFixed(1)}
+          x2={x2.toFixed(1)} y2={y2.toFixed(1)}
+      stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+      markerEnd="url(#bhupura-nav-arrow)" />
+  )
+}
 
 // ── Main component ────────────────────────────────────────────────────────────
 
@@ -177,9 +202,16 @@ export default function BhupuraView({
   flash = false,
   onNavigate,
 }) {
+  // Desktop state
   const [selectedId,    setSelectedId]    = useState(null)
-  const [hoveredDot,    setHoveredDot]    = useState(null)
   const [activeFilter,  setActiveFilter]  = useState('all')
+  // Mobile state
+  const [lastTappedId,  setLastTappedId]  = useState(null)
+  const [bandStep,      setBandStep]      = useState(0)
+  const [navStep,       setNavStep]       = useState(0)
+  // Shared
+  const [hoveredDot,    setHoveredDot]    = useState(null)
+  const [isMobile,      setIsMobile]      = useState(() => window.innerWidth < 768)
   const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
   const lastTapRef     = useRef({ seq: null, time: 0 })
@@ -203,14 +235,45 @@ export default function BhupuraView({
     }
   }, [])
 
+  // Track mobile breakpoint reactively
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
+  // Desktop: original toggle (select / deselect)
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
     setSelectedId(newId)
     setHoveredDot(null)
     onDeitySelect(newId ? deityById[newId] : null)
   }
+
+  // Mobile: every tap always sets lastTappedId (no toggle/deselect). This ensures the
+  // useEffect sees a state change on every tap, even if the same dot is tapped
+  // twice in a row. navStep only advances when the tapped dot is the focus dot.
+  const tap     = (id) => {
+    setLastTappedId(null)           // force state change even if same id tapped again
+    requestAnimationFrame(() => {   // then set it in next frame so effect fires
+      setLastTappedId(id)
+      setHoveredDot(null)
+      onDeitySelect(deityById[id] || null)
+    })
+  }
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
+
+  // Advance navStep when the current focus dot is tapped (Explore mode).
+  useEffect(() => {
+    if (memorise || !lastTappedId) return
+    const band = BAND_CONFIG[bandStep]
+    setNavStep(prev => {
+      if (prev >= band.list.length) return prev
+      if (band.list[prev]?.id === lastTappedId) return prev + 1
+      return prev
+    })
+  }, [lastTappedId, bandStep, memorise])
 
   // Reset reveal state when sequence advances or mode changes
   useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
@@ -224,8 +287,10 @@ export default function BhupuraView({
     else          setHoveredDot(null)
   }, [memorise, flash, currentSeq, memoGroup])
 
-  const selectedDeity = selectedId ? deityById[selectedId] : null
-  const isDimmed      = (group) => activeFilter !== 'all' && activeFilter !== group
+  // Reset selection and navStep when band changes
+  useEffect(() => { setLastTappedId(null); setHoveredDot(null); setNavStep(0) }, [bandStep])
+
+  const selectedDeity = lastTappedId ? deityById[lastTappedId] : null
 
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
@@ -280,7 +345,7 @@ export default function BhupuraView({
             filledRegions={dynamicFills}
           />
 
-          {/* Layer 2: deity dots + tooltip + hint */}
+          {/* Layer 2: deity dots + tooltip + nav */}
           <svg
             viewBox="45 55 430 430"
             xmlns="http://www.w3.org/2000/svg"
@@ -288,43 +353,73 @@ export default function BhupuraView({
             style={{ background: 'transparent' }}
             aria-label="Bhūpura deity positions"
           >
+            <defs>
+              <marker id="bhupura-nav-arrow" markerWidth="7" markerHeight="5"
+                refX="0" refY="2.5" orient="auto">
+                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
+              </marker>
+            </defs>
 
-            {/* ── Explore mode dots ──────────────────────────────────────── */}
-            {!memorise && (() => {
-              // Build all dot descriptors, then render non-front dots first and
-              // the highlighted/hovered dot last so it paints on top in SVG order.
-              const frontId = hoveredDot?.id ?? highlightId ?? selectedId
-              const allGroups = [
-                { list: siddhiDeities,  group: 'siddhiShakti' },
-                { list: matrikaDeities, group: 'ashtaMatrika' },
-                { list: mudraDeities,   group: 'mudraShakti'  },
-              ]
-              const makeDot = (d, group) => {
-                const pos    = BHUPURA_POSITIONS[d.sequenceInSection]
-                if (!pos) return null
-                const fill   = showColors ? GROUP_COLOUR[group] : '#fff8c8'
-                const dimmed = isDimmed(group)
-                return (
-                  <DeityDot key={d.id}
-                    x={pos.x} y={pos.y}
-                    r={selectedId === d.id ? DOT_R_FOCUS : DOT_R_NORMAL}
-                    fill={fill}
-                    selected={selectedId === d.id}
-                    highlighted={!selectedId && highlightId === d.id}
-                    isHovered={hoveredDot?.id === d.id}
-                    opacity={dimmed ? 0.15 : 1}
-                    onClick={() => !dimmed && toggle(d.id)}
-                    onMouseEnter={() => !dimmed && hover(d.id, pos.x, pos.y)}
-                    onMouseLeave={unhover}
-                  />
-                )
-              }
-              const dots = allGroups.flatMap(({ list, group }) => list.map(d => ({ d, group })))
-              return [
-                dots.filter(({ d }) => d.id !== frontId).map(({ d, group }) => makeDot(d, group)),
-                dots.filter(({ d }) => d.id === frontId).map(({ d, group }) => makeDot(d, group)),
-              ]
-            })()}
+            {/* ── Explore mode dots ─────────────────────────────────────── */}
+            {!memorise && (isMobile ? (
+              // Mobile: band-paged dots with navStep colour coding
+              (() => {
+                const band = BAND_CONFIG[bandStep]
+                const makeDot = (d, bandIdx) => {
+                  const pos     = BHUPURA_POSITIONS[d.sequenceInSection]
+                  if (!pos) return null
+                  const isFocus = bandIdx === navStep
+                  const isPast  = bandIdx < navStep
+                  const fill    = isPast ? RED : '#fff8c8'
+                  const opacity = isFocus ? 1 : isPast ? 1 : 0.40
+                  return (
+                    <DeityDot key={d.id}
+                      x={pos.x} y={pos.y}
+                      r={isFocus ? DOT_R_FOCUS : DOT_R_NORMAL}
+                      fill={fill} selected={isPast} highlighted={false}
+                      isHovered={hoveredDot?.id === d.id}
+                      opacity={opacity}
+                      onClick={() => tap(d.id)}
+                      onMouseEnter={() => hover(d.id, pos.x, pos.y)}
+                      onMouseLeave={unhover}
+                    />
+                  )
+                }
+                return [
+                  band.list.map((d, i) => i !== navStep ? makeDot(d, i) : null),
+                  navStep < band.list.length ? makeDot(band.list[navStep], navStep) : null,
+                ]
+              })()
+            ) : (
+              // Desktop: all dots filtered by activeFilter, toggle select/deselect
+              (() => {
+                const filtered = activeFilter === 'all' ? c1Deities : c1Deities.filter(d => d.group === activeFilter)
+                const frontId  = hoveredDot?.id ?? highlightId ?? selectedId
+                const makeDot  = (d) => {
+                  const pos  = BHUPURA_POSITIONS[d.sequenceInSection]
+                  if (!pos) return null
+                  const fill = showColors ? GROUP_COLOUR[d.group] : '#fff8c8'
+                  return (
+                    <DeityDot key={d.id}
+                      x={pos.x} y={pos.y}
+                      r={selectedId === d.id ? DOT_R_FOCUS : DOT_R_NORMAL}
+                      fill={fill}
+                      selected={selectedId === d.id}
+                      highlighted={!selectedId && highlightId === d.id}
+                      isHovered={hoveredDot?.id === d.id}
+                      opacity={1}
+                      onClick={() => toggle(d.id)}
+                      onMouseEnter={() => hover(d.id, pos.x, pos.y)}
+                      onMouseLeave={unhover}
+                    />
+                  )
+                }
+                return [
+                  filtered.filter(d => d.id !== frontId).map(d => makeDot(d)),
+                  filtered.filter(d => d.id === frontId).map(d => makeDot(d)),
+                ]
+              })()
+            ))}
 
             {/* ── Memorise mode dots ─────────────────────────────────────── */}
             {memorise && memoDeities.map((d, idx) => {
@@ -367,13 +462,26 @@ export default function BhupuraView({
                   label={displayName(deityById[hoveredDot.id], script)}
                   fill={GOLD} script={script} />
               )
-              if (selectedId) {
-                const d   = deityById[selectedId]
+              const tooltipId = isMobile ? lastTappedId : selectedId
+              if (tooltipId) {
+                const d   = deityById[tooltipId]
                 const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
                 return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} fill={GOLD} script={script} />
               }
               return null
+            })()}
+
+            {/* ── Dot-to-dot nav arrow (Explore mode, mobile only) ─────── */}
+            {!memorise && isMobile && (() => {
+              const band = BAND_CONFIG[bandStep]
+              if (navStep >= band.list.length - 1) return null
+              const fromD   = band.list[navStep]
+              const toD     = band.list[navStep + 1]
+              const fromPos = BHUPURA_POSITIONS[fromD.sequenceInSection]
+              const toPos   = BHUPURA_POSITIONS[toD.sequenceInSection]
+              if (!fromPos || !toPos) return null
+              return <NavArrow from={[fromPos.x, fromPos.y]} to={[toPos.x, toPos.y]} />
             })()}
 
           </svg>
@@ -411,6 +519,36 @@ export default function BhupuraView({
         )}
       </div>
 
+      {/* Filter strip — Explore mode only */}
+      {!memorise && (
+        <div className="flex items-center justify-center gap-2 mt-3">
+          {(isMobile ? BAND_CONFIG.map((b, i) => ({ id: b.id, label: b.label, active: bandStep === i, onSelect: () => setBandStep(i) }))
+                     : FILTERS.map(f => ({ id: f.id, label: f.label, active: activeFilter === f.id, onSelect: () => setActiveFilter(f.id) }))
+          ).map(item => (
+            <button
+              key={item.id}
+              onClick={item.onSelect}
+              style={{
+                fontSize: 11,
+                fontFamily: "'Inter', system-ui, sans-serif",
+                letterSpacing: '0.04em',
+                color: item.active ? GOLD : 'rgba(201,168,76,0.40)',
+                fontWeight: item.active ? 600 : 400,
+                background: item.active ? 'rgba(201,168,76,0.12)' : 'transparent',
+                border: `1px solid ${item.active ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.20)'}`,
+                borderRadius: 20,
+                cursor: 'pointer',
+                padding: '4px 12px',
+                whiteSpace: 'nowrap',
+                transition: 'color 0.2s, background 0.2s, border-color 0.2s',
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Mobile: active deity name below yantra in Memorise mode (tap-to-reveal) */}
       {memorise && hoveredDot && currentSeq <= MEMO_TOTAL && !flash && (
         <div className="md:hidden mt-2 text-center min-h-[1.5rem]">
@@ -436,57 +574,8 @@ export default function BhupuraView({
         onToggleResult={onToggleResult}
       />
 
-      {/* Fixed filter strip — bottom-left of yantra, horizontal (explore only) */}
-      {!memorise && (
-        <div style={{
-          position: 'fixed',
-          left: 208,
-          top: yantraPos.top + yantraPos.height + 8,
-          zIndex: 30,
-          display: 'flex',
-          flexDirection: 'row',
-          gap: 6,
-        }}>
-          {FILTERS.map(f => (
-            <button
-              key={f.id}
-              onClick={() => { setActiveFilter(f.id); setSelectedId(null); onDeitySelect(null) }}
-              style={{
-                fontSize: 12,
-                fontFamily: "'Inter', system-ui, sans-serif",
-                letterSpacing: '0.04em',
-                color: activeFilter === f.id
-                  ? GOLD
-                  : 'rgba(201,168,76,0.40)',
-                fontWeight: activeFilter === f.id ? 600 : 400,
-                background: activeFilter === f.id
-                  ? 'rgba(201,168,76,0.12)'
-                  : 'transparent',
-                border: `1px solid ${activeFilter === f.id ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.20)'}`,
-                borderRadius: 20,
-                cursor: 'pointer',
-                padding: '3px 10px',
-                transition: 'color 0.2s, background 0.2s, border-color 0.2s',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {f.dot && (
-                <span style={{
-                  display: 'inline-block',
-                  width: 6, height: 6,
-                  borderRadius: '50%',
-                  background: GROUP_COLOUR[f.dot],
-                           flexShrink: 0,
-                  marginRight: 4,
-                }} />
-              )}
-              {f.label}
-            </button>
-          ))}
-        </div>
-      )}
 
-      <div className="h-8" />
+      <div className="h-2" />
     </div>
   )
 }

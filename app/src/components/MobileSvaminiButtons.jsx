@@ -167,41 +167,41 @@ export default function MobileSvaminiButtons({
   // ── Render ──────────────────────────────────────────────────────────────────
 
   return (
-    <div className="md:hidden mt-3 flex flex-col gap-2 px-0">
+    <div className="md:hidden mt-2 flex flex-col gap-1.5 px-0">
 
       {/* Svāminī */}
       <button
         className={[
-          'w-full rounded-xl border px-3 py-2.5 text-left transition-colors',
+          'w-full rounded-lg border px-3 py-1 text-left transition-colors',
           buttonStyle(svaminiActive, svaminiPast, svaminiCorrect, false),
         ].join(' ')}
         style={svaminiActive ? { boxShadow: '0 0 0 1px rgba(255,248,200,0.25)' } : undefined}
         onClick={handleSvaminiClick}
       >
-        <div className="text-[10px] uppercase tracking-widest text-muted mb-0.5 font-medium">
-          Svāminī
-        </div>
-        <div className="text-sm leading-snug min-h-[1.25rem] truncate">
-          {renderNameContent(svaminiActive, svaminiPast, svaminiCorrect, false,
-                             revealedSvamini, svaminiName)}
+        <div className="flex items-baseline gap-2 min-w-0">
+          <span className="text-[9px] uppercase tracking-widest text-muted font-medium shrink-0">Svāminī</span>
+          <span className="text-xs leading-snug truncate">
+            {renderNameContent(svaminiActive, svaminiPast, svaminiCorrect, false,
+                               revealedSvamini, svaminiName)}
+          </span>
         </div>
       </button>
 
       {/* Yoginī */}
       <button
         className={[
-          'w-full rounded-xl border px-3 py-2.5 text-left transition-colors',
+          'w-full rounded-lg border px-3 py-1 text-left transition-colors',
           buttonStyle(yoginiActive, yoginiPast, yoginiCorrect, yoginiLocked),
         ].join(' ')}
         style={yoginiActive ? { boxShadow: '0 0 0 1px rgba(255,248,200,0.25)' } : undefined}
         onClick={handleYoginiClick}
       >
-        <div className="text-[10px] uppercase tracking-widest text-muted mb-0.5 font-medium">
-          Yoginī
-        </div>
-        <div className="text-sm leading-snug min-h-[1.25rem] truncate">
-          {renderNameContent(yoginiActive, yoginiPast, yoginiCorrect, yoginiLocked,
-                             revealedYogini, yoginiName)}
+        <div className="flex items-baseline gap-2 min-w-0">
+          <span className="text-[9px] uppercase tracking-widest text-muted font-medium shrink-0">Yoginī</span>
+          <span className="text-xs leading-snug truncate">
+            {renderNameContent(yoginiActive, yoginiPast, yoginiCorrect, yoginiLocked,
+                               revealedYogini, yoginiName)}
+          </span>
         </div>
       </button>
 
