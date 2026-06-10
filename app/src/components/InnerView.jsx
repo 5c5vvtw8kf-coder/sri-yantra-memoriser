@@ -204,7 +204,7 @@ export default function InnerView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    if (seq === currentSeq) setRevealedSeq(seq)   // reveal name immediately on tap
+    if (seq === currentSeq) setRevealedDeity(activeMemDiety)  // reveal name immediately on tap
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
@@ -225,9 +225,9 @@ export default function InnerView({
   // Active deity for mobile name strip
   const activeMemDiety = memorise && currentSeq >= 1 && currentSeq <= TOTAL ? drillOrder[currentSeq - 1] : null
 
-  // Tap-to-reveal state for the below-yantra mobile strip
-  const [revealedSeq, setRevealedSeq] = useState(null)
-  useEffect(() => { setRevealedSeq(null) }, [currentSeq])
+  // Revealed deity — set on first dot tap, persists until next dot is tapped
+  const [revealedDeity, setRevealedDeity] = useState(null)
+  useEffect(() => { if (!memorise) setRevealedDeity(null) }, [memorise])
 
   const mainTriPts = [APEX, BASE_L, BASE_R]
     .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
@@ -408,19 +408,19 @@ export default function InnerView({
 
         </svg>
 
-        {/* ── Memorise: name overlay above the triangle — appears on first dot tap ── */}
-        {memorise && activeMemDiety && !flash && revealedSeq === currentSeq && (
+        {/* ── Memorise: name overlay above the triangle — persists until next dot tapped ── */}
+        {memorise && revealedDeity && !flash && !showCompletion && (
           <div className="absolute left-0 right-0 flex justify-center pointer-events-none"
                style={{ top: '22%' }}>
             <div style={{
               background: 'rgba(15,8,5,0.88)',
-              border: '0.5px solid rgba(255,248,200,0.7)',
+              border: '0.5px solid rgba(201,168,76,0.5)',
               borderRadius: '6px',
               padding: '6px 18px',
             }}>
               <span className={script !== 'english' ? 'iast' : ''}
-                    style={{ color: '#fff8c8', fontSize: '16px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
-                {displayName(activeMemDiety, script)}
+                    style={{ color: '#c9a84c', fontSize: '16px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
+                {displayName(revealedDeity, script)}
               </span>
             </div>
           </div>
