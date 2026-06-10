@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
  * @param {number}  delay  - ms before overlay shows (default 1500)
  * @returns {boolean}      - true only after the delay has elapsed
  */
-export function useDoneDelay(done, delay = 1500) {
+export function useDoneDelay(done, delay = 3000) {
   const [showDone, setShowDone] = useState(false)
 
   useEffect(() => {

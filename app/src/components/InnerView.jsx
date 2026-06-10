@@ -228,7 +228,7 @@ export default function InnerView({
   const completionTimer = useRef(null)
   useEffect(() => {
     if (done) {
-      completionTimer.current = setTimeout(() => setShowCompletion(true), 1500)
+      completionTimer.current = setTimeout(() => setShowCompletion(true), 3000)
     } else {
       clearTimeout(completionTimer.current)
       setShowCompletion(false)
@@ -443,18 +443,4 @@ export default function InnerView({
                   Try again
                 </button>
                 <button onClick={() => onNavigate && onNavigate('gurava')}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
-                  Next →
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-      {memorise && <MobileMemoriseInstr />}
-
-      </div>
-    </div>
-  )
-}
-   
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text

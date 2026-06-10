@@ -308,7 +308,7 @@ export default function NyasaView({
   const completionTimer = useRef(null)
   useEffect(() => {
     if (done) {
-      completionTimer.current = setTimeout(() => setShowCompletion(true), 1500)
+      completionTimer.current = setTimeout(() => setShowCompletion(true), 3000)
     } else {
       clearTimeout(completionTimer.current)
       setShowCompletion(false)
