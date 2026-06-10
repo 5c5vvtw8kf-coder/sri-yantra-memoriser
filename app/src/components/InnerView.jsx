@@ -20,6 +20,7 @@ import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 // ── Coordinate system ─────────────────────────────────────────────────────────
 
@@ -218,23 +219,14 @@ export default function InnerView({
   }
 
   const done = memorise && currentSeq > TOTAL
+  const showCompletion = useDoneDelay(done)
 
-  // Active dot for mobile Memorise tooltip
-  const activeMemDiety  = memorise && currentSeq >= 1 && currentSeq <= TOTAL ? drillOrder[currentSeq - 1] : null
-  const activeMemIdx    = activeMemDiety ? nityaDeities.findIndex(x => x.id === activeMemDiety.id) : -1
-  const activeMemPos    = activeMemIdx >= 0 ? NITYA_POSITIONS[activeMemIdx] : null
+  // Active deity for mobile name strip
+  const activeMemDiety = memorise && currentSeq >= 1 && currentSeq <= TOTAL ? drillOrder[currentSeq - 1] : null
 
-  const [showCompletion, setShowCompletion] = useState(false)
-  const completionTimer = useRef(null)
-  useEffect(() => {
-    if (done) {
-      completionTimer.current = setTimeout(() => setShowCompletion(true), 3000)
-    } else {
-      clearTimeout(completionTimer.current)
-      setShowCompletion(false)
-    }
-    return () => clearTimeout(completionTimer.current)
-  }, [done])
+  // Tap-to-reveal state for the below-yantra mobile strip
+  const [revealedSeq, setRevealedSeq] = useState(null)
+  useEffect(() => { setRevealedSeq(null) }, [currentSeq])
 
   const mainTriPts = [APEX, BASE_L, BASE_R]
     .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
@@ -415,25 +407,7 @@ export default function InnerView({
 
         </svg>
 
-        {/* ── Memorise mode: active deity name — HTML overlay above the triangle ── */}
-        {memorise && activeMemDiety && !flash && (
-          <div className="absolute left-0 right-0 flex justify-center pointer-events-none"
-               style={{ top: '40%' }}>
-            <div style={{
-              background: 'rgba(15,8,5,0.88)',
-              border: '0.5px solid rgba(255,248,200,0.7)',
-              borderRadius: '4px',
-              padding: '5px 12px',
-            }}>
-              <span className={script !== 'english' ? 'iast' : ''}
-                    style={{ color: '#fff8c8', fontSize: '15px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
-                {displayName(activeMemDiety, script)}
-              </span>
-            </div>
-          </div>
-        )}
-
-{/* Completion overlay (delayed 3 s) */}
+        {/* Completion overlay (delayed 3 s) */}
         {showCompletion && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>
@@ -462,10 +436,31 @@ export default function InnerView({
           </div>
         )}
 
-      {memorise && <MobileMemoriseInstr />}
-
       </div>
-    </div>
-  )
-}
-   
+
+      {/* ── Mobile: below-yantra name strip (tap to reveal) ── */}
+      {memorise && !showCompletion && activeMemDiety && !flash && (
+        <div className="md:hidden mt-2 flex justify-center">
+          <div
+            onClick={() => setRevealedSeq(currentSeq)}
+            style={{
+              background: 'rgba(15,8,5,0.88)',
+              border: '0.5px solid rgba(201,168,76,0.45)',
+              borderRadius: '6px',
+              padding: '6px 16px',
+              cursor: 'pointer',
+              minWidth: '160px',
+              textAlign: 'center',
+            }}
+          >
+            {revealedSeq === currentSeq
+              ? <span className={script !== 'english' ? 'iast' : ''}
+                      style={{ color: '#fff8c8', fontSize: '15px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
+                  {displayName(activeMemDiety, script)}
+                </span>
+              : <span style={{ color: 'rgba(201,168,76,0.6)', fontSize: '13px', fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '0.02em' }}>
+                  tap to reveal
+                </span>
+            }
+          </div>
+        </div>

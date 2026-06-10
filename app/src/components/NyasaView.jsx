@@ -25,6 +25,7 @@ import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 // ── Coordinate constants (must stay in sync with SriYantraSVG.jsx) ────────────
 
@@ -302,21 +303,7 @@ export default function NyasaView({
   }
 
   const done = memorise && currentSeq > 6
-
-  // Delay the completion overlay by 700 ms so the user can toggle the last answer
-  const [showCompletion, setShowCompletion] = useState(false)
-  const completionTimer = useRef(null)
-  useEffect(() => {
-    // Start timer only when done AND the flash animation has finished,
-    // so the 3-second pause is clearly visible after the flash.
-    if (done && !flash) {
-      completionTimer.current = setTimeout(() => setShowCompletion(true), 3000)
-    } else if (!done) {
-      clearTimeout(completionTimer.current)
-      setShowCompletion(false)
-    }
-    return () => clearTimeout(completionTimer.current)
-  }, [done, flash])
+  const showCompletion = useDoneDelay(done)
 
   // dotsForSeq: returns list of [x, y] positions for this sequence number
   const dotsForSeq = (seq) => {
@@ -515,3 +502,4 @@ export default function NyasaView({
     </div>
   )
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
