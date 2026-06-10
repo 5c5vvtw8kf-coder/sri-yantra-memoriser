@@ -219,6 +219,11 @@ export default function InnerView({
 
   const done = memorise && currentSeq > TOTAL
 
+  // Active dot for mobile Memorise tooltip
+  const activeMemDiety  = memorise && currentSeq >= 1 && currentSeq <= TOTAL ? drillOrder[currentSeq - 1] : null
+  const activeMemIdx    = activeMemDiety ? nityaDeities.findIndex(x => x.id === activeMemDiety.id) : -1
+  const activeMemPos    = activeMemIdx >= 0 ? NITYA_POSITIONS[activeMemIdx] : null
+
   const [showCompletion, setShowCompletion] = useState(false)
   const completionTimer = useRef(null)
   useEffect(() => {
@@ -378,26 +383,36 @@ export default function InnerView({
             )
           })}
 
-          {/* Memorise mode: active deity label */}
-
-          {/* Tooltip — Explore mode only (avoids covering adjacent deities in Memorise).
-              In Explore: shows from hover (desktop) or from selectedId position (mobile tap). */}
-          {!memorise && !flash && (() => {
-            if (hoveredDot) {
-              const hdIdx = nityaDeities.findIndex(x => x.id === hoveredDot.id)
+          {/* Tooltip — Explore (desktop hover / mobile tap) and
+              Memorise mobile (active dot label inside the triangle). */}
+          {!flash && (() => {
+            // Memorise mode — mobile: show active deity tooltip on the SVG
+            if (memorise && activeMemPos) {
               return (
-                <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(deityById[hoveredDot.id], script)}
-                  fill={GOLD} script={script}
-                  below={hdIdx >= 0 && hdIdx <= 5} />
+                <Tooltip x={activeMemPos[0]} y={activeMemPos[1]}
+                  label={displayName(activeMemDiety, script)}
+                  fill="#fff8c8" script={script}
+                  below={activeMemIdx >= 0 && activeMemIdx <= 5} />
               )
             }
-            if (selectedId) {
-              const d   = deityById[selectedId]
-              const idx = nityaDeities.findIndex(x => x.id === selectedId)
-              const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
-              if (!pos) return null
-              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={idx >= 0 && idx <= 5} />
+            // Explore mode
+            if (!memorise) {
+              if (hoveredDot) {
+                const hdIdx = nityaDeities.findIndex(x => x.id === hoveredDot.id)
+                return (
+                  <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                    label={displayName(deityById[hoveredDot.id], script)}
+                    fill={GOLD} script={script}
+                    below={hdIdx >= 0 && hdIdx <= 5} />
+                )
+              }
+              if (selectedId) {
+                const d   = deityById[selectedId]
+                const idx = nityaDeities.findIndex(x => x.id === selectedId)
+                const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
+                if (!pos) return null
+                return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={idx >= 0 && idx <= 5} />
+              }
             }
             return null
           })()}
@@ -407,16 +422,7 @@ export default function InnerView({
 
         </svg>
 
-        {/* Mobile: active deity name below yantra in Memorise mode (no SVG tooltip overlap) */}
-        {memorise && hoveredDot && !flash && (
-          <div className="md:hidden mt-2 text-center min-h-[1.5rem]">
-            <span className={`${script === 'iast' || script === 'devanagari' ? 'iast' : ''} text-gold-400 text-sm`}>
-              {displayName(deityById[hoveredDot.id], script)}
-            </span>
-          </div>
-        )}
-
-        {/* Completion overlay (delayed 700 ms) */}
+{/* Completion overlay (delayed 700 ms) */}
         {showCompletion && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>

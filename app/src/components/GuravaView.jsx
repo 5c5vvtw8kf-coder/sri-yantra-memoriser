@@ -136,14 +136,17 @@ function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter,
 }
 
 
-function Tooltip({ x, y, label, fill, script }) {
+function Tooltip({ x, label, fill, script }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const w        = Math.max(60, label.length * charW + 18)
-  const tx       = Math.min(Math.max(x, 5 + w / 2), 355 - w / 2)
-  const ty       = y - h / 2 - 12
+  // Font sizes scaled to match apparent size in other views (GuravaView viewBox is 350
+  // wide vs ~465 in InnerView, so SVG font units need to be proportionally smaller)
+  const fontSize = script === 'devanagari' ? 20 : script === 'english' ? 19 : 18
+  const h        = script === 'devanagari' ? 40 : 38
+  const charW    = script === 'devanagari' ? 13.5 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11 : 10.5
+  const w        = Math.max(50, label.length * charW + 14)
+  const tx       = Math.min(Math.max(x, 5 + w / 2), 345 - w / 2)
+  // Always pin above the top (divya) row so tooltip never covers dots
+  const ty       = GURU_Y.divya - h / 2 - 10
   return (
     <g pointerEvents="none">
       <rect
@@ -356,18 +359,19 @@ export default function GuravaView({
 
           {/* Memorise: active position counter */}
 
-          {/* Tooltip: auto-reveals in Memorise; Explore falls back to selectedId tap */}
+          {/* Tooltip: auto-reveals in Memorise; Explore falls back to selectedId tap.
+              Always pinned above the top (divya) row — never covers any dots. */}
           {!flash && (() => {
             if (hoveredDot) return (
-              <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+              <Tooltip x={hoveredDot.x}
                 label={displayName(deityById[hoveredDot.id], script)}
-                fill={GOLD} script={script} />
+                fill={memorise ? '#fff8c8' : GOLD} script={script} />
             )
             if (!memorise && selectedId) {
               const d   = deityById[selectedId]
               const pos = d ? getGuruPos(d) : null
               if (!pos) return null
-              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} />
+              return <Tooltip x={pos[0]} label={displayName(d, script)} fill={GOLD} script={script} />
             }
             return null
           })()}
