@@ -384,15 +384,15 @@ export default function InnerView({
           })}
 
           {/* Tooltip — Explore (desktop hover / mobile tap) and
-              Memorise mobile (active dot label inside the triangle). */}
+              Memorise (active dot label centred inside the triangle). */}
           {!flash && (() => {
-            // Memorise mode — mobile: show active deity tooltip on the SVG
-            if (memorise && activeMemPos) {
+            // Memorise mode — pin label at the triangle centre so it's always visible
+            if (memorise && activeMemDiety) {
               return (
-                <Tooltip x={activeMemPos[0]} y={activeMemPos[1]}
+                <Tooltip x={CENTROID[0]} y={CENTROID[1]}
                   label={displayName(activeMemDiety, script)}
                   fill="#fff8c8" script={script}
-                  below={activeMemIdx >= 0 && activeMemIdx <= 5} />
+                  below={true} />
               )
             }
             // Explore mode
