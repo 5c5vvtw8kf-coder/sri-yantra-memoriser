@@ -3536,7 +3536,7 @@ export default function App() {
       {tourElement}
 
       {/* ── Landscape lock overlay (mobile only) ────────────────────────── */}
-      <div className="hidden landscape:flex md:hidden fixed inset-0 z-[9999] bg-surface-900 flex-col items-center justify-center gap-4 px-8 text-center">
+      <div className="hidden landscape:flex md:!hidden fixed inset-0 z-[9999] bg-surface-900 flex-col items-center justify-center gap-4 px-8 text-center">
         <svg viewBox="0 0 64 64" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="8" y="16" width="48" height="32" rx="4" />
           <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
