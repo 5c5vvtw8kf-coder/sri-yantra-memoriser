@@ -299,22 +299,7 @@ export default function C8View({
         </svg>
 
         {/* Completion overlay */}
-
-      {memorise && <MobileMemoriseInstr />}
-
-      <MobileSvaminiButtons
-        section={c8Section}
-        script={script}
-        svaminiSeq={8}
-        yoginiSeq={9}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {done && (
+        {done && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
@@ -342,7 +327,20 @@ export default function C8View({
           </div>
         )}
       </div>
-      <div className="h-8" />
+
+      {memorise && <MobileMemoriseInstr />}
+
+      <MobileSvaminiButtons
+        section={c8Section}
+        script={script}
+        svaminiSeq={8}
+        yoginiSeq={9}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
     </div>
   )
 }
