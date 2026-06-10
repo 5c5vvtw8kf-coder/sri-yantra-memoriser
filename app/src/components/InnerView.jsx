@@ -383,18 +383,11 @@ export default function InnerView({
             )
           })}
 
-          {/* Tooltip — Explore (desktop hover / mobile tap) and
-              Memorise (active dot label centred inside the triangle). */}
+          {/* Tooltip — Explore mode only (desktop hover / mobile tap).
+              Memorise mode label is rendered as an HTML overlay below. */}
           {!flash && (() => {
-            // Memorise mode — pin label at the triangle centre so it's always visible
-            if (memorise && activeMemDiety) {
-              return (
-                <Tooltip x={CENTROID[0]} y={CENTROID[1]}
-                  label={displayName(activeMemDiety, script)}
-                  fill="#fff8c8" script={script}
-                  below={true} />
-              )
-            }
+            // Memorise mode handled by HTML overlay — nothing to render here
+            if (memorise) return null
             // Explore mode
             if (!memorise) {
               if (hoveredDot) {
@@ -422,7 +415,25 @@ export default function InnerView({
 
         </svg>
 
-{/* Completion overlay (delayed 700 ms) */}
+        {/* ── Memorise mode: active deity name — HTML overlay above the triangle ── */}
+        {memorise && activeMemDiety && !flash && (
+          <div className="absolute left-0 right-0 flex justify-center pointer-events-none"
+               style={{ top: '40%' }}>
+            <div style={{
+              background: 'rgba(15,8,5,0.88)',
+              border: '0.5px solid rgba(255,248,200,0.7)',
+              borderRadius: '4px',
+              padding: '5px 12px',
+            }}>
+              <span className={script !== 'english' ? 'iast' : ''}
+                    style={{ color: '#fff8c8', fontSize: '15px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
+                {displayName(activeMemDiety, script)}
+              </span>
+            </div>
+          </div>
+        )}
+
+{/* Completion overlay (delayed 3 s) */}
         {showCompletion && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>

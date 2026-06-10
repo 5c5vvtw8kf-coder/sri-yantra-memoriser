@@ -307,14 +307,16 @@ export default function NyasaView({
   const [showCompletion, setShowCompletion] = useState(false)
   const completionTimer = useRef(null)
   useEffect(() => {
-    if (done) {
+    // Start timer only when done AND the flash animation has finished,
+    // so the 3-second pause is clearly visible after the flash.
+    if (done && !flash) {
       completionTimer.current = setTimeout(() => setShowCompletion(true), 3000)
-    } else {
+    } else if (!done) {
       clearTimeout(completionTimer.current)
       setShowCompletion(false)
     }
     return () => clearTimeout(completionTimer.current)
-  }, [done])
+  }, [done, flash])
 
   // dotsForSeq: returns list of [x, y] positions for this sequence number
   const dotsForSeq = (seq) => {
