@@ -171,6 +171,7 @@ export default function InnerView({
   onDeitySelect = () => {},
   highlightId = null,
   waning = false,
+  onSetWaning = () => {},
   memorise = false,
   currentSeq = 1,
   results = {},
@@ -458,6 +459,30 @@ export default function InnerView({
           </div>
         )}
 
+      </div>
+
+      {/* ── Waxing / Waning toggle ── */}
+      <div className="flex gap-2 mt-3">
+        <button
+          onClick={() => onSetWaning(false)}
+          className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+            !waning
+              ? 'bg-gold-700 text-black'
+              : 'bg-surface-700 text-muted hover:text-cream'
+          }`}
+        >
+          ☽ Waxing  1→16
+        </button>
+        <button
+          onClick={() => onSetWaning(true)}
+          className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+            waning
+              ? 'bg-gold-700 text-black'
+              : 'bg-surface-700 text-muted hover:text-cream'
+          }`}
+        >
+          ☾ Waning  15→1→16
+        </button>
       </div>
 
       {memorise && <MobileMemoriseInstr />}

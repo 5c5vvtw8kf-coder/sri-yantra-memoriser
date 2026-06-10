@@ -3781,6 +3781,7 @@ export default function App() {
                                           onNavigate={handleNavigateToMemorise}
                                           highlightId={innerHighlightId}
                                           waning={innerWaning}
+                                          onSetWaning={handleInnerSetWaning}
                                         />}
             {activeTab === 'gurava'  && <GuravaView
                                           script={script}
