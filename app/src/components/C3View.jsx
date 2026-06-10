@@ -32,6 +32,7 @@ import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG, { C3_PETALS } from './SriYantraSVG'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
 
@@ -307,6 +308,7 @@ export default function C3View({
   }
 
   const done = memorise && currentSeq > 10
+  const showCompletion = useDoneDelay(done)
 
   // ── Filled regions ──────────────────────────────────────────────────────────
 
@@ -540,7 +542,7 @@ export default function C3View({
       />
 
       {/* Completion panel */}
-      {done && (
+      {showCompletion && (
         <CompletionPanel
           results={results}
           onRestart={onStartMemorise}

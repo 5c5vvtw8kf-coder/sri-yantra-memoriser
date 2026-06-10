@@ -227,7 +227,7 @@ export default function GuravaView({
   const completionTimer = useRef(null)
   useEffect(() => {
     if (done) {
-      completionTimer.current = setTimeout(() => setShowCompletion(true), 700)
+      completionTimer.current = setTimeout(() => setShowCompletion(true), 1500)
     } else {
       clearTimeout(completionTimer.current)
       setShowCompletion(false)

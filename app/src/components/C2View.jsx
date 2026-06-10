@@ -21,6 +21,7 @@ import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG, { C2_PETALS } from './SriYantraSVG'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
 
@@ -311,6 +312,7 @@ export default function C2View({
 
   // Petals: seq 1–16. Extra items: seq 17 (Chakra Svāminī), 18 (Yoginī).
   const done = memorise && currentSeq > 18
+  const showCompletion = useDoneDelay(done)
 
   // ── Background SVG fills ────────────────────────────────────────────────────
 
@@ -529,7 +531,7 @@ export default function C2View({
       />
 
       {/* Completion panel */}
-      {done && (
+      {showCompletion && (
         <CompletionPanel
           results={results}
           onRestart={onStartMemorise}

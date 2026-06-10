@@ -24,6 +24,7 @@ import { displayName } from '../utils.js'
 import triangleData from '../data/triangle-regions.json'
 import SriYantraSVG from './SriYantraSVG'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 const CX = 260
 const CY = 270
@@ -213,6 +214,7 @@ export default function C7View({
   }
 
   const done = memorise && currentSeq > 10
+  const showCompletion = useDoneDelay(done)
 
   const filledRegions = (() => {
     if (memorise) {
@@ -352,7 +354,7 @@ export default function C7View({
         onToggleResult={onToggleResult}
       />
 
-      {done && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
+      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
 
     </div>
   )

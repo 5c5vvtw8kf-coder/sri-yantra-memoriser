@@ -15,6 +15,7 @@ import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 // ── Geometry ──────────────────────────────────────────────────────────────────
 // The central (main) triangle and the nine context triangles come from the
@@ -113,6 +114,7 @@ export default function C9View({
   }
 
   const done = doneProp !== null ? doneProp : (memorise && currentSeq > TOTAL)
+  const showCompletion = useDoneDelay(done)
 
   const [bx, by] = CENTROID
 
@@ -195,7 +197,7 @@ export default function C9View({
 
         {/* Completion overlay */}
 
-      {done && (
+      {showCompletion && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"

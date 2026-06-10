@@ -27,6 +27,7 @@ import { displayName } from '../utils.js'
 import triangleData from '../data/triangle-regions.json'
 import SriYantraSVG from './SriYantraSVG'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
 
@@ -255,6 +256,7 @@ export default function C4View({
   }
 
   const done = memorise && currentSeq > 16
+  const showCompletion = useDoneDelay(done)
 
   // ── Filled regions ──────────────────────────────────────────────────────────
 
@@ -446,7 +448,7 @@ export default function C4View({
       />
 
       {/* Completion panel */}
-      {done && (
+      {showCompletion && (
         <CompletionPanel
           results={results}
           onRestart={onStartMemorise}

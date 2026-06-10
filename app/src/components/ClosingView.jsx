@@ -34,6 +34,7 @@ import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG from './SriYantraSVG'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 // ── Static data ───────────────────────────────────────────────────────────────
 
@@ -176,6 +177,7 @@ export default function ClosingView({
   const correctCount  = Object.values(results).filter(v => v === 'correct').length
   const allMemorised  = memorise && correctCount === TOTAL
   const done          = memorise && currentSeq > TOTAL
+  const showCompletion = useDoneDelay(done)
 
   // ── Pixel offset from strip top to centre of button slot ──────────────────
   // Strip: py-2 (8px) top/bottom padding; 10 equal slots for the remaining height.
@@ -253,7 +255,7 @@ export default function ClosingView({
         </div>
 
         {/* Completion overlay — memorise mode, all done */}
-        {done && (
+        {showCompletion && (
           <div
             className="absolute inset-0 flex items-center justify-center rounded-xl"
             style={{ background: 'rgba(15,8,5,0.72)' }}

@@ -22,6 +22,7 @@ import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG, { BHUPURA_MARKERS } from './SriYantraSVG'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
@@ -331,6 +332,7 @@ export default function BhupuraView({
   const MEMO_TOTAL = memoGroup === 'all' ? BHUPURA_TOTAL : memoDeities.length
 
   const done = memorise && currentSeq > MEMO_TOTAL
+  const showCompletion = useDoneDelay(done)
 
   // Dynamic fills — add bhupura band fills when fillAll is active in Explore mode
   const dynamicFills = (!memorise && fillAll)
@@ -464,20 +466,30 @@ export default function BhupuraView({
               )
             })}
 
-            {/* Tooltip — Explore mode only (desktop hover or mobile tap-to-persist).
-                Not shown in Memorise mode; name appears in the below-yantra strip instead. */}
-            {!flash && !memorise && (() => {
-              if (hoveredDot) return (
-                <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(deityById[hoveredDot.id], script)}
-                  fill={GOLD} script={script} />
-              )
-              const tooltipId = isMobile ? lastTappedId : selectedId
-              if (tooltipId) {
-                const d   = deityById[tooltipId]
-                const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
-                if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} fill={GOLD} script={script} />
+            {/* Tooltip — Explore mode (desktop hover / mobile tap) and
+                Memorise mode (mobile tap-to-reveal inside the bhupura box). */}
+            {!flash && (() => {
+              // Memorise mode — mobile: show tooltip on tap (inside SVG)
+              if (memorise && isMobile && mobileRevealed && hoveredDot) {
+                const d = deityById[hoveredDot.id]
+                if (!d) return null
+                return <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                  label={displayName(d, script)} fill="#fff8c8" script={script} />
+              }
+              // Explore mode
+              if (!memorise) {
+                if (hoveredDot) return (
+                  <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                    label={displayName(deityById[hoveredDot.id], script)}
+                    fill={GOLD} script={script} />
+                )
+                const tooltipId = isMobile ? lastTappedId : selectedId
+                if (tooltipId) {
+                  const d   = deityById[tooltipId]
+                  const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
+                  if (!pos) return null
+                  return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} fill={GOLD} script={script} />
+                }
               }
               return null
             })()}
@@ -500,7 +512,7 @@ export default function BhupuraView({
 
         {/* Completion overlay — inside the diagram container */}
 
-      {done && (
+      {showCompletion && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)', zIndex: 10 }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
@@ -564,20 +576,7 @@ export default function BhupuraView({
         </div>
       )}
 
-      {/* Mobile: active deity name below yantra in Memorise mode (tap-to-reveal) */}
-      {memorise && hoveredDot && currentSeq <= MEMO_TOTAL && !flash && (
-        <div className="md:hidden mt-2 text-center min-h-[1.5rem]">
-          {mobileRevealed ? (
-            <span className={`${script === 'iast' || script === 'devanagari' ? 'iast' : ''} text-gold-400 text-sm`}>
-              {displayName(deityById[hoveredDot.id], script)}
-            </span>
-          ) : (
-            <span className="text-muted text-sm italic">tap to reveal</span>
-          )}
-        </div>
-      )}
-
-      {memorise && <MobileMemoriseInstr />}
+{memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
         section={bhupuraSection}
