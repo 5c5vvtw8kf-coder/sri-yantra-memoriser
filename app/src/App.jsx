@@ -40,7 +40,6 @@ const YOGINI_SECRECY = {
 }
 
 const TABS = [
-  { id: 'yantra',       navLabel: 'śrī yantra',                    navLabelEn: 'Śrī Yantra',                            navLabelDev: 'श्री यन्त्र',           footerLabel: 'Śrī Yantra'           },
   { id: 'intro',        navLabel: 'Welcome and Introduction',      navLabelEn: 'Welcome and Introduction',              navLabelDev: 'Welcome and Introduction', footerLabel: 'Introduction'        },
   { id: 'h-explore-memorise', heading: 'EXPLORE AND MEMORISE' },
   { id: 'nyasa',        navLabel: 'nyāsāṅga-devatāḥ',             navLabelEn: 'Nyāsa Deities',                         navLabelDev: 'न्यासांगदेवताः',        footerLabel: 'Nyāsa Deities'        },
@@ -61,7 +60,8 @@ const TABS = [
   { id: 'spotcheck',    navLabel: 'Spot Check',                    navLabelEn: 'Spot Check',                           navLabelDev: 'Spot Check',            footerLabel: 'Spot Check'           },
   { id: 'memomap',      navLabel: 'Memory Map',                      navLabelEn: 'Memory Map',                              navLabelDev: 'Memory Map',              footerLabel: 'Memory Map'             },
   { id: 'activity-log', navLabel: 'Activity Log',                  navLabelEn: 'Activity Log',                          navLabelDev: 'Activity Log',          footerLabel: 'Activity Log'         },
-  { id: 'h-references', heading: 'REFERENCES' },
+  { id: 'h-references', heading: 'RESOURCES' },
+  { id: 'yantra',       navLabel: 'śrī yantra',                    navLabelEn: 'Śrī Yantra',                            navLabelDev: 'श्री यन्त्र',           footerLabel: 'Śrī Yantra'           },
   { id: 'browser',      navLabel: 'śrī devī khaḍgamālā stōtram',  navLabelEn: 'Sri Devi Khadgamala Stotram',          navLabelDev: 'श्री देवी खड्गमाला स्तोत्रम्', footerLabel: 'Khadgamala Stotram'   },
   { id: 'references',   navLabel: 'References',                    navLabelEn: 'References',                           navLabelDev: 'References',            footerLabel: 'References'           },
 ]
@@ -1927,7 +1927,7 @@ const SECTION_IAST_LABELS = {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('yantra')
+  const [activeTab, setActiveTab] = useState('intro')
   const [script,    setScript]    = useState('iast')
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
@@ -2758,7 +2758,8 @@ export default function App() {
     <span className="text-muted" style={INSTR_STYLE}>
       hover to reveal ·{' '}
       <span className="text-red-400">click</span> = memorised ·{' '}
-      <span className="text-gold-400">dbl-click</span> = not memorised
+      <span className="text-gold-400">dbl-click</span> = not memorised ·{' '}
+      right-click past = toggle
     </span>
   )
   const footerInstruction = !EXPLORE_TABS.has(activeTab) ? null
@@ -2772,7 +2773,9 @@ export default function App() {
               <span className="text-gold-400">dbl-click</span> = not memorised
             </span>
           </span>
-        : memoInstr
+        : activeTab === 'spotcheck'
+          ? <span className="hidden md:inline">{memoInstr}</span>
+          : memoInstr
       : null
 
   // ── Right panel ────────────────────────────────────────────────────────────
@@ -3532,6 +3535,16 @@ export default function App() {
       {/* ── Site tour portal (renders to document.body via createPortal) ──── */}
       {tourElement}
 
+      {/* ── Landscape lock overlay (mobile only) ────────────────────────── */}
+      <div className="hidden landscape:flex md:hidden fixed inset-0 z-[9999] bg-surface-900 flex-col items-center justify-center gap-4 px-8 text-center">
+        <svg viewBox="0 0 64 64" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="8" y="16" width="48" height="32" rx="4" />
+          <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+        </svg>
+        <p className="iast text-gold-400 text-lg font-medium">Please rotate your device</p>
+        <p className="text-muted text-sm">This app is designed for portrait mode</p>
+      </div>
+
       {/* ── Mobile drawer backdrop ───────────────────────────────────────── */}
       {mobileNavOpen && (
         <div className="fixed inset-0 z-40 bg-black/60 md:hidden"
@@ -3575,7 +3588,7 @@ export default function App() {
 
       {/* ── Left sidebar ─────────────────────────────────────────────────── */}
       <aside data-tour="sidebar"
-        className={`w-52 flex-shrink-0 flex flex-col border-r border-surface-800 overflow-hidden
+        className={`w-72 flex-shrink-0 flex flex-col border-r border-surface-800 overflow-hidden bg-surface-900
           fixed inset-y-0 left-0 z-50 transition-transform duration-300
           md:relative md:translate-x-0 md:transition-none md:z-auto
           ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full'}`}>
@@ -3975,6 +3988,119 @@ export default function App() {
                 }}
               />
             )}
+
+            {/* ── Mobile Spot Check controls — mirrors right panel, hidden on desktop ── */}
+            {activeTab === 'spotcheck' && (() => {
+              const activeFilt = SC_FILTERS.find(f => f.id === scFilter)
+              const roundPct   = scProgress.idx > 0 ? Math.round((scProgress.correct / scProgress.idx) * 100) : null
+              const sesCorrect = sessionStats.correct + scProgress.correct
+              const sesTotal   = sessionStats.total   + scProgress.idx
+              const sesPct     = sesTotal > 0 ? Math.round((sesCorrect / sesTotal) * 100) : null
+              const setFilter  = (id) => {
+                setScFilter(id)
+                const filt = SC_FILTERS.find(f => f.id === id)
+                const def = 'defaultSubFilter' in (filt ?? {}) ? filt.defaultSubFilter : (filt?.subFilters?.find(s => s.groupIds !== null)?.id ?? null)
+                setScSubFilter(def)
+              }
+              return (
+                <div className="md:hidden px-4 pb-4 space-y-4">
+
+                  {/* Scores */}
+                  {(scProgress.idx > 0 || sesTotal > 0) && (
+                    <div className="space-y-1.5 pb-1 border-b border-surface-800">
+                      <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold" style={{ fontSize: '9px' }}>Scores</p>
+                      {scProgress.idx > 0 && (
+                        <div className="flex justify-between text-xs">
+                          <span className="text-muted">Round</span>
+                          <span>
+                            <span className="text-cream font-mono">{scProgress.correct}/{scProgress.idx}</span>
+                            <span className="text-muted ml-1.5">{roundPct}%</span>
+                          </span>
+                        </div>
+                      )}
+                      {sesTotal > 0 && (
+                        <div className="flex justify-between text-xs">
+                          <span className="text-muted">Session</span>
+                          <span>
+                            <span className="text-cream font-mono">{sesCorrect}/{sesTotal}</span>
+                            <span className="text-muted ml-1.5">{sesPct}%</span>
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Progress */}
+                  {scProgress.total > 0 && (
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs text-muted">
+                        <span>{scProgress.idx} / {scProgress.total}</span>
+                        <span>
+                          <span className="text-red-400">{scProgress.correct}✓</span>
+                          {' '}
+                          <span className="text-gold-400">{scProgress.wrong}✗</span>
+                        </span>
+                      </div>
+                      <div className="w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
+                        <div className="h-full bg-gold-400 rounded-full transition-all"
+                          style={{ width: `${Math.round((scProgress.idx / scProgress.total) * 100)}%` }} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Segment */}
+                  <div className="space-y-1.5">
+                    <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>Segment</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {SC_FILTERS.map(f => (
+                        <button key={f.id} onClick={() => setFilter(f.id)}
+                          className={['px-2.5 py-1 rounded text-xs font-mono transition-colors',
+                            scFilter === f.id ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
+                          {f.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Sub-filter */}
+                  {activeFilt?.subFilters && (
+                    <div className="flex gap-1">
+                      {activeFilt.subFilters.map(s => (
+                        <button key={s.id}
+                          onClick={() => setScSubFilter(s.groupIds === null ? null : s.id)}
+                          className={['flex-1 py-1 rounded text-xs font-mono transition-colors text-center',
+                            (s.groupIds === null ? scSubFilter === null : scSubFilter === s.id)
+                              ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
+                          {s.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Round size */}
+                  <div className="space-y-1.5">
+                    <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>Round size</p>
+                    <div className="flex gap-1.5">
+                      {[10, 20, 50, 'whole'].map(n => (
+                        <button key={n} onClick={() => setScLimit(n === 'whole' ? null : n)}
+                          className={['px-2.5 py-1 rounded text-xs font-mono transition-colors',
+                            (n === 'whole' ? scLimit === null : scLimit === n)
+                              ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
+                          {n === 'whole' ? 'Whole' : n}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Skip */}
+                  <button onClick={() => scSkipRef.current?.()}
+                    className="w-full py-1.5 rounded bg-surface-800 text-xs text-muted font-mono">
+                    skip →
+                  </button>
+
+                </div>
+              )
+            })()}
             {activeTab === 'browser'      && <CircuitBrowser script="devanagari" />}
             {activeTab === 'intro'        && <IntroView script={script} />}
             {activeTab === 'references'   && <ReferencesView />}
@@ -4023,8 +4149,8 @@ export default function App() {
           </div>
         )}
 
-        {/* ── Mobile explore section segments (14) ─────────────────────────── */}
-        <div className="flex md:hidden flex-shrink-0 px-2 py-1 gap-1">
+        {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
+        <div className={`${activeTab === 'spotcheck' ? 'hidden' : 'flex'} md:hidden flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}
@@ -4056,7 +4182,7 @@ export default function App() {
             </span>
           </button>
           {footerInstruction && (
-            <span className="flex-shrink-0 px-1 text-center select-none">
+            <span className="hidden md:flex flex-shrink-0 px-1 text-center select-none">
               {footerInstruction}
             </span>
           )}

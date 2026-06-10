@@ -20,7 +20,7 @@ import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
-import MobileSvaminiButtons from './MobileSvaminiButtons'
+import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Coordinate system (matches InnerView / BinduView) ─────────────────────────
 
@@ -299,6 +299,8 @@ export default function C8View({
         </svg>
 
         {/* Completion overlay */}
+
+      {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
         section={c8Section}

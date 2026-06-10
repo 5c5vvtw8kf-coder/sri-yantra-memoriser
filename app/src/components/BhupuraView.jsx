@@ -22,7 +22,7 @@ import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG, { BHUPURA_MARKERS } from './SriYantraSVG'
-import MobileSvaminiButtons from './MobileSvaminiButtons'
+import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
 
@@ -178,7 +178,7 @@ function NavArrow({ from, to, gap = 14, length = 27 }) {
   return (
     <line x1={x1.toFixed(1)} y1={y1.toFixed(1)}
           x2={x2.toFixed(1)} y2={y2.toFixed(1)}
-      stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+      stroke={GREEN} strokeWidth={2.5}
       markerEnd="url(#bhupura-nav-arrow)" />
   )
 }
@@ -576,6 +576,8 @@ export default function BhupuraView({
           )}
         </div>
       )}
+
+      {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
         section={bhupuraSection}

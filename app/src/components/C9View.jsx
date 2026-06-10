@@ -14,7 +14,7 @@ import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
-import MobileSvaminiButtons from './MobileSvaminiButtons'
+import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Geometry ──────────────────────────────────────────────────────────────────
 // The central (main) triangle and the nine context triangles come from the
@@ -43,11 +43,11 @@ const c9Section = data.sections?.find(s => s.circuitNumber === 9 && s.type === '
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const w        = Math.max(60, label.length * charW + 18)
-  const tx       = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
+  const fontSize = script === 'devanagari' ? 33 : script === 'english' ? 32 : 32
+  const h        = script === 'devanagari' ? 66 : script === 'english' ? 64 : 64
+  const charW    = script === 'devanagari' ? 25 : script === 'telugu' ? 29 : script === 'tamil' ? 30 : script === 'english' ? 20 : 22
+  const w        = Math.max(80, label.length * charW + 18)
+  const tx       = Math.min(Math.max(x, w / 2 - 26), 526 - w / 2)
   const ty       = y - h / 2 - 44
   return (
     <g pointerEvents="none">
@@ -221,6 +221,8 @@ export default function C9View({
           </div>
         )}
       </div>
+
+      {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
         section={c9Section}

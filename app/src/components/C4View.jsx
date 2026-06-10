@@ -26,7 +26,7 @@ import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import triangleData from '../data/triangle-regions.json'
 import SriYantraSVG from './SriYantraSVG'
-import MobileSvaminiButtons from './MobileSvaminiButtons'
+import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
 
@@ -431,6 +431,7 @@ export default function C4View({
         </div>
       </div>
 
+      {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
         section={c4Section}

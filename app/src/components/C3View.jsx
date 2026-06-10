@@ -6,26 +6,32 @@
  *
  * ── Modes ─────────────────────────────────────────────────────────────────────
  *
- * Explore  — all 8 petals cream to highlight the avarana.
- *            Hover → tooltip. Click → petal turns red, right panel shows deity.
+ * Explore  — All 8 petals cream. Tap any petal to focus it.
+ *            Green arc arrow INSIDE the ring points from current focus → next.
+ *            Tapping the focused petal advances to the next (sequential explorer).
+ *            Tapping any other petal jumps to it.
+ *            Tooltips in four fixed corner zones (same as C2 — always clear of petals).
  *
- * Memorise — petals revealed one at a time (chant order).
- *            Active petal: cream fill, hover to reveal name.
- *            Double-click = memorised → red fill + dark-red stroke.
- *            Single-click = not memorised → petal stays gold, advance.
- *            seq 9  = Chakra Svāminī (right-panel only)
- *            seq 10 = Yoginī (right-panel only)
+ * Memorise — Petals revealed one at a time (chant order).
+ *            Active petal: cream fill, hover/tap to reveal name.
+ *            Single-tap = correct (red); double-tap = wrong.
+ *            Green arrow shows from current → next petal (seqs 1–7).
+ *            seq 9  = Chakra Svāminī (MobileSvaminiButtons)
+ *            seq 10 = Yoginī (MobileSvaminiButtons)
  *            > 10   = done
  *
- * Petal ID ↔ sequenceInSection: direct 1:1 mapping.
- *   petal-c3-01 = seq 1 … petal-c3-08 = seq 8
+ * Petal angles in SVG (0°=top, clockwise):
+ *   seq 1 → petal-c3-01 → 0°    seq 5 → petal-c3-05 →  45°
+ *   seq 2 → petal-c3-02 → 90°   seq 6 → petal-c3-06 → 135°
+ *   seq 3 → petal-c3-03 → 180°  seq 7 → petal-c3-07 → 225°
+ *   seq 4 → petal-c3-04 → 270°  seq 8 → petal-c3-08 → 315°
  */
 
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG, { C3_PETALS } from './SriYantraSVG'
-import MobileSvaminiButtons from './MobileSvaminiButtons'
+import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
 
@@ -74,6 +80,33 @@ const C3_PETAL_PATH_MAP = Object.fromEntries(
 function petalIdForSeq(seq)   { return `petal-c3-${String(seq).padStart(2, '0')}` }
 function petalPathForSeq(seq) { return C3_PETAL_PATH_MAP[seq] }
 
+// ── Direction arrow ────────────────────────────────────────────────────────────
+//
+// Green arc drawn at ARROW_R (inside the C3 ring, which starts at Rin=110).
+// Clockwise from the current focus petal to the next.
+//
+// Petal SVG angles (0°=top, clockwise):
+//   seq 1:   0°   seq 2:  90°   seq 3: 180°   seq 4: 270°
+//   seq 5:  45°   seq 6: 135°   seq 7: 225°   seq 8: 315°
+
+const C3_SEQ_ANGLE = { 1: 0, 2: 90, 3: 180, 4: 270, 5: 45, 6: 135, 7: 225, 8: 315 }
+const ARROW_R      = 92   // px — inside C3 inner ring edge (Rin = 110)
+
+function arcPt(angleDeg, r) {
+  const rad = angleDeg * Math.PI / 180
+  return [CX + r * Math.sin(rad), CY - r * Math.cos(rad)]
+}
+
+/**
+ * c3ArrowPath — straight line from inner position of fromSeq to toSeq.
+ * ±8° offset leaves breathing room around each petal tip.
+ */
+function c3ArrowPath(fromSeq, toSeq) {
+  const [fx, fy] = arcPt(C3_SEQ_ANGLE[fromSeq] + 8, ARROW_R)
+  const [tx, ty] = arcPt(C3_SEQ_ANGLE[toSeq]   - 8, ARROW_R)
+  return `M ${fx.toFixed(1)},${fy.toFixed(1)} L ${tx.toFixed(1)},${ty.toFixed(1)}`
+}
+
 // ── Colours ───────────────────────────────────────────────────────────────────
 
 const GOLD = '#c9a84c'
@@ -88,7 +121,10 @@ const c3Deities = deities
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const c3Section = data.sections?.find(s => s.circuitNumber === 3 && s.type === 'circuit') || {}
 
-// ── Tooltip ───────────────────────────────────────────────────────────────────
+// ── Tooltip — four fixed corner zones (same as C2) ────────────────────────────
+//
+// Quadrant of the petal centroid relative to the yantra centre determines
+// which corner zone the tooltip occupies — always clear of the petal ring.
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
@@ -96,8 +132,19 @@ function Tooltip({ x, y, label, script }) {
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
   const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
-  const tx       = Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
-  const ty       = y > CY ? y - h / 2 - 18 : y + h / 2 + 18
+  const hw = w / 2, hh = h / 2
+
+  const dx = x - CX
+  const dy = y - CY
+  let zx, zy
+  if      (dx >= 0 && dy <= 0) { zx = 405; zy = 90  }  // top-right
+  else if (dx >= 0 && dy >  0) { zx = 405; zy = 450 }  // bottom-right
+  else if (dx <  0 && dy >  0) { zx = 115; zy = 450 }  // bottom-left
+  else                          { zx = 115; zy = 90  }  // top-left
+
+  const tx = Math.min(Math.max(zx, hw + 49), 471 - hw)
+  const ty = Math.min(Math.max(zy, hh + 57), 485 - hh - 2)
+
   return (
     <g pointerEvents="none">
       <rect
@@ -163,9 +210,12 @@ export default function C3View({
   flash           = false,
   onNavigate      = () => {},
 }) {
-  const [selectedId,    setSelectedId]    = useState(null)
-  const [hoveredDot,    setHoveredDot]    = useState(null)
+  const [selectedId,     setSelectedId]     = useState(null)
+  const [hoveredDot,     setHoveredDot]     = useState(null)
   const [mobileRevealed, setMobileRevealed] = useState(false)
+  // Explore mode: tracks which petal is currently focused (1–8, wraps).
+  // Tapping the focused petal advances to the next; tapping another jumps to it.
+  const [exploreSeq,     setExploreSeq]     = useState(1)
 
   const clickTimer     = useRef(null)
   const lastTapRef     = useRef({ seq: null, time: 0 })
@@ -173,12 +223,30 @@ export default function C3View({
 
   // ── Explore handlers ────────────────────────────────────────────────────────
 
-  const toggle  = (id) => {
-    const newId = selectedId === id ? null : id
-    setSelectedId(newId)
-    setHoveredDot(null)
-    onDeitySelect(newId ? deityById[newId] : null)
+  /**
+   * handleExploreClick — Nyāsa-style sequential advance.
+   *   Tap focused petal  → advance exploreSeq to the next petal (1→2→…→8→1).
+   *   Tap any other petal → jump exploreSeq to that petal.
+   * Either way, selectedId is kept in sync for tooltip + red-fill.
+   */
+  const handleExploreClick = (seq, id) => {
+    if (selectedId === id) {
+      // Already selected — advance to next
+      const nextSeq   = (seq % 8) + 1
+      const nextDeity = c3Deities[nextSeq - 1]
+      setExploreSeq(nextSeq)
+      setSelectedId(nextDeity?.id ?? null)
+      setHoveredDot(null)
+      onDeitySelect(nextDeity ?? null)
+    } else {
+      // First tap — select this petal and show its name
+      setExploreSeq(seq)
+      setSelectedId(id)
+      setHoveredDot(null)
+      onDeitySelect(deityById[id] ?? null)
+    }
   }
+
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
 
@@ -252,15 +320,16 @@ export default function C3View({
       }
       return fills
     }
-    // Explore: all 8 petals cream; selected/highlighted/fillAll turns red
-    const fills = { ...YANTRA_FILLS }
+    // Explore: all 8 petals cream; focused/selected/highlighted petal turns red
+    const fills    = { ...YANTRA_FILLS }
     const RED_PETAL = 'rgba(200,70,70,0.85)'
     if (fillAll) {
       for (let i = 1; i <= 8; i++) fills[petalIdForSeq(i)] = RED_PETAL
     } else {
       for (let i = 1; i <= 8; i++) fills[petalIdForSeq(i)] = ACTIVE_PETAL
-      const focusDeity = selectedDeity
-        || (hoveredDot ? deityById[hoveredDot.id] : null)
+      // Hover overrides; fall back to selectedId (which tracks exploreSeq after first tap)
+      const focusDeity = (hoveredDot ? deityById[hoveredDot.id] : null)
+        || selectedDeity
         || (highlightId ? deityById[highlightId] : null)
       if (focusDeity) fills[petalIdForSeq(focusDeity.sequenceInSection)] = RED_PETAL
     }
@@ -268,6 +337,17 @@ export default function C3View({
   })()
 
   // ── Render ──────────────────────────────────────────────────────────────────
+
+  // Arrow seq for each mode:
+  //   Explore  → exploreSeq (next = (exploreSeq % 8) + 1, wraps 8→1)
+  //   Memorise → currentSeq (only shown for seqs 1–7; seq 8 next is Svāminī, not seq 1)
+  const arrowFromSeq = memorise ? currentSeq : exploreSeq
+  const arrowToSeq   = memorise
+    ? currentSeq + 1                          // next in sequence
+    : (exploreSeq % 8) + 1                    // wraps 8→1 in Explore
+  const showArrow = memorise
+    ? (currentSeq >= 1 && currentSeq <= 7)    // stop before Svāminī
+    : true                                    // always shown in Explore
 
   return (
     <div className="w-full p-4">
@@ -295,6 +375,13 @@ export default function C3View({
             aria-label="Circuit 3 — 8-petal lotus deity positions"
           >
 
+            <defs>
+              {/* Arrowhead for inside-ring direction indicator */}
+              <marker id="c3-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#27ae60" />
+              </marker>
+            </defs>
+
             {/* ── Explore mode ── */}
             {!memorise && (
               <>
@@ -311,6 +398,7 @@ export default function C3View({
                   return <path d={pathD} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
                 })()}
 
+                {/* Transparent hit areas for every petal */}
                 {c3Deities.map(d => {
                   const seq   = d.sequenceInSection
                   const pos   = C3_DOT_POSITIONS[seq]
@@ -323,12 +411,24 @@ export default function C3View({
                       fill="transparent"
                       stroke="none"
                       style={{ cursor: 'pointer' }}
-                      onClick={() => toggle(d.id)}
+                      onClick={() => handleExploreClick(seq, d.id)}
                       onMouseEnter={() => hover(d.id, pos.x, pos.y)}
                       onMouseLeave={unhover}
                     />
                   )
                 })}
+
+                {/* Direction arrow — inside the ring, clockwise from current focus to next */}
+                {showArrow && C3_SEQ_ANGLE[arrowFromSeq] !== undefined && C3_SEQ_ANGLE[arrowToSeq] !== undefined && (
+                  <path
+                    d={c3ArrowPath(arrowFromSeq, arrowToSeq)}
+                    fill="none"
+                    stroke="#27ae60"
+                    strokeWidth="2.5"
+                    markerEnd="url(#c3-arrow)"
+                    style={{ pointerEvents: 'none' }}
+                  />
+                )}
               </>
             )}
 
@@ -391,10 +491,22 @@ export default function C3View({
                     />
                   )
                 })()}
+
+                {/* Direction arrow — inside ring, current → next (seqs 1–7 only) */}
+                {!flash && showArrow && C3_SEQ_ANGLE[arrowFromSeq] !== undefined && C3_SEQ_ANGLE[arrowToSeq] !== undefined && (
+                  <path
+                    d={c3ArrowPath(arrowFromSeq, arrowToSeq)}
+                    fill="none"
+                    stroke="#27ae60"
+                    strokeWidth="2.5"
+                    markerEnd="url(#c3-arrow)"
+                    style={{ pointerEvents: 'none' }}
+                  />
+                )}
               </>
             )}
 
-            {/* Tooltip: auto-reveals in Memorise; Explore also falls back to selectedId tap */}
+            {/* Tooltip: four fixed corner zones — always clear of the petal ring */}
             {!flash && (() => {
               if (hoveredDot) return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
@@ -413,6 +525,7 @@ export default function C3View({
         </div>
       </div>
 
+      {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
         section={c3Section}

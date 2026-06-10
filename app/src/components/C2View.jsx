@@ -20,7 +20,7 @@ import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG, { C2_PETALS } from './SriYantraSVG'
-import MobileSvaminiButtons from './MobileSvaminiButtons'
+import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Coordinate constants ───────────────────────────────────────────────────────
 
@@ -514,6 +514,7 @@ export default function C2View({
         </div>
       </div>
 
+      {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
         section={c2Section}

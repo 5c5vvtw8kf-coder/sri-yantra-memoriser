@@ -14,6 +14,7 @@ import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID } from '../korvinGeometry'
+import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Coordinate system ─────────────────────────────────────────────────────────
 
@@ -407,7 +408,7 @@ export default function GuravaView({
         )}
       </div>
 
-
+      {memorise && <MobileMemoriseInstr />}
 
       <div className="h-8" />
 

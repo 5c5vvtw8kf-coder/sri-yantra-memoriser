@@ -33,6 +33,7 @@ import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import SriYantraSVG from './SriYantraSVG'
+import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Static data ───────────────────────────────────────────────────────────────
 
@@ -116,8 +117,17 @@ export default function ClosingView({
   flash = false,
   onNavigate,
 }) {
-  const [hoveredEpithet, setHoveredEpithet] = useState(null)
+  const [hoveredEpithet,  setHoveredEpithet]  = useState(null)
+  const [tappedEpithets, setTappedEpithets]   = useState(new Set())  // all tapped (past = cream label)
+  const [lastTapped,     setLastTapped]       = useState(null)       // most recent tap (red label)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
   const clickTimer = useRef(null)
+
+  // Reset accumulated labels when switching modes
+  useEffect(() => {
+    setTappedEpithets(new Set())
+    setLastTapped(null)
+  }, [memorise])
 
   // Flash the direction arrow on page open to draw attention
   const [arrowFlash, setArrowFlash] = useState(true)
@@ -131,7 +141,7 @@ export default function ClosingView({
   const [yantraPos, setYantraPos] = useState({ top: 80, height: 300 })
 
   // Measure the sidebar's actual right edge so the strip always sits just past it
-  const [sidebarRight, setSidebarRight] = useState(208)
+  const [sidebarRight, setSidebarRight] = useState(0)
 
   useEffect(() => {
     const update = () => {
@@ -139,8 +149,11 @@ export default function ClosingView({
       const r = yantraRef.current.getBoundingClientRect()
       setYantraPos({ top: r.top, height: r.height })
       // Measure sidebar right edge directly from DOM (sidebar has data-tour="sidebar")
+      // On mobile the sidebar element may exist but is off-screen — always use 0 on mobile
       const sidebar = document.querySelector('[data-tour="sidebar"]')
-      if (sidebar) setSidebarRight(sidebar.getBoundingClientRect().right)
+      if (sidebar && window.innerWidth >= 768) setSidebarRight(sidebar.getBoundingClientRect().right)
+      else setSidebarRight(0)
+      setIsMobile(window.innerWidth < 768)
     }
     update()
     const t = setTimeout(update, 50)
@@ -203,7 +216,7 @@ export default function ClosingView({
   // ── Yantra fills ───────────────────────────────────────────────────────────
 
   const memFills = allMemorised ? ALL_RED_FILLS : listHighlight ? LIST_RED_FILLS : ALL_CREAM_FILLS
-  const exploreFills = listHighlight ? LIST_RED_FILLS : hoveredEpithet ? ALL_CREAM_FILLS : {}
+  const exploreFills = listHighlight ? LIST_RED_FILLS : (!isMobile && hoveredEpithet) ? ALL_CREAM_FILLS : {}
 
   // ── Render ─────────────────────────────────────────────────────────────────
 
@@ -227,7 +240,8 @@ export default function ClosingView({
 
       {/* Yantra */}
       <div ref={yantraRef} className="relative w-full" style={{ paddingBottom: '100%' }}>
-        <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60">
+        <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+             style={{ opacity: isMobile && !memorise ? 0.25 : 1, transition: 'opacity 0.3s' }}>
           <SriYantraSVG
             className="w-full h-full"
             showTriangles={true}
@@ -299,9 +313,11 @@ export default function ClosingView({
               : isPast && isCorrect ? RED_TEXT
               : isPast    ? GOLD
               : /* future */ 'rgba(201,168,76,0.28)'
-              : (hoveredEpithet === n ? CREAM : GOLD)
+              : isMobile
+                ? (n === lastTapped ? RED_TEXT : CREAM)
+                : (hoveredEpithet === n ? CREAM : GOLD)
 
-            const emojiActive = (!memorise && hoveredEpithet === 10) || (memorise && isPast && isCorrect)
+            const emojiActive = (!memorise && (hoveredEpithet === n || (isMobile && n === lastTapped))) || (memorise && isPast && isCorrect)
 
             return (
               <button
@@ -310,7 +326,7 @@ export default function ClosingView({
                 onMouseLeave={() => setHoveredEpithet(null)}
                 onClick={memorise
                   ? () => handleMemClick(n)
-                  : () => { const d = deityForN(n); if (d) onDeitySelect(d) }
+                  : () => { const d = deityForN(n); if (d) onDeitySelect(d); setTappedEpithets(prev => new Set([...prev, n])); setLastTapped(n) }
                 }
                 onDoubleClick={memorise ? () => handleMemDblClick(n) : undefined}
                 onContextMenu={memorise ? e => handleMemContextMenu(e, n) : undefined}
@@ -350,7 +366,7 @@ export default function ClosingView({
             }}
             onMouseEnter={() => setHoveredEpithet(n)}
             onMouseLeave={() => setHoveredEpithet(null)}
-            onClick={() => { const d = deityForN(n); if (d) onDeitySelect(d) }}
+            onClick={() => { const d = deityForN(n); if (d) onDeitySelect(d); setTappedEpithets(prev => new Set([...prev, n])); setLastTapped(n) }}
           />
         ))}
 
@@ -405,12 +421,38 @@ export default function ClosingView({
           )
         })}
 
+        {/* Mobile Explore: accumulated revealed labels — past = cream, lastTapped = red */}
+        {isMobile && !memorise && [...tappedEpithets].map(n => {
+          const d = deityForN(n)
+          if (!d) return null
+          const isLast = n === lastTapped
+          return (
+            <div
+              key={`exp-lbl-${n}`}
+              className="pointer-events-none"
+              style={{
+                position: 'absolute',
+                left: 30,
+                top: buttonCenterTop(n),
+                transform: 'translateY(-50%)',
+                zIndex: 31,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <p className="iast" style={{ color: isLast ? RED_TEXT : CREAM, fontSize: '16px', fontWeight: 700 }}>
+                {displayName(d, script)}
+              </p>
+            </div>
+          )
+        })}
+
         {/* Tooltip — explore: always on hover; memorise: active + future only (past show label) */}
         {hoveredEpithet && (() => {
           const d = deityForN(hoveredEpithet)
           if (!d) return null
           const isPast = memorise && hoveredEpithet < currentSeq
-          if (isPast) return null   // label already visible
+          const isTapped = isMobile && !memorise && tappedEpithets.has(hoveredEpithet)
+          if (isPast || isTapped) return null   // label already visible
           return (
             <div
               className="pointer-events-none"
@@ -467,6 +509,8 @@ export default function ClosingView({
           </span>
         )}
       </div>
+
+      {memorise && <MobileMemoriseInstr />}
 
       <div className="h-8" />
     </div>

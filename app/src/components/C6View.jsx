@@ -23,7 +23,7 @@ import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import triangleData from '../data/triangle-regions.json'
 import SriYantraSVG from './SriYantraSVG'
-import MobileSvaminiButtons from './MobileSvaminiButtons'
+import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 const CX = 260
 const CY = 270
@@ -337,6 +337,8 @@ export default function C6View({
           </svg>
         </div>
       </div>
+
+      {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
         section={c6Section}

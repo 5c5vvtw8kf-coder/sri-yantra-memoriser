@@ -24,6 +24,7 @@ import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Coordinate constants (must stay in sync with SriYantraSVG.jsx) ────────────
 
@@ -505,6 +506,8 @@ export default function NyasaView({
       </div>
 
 
+
+      {memorise && <MobileMemoriseInstr />}
 
       <div className="h-8" />
     </div>

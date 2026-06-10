@@ -360,13 +360,17 @@ function CardPrompt({ deity, script, hovered, onMouseEnter, onMouseLeave, onClic
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function SpotCheckView({ script = 'iast', filter = 'all', subFilter = null, limit = null, onProgressSync, onRegisterSkip, onUpdateStats }) {
-  const [queue,       setQueue]       = useState(() => { const q = buildQueue(filter, subFilter); return limit ? q.slice(0, limit) : q })
-  const [idx,         setIdx]         = useState(0)
-  const [results,     setResults]     = useState({})
-  const [hovered,     setHovered]     = useState(false)
-  const [flash,       setFlash]       = useState(null)
-  const [prevResults, setPrevResults] = useState(null)
+  const [queue,          setQueue]          = useState(() => { const q = buildQueue(filter, subFilter); return limit ? q.slice(0, limit) : q })
+  const [idx,            setIdx]            = useState(0)
+  const [results,        setResults]        = useState({})
+  const [hovered,        setHovered]        = useState(false)
+  const [flash,          setFlash]          = useState(null)
+  const [prevResults,    setPrevResults]    = useState(null)
+  // Mobile tap-to-reveal: first tap reveals name; only after 1s can user mark correct/wrong
+  const [mobileRevealed, setMobileRevealed] = useState(false)
+  const [revealedAt,     setRevealedAt]     = useState(null)
   const clickTimer     = useRef(null)
+  const lastPastTap    = useRef({ id: null, time: 0 })  // for double-tap toggle of past results
   const roundLoggedRef = useRef(false)
 
   const total   = queue.length
@@ -392,6 +396,12 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
       .filter(([regionId]) => regionId != null)
   )
 
+  // Reset reveal state when deity changes
+  useEffect(() => {
+    setMobileRevealed(false)
+    setRevealedAt(null)
+  }, [idx])
+
   // Reset queue when filter or limit changes
   useEffect(() => {
     const doneCount = Object.keys(results).length
@@ -414,7 +424,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
     }
   }, [idx, total, correct, wrong, onProgressSync])
 
-  // Clean up click timer
+  // Clean up timers
   useEffect(() => () => { if (clickTimer.current) clearTimeout(clickTimer.current) }, [])
 
   // Log session as soon as the round completes — don't wait for "New round" click
@@ -460,20 +470,47 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
     }, 380)
   }, [current, done])
 
+  const isMobile = () => window.innerWidth < 768
+
   const handleClick = useCallback(() => {
     if (done || flash) return
+    if (isMobile()) {
+      // Step 1: first tap reveals the name (no mark yet)
+      if (!mobileRevealed) {
+        setMobileRevealed(true)
+        setRevealedAt(Date.now())
+        return
+      }
+      // Step 2: after 1-second lockout, tap marks correct
+      if (Date.now() - (revealedAt ?? 0) < 1000) return
+      if (clickTimer.current) return
+      clickTimer.current = setTimeout(() => {
+        clickTimer.current = null
+        advance('correct')
+      }, 260)
+      return
+    }
+    // Desktop: original single-click = correct
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
       advance('correct')
     }, 260)
-  }, [done, flash, advance])
+  }, [done, flash, mobileRevealed, revealedAt, advance])
 
   const handleDblClick = useCallback(() => {
     if (done || flash) return
+    if (isMobile()) {
+      // Double-tap marks wrong — only after reveal + 1s lockout
+      if (!mobileRevealed || Date.now() - (revealedAt ?? 0) < 1000) return
+      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+      advance('wrong')
+      return
+    }
+    // Desktop: double-click = wrong
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
     advance('wrong')
-  }, [done, flash, advance])
+  }, [done, flash, mobileRevealed, revealedAt, advance])
 
   const handleRightClick = useCallback((e, deityId) => {
     e.preventDefault()
@@ -483,6 +520,21 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
       [deityId]: prev[deityId] === 'correct' ? 'wrong' : 'correct',
     }))
   }, [results])
+
+  // Mobile double-tap (within 350ms) to toggle a past answer — mirrors right-click on desktop
+  const handlePastDoubleTap = useCallback((deityId) => {
+    const now  = Date.now()
+    const last = lastPastTap.current
+    if (last.id === deityId && now - last.time < 350) {
+      lastPastTap.current = { id: null, time: 0 }
+      setResults(prev => {
+        if (!prev[deityId]) return prev
+        return { ...prev, [deityId]: prev[deityId] === 'correct' ? 'wrong' : 'correct' }
+      })
+    } else {
+      lastPastTap.current = { id: deityId, time: now }
+    }
+  }, [])
 
   const handleSkip = useCallback(() => {
     if (done || flash) return
@@ -584,7 +636,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         ) : (
         <div
           className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
-          style={{ paddingBottom: '100%' }}
+          style={{ paddingBottom: '100%', WebkitTouchCallout: 'none', userSelect: 'none' }}
         >
           <div className="absolute inset-0">
             <SriYantraSVG
@@ -613,10 +665,19 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
                            : 'rgba(201,168,76,0.22)'
                 const answered = !!res
                 return (
-                  <circle key={d.id} cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r={answered ? 6 : 4}
-                    fill={fill} stroke="none"
-                    style={{ cursor: answered ? 'context-menu' : 'default', pointerEvents: answered ? 'all' : 'none' }}
-                    onContextMenu={answered ? e => handleRightClick(e, d.id) : undefined} />
+                  <g key={d.id}>
+                    {/* Visual dot */}
+                    <circle cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r={answered ? 6 : 4}
+                      fill={fill} stroke="none" style={{ pointerEvents: 'none' }} />
+                    {/* Larger transparent hit area for touch/click — answered dots only */}
+                    {answered && (
+                      <circle cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r={18}
+                        fill="transparent" stroke="none"
+                        style={{ cursor: 'context-menu', WebkitTouchCallout: 'none', userSelect: 'none' }}
+                        onContextMenu={e => handleRightClick(e, d.id)}
+                        onTouchEnd={e => { e.preventDefault(); handlePastDoubleTap(d.id) }} />
+                    )}
+                  </g>
                 )
               })}
 
@@ -646,8 +707,9 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
                   <circle key={`rc-${d.id}`}
                     cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r={16}
                     fill="transparent" stroke="none"
-                    style={{ cursor: 'context-menu' }}
-                    onContextMenu={e => handleRightClick(e, d.id)} />
+                    style={{ cursor: 'context-menu', WebkitTouchCallout: 'none', userSelect: 'none' }}
+                    onContextMenu={e => handleRightClick(e, d.id)}
+                    onTouchEnd={e => { e.preventDefault(); handlePastDoubleTap(d.id) }} />
                 )
               })}
 
@@ -665,8 +727,8 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
                 />
               )}
 
-              {/* Tooltip */}
-              {hasPos && pos && (hovered || flash) && (
+              {/* Tooltip — desktop: hover/flash; mobile: after tap-to-reveal */}
+              {hasPos && pos && (hovered || flash || mobileRevealed) && (
                 <Tooltip x={pos.x} y={pos.y} label={name} script={script} />
               )}
 
@@ -675,6 +737,13 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
           </div>
         </div>
         )}
+
+        {/* Mobile instruction — 2 rows, hidden on desktop */}
+        <div className="md:hidden flex flex-col items-center gap-0.5 pt-1"
+             style={{ fontSize: '11px', fontFamily: "'Inter', system-ui, sans-serif", color: 'rgba(201,168,76,0.55)', letterSpacing: '0.02em' }}>
+          <span>tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised</span>
+          <span><span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> past = toggle</span>
+        </div>
         </>
       )}
 

@@ -22,6 +22,7 @@ import SriYantraSVG, { C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_PTS
 import triangleData from '../data/triangle-regions.json'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Stroke-cover overlay data ─────────────────────────────────────────────────
 
@@ -495,6 +496,7 @@ export default function NavaChakreshvariView({
         )}
       </div>
 
+      {memorise && <MobileMemoriseInstr />}
 
       <div className="h-8" />
     </div>
