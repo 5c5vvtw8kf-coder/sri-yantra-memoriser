@@ -204,6 +204,7 @@ export default function InnerView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
+    if (seq === currentSeq) setRevealedSeq(seq)   // reveal name immediately on tap
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
@@ -407,7 +408,25 @@ export default function InnerView({
 
         </svg>
 
-        {/* Completion overlay (delayed 3 s) */}
+        {/* ── Memorise: name overlay above the triangle — appears on first dot tap ── */}
+        {memorise && activeMemDiety && !flash && revealedSeq === currentSeq && (
+          <div className="absolute left-0 right-0 flex justify-center pointer-events-none"
+               style={{ top: '22%' }}>
+            <div style={{
+              background: 'rgba(15,8,5,0.88)',
+              border: '0.5px solid rgba(255,248,200,0.7)',
+              borderRadius: '6px',
+              padding: '6px 18px',
+            }}>
+              <span className={script !== 'english' ? 'iast' : ''}
+                    style={{ color: '#fff8c8', fontSize: '16px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
+                {displayName(activeMemDiety, script)}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Completion overlay (delayed 5 s) */}
         {showCompletion && (
           <div className="absolute inset-0 flex items-center justify-center rounded-xl"
                style={{ background: 'rgba(15,8,5,0.82)' }}>
@@ -438,29 +457,9 @@ export default function InnerView({
 
       </div>
 
-      {/* ── Mobile: below-yantra name strip (tap to reveal) ── */}
-      {memorise && !showCompletion && activeMemDiety && !flash && (
-        <div className="md:hidden mt-2 flex justify-center">
-          <div
-            onClick={() => setRevealedSeq(currentSeq)}
-            style={{
-              background: 'rgba(15,8,5,0.88)',
-              border: '0.5px solid rgba(201,168,76,0.45)',
-              borderRadius: '6px',
-              padding: '6px 16px',
-              cursor: 'pointer',
-              minWidth: '160px',
-              textAlign: 'center',
-            }}
-          >
-            {revealedSeq === currentSeq
-              ? <span className={script !== 'english' ? 'iast' : ''}
-                      style={{ color: '#fff8c8', fontSize: '15px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
-                  {displayName(activeMemDiety, script)}
-                </span>
-              : <span style={{ color: 'rgba(201,168,76,0.6)', fontSize: '13px', fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '0.02em' }}>
-                  tap to reveal
-                </span>
-            }
-          </div>
-        </div>
+      {memorise && <MobileMemoriseInstr />}
+
+    </div>
+  )
+}
+   
