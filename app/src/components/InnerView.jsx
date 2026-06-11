@@ -291,7 +291,7 @@ export default function InnerView({
                 <text
                   x={(ax1 + 12).toFixed(1)}
                   y={(ay1 + 4).toFixed(1)}
-                  fontSize="16" fill={GOLD} opacity="0.65"
+                  fontSize="15" fill={GOLD} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="start">
                   Anti-clockwise · waxing moon
@@ -323,7 +323,7 @@ export default function InnerView({
                 <text
                   x={(ax1 - 8).toFixed(1)}
                   y={(ay1 + 4).toFixed(1)}
-                  fontSize="16" fill={GOLD} opacity="0.65"
+                  fontSize="15" fill={GOLD} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="end">
                   Clockwise · waning moon
@@ -380,29 +380,24 @@ export default function InnerView({
             )
           })}
 
-          {/* Tooltip — Explore mode only (desktop hover / mobile tap).
-              Memorise mode label is rendered as an HTML overlay below. */}
+          {/* Tooltip — desktop hover (both Explore and Memorise modes).
+              Mobile Memorise name is rendered as an HTML overlay below. */}
           {!flash && (() => {
-            // Memorise mode handled by HTML overlay — nothing to render here
-            if (memorise) return null
-            // Explore mode
-            if (!memorise) {
-              if (hoveredDot) {
-                const hdIdx = nityaDeities.findIndex(x => x.id === hoveredDot.id)
-                return (
-                  <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                    label={displayName(deityById[hoveredDot.id], script)}
-                    fill={GOLD} script={script}
-                    below={hdIdx >= 0 && hdIdx <= 5} />
-                )
-              }
-              if (selectedId) {
-                const d   = deityById[selectedId]
-                const idx = nityaDeities.findIndex(x => x.id === selectedId)
-                const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
-                if (!pos) return null
-                return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={idx >= 0 && idx <= 5} />
-              }
+            if (hoveredDot) {
+              const hdIdx = nityaDeities.findIndex(x => x.id === hoveredDot.id)
+              return (
+                <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                  label={displayName(deityById[hoveredDot.id], script)}
+                  fill={GOLD} script={script}
+                  below={hdIdx >= 0 && hdIdx <= 5} />
+              )
+            }
+            if (!memorise && selectedId) {
+              const d   = deityById[selectedId]
+              const idx = nityaDeities.findIndex(x => x.id === selectedId)
+              const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
+              if (!pos) return null
+              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={idx >= 0 && idx <= 5} />
             }
             return null
           })()}
@@ -412,9 +407,9 @@ export default function InnerView({
 
         </svg>
 
-        {/* ── Memorise: name overlay above the triangle — persists until next dot tapped ── */}
+        {/* ── Memorise: name overlay above the triangle — mobile only, persists until next dot tapped ── */}
         {memorise && revealedRef.current && !flash && !showCompletion && (
-          <div className="absolute left-0 right-0 flex justify-center pointer-events-none"
+          <div className="md:hidden absolute left-0 right-0 flex justify-center pointer-events-none"
                style={{ top: '22%' }}>
             <div style={{
               background: 'rgba(15,8,5,0.88)',
