@@ -187,8 +187,9 @@ export default function GuravaView({
   // Reset reveal state when sequence advances or mode changes
   useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
 
-  // Auto-set hoveredDot in Memorise so SVG tooltip shows for active deity
+  // Auto-set hoveredDot in Memorise — mobile only (desktop uses real mouse hover)
   useEffect(() => {
+    if (window.innerWidth >= 768) return
     if (!memorise || flash || currentSeq < 1 || currentSeq > GURU_TOTAL) { setHoveredDot(null); return }
     const d = guruAll[currentSeq - 1]
     const pos = d ? getGuruPos(d) : null

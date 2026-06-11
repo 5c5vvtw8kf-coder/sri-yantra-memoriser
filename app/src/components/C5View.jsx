@@ -165,8 +165,9 @@ export default function C5View({
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
 
-  // Auto-reveal active triangle in Memorise mode (mobile: hover never fires)
+  // Auto-reveal active triangle in Memorise mode — mobile only (desktop uses real mouse hover)
   useEffect(() => {
+    if (window.innerWidth >= 768) return
     if (!memorise || flash || currentSeq < 1 || currentSeq > 10) { setHoveredDot(null); return }
     const d   = c5Deities[currentSeq - 1]
     const pos = C5_DOT_POSITIONS[currentSeq]

@@ -279,8 +279,9 @@ export default function BhupuraView({
   // Reset reveal state when sequence advances or mode changes
   useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
 
-  // Auto-reveal active dot position in Memorise mode (hover never fires on mobile)
+  // Auto-reveal active dot position in Memorise mode — mobile only (desktop uses real mouse hover)
   useEffect(() => {
+    if (window.innerWidth >= 768) return
     if (!memorise || flash || currentSeq < 1 || currentSeq > MEMO_TOTAL) { setHoveredDot(null); return }
     const d   = memoDeities[currentSeq - 1]
     const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null

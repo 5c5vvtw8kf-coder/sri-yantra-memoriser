@@ -199,8 +199,9 @@ export default function C4View({
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
 
-  // Auto-reveal active triangle in Memorise mode (mobile: hover never fires)
+  // Auto-reveal active triangle in Memorise mode — mobile only (desktop uses real mouse hover)
   useEffect(() => {
+    if (window.innerWidth >= 768) return
     if (!memorise || flash || currentSeq < 1 || currentSeq > 14) { setHoveredDot(null); return }
     const d   = c4Deities[currentSeq - 1]
     const pos = C4_DOT_POSITIONS[currentSeq]
