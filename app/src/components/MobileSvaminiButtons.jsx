@@ -19,7 +19,7 @@ export function MobileMemoriseInstr() {
   return (
     <div className="md:hidden flex flex-col items-center gap-0.5 pt-1 pb-0.5"
          style={{ fontSize: '11px', fontFamily: "'Inter', system-ui, sans-serif", color: 'rgba(201,168,76,0.55)', letterSpacing: '0.02em' }}>
-      <span>tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised</span>
+      <span>tap to reveal · <span style={{ color: '#f87171' }}>tap again</span> = memorised</span>
       <span><span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> past = toggle</span>
     </div>
   )
@@ -93,8 +93,13 @@ export default function MobileSvaminiButtons({
     }
 
     if (isActive) {
-      // Single tap = reveal + mark correct; double-tap = mark wrong
-      setRevealed(true)
+      if (!revealed) {
+        // First tap: reveal only
+        setRevealed(true)
+        tapRef.current.time = Date.now()
+        return
+      }
+      // Already revealed: second tap = correct, double-tap = wrong
       const now      = Date.now()
       const isDouble = (now - tapRef.current.time) < 300
       tapRef.current.time = now
@@ -109,19 +114,13 @@ export default function MobileSvaminiButtons({
         }, 280)
       }
     } else if (isPast) {
-      // Past result — double-tap toggles
+      // Past: double-tap toggles; single tap does nothing
       const now      = Date.now()
       const isDouble = (now - tapRef.current.time) < 300
       tapRef.current.time = now
       if (isDouble) {
         if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null }
-        if (isCorrect) onToggleResult(seq)
-      } else {
-        if (timerRef.current) return
-        timerRef.current = setTimeout(() => {
-          timerRef.current = null
-          if (!isCorrect) onToggleResult(seq)
-        }, 280)
+        onToggleResult(seq)
       }
     }
   }

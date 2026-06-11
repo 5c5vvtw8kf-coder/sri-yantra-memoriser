@@ -239,6 +239,7 @@ export default function C2View({
 
   const clickTimer     = useRef(null)   // active petal
   const pastClickTimer = useRef(null)   // past petals
+  const lastTapRef     = useRef({ seq: null, time: 0 })
 
   // ── Explore handlers ────────────────────────────────────────────────────────
 
@@ -251,18 +252,8 @@ export default function C2View({
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
 
-  // Auto-reveal active petal in Memorise mode — mobile only (desktop uses real mouse hover)
-  useEffect(() => {
-    if (window.innerWidth >= 768) return
-    if (!memorise || flash || currentSeq < 1 || currentSeq > 16) { setHoveredDot(null); return }
-    const d   = c2Deities[currentSeq - 1]
-    const pos = C2_DOT_POSITIONS[currentSeq]
-    if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
-    else          setHoveredDot(null)
-  }, [memorise, flash, currentSeq])
-
-  // Reset reveal state when sequence advances (mobile tap-to-reveal)
-  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
+  // Clear tooltip and reveal state on sequence advance (no auto-reveal — first tap reveals)
+  useEffect(() => { setHoveredDot(null); setMobileRevealed(false) }, [currentSeq, memorise])
 
   const selectedDeity = selectedId ? deityById[selectedId] : null
 
@@ -273,11 +264,18 @@ export default function C2View({
     setHoveredDot(null)
   }
 
-  // Single-tap marks memorised (red); double-tap marks not memorised (gold).
-  // On mobile: first tap reveals the name; subsequent taps mark.
   const handleMemoriseClick = (seq) => {
     if (seq !== currentSeq) return
-    if (window.innerWidth < 768) setMobileRevealed(true)
+    const isMobile = window.innerWidth < 768
+    if (isMobile && !mobileRevealed) {
+      // First tap: reveal only
+      const d   = c2Deities[seq - 1]
+      const pos = C2_DOT_POSITIONS[seq]
+      if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
+      setMobileRevealed(true)
+      lastTapRef.current = { seq, time: Date.now() }
+      return
+    }
     const now = Date.now()
     const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
     lastTapRef.current = { seq, time: now }
@@ -286,29 +284,27 @@ export default function C2View({
       markResult(seq, 'wrong')
     } else {
       if (clickTimer.current) return
-      clickTimer.current = setTimeout(() => {
-        clickTimer.current = null
-        markResult(seq, 'correct')
-      }, 280)
+      clickTimer.current = setTimeout(() => { clickTimer.current = null; markResult(seq, 'correct') }, 280)
     }
   }
 
-  // Past petals: single-tap marks if skipped; double-tap unmarks if memorised.
   const lastPastTapRef = useRef({ seq: null, time: 0 })
   const handlePastPetalClick = (seq) => {
+    const isMobile = window.innerWidth < 768
     const now = Date.now()
     const isDoubleTap = lastPastTapRef.current.seq === seq && (now - lastPastTapRef.current.time) < 300
     lastPastTapRef.current = { seq, time: now }
     if (isDoubleTap) {
       if (pastClickTimer.current) { clearTimeout(pastClickTimer.current); pastClickTimer.current = null }
-      if (results[seq] === 'correct') onToggleResult(seq)   // unmark
-    } else {
+      onToggleResult(seq)
+    } else if (!isMobile) {
       if (pastClickTimer.current) return
       pastClickTimer.current = setTimeout(() => {
         pastClickTimer.current = null
-        if (results[seq] !== 'correct') onToggleResult(seq) // mark
+        if (results[seq] !== 'correct') onToggleResult(seq)
       }, 280)
     }
+    // mobile single tap past: do nothing
   }
 
   // Petals: seq 1–16. Extra items: seq 17 (Chakra Svāminī), 18 (Yoginī).

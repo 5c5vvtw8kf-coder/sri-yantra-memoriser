@@ -276,18 +276,8 @@ export default function BhupuraView({
     })
   }, [lastTappedId, bandStep, memorise])
 
-  // Reset reveal state when sequence advances or mode changes
-  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
-
-  // Auto-reveal active dot position in Memorise mode — mobile only (desktop uses real mouse hover)
-  useEffect(() => {
-    if (window.innerWidth >= 768) return
-    if (!memorise || flash || currentSeq < 1 || currentSeq > MEMO_TOTAL) { setHoveredDot(null); return }
-    const d   = memoDeities[currentSeq - 1]
-    const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
-    if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
-    else          setHoveredDot(null)
-  }, [memorise, flash, currentSeq, memoGroup])
+  // Clear reveal state and tooltip when sequence advances or mode changes (no auto-reveal — first tap reveals)
+  useEffect(() => { setHoveredDot(null); setMobileRevealed(false) }, [currentSeq, memorise])
 
   // Reset selection and navStep when band changes
   useEffect(() => { setLastTappedId(null); setHoveredDot(null); setNavStep(0) }, [bandStep])
@@ -307,20 +297,30 @@ export default function BhupuraView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    if (window.innerWidth < 768 && currentSeq === seq) setMobileRevealed(true)
+    const isMobileTap = window.innerWidth < 768
+    if (isMobileTap && currentSeq === seq && !mobileRevealed) {
+      // First tap: reveal only
+      const d   = memoDeities[seq - 1]
+      const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
+      if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
+      setMobileRevealed(true)
+      lastTapRef.current = { seq, time: Date.now() }
+      return
+    }
     const now = Date.now()
     const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
     lastTapRef.current = { seq, time: now }
     if (isDoubleTap) {
       if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
       if (currentSeq === seq) onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      else onToggleResult(seq)
     } else {
+      if (isMobileTap && currentSeq !== seq) return  // mobile past: single tap = nothing
       if (clickTimer.current) return
       clickTimer.current = setTimeout(() => {
         clickTimer.current = null
         if (currentSeq === seq) onMarkResult(seq, 'correct')
-        else if (results[seq] !== 'correct') onToggleResult(seq)
+        else if (!isMobileTap && results[seq] !== 'correct') onToggleResult(seq)
       }, 280)
     }
   }

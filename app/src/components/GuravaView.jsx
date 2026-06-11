@@ -184,18 +184,8 @@ export default function GuravaView({
   const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
 
-  // Reset reveal state when sequence advances or mode changes
-  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
-
-  // Auto-set hoveredDot in Memorise — mobile only (desktop uses real mouse hover)
-  useEffect(() => {
-    if (window.innerWidth >= 768) return
-    if (!memorise || flash || currentSeq < 1 || currentSeq > GURU_TOTAL) { setHoveredDot(null); return }
-    const d = guruAll[currentSeq - 1]
-    const pos = d ? getGuruPos(d) : null
-    if (d && pos) setHoveredDot({ id: d.id, x: pos[0], y: pos[1] })
-    else setHoveredDot(null)
-  }, [memorise, flash, currentSeq])
+  // Clear reveal state when sequence advances or mode changes (no auto-reveal — first tap reveals)
+  useEffect(() => { setHoveredDot(null); setMobileRevealed(false) }, [currentSeq, memorise])
 
   const toggle  = (id) => {
     const newId = selectedId === id ? null : id
@@ -210,19 +200,27 @@ export default function GuravaView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    if (window.innerWidth < 768 && currentSeq === seq) setMobileRevealed(true)
+    const isMobile = window.innerWidth < 768
+    if (isMobile && currentSeq === seq && !mobileRevealed) {
+      // First tap: reveal only
+      const d = guruAll[seq - 1]
+      const pos = d ? getGuruPos(d) : null
+      if (d && pos) setHoveredDot({ id: d.id, x: pos[0], y: pos[1] })
+      setMobileRevealed(true)
+      return
+    }
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
       if (currentSeq === seq) onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
+      else if (!isMobile && results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
   const handleMemDblClick = (seq) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
     if (currentSeq === seq) onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    else onToggleResult(seq)
   }
 
   const done = memorise && currentSeq > GURU_TOTAL

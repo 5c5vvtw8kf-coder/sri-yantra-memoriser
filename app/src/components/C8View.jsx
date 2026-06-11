@@ -164,39 +164,39 @@ export default function C8View({
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
 
-  // Auto-reveal active dot in Memorise mode (mobile: hover never fires)
-  useEffect(() => {
-    if (!memorise || flash) { setHoveredDot(null); return }
-    const i = c8Deities.findIndex(d => d.sequenceInSection === currentSeq)
-    if (i < 0) { setHoveredDot(null); return }
-    const pos = C8_POSITIONS[i]
-    const d   = c8Deities[i]
-    if (d && pos) setHoveredDot({ id: d.id, x: pos[0], y: pos[1] })
-    else          setHoveredDot(null)
-  }, [memorise, flash, currentSeq])
-
-  // Reset reveal state when sequence advances (mobile tap-to-reveal)
-  useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
+  // Clear tooltip and reveal state on sequence advance (no auto-reveal — first tap reveals)
+  useEffect(() => { setHoveredDot(null); setMobileRevealed(false) }, [currentSeq, memorise])
 
   const selectedDeity = selectedId ? deityById[selectedId] : null
 
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    if (window.innerWidth < 768 && currentSeq === seq) setMobileRevealed(true)
+    const isMobile = window.innerWidth < 768
+    if (isMobile && currentSeq === seq && !mobileRevealed) {
+      // First tap: reveal only
+      const i = c8Deities.findIndex(d => d.sequenceInSection === seq)
+      const pos = i >= 0 ? C8_POSITIONS[i] : null
+      const d   = i >= 0 ? c8Deities[i] : null
+      if (d && pos) setHoveredDot({ id: d.id, x: pos[0], y: pos[1] })
+      setMobileRevealed(true)
+      lastTapRef.current = { seq, time: Date.now() }
+      return
+    }
     const now = Date.now()
     const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
     lastTapRef.current = { seq, time: now }
     if (isDoubleTap) {
       if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
       if (currentSeq === seq) onMarkResult(seq, 'wrong')
-      else if (results[seq] === 'correct') onToggleResult(seq)
+      else onToggleResult(seq)
     } else {
+      if (isMobile && currentSeq !== seq) return
       if (clickTimer.current) return
       clickTimer.current = setTimeout(() => {
         clickTimer.current = null
         if (currentSeq === seq) onMarkResult(seq, 'correct')
-        else if (results[seq] !== 'correct') onToggleResult(seq)
+        else if (!isMobile && results[seq] !== 'correct') onToggleResult(seq)
       }, 280)
     }
   }

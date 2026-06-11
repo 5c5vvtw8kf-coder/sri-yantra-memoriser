@@ -182,8 +182,9 @@ export default function InnerView({
   flash = false,
   onNavigate,
 }) {
-  const [selectedId,  setSelectedId]  = useState(null)
-  const [hoveredDot,  setHoveredDot]  = useState(null)
+  const [selectedId,    setSelectedId]    = useState(null)
+  const [hoveredDot,    setHoveredDot]    = useState(null)
+  const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
 
   // Drill order: waning reverses deities 1–15; Mahā Nityē always last
@@ -205,7 +206,19 @@ export default function InnerView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    if (seq === currentSeq) { revealedRef.current = activeMemDiety; setRevealVersion(v => v + 1) }
+    const isMobile = window.innerWidth < 768
+    if (seq === currentSeq) {
+      if (isMobile && !mobileRevealed) {
+        // First tap: reveal only
+        revealedRef.current = activeMemDiety
+        setRevealVersion(v => v + 1)
+        setMobileRevealed(true)
+        return
+      }
+      // Desktop or second tap: update name display then mark
+      revealedRef.current = activeMemDiety
+      setRevealVersion(v => v + 1)
+    }
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
@@ -217,7 +230,7 @@ export default function InnerView({
   const handleMemDblClick = (seq) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
     if (currentSeq === seq) onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    else onToggleResult(seq)
   }
 
   const done = memorise && currentSeq > TOTAL
@@ -230,7 +243,12 @@ export default function InnerView({
   const revealedRef = useRef(null)
   const [revealVersion, setRevealVersion] = useState(0)
   useEffect(() => {
-    if (!memorise) { revealedRef.current = null; setRevealVersion(0) }
+    revealedRef.current = null
+    setRevealVersion(v => v + 1)
+    setMobileRevealed(false)
+  }, [currentSeq])
+  useEffect(() => {
+    if (!memorise) { revealedRef.current = null; setRevealVersion(0); setMobileRevealed(false) }
   }, [memorise])
 
   const mainTriPts = [APEX, BASE_L, BASE_R]

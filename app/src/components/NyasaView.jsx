@@ -25,6 +25,7 @@ import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
+import { useDoneDelay } from '../hooks/useDoneDelay'
 
 // ── Coordinate constants (must stay in sync with SriYantraSVG.jsx) ────────────
 
@@ -251,10 +252,15 @@ export default function NyasaView({
   flash            = false,
   onNavigate,
 }) {
-  const [selectedId,  setSelectedId]  = useState(null)
-  const [hoveredDot,  setHoveredDot]  = useState(null)   // { id, x, y }
-  const [navStep,     setNavStep]     = useState(0)       // 0–4: navigation arrow stage
+  const [selectedId,    setSelectedId]    = useState(null)
+  const [hoveredDot,    setHoveredDot]    = useState(null)     // { id, x, y }
+  const [navStep,       setNavStep]       = useState(0)        // 0–4: navigation arrow stage
+  const [mobileRevealed, setMobileRevealed] = useState(false)
+  const [revealedDeity,  setRevealedDeity]  = useState(null)   // for mobile name overlay
   const clickTimer = useRef(null)
+
+  // Reset reveal state when sequence advances
+  useEffect(() => { setMobileRevealed(false); setRevealedDeity(null) }, [currentSeq, memorise])
 
   // ── Explore mode ────────────────────────────────────────────────────────────
 
@@ -284,39 +290,30 @@ export default function NyasaView({
 
   // ── Memorise mode ────────────────────────────────────────────────────────────
 
-  // Single-click: mark wrong (if active) or toggle (if past)
   const handleMemClick = (seq) => {
+    const isMobile = window.innerWidth < 768
+    if (isMobile && currentSeq === seq && !mobileRevealed) {
+      // First tap: reveal only
+      const d = nyasaDeities[seq - 1]
+      if (d) { setRevealedDeity(d); setMobileRevealed(true) }
+      return
+    }
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === seq)              onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
+      if (currentSeq === seq) onMarkResult(seq, 'correct')
+      else if (!isMobile && results[seq] !== 'correct') onToggleResult(seq)
     }, 280)
   }
 
-  // Double-click: mark wrong (if active) or toggle (if past-correct)
   const handleMemDblClick = (seq) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq)              onMarkResult(seq, 'wrong')
-    else if (results[seq] === 'correct') onToggleResult(seq)
+    if (currentSeq === seq) onMarkResult(seq, 'wrong')
+    else onToggleResult(seq)
   }
 
   const done = memorise && currentSeq > 6
-
-  // Delay the completion overlay by 700 ms so the user can toggle the last answer
-  const [showCompletion, setShowCompletion] = useState(false)
-  const completionTimer = useRef(null)
-  useEffect(() => {
-    // Start timer only when done AND the flash animation has finished,
-    // so the 3-second pause is clearly visible after the flash.
-    if (done && !flash) {
-      completionTimer.current = setTimeout(() => setShowCompletion(true), 3000)
-    } else if (!done) {
-      clearTimeout(completionTimer.current)
-      setShowCompletion(false)
-    }
-    return () => clearTimeout(completionTimer.current)
-  }, [done, flash])
+  const showCompletion = useDoneDelay(done)
 
   // dotsForSeq: returns list of [x, y] positions for this sequence number
   const dotsForSeq = (seq) => {
@@ -465,6 +462,24 @@ export default function NyasaView({
           })}
 
         </svg>
+
+        {/* ── Memorise mode: mobile name overlay — tap-to-reveal ── */}
+        {memorise && revealedDeity && !flash && !showCompletion && (
+          <div className="md:hidden absolute left-0 right-0 flex justify-center pointer-events-none"
+               style={{ top: '5%' }}>
+            <div style={{
+              background: 'rgba(15,8,5,0.88)',
+              border: '0.5px solid rgba(201,168,76,0.5)',
+              borderRadius: '6px',
+              padding: '6px 18px',
+            }}>
+              <span className={script !== 'english' ? 'iast' : ''}
+                    style={{ color: '#c9a84c', fontSize: '16px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
+                {displayName(revealedDeity, script)}
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* ── Memorise mode: completion overlay (delayed 700 ms) ── */}
         {showCompletion && (
