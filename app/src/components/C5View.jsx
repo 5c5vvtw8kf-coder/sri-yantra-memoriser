@@ -33,8 +33,6 @@ const GOLD_FILL    = 'rgba(201,168,76,0.80)'
 const ACTIVE_REGION = 'rgba(255,248,200,0.92)'
 const GOLD          = '#c9a84c'
 const GREEN         = '#27ae60'
-
-// Zoomed viewBox for C5 — 10 outer triangles span x:[201,319] y:[183,350]
 const CIRCUIT_VIEWBOX = '148 158 224 224'
 
 const YANTRA_FILLS = {
@@ -261,27 +259,10 @@ export default function C5View({
                style={{ background: 'transparent' }}
                aria-label="Circuit 5 — 10 outer triangles deity positions">
 
-            {/* Arrow marker — Explore mode direction indicator */}
-            <defs>
-              <marker id="c5-arrow-green" markerWidth="7" markerHeight="5"
-                refX="0" refY="2.5" orient="auto">
-                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
-              </marker>
-            </defs>
-
-            {/* Explore mode */}
+            {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise starting bottom-centre */}
-                <line x1="153" y1="170" x2="183" y2="170"
-                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
-                  markerEnd="url(#c5-arrow-green)" />
-                <text x="188" y="174" fontSize="10" fill={GREEN} opacity="0.70"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
-                  Clockwise
-                </text>
-
-                {fillAll && c5Deities.map(d => {
+                                {fillAll && c5Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
                   return <polygon key={`fill-${d.id}`} points={pts} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
@@ -362,6 +343,11 @@ export default function C5View({
         </div>
       </div>
 
+      {!memorise && (
+        <p className="text-center text-xs mt-2" style={{ color: '#27ae60', opacity: 0.75, fontStyle: 'italic' }}>
+          ↻ clockwise
+        </p>
+      )}
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
@@ -381,4 +367,3 @@ export default function C5View({
     </div>
   )
 }
-                                                                           

@@ -40,9 +40,6 @@ const GOLD_FILL    = 'rgba(201,168,76,0.80)'
 const ACTIVE_REGION = 'rgba(255,248,200,0.92)'
 const GOLD          = '#c9a84c'
 const GREEN         = '#27ae60'
-
-// Zoomed viewBox for C4 — 14 triangles span x:[154,366] y:[160,380]
-// Uniform padding keeps all triangles visible with space for direction arrow
 const CIRCUIT_VIEWBOX = '130 140 260 260'
 
 const YANTRA_FILLS = {
@@ -316,27 +313,10 @@ export default function C4View({
             aria-label="Circuit 4 — 14 triangles deity positions"
           >
 
-            {/* Arrow marker — Explore mode direction indicator */}
-            <defs>
-              <marker id="c4-arrow-green" markerWidth="7" markerHeight="5"
-                refX="0" refY="2.5" orient="auto">
-                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
-              </marker>
-            </defs>
-
-            {/* ── Explore mode ── */}
+            {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise starting bottom-centre */}
-                <line x1="135" y1="152" x2="168" y2="152"
-                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
-                  markerEnd="url(#c4-arrow-green)" />
-                <text x="174" y="156" fontSize="11" fill={GREEN} opacity="0.70"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
-                  Clockwise
-                </text>
-
-                {/* Red fill overlay — covers gold stroke */}
+                                {/* Red fill overlay — covers gold stroke */}
                 {fillAll && c4Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
@@ -440,4 +420,47 @@ export default function C4View({
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
                   label={displayName(deityById[hoveredDot.id], script)} script={script} />
               )
-              if (!m
+              if (!memorise && selectedId) {
+                const d   = deityById[selectedId]
+                const pos = d ? C4_DOT_POSITIONS[d.sequenceInSection] : null
+                if (!pos) return null
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} />
+              }
+              return null
+            })()}
+
+          </svg>
+        </div>
+      </div>
+
+      {!memorise && (
+        <p className="text-center text-xs mt-2" style={{ color: '#27ae60', opacity: 0.75, fontStyle: 'italic' }}>
+          ↻ clockwise
+        </p>
+      )}
+      {memorise && <MobileMemoriseInstr />}
+
+      <MobileSvaminiButtons
+        section={c4Section}
+        script={script}
+        svaminiSeq={15}
+        yoginiSeq={16}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+        />
+      )}
+
+    </div>
+  )
+}

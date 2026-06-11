@@ -33,8 +33,6 @@ const GOLD_FILL    = 'rgba(201,168,76,0.80)'
 const ACTIVE_REGION = 'rgba(255,248,200,0.92)'
 const GOLD          = '#c9a84c'
 const GREEN         = '#27ae60'
-
-// Zoomed viewBox for C7 — 8 triangles span x:[235,285] y:[237,300]
 const CIRCUIT_VIEWBOX = '193 203 134 134'
 
 const YANTRA_FILLS = {
@@ -261,27 +259,10 @@ export default function C7View({
                style={{ background: 'transparent' }}
                aria-label="Circuit 7 — 8 triangles deity positions">
 
-            {/* Arrow marker — Explore mode direction indicator */}
-            <defs>
-              <marker id="c7-arrow-green" markerWidth="7" markerHeight="5"
-                refX="0" refY="2.5" orient="auto">
-                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
-              </marker>
-            </defs>
-
-            {/* Explore mode */}
+            {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise starting bottom-centre */}
-                <line x1="198" y1="216" x2="224" y2="216"
-                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
-                  markerEnd="url(#c7-arrow-green)" />
-                <text x="229" y="220" fontSize="8" fill={GREEN} opacity="0.70"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
-                  Clockwise
-                </text>
-
-                {fillAll && c7Deities.map(d => {
+                                {fillAll && c7Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
                   return <polygon key={`fill-${d.id}`} points={pts} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
@@ -362,6 +343,11 @@ export default function C7View({
         </div>
       </div>
 
+      {!memorise && (
+        <p className="text-center text-xs mt-2" style={{ color: '#27ae60', opacity: 0.75, fontStyle: 'italic' }}>
+          ↻ clockwise
+        </p>
+      )}
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
@@ -381,4 +367,3 @@ export default function C7View({
     </div>
   )
 }
-                                                                          
