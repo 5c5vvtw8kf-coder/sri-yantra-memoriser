@@ -1,5 +1,5 @@
 /**
- * MobileSvaminiButtons.jsx
+ * MobileSvaminiButtons.jsx — v2 two-step reveal
  *
  * Mobile-only (md:hidden) Svāminī / Yoginī buttons displayed below the
  * yantra diagram in every circuit view.
