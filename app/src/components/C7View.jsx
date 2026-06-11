@@ -358,7 +358,6 @@ export default function C7View({
         </div>
       </div>
 
-      {
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons

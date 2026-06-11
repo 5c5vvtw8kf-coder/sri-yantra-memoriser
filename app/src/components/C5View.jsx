@@ -358,7 +358,6 @@ export default function C5View({
         </div>
       </div>
 
-      {
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons

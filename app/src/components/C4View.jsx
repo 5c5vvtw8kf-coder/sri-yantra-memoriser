@@ -448,7 +448,6 @@ export default function C4View({
         </div>
       </div>
 
-      {
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
