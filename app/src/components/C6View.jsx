@@ -259,10 +259,10 @@ export default function C6View({
                style={{ background: 'transparent' }}
                aria-label="Circuit 6 — 10 inner triangles deity positions">
 
-            {/* Explore mode */}
+            {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {fillAll && c6Deities.map(d => {
+                                {fillAll && c6Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
                   return <polygon key={`fill-${d.id}`} points={pts} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
@@ -367,4 +367,3 @@ export default function C6View({
     </div>
   )
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
