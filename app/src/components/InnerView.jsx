@@ -198,7 +198,8 @@ export default function InnerView({
     setSelectedId(newId)
     onDeitySelect(newId ? deityById[newId] : null)
   }
-  const hover   = (id, x, y) => setHoveredDot({ id, x, y })
+  // Desktop hover only — suppress on mobile (HTML overlay is the mobile reveal)
+  const hover   = (id, x, y) => { if (window.innerWidth < 768) return; setHoveredDot({ id, x, y }) }
   const unhover = () => setHoveredDot(null)
 
   const selectedDeity = selectedId ? deityById[selectedId] : null
@@ -399,15 +400,20 @@ export default function InnerView({
           })}
 
           {/* Tooltip — desktop hover (both Explore and Memorise modes).
-              Mobile Memorise name is rendered as an HTML overlay below. */}
+              Mobile Memorise name is rendered as an HTML overlay below.
+              below=true: right side + corner (hdIdx 0–5), always below.
+              Waning moon: left side (hdIdx 11–14, Vijayē→Citrē) also flips to below
+              so the tooltip doesn't obscure dots ahead in the reversed sequence. */}
           {!flash && (() => {
+            const isBelow = (idx) =>
+              (idx >= 0 && idx <= 5) || (waning && idx >= 11 && idx <= 14)
             if (hoveredDot) {
               const hdIdx = nityaDeities.findIndex(x => x.id === hoveredDot.id)
               return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
                   label={displayName(deityById[hoveredDot.id], script)}
                   fill={GOLD} script={script}
-                  below={hdIdx >= 0 && hdIdx <= 5} />
+                  below={isBelow(hdIdx)} />
               )
             }
             if (!memorise && selectedId) {
@@ -415,7 +421,7 @@ export default function InnerView({
               const idx = nityaDeities.findIndex(x => x.id === selectedId)
               const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
               if (!pos) return null
-              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={idx >= 0 && idx <= 5} />
+              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={isBelow(idx)} />
             }
             return null
           })()}

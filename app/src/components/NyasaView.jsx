@@ -281,7 +281,8 @@ export default function NyasaView({
       setNavStep(prev => Math.max(prev, NAV_TRIGGERS[id]))
     }
   }
-  const hover   = (id, x, y) => setHoveredDot({ id, x, y })
+  // Desktop hover only — suppress on mobile (HTML overlay is the mobile reveal)
+  const hover   = (id, x, y) => { if (window.innerWidth < 768) return; setHoveredDot({ id, x, y }) }
   const unhover = () => setHoveredDot(null)
 
   const selectedDeity = selectedId ? deityById[selectedId] : null
