@@ -259,10 +259,10 @@ export default function C5View({
                style={{ background: 'transparent' }}
                aria-label="Circuit 5 — 10 outer triangles deity positions">
 
-            {/* —— Explore mode —— */}
+            {/* Explore mode */}
             {!memorise && (
               <>
-                                {fillAll && c5Deities.map(d => {
+                {fillAll && c5Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
                   return <polygon key={`fill-${d.id}`} points={pts} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
@@ -367,3 +367,4 @@ export default function C5View({
     </div>
   )
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
