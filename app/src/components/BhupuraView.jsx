@@ -470,6 +470,13 @@ export default function BhupuraView({
             {/* Tooltip — Explore mode (desktop hover / mobile tap) and
                 Memorise mode (mobile tap-to-reveal inside the bhupura box). */}
             {!flash && (() => {
+              // Memorise mode — desktop: show tooltip on hover
+              if (memorise && !isMobile && hoveredDot) {
+                const d = deityById[hoveredDot.id]
+                if (!d) return null
+                return <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                  label={displayName(d, script)} fill={GOLD} script={script} />
+              }
               // Memorise mode — mobile: show tooltip on tap (inside SVG)
               if (memorise && isMobile && mobileRevealed && hoveredDot) {
                 const d = deityById[hoveredDot.id]
