@@ -366,7 +366,7 @@ export default function GuravaView({
             if (hoveredDot) return (
               <Tooltip x={hoveredDot.x}
                 label={displayName(deityById[hoveredDot.id], script)}
-                fill={memorise ? '#fff8c8' : GOLD} script={script} />
+                fill={GOLD} script={script} />
             )
             if (!memorise && selectedId) {
               const d   = deityById[selectedId]
