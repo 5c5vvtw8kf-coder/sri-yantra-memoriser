@@ -3,8 +3,9 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-// build: 9e27d69
+// build: f8ef0ce
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
- 
+  </StrictMode>,
+)
