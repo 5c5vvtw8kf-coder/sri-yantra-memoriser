@@ -584,22 +584,4 @@ export default function BhupuraView({
         </div>
       )}
 
-{memorise && <MobileMemoriseInstr />}
-
-      <MobileSvaminiButtons
-        section={bhupuraSection}
-        script={script}
-        svaminiSeq={29}
-        yoginiSeq={30}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-
-      <div className="h-2" />
-    </div>
-  )
-}
+{m

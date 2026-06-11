@@ -496,5 +496,9 @@ export default function NavaChakreshvariView({
         )}
       </div>
 
-      {!memorise && (
-        <p className="md:hidden text-center text-xs mt-3 text-muted">
+      {memorise && <MobileMemoriseInstr />}
+
+      <div className="h-8" />
+    </div>
+  )
+}

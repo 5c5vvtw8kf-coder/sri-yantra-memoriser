@@ -330,11 +330,6 @@ export default function C8View({
         )}
       </div>
 
-      {!memorise && (
-        <p className="text-center text-xs mt-2" style={{ color: '#27ae60', opacity: 0.75, fontStyle: 'italic' }}>
-          ↻ clockwise
-        </p>
-      )}
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
@@ -342,4 +337,13 @@ export default function C8View({
         script={script}
         svaminiSeq={8}
         yoginiSeq={9}
-      
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+    </div>
+  )
+}
+     
