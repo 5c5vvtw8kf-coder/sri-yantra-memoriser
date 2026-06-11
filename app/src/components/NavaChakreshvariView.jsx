@@ -498,3 +498,12 @@ export default function NavaChakreshvariView({
 
       {!memorise && (
         <p className="md:hidden text-center text-xs mt-3 text-muted">
+          Tap any circuit to reveal the presiding Tripura form
+        </p>
+      )}
+      {memorise && <MobileMemoriseInstr />}
+
+      <div className="h-8" />
+    </div>
+  )
+}
