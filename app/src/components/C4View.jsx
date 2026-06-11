@@ -313,26 +313,10 @@ export default function C4View({
             aria-label="Circuit 4 — 14 triangles deity positions"
           >
 
-            {/* Arrow marker */}
-            <defs>
-              <marker id="c4-arrow-green" markerWidth="7" markerHeight="5"
-                refX="0" refY="2.5" orient="auto">
-                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
-              </marker>
-            </defs>
-
-            {/* ── Explore mode ── */}
+            {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise */}
-                <line x1="135" y1="152" x2="168" y2="152"
-                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
-                  markerEnd="url(#c4-arrow-green)" />
-                <text x="174" y="156" fontSize="11" fill={GREEN} opacity="0.70"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
-                  Clockwise
-                </text>
-                {/* Red fill overlay — covers gold stroke */}
+                                {/* Red fill overlay — covers gold stroke */}
                 {fillAll && c4Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
@@ -449,6 +433,11 @@ export default function C4View({
         </div>
       </div>
 
+      {!memorise && (
+        <p className="text-center text-xs mt-2" style={{ color: '#27ae60', opacity: 0.75, fontStyle: 'italic' }}>
+          ↻ clockwise
+        </p>
+      )}
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
