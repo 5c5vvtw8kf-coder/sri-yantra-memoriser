@@ -695,6 +695,7 @@ export { BHUPURA_MARKERS, C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_
 
 export default function SriYantraSVG({
   className           = '',
+  viewBox             = '45 55 430 430',
   showLabels          = false,
   showTriangles       = true,
   showSeedOfLife      = false,
@@ -738,13 +739,13 @@ export default function SriYantraSVG({
 
   return (
     <svg
-      viewBox="45 55 430 430"
+      viewBox={viewBox}
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       style={{ background: bg }}
       aria-label="Sri Yantra - nine circuits from bhupura to bindu"
     >
-      <rect x={45} y={55} width={430} height={430} fill={bg} />
+      <rect x="-9999" y="-9999" width="99999" height="99999" fill={bg} />
 
       {/* Region fills rendered before strokes so lines stay visible on top */}
       <RegionFills filledRegions={filledRegions} noStrokeRegions={noStrokeRegions}

@@ -32,6 +32,8 @@ const CY = 270
 const GOLD_FILL    = 'rgba(201,168,76,0.80)'
 const ACTIVE_REGION = 'rgba(255,248,200,0.92)'
 const GOLD          = '#c9a84c'
+const GREEN         = '#27ae60'
+const CIRCUIT_VIEWBOX = '173 183 174 174'
 
 const YANTRA_FILLS = {
   ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
@@ -248,17 +250,34 @@ export default function C6View({
         <div className="absolute inset-0">
 
           <SriYantraSVG className="w-full h-full"
+            viewBox={CIRCUIT_VIEWBOX}
             showTriangles={true} showLabels={false} showNumbers={false}
             filledRegions={filledRegions} />
 
-          <svg viewBox="45 55 430 430" xmlns="http://www.w3.org/2000/svg"
+          <svg viewBox={CIRCUIT_VIEWBOX} xmlns="http://www.w3.org/2000/svg"
                className="absolute inset-0 w-full h-full"
                style={{ background: 'transparent' }}
                aria-label="Circuit 6 — 10 inner triangles deity positions">
 
+            {/* Arrow marker */}
+            <defs>
+              <marker id="c6-arrow-green" markerWidth="7" markerHeight="5"
+                refX="0" refY="2.5" orient="auto">
+                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
+              </marker>
+            </defs>
+
             {/* Explore mode */}
             {!memorise && (
               <>
+                {/* Direction arrow — clockwise */}
+                <line x1="178" y1="196" x2="211" y2="196"
+                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
+                  markerEnd="url(#c6-arrow-green)" />
+                <text x="217" y="200" fontSize="9" fill={GREEN} opacity="0.70"
+                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
+                  Clockwise
+                </text>
                 {fillAll && c6Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
