@@ -466,12 +466,13 @@ export default function ClosingView({
           )
         })}
 
-        {/* Tooltip — explore: always on hover; memorise: active + future only (past show label) */}
-        {hoveredEpithet && (() => {
-          const d = deityForN(hoveredEpithet)
+        {/* Tooltip — explore: always on hover; memorise: active revealed or hovered (past show label) */}
+        {(hoveredEpithet != null || (memorise && revealedNum != null)) && (() => {
+          const activeN = hoveredEpithet ?? revealedNum
+          const d = deityForN(activeN)
           if (!d) return null
-          const isPast = memorise && hoveredEpithet < currentSeq
-          const isTapped = isMobile && !memorise && tappedEpithets.has(hoveredEpithet)
+          const isPast   = memorise && activeN < currentSeq
+          const isTapped = isMobile && !memorise && tappedEpithets.has(activeN)
           if (isPast || isTapped) return null   // label already visible
           return (
             <div
@@ -479,7 +480,7 @@ export default function ClosingView({
               style={{
                 position: 'absolute',
                 left: 30,
-                top: buttonCenterTop(hoveredEpithet),
+                top: buttonCenterTop(activeN),
                 transform: 'translateY(-50%)',
                 zIndex: 32,
                 whiteSpace: 'nowrap',
@@ -489,7 +490,7 @@ export default function ClosingView({
                 className="px-2 py-1.5 rounded shadow-lg"
                 style={{ background: 'rgba(15,8,5,0.95)', border: '0.6px solid rgba(255,248,200,0.6)' }}
               >
-                <p className="iast" style={{ color: GOLD, fontSize: '16px', fontWeight: 700 }}>
+                <p className="iast" style={{ color: CREAM, fontSize: '16px', fontWeight: 700 }}>
                   {displayName(d, script)}
                 </p>
                 {script !== 'iast' && d.scripts.iast && (
@@ -511,7 +512,7 @@ export default function ClosingView({
           left: sidebarRight + 6,
           top: yantraPos.top + yantraPos.height + 4,
           zIndex: 30,
-          display: isMobile && memorise ? 'none' : 'flex',
+          display: 'flex',
           alignItems: 'center',
           gap: 6,
         }}
@@ -530,34 +531,7 @@ export default function ClosingView({
         )}
       </div>
 
-      {/* Mobile Memorise: in-flow arrow (replaces fixed arrow which is hidden on mobile) */}
-      {memorise && isMobile && (
-        <div className="flex items-center gap-1.5 mt-3 pl-1 pointer-events-none">
-          <span style={{ color: GOLD, fontSize: '18px', lineHeight: 1 }}>↑</span>
-          {!done && (
-            <span style={{ color: 'rgba(255,248,200,0.45)', fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
-              Ascend to the top from here
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* Mobile Memorise: reveal strip — shows deity name after first tap, or "tap to reveal" prompt */}
-      {memorise && isMobile && !done && (
-        <div className="flex justify-center mt-2">
-          {revealedNum === currentSeq ? (
-            <div className="px-3 py-1.5 rounded" style={{ background: 'rgba(15,8,5,0.88)', border: '0.5px solid rgba(255,248,200,0.7)' }}>
-              <span className="iast" style={{ color: CREAM, fontSize: '15px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
-                {deityForN(currentSeq) ? displayName(deityForN(currentSeq), script) : ''}
-              </span>
-            </div>
-          ) : (
-            <span style={{ color: 'rgba(255,248,200,0.3)', fontSize: '13px', fontStyle: 'italic' }}>tap to reveal</span>
-          )}
-        </div>
-      )}
-
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <div className="mt-10"><MobileMemoriseInstr /></div>}
 
       <div className="h-8" />
     </div>
