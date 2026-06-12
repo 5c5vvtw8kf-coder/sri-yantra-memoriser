@@ -405,24 +405,52 @@ export default function NyasaView({
             />
           ))}
 
-          {/* ── Hover tooltip (both modes; suppressed during flash) ── */}
-          {hoveredDot && !flash && (
-            astraDeity && hoveredDot.id === astraDeity.id
-              ? ASTRA_POSITIONS.map(([x, y], i) => (
-                  <Tooltip key={`astra-tt-${i}`}
+          {/* ── Tooltip: desktop hover OR mobile tap in Explore mode ── */}
+          {!flash && (() => {
+            // Desktop hover (both modes)
+            if (hoveredDot) {
+              return astraDeity && hoveredDot.id === astraDeity.id
+                ? ASTRA_POSITIONS.map(([x, y], i) => (
+                    <Tooltip key={`astra-tt-${i}`}
+                      x={x} y={y}
+                      label={displayName(astraDeity, script)}
+                      fill={GOLD} script={script}
+                    />
+                  ))
+                : (
+                    <Tooltip
+                      x={hoveredDot.x} y={hoveredDot.y}
+                      label={displayName(deityById[hoveredDot.id], script)}
+                      fill={GOLD} script={script}
+                    />
+                  )
+            }
+            // Mobile tap fallback — Explore mode only
+            if (!memorise && selectedId) {
+              const d   = deityById[selectedId]
+              const seq = d?.sequenceInSection
+              if (!d) return null
+              if (seq === 6) {
+                return ASTRA_POSITIONS.map(([x, y], i) => (
+                  <Tooltip key={`astra-sel-tt-${i}`}
                     x={x} y={y}
-                    label={displayName(astraDeity, script)}
+                    label={displayName(d, script)}
                     fill={GOLD} script={script}
                   />
                 ))
-              : (
-                  <Tooltip
-                    x={hoveredDot.x} y={hoveredDot.y}
-                    label={displayName(deityById[hoveredDot.id], script)}
-                    fill={GOLD} script={script}
-                  />
-                )
-          )}
+              }
+              const pos = seq >= 1 && seq <= 5 ? BODY_POSITIONS[seq - 1] : null
+              if (!pos) return null
+              return (
+                <Tooltip
+                  x={pos[0]} y={pos[1]}
+                  label={displayName(d, script)}
+                  fill={GOLD} script={script}
+                />
+              )
+            }
+            return null
+          })()}
 
           {/* ── Memorise mode: dots ── */}
           {memorise && nyasaDeities.map(d => {
