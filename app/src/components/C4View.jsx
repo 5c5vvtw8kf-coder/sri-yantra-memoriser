@@ -109,14 +109,25 @@ const c4Section = data.sections?.find(s => s.circuitNumber === 4 && s.type === '
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 
-function Tooltip({ x, y, label, script }) {
+// Per-sequence direction override: true = above dot, false = below dot
+// Seqs 1–4 run up the right side; tooltip must go above to avoid covering next triangle.
+// Seqs 8–11 run down the left side; tooltip must go below.
+const C4_TOOLTIP_ABOVE = { 1: true, 2: true, 3: true, 4: true, 8: false, 9: false, 10: false, 11: false }
+
+function tooltipAbove(seq, y) {
+  if (seq != null && seq in C4_TOOLTIP_ABOVE) return C4_TOOLTIP_ABOVE[seq]
+  return y > CY
+}
+
+function Tooltip({ x, y, label, script, seq }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 18 : script === 'english' ? 17 : 16
   const h        = script === 'devanagari' ? 36 : script === 'english' ? 34 : 32
   const charW    = script === 'devanagari' ? 12.5 : script === 'telugu' ? 14.5 : script === 'tamil' ? 15.5 : script === 'english' ? 10 : 9.5
   const w        = Math.max(50, label.length * charW + 14)
   const tx       = Math.min(Math.max(x, 135 + w / 2), 385 - w / 2)
-  const ty       = y > CY ? y - h / 2 - 14 : y + h / 2 + 14
+  const above    = tooltipAbove(seq, y)
+  const ty       = above ? y - h / 2 - 14 : y + h / 2 + 14
   return (
     <g pointerEvents="none">
       <rect
@@ -436,15 +447,20 @@ export default function C4View({
 
             {/* Tooltip: auto-reveals in Memorise; Explore also falls back to selectedId tap */}
             {!flash && (() => {
-              if (hoveredDot) return (
-                <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(deityById[hoveredDot.id], script)} script={script} />
-              )
+              if (hoveredDot) {
+                const hd = deityById[hoveredDot.id]
+                return (
+                  <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                    label={displayName(hd, script)} script={script}
+                    seq={hd?.sequenceInSection} />
+                )
+              }
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C4_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} />
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script}
+                         seq={d.sequenceInSection} />
               }
               return null
             })()}
