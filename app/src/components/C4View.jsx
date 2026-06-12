@@ -313,25 +313,29 @@ export default function C4View({
             aria-label="Circuit 4 — 14 triangles deity positions"
           >
 
-            {/* Arrow marker */}
+            {/* Direction indicator marker */}
             <defs>
-              <marker id="c4-arrow-green" markerWidth="7" markerHeight="5"
-                refX="0" refY="2.5" orient="auto">
-                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
+              <marker id="c4-cw-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60" />
               </marker>
             </defs>
 
             {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise, anchored near sequence position 1 (bottom-centre) */}
-                <line x1="248" y1="368" x2="272" y2="361"
-                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
-                  markerEnd="url(#c4-arrow-green)" />
-                <text x="278" y="366" fontSize="11" fill={GREEN} opacity="0.70"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
-                  Clockwise
-                </text>
+                {/* Sequence direction indicator — short inward-curving arc in the
+                    black interstice to the right of seq-1 (Sarvaśaṅkṣobhiṇī).
+                    seq-1 right edge runs from (281.684,350.38) to (260,380).
+                    Arc sits outside that edge, below seq-2 body (above y=350).
+                    sweep=0 (CCW) bows the arc toward the yantra centre (inward). */}
+                <path
+                  d="M 276,370 A 28,28 0 0,0 298,358"
+                  fill="none"
+                  stroke="#27ae60"
+                  strokeWidth="2.5"
+                  markerEnd="url(#c4-cw-arrow)"
+                  style={{ pointerEvents: 'none' }}
+                />
                 {/* Red fill overlay — covers gold stroke */}
                 {fillAll && c4Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
@@ -451,4 +455,27 @@ export default function C4View({
 
       {memorise && <MobileMemoriseInstr />}
 
-      <MobileSva
+      <MobileSvaminiButtons
+        section={c4Section}
+        script={script}
+        svaminiSeq={15}
+        yoginiSeq={16}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+        />
+      )}
+
+    </div>
+  )
+}

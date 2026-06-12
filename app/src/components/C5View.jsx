@@ -259,25 +259,25 @@ export default function C5View({
                style={{ background: 'transparent' }}
                aria-label="Circuit 5 — 10 outer triangles deity positions">
 
-            {/* Arrow marker */}
+            {/* Direction indicator marker */}
             <defs>
-              <marker id="c5-arrow-green" markerWidth="7" markerHeight="5"
-                refX="0" refY="2.5" orient="auto">
-                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
+              <marker id="c5-cw-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60" />
               </marker>
             </defs>
 
             {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise, anchored near sequence position 1 (bottom-centre) */}
-                <line x1="249" y1="348" x2="271" y2="342"
-                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
-                  markerEnd="url(#c5-arrow-green)" />
-                <text x="276" y="346" fontSize="10" fill={GREEN} opacity="0.70"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
-                  Clockwise
-                </text>
+                {/* Direction arrow — right of seq-1 (deitySeq 6, bottom-centre).
+                    Right edge runs from (272.4,326.8) to (260,350.4).
+                    sweep=0 (CCW) bows inward toward yantra centre. */}
+                <path
+                  d="M 275,342 A 25,25 0 0,0 296,329"
+                  fill="none" stroke="#27ae60" strokeWidth="2.5"
+                  markerEnd="url(#c5-cw-arrow)"
+                  style={{ pointerEvents: 'none' }}
+                />
                 {fillAll && c5Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
@@ -361,4 +361,20 @@ export default function C5View({
 
       {memorise && <MobileMemoriseInstr />}
 
-     
+      <MobileSvaminiButtons
+        section={c5Section}
+        script={script}
+        svaminiSeq={11}
+        yoginiSeq={12}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
+
+    </div>
+  )
+}

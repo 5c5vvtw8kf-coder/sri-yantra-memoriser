@@ -259,25 +259,25 @@ export default function C6View({
                style={{ background: 'transparent' }}
                aria-label="Circuit 6 — 10 inner triangles deity positions">
 
-            {/* Arrow marker */}
+            {/* Direction indicator marker */}
             <defs>
-              <marker id="c6-arrow-green" markerWidth="7" markerHeight="5"
-                refX="0" refY="2.5" orient="auto">
-                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
+              <marker id="c6-cw-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60" />
               </marker>
             </defs>
 
             {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise, anchored near sequence position 1 (bottom-centre) */}
-                <line x1="251" y1="315" x2="269" y2="310"
-                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
-                  markerEnd="url(#c6-arrow-green)" />
-                <text x="274" y="313" fontSize="9" fill={GREEN} opacity="0.70"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
-                  Clockwise
-                </text>
+                {/* Direction arrow — in the black gap between C6 seq-1's right edge
+                    (272.052,299.47)→(260,326.8) and C5 deitySeq5's left edge
+                    (287.128,299.47)→(272.422,326.8). Gap centre ≈ x:274 at y:310. */}
+                <path
+                  d="M 271,314 L 279,306"
+                  fill="none" stroke="#27ae60" strokeWidth="1.5"
+                  markerEnd="url(#c6-cw-arrow)"
+                  style={{ pointerEvents: 'none' }}
+                />
                 {fillAll && c6Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
@@ -361,4 +361,20 @@ export default function C6View({
 
       {memorise && <MobileMemoriseInstr />}
 
-     
+      <MobileSvaminiButtons
+        section={c6Section}
+        script={script}
+        svaminiSeq={11}
+        yoginiSeq={12}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
+
+    </div>
+  )
+}
