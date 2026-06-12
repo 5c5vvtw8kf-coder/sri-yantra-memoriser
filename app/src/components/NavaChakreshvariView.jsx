@@ -176,9 +176,11 @@ function buildExploreFills(exploreStep, hoveredCircuit) {
     ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c5-${pad2(i+1)}`, f(5)])),
     ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c6-${pad2(i+1)}`, f(6)])),
     ...Object.fromEntries(Array.from({ length: 8 },  (_, i) => {
-      const id = `tri-c7-${pad2(i+1)}`
-      if (c8Lit && C8_INNER_C7.has(id)) return [id, '#0f0805']
-      return [id, f(7)]
+      const id      = `tri-c7-${pad2(i+1)}`
+      const c7Color = f(7)
+      // Only cut out when C7 is still dim — a solid C7 fill (active/past) covers C8 bleed naturally
+      if (c8Lit && C8_INNER_C7.has(id) && c7Color === FILL_DIM) return [id, '#0f0805']
+      return [id, c7Color]
     })),
     'tri-c8-01':    c8Color,
     'tri-c8-bg-01': '#0f0805',
