@@ -122,6 +122,7 @@ export default function ClosingView({
   const [tappedEpithets, setTappedEpithets]   = useState(new Set())  // all tapped (past = cream label)
   const [lastTapped,     setLastTapped]       = useState(null)       // most recent tap (red label)
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
+  const [revealedNum, setRevealedNum] = useState(null)  // active number whose name has been revealed (two-step tap)
   const clickTimer = useRef(null)
 
   // Reset accumulated labels when switching modes
@@ -129,6 +130,11 @@ export default function ClosingView({
     setTappedEpithets(new Set())
     setLastTapped(null)
   }, [memorise])
+
+  // Reset reveal when sequence advances
+  useEffect(() => {
+    setRevealedNum(null)
+  }, [currentSeq])
 
   // Flash the direction arrow on page open to draw attention
   const [arrowFlash, setArrowFlash] = useState(true)
@@ -191,7 +197,7 @@ export default function ClosingView({
   }
 
   // ── Memorise click handlers ────────────────────────────────────────────────
-  // Active (currentSeq): single = wrong/gold, double = correct/red.
+  // Active (currentSeq): first tap = reveal name; second tap = correct; double-tap = wrong.
   // Past (n < currentSeq): toggle via right-click context menu.
   // Future: no action.
 
@@ -199,13 +205,23 @@ export default function ClosingView({
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (currentSeq === n) onMarkResult(n, 'correct')
+      if (n !== currentSeq) return
+      if (revealedNum !== n) {
+        // First tap — reveal the name
+        setRevealedNum(n)
+      } else {
+        // Second tap — mark correct
+        onMarkResult(n, 'correct')
+        setRevealedNum(null)
+      }
     }, 280)
   }
 
   const handleMemDblClick = (n) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === n) onMarkResult(n, 'wrong')
+    if (n !== currentSeq) return
+    onMarkResult(n, 'wrong')
+    setRevealedNum(null)
   }
 
   const handleMemContextMenu = (e, n) => {
@@ -243,7 +259,7 @@ export default function ClosingView({
       {/* Yantra */}
       <div ref={yantraRef} className="relative w-full" style={{ paddingBottom: '100%' }}>
         <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60"
-             style={{ opacity: isMobile && !memorise ? 0.25 : 1, transition: 'opacity 0.3s' }}>
+             style={{ opacity: isMobile && !allMemorised ? 0.25 : 1, transition: 'opacity 0.3s' }}>
           <SriYantraSVG
             className="w-full h-full"
             showTriangles={true}
@@ -396,13 +412,15 @@ export default function ClosingView({
           )
         })}
 
-        {/* Memorise mode: revealed labels — past numbers (n < currentSeq) */}
+        {/* Memorise mode: revealed labels — past numbers (n < currentSeq) + revealed active */}
         {memorise && [10,9,8,7,6,5,4,3,2,1].map(n => {
-          const isPast    = n < currentSeq
-          const isCorrect = results[n] === 'correct'
-          if (!isPast) return null
+          const isPast     = n < currentSeq
+          const isRevealed = n === currentSeq && revealedNum === n
+          const isCorrect  = results[n] === 'correct'
+          if (!isPast && !isRevealed) return null
           const d = deityForN(n)
           if (!d) return null
+          const textColor  = isRevealed ? CREAM : (isCorrect ? RED_TEXT : GOLD)
           return (
             <div
               key={`lbl-${n}`}
@@ -416,7 +434,7 @@ export default function ClosingView({
                 whiteSpace: 'nowrap',
               }}
             >
-              <p className="iast" style={{ color: isCorrect ? RED_TEXT : GOLD, fontSize: '16px', fontWeight: 700 }}>
+              <p className="iast" style={{ color: textColor, fontSize: '16px', fontWeight: 700 }}>
                 {displayName(d, script)}
               </p>
             </div>
@@ -493,7 +511,7 @@ export default function ClosingView({
           left: sidebarRight + 6,
           top: yantraPos.top + yantraPos.height + 4,
           zIndex: 30,
-          display: memorise ? 'none' : 'flex',
+          display: isMobile && memorise ? 'none' : 'flex',
           alignItems: 'center',
           gap: 6,
         }}
@@ -511,6 +529,33 @@ export default function ClosingView({
           </span>
         )}
       </div>
+
+      {/* Mobile Memorise: in-flow arrow (replaces fixed arrow which is hidden on mobile) */}
+      {memorise && isMobile && (
+        <div className="flex items-center gap-1.5 mt-3 pl-1 pointer-events-none">
+          <span style={{ color: GOLD, fontSize: '18px', lineHeight: 1 }}>↑</span>
+          {!done && (
+            <span style={{ color: 'rgba(255,248,200,0.45)', fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
+              Ascend to the top from here
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Mobile Memorise: reveal strip — shows deity name after first tap, or "tap to reveal" prompt */}
+      {memorise && isMobile && !done && (
+        <div className="flex justify-center mt-2">
+          {revealedNum === currentSeq ? (
+            <div className="px-3 py-1.5 rounded" style={{ background: 'rgba(15,8,5,0.88)', border: '0.5px solid rgba(255,248,200,0.7)' }}>
+              <span className="iast" style={{ color: CREAM, fontSize: '15px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
+                {deityForN(currentSeq) ? displayName(deityForN(currentSeq), script) : ''}
+              </span>
+            </div>
+          ) : (
+            <span style={{ color: 'rgba(255,248,200,0.3)', fontSize: '13px', fontStyle: 'italic' }}>tap to reveal</span>
+          )}
+        </div>
+      )}
 
       {memorise && <MobileMemoriseInstr />}
 
