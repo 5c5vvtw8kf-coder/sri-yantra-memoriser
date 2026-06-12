@@ -4151,7 +4151,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
-        <div className={`${activeTab === 'spotcheck' || activeTab === 'activity-log' ? 'hidden' : 'flex'} md:hidden flex-shrink-0 px-2 py-1 gap-1`}>
+        <div className={`${['spotcheck', 'activity-log', 'memomap'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}
