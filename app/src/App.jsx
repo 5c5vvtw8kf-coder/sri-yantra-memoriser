@@ -4006,6 +4006,24 @@ export default function App() {
               return (
                 <div className="md:hidden px-4 pb-4 space-y-4">
 
+                  {/* Progress */}
+                  {scProgress.total > 0 && (
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs text-muted">
+                        <span>{scProgress.idx} / {scProgress.total}</span>
+                        <span>
+                          <span className="text-red-400">{scProgress.correct}✓</span>
+                          {' '}
+                          <span className="text-gold-400">{scProgress.wrong}✗</span>
+                        </span>
+                      </div>
+                      <div className="w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
+                        <div className="h-full bg-gold-400 rounded-full transition-all"
+                          style={{ width: `${Math.round((scProgress.idx / scProgress.total) * 100)}%` }} />
+                      </div>
+                    </div>
+                  )}
+
                   {/* Scores */}
                   {(scProgress.idx > 0 || sesTotal > 0) && (
                     <div className="space-y-1.5 pb-1 border-b border-surface-800">
@@ -4028,24 +4046,6 @@ export default function App() {
                           </span>
                         </div>
                       )}
-                    </div>
-                  )}
-
-                  {/* Progress */}
-                  {scProgress.total > 0 && (
-                    <div className="space-y-1.5">
-                      <div className="flex justify-between text-xs text-muted">
-                        <span>{scProgress.idx} / {scProgress.total}</span>
-                        <span>
-                          <span className="text-red-400">{scProgress.correct}✓</span>
-                          {' '}
-                          <span className="text-gold-400">{scProgress.wrong}✗</span>
-                        </span>
-                      </div>
-                      <div className="w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
-                        <div className="h-full bg-gold-400 rounded-full transition-all"
-                          style={{ width: `${Math.round((scProgress.idx / scProgress.total) * 100)}%` }} />
-                      </div>
                     </div>
                   )}
 
@@ -5504,132 +5504,4 @@ export default function App() {
                   <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
-                  <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
-                </p>
-              </div>
-            )}
-
-          </div>
-        )}
-
-        {/* C3 Memorise controls — pinned to the bottom */}
-        {activeTab === 'c3' && (
-          <div className="flex-shrink-0 border-t border-surface-800 p-3 space-y-2.5">
-
-            <div className="flex gap-1.5">
-              <button
-                onClick={handleC3ExitMemorise}
-                className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                  !c3Memorise
-                    ? 'bg-gold-700 text-black'
-                    : 'bg-surface-700 text-muted hover:text-cream'
-                }`}
-              >
-                Explore
-              </button>
-              <button
-                onClick={handleC3StartMemorise}
-                className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                  c3Memorise
-                    ? 'bg-gold-700 text-black'
-                    : 'bg-surface-700 text-muted hover:text-cream'
-                }`}
-              >
-                Memorise
-              </button>
-              {c3Memorise && (
-                <button
-                  onClick={handleC3StartMemorise}
-                  title="Reset whole level"
-                  className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
-                >
-                  ↺
-                </button>
-              )}
-            </div>
-
-            {c3Memorise && c3CurrentSeq <= 9 && (() => {
-              const correctCount = Object.values(c3Results).length
-              return (
-                <div className="space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1.5 rounded-full bg-surface-700 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-gold-600 transition-all duration-300"
-                        style={{ width: `${((c3CurrentSeq - 1) / 8) * 100}%` }}
-                      />
-                    </div>
-                    <span className="text-xs text-muted font-mono whitespace-nowrap">
-                      {c3CurrentSeq - 1} / 8
-                      {correctCount > 0 && (
-                        <span className="text-red-400"> · {correctCount}✓</span>
-                      )}
-                    </span>
-                  </div>
-                </div>
-              )
-            })()}
-
-            {c3PrevResults !== null && (
-              <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
-                {(() => {
-                  const correct = Object.values(c3PrevResults).filter(v => v === 'correct').length
-                  const skipped = 10 - correct
-                  return (
-                    <p className="text-xs">
-                      <span className="text-red-400">{correct}/10 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
-                    </p>
-                  )
-                })()}
-              </div>
-            )}
-
-            {c3PrevResults !== null && (() => {
-              const notMem = getNotMemorisedNames(3, c3PrevResults, 10, script)
-              if (notMem.length === 0) return null
-              return (
-                <div className="pt-1 border-t border-surface-700 space-y-1">
-                  <button className="flex items-center justify-between w-full text-left"
-                    onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
-                    </span>
-                    <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
-                  </button>
-                  {showErrors && (
-                    <ul className="space-y-0.5 pt-0.5">
-                      {notMem.map((name, i) => (
-                        <li key={i} className={`text-xs leading-snug ${script !== 'english' ? 'iast ' : ''}text-amber-300`}>{name}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              )
-            })()}
-
-            {sessionStats.rounds > 0 && (
-              <div className="pt-1 border-t border-surface-700 space-y-1">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
-                </div>
-                <p className="text-xs">
-                  <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
-                </p>
-              </div>
-            )}
-
-          </div>
-        )}
-
-      </aside>
-
-      </div>{/* end 3-column content row */}
-
-    </div>
-  )
-}
+       
