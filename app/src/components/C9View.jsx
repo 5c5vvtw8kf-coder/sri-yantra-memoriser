@@ -180,7 +180,7 @@ export default function C9View({
           )}
 
           {/* ── Memorise mode bindu ───────────────────────────────────── */}
-          {/* Bindu interaction only while seq 1 is active; hidden once answered */}
+          {/* Interactive while seq 1 is active */}
           {memorise && currentSeq === 1 && (
             <g
               onClick={!flash ? handleMemClick : undefined}
@@ -194,6 +194,15 @@ export default function C9View({
                 fill={bindufill}
                 opacity={1} />
             </g>
+          )}
+          {/* Result state — stays visible after seq 1 is answered */}
+          {memorise && currentSeq > 1 && (
+            <circle
+              cx={bx.toFixed(1)} cy={by.toFixed(1)}
+              r={8}
+              fill={results[1] === 'correct' ? RED : GOLD}
+              opacity={1}
+              pointerEvents="none" />
           )}
 
 
