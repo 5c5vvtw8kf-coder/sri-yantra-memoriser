@@ -212,7 +212,7 @@ export default function C8View({
 
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
-        <svg viewBox="-30 181 560 500" xmlns="http://www.w3.org/2000/svg"
+        <svg viewBox="90 298 320 320" xmlns="http://www.w3.org/2000/svg"
              style={{ background: BG, display: 'block', width: '100%' }}
              aria-label="Circuit 8 — Sarvasiddhiprada Chakra — 7 deity positions">
 
@@ -330,11 +330,6 @@ export default function C8View({
         )}
       </div>
 
-      {!memorise && (
-        <p className="text-center text-xs mt-2" style={{ color: '#27ae60', opacity: 0.75, fontStyle: 'italic' }}>
-          ↻ clockwise
-        </p>
-      )}
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
@@ -351,3 +346,4 @@ export default function C8View({
     </div>
   )
 }
+     

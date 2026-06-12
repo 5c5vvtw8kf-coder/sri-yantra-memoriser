@@ -259,10 +259,26 @@ export default function C5View({
                style={{ background: 'transparent' }}
                aria-label="Circuit 5 — 10 outer triangles deity positions">
 
-            {/* —— Explore mode —— */}
+            {/* Arrow marker */}
+            <defs>
+              <marker id="c5-arrow-green" markerWidth="7" markerHeight="5"
+                refX="0" refY="2.5" orient="auto">
+                <polygon points="0 0, 7 2.5, 0 5" fill={GREEN} />
+              </marker>
+            </defs>
+
+            {/* Explore mode */}
             {!memorise && (
               <>
-                                {fillAll && c5Deities.map(d => {
+                {/* Direction arrow — clockwise */}
+                <line x1="153" y1="170" x2="186" y2="170"
+                  stroke={GREEN} strokeWidth="2.5" opacity="0.70"
+                  markerEnd="url(#c5-arrow-green)" />
+                <text x="192" y="174" fontSize="10" fill={GREEN} opacity="0.70"
+                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
+                  Clockwise
+                </text>
+                {fillAll && c5Deities.map(d => {
                   const pts = trianglePointsForSeq(d.sequenceInSection)
                   if (!pts) return null
                   return <polygon key={`fill-${d.id}`} points={pts} fill="rgba(200,70,70,0.85)" stroke="#7a1a1a" strokeWidth={0.75} style={{ pointerEvents: 'none' }} />
@@ -343,11 +359,6 @@ export default function C5View({
         </div>
       </div>
 
-      {!memorise && (
-        <p className="text-center text-xs mt-2" style={{ color: '#27ae60', opacity: 0.75, fontStyle: 'italic' }}>
-          ↻ clockwise
-        </p>
-      )}
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons

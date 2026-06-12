@@ -745,6 +745,7 @@ export default function SriYantraSVG({
       style={{ background: bg }}
       aria-label="Sri Yantra - nine circuits from bhupura to bindu"
     >
+      {/* Background rect fills the entire viewBox regardless of zoom level */}
       <rect x="-9999" y="-9999" width="99999" height="99999" fill={bg} />
 
       {/* Region fills rendered before strokes so lines stay visible on top */}
@@ -922,11 +923,4 @@ export default function SriYantraSVG({
       {showLabels && CIRCUIT_NUMBER_POSITIONS.map(({ label, svgX, svgY }) => (
         <text key={label} x={svgX} y={svgY}
           textAnchor="middle" dominantBaseline="middle"
-          fontSize="9" fill="rgba(201,168,76,0.55)" fontFamily="monospace">
-          {label}
-        </text>
-      ))}
-
-    </svg>
-  )
-}
+          fon

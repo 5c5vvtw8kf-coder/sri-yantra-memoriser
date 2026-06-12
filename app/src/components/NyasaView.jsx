@@ -505,29 +505,4 @@ export default function NyasaView({
               </p>
               <div className="flex flex-col gap-2 pt-1">
                 <button
-                  onClick={onStartMemorise}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
-                >
-                  Try again
-                </button>
-                <button
-                  onClick={() => onNavigate && onNavigate('inner')}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
-                >
-                  Next →
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-      </div>
-
-
-
-      {memorise && <MobileMemoriseInstr />}
-
-      <div className="h-8" />
-    </div>
-  )
-}
+              
