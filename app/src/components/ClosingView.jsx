@@ -273,41 +273,50 @@ export default function ClosingView({
           />
         </div>
 
-        {/* Completion overlay — memorise mode, all done */}
-        {showCompletion && (
+      </div>{/* end relative yantra wrapper */}
+
+      {/* Completion overlay — fixed, above the number strip (z-index 40 > strip's 30) */}
+      {showCompletion && (
+        <div
+          className="flex items-center justify-center"
+          style={{
+            position: 'fixed',
+            left: sidebarRight,
+            top: yantraPos.top,
+            width: `calc(100vw - ${sidebarRight}px)`,
+            height: yantraPos.height,
+            background: '#0f0805',
+            zIndex: 40,
+          }}
+        >
           <div
-            className="absolute inset-0 flex items-center justify-center rounded-xl"
-            style={{ background: 'rgba(15,8,5,0.97)' }}
+            className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
+            style={{ maxWidth: '15rem', margin: '0 1rem' }}
           >
-            <div
-              className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
-              style={{ maxWidth: '15rem', margin: '0 1rem' }}
-            >
-              <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">
-                khadgamālā sampūrṇā
-              </p>
-              <p className="text-cream text-sm">
-                {correctCount === TOTAL ? 'Stotra complete — well done!' : 'Round complete.'}
-              </p>
-              <p className="text-muted text-xs">{correctCount}/{TOTAL} memorised</p>
-              <div className="flex flex-col gap-2 pt-1">
-                <button
-                  onClick={onStartMemorise}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
-                >
-                  Try again
-                </button>
-                <button
-                  onClick={() => onNavigate && onNavigate('nyasa')}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
-                >
-                  Start from beginning
-                </button>
-              </div>
+            <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">
+              khadgamālā sampūrṇā
+            </p>
+            <p className="text-cream text-sm">
+              {correctCount === TOTAL ? 'Stotra complete — well done!' : 'Round complete.'}
+            </p>
+            <p className="text-muted text-xs">{correctCount}/{TOTAL} memorised</p>
+            <div className="flex flex-col gap-2 pt-1">
+              <button
+                onClick={onStartMemorise}
+                className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
+              >
+                Try again
+              </button>
+              <button
+                onClick={() => onNavigate && onNavigate('nyasa')}
+                className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
+              >
+                Start from beginning
+              </button>
             </div>
           </div>
-        )}
-      </div>{/* end relative yantra wrapper */}
+        </div>
+      )}
 
       {/* Number strip — fixed, just right of the sidebar (measured from DOM) */}
       <div
