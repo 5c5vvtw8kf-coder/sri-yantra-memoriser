@@ -184,7 +184,7 @@ export default function C9View({
           {memorise && currentSeq === 1 && (
             <g
               onClick={!flash ? handleMemClick : undefined}
-              onDoubleClick={!flash ? handleMemDblClick : undefined}
+              onDoubleClick={!flash && window.innerWidth >= 768 ? handleMemDblClick : undefined}
               onMouseEnter={!flash ? () => setHovered(true) : undefined}
               onMouseLeave={!flash ? () => setHovered(false) : undefined}
               style={{ cursor: flash ? 'default' : 'pointer' }}>
