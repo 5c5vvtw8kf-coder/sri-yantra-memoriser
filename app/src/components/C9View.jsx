@@ -83,11 +83,12 @@ export default function C9View({
   onNavigate,
   done: doneProp = null,
 }) {
-  const [selected,      setSelected]      = useState(false)
-  const [hovered,       setHovered]       = useState(false)
+  const [selected,       setSelected]       = useState(false)
+  const [hovered,        setHovered]        = useState(false)
   const [mobileRevealed, setMobileRevealed] = useState(false)
-  const clickTimer = useRef(null)
-  const lastTapRef = useRef({ seq: null, time: 0 })
+  const clickTimer  = useRef(null)
+  const lastTapRef  = useRef({ seq: null, time: 0 })
+  const pastTapRef  = useRef({ time: 0 })
 
   // Reset reveal state when mode changes (mobile tap-to-reveal)
   useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
@@ -102,31 +103,56 @@ export default function C9View({
 
   const handleMemClick = () => {
     const isMobile = window.innerWidth < 768
-    if (isMobile && currentSeq === 1 && !mobileRevealed) {
-      // First tap: reveal only — do not start the confirm timer
-      setMobileRevealed(true)
-      lastTapRef.current = { seq: null, time: 0 }
-      return
-    }
-    const now = Date.now()
-    const isDoubleTap = lastTapRef.current.seq === 1 && (now - lastTapRef.current.time) < 300
-    lastTapRef.current = { seq: 1, time: now }
-    if (isDoubleTap) {
-      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-      if (currentSeq === 1) onMarkResult(1, 'wrong')
+    if (isMobile) {
+      // Mobile path — two-step: first tap reveals, then double-tap=wrong / single-tap=correct
+      if (currentSeq === 1 && !mobileRevealed) {
+        setMobileRevealed(true)
+        lastTapRef.current = { seq: null, time: 0 }
+        return
+      }
+      const now = Date.now()
+      const isDoubleTap = lastTapRef.current.seq === 1 && (now - lastTapRef.current.time) < 300
+      lastTapRef.current = { seq: 1, time: now }
+      if (isDoubleTap) {
+        if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+        if (currentSeq === 1) onMarkResult(1, 'wrong')
+      } else {
+        if (clickTimer.current) return
+        clickTimer.current = setTimeout(() => {
+          clickTimer.current = null
+          if (currentSeq === 1) onMarkResult(1, 'correct')
+        }, 280)
+      }
     } else {
+      // Desktop path — onDoubleClick handles wrong; single click fires after 350ms
+      // (350ms > typical OS dblclick interval so onDoubleClick can cancel the timer)
       if (clickTimer.current) return
       clickTimer.current = setTimeout(() => {
         clickTimer.current = null
         if (currentSeq === 1) onMarkResult(1, 'correct')
-      }, 280)
+      }, 350)
     }
   }
 
   const handleMemDblClick = () => {
-    // Desktop double-click to mark wrong
+    // Desktop only (onDoubleClick not attached on mobile)
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
     if (currentSeq === 1) onMarkResult(1, 'wrong')
+  }
+
+  // Past-state bindu toggle handlers
+  const handleResultClick = () => {
+    // Mobile: double-tap to toggle
+    if (window.innerWidth >= 768) return
+    const now = Date.now()
+    const isDouble = (now - pastTapRef.current.time) < 300
+    pastTapRef.current.time = now
+    if (isDouble) onToggleResult(1)
+  }
+
+  const handleResultDblClick = () => {
+    // Desktop: double-click to toggle
+    onToggleResult(1)
   }
 
   const done = doneProp !== null ? doneProp : (memorise && currentSeq > TOTAL)
@@ -195,14 +221,21 @@ export default function C9View({
                 opacity={1} />
             </g>
           )}
-          {/* Result state — stays visible after seq 1 is answered */}
+          {/* Result state — stays visible + interactive (toggle) after seq 1 is answered */}
           {memorise && currentSeq > 1 && (
-            <circle
-              cx={bx.toFixed(1)} cy={by.toFixed(1)}
-              r={8}
-              fill={results[1] === 'correct' ? RED : GOLD}
-              opacity={1}
-              pointerEvents="none" />
+            <g
+              onClick={handleResultClick}
+              onDoubleClick={window.innerWidth >= 768 ? handleResultDblClick : undefined}
+              style={{ cursor: 'pointer' }}>
+              {/* Larger invisible hit area */}
+              <circle cx={bx.toFixed(1)} cy={by.toFixed(1)} r={16} fill="transparent" />
+              <circle
+                cx={bx.toFixed(1)} cy={by.toFixed(1)}
+                r={8}
+                fill={results[1] === 'correct' ? RED : GOLD}
+                opacity={1}
+                pointerEvents="none" />
+            </g>
           )}
 
 
