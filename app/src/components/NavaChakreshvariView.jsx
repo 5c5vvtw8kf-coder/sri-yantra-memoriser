@@ -185,8 +185,8 @@ function buildExploreFills(exploreStep, hoveredCircuit) {
     'tri-c8-01':    c8Color,
     'tri-c8-bg-01': '#0f0805',
     'tri-c8-bg-02': '#0f0805',
-    // Bindu: past takes priority; active = cream; future = black (not dim)
-    'c9': exploreStep > 9 ? FILL_SEL
+    // Bindu: active = cream; tapped/past = black (red is invisible inside red c8); future = black
+    'c9': exploreStep > 9 ? '#000000'
         : exploreStep === 9 ? FILL_HI
         : hoveredCircuit === 9 ? FILL_GOLD_HI
         : '#000000',
