@@ -227,14 +227,17 @@ function buildQueue(filterId, subFilterId) {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function Tooltip({ x, y, label, script }) {
+function Tooltip({ x, y, label, script, clearance = 22 }) {
   if (!label) return null
   const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
   const w = Math.max(60, label.length * charW + 18)
   const tx = Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
-  const ty = y > CY ? y - h / 2 - 18 : y + h / 2 + 18
+  // Keep tooltip above/below element by `clearance` SVG units from the element centre,
+  // clamped so it never escapes the viewBox (y range 55–485).
+  const rawTy = y > CY ? y - h / 2 - clearance : y + h / 2 + clearance
+  const ty = Math.min(Math.max(rawTy, 55 + h / 2 + 4), 485 - h / 2 - 4)
   return (
     <g pointerEvents="none">
       <rect
@@ -729,7 +732,16 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
 
               {/* Tooltip — desktop: hover/flash; mobile: after tap-to-reveal */}
               {hasPos && pos && (hovered || flash || mobileRevealed) && (
-                <Tooltip x={pos.x} y={pos.y} label={name} script={script} />
+                <Tooltip
+                  x={pos.x} y={pos.y} label={name} script={script}
+                  clearance={
+                    current?.sectionId === 'circuit-1' ? 22
+                    : current?.sectionId === 'circuit-2' ? 75
+                    : current?.sectionId === 'circuit-3' ? 62
+                    : current?.sectionId === 'circuit-7' ? 52
+                    : 65   // C4, C5, C6
+                  }
+                />
               )}
 
 
