@@ -89,14 +89,17 @@ const c6Deities = deities
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const c6Section = data.sections?.find(s => s.circuitNumber === 6 && s.type === 'circuit') || {}
 
-function Tooltip({ x, y, label, script }) {
+const C6_TOOLTIP_OFFSET = { 1: 20, 2: 22, 3: 32, 6: 20, 7: 24, 8: 32 }
+
+function Tooltip({ x, y, label, script, seq }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 11 : script === 'english' ? 11 : 10  // scaled for viewBox 174
   const h        = script === 'devanagari' ? 22 : script === 'english' ? 22 : 21
   const charW    = script === 'devanagari' ? 9.5 : script === 'telugu' ? 11 : script === 'tamil' ? 11 : script === 'english' ? 7.0 : 6.8
   const w        = Math.max(38, label.length * charW + 10)
   const tx       = Math.min(Math.max(x, 178 + w / 2), 342 - w / 2)
-  const ty       = y > CY ? y - h / 2 - 10 : y + h / 2 + 10
+  const offset   = (seq != null && seq in C6_TOOLTIP_OFFSET) ? C6_TOOLTIP_OFFSET[seq] : 10
+  const ty       = y > CY ? y - h / 2 - offset : y + h / 2 + offset
   return (
     <g pointerEvents="none">
       <rect x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
@@ -344,13 +347,14 @@ export default function C6View({
             {!flash && (() => {
               if (hoveredDot) return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(deityById[hoveredDot.id], script)} script={script} />
+                  label={displayName(deityById[hoveredDot.id], script)} script={script}
+                  seq={deityById[hoveredDot.id]?.sequenceInSection} />
               )
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C6_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} />
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} seq={d.sequenceInSection} />
               }
               return null
             })()}

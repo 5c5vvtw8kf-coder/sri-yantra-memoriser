@@ -89,14 +89,17 @@ const c7Deities = deities
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const c7Section = data.sections?.find(s => s.circuitNumber === 7 && s.type === 'circuit') || {}
 
-function Tooltip({ x, y, label, script }) {
+const C7_TOOLTIP_OFFSET = { 1: 18, 2: 24, 5: 20, 6: 18, 7: 24 }
+
+function Tooltip({ x, y, label, script, seq }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 9 : script === 'english' ? 9 : 8   // scaled for viewBox 134
   const h        = script === 'devanagari' ? 18 : script === 'english' ? 18 : 17
   const charW    = script === 'devanagari' ? 7.5 : script === 'telugu' ? 8.5 : script === 'tamil' ? 9 : script === 'english' ? 5.8 : 5.5
   const w        = Math.max(32, label.length * charW + 8)
   const tx       = Math.min(Math.max(x, 198 + w / 2), 322 - w / 2)
-  const ty       = y > CY ? y - h / 2 - 8 : y + h / 2 + 8
+  const offset   = (seq != null && seq in C7_TOOLTIP_OFFSET) ? C7_TOOLTIP_OFFSET[seq] : 8
+  const ty       = y > CY ? y - h / 2 - offset : y + h / 2 + offset
   return (
     <g pointerEvents="none">
       <rect x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
@@ -344,13 +347,14 @@ export default function C7View({
             {!flash && (() => {
               if (hoveredDot) return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(deityById[hoveredDot.id], script)} script={script} />
+                  label={displayName(deityById[hoveredDot.id], script)} script={script}
+                  seq={deityById[hoveredDot.id]?.sequenceInSection} />
               )
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C7_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} />
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} seq={d.sequenceInSection} />
               }
               return null
             })()}
