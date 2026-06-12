@@ -463,4 +463,44 @@ export default function InnerView({
               </p>
               <p className="text-muted text-xs">
                 {Object.values(results).filter(v => v === 'correct').length}/{TOTAL} memorised
-       
+              </p>
+              <div className="flex flex-col gap-2 pt-1">
+                <button onClick={onStartMemorise}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors">
+                  Try again
+                </button>
+                <button onClick={() => onNavigate && onNavigate('gurava')}
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
+                  Next →
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+      </div>
+
+      {/* ── Waxing / Waning toggle — mobile Memorise only ── */}
+      {memorise && (
+        <div className="flex gap-2 mt-3 md:hidden">
+          <button
+            onClick={() => onSetWaning(false)}
+            className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              !waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
+            }`}
+          >☽ Waxing</button>
+          <button
+            onClick={() => onSetWaning(true)}
+            className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
+            }`}
+          >☾ Waning</button>
+        </div>
+      )}
+
+      {memorise && <MobileMemoriseInstr />}
+
+    </div>
+  )
+}
+   
