@@ -91,12 +91,12 @@ const c6Section = data.sections?.find(s => s.circuitNumber === 6 && s.type === '
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 18 : script === 'english' ? 17 : 16
-  const h        = script === 'devanagari' ? 36 : script === 'english' ? 34 : 32
-  const charW    = script === 'devanagari' ? 12.5 : script === 'telugu' ? 14.5 : script === 'tamil' ? 15.5 : script === 'english' ? 10 : 9.5
-  const w        = Math.max(50, label.length * charW + 14)
-  const tx       = Math.min(Math.max(x, 135 + w / 2), 385 - w / 2)
-  const ty       = y > CY ? y - h / 2 - 14 : y + h / 2 + 14
+  const fontSize = script === 'devanagari' ? 9 : script === 'english' ? 9 : 8   // scaled for viewBox 174
+  const h        = script === 'devanagari' ? 18 : script === 'english' ? 18 : 17
+  const charW    = script === 'devanagari' ? 7.5 : script === 'telugu' ? 8.5 : script === 'tamil' ? 9 : script === 'english' ? 5.8 : 5.5
+  const w        = Math.max(30, label.length * charW + 8)
+  const tx       = Math.min(Math.max(x, 178 + w / 2), 342 - w / 2)
+  const ty       = y > CY ? y - h / 2 - 10 : y + h / 2 + 10
   return (
     <g pointerEvents="none">
       <rect x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
