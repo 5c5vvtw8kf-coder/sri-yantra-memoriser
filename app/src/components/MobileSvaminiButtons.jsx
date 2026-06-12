@@ -49,11 +49,13 @@ export default function MobileSvaminiButtons({
 }) {
   const [revealedSvamini, setRevealedSvamini] = useState(false)
   const [revealedYogini,  setRevealedYogini]  = useState(false)
+  const [hideDelayed,     setHideDelayed]     = useState(false)
 
   const svaminiTapRef = useRef({ time: 0 })
   const yoginiTapRef  = useRef({ time: 0 })
   const svaminiTimer  = useRef(null)
   const yoginiTimer   = useRef(null)
+  const hideTimer     = useRef(null)
 
   // Reset revealed state whenever the active seq changes
   useEffect(() => {
@@ -61,13 +63,25 @@ export default function MobileSvaminiButtons({
     setRevealedYogini(false)
   }, [currentSeq])
 
+  // Keep visible after yogini is answered so the user can toggle before completion overlay
+  useEffect(() => {
+    if (memorise && currentSeq > yoginiSeq) {
+      setHideDelayed(false)
+      hideTimer.current = setTimeout(() => setHideDelayed(true), 5000)
+      return () => clearTimeout(hideTimer.current)
+    } else {
+      setHideDelayed(false)
+      clearTimeout(hideTimer.current)
+    }
+  }, [memorise, currentSeq, yoginiSeq])
+
   const svaminiName = getName(section, 'chakraSvamini', script)
   const yoginiName  = getName(section, 'yoginiType', script)
 
   // ── Visibility ─────────────────────────────────────────────────────────────
 
   if (memorise && currentSeq < svaminiSeq)  return null   // dots phase — not time yet
-  if (memorise && currentSeq > yoginiSeq)   return null   // done — completion panel handles
+  if (memorise && currentSeq > yoginiSeq && hideDelayed) return null   // done — completion panel handles
 
   // ── State flags ─────────────────────────────────────────────────────────────
 
@@ -167,11 +181,9 @@ export default function MobileSvaminiButtons({
   // ── Button styling ──────────────────────────────────────────────────────────
 
   function buttonStyle(isActive, isPast, isCorrect, isLocked) {
-    if (isLocked)               return 'border-surface-700/30 bg-surface-900/40 opacity-40 cursor-default'
-    if (isActive)               return 'border-gold-600/50 bg-gold-900/20'
-    if (isPast && isCorrect)    return 'border-red-800/40 bg-red-900/15'
-    if (isPast)                 return 'border-gold-800/25 bg-surface-800/50'
-    // Explore default
+    if (isLocked) return 'border-surface-700/30 bg-surface-900/40 opacity-40 cursor-default'
+    if (isActive) return 'border-gold-600/50 bg-gold-900/20'
+    if (isPast)   return 'border-surface-700/40 bg-surface-800/40'   // text colour only distinguishes correct/wrong
     return 'border-surface-600/40 bg-surface-800/40 hover:border-gold-700/40 hover:bg-surface-700/40'
   }
 

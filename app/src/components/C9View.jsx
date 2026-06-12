@@ -87,6 +87,7 @@ export default function C9View({
   const [hovered,       setHovered]       = useState(false)
   const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
+  const lastTapRef = useRef({ seq: null, time: 0 })
 
   // Reset reveal state when mode changes (mobile tap-to-reveal)
   useEffect(() => { setMobileRevealed(false) }, [currentSeq, memorise])
@@ -100,15 +101,30 @@ export default function C9View({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = () => {
-    if (window.innerWidth < 768 && currentSeq === 1) setMobileRevealed(true)
-    if (clickTimer.current) return
-    clickTimer.current = setTimeout(() => {
-      clickTimer.current = null
-      if (currentSeq === 1) onMarkResult(1, 'correct')
-    }, 280)
+    const isMobile = window.innerWidth < 768
+    if (isMobile && currentSeq === 1 && !mobileRevealed) {
+      // First tap: reveal only — do not start the confirm timer
+      setMobileRevealed(true)
+      lastTapRef.current = { seq: null, time: 0 }
+      return
+    }
+    const now = Date.now()
+    const isDoubleTap = lastTapRef.current.seq === 1 && (now - lastTapRef.current.time) < 300
+    lastTapRef.current = { seq: 1, time: now }
+    if (isDoubleTap) {
+      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+      if (currentSeq === 1) onMarkResult(1, 'wrong')
+    } else {
+      if (clickTimer.current) return
+      clickTimer.current = setTimeout(() => {
+        clickTimer.current = null
+        if (currentSeq === 1) onMarkResult(1, 'correct')
+      }, 280)
+    }
   }
 
   const handleMemDblClick = () => {
+    // Desktop double-click to mark wrong
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
     if (currentSeq === 1) onMarkResult(1, 'wrong')
   }
@@ -181,8 +197,8 @@ export default function C9View({
           )}
 
 
-          {/* Tooltip: hover/select (Explore); auto-show in Memorise when bindu is active */}
-          {(hovered || selected || (memorise && currentSeq === 1)) && !flash && c9Deity && (
+          {/* Tooltip: hover/select (Explore); Memorise desktop auto-shows, mobile shows after tap */}
+          {(hovered || selected || (memorise && currentSeq === 1 && (window.innerWidth >= 768 || mobileRevealed))) && !flash && c9Deity && (
             <Tooltip
               x={bx} y={by}
               label={displayName(c9Deity, script)}

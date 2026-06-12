@@ -491,8 +491,8 @@ export default function C3View({
                   )
                 })()}
 
-                {/* Direction arrow — inside ring, current → next (seqs 1–7 only) */}
-                {!flash && showArrow && C3_SEQ_ANGLE[arrowFromSeq] !== undefined && C3_SEQ_ANGLE[arrowToSeq] !== undefined && (
+                {/* Direction arrow — inside ring, current → next (seqs 1–7 only); desktop only in Memorise */}
+                {!flash && showArrow && window.innerWidth >= 768 && C3_SEQ_ANGLE[arrowFromSeq] !== undefined && C3_SEQ_ANGLE[arrowToSeq] !== undefined && (
                   <path
                     d={c3ArrowPath(arrowFromSeq, arrowToSeq)}
                     fill="none"
