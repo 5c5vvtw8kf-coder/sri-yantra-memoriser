@@ -109,15 +109,11 @@ const c4Section = data.sections?.find(s => s.circuitNumber === 4 && s.type === '
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 
-// Per-sequence direction override: true = above dot, false = below dot
-// Seqs 1–4 run up the right side; tooltip must go above to avoid covering next triangle.
-// Seqs 8–11 run down the left side; tooltip must go below.
-const C4_TOOLTIP_ABOVE = { 1: true, 2: true, 3: true, 4: true, 8: false, 9: false, 10: false, 11: false }
-
-function tooltipAbove(seq, y) {
-  if (seq != null && seq in C4_TOOLTIP_ABOVE) return C4_TOOLTIP_ABOVE[seq]
-  return y > CY
-}
+// Per-sequence vertical offset (SVG units) to clear the next triangle's dot.
+// Calculated from actual centroid distances: offset = (y_current - y_next) + dot_radius + margin
+// Right side (seqs 1–4): tooltips go above; larger offset clears the next dot above.
+// Left side (seqs 8–11): tooltips go below; larger offset clears the next dot below.
+const C4_TOOLTIP_OFFSET = { 1: 35, 2: 52, 3: 44, 4: 70, 8: 38, 9: 55, 10: 42, 11: 70 }
 
 function Tooltip({ x, y, label, script, seq }) {
   if (!label) return null
@@ -126,8 +122,8 @@ function Tooltip({ x, y, label, script, seq }) {
   const charW    = script === 'devanagari' ? 12.5 : script === 'telugu' ? 14.5 : script === 'tamil' ? 15.5 : script === 'english' ? 10 : 9.5
   const w        = Math.max(50, label.length * charW + 14)
   const tx       = Math.min(Math.max(x, 135 + w / 2), 385 - w / 2)
-  const above    = tooltipAbove(seq, y)
-  const ty       = above ? y - h / 2 - 14 : y + h / 2 + 14
+  const offset   = (seq != null && seq in C4_TOOLTIP_OFFSET) ? C4_TOOLTIP_OFFSET[seq] : 14
+  const ty       = y > CY ? y - h / 2 - offset : y + h / 2 + offset
   return (
     <g pointerEvents="none">
       <rect
@@ -445,28 +441,22 @@ export default function C4View({
               </>
             )}
 
-            {/* Tooltip — desktop only for Explore tap; Memorise hover (desktop) */}
+            {/* Tooltip: Explore tap-to-reveal; Memorise desktop hover */}
             {!flash && (() => {
               if (hoveredDot) {
                 const hd = deityById[hoveredDot.id]
                 return (
-                  <g className="hidden md:block">
-                    <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                      label={displayName(hd, script)} script={script}
-                      seq={hd?.sequenceInSection} />
-                  </g>
+                  <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                    label={displayName(hd, script)} script={script}
+                    seq={hd?.sequenceInSection} />
                 )
               }
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C4_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return (
-                  <g className="hidden md:block">
-                    <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script}
-                      seq={d.sequenceInSection} />
-                  </g>
-                )
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script}
+                         seq={d.sequenceInSection} />
               }
               return null
             })()}
@@ -474,14 +464,6 @@ export default function C4View({
           </svg>
         </div>
       </div>
-
-      {/* Mobile Explore name strip — shows below diagram on tap, hidden on desktop */}
-      {!memorise && selectedId && (
-        <div className="md:hidden text-center py-2 mt-1 iast"
-             style={{ color: '#c9a84c', fontSize: '0.95rem' }}>
-          {displayName(deityById[selectedId], script)}
-        </div>
-      )}
 
       {memorise && <MobileMemoriseInstr />}
 
