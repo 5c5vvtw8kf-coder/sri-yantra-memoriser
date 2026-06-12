@@ -217,7 +217,7 @@ export default function ClosingView({
 
   // ── Yantra fills ───────────────────────────────────────────────────────────
 
-  const memFills = allMemorised ? ALL_RED_FILLS : listHighlight ? LIST_RED_FILLS : ALL_CREAM_FILLS
+  const memFills = allMemorised ? ALL_RED_FILLS : listHighlight ? LIST_RED_FILLS : {}
   const exploreFills = listHighlight ? LIST_RED_FILLS : (!isMobile && hoveredEpithet) ? ALL_CREAM_FILLS : {}
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -493,7 +493,7 @@ export default function ClosingView({
           left: sidebarRight + 6,
           top: yantraPos.top + yantraPos.height + 4,
           zIndex: 30,
-          display: 'flex',
+          display: memorise ? 'none' : 'flex',
           alignItems: 'center',
           gap: 6,
         }}
@@ -507,7 +507,7 @@ export default function ClosingView({
             className={arrowFlash ? 'animate-pulse' : ''}
             style={{ color: arrowFlash ? CREAM : 'rgba(255,248,200,0.45)', fontSize: '0.75rem', whiteSpace: 'nowrap', transition: 'color 0.6s' }}
           >
-            Ascent to the top from here
+            Ascend to the top from here
           </span>
         )}
       </div>
