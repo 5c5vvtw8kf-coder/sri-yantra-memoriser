@@ -319,11 +319,16 @@ export default function NavaChakreshvariView({
   flash = false,
   onNavigate,
 }) {
-  const [exploreStep,       setExploreStep]       = useState(1)
-  const [lastTappedCircuit, setLastTappedCircuit] = useState(null)
-  const [hoveredCircuit,    setHoveredCircuit]    = useState(null)
+  const [exploreStep,        setExploreStep]        = useState(1)
+  const [lastTappedCircuit,  setLastTappedCircuit]  = useState(null)
+  const [hoveredCircuit,     setHoveredCircuit]     = useState(null)
+  const [mobileRevealedSeq,  setMobileRevealedSeq]  = useState(null)
   const clickTimer         = useRef(null)
   const lastHoveredCircuit = useRef(null)   // used by right-click handler
+  const lastTapRef         = useRef({ seq: null, time: 0 })
+
+  // Reset mobile reveal when active sequence changes
+  useEffect(() => { setMobileRevealedSeq(null) }, [currentSeq, memorise])
 
   // ── Explore mode handlers ──────────────────────────────────────────────────
 
@@ -353,17 +358,44 @@ export default function NavaChakreshvariView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    if (clickTimer.current) return
-    clickTimer.current = setTimeout(() => {
-      clickTimer.current = null
-      if (currentSeq === seq) onMarkResult(seq, 'correct')
-      else if (results[seq] !== 'correct') onToggleResult(seq)
-    }, 280)
+    const isMobile = window.innerWidth < 768
+    if (isMobile) {
+      // Mobile: first tap on active seq reveals name only; subsequent double-tap=wrong, single-tap=correct
+      if (currentSeq === seq && mobileRevealedSeq !== seq) {
+        setMobileRevealedSeq(seq)
+        lastTapRef.current = { seq: null, time: 0 }
+        return
+      }
+      const now = Date.now()
+      const isDoubleTap = lastTapRef.current.seq === seq && (now - lastTapRef.current.time) < 300
+      lastTapRef.current = { seq, time: now }
+      if (isDoubleTap) {
+        if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+        if (currentSeq === seq)          onMarkResult(seq, 'wrong')
+        else if (results[seq] === 'correct') onToggleResult(seq)
+      } else {
+        if (clickTimer.current) return
+        clickTimer.current = setTimeout(() => {
+          clickTimer.current = null
+          if (currentSeq === seq)              onMarkResult(seq, 'correct')
+          else if (results[seq] !== 'correct') onToggleResult(seq)
+        }, 280)
+      }
+    } else {
+      // Desktop: onDoubleClick handles wrong; single click fires after 280ms
+      if (clickTimer.current) return
+      clickTimer.current = setTimeout(() => {
+        clickTimer.current = null
+        if (currentSeq === seq)              onMarkResult(seq, 'correct')
+        else if (results[seq] !== 'correct') onToggleResult(seq)
+      }, 280)
+    }
   }
 
   const handleMemDblClick = (seq) => {
+    // Desktop only — onRegionDoubleClick not attached on mobile
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (currentSeq === seq) onMarkResult(seq, 'wrong')
+    if (currentSeq === seq)          onMarkResult(seq, 'wrong')
     else if (results[seq] === 'correct') onToggleResult(seq)
   }
 
@@ -437,8 +469,12 @@ export default function NavaChakreshvariView({
 
   // Tooltip: hover in both modes (suppressed during flash).
   // Explore mobile: fall back to last tapped circuit so name persists after tap.
+  // Memorise mobile: show for the seq that was just revealed by first tap.
+  const mobileRevealCircuit = mobileRevealedSeq != null
+    ? (ncDeities.find(d => d.sequenceInSection === mobileRevealedSeq)?.circuitNumber ?? null)
+    : null
   const tooltipCircuit = flash ? null
-    : memorise ? hoveredCircuit
+    : memorise ? (hoveredCircuit ?? (window.innerWidth < 768 ? mobileRevealCircuit : null))
     : (hoveredCircuit ?? lastTappedCircuit)
 
   return (
@@ -467,7 +503,7 @@ export default function NavaChakreshvariView({
             onRegionHover={flash ? null : handleRegionHover}
             onRegionLeave={flash ? null : handleRegionLeave}
             onRegionDoubleClick={
-              memorise && !flash ? handleMemRegionDblClick : null
+              memorise && !flash && window.innerWidth >= 768 ? handleMemRegionDblClick : null
             }
           />
         </div>
