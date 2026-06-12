@@ -482,7 +482,7 @@ export default function BhupuraView({
                 const d = deityById[hoveredDot.id]
                 if (!d) return null
                 return <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(d, script)} fill="#fff8c8" script={script} />
+                  label={displayName(d, script)} fill={GOLD} script={script} />
               }
               // Explore mode
               if (!memorise) {
