@@ -324,11 +324,11 @@ export default function C4View({
             {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise */}
-                <line x1="135" y1="152" x2="168" y2="152"
+                {/* Direction arrow — clockwise, anchored near sequence position 1 (bottom-centre) */}
+                <line x1="248" y1="368" x2="272" y2="361"
                   stroke={GREEN} strokeWidth="2.5" opacity="0.70"
                   markerEnd="url(#c4-arrow-green)" />
-                <text x="174" y="156" fontSize="11" fill={GREEN} opacity="0.70"
+                <text x="278" y="366" fontSize="11" fill={GREEN} opacity="0.70"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
                   Clockwise
                 </text>
@@ -451,27 +451,4 @@ export default function C4View({
 
       {memorise && <MobileMemoriseInstr />}
 
-      <MobileSvaminiButtons
-        section={c4Section}
-        script={script}
-        svaminiSeq={15}
-        yoginiSeq={16}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {/* Completion panel */}
-      {showCompletion && (
-        <CompletionPanel
-          results={results}
-          onRestart={onStartMemorise}
-          onNavigate={onNavigate}
-        />
-      )}
-
-    </div>
-  )
-}
+      <MobileSva

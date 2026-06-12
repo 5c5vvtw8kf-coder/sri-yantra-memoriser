@@ -270,11 +270,11 @@ export default function C5View({
             {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise */}
-                <line x1="153" y1="170" x2="186" y2="170"
+                {/* Direction arrow — clockwise, anchored near sequence position 1 (bottom-centre) */}
+                <line x1="249" y1="348" x2="271" y2="342"
                   stroke={GREEN} strokeWidth="2.5" opacity="0.70"
                   markerEnd="url(#c5-arrow-green)" />
-                <text x="192" y="174" fontSize="10" fill={GREEN} opacity="0.70"
+                <text x="276" y="346" fontSize="10" fill={GREEN} opacity="0.70"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
                   Clockwise
                 </text>
@@ -361,20 +361,4 @@ export default function C5View({
 
       {memorise && <MobileMemoriseInstr />}
 
-      <MobileSvaminiButtons
-        section={c5Section}
-        script={script}
-        svaminiSeq={11}
-        yoginiSeq={12}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
-
-    </div>
-  )
-}
+     

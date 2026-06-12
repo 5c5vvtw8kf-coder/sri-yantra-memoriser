@@ -270,11 +270,11 @@ export default function C7View({
             {/* —— Explore mode —— */}
             {!memorise && (
               <>
-                {/* Direction arrow — clockwise */}
-                <line x1="198" y1="216" x2="228" y2="216"
+                {/* Direction arrow — clockwise, anchored near sequence position 1 (bottom-centre) */}
+                <line x1="252" y1="300" x2="268" y2="295"
                   stroke={GREEN} strokeWidth="2.5" opacity="0.70"
                   markerEnd="url(#c7-arrow-green)" />
-                <text x="234" y="220" fontSize="8" fill={GREEN} opacity="0.70"
+                <text x="272" y="298" fontSize="8" fill={GREEN} opacity="0.70"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic">
                   Clockwise
                 </text>
@@ -361,20 +361,4 @@ export default function C7View({
 
       {memorise && <MobileMemoriseInstr />}
 
-      <MobileSvaminiButtons
-        section={c7Section}
-        script={script}
-        svaminiSeq={9}
-        yoginiSeq={10}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
-
-    </div>
-  )
-}
+    
