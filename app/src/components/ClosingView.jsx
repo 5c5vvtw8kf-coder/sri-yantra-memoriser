@@ -219,9 +219,12 @@ export default function ClosingView({
 
   const handleMemDblClick = (n) => {
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
-    if (n !== currentSeq) return
-    onMarkResult(n, 'wrong')
-    setRevealedNum(null)
+    if (n === currentSeq) {
+      onMarkResult(n, 'wrong')
+      setRevealedNum(null)
+    } else if (n < currentSeq) {
+      onToggleResult(n)
+    }
   }
 
   const handleMemContextMenu = (e, n) => {
