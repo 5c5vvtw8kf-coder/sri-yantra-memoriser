@@ -67,6 +67,7 @@ const C8_POSITIONS = [
 
 const GOLD        = '#c9a84c'
 const RED         = '#c0392b'
+const GREEN       = '#27ae60'
 const BG          = '#0f0805'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
 
@@ -131,6 +132,20 @@ function Tooltip({ x, y, label, script }) {
   )
 }
 
+function NavArrow({ from, to, gap = 19, length = 27 }) {
+  const dx = to[0] - from[0], dy = to[1] - from[1]
+  const dist = Math.sqrt(dx * dx + dy * dy)
+  const nx = dx / dist, ny = dy / dist
+  const x1 = from[0] + nx * gap, y1 = from[1] + ny * gap
+  const x2 = x1 + nx * length,   y2 = y1 + ny * length
+  return (
+    <line x1={x1.toFixed(1)} y1={y1.toFixed(1)}
+          x2={x2.toFixed(1)} y2={y2.toFixed(1)}
+      stroke={GREEN} strokeWidth={2.5}
+      markerEnd="url(#c8-nav-arrow)" style={{ pointerEvents: 'none' }} />
+  )
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function C8View({
@@ -152,6 +167,7 @@ export default function C8View({
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [mobileRevealed, setMobileRevealed] = useState(false)
+  const [navStep,        setNavStep]       = useState(0)
   const clickTimer = useRef(null)
   const lastTapRef     = useRef({ seq: null, time: 0 })
 
@@ -160,6 +176,8 @@ export default function C8View({
     setSelectedId(newId)
     setHoveredDot(null)
     onDeitySelect(newId ? deityById[newId] : null)
+    const i = c8Deities.findIndex(d => d.id === id)
+    if (i === navStep && navStep < C8_POSITIONS.length - 1) setNavStep(navStep + 1)
   }
   const hover   = (id, x, y) => setHoveredDot({ id, x, y })
   const unhover = () => setHoveredDot(null)
@@ -216,6 +234,13 @@ export default function C8View({
              style={{ background: BG, display: 'block', width: '100%' }}
              aria-label="Circuit 8 — Sarvasiddhiprada Chakra — 7 deity positions">
 
+          <defs>
+            <marker id="c8-nav-arrow" markerWidth="7" markerHeight="7"
+              refX="6" refY="3.5" orient="auto">
+              <path d="M0,0 L7,3.5 L0,7 Z" fill={GREEN} />
+            </marker>
+          </defs>
+
           {/* Context geometry — even-odd light fill, then surrounding outlines */}
           <path d={CONTEXT_FILL_PATH} fillRule="evenodd"
             fill={GOLD} fillOpacity={0.1} stroke="none" />
@@ -250,6 +275,11 @@ export default function C8View({
                 onMouseLeave={unhover} />
             )
           })}
+
+          {/* ── Explore mode nav arrow ───────────────────────────────────── */}
+          {!memorise && navStep < C8_POSITIONS.length - 1 && (
+            <NavArrow from={C8_POSITIONS[navStep]} to={C8_POSITIONS[navStep + 1]} />
+          )}
 
           {/* ── Memorise mode dots ────────────────────────────────────────── */}
           {memorise && c8Deities.map((d, i) => {
