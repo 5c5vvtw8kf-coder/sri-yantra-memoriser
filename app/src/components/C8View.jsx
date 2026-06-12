@@ -110,10 +110,10 @@ function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, onClick, on
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const w        = Math.max(60, label.length * charW + 18)
+  const fontSize = script === 'devanagari' ? 39 : script === 'english' ? 37 : 36
+  const h        = script === 'devanagari' ? 78 : script === 'english' ? 74 : 72
+  const charW    = script === 'devanagari' ? 27 : script === 'telugu' ? 32 : script === 'tamil' ? 33 : script === 'english' ? 21 : 20
+  const w        = Math.max(90, label.length * charW + 27)
   const tx       = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
   const ty       = y - h / 2 - 14
   return (

@@ -91,10 +91,10 @@ const c5Section = data.sections?.find(s => s.circuitNumber === 5 && s.type === '
 
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 12 : script === 'english' ? 12 : 11  // scaled for viewBox 224
-  const h        = script === 'devanagari' ? 24 : script === 'english' ? 24 : 22
-  const charW    = script === 'devanagari' ? 9.5 : script === 'telugu' ? 11 : script === 'tamil' ? 11.5 : script === 'english' ? 7.5 : 7.0
-  const w        = Math.max(40, label.length * charW + 11)
+  const fontSize = script === 'devanagari' ? 14 : script === 'english' ? 14 : 13  // scaled for viewBox 224
+  const h        = script === 'devanagari' ? 28 : script === 'english' ? 28 : 26
+  const charW    = script === 'devanagari' ? 11.0 : script === 'telugu' ? 13 : script === 'tamil' ? 14 : script === 'english' ? 9.0 : 8.0
+  const w        = Math.max(48, label.length * charW + 13)
   const tx       = Math.min(Math.max(x, 153 + w / 2), 367 - w / 2)
   const ty       = y > CY ? y - h / 2 - 12 : y + h / 2 + 12
   return (
