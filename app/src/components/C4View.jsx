@@ -228,7 +228,7 @@ export default function C4View({
       const pos = C4_DOT_POSITIONS[seq]
       if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
       setMobileRevealed(true)
-      lastTapRef.current = { seq: null, time: 0 }  // reset so confirm tap is never mis-detected as double-tap
+      lastTapRef.current = { seq: null, time: 0 }
       return
     }
     const now = Date.now()
@@ -441,4 +441,53 @@ export default function C4View({
               </>
             )}
 
-            {/* Tooltip: Explore tap-to-reveal; Memorise desktop hover */
+            {/* Tooltip: Explore tap-to-reveal; Memorise desktop hover */}
+            {!flash && (() => {
+              if (hoveredDot) {
+                const hd = deityById[hoveredDot.id]
+                return (
+                  <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                    label={displayName(hd, script)} script={script}
+                    seq={hd?.sequenceInSection} />
+                )
+              }
+              if (!memorise && selectedId) {
+                const d   = deityById[selectedId]
+                const pos = d ? C4_DOT_POSITIONS[d.sequenceInSection] : null
+                if (!pos) return null
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script}
+                         seq={d.sequenceInSection} />
+              }
+              return null
+            })()}
+
+          </svg>
+        </div>
+      </div>
+
+      {memorise && <MobileMemoriseInstr />}
+
+      <MobileSvaminiButtons
+        section={c4Section}
+        script={script}
+        svaminiSeq={15}
+        yoginiSeq={16}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+        />
+      )}
+
+    </div>
+  )
+}

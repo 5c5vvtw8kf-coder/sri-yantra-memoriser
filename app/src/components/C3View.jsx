@@ -271,7 +271,7 @@ export default function C3View({
       const pos = C3_DOT_POSITIONS[seq]
       if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
       setMobileRevealed(true)
-      lastTapRef.current = { seq: null, time: 0 }  // reset so confirm tap is never mis-detected as double-tap
+      lastTapRef.current = { seq: null, time: 0 }
       return
     }
     const now = Date.now()
@@ -524,4 +524,29 @@ export default function C3View({
         </div>
       </div>
 
-      {memorise && <MobileMemoriseInst
+      {memorise && <MobileMemoriseInstr />}
+
+      <MobileSvaminiButtons
+        section={c3Section}
+        script={script}
+        svaminiSeq={9}
+        yoginiSeq={10}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+        />
+      )}
+
+    </div>
+  )
+}
