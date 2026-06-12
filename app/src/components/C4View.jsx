@@ -445,22 +445,28 @@ export default function C4View({
               </>
             )}
 
-            {/* Tooltip: auto-reveals in Memorise; Explore also falls back to selectedId tap */}
+            {/* Tooltip — desktop only for Explore tap; Memorise hover (desktop) */}
             {!flash && (() => {
               if (hoveredDot) {
                 const hd = deityById[hoveredDot.id]
                 return (
-                  <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                    label={displayName(hd, script)} script={script}
-                    seq={hd?.sequenceInSection} />
+                  <g className="hidden md:block">
+                    <Tooltip x={hoveredDot.x} y={hoveredDot.y}
+                      label={displayName(hd, script)} script={script}
+                      seq={hd?.sequenceInSection} />
+                  </g>
                 )
               }
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C4_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script}
-                         seq={d.sequenceInSection} />
+                return (
+                  <g className="hidden md:block">
+                    <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script}
+                      seq={d.sequenceInSection} />
+                  </g>
+                )
               }
               return null
             })()}
@@ -468,6 +474,14 @@ export default function C4View({
           </svg>
         </div>
       </div>
+
+      {/* Mobile Explore name strip — shows below diagram on tap, hidden on desktop */}
+      {!memorise && selectedId && (
+        <div className="md:hidden text-center py-2 mt-1 iast"
+             style={{ color: '#c9a84c', fontSize: '0.95rem' }}>
+          {displayName(deityById[selectedId], script)}
+        </div>
+      )}
 
       {memorise && <MobileMemoriseInstr />}
 
