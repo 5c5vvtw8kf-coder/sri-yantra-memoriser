@@ -277,7 +277,7 @@ export default function ClosingView({
         {showCompletion && (
           <div
             className="absolute inset-0 flex items-center justify-center rounded-xl"
-            style={{ background: 'rgba(15,8,5,0.72)' }}
+            style={{ background: 'rgba(15,8,5,0.97)' }}
           >
             <div
               className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
