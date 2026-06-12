@@ -198,7 +198,7 @@ export default function C8View({
       const d   = i >= 0 ? c8Deities[i] : null
       if (d && pos) setHoveredDot({ id: d.id, x: pos[0], y: pos[1] })
       setMobileRevealed(true)
-      lastTapRef.current = { seq, time: Date.now() }
+      lastTapRef.current = { seq: null, time: 0 }  // reset so confirm tap is never mis-detected as double-tap
       return
     }
     const now = Date.now()
@@ -337,42 +337,4 @@ export default function C8View({
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
                  style={{ maxWidth: '15rem', margin: '0 1rem' }}>
               <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">sarvasiddhiprada cakra</p>
-              <p className="text-cream text-sm">
-                {Object.values(results).filter(v => v === 'correct').length === TOTAL
-                  ? 'Memorised — well done!'
-                  : 'Round complete.'}
-              </p>
-              <p className="text-muted text-xs">
-                {Object.values(results).filter(v => v === 'correct').length}/{TOTAL} memorised
-              </p>
-              <div className="flex flex-col gap-2 pt-1">
-                <button onClick={onStartMemorise}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors">
-                  Try again
-                </button>
-                <button onClick={() => onNavigate && onNavigate('c9')}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
-                  Next →
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {memorise && <MobileMemoriseInstr />}
-
-      <MobileSvaminiButtons
-        section={c8Section}
-        script={script}
-        svaminiSeq={8}
-        yoginiSeq={9}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-    </div>
-  )
-}
+              <p c

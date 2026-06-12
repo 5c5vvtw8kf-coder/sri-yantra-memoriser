@@ -185,7 +185,7 @@ export default function C6View({
       const pos = C6_DOT_POSITIONS[seq]
       if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
       setMobileRevealed(true)
-      lastTapRef.current = { seq, time: Date.now() }
+      lastTapRef.current = { seq: null, time: 0 }  // reset so confirm tap is never mis-detected as double-tap
       return
     }
     const now = Date.now()
@@ -353,32 +353,4 @@ export default function C6View({
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C6_DOT_POSITIONS[d.sequenceInSection] : null
-                if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} seq={d.sequenceInSection} />
-              }
-              return null
-            })()}
-
-          </svg>
-        </div>
-      </div>
-
-      {memorise && <MobileMemoriseInstr />}
-
-      <MobileSvaminiButtons
-        section={c6Section}
-        script={script}
-        svaminiSeq={11}
-        yoginiSeq={12}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
-
-    </div>
-  )
-}
+                if (!pos) return nul

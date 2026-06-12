@@ -273,7 +273,7 @@ export default function C2View({
       const pos = C2_DOT_POSITIONS[seq]
       if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
       setMobileRevealed(true)
-      lastTapRef.current = { seq, time: Date.now() }
+      lastTapRef.current = { seq: null, time: 0 }  // reset so confirm tap is never mis-detected as double-tap
       return
     }
     const now = Date.now()
@@ -516,27 +516,4 @@ export default function C2View({
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
-        section={c2Section}
-        script={script}
-        svaminiSeq={17}
-        yoginiSeq={18}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {/* Completion panel */}
-      {showCompletion && (
-        <CompletionPanel
-          results={results}
-          onRestart={onStartMemorise}
-          onNavigate={onNavigate}
-        />
-      )}
-
-      <div className="h-8" />
-    </div>
-  )
-}
+    

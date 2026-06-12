@@ -304,7 +304,7 @@ export default function BhupuraView({
       const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
       if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
       setMobileRevealed(true)
-      lastTapRef.current = { seq, time: Date.now() }
+      lastTapRef.current = { seq: null, time: 0 }  // reset so confirm tap isn't mis-detected as double-tap
       return
     }
     const now = Date.now()
