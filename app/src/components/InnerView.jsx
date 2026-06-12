@@ -142,8 +142,8 @@ function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter,
 
 function Tooltip({ x, y, label, fill, script, below = false }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
+  const fontSize = script === 'devanagari' ? 27 : script === 'english' ? 26 : 25
+  const h        = script === 'devanagari' ? 54 : script === 'english' ? 52 : 50
   const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
   const tx       = Math.min(Math.max(x, 25 + w / 2), 490 - w / 2)
@@ -484,17 +484,17 @@ export default function InnerView({
       {memorise && (
         <div className="flex gap-2 mt-3 md:hidden">
           <button
-            onClick={() => onSetWaning(false)}
-            className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              !waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
-            }`}
-          >☽ Waxing</button>
-          <button
             onClick={() => onSetWaning(true)}
             className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
               waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
             }`}
           >☾ Waning</button>
+          <button
+            onClick={() => onSetWaning(false)}
+            className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              !waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
+            }`}
+          >☽ Waxing</button>
         </div>
       )}
 
