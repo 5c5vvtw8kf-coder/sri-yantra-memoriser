@@ -147,6 +147,50 @@ function buildFills(hovered, selected) {
 // hoveredCircuit: hover glow only applies to future (dim) circuits — not to circuits
 // already answered, so the result colour shows immediately on click without waiting
 // for the user to hover away.
+
+// Progressive explore fill builder — outermost to innermost sequential reveal.
+//   past (< exploreStep) → red   (priority over hover — stale mobile touch can't override)
+//   active (=== exploreStep)    → cream
+//   hovered future (desktop)    → cream
+//   future (> exploreStep)      → dim
+function buildExploreFills(exploreStep, hoveredCircuit) {
+  const f = (n) => {
+    if (n < exploreStep)      return FILL_SEL   // past — red (checked before hover)
+    if (n === exploreStep)    return FILL_HI    // active — cream
+    if (n === hoveredCircuit) return FILL_HI    // desktop hover glow (future only)
+    return FILL_DIM
+  }
+  const c8Color = f(8)
+  const c8Lit   = c8Color === FILL_HI || c8Color === FILL_SEL
+  const pad2    = n => String(n).padStart(2, '0')
+  const c1Color = f(1)
+  return {
+    'c1':       'transparent',
+    'c1-outer': c1Color,
+    'c1-mid':   c1Color,
+    'c1-inner': 'transparent',
+    'outer-rings': c1Color !== FILL_DIM ? c1Color : null,
+    ...Object.fromEntries(Array.from({ length: 16 }, (_, i) => [`petal-c2-${pad2(i+1)}`, f(2)])),
+    ...Object.fromEntries(Array.from({ length: 8 },  (_, i) => [`petal-c3-${pad2(i+1)}`, f(3)])),
+    ...Object.fromEntries(Array.from({ length: 14 }, (_, i) => [`tri-c4-${pad2(i+1)}`, f(4)])),
+    ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c5-${pad2(i+1)}`, f(5)])),
+    ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c6-${pad2(i+1)}`, f(6)])),
+    ...Object.fromEntries(Array.from({ length: 8 },  (_, i) => {
+      const id = `tri-c7-${pad2(i+1)}`
+      if (c8Lit && C8_INNER_C7.has(id)) return [id, '#0f0805']
+      return [id, f(7)]
+    })),
+    'tri-c8-01':    c8Color,
+    'tri-c8-bg-01': '#0f0805',
+    'tri-c8-bg-02': '#0f0805',
+    // Bindu: past takes priority; active = cream; future = black (not dim)
+    'c9': exploreStep > 9 ? FILL_SEL
+        : exploreStep === 9 ? FILL_HI
+        : hoveredCircuit === 9 ? FILL_GOLD_HI
+        : '#000000',
+  }
+}
+
 function buildMemFills(colorFn, hoveredCircuit) {
   const c = (n) => {
     const base = colorFn(n)
@@ -227,7 +271,7 @@ function Tooltip({ circuitNum, script }) {
   if (!circuitNum) return null
   const deity = deityByCircuit[circuitNum]
   if (!deity) return null
-  const label = displayName(deity, script)
+  const label = `${circuitNum}. ${displayName(deity, script)}`
   if (!label) return null
 
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
@@ -273,8 +317,9 @@ export default function NavaChakreshvariView({
   flash = false,
   onNavigate,
 }) {
-  const [selectedCircuit, setSelectedCircuit] = useState(null)
-  const [hoveredCircuit,  setHoveredCircuit]  = useState(null)
+  const [exploreStep,       setExploreStep]       = useState(1)
+  const [lastTappedCircuit, setLastTappedCircuit] = useState(null)
+  const [hoveredCircuit,    setHoveredCircuit]    = useState(null)
   const clickTimer         = useRef(null)
   const lastHoveredCircuit = useRef(null)   // used by right-click handler
 
@@ -295,9 +340,12 @@ export default function NavaChakreshvariView({
   const handleRegionClick = (id) => {
     const c = regionToCircuit(id)
     if (!c) return
-    const newC = selectedCircuit === c ? null : c
-    setSelectedCircuit(newC)
-    onDeitySelect(newC ? deityByCircuit[newC] : null)
+    // Once c8 is past (exploreStep === 9), tapping the c8 area advances to c9 — bindu is tiny
+    const effectiveC = (c === 8 && exploreStep === 9) ? 9 : c
+    if (effectiveC !== exploreStep) return
+    setLastTappedCircuit(effectiveC)
+    setExploreStep(prev => Math.min(prev + 1, 10))
+    onDeitySelect(deityByCircuit[effectiveC] ?? null)
   }
 
   // ── Memorise mode handlers ─────────────────────────────────────────────────
@@ -381,10 +429,15 @@ export default function NavaChakreshvariView({
         if (seq < currentSeq)   return results[seq] === 'correct' ? FILL_SEL : FILL_NORM
         return FILL_DIM
       }, flash ? null : hoveredCircuit)
-    : buildFills(hoveredCircuit, listHighlightCircuit ?? selectedCircuit)
+    : listHighlightCircuit
+      ? buildFills(hoveredCircuit, listHighlightCircuit)
+      : buildExploreFills(exploreStep, hoveredCircuit)
 
-  // Tooltip shown on hover in both modes (suppressed during flash).
-  const tooltipCircuit = flash ? null : hoveredCircuit
+  // Tooltip: hover in both modes (suppressed during flash).
+  // Explore mobile: fall back to last tapped circuit so name persists after tap.
+  const tooltipCircuit = flash ? null
+    : memorise ? hoveredCircuit
+    : (hoveredCircuit ?? lastTappedCircuit)
 
   return (
     <div className="w-full p-4">
@@ -496,9 +549,9 @@ export default function NavaChakreshvariView({
         )}
       </div>
 
-      {!memorise && (
+      {!memorise && exploreStep <= 9 && (
         <p className="md:hidden text-center text-xs mt-3 text-muted">
-          Tap any circuit to reveal the presiding Tripura form
+          Proceed from the Bhūpura into the Bindu
         </p>
       )}
       {memorise && <MobileMemoriseInstr />}
