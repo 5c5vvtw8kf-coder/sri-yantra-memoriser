@@ -36,8 +36,8 @@ function fmtTime(ts) {
 function Cols() {
   return (
     <colgroup>
-      <col style={{ width: '6rem' }} />
       <col style={{ width: '4.5rem' }} />
+      <col style={{ width: '3rem' }} />
       <col />
       <col style={{ width: '4rem' }} />
     </colgroup>
@@ -128,10 +128,10 @@ export default function ActivityLogView() {
             <Cols />
             <thead>
               <tr className="bg-surface-800">
-                <th className="px-3 py-2 text-left text-muted font-normal">Date</th>
-                <th className="px-3 py-2 text-left text-muted font-normal">Time</th>
-                <th className="px-3 py-2 text-left text-muted font-normal">Section</th>
-                <th className="px-3 py-2 text-right text-muted font-normal">Score</th>
+                <th className="px-1 py-2 text-left text-muted font-normal">Date</th>
+                <th className="px-1 py-2 text-left text-muted font-normal">Time</th>
+                <th className="px-1 py-2 text-left text-muted font-normal">Section</th>
+                <th className="px-1 py-2 text-right text-muted font-normal">Score</th>
               </tr>
             </thead>
           </table>
@@ -166,12 +166,12 @@ export default function ActivityLogView() {
                       key={i}
                       className="border-b border-surface-700/40 last:border-b-0 hover:bg-surface-800/50 transition-colors"
                     >
-                      <td className="px-3 py-2 iast text-muted text-[15px]">{fmtDate(entry.ts)}</td>
-                      <td className="px-3 py-2 iast text-muted text-[15px]">{fmtTime(entry.ts)}</td>
-                      <td className="px-3 py-2 iast text-gold-400 truncate text-[15px]">
+                      <td className="px-1 py-2 iast text-muted text-[15px]">{fmtDate(entry.ts)}</td>
+                      <td className="px-1 py-2 iast text-muted text-[15px]">{fmtTime(entry.ts)}</td>
+                      <td className="px-1 py-2 iast text-gold-400 truncate text-[15px]">
                         {SECTION_LABEL[entry.section] ?? entry.section}
                       </td>
-                      <td className={`px-3 py-2 iast text-right text-[15px] ${scoreClass}`}>
+                      <td className={`px-1 py-2 iast text-right text-[15px] ${scoreClass}`}>
                         {entry.correct}/{entry.total}
                       </td>
                     </tr>
