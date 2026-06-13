@@ -224,16 +224,16 @@ function NityaSection({ script = 'iast' }) {
       <p className="text-[12px] font-mono text-muted uppercase tracking-[0.12em]">tithinityādēvatāḥ, Lunar Goddesses of Time</p>
       <div className="flex gap-2">
         <button
-          onClick={() => setWaxing(true)}
-          className={`px-3 py-1 rounded text-xs font-mono transition-colors border ${waxing ? 'text-gold-300 border-gold-700/50 bg-gold-900/20' : 'text-muted border-surface-600 hover:text-cream'}`}
-        >
-          ☽ Waxing
-        </button>
-        <button
           onClick={() => setWaxing(false)}
           className={`px-3 py-1 rounded text-xs font-mono transition-colors border ${!waxing ? 'text-gold-300 border-gold-700/50 bg-gold-900/20' : 'text-muted border-surface-600 hover:text-cream'}`}
         >
           ☾ Waning
+        </button>
+        <button
+          onClick={() => setWaxing(true)}
+          className={`px-3 py-1 rounded text-xs font-mono transition-colors border ${waxing ? 'text-gold-300 border-gold-700/50 bg-gold-900/20' : 'text-muted border-surface-600 hover:text-cream'}`}
+        >
+          ☽ Waxing
         </button>
       </div>
       {all.map((d, i) => (

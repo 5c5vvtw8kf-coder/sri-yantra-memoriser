@@ -69,7 +69,8 @@ const nyasaDeities = deities
 
 // ── Yantra fills (same palette as BhupuraView) ────────────────────────────────
 
-const GOLD_FILL = 'rgba(201,168,76,0.80)'
+const GOLD_FILL  = 'rgba(201,168,76,0.80)'
+const BROWN_FILL = 'rgba(101,68,40,0.80)'
 const YANTRA_FILLS = {
   ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
     [`petal-c2-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
@@ -88,6 +89,11 @@ const YANTRA_FILLS = {
   'tri-c8-bg-02': '#0f0805',
   'c9':           '#000000',
 }
+
+// Brown version for Memorise mode — makes gold "not memorised" dots stand out
+const YANTRA_FILLS_BROWN = Object.fromEntries(
+  Object.entries(YANTRA_FILLS).map(([k, v]) => [k, v === GOLD_FILL ? BROWN_FILL : v])
+)
 
 // ── Colours ───────────────────────────────────────────────────────────────────
 
@@ -333,7 +339,7 @@ export default function NyasaView({
 
         {/* Base yantra — clipped to rounded corners */}
         <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60">
-          <SriYantraSVG className="w-full h-full" showTriangles={true} filledRegions={YANTRA_FILLS} />
+          <SriYantraSVG className="w-full h-full" showTriangles={true} filledRegions={memorise ? YANTRA_FILLS_BROWN : YANTRA_FILLS} />
         </div>
 
         {/* Dot overlay — sibling to clip container, same 500×500 viewBox */}

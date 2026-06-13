@@ -33,6 +33,7 @@ const CY = 270
 // ── Yantra fills — petals & circles gold, triangles left as lines only ────────
 
 const GOLD_FILL   = 'rgba(201,168,76,0.80)'
+const BROWN_FILL  = 'rgba(101,68,40,0.80)'
 const YANTRA_FILLS = {
   ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
     [`petal-c2-${String(i + 1).padStart(2, '0')}`, GOLD_FILL]
@@ -57,6 +58,11 @@ const YANTRA_FILLS = {
   'tri-c8-bg-02': '#0f0805',
   'c9': '#000000',
 }
+
+// Brown version for Memorise mode — makes gold "not memorised" dots stand out
+const YANTRA_FILLS_BROWN = Object.fromEntries(
+  Object.entries(YANTRA_FILLS).map(([k, v]) => [k, v === GOLD_FILL ? BROWN_FILL : v])
+)
 
 // ── Dot positions ─────────────────────────────────────────────────────────────
 
@@ -154,10 +160,10 @@ function Tooltip({ x, y, label, fill, script }) {
 // ── Desktop filter config ─────────────────────────────────────────────────────
 
 const FILTERS = [
-  { id: 'all',          label: 'All'            },
-  { id: 'siddhiShakti', label: 'Siddhi Shaktis' },
-  { id: 'ashtaMatrika', label: 'Ashta Matrikas'  },
-  { id: 'mudraShakti',  label: 'Mudra Shaktis'   },
+  { id: 'all',          label: 'All'                          },
+  { id: 'siddhiShakti', label: 'Outer Band — Siddhi Shaktis' },
+  { id: 'ashtaMatrika', label: 'Middle Band — Ashta Matrikas' },
+  { id: 'mudraShakti',  label: 'Inner Band — Mudra Shaktis'  },
 ]
 
 // ── Mobile band config (Explore mode navigation) ──────────────────────────────
@@ -335,10 +341,12 @@ export default function BhupuraView({
   const done = memorise && currentSeq > MEMO_TOTAL
   const showCompletion = useDoneDelay(done)
 
-  // Dynamic fills — add bhupura band fills when fillAll is active in Explore mode
-  const dynamicFills = (!memorise && fillAll)
-    ? { ...YANTRA_FILLS, 'c1-outer': 'rgba(200,70,70,0.85)', 'c1-mid': 'rgba(200,70,70,0.85)' }
-    : YANTRA_FILLS
+  // Dynamic fills — brown in Memorise (contrast with gold dots); red band overlays in Explore fillAll
+  const dynamicFills = memorise
+    ? YANTRA_FILLS_BROWN
+    : (fillAll
+        ? { ...YANTRA_FILLS, 'c1-outer': 'rgba(200,70,70,0.85)', 'c1-mid': 'rgba(200,70,70,0.85)' }
+        : YANTRA_FILLS)
 
   return (
     <div className="w-full p-4">

@@ -4480,9 +4480,9 @@ export default function App() {
               <div className="grid grid-cols-2 gap-1.5">
                 {[
                   { id: 'all',          label: 'All',            title: null              },
-                  { id: 'siddhiShakti', label: 'Siddhi Shaktis', title: 'Outer level'    },
-                  { id: 'ashtaMatrika', label: 'Ashta Matrikas', title: 'Middle level'   },
-                  { id: 'mudraShakti',  label: 'Mudra Shaktis',  title: 'Inner level'    },
+                  { id: 'siddhiShakti', label: 'Outer Band',    title: 'Outer level'    },
+                  { id: 'ashtaMatrika', label: 'Middle Band',   title: 'Middle level'   },
+                  { id: 'mudraShakti',  label: 'Inner Band',    title: 'Inner level'    },
                 ].map(g => (
                   <button key={g.id}
                     title={g.title ?? undefined}
