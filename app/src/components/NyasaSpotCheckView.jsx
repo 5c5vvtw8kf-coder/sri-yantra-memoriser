@@ -407,12 +407,6 @@ export default function NyasaSpotCheckView({
           tap to reveal · <span className="text-red-400">tap again</span> = memorised · <span className="text-gold-400">dbl-tap</span> = not memorised · dbl-tap past = toggle
         </p>
       )}
-      {/* Instruction — desktop */}
-      {!done && (
-        <p className="mt-3 text-center text-xs text-muted italic hidden md:block">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
-        </p>
-      )}
 
       {/* Completion */}
       {done && (
