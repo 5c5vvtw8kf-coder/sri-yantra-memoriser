@@ -206,11 +206,15 @@ export default function ClosingView({
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
       if (n !== currentSeq) return
-      if (revealedNum !== n) {
-        // First tap — reveal the name
+      if (!isMobile) {
+        // Desktop: hover already revealed the name — single click = mark correct
+        onMarkResult(n, 'correct')
+        setRevealedNum(null)
+      } else if (revealedNum !== n) {
+        // Mobile first tap — reveal the name
         setRevealedNum(n)
       } else {
-        // Second tap — mark correct
+        // Mobile second tap — mark correct
         onMarkResult(n, 'correct')
         setRevealedNum(null)
       }

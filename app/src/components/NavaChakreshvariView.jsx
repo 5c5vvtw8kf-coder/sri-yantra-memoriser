@@ -204,7 +204,7 @@ function buildMemFills(colorFn, hoveredCircuit) {
   // Bindu: only cream/red/black — never dim gold.
   // Apply hover gold only if the bindu is still in the future (dim); once answered, show result.
   const c9raw = colorFn(9)
-  const c9 = c9raw === FILL_SEL ? FILL_SEL                                    // answered correct → red
+  const c9 = c9raw === FILL_SEL ? '#000000'                                    // answered correct → black (red invisible on c8 red)
            : c9raw === FILL_HI  ? FILL_HI                                     // active → cream
            : hoveredCircuit === 9 && c9raw === FILL_DIM ? FILL_GOLD_HI        // future + hover → gold
            : '#000000'                                                         // future/not hovered → black
