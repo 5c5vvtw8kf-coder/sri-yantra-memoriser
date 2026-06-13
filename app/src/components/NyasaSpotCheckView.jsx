@@ -51,7 +51,8 @@ const ASTRA_POSITIONS = [
 
 // ── Yantra fills (same as NyasaView) ─────────────────────────────────────────
 
-const GOLD_FILL = 'rgba(201,168,76,0.80)'
+const GOLD_FILL  = 'rgba(201,168,76,0.80)'
+const BROWN_FILL = 'rgba(138,117,96,0.35)'
 const YANTRA_FILLS = {
   ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
     [`petal-c2-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
@@ -318,7 +319,7 @@ export default function NyasaSpotCheckView({
             <SriYantraSVG
               className="w-full h-full"
               showTriangles={true}
-              filledRegions={YANTRA_FILLS}
+              filledRegions={YANTRA_FILLS_BROWN}
             />
           </div>
 

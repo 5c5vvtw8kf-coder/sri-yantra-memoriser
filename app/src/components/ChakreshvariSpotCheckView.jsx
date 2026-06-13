@@ -58,7 +58,7 @@ const FLASH_RED   = 'rgba(248,113,113,0.62)'
 const FLASH_GOLD  = 'rgba(201,168,76,0.52)'
 const RESULT_RED  = 'rgba(248,113,113,0.55)'
 const RESULT_GOLD = 'rgba(201,168,76,0.35)'
-const DIM         = 'rgba(201,168,76,0.07)'
+const DIM         = 'rgba(138,117,96,0.35)'
 
 // ── Fill builder ──────────────────────────────────────────────────────────────
 

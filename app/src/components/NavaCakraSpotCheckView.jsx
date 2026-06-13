@@ -46,7 +46,7 @@ const CIRCUIT_FILL_IDS = {
 
 // ── Colours ───────────────────────────────────────────────────────────────────
 
-const DIM          = 'rgba(201,168,76,0.07)'
+const DIM          = 'rgba(138,117,96,0.35)'
 const HIGHLIGHT    = 'rgba(255,248,200,0.90)'
 const FLASH_RED    = 'rgba(248,113,113,0.62)'   // correct = memorised = red
 const FLASH_GOLD   = 'rgba(201,168,76,0.52)'    // wrong = not memorised = gold
