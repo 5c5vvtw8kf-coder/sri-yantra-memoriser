@@ -372,8 +372,8 @@ export default function C89SpotCheckView({
                 <circle key={d.id}
                   cx={pos[0].toFixed(1)} cy={pos[1].toFixed(1)}
                   r={r} fill={fill}
-                  style={{ cursor: res ? 'context-menu' : 'default', pointerEvents: res ? 'all' : 'none' }}
-                  onTouchEnd={res ? e => { e.preventDefault(); handlePastDoubleTap(d.id) } : undefined}
+                  style={{ cursor: res ? 'pointer' : 'default', pointerEvents: res ? 'all' : 'none' }}
+                  onClick={res ? () => handlePastDoubleTap(d.id) : undefined}
                   onContextMenu={res ? e => handleRightClick(e, d.id) : undefined}
                 />
               )
@@ -388,8 +388,8 @@ export default function C89SpotCheckView({
                 <circle
                   cx={bx.toFixed(1)} cy={by.toFixed(1)}
                   r={r} fill={fill}
-                  style={{ cursor: res ? 'context-menu' : 'default', pointerEvents: res ? 'all' : 'none' }}
-                  onTouchEnd={res ? e => { e.preventDefault(); handlePastDoubleTap(c9Deity.id) } : undefined}
+                  style={{ cursor: res ? 'pointer' : 'default', pointerEvents: res ? 'all' : 'none' }}
+                  onClick={res ? () => handlePastDoubleTap(c9Deity.id) : undefined}
                   onContextMenu={res ? e => handleRightClick(e, c9Deity.id) : undefined}
                 />
               )
