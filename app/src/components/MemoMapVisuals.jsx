@@ -382,7 +382,7 @@ function CircuitSideBox({ label, tipText, status, tooltipSide }) {
   const textCol   = attempted ? 'rgba(15,8,5,0.9)' : '#8a7560'
   const showTip   = status === 'partial' || status === 'notMemorised'
   return (
-    <div className="relative rounded-md px-3 py-2 text-[15px] font-semibold cursor-default select-none iast"
+    <div className="relative rounded-md px-2 py-1 text-[13px] font-semibold cursor-default select-none iast"
          style={{ background: fill, color: textCol }}
          onMouseEnter={showTip ? () => setShowTooltip(true) : undefined}
          onMouseLeave={showTip ? () => setShowTooltip(false) : undefined}>
@@ -391,7 +391,7 @@ function CircuitSideBox({ label, tipText, status, tooltipSide }) {
         <div className={`absolute z-20 top-full mt-1 pointer-events-none
                          ${tooltipSide === 'right' ? 'left-0' : 'right-0'}
                          bg-surface-900 border border-surface-700 rounded px-2 py-1.5
-                         text-sm iast text-cream whitespace-nowrap bg-surface-900/95 border border-surface-700/60 shadow-xl`}>
+                         text-xs iast text-cream whitespace-nowrap bg-surface-900/95 border border-surface-700/60 shadow-xl`}>
           {tipText}
         </div>
       )}
@@ -728,19 +728,25 @@ export default function MemoMapVisuals({ allHistory, script = 'iast' }) {
   return (
     <div className="space-y-3">
 
-      <div className="flex items-center gap-2">
-        <button onClick={prev} disabled={mapIdx === 0}
-          className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded text-cream hover:bg-surface-800 disabled:opacity-20 transition-colors">
-          ←
-        </button>
-        <div className="flex-1 text-center min-w-0">
-          <div className="iast text-cream text-sm font-medium truncate">{map.label}</div>
-          <div className="text-muted text-[11px] font-mono">{mapIdx + 1} / {total}</div>
+      <div>
+        <div className="flex items-center gap-2">
+          <button onClick={prev} disabled={mapIdx === 0}
+            className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded text-cream text-xl hover:bg-surface-800 disabled:opacity-20 transition-colors">
+            ←
+          </button>
+          <div className="flex-1 text-center min-w-0">
+            <div className="iast text-cream text-sm font-medium truncate">{map.label}</div>
+          </div>
+          <button onClick={next} disabled={mapIdx === total - 1}
+            className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded text-cream text-xl hover:bg-surface-800 disabled:opacity-20 transition-colors">
+            →
+          </button>
         </div>
-        <button onClick={next} disabled={mapIdx === total - 1}
-          className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded text-cream hover:bg-surface-800 disabled:opacity-20 transition-colors">
-          →
-        </button>
+        <div className="flex items-center justify-between text-[11px] font-mono text-muted -mt-2">
+          <span className="w-10 text-center">previous</span>
+          <span>{mapIdx + 1} / {total}</span>
+          <span className="w-10 text-center">next</span>
+        </div>
       </div>
 
       <StatusCounts counts={counts} />

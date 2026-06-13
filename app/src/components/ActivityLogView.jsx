@@ -188,7 +188,7 @@ export default function ActivityLogView() {
                       <td className="px-1 py-2 iast text-gold-400 truncate text-[15px]">
                         {SECTION_LABEL[entry.section] ?? entry.section}
                         {entry.section === 'spot-check' && entry.filter && entry.filter !== 'all' && (
-                          <span className="text-surface-500"> · {SPOT_FILTER_LABEL[entry.filter] ?? entry.filter}</span>
+                          <span> – {SPOT_FILTER_LABEL[entry.filter] ?? entry.filter}</span>
                         )}
                       </td>
                       <td className={`px-1 py-2 iast text-right text-[15px] ${scoreClass}`}>
