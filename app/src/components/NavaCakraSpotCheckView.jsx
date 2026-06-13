@@ -136,13 +136,14 @@ function computeFills(activeCircuit, flashState) {
 // ── Answer SVG labels ─────────────────────────────────────────────────────────
 // SVG overlays sharing the yantra viewBox — scale with the container.
 
-function AnswerSVGLabel({ label, script }) {
-  const fontSize = script === 'devanagari' ? 16 : script === 'english' ? 15 : 14
-  const h        = script === 'devanagari' ? 30 : 28
-  const charW    = script === 'devanagari' ? 12 : script === 'telugu' ? 14 : script === 'tamil' ? 15 : script === 'english' ? 10 : 9
-  const w        = Math.max(80, label.length * charW + 24)
-  const tx = 260
-  const ty = 90
+function AnswerSVGLabel({ label, script, flash }) {
+  const fontSize = script === 'devanagari' ? 22 : script === 'english' ? 20 : 18
+  const h        = script === 'devanagari' ? 38 : 36
+  const charW    = script === 'devanagari' ? 15 : script === 'telugu' ? 17 : script === 'tamil' ? 18 : script === 'english' ? 13 : 11
+  const w        = Math.max(100, label.length * charW + 28)
+  const tx       = 260
+  const ty       = 92
+  const textFill = flash === 'correct' ? '#f87171' : '#c9a84c'
   return (
     <g pointerEvents="none">
       <rect
@@ -151,23 +152,24 @@ function AnswerSVGLabel({ label, script }) {
         fill="rgba(15,8,5,0.92)" stroke="rgba(201,168,76,0.45)" strokeWidth={0.7}
       />
       <text x={tx} y={ty} textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill="#c9a84c" fontFamily="'Gentium Plus', Georgia, serif">
+        fontSize={fontSize} fill={textFill} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
     </g>
   )
 }
 
-function AnswerSVGLabel2({ line1, line2, script }) {
-  const fontSize = script === 'devanagari' ? 16 : script === 'english' ? 15 : 14
-  const lineH    = script === 'devanagari' ? 28 : 26
-  const charW    = script === 'devanagari' ? 12 : script === 'telugu' ? 14 : script === 'tamil' ? 15 : script === 'english' ? 10 : 9
-  const totalH   = lineH * 2 + 4
-  const w        = Math.max(80, Math.max(line1.length, line2.length) * charW + 24)
-  const tx = 260
-  const ty = 92   // shifted down slightly so top edge clears the viewBox
-  const y1 = ty - totalH / 2 + lineH / 2
-  const y2 = ty + totalH / 2 - lineH / 2
+function AnswerSVGLabel2({ line1, line2, script, flash }) {
+  const fontSize  = script === 'devanagari' ? 22 : script === 'english' ? 20 : 18
+  const lineH     = script === 'devanagari' ? 36 : 34
+  const charW     = script === 'devanagari' ? 15 : script === 'telugu' ? 17 : script === 'tamil' ? 18 : script === 'english' ? 13 : 11
+  const totalH    = lineH * 2 + 6
+  const w         = Math.max(100, Math.max(line1.length, line2.length) * charW + 28)
+  const tx        = 260
+  const ty        = 100   // centred a bit lower so both lines sit within the yantra top area
+  const y1        = ty - totalH / 2 + lineH / 2
+  const y2        = ty + totalH / 2 - lineH / 2
+  const textFill  = flash === 'correct' ? '#f87171' : '#c9a84c'
   return (
     <g pointerEvents="none">
       <rect
@@ -176,11 +178,11 @@ function AnswerSVGLabel2({ line1, line2, script }) {
         fill="rgba(15,8,5,0.92)" stroke="rgba(201,168,76,0.45)" strokeWidth={0.7}
       />
       <text x={tx} y={y1} textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill="#c9a84c" fontFamily="'Gentium Plus', Georgia, serif">
+        fontSize={fontSize} fill={textFill} fontFamily="'Gentium Plus', Georgia, serif">
         {line1}
       </text>
       <text x={tx} y={y2} textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill="#c9a84c" fontFamily="'Gentium Plus', Georgia, serif" opacity="0.65">
+        fontSize={fontSize} fill={textFill} fontFamily="'Gentium Plus', Georgia, serif" opacity="0.65">
         {line2}
       </text>
     </g>
@@ -224,11 +226,13 @@ export default function NavaCakraSpotCheckView({
   const [queue,   setQueue]   = useState(() => buildQueue(subFilter))
   const [idx,     setIdx]     = useState(0)
   const [results, setResults] = useState({})
-  const [hovered, setHovered] = useState(false)
-  const [flash,   setFlash]   = useState(null)
+  const [hovered,  setHovered]  = useState(false)
+  const [flash,    setFlash]    = useState(null)
+  const [revealed, setRevealed] = useState(false)
   const clickTimer     = useRef(null)
   const advanceTimer   = useRef(null)
   const roundLoggedRef = useRef(false)
+  const lastTapRef     = useRef({ time: 0 })
 
   const total   = queue.length
   const done    = idx >= total
@@ -258,6 +262,7 @@ export default function NavaCakraSpotCheckView({
     setResults({})
     setHovered(false)
     setFlash(null)
+    setRevealed(false)
   }, [subFilter]) // eslint-disable-line
 
   // Sync progress
@@ -287,9 +292,13 @@ export default function NavaCakraSpotCheckView({
       advanceTimer.current = null
       setFlash(null)
       setHovered(false)
+      setRevealed(false)
       setIdx(i => i + 1)
-    }, 3000)
+    }, 5000)
   }, [])
+
+  // Reset revealed state and ghost hover when idx advances
+  useEffect(() => { setRevealed(false); setHovered(false) }, [idx])
 
   const advance = useCallback((result) => {
     if (!current || done) return
@@ -321,6 +330,50 @@ export default function NavaCakraSpotCheckView({
     setFlash(toggled)
     scheduleAdvance()
   }, [done, flash, current, scheduleAdvance])
+
+  // Mobile two-step: tap = reveal → tap = correct · double-tap = wrong
+  // During flash: double-tap = toggle result
+  const handleTouchEnd = useCallback((e) => {
+    e.preventDefault()
+    if (done) return
+    const now = Date.now()
+
+    if (flash) {
+      // During flash: double-tap to toggle
+      if (now - lastTapRef.current.time < 500) {
+        lastTapRef.current = { time: 0 }
+        const toggled = flash === 'correct' ? 'wrong' : 'correct'
+        if (advanceTimer.current) { clearTimeout(advanceTimer.current); advanceTimer.current = null }
+        setResults(prev => ({ ...prev, [current]: toggled }))
+        setFlash(toggled)
+        scheduleAdvance()
+      } else {
+        lastTapRef.current = { time: now }
+      }
+      return
+    }
+
+    const elapsed = now - lastTapRef.current.time
+    if (elapsed < 350 && revealed) {
+      // Double-tap while revealed → wrong
+      lastTapRef.current = { time: 0 }
+      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+      setRevealed(false)
+      advance('wrong')
+    } else {
+      lastTapRef.current = { time: now }
+      if (clickTimer.current) return
+      clickTimer.current = setTimeout(() => {
+        clickTimer.current = null
+        if (!revealed) {
+          setRevealed(true)
+        } else {
+          setRevealed(false)
+          advance('correct')
+        }
+      }, 260)
+    }
+  }, [done, flash, revealed, advance, current, scheduleAdvance])
 
   const handleSkip = useCallback(() => {
     if (done || flash) return
@@ -357,11 +410,12 @@ export default function NavaCakraSpotCheckView({
       {!done && (
         <div
           className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
-          style={{ paddingBottom: '100%', cursor: 'pointer' }}
+          style={{ paddingBottom: '100%', cursor: 'pointer', touchAction: 'manipulation' }}
           onMouseLeave={() => setHovered(false)}
           onClick={handleClick}
           onDoubleClick={handleDblClick}
           onContextMenu={handleContextMenu}
+          onTouchEnd={handleTouchEnd}
         >
           <div className="absolute inset-0">
             <SriYantraSVG
@@ -386,7 +440,7 @@ export default function NavaCakraSpotCheckView({
             )}
 
             {/* Answer reveal overlay — SVG so it scales with the yantra */}
-            {(hovered || flash) && answer && (
+            {(hovered || flash || revealed) && answer && (
               <svg
                 viewBox="45 55 430 430"
                 xmlns="http://www.w3.org/2000/svg"
@@ -394,8 +448,8 @@ export default function NavaCakraSpotCheckView({
                 style={{ pointerEvents: 'none' }}
               >
                 {parsed?.type === 'both'
-                  ? <AnswerSVGLabel2 line1={svaminiAnswer} line2={yoginiAnswer} script={script} />
-                  : <AnswerSVGLabel  label={answer} script={script} />
+                  ? <AnswerSVGLabel2 line1={svaminiAnswer} line2={yoginiAnswer} script={script} flash={flash} />
+                  : <AnswerSVGLabel  label={answer} script={script} flash={flash} />
                 }
               </svg>
             )}
@@ -407,7 +461,7 @@ export default function NavaCakraSpotCheckView({
       {/* Instruction */}
       {!done && (
         <p className="mt-3 text-center text-xs text-muted italic">
-          <span className="md:hidden">tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised</span>
+          <span className="md:hidden">tap to reveal · <span style={{ color: '#f87171' }}>tap again</span> = memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · dbl-tap after = toggle</span>
           <span className="hidden md:inline">hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle</span>
         </p>
       )}
