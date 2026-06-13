@@ -386,7 +386,8 @@ export default function C89SpotCheckView({
       {/* Instruction hint */}
       {!done && (
         <p className="mt-3 text-center text-xs text-muted italic">
-          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+          <span className="md:hidden">tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised</span>
+          <span className="hidden md:inline">hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle</span>
         </p>
       )}
 

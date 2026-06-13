@@ -6,8 +6,8 @@
  * Uses the same body-position visual as NyasaView: full Sri Yantra with
  * 5 body dots (Hṛdaya–Netra) and 4 T-gate dots (AstraDevī).
  *
- * Active deity's dot(s) glow cream; hover to reveal name; dbl-click =
- * memorised; click = not memorised; right-click = toggle answered.
+ * Active deity's dot(s) glow cream; hover/tap to reveal name; click/2nd-tap =
+ * memorised; dbl-click = not memorised; right-click/dbl-tap-past = toggle.
  *
  * AstraDevī (seq 6) occupies all 4 gate positions simultaneously —
  * any gate click marks the answer; all 4 gates flash together.
@@ -169,9 +169,11 @@ export default function NyasaSpotCheckView({
   const [queue,   setQueue]   = useState(() => shuffle(nyasaDeities.map(d => d.id)))
   const [idx,     setIdx]     = useState(0)
   const [results, setResults] = useState({})
-  const [hoveredSeq, setHoveredSeq] = useState(null)
+  const [hoveredSeq,  setHoveredSeq]  = useState(null)
+  const [revealedId,  setRevealedId]  = useState(null)
   const [flash,   setFlash]   = useState(null)
   const clickTimer     = useRef(null)
+  const lastPastTap    = useRef({ id: null, time: 0 })
   const roundLoggedRef = useRef(false)
 
   const total   = queue.length
@@ -192,8 +194,12 @@ export default function NyasaSpotCheckView({
     setIdx(0)
     setResults({})
     setHoveredSeq(null)
+    setRevealedId(null)
     setFlash(null)
   }, [subFilter]) // eslint-disable-line
+
+  // Clear reveal when question advances
+  useEffect(() => { setRevealedId(null) }, [idx])
 
   useEffect(() => {
     if (onProgressSync) onProgressSync({ idx, total, correct, wrong })
@@ -213,6 +219,7 @@ export default function NyasaSpotCheckView({
 
   const advance = useCallback((result) => {
     if (!current || done) return
+    setRevealedId(null)
     setResults(prev => ({ ...prev, [current.id]: result }))
     setFlash(result)
     setTimeout(() => {
@@ -222,21 +229,28 @@ export default function NyasaSpotCheckView({
     }, 380)
   }, [current, done])
 
+  // Two-step tap: first tap reveals name; second tap = memorised
   const handleClick = useCallback(() => {
     if (done || flash) return
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      advance('correct')
+      if (revealedId !== current?.id) {
+        setRevealedId(current?.id ?? null)
+      } else {
+        advance('correct')
+      }
     }, 260)
-  }, [done, flash, advance])
+  }, [done, flash, advance, revealedId, current])
 
+  // Double-tap active = not memorised
   const handleDblClick = useCallback(() => {
     if (done || flash) return
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
     advance('wrong')
   }, [done, flash, advance])
 
+  // Right-click (desktop) or double-tap (mobile) past dot = toggle
   const handleRightClick = useCallback((e, deityId) => {
     e.preventDefault()
     if (!results[deityId]) return
@@ -246,9 +260,25 @@ export default function NyasaSpotCheckView({
     }))
   }, [results])
 
+  // Mobile double-tap (within 350ms) to toggle a past answer — mirrors right-click on desktop
+  const handlePastDoubleTap = useCallback((deityId) => {
+    const now  = Date.now()
+    const last = lastPastTap.current
+    if (last.id === deityId && now - last.time < 350) {
+      lastPastTap.current = { id: null, time: 0 }
+      setResults(prev => {
+        if (!prev[deityId]) return prev
+        return { ...prev, [deityId]: prev[deityId] === 'correct' ? 'wrong' : 'correct' }
+      })
+    } else {
+      lastPastTap.current = { id: deityId, time: now }
+    }
+  }, [])
+
   const handleSkip = useCallback(() => {
     if (done || flash) return
     setHoveredSeq(null)
+    setRevealedId(null)
     setIdx(i => i + 1)
   }, [done, flash])
 
@@ -266,6 +296,7 @@ export default function NyasaSpotCheckView({
     setIdx(0)
     setResults({})
     setHoveredSeq(null)
+    setRevealedId(null)
     setFlash(null)
   }, [results, onUpdateStats])
 
@@ -322,12 +353,13 @@ export default function NyasaSpotCheckView({
                   fill={dotFill}
                   stroke={stroke} strokeWidth={strokeW}
                   style={{
-                    cursor: isCursor ? (isPast ? 'context-menu' : 'pointer') : 'default',
+                    cursor: isCursor ? 'pointer' : 'default',
                     pointerEvents: isCursor ? 'all' : 'none',
                     transition: 'fill 0.25s',
                   }}
                   onClick={isActive && !flash ? handleClick : undefined}
                   onDoubleClick={isActive && !flash ? handleDblClick : undefined}
+                  onTouchEnd={isPast ? e => { e.preventDefault(); handlePastDoubleTap(d.id) } : undefined}
                   onContextMenu={isPast ? e => handleRightClick(e, d.id) : undefined}
                   onMouseEnter={isActive && !flash ? () => setHoveredSeq(seq) : undefined}
                   onMouseLeave={isActive && !flash ? () => setHoveredSeq(null) : undefined}
@@ -335,9 +367,9 @@ export default function NyasaSpotCheckView({
               ))
             })}
 
-            {/* Tooltip on active hovered dot */}
-            {hoveredSeq !== null && !flash && current && (() => {
-              const positions = dotsForSeq(hoveredSeq)
+            {/* Tooltip on active hovered dot (desktop) or first tap (mobile) */}
+            {(hoveredSeq !== null || revealedId === current?.id) && !flash && current && (() => {
+              const positions = dotsForSeq(activeSeq)
               const [x, y] = positions[0] ?? [CX, CY]
               return (
                 <Tooltip
@@ -365,9 +397,21 @@ export default function NyasaSpotCheckView({
         </div>
       )}
 
-      {/* Instruction */}
+      {/* Instruction — mobile */}
       {!done && (
-        <p className="mt-3 text-center text-xs text-muted italic">
+        <p className="mt-3 text-center text-xs text-muted italic md:hidden">
+          tap to reveal · <span className="text-red-400">tap again</span> = memorised · <span className="text-gold-400">dbl-tap</span> = not memorised · dbl-tap past = toggle
+        </p>
+      )}
+      {/* Instruction — mobile */}
+      {!done && (
+        <p className="mt-3 text-center text-xs text-muted italic md:hidden">
+          tap to reveal · <span className="text-red-400">tap again</span> = memorised · <span className="text-gold-400">dbl-tap</span> = not memorised · dbl-tap past = toggle
+        </p>
+      )}
+      {/* Instruction — desktop */}
+      {!done && (
+        <p className="mt-3 text-center text-xs text-muted italic hidden md:block">
           hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
         </p>
       )}

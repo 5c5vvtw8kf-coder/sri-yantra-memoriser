@@ -351,7 +351,7 @@ function CardPrompt({ deity, script, hovered, onMouseEnter, onMouseLeave, onClic
             {(hovered || flash) ? (
               <p className="iast text-gold-300 text-xl leading-snug">{name}</p>
             ) : (
-              <p className="text-muted italic" style={{ fontSize: '11px' }}>hover to reveal</p>
+              <p className="text-muted italic hidden md:block" style={{ fontSize: '11px' }}>hover to reveal</p>
             )}
           </div>
         </div>
@@ -750,11 +750,20 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         </div>
         )}
 
-        {/* Mobile instruction — 2 rows, hidden on desktop */}
+        {/* Mobile instruction — hidden on desktop; content varies by mode */}
         <div className="md:hidden flex flex-col items-center gap-0.5 pt-1"
              style={{ fontSize: '11px', fontFamily: "'Inter', system-ui, sans-serif", color: 'rgba(201,168,76,0.55)', letterSpacing: '0.02em' }}>
-          <span>tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised</span>
-          <span><span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> past = toggle</span>
+          {isCardMode ? (
+            <>
+              <span>tap to reveal · <span style={{ color: '#f87171' }}>tap again</span> = memorised</span>
+              <span><span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised</span>
+            </>
+          ) : (
+            <>
+              <span>tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised</span>
+              <span><span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> past = toggle</span>
+            </>
+          )}
         </div>
         </>
       )}
