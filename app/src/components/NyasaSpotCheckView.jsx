@@ -87,7 +87,7 @@ const BG           = '#0f0805'
 const ACTIVE_FILL  = 'rgba(255,248,200,0.92)'
 const RESULT_RED   = 'rgba(248,113,113,0.75)'   // correct = memorised = red
 const RESULT_GOLD  = 'rgba(201,168,76,0.40)'    // wrong = not memorised = gold
-const DIM_FILL     = 'rgba(201,168,76,0.25)'
+const DIM_FILL     = 'rgba(80,50,20,0.50)'    // not yet reached — dark brown, distinct from gold
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
