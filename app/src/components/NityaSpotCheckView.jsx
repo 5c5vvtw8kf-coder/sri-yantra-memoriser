@@ -193,20 +193,23 @@ export default function NityaSpotCheckView({
     }, FLASH_MS)
   }, [flash])
 
-  // ── Click (active dot) — two-step: first tap reveals, second tap = correct ──
+  // ── Click (active dot) — desktop: correct directly; mobile: two-step reveal ──
+  const isMobile = window.innerWidth < 768
   const handleClick = useCallback((id) => {
     if (flash || !current || id !== current.id) return
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (revealedId !== current?.id) {
+      if (!isMobile) {
+        markResult(id, 'correct')
+      } else if (revealedId !== current?.id) {
         setRevealedId(current?.id ?? null)
       } else {
         setRevealedId(null)
         markResult(id, 'correct')
       }
     }, 260)
-  }, [flash, current, revealedId, markResult])
+  }, [flash, current, revealedId, markResult, isMobile])
 
   const handleDblClick = useCallback((id) => {
     if (flash || !current || id !== current.id) return

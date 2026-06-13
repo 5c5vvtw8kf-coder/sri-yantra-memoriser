@@ -229,20 +229,23 @@ export default function C89SpotCheckView({
     }, 380)
   }, [current, done])
 
-  // Desktop: two-step click — first reveals name, second marks correct
+  // Desktop: single click = correct; mobile: two-step reveal then correct
+  const isMobile = window.innerWidth < 768
   const handleClick = useCallback(() => {
     if (done || flash) return
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (revealedId !== current?.id) {
+      if (!isMobile) {
+        advance('correct')
+      } else if (revealedId !== current?.id) {
         setRevealedId(current?.id ?? null)
       } else {
         setRevealedId(null)
         advance('correct')
       }
     }, 260)
-  }, [done, flash, advance, revealedId, current])
+  }, [done, flash, advance, revealedId, current, isMobile])
 
   // Desktop: double-click = wrong
   const handleDblClick = useCallback(() => {

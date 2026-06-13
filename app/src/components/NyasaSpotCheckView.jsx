@@ -89,8 +89,8 @@ const nyasaDeities = deities
 const GOLD         = '#c9a84c'
 const BG           = '#0f0805'
 const ACTIVE_FILL  = 'rgba(255,248,200,0.92)'
-const RESULT_RED   = 'rgba(248,113,113,0.75)'   // correct = memorised = red
-const RESULT_GOLD  = 'rgba(201,168,76,0.40)'    // wrong = not memorised = gold
+const RESULT_RED   = 'rgba(248,113,113,0.92)'   // correct = memorised = red
+const RESULT_GOLD  = 'rgba(201,168,76,0.85)'    // wrong = not memorised = gold
 const DIM_FILL     = 'rgba(80,50,20,0.50)'    // not yet reached — dark brown, distinct from gold
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -234,20 +234,23 @@ export default function NyasaSpotCheckView({
     }, 380)
   }, [current, done])
 
-  // Two-step tap: first tap reveals name; second tap = memorised
+  // Click: desktop = correct directly; mobile = two-step reveal then correct
+  const isMobile = window.innerWidth < 768
   const handleClick = useCallback(() => {
     if (done || flash) return
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      if (revealedId !== current?.id) {
+      if (!isMobile) {
+        advance('correct')
+      } else if (revealedId !== current?.id) {
         setRevealedId(current?.id ?? null)
       } else {
         setRevealedId(null)
         advance('correct')
       }
     }, 260)
-  }, [done, flash, advance, revealedId, current])
+  }, [done, flash, advance, revealedId, current, isMobile])
 
   // Double-tap active = not memorised
   const handleDblClick = useCallback(() => {
