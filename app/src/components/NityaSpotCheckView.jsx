@@ -171,7 +171,7 @@ export default function NityaSpotCheckView({
   }, [idx, total, results, onProgressSync])
 
   // Reset reveal state when active deity changes
-  useEffect(() => { setRevealedId(null) }, [idx])
+  useEffect(() => { setRevealedId(null); setHoveredId(null) }, [idx])
 
   // ── End-of-round stats ─────────────────────────────────────────────────────
   useEffect(() => {
