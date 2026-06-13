@@ -285,6 +285,7 @@ export default function C4View({
     if (memorise) {
       if (flash) return { ...YANTRA_FILLS }
       const fills = { ...YANTRA_FILLS_BROWN }
+      for (let i = 1; i <= 14; i++) fills[triangleIdForSeq(i)] = GOLD_FILL
       if (currentSeq <= 14) fills[triangleIdForSeq(currentSeq)] = ACTIVE_REGION
       for (let seq = 1; seq < currentSeq; seq++) {
         if (results[seq] === 'correct') fills[triangleIdForSeq(seq)] = 'rgba(200,70,70,0.85)'
