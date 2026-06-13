@@ -559,7 +559,7 @@ export default function BhupuraView({
               key={item.id}
               onClick={item.onSelect}
               style={{
-                fontSize: 11,
+                fontSize: item.active ? 13 : 11,
                 fontFamily: "'Inter', system-ui, sans-serif",
                 letterSpacing: '0.04em',
                 color: item.active ? GOLD : 'rgba(201,168,76,0.40)',
@@ -568,15 +568,15 @@ export default function BhupuraView({
                 border: `1px solid ${item.active ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.20)'}`,
                 borderRadius: 20,
                 cursor: 'pointer',
-                padding: '4px 12px',
+                padding: item.active ? '5px 14px' : '4px 12px',
                 whiteSpace: 'nowrap',
                 transition: 'color 0.2s, background 0.2s, border-color 0.2s',
               }}
             >
               {item.active && item.groupLabel ? (
                 <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.3 }}>
-                  <span style={{ fontSize: 10 }}>{item.label}</span>
-                  <span style={{ fontSize: 9, opacity: 0.75 }}>{item.groupLabel}</span>
+                  <span style={{ fontSize: 13 }}>{item.label}</span>
+                  <span style={{ fontSize: 11, opacity: 0.75 }}>{item.groupLabel}</span>
                 </span>
               ) : item.label}
             </button>
