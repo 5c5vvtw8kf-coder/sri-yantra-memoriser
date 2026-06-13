@@ -320,10 +320,10 @@ export default function C3View({
     if (memorise) {
       if (flash) return { ...YANTRA_FILLS }
       const fills = { ...YANTRA_FILLS_BROWN }
-      for (let i = 1; i <= 8; i++) fills[petalIdForSeq(i)] = GOLD_FILL
       if (currentSeq <= 8) fills[petalIdForSeq(currentSeq)] = ACTIVE_PETAL
       for (let seq = 1; seq < currentSeq; seq++) {
         if (results[seq] === 'correct') fills[petalIdForSeq(seq)] = 'rgba(200,70,70,0.85)'
+        else fills[petalIdForSeq(seq)] = GOLD_FILL
       }
       return fills
     }

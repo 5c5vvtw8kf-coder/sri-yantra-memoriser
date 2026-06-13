@@ -323,12 +323,12 @@ export default function C2View({
       // During the all-correct victory flash: briefly return to all-gold (no red)
       if (flash) return { ...YANTRA_FILLS }
       const fills = { ...YANTRA_FILLS_BROWN }
-      for (let i = 1; i <= 16; i++) fills[petalIdForSeq(i)] = GOLD_FILL
       // Active petal: cream so it reads as "focus here"
       if (currentSeq <= 16) fills[petalIdForSeq(currentSeq)] = ACTIVE_PETAL
       // Correct petals only — wrong petals stay gold (no color)
       for (let seq = 1; seq < currentSeq; seq++) {
         if (results[seq] === 'correct') fills[petalIdForSeq(seq)] = 'rgba(200,70,70,0.85)'
+        else fills[petalIdForSeq(seq)] = GOLD_FILL
       }
       return fills
     }
