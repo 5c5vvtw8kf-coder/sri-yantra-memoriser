@@ -131,11 +131,11 @@ function Tooltip({ x, y, label, script, aboveExtra }) {
 
 // ── Completion overlay ────────────────────────────────────────────────────────
 
-function CompletionOverlay({ correct, total, onRestart }) {
+function CompletionOverlay({ correct, total, onRestart, sectionLabel }) {
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0
   return (
     <div className="flex flex-col items-center gap-5 py-10 text-center">
-      <p className="iast text-gold-400 text-lg">sarvam paripurnam</p>
+      <p className="text-gold-400 text-lg">{sectionLabel || 'Round complete'}</p>
       <p className="text-cream text-sm">Round complete</p>
       <div>
         <p className="text-4xl font-medium">
@@ -162,6 +162,7 @@ export default function C89SpotCheckView({
   onProgressSync,
   onRegisterSkip,
   onUpdateStats,
+  sectionLabel,
 }) {
   const [queue,   setQueue]   = useState(() => buildQueue(subFilter))
   const [idx,     setIdx]     = useState(0)
@@ -452,7 +453,7 @@ export default function C89SpotCheckView({
 
       {/* Completion */}
       {done && (
-        <CompletionOverlay correct={correct} total={total} onRestart={startNewRound} />
+        <CompletionOverlay correct={correct} total={total} onRestart={startNewRound} sectionLabel={sectionLabel} />
       )}
 
     </div>

@@ -146,6 +146,7 @@ export default function NityaSpotCheckView({
   onProgressSync,
   onRegisterSkip,
   onUpdateStats,
+  sectionLabel,
 }) {
   const [queue,     setQueue]     = useState(() => buildQueue())
   const [idx,       setIdx]       = useState(0)
@@ -364,7 +365,7 @@ export default function NityaSpotCheckView({
                style={{ background: 'rgba(15,8,5,0.82)' }}>
             <div className="bg-surface-900 border border-surface-700 rounded-2xl p-6 shadow-2xl text-center space-y-3"
                  style={{ maxWidth: '15rem', margin: '0 1rem' }}>
-              <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">tithi nitya devātāḥ</p>
+              <p className="text-gold-500 text-base font-medium">{sectionLabel || 'Tithi Nitya Deities'}</p>
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === total
                   ? 'Memorised — well done!'

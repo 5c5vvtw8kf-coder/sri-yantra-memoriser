@@ -108,6 +108,37 @@ export const SC_FILTERS = [
   { id: 'all',       label: 'All', sectionIds: null },
 ]
 
+// ── Section label for completion overlay ─────────────────────────────────────
+
+function getSectionLabel(filter, subFilter) {
+  const ordinals = {
+    'circuit-1': '1st', 'circuit-2': '2nd', 'circuit-3': '3rd',
+    'circuit-4': '4th', 'circuit-5': '5th', 'circuit-6': '6th', 'circuit-7': '7th',
+  }
+  if (ordinals[filter]) return `${ordinals[filter]} Āvaraṇa`
+  if (filter === 'nyasa')         return 'Nyāsa Deities'
+  if (filter === 'nitya')         return 'Tithi Nitya Deities'
+  if (filter === 'chakreshvari')  return 'Nava Cakreshvarī'
+  if (filter === 'all')           return 'All Deities'
+  if (filter === 'guravah') {
+    if (subFilter === 'gurus-divya')  return 'Divyaugha Gurus'
+    if (subFilter === 'gurus-siddha') return 'Siddyaugha Gurus'
+    if (subFilter === 'gurus-manava') return 'Mānavaugha Gurus'
+    return 'Gurus'
+  }
+  if (filter === 'c8-c9') {
+    if (subFilter === 'c8c9-8th') return '8th Āvaraṇa'
+    if (subFilter === 'c8c9-9th') return '9th Āvaraṇa'
+    return '8th & 9th Āvaraṇas'
+  }
+  if (filter === 'nava-cakra') {
+    if (subFilter === 'nc-svamini') return 'Cakra Svāminī'
+    if (subFilter === 'nc-yogini')  return 'Cakra Yoginī'
+    return 'Cakra Svāminī & Yoginī'
+  }
+  return 'Round'
+}
+
 // ── Region-ID lookup ──────────────────────────────────────────────────────────
 
 const C4_DEITY_ORDER = [8, 7, 6, 5, 4, 3, 2, 1, 14, 13, 12, 11, 10, 9]
@@ -258,11 +289,11 @@ function Tooltip({ x, y, label, script, clearance = 22 }) {
   )
 }
 
-function CompletionOverlay({ correct, total, onRestart }) {
+function CompletionOverlay({ correct, total, onRestart, sectionLabel }) {
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0
   return (
     <div className="flex flex-col items-center gap-5 py-10 text-center">
-      <p className="iast text-gold-400 text-lg">sarvam paripurnam</p>
+      <p className="text-gold-400 text-lg">{sectionLabel || 'Round complete'}</p>
       <p className="text-cream text-sm">Round complete</p>
       <div>
         <p className="text-4xl font-medium">
@@ -568,6 +599,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
+        sectionLabel={getSectionLabel(filter, subFilter)}
       />
     )
   }
@@ -579,6 +611,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
+        sectionLabel={getSectionLabel(filter, subFilter)}
       />
     )
   }
@@ -589,6 +622,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
+        sectionLabel={getSectionLabel(filter, subFilter)}
       />
     )
   }
@@ -599,6 +633,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
+        sectionLabel={getSectionLabel(filter, subFilter)}
       />
     )
   }
@@ -610,6 +645,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
+        sectionLabel={getSectionLabel(filter, subFilter)}
       />
     )
   }
@@ -620,6 +656,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
+        sectionLabel={getSectionLabel(filter, subFilter)}
       />
     )
   }
@@ -771,6 +808,14 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
           )}
         </div>
         </>
+      )}
+
+      {done && (
+        <CompletionOverlay
+          correct={correct} total={total}
+          onRestart={startNewRound}
+          sectionLabel={getSectionLabel(filter, subFilter)}
+        />
       )}
 
     </div>
