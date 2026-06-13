@@ -166,7 +166,7 @@ function AnswerSVGLabel2({ line1, line2, script, flash }) {
   const fontSize  = script === 'devanagari' ? 22 : script === 'english' ? 20 : 18
   const lineH     = script === 'devanagari' ? 36 : 34
   const charW     = script === 'devanagari' ? 15 : script === 'telugu' ? 17 : script === 'tamil' ? 18 : script === 'english' ? 13 : 11
-  const totalH    = lineH * 2 + 2
+  const totalH    = lineH * 2 - 6
   const w         = Math.max(100, Math.max(line1.length, line2.length) * charW + 28)
   const tx        = 260
   const ty        = 100   // centred a bit lower so both lines sit within the yantra top area
