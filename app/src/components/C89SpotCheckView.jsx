@@ -70,7 +70,7 @@ const BG           = '#0f0805'
 const ACTIVE_FILL  = 'rgba(255,248,200,0.92)'
 const RESULT_RED   = 'rgba(248,113,113,0.75)'   // correct = memorised = red
 const RESULT_GOLD  = 'rgba(201,168,76,0.40)'    // wrong = not memorised = gold
-const DIM_FILL     = 'rgba(201,168,76,0.22)'
+const DIM_FILL     = 'rgba(80,50,20,0.50)'    // not yet reached — dark brown
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -168,9 +168,11 @@ export default function C89SpotCheckView({
   const [results, setResults] = useState({})
   const [hovered, setHovered] = useState(false)
   const [flash,   setFlash]   = useState(null)
+  const [revealedId, setRevealedId] = useState(null) // mobile two-step reveal
   const clickTimer     = useRef(null)
   const roundLoggedRef = useRef(false)
-  const lastPastTap    = useRef({ id: null, time: 0 }) // mobile double-tap toggle
+  const lastPastTap    = useRef({ id: null, time: 0 }) // mobile double-tap toggle past
+  const lastActiveTap  = useRef({ time: 0 })           // mobile double-tap for wrong
 
   const total   = queue.length
   const done    = idx >= total
@@ -193,6 +195,9 @@ export default function C89SpotCheckView({
     setHovered(false)
     setFlash(null)
   }, [subFilter]) // eslint-disable-line
+
+  // Reset reveal + hover state when deity changes
+  useEffect(() => { setRevealedId(null); setHovered(false) }, [idx])
 
   // Sync progress
   useEffect(() => {
@@ -223,20 +228,55 @@ export default function C89SpotCheckView({
     }, 380)
   }, [current, done])
 
+  // Desktop: two-step click — first reveals name, second marks correct
   const handleClick = useCallback(() => {
     if (done || flash) return
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      advance('correct')
+      if (revealedId !== current?.id) {
+        setRevealedId(current?.id ?? null)
+      } else {
+        setRevealedId(null)
+        advance('correct')
+      }
     }, 260)
-  }, [done, flash, advance])
+  }, [done, flash, advance, revealedId, current])
 
+  // Desktop: double-click = wrong
   const handleDblClick = useCallback(() => {
     if (done || flash) return
     if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+    setRevealedId(null)
     advance('wrong')
   }, [done, flash, advance])
+
+  // Mobile: onTouchEnd on active dot — single tap = reveal/correct, double-tap = wrong
+  const handleActiveTouchEnd = useCallback((e) => {
+    e.preventDefault()
+    if (done || flash) return
+    const now = Date.now()
+    const elapsed = now - lastActiveTap.current.time
+    if (elapsed < 350 && revealedId === current?.id) {
+      // Double-tap while revealed → wrong
+      lastActiveTap.current = { time: 0 }
+      if (clickTimer.current) { clearTimeout(clickTimer.current); clickTimer.current = null }
+      setRevealedId(null)
+      advance('wrong')
+    } else {
+      lastActiveTap.current = { time: now }
+      if (clickTimer.current) return
+      clickTimer.current = setTimeout(() => {
+        clickTimer.current = null
+        if (revealedId !== current?.id) {
+          setRevealedId(current?.id ?? null)
+        } else {
+          setRevealedId(null)
+          advance('correct')
+        }
+      }, 260)
+    }
+  }, [done, flash, advance, revealedId, current])
 
   const handleRightClick = useCallback((e, deityId) => {
     e.preventDefault()
@@ -367,6 +407,7 @@ export default function C89SpotCheckView({
                 onMouseLeave={() => { if (!flash) setHovered(false) }}
                 onClick={handleClick}
                 onDoubleClick={handleDblClick}
+                onTouchEnd={handleActiveTouchEnd}
               />
             )}
 
@@ -382,11 +423,12 @@ export default function C89SpotCheckView({
                 onMouseLeave={() => { if (!flash) setHovered(false) }}
                 onClick={handleClick}
                 onDoubleClick={handleDblClick}
+                onTouchEnd={handleActiveTouchEnd}
               />
             )}
 
             {/* Tooltip */}
-            {current && currentPos && (hovered || flash) && (
+            {current && currentPos && (hovered || flash || revealedId === current?.id) && (
               <Tooltip
                 x={currentPos[0]}
                 y={currentPos[1]}
@@ -403,7 +445,7 @@ export default function C89SpotCheckView({
       {/* Instruction hint */}
       {!done && (
         <p className="mt-3 text-center text-xs text-muted italic">
-          <span className="md:hidden">tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · dbl-tap past = toggle</span>
+          <span className="md:hidden">tap to reveal · <span style={{ color: '#f87171' }}>tap again</span> = memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · dbl-tap past = toggle</span>
           <span className="hidden md:inline">hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle</span>
         </p>
       )}
