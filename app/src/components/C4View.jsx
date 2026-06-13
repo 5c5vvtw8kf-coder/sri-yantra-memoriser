@@ -41,6 +41,7 @@ const ACTIVE_REGION = 'rgba(255,248,200,0.92)'
 const GOLD          = '#c9a84c'
 const GREEN         = '#27ae60'
 const CIRCUIT_VIEWBOX = '130 140 260 260'
+const FULL_VIEWBOX    = '45 55 430 430'
 
 const YANTRA_FILLS = {
   ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
@@ -115,15 +116,23 @@ const c4Section = data.sections?.find(s => s.circuitNumber === 4 && s.type === '
 // Left side (seqs 8–11): tooltips go below; larger offset clears the next dot below.
 const C4_TOOLTIP_OFFSET = { 1: 35, 2: 52, 3: 44, 4: 70, 8: 38, 9: 55, 10: 42, 11: 70 }
 
-function Tooltip({ x, y, label, script, seq }) {
+function Tooltip({ x, y, label, script, seq, isMobile }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 18 : script === 'english' ? 17 : 16
-  const h        = script === 'devanagari' ? 36 : script === 'english' ? 34 : 32
-  const charW    = script === 'devanagari' ? 12.5 : script === 'telugu' ? 14.5 : script === 'tamil' ? 15.5 : script === 'english' ? 10 : 9.5
-  const w        = Math.max(50, label.length * charW + 14)
-  const tx       = Math.min(Math.max(x, 135 + w / 2), 385 - w / 2)
-  const offset   = (seq != null && seq in C4_TOOLTIP_OFFSET) ? C4_TOOLTIP_OFFSET[seq] : 14
-  const ty       = y > CY ? y - h / 2 - offset : y + h / 2 + offset
+  const fontSize = isMobile
+    ? (script === 'devanagari' ? 18 : script === 'english' ? 17 : 16)
+    : (script === 'devanagari' ? 26 : script === 'english' ? 25 : 24)
+  const h = isMobile
+    ? (script === 'devanagari' ? 36 : script === 'english' ? 34 : 32)
+    : (script === 'devanagari' ? 52 : script === 'english' ? 50 : 48)
+  const charW = isMobile
+    ? (script === 'devanagari' ? 12.5 : script === 'telugu' ? 14.5 : script === 'tamil' ? 15.5 : script === 'english' ? 10 : 9.5)
+    : (script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5)
+  const w  = isMobile ? Math.max(50, label.length * charW + 14) : Math.max(60, label.length * charW + 18)
+  const tx = isMobile
+    ? Math.min(Math.max(x, 135 + w / 2), 385 - w / 2)
+    : Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
+  const yOff = isMobile ? ((seq != null && seq in C4_TOOLTIP_OFFSET) ? C4_TOOLTIP_OFFSET[seq] : 14) : 18
+  const ty   = y > CY ? y - h / 2 - yOff : y + h / 2 + yOff
   return (
     <g pointerEvents="none">
       <rect
@@ -293,6 +302,9 @@ export default function C4View({
 
   // ── Render ──────────────────────────────────────────────────────────────────
 
+  const isMobileView = window.innerWidth < 768
+  const activeViewBox = isMobileView ? CIRCUIT_VIEWBOX : FULL_VIEWBOX
+
   return (
     <div className="w-full p-4">
 
@@ -305,7 +317,7 @@ export default function C4View({
 
           <SriYantraSVG
             className="w-full h-full"
-            viewBox={CIRCUIT_VIEWBOX}
+            viewBox={activeViewBox}
             showTriangles={true}
             showLabels={false}
             showNumbers={false}
@@ -313,7 +325,7 @@ export default function C4View({
           />
 
           <svg
-            viewBox={CIRCUIT_VIEWBOX}
+            viewBox={activeViewBox}
             xmlns="http://www.w3.org/2000/svg"
             className="absolute inset-0 w-full h-full"
             style={{ background: 'transparent' }}
@@ -448,7 +460,7 @@ export default function C4View({
                 return (
                   <Tooltip x={hoveredDot.x} y={hoveredDot.y}
                     label={displayName(hd, script)} script={script}
-                    seq={hd?.sequenceInSection} />
+                    seq={hd?.sequenceInSection} isMobile={isMobileView} />
                 )
               }
               if (!memorise && selectedId) {
@@ -456,7 +468,7 @@ export default function C4View({
                 const pos = d ? C4_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
                 return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script}
-                         seq={d.sequenceInSection} />
+                         seq={d.sequenceInSection} isMobile={isMobileView} />
               }
               return null
             })()}

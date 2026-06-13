@@ -34,6 +34,7 @@ const ACTIVE_REGION = 'rgba(255,248,200,0.92)'
 const GOLD          = '#c9a84c'
 const GREEN         = '#27ae60'
 const CIRCUIT_VIEWBOX = '193 203 134 134'
+const FULL_VIEWBOX    = '45 55 430 430'
 
 const YANTRA_FILLS = {
   ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
@@ -91,15 +92,23 @@ const c7Section = data.sections?.find(s => s.circuitNumber === 7 && s.type === '
 
 const C7_TOOLTIP_OFFSET = { 1: 18, 2: 24, 5: 20, 6: 18, 7: 24 }
 
-function Tooltip({ x, y, label, script, seq }) {
+function Tooltip({ x, y, label, script, seq, isMobile }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 9 : script === 'english' ? 9 : 8   // scaled for viewBox 134
-  const h        = script === 'devanagari' ? 18 : script === 'english' ? 18 : 17
-  const charW    = script === 'devanagari' ? 7.5 : script === 'telugu' ? 8.5 : script === 'tamil' ? 9 : script === 'english' ? 5.8 : 5.5
-  const w        = Math.max(32, label.length * charW + 8)
-  const tx       = Math.min(Math.max(x, 198 + w / 2), 322 - w / 2)
-  const offset   = (seq != null && seq in C7_TOOLTIP_OFFSET) ? C7_TOOLTIP_OFFSET[seq] : 8
-  const ty       = y > CY ? y - h / 2 - offset : y + h / 2 + offset
+  const fontSize = isMobile
+    ? (script === 'devanagari' ? 9 : script === 'english' ? 9 : 8)
+    : (script === 'devanagari' ? 26 : script === 'english' ? 25 : 24)
+  const h = isMobile
+    ? (script === 'devanagari' ? 18 : script === 'english' ? 18 : 17)
+    : (script === 'devanagari' ? 52 : script === 'english' ? 50 : 48)
+  const charW = isMobile
+    ? (script === 'devanagari' ? 7.5 : script === 'telugu' ? 8.5 : script === 'tamil' ? 9 : script === 'english' ? 5.8 : 5.5)
+    : (script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5)
+  const w  = isMobile ? Math.max(32, label.length * charW + 8) : Math.max(60, label.length * charW + 18)
+  const tx = isMobile
+    ? Math.min(Math.max(x, 198 + w / 2), 322 - w / 2)
+    : Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
+  const yOff = isMobile ? ((seq != null && seq in C7_TOOLTIP_OFFSET) ? C7_TOOLTIP_OFFSET[seq] : 8) : 18
+  const ty   = y > CY ? y - h / 2 - yOff : y + h / 2 + yOff
   return (
     <g pointerEvents="none">
       <rect x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
@@ -245,6 +254,9 @@ export default function C7View({
     return fills
   })()
 
+  const isMobileView = window.innerWidth < 768
+  const activeViewBox = isMobileView ? CIRCUIT_VIEWBOX : FULL_VIEWBOX
+
   return (
     <div className="w-full p-4">
 
@@ -253,11 +265,11 @@ export default function C7View({
         <div className="absolute inset-0">
 
           <SriYantraSVG className="w-full h-full"
-            viewBox={CIRCUIT_VIEWBOX}
+            viewBox={activeViewBox}
             showTriangles={true} showLabels={false} showNumbers={false}
             filledRegions={filledRegions} />
 
-          <svg viewBox={CIRCUIT_VIEWBOX} xmlns="http://www.w3.org/2000/svg"
+          <svg viewBox={activeViewBox} xmlns="http://www.w3.org/2000/svg"
                className="absolute inset-0 w-full h-full"
                style={{ background: 'transparent' }}
                aria-label="Circuit 7 — 8 triangles deity positions">
@@ -348,13 +360,13 @@ export default function C7View({
               if (hoveredDot) return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
                   label={displayName(deityById[hoveredDot.id], script)} script={script}
-                  seq={deityById[hoveredDot.id]?.sequenceInSection} />
+                  seq={deityById[hoveredDot.id]?.sequenceInSection} isMobile={isMobileView} />
               )
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C7_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} seq={d.sequenceInSection} />
+                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} seq={d.sequenceInSection} isMobile={isMobileView} />
               }
               return null
             })()}
