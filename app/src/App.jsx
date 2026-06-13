@@ -2456,6 +2456,7 @@ export default function App() {
     setInnerCurrentSeq(1)
     setInnerResults({})
     setInnerFlash(false)
+    setInnerWaning(false)
   }
   const handleInnerExitMemorise = () => setInnerMemorise(false)
   const handleInnerMarkResult = (seq, result) => {
