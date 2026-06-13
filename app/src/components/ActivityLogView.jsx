@@ -44,6 +44,23 @@ function Cols() {
   )
 }
 
+const SPOT_FILTER_LABEL = {
+  'all':          'All',
+  'nyasa':        'Nyāsa',
+  'nitya':        'Nitya',
+  'guravah':      'Guruvah',
+  'circuit-1':    '1st Āvaraṇa',
+  'circuit-2':    '2nd Āvaraṇa',
+  'circuit-3':    '3rd Āvaraṇa',
+  'circuit-4':    '4th Āvaraṇa',
+  'circuit-5':    '5th Āvaraṇa',
+  'circuit-6':    '6th Āvaraṇa',
+  'circuit-7':    '7th Āvaraṇa',
+  'c8-c9':        '8th & 9th',
+  'nava-cakra':   'Cakra',
+  'chakreshvari': 'Tripurā',
+}
+
 // ── Filter section options ────────────────────────────────────────────────────
 
 const SECTION_OPTIONS = Object.entries(SECTION_LABEL).map(([id, label]) => ({ id, label }))
@@ -170,6 +187,9 @@ export default function ActivityLogView() {
                       <td className="px-1 py-2 iast text-muted text-[15px]">{fmtTime(entry.ts)}</td>
                       <td className="px-1 py-2 iast text-gold-400 truncate text-[15px]">
                         {SECTION_LABEL[entry.section] ?? entry.section}
+                        {entry.section === 'spot-check' && entry.filter && entry.filter !== 'all' && (
+                          <span className="text-surface-500"> · {SPOT_FILTER_LABEL[entry.filter] ?? entry.filter}</span>
+                        )}
                       </td>
                       <td className={`px-1 py-2 iast text-right text-[15px] ${scoreClass}`}>
                         {entry.correct}/{entry.total}

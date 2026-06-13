@@ -3987,7 +3987,7 @@ export default function App() {
                     total:   prev.total   + t,
                     rounds:  prev.rounds  + 1,
                   }))
-                  saveSessionLog({ ts: Date.now(), section: 'spot-check', correct: c, total: t })
+                  saveSessionLog({ ts: Date.now(), section: 'spot-check', filter: scFilter, correct: c, total: t })
                 }}
               />
             )}
