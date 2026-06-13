@@ -71,6 +71,9 @@ const YANTRA_FILLS = {
   'tri-c8-bg-02': '#0f0805',
   'c9':           '#000000',
 }
+const YANTRA_FILLS_BROWN = Object.fromEntries(
+  Object.entries(YANTRA_FILLS).map(([k, v]) => [k, v === GOLD_FILL ? BROWN_FILL : v])
+)
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
