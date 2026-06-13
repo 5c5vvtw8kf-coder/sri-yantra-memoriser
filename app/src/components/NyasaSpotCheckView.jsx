@@ -265,7 +265,7 @@ export default function NyasaSpotCheckView({
   const handlePastDoubleTap = useCallback((deityId) => {
     const now  = Date.now()
     const last = lastPastTap.current
-    if (last.id === deityId && now - last.time < 350) {
+    if (last.id === deityId && now - last.time < 500) {
       lastPastTap.current = { id: null, time: 0 }
       setResults(prev => {
         if (!prev[deityId]) return prev
@@ -327,6 +327,7 @@ export default function NyasaSpotCheckView({
             viewBox="0 0 500 500"
             xmlns="http://www.w3.org/2000/svg"
             aria-label="Nyāsa Devatāḥ spot check"
+            style={{ touchAction: 'manipulation' }}
           >
             {nyasaDeities.map(d => {
               const seq      = d.sequenceInSection

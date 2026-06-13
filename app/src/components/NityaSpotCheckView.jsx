@@ -224,7 +224,7 @@ export default function NityaSpotCheckView({
   const handlePastDoubleTap = useCallback((id) => {
     const now = Date.now()
     const last = lastPastTap.current
-    if (last.id === id && now - last.time < 350) {
+    if (last.id === id && now - last.time < 500) {
       lastPastTap.current = { id: null, time: 0 }
       handleToggle(id)
     } else {
@@ -268,7 +268,7 @@ export default function NityaSpotCheckView({
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
         <svg viewBox="-30 181 560 500" xmlns="http://www.w3.org/2000/svg"
-             style={{ display: 'block', width: '100%' }}
+             style={{ display: 'block', width: '100%', touchAction: 'manipulation' }}
              aria-label="Tithi Nitya Spot Check — 16 Nitya positions">
 
           {/* Context geometry */}
