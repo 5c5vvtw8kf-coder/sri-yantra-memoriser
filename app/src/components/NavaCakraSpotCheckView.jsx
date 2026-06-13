@@ -118,9 +118,12 @@ function computeFills(activeCircuit, flashState) {
   // transparent with no stroke — prevents inner-circuit strokes overlaying the
   // active circuit's cream fill.
   const fills = {
-    'c1': DIM,
     ...Object.fromEntries(Array.from({ length: 16 }, (_, i) => [`petal-c2-${pad(i+1)}`, DIM])),
     ...Object.fromEntries(Array.from({ length:  8 }, (_, i) => [`petal-c3-${pad(i+1)}`, DIM])),
+    ...Object.fromEntries(Array.from({ length: 14 }, (_, i) => [`tri-c4-${pad(i+1)}`, DIM])),
+    ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c5-${pad(i+1)}`, DIM])),
+    ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c6-${pad(i+1)}`, DIM])),
+    ...Object.fromEntries(Array.from({ length:  8 }, (_, i) => [`tri-c7-${pad(i+1)}`, DIM])),
   }
 
   // Highlight active circuit
