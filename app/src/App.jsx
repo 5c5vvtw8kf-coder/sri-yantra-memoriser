@@ -2604,6 +2604,13 @@ export default function App() {
   const [scSubFilter, setScSubFilter] = useState(null)
   const [scLimit,     setScLimit]     = useState(null)
   const [scProgress, setScProgress] = useState({ idx: 0, total: 0, correct: 0, wrong: 0 })
+
+  // Reset progress counter when filter/limit changes so the displayed total
+  // reflects the new segment rather than the previous one
+  useEffect(() => {
+    setScProgress({ idx: 0, total: 0, correct: 0, wrong: 0 })
+  }, [scFilter, scSubFilter, scLimit])
+
   const scSkipRef      = useRef(null)
   const swipeStartX    = useRef(null)
   const swipeStartY    = useRef(null)
