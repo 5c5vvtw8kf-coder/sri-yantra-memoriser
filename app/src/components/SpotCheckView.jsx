@@ -420,12 +420,15 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
     setPrevResults(null)
   }, [filter, subFilter, limit]) // eslint-disable-line
 
-  // Sync progress to right panel
+  // Sync progress to right panel — skip when delegating to a visualMode sub-component
+  // (the sub-component calls onProgressSync itself; parent fires after child and would overwrite)
   useEffect(() => {
+    const activeFilterDef = SC_FILTERS.find(f => f.id === filter)
+    if (activeFilterDef?.visualMode) return
     if (onProgressSync) {
       onProgressSync({ idx, total, correct, wrong })
     }
-  }, [idx, total, correct, wrong, onProgressSync])
+  }, [idx, total, correct, wrong, onProgressSync, filter])
 
   // Clean up timers
   useEffect(() => () => { if (clickTimer.current) clearTimeout(clickTimer.current) }, [])
