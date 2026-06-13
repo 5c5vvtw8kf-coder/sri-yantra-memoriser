@@ -165,6 +165,7 @@ export default function NyasaSpotCheckView({
   onProgressSync,
   onRegisterSkip,
   onUpdateStats,
+  sectionLabel,
 }) {
   const [queue,   setQueue]   = useState(() => shuffle(nyasaDeities.map(d => d.id)))
   const [idx,     setIdx]     = useState(0)
