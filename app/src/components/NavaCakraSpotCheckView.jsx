@@ -66,8 +66,11 @@ function buildQueue(subFilter) {
   const circuits = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   if (subFilter === 'nc-svamini') return shuffle(circuits.map(c => `${c}-svamini`))
   if (subFilter === 'nc-yogini')  return shuffle(circuits.map(c => `${c}-yogini`))
-  // null = Both → one item per circuit, tooltip shows both answers
-  return shuffle(circuits.map(c => `${c}-both`))
+  // null = Both → 18 separate items: each svamini and yogini tested individually
+  return shuffle([
+    ...circuits.map(c => `${c}-svamini`),
+    ...circuits.map(c => `${c}-yogini`),
+  ])
 }
 
 function parseItem(item) {

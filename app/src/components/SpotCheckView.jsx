@@ -59,6 +59,7 @@ export const SC_FILTERS = [
     id: 'guravah', label: 'Gurus',
     sectionIds: ['guru-divya', 'guru-siddha', 'guru-manava'],
     visualMode: 'guravah',
+    defaultSubFilter: null,
     subFilters: [
       { id: 'gurus-divya',  label: 'Divya',  filterSectionIds: ['guru-divya']  },
       { id: 'gurus-siddha', label: 'Siddha', filterSectionIds: ['guru-siddha'] },
