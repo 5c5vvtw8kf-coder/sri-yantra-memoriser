@@ -31,6 +31,7 @@ const CY = 270
 // ── Yantra fills ───────────────────────────────────────────────────────────────
 
 const GOLD_FILL    = 'rgba(201,168,76,0.80)'
+const BROWN_FILL   = 'rgba(138,117,96,0.35)'
 const ACTIVE_PETAL = 'rgba(255,248,200,0.92)'
 
 const YANTRA_FILLS = {
@@ -51,6 +52,10 @@ const YANTRA_FILLS = {
   'tri-c8-bg-02': '#0f0805',
   'c9':           '#000000',
 }
+// Brown version for Memorise mode — makes gold dots stand out
+const YANTRA_FILLS_BROWN = Object.fromEntries(
+  Object.entries(YANTRA_FILLS).map(([k, v]) => [k, v === GOLD_FILL ? BROWN_FILL : v])
+)
 
 // ── Petal geometry ─────────────────────────────────────────────────────────────
 
@@ -317,7 +322,7 @@ export default function C2View({
     if (memorise) {
       // During the all-correct victory flash: briefly return to all-gold (no red)
       if (flash) return { ...YANTRA_FILLS }
-      const fills = { ...YANTRA_FILLS }
+      const fills = { ...YANTRA_FILLS_BROWN }
       // Active petal: cream so it reads as "focus here"
       if (currentSeq <= 16) fills[petalIdForSeq(currentSeq)] = ACTIVE_PETAL
       // Correct petals only — wrong petals stay gold (no color)

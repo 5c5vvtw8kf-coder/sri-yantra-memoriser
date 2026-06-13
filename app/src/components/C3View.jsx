@@ -42,6 +42,7 @@ const CY = 270
 // ── Yantra fills ───────────────────────────────────────────────────────────────
 
 const GOLD_FILL    = 'rgba(201,168,76,0.80)'
+const BROWN_FILL   = 'rgba(138,117,96,0.35)'
 const ACTIVE_PETAL = 'rgba(255,248,200,0.92)'
 
 const YANTRA_FILLS = {
@@ -62,6 +63,10 @@ const YANTRA_FILLS = {
   'tri-c8-bg-02': '#0f0805',
   'c9':           '#000000',
 }
+// Brown version for Memorise mode — makes gold dots stand out
+const YANTRA_FILLS_BROWN = Object.fromEntries(
+  Object.entries(YANTRA_FILLS).map(([k, v]) => [k, v === GOLD_FILL ? BROWN_FILL : v])
+)
 
 // ── Petal geometry ─────────────────────────────────────────────────────────────
 
@@ -104,7 +109,9 @@ function arcPt(angleDeg, r) {
  */
 function c3ArrowPath(fromSeq, toSeq) {
   const [fx, fy] = arcPt(C3_SEQ_ANGLE[fromSeq] + 8, ARROW_R)
-  const [tx, ty] = arcPt(C3_SEQ_ANGLE[toSeq]   - 8, ARROW_R)
+  // Wrap arrow (8→1): use a larger offset so the head swings left toward the top-petal centre
+  const toOffset = (fromSeq === 8 && toSeq === 1) ? -18 : -8
+  const [tx, ty] = arcPt(C3_SEQ_ANGLE[toSeq] + toOffset, ARROW_R)
   return `M ${fx.toFixed(1)},${fy.toFixed(1)} L ${tx.toFixed(1)},${ty.toFixed(1)}`
 }
 
@@ -312,7 +319,7 @@ export default function C3View({
   const filledRegions = (() => {
     if (memorise) {
       if (flash) return { ...YANTRA_FILLS }
-      const fills = { ...YANTRA_FILLS }
+      const fills = { ...YANTRA_FILLS_BROWN }
       if (currentSeq <= 8) fills[petalIdForSeq(currentSeq)] = ACTIVE_PETAL
       for (let seq = 1; seq < currentSeq; seq++) {
         if (results[seq] === 'correct') fills[petalIdForSeq(seq)] = 'rgba(200,70,70,0.85)'

@@ -30,6 +30,7 @@ const CX = 260
 const CY = 270
 
 const GOLD_FILL    = 'rgba(201,168,76,0.80)'
+const BROWN_FILL   = 'rgba(138,117,96,0.35)'
 const ACTIVE_REGION = 'rgba(255,248,200,0.92)'
 const GOLD          = '#c9a84c'
 const GREEN         = '#27ae60'
@@ -54,6 +55,11 @@ const YANTRA_FILLS = {
   'tri-c8-bg-02': '#0f0805',
   'c9':           '#000000',
 }
+
+// Brown version for Memorise mode — makes gold dots stand out
+const YANTRA_FILLS_BROWN = Object.fromEntries(
+  Object.entries(YANTRA_FILLS).map(([k, v]) => [k, v === GOLD_FILL ? BROWN_FILL : v])
+)
 
 // Chant sequence → geometric deitySeq
 const C5_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
@@ -233,7 +239,7 @@ export default function C5View({
   const filledRegions = (() => {
     if (memorise) {
       if (flash) return { ...YANTRA_FILLS }
-      const fills = { ...YANTRA_FILLS }
+      const fills = { ...YANTRA_FILLS_BROWN }
       if (currentSeq <= 10) fills[triangleIdForSeq(currentSeq)] = ACTIVE_REGION
       for (let seq = 1; seq < currentSeq; seq++) {
         if (results[seq] === 'correct') fills[triangleIdForSeq(seq)] = 'rgba(200,70,70,0.85)'
