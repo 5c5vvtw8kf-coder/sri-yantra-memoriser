@@ -143,7 +143,7 @@ function AnswerSVGLabel({ label, script, flash }) {
   const w        = Math.max(100, label.length * charW + 28)
   const tx       = 260
   const ty       = 92
-  const textFill = flash === 'correct' ? '#f87171' : '#c9a84c'
+  const textFill = flash === 'correct' ? '#f87171' : flash === 'wrong' ? '#c9a84c' : '#fff8c8'
   return (
     <g pointerEvents="none">
       <rect
@@ -169,7 +169,7 @@ function AnswerSVGLabel2({ line1, line2, script, flash }) {
   const ty        = 100   // centred a bit lower so both lines sit within the yantra top area
   const y1        = ty - totalH / 2 + lineH / 2
   const y2        = ty + totalH / 2 - lineH / 2
-  const textFill  = flash === 'correct' ? '#f87171' : '#c9a84c'
+  const textFill  = flash === 'correct' ? '#f87171' : flash === 'wrong' ? '#c9a84c' : '#fff8c8'
   return (
     <g pointerEvents="none">
       <rect
