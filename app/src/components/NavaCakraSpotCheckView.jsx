@@ -185,7 +185,7 @@ function AnswerSVGLabel2({ line1, line2, script, flash }) {
         {line1}
       </text>
       <text x={tx} y={y2} textAnchor="middle" dominantBaseline="middle"
-        fontSize={fontSize} fill={textFill} fontFamily="'Gentium Plus', Georgia, serif" opacity="0.65">
+        fontSize={fontSize} fill={textFill} fontFamily="'Gentium Plus', Georgia, serif">
         {line2}
       </text>
     </g>
