@@ -201,6 +201,7 @@ export default function NityaSpotCheckView({
       if (revealedId !== current?.id) {
         setRevealedId(current?.id ?? null)
       } else {
+        setRevealedId(null)
         markResult(id, 'correct')
       }
     }, 260)

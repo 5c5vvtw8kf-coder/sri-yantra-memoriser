@@ -238,6 +238,7 @@ export default function NyasaSpotCheckView({
       if (revealedId !== current?.id) {
         setRevealedId(current?.id ?? null)
       } else {
+        setRevealedId(null)
         advance('correct')
       }
     }, 260)
