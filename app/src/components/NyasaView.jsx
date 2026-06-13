@@ -70,7 +70,7 @@ const nyasaDeities = deities
 // ── Yantra fills (same palette as BhupuraView) ────────────────────────────────
 
 const GOLD_FILL  = 'rgba(201,168,76,0.80)'
-const BROWN_FILL = 'rgba(101,68,40,0.80)'
+const BROWN_FILL = 'rgba(138,117,96,0.35)'
 const YANTRA_FILLS = {
   ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
     [`petal-c2-${String(i + 1).padStart(2, '0')}`, GOLD_FILL])),
