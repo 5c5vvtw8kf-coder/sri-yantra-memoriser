@@ -84,7 +84,7 @@ const BG           = '#0f0805'
 const ACTIVE_FILL  = 'rgba(255,248,200,0.92)'
 const RESULT_RED   = 'rgba(248,113,113,0.85)'   // correct = memorised = red
 const RESULT_GOLD  = 'rgba(201,168,76,0.40)'    // wrong = not memorised = gold
-const DIM_FILL     = 'rgba(201,168,76,0.25)'
+const DIM_FILL     = 'rgba(80,50,20,0.50)'    // not yet reached — dark brown, distinct from gold
 
 const FLASH_MS = 380
 
@@ -153,8 +153,10 @@ export default function NityaSpotCheckView({
   const [hoveredId, setHoveredId] = useState(null)
   const [flash,     setFlash]     = useState(null) // null | 'correct' | 'wrong'
 
-  const clickTimer = useRef(null)
-  const flashTimer = useRef(null)
+  const [revealedId, setRevealedId] = useState(null)  // mobile two-step reveal
+  const clickTimer    = useRef(null)
+  const flashTimer    = useRef(null)
+  const lastPastTap   = useRef({ id: null, time: 0 }) // mobile double-tap toggle
 
   const total   = queue.length
   const done    = idx >= total
@@ -167,6 +169,9 @@ export default function NityaSpotCheckView({
     const wrong   = Object.values(results).filter(v => v === 'wrong').length
     onProgressSync({ idx, total, correct, wrong })
   }, [idx, total, results, onProgressSync])
+
+  // Reset reveal state when active deity changes
+  useEffect(() => { setRevealedId(null) }, [idx])
 
   // ── End-of-round stats ─────────────────────────────────────────────────────
   useEffect(() => {
@@ -187,15 +192,19 @@ export default function NityaSpotCheckView({
     }, FLASH_MS)
   }, [flash])
 
-  // ── Click / dbl-click (active dot only) ───────────────────────────────────
+  // ── Click (active dot) — two-step: first tap reveals, second tap = correct ──
   const handleClick = useCallback((id) => {
     if (flash || !current || id !== current.id) return
     if (clickTimer.current) return
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
-      markResult(id, 'correct')
-    }, 280)
-  }, [flash, current, markResult])
+      if (revealedId !== current?.id) {
+        setRevealedId(current?.id ?? null)
+      } else {
+        markResult(id, 'correct')
+      }
+    }, 260)
+  }, [flash, current, revealedId, markResult])
 
   const handleDblClick = useCallback((id) => {
     if (flash || !current || id !== current.id) return
@@ -203,10 +212,24 @@ export default function NityaSpotCheckView({
     markResult(id, 'wrong')
   }, [flash, current, markResult])
 
-  // ── Toggle past result (right-click) ──────────────────────────────────────
+  // ── Toggle past result — desktop right-click / mobile double-tap ──────────
   const handleToggle = useCallback((id) => {
-    setResults(r => ({ ...r, [id]: r[id] === 'correct' ? 'wrong' : 'correct' }))
+    setResults(r => {
+      if (!r[id]) return r
+      return { ...r, [id]: r[id] === 'correct' ? 'wrong' : 'correct' }
+    })
   }, [])
+
+  const handlePastDoubleTap = useCallback((id) => {
+    const now = Date.now()
+    const last = lastPastTap.current
+    if (last.id === id && now - last.time < 350) {
+      lastPastTap.current = { id: null, time: 0 }
+      handleToggle(id)
+    } else {
+      lastPastTap.current = { id, time: now }
+    }
+  }, [handleToggle])
 
   // ── Skip ──────────────────────────────────────────────────────────────────
   const handleSkip = useCallback(() => {
@@ -291,6 +314,7 @@ export default function NityaSpotCheckView({
                 }}
                 onClick={isActive && !flash ? () => handleClick(d.id) : undefined}
                 onDoubleClick={isActive && !flash ? () => handleDblClick(d.id) : undefined}
+                onTouchEnd={isPast ? e => { e.preventDefault(); handlePastDoubleTap(d.id) } : undefined}
                 onContextMenu={isPast && !flash
                   ? (e) => { e.preventDefault(); handleToggle(d.id) }
                   : undefined}
@@ -302,11 +326,12 @@ export default function NityaSpotCheckView({
             )
           })}
 
-          {/* Tooltip */}
-          {hoveredId && !flash && (() => {
-            const d = deityById[hoveredId]
+          {/* Tooltip — visible on hover (desktop) or after tap-to-reveal (mobile) */}
+          {(hoveredId || revealedId === current?.id) && !flash && (() => {
+            const hovId = hoveredId || current?.id
+            const d = deityById[hovId]
             if (!d) return null
-            const i   = nityaDeities.findIndex(nd => nd.id === hoveredId)
+            const i   = nityaDeities.findIndex(nd => nd.id === hovId)
             const pos = NITYA_POSITIONS[i]
             if (!pos) return null
             return (
@@ -319,6 +344,18 @@ export default function NityaSpotCheckView({
           })()}
 
         </svg>
+
+      {/* Instructions */}
+      {!done && (
+        <p className="mt-3 text-center text-xs text-muted italic md:hidden">
+          tap to reveal · <span className="text-red-400">tap again</span> = memorised · <span className="text-gold-400">dbl-tap</span> = not memorised · dbl-tap past = toggle
+        </p>
+      )}
+      {!done && (
+        <p className="mt-3 text-center text-xs text-muted italic hidden md:block">
+          hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle
+        </p>
+      )}
 
         {/* Completion overlay */}
         {done && (
