@@ -173,13 +173,10 @@ function computeFills(activeRegionId, flashState, filterId, results) {
     'c9':           activeRegionId === 'c9' ? activeColor : '#000000',
   }
 
-  // Segment highlight for non-answered regions in the active circuit filter.
-  // C2 petals use BG_DIM (brown) — SEGMENT_GOLD is indistinguishable from RESULT_GOLD
-  // on open petal shapes. C3–C8 geometry is layered/darker so SEGMENT_GOLD reads fine.
+  // Non-answered regions in the active circuit use BG_DIM (brown) —
+  // SEGMENT_GOLD is indistinguishable from RESULT_GOLD (not memorised).
   segmentIds.forEach(id => {
-    if (id !== activeRegionId) {
-      fills[id] = id.startsWith('petal-c2-') ? BG_DIM : SEGMENT_GOLD
-    }
+    if (id !== activeRegionId) fills[id] = BG_DIM
   })
 
   // Persistent result colours for answered regions (overrides segment gold)
