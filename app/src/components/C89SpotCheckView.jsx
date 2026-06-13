@@ -170,6 +170,7 @@ export default function C89SpotCheckView({
   const [flash,   setFlash]   = useState(null)
   const clickTimer     = useRef(null)
   const roundLoggedRef = useRef(false)
+  const lastPastTap    = useRef({ id: null, time: 0 }) // mobile double-tap toggle
 
   const total   = queue.length
   const done    = idx >= total
@@ -246,6 +247,20 @@ export default function C89SpotCheckView({
     }))
   }, [results])
 
+  const handlePastDoubleTap = useCallback((deityId) => {
+    const now = Date.now()
+    const last = lastPastTap.current
+    if (last.id === deityId && now - last.time < 500) {
+      lastPastTap.current = { id: null, time: 0 }
+      setResults(prev => {
+        if (!prev[deityId]) return prev
+        return { ...prev, [deityId]: prev[deityId] === 'correct' ? 'wrong' : 'correct' }
+      })
+    } else {
+      lastPastTap.current = { id: deityId, time: now }
+    }
+  }, [])
+
   const handleSkip = useCallback(() => {
     if (done || flash) return
     setHovered(false)
@@ -289,7 +304,7 @@ export default function C89SpotCheckView({
           <svg
             viewBox="-30 181 560 500"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ background: BG, display: 'block', width: '100%' }}
+            style={{ background: BG, display: 'block', width: '100%', touchAction: 'manipulation' }}
             aria-label="8th and 9th Āvaraṇa — inner triangle and bindu"
           >
             {/* Context geometry */}
@@ -318,6 +333,7 @@ export default function C89SpotCheckView({
                   cx={pos[0].toFixed(1)} cy={pos[1].toFixed(1)}
                   r={r} fill={fill}
                   style={{ cursor: res ? 'context-menu' : 'default', pointerEvents: res ? 'all' : 'none' }}
+                  onTouchEnd={res ? e => { e.preventDefault(); handlePastDoubleTap(d.id) } : undefined}
                   onContextMenu={res ? e => handleRightClick(e, d.id) : undefined}
                 />
               )
@@ -333,6 +349,7 @@ export default function C89SpotCheckView({
                   cx={bx.toFixed(1)} cy={by.toFixed(1)}
                   r={r} fill={fill}
                   style={{ cursor: res ? 'context-menu' : 'default', pointerEvents: res ? 'all' : 'none' }}
+                  onTouchEnd={res ? e => { e.preventDefault(); handlePastDoubleTap(c9Deity.id) } : undefined}
                   onContextMenu={res ? e => handleRightClick(e, c9Deity.id) : undefined}
                 />
               )
@@ -386,7 +403,7 @@ export default function C89SpotCheckView({
       {/* Instruction hint */}
       {!done && (
         <p className="mt-3 text-center text-xs text-muted italic">
-          <span className="md:hidden">tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised</span>
+          <span className="md:hidden">tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · dbl-tap past = toggle</span>
           <span className="hidden md:inline">hover to reveal · <span className="text-red-400">click</span> = memorised · <span className="text-gold-400">dbl-click</span> = not memorised · right-click = toggle</span>
         </p>
       )}
