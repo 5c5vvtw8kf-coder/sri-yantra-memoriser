@@ -637,7 +637,7 @@ const _S3 = 152,    _GW3 = 28,    _GD3 = 25
 const _GOFF1 = 3
 
 const BHUPURA_MARKERS = [
-  // Level 1 — outer square
+  // Level 1 — outer square (n=1–11: 11 Siddhi Shaktis; n=11 shares gate with laghimā)
   // n=1–4: gate-adjacent Siddhi Shaktis — aligned to outer polygon step corners, offset outward
   { level: 1, n:  1, x: 295,                   y: 430,               corner: false },  // bottom gate right step — manual
   { level: 1, n:  2, x: 100,                   y: 306,               corner: false },  // left gate bottom step — manual
@@ -649,26 +649,27 @@ const BHUPURA_MARKERS = [
   { level: 1, n:  8, x: CX + _S1,                       y: CY + _S1,  corner: true  },
   { level: 1, n:  9, x: CX + _S1 - (_S1 - _GW1) / 3,   y: CY + _S1,  corner: false },
   { level: 1, n: 10, x: CX - _S1 + (_S1 - _GW1) / 4,   y: CY - _S1,  corner: false },
+  { level: 1, n: 11, x: 100,                   y: 306,               corner: false },  // garimāsiddhē — exact same position as laghimā (n=2); lineage determines which appears
   // Level 2 — mid square
-  { level: 2, n: 11, x: 229,                   y: 426,               corner: false },  // manual
-  { level: 2, n: 12, x: 103,                   y: 238,               corner: false },  // manual
-  { level: 2, n: 13, x: 292,                   y: 114,               corner: false },  // manual
-  { level: 2, n: 14, x: 416,                   y: 302,               corner: false },  // manual
-  { level: 2, n: 15, x: 105,                   y: 425,               corner: true  },  // manual
-  { level: 2, n: 16, x: 105,                   y: 115,               corner: true  },  // manual
-  { level: 2, n: 17, x: 415,                   y: 115,               corner: true  },  // manual
-  { level: 2, n: 18, x: 415,                   y: 425,               corner: true  },  // manual
+  { level: 2, n: 12, x: 229,                   y: 426,               corner: false },  // manual
+  { level: 2, n: 13, x: 103,                   y: 238,               corner: false },  // manual
+  { level: 2, n: 14, x: 292,                   y: 114,               corner: false },  // manual
+  { level: 2, n: 15, x: 416,                   y: 302,               corner: false },  // manual
+  { level: 2, n: 16, x: 105,                   y: 425,               corner: true  },  // manual
+  { level: 2, n: 17, x: 105,                   y: 115,               corner: true  },  // manual
+  { level: 2, n: 18, x: 415,                   y: 115,               corner: true  },  // manual
+  { level: 2, n: 19, x: 415,                   y: 425,               corner: true  },  // manual
   // Level 3 — inner square
-  { level: 3, n: 19, x: 288,                   y: 423,               corner: false },  // manual
-  { level: 3, n: 20, x: 107,                   y: 298,               corner: false },  // manual
-  { level: 3, n: 21, x: 232,                   y: 117,               corner: false },  // manual
-  { level: 3, n: 22, x: 413,                   y: 242,               corner: false },  // manual
-  { level: 3, n: 23, x: 109,                   y: 421,               corner: true  },  // manual
-  { level: 3, n: 24, x: 109,                   y: 119,               corner: true  },  // manual
-  { level: 3, n: 25, x: 411,                   y: 119,               corner: true  },  // manual
-  { level: 3, n: 26, x: 411,                   y: 421,               corner: true  },  // manual
-  { level: 3, n: 27, x: 338,                   y: 422,               corner: false },  // manual
-  { level: 3, n: 28, x: CX - _S3 + 0.33 * (_S3 - _GW3), y: CY - _S3, corner: false },
+  { level: 3, n: 20, x: 288,                   y: 423,               corner: false },  // manual
+  { level: 3, n: 21, x: 107,                   y: 298,               corner: false },  // manual
+  { level: 3, n: 22, x: 232,                   y: 117,               corner: false },  // manual
+  { level: 3, n: 23, x: 413,                   y: 242,               corner: false },  // manual
+  { level: 3, n: 24, x: 109,                   y: 421,               corner: true  },  // manual
+  { level: 3, n: 25, x: 109,                   y: 119,               corner: true  },  // manual
+  { level: 3, n: 26, x: 411,                   y: 119,               corner: true  },  // manual
+  { level: 3, n: 27, x: 411,                   y: 421,               corner: true  },  // manual
+  { level: 3, n: 28, x: 338,                   y: 422,               corner: false },  // manual
+  { level: 3, n: 29, x: CX - _S3 + 0.33 * (_S3 - _GW3), y: CY - _S3, corner: false },
 ]
 
 // ── Circuit label positions (Korvin SVG coords) ───────────────────────────────

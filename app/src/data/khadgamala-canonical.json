@@ -253,7 +253,9 @@
         "marathi": "ओं ऐं ह्रीं श्रीं ऐं क्लीं सौः ओं नमस्त्रिपुरसुन्दरी",
         "hindi": "ओं ऐं ह्रीं श्रीं ऐं क्लीं सौः ओं नमस्त्रिपुरसुन्दरी",
         "telugu": "ఓం ఐం హ్రీం శ్రీం ఐం క్లీం సౌః ఓం నమస్త్రిపురసున్దరీ",
-        "tamil": "ஓம் ஐம் ஹ்ரீம் ஶ்ரீம் ஐம் க்லீம் ஸௌஃ ஓம் நமஸ்த்ரிபுரஸுந்தரீ"
+        "tamil": "ஓம் ஐம் ஹ்ரீம் ஶ்ரீம் ஐம் க்லீம் ஸௌஃ ஓம் நமஸ்த்ரிபுரஸுந்தரீ",
+        "kannada": "ಓಂ ಐಂ ಹ್ರೀಂ ಶ್ರೀಂ ಐಂ ಕ್ಲೀಂ ಸೌಃ ಓಂ ನಮಸ್ತ್ರಿಪುರಸುನ್ದರೀ",
+        "malayalam": "ഓം ഐം ഹ്രീം ശ്രീം ഐം ക്ലീം സൌഃ ഓം നമസ്ത്രിപുരസുംദരീ"
       },
       "position": {
         "angleDeg": null,
@@ -277,7 +279,9 @@
         "marathi": "हृदयदेवी",
         "hindi": "हृदयदेवी",
         "telugu": "హృదయదేవీ",
-        "tamil": "ஹருதயதேவீ"
+        "tamil": "ஹருதயதேவீ",
+        "kannada": "ಹೃದಯದೇವೀ",
+        "malayalam": "ഹൃദയദേവീ"
       },
       "position": {
         "angleDeg": null,
@@ -301,7 +305,9 @@
         "marathi": "शिरोदेवी",
         "hindi": "शिरोदेवी",
         "telugu": "శిరోదేవీ",
-        "tamil": "ஶிரோதேவீ"
+        "tamil": "ஶிரோதேவீ",
+        "kannada": "ಶಿರೋದೇವೀ",
+        "malayalam": "ശിരോദേവീ"
       },
       "position": {
         "angleDeg": null,
@@ -325,7 +331,9 @@
         "marathi": "शिखादेवी",
         "hindi": "शिखादेवी",
         "telugu": "శిఖాదేవీ",
-        "tamil": "ஶிகாதேவீ"
+        "tamil": "ஶிகாதேவீ",
+        "kannada": "ಶಿಖಾದೇವೀ",
+        "malayalam": "ശിഖാദേവീ"
       },
       "position": {
         "angleDeg": null,
@@ -349,7 +357,9 @@
         "marathi": "कवचदेवी",
         "hindi": "कवचदेवी",
         "telugu": "కవచదేవీ",
-        "tamil": "கவசதேவீ"
+        "tamil": "கவசதேவீ",
+        "kannada": "ಕವಚದೇವೀ",
+        "malayalam": "കവചദേവീ"
       },
       "position": {
         "angleDeg": null,
@@ -373,7 +383,9 @@
         "marathi": "नेत्रदेवी",
         "hindi": "नेत्रदेवी",
         "telugu": "నేత్రదేవీ",
-        "tamil": "நேத்ரதேவீ"
+        "tamil": "நேத்ரதேவீ",
+        "kannada": "ನೇತ್ರದೇವೀ",
+        "malayalam": "നേത്രദേവീ"
       },
       "position": {
         "angleDeg": null,
@@ -397,7 +409,9 @@
         "marathi": "अस्त्रदेवी",
         "hindi": "अस्त्रदेवी",
         "telugu": "అస్త్రదేవీ",
-        "tamil": "அஸ்த்ரதேவீ"
+        "tamil": "அஸ்த்ரதேவீ",
+        "kannada": "ಅಸ್ತ್ರದೇವೀ",
+        "malayalam": "അസ്ത്രദേവീ"
       },
       "position": {
         "angleDeg": null,
@@ -421,7 +435,9 @@
         "marathi": "कामेश्वरी",
         "hindi": "कामेश्वरी",
         "telugu": "కామేశ్వరీ",
-        "tamil": "காமேஶ்வரீ"
+        "tamil": "காமேஶ்வரீ",
+        "kannada": "ಕಾಮೇಶ್ವರೀ",
+        "malayalam": "കാമേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -445,7 +461,9 @@
         "marathi": "भगमालिनी",
         "hindi": "भगमालिनी",
         "telugu": "భగమాలినీ",
-        "tamil": "பகமாலிநீ"
+        "tamil": "பகமாலிநீ",
+        "kannada": "ಭಗಮಾಲಿನೀ",
+        "malayalam": "ഭഗമാലിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -469,7 +487,9 @@
         "marathi": "नित्यक्लिन्ने",
         "hindi": "नित्यक्लिन्ने",
         "telugu": "నిత్యక్లిన్నే",
-        "tamil": "நித்யக்லிந்நே"
+        "tamil": "நித்யக்லிந்நே",
+        "kannada": "ನಿತ್ಯಕ್ಲಿನ್ನೇ",
+        "malayalam": "നിത്യക്ലിന്നേ"
       },
       "position": {
         "angleDeg": null,
@@ -493,7 +513,9 @@
         "marathi": "भेरुण्डे",
         "hindi": "भेरुण्डे",
         "telugu": "భేరుణ్డే",
-        "tamil": "பேருண்டே"
+        "tamil": "பேருண்டே",
+        "kannada": "ಭೇರುಣ್ಡೇ",
+        "malayalam": "ഭേരുംഡേ"
       },
       "position": {
         "angleDeg": null,
@@ -517,7 +539,9 @@
         "marathi": "वह्निवासिनी",
         "hindi": "वह्निवासिनी",
         "telugu": "వహ్నివాసినీ",
-        "tamil": "வஹ்நிவாஸிநீ"
+        "tamil": "வஹ்நிவாஸிநீ",
+        "kannada": "ವಹ್ನಿವಾಸಿನೀ",
+        "malayalam": "വഹ്നിവാസിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -541,7 +565,9 @@
         "marathi": "महावज्रेश्वरी",
         "hindi": "महावज्रेश्वरी",
         "telugu": "మహావజ్రేశ్వరీ",
-        "tamil": "மஹாவஜ்ரேஶ்வரீ"
+        "tamil": "மஹாவஜ்ரேஶ்வரீ",
+        "kannada": "ಮಹಾವಜ್ರೇಶ್ವರೀ",
+        "malayalam": "മഹാവജ്രേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -565,7 +591,9 @@
         "marathi": "शिवदूती",
         "hindi": "शिवदूती",
         "telugu": "శివదూతీ",
-        "tamil": "ஶிவதூதீ"
+        "tamil": "ஶிவதூதீ",
+        "kannada": "ಶಿವದೂತೀ",
+        "malayalam": "ശിവദൂതീ"
       },
       "position": {
         "angleDeg": null,
@@ -589,7 +617,9 @@
         "marathi": "त्वरिते",
         "hindi": "त्वरिते",
         "telugu": "త్వరితే",
-        "tamil": "த்வரிதே"
+        "tamil": "த்வரிதே",
+        "kannada": "ತ್ವರಿತೇ",
+        "malayalam": "ത്വരിതേ"
       },
       "position": {
         "angleDeg": null,
@@ -613,7 +643,9 @@
         "marathi": "कुलसुन्दरी",
         "hindi": "कुलसुन्दरी",
         "telugu": "కులసున్దరీ",
-        "tamil": "குலஸுந்தரீ"
+        "tamil": "குலஸுந்தரீ",
+        "kannada": "ಕುಲಸುನ್ದರೀ",
+        "malayalam": "കുലസുംദരീ"
       },
       "position": {
         "angleDeg": null,
@@ -637,7 +669,9 @@
         "marathi": "नित्ये",
         "hindi": "नित्ये",
         "telugu": "నిత్యే",
-        "tamil": "நித்யே"
+        "tamil": "நித்யே",
+        "kannada": "ನಿತ್ಯೇ",
+        "malayalam": "നിത്യേ"
       },
       "position": {
         "angleDeg": null,
@@ -661,7 +695,9 @@
         "marathi": "नीलपताके",
         "hindi": "नीलपताके",
         "telugu": "నీలపతాకే",
-        "tamil": "நீலபதாகே"
+        "tamil": "நீலபதாகே",
+        "kannada": "ನೀಲಪತಾಕೇ",
+        "malayalam": "നീലപതാകേ"
       },
       "position": {
         "angleDeg": null,
@@ -685,7 +721,9 @@
         "marathi": "विजये",
         "hindi": "विजये",
         "telugu": "విజయే",
-        "tamil": "விஜயே"
+        "tamil": "விஜயே",
+        "kannada": "ವಿಜಯೇ",
+        "malayalam": "വിജയേ"
       },
       "position": {
         "angleDeg": null,
@@ -709,7 +747,9 @@
         "marathi": "सर्वमङ्गळे",
         "hindi": "सर्वमङ्गळे",
         "telugu": "సర్వమఙ్గళే",
-        "tamil": "ஸர்வமங்களே"
+        "tamil": "ஸர்வமங்களே",
+        "kannada": "ಸರ್ವಮಙ್ಗಳೇ",
+        "malayalam": "സർവമംഗളേ"
       },
       "position": {
         "angleDeg": null,
@@ -733,7 +773,9 @@
         "marathi": "ज्वालामालिनी",
         "hindi": "ज्वालामालिनी",
         "telugu": "జ్వాలామాలినీ",
-        "tamil": "ஜ்வாலாமாலிநீ"
+        "tamil": "ஜ்வாலாமாலிநீ",
+        "kannada": "ಜ್ವಾಲಾಮಾಲಿನೀ",
+        "malayalam": "ജ്വാലാമാലിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -757,7 +799,9 @@
         "marathi": "चित्रे",
         "hindi": "चित्रे",
         "telugu": "చిత్రే",
-        "tamil": "சித்ரே"
+        "tamil": "சித்ரே",
+        "kannada": "ಚಿತ್ರೇ",
+        "malayalam": "ചിത്രേ"
       },
       "position": {
         "angleDeg": null,
@@ -781,7 +825,9 @@
         "marathi": "महानित्ये",
         "hindi": "महानित्ये",
         "telugu": "మహానిత్యే",
-        "tamil": "மஹாநித்யே"
+        "tamil": "மஹாநித்யே",
+        "kannada": "ಮಹಾನಿತ್ಯೇ",
+        "malayalam": "മഹാനിത്യേ"
       },
       "position": {
         "angleDeg": null,
@@ -805,7 +851,9 @@
         "marathi": "परमेश्वर-परमेश्वरी",
         "hindi": "परमेश्वर-परमेश्वरी",
         "telugu": "పరమేశ్వర-పరమేశ్వరీ",
-        "tamil": "பரமேஶ்வர-பரமேஶ்வரீ"
+        "tamil": "பரமேஶ்வர-பரமேஶ்வரீ",
+        "kannada": "ಪರಮೇಶ್ವರ-ಪರಮೇಶ್ವರೀ",
+        "malayalam": "പരമേശ്വര"
       },
       "position": {
         "angleDeg": null,
@@ -829,7 +877,9 @@
         "marathi": "मित्रेशमयी",
         "hindi": "मित्रेशमयी",
         "telugu": "మిత్రేశమయీ",
-        "tamil": "மித்ரேஶமயீ"
+        "tamil": "மித்ரேஶமயீ",
+        "kannada": "ಮಿತ್ರೇಶಮಯೀ",
+        "malayalam": "പരമേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -853,7 +903,9 @@
         "marathi": "षष्ठीशमयी",
         "hindi": "षष्ठीशमयी",
         "telugu": "షష్ఠీశమయీ",
-        "tamil": "ஷஷ்டீஶமயீ"
+        "tamil": "ஷஷ்டீஶமயீ",
+        "kannada": "ಷಷ್ಠೀಶಮಯೀ",
+        "malayalam": "മിത്രേശമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -877,7 +929,9 @@
         "marathi": "उद्दीशमयी",
         "hindi": "उद्दीशमयी",
         "telugu": "ఉద్దీశమయీ",
-        "tamil": "உத்தீஶமயீ"
+        "tamil": "உத்தீஶமயீ",
+        "kannada": "ಉದ್ದೀಶಮಯೀ",
+        "malayalam": "ഷഷ്ഠീശമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -901,7 +955,9 @@
         "marathi": "चर्यानाथमयी",
         "hindi": "चर्यानाथमयी",
         "telugu": "చర్యానాథమయీ",
-        "tamil": "சர்யாநாதமயீ"
+        "tamil": "சர்யாநாதமயீ",
+        "kannada": "ಚರ್ಯಾನಾಥಮಯೀ",
+        "malayalam": "ചര്യാനാഥമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -925,7 +981,9 @@
         "marathi": "लोपामुद्रमयी",
         "hindi": "लोपामुद्रमयी",
         "telugu": "లోపాముద్రమయీ",
-        "tamil": "லோபாமுத்ரமயீ"
+        "tamil": "லோபாமுத்ரமயீ",
+        "kannada": "ಲೋಪಾಮುದ್ರಮಯೀ",
+        "malayalam": "ലോപാമുദ്രമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -949,7 +1007,9 @@
         "marathi": "अगस्त्यमयी",
         "hindi": "अगस्त्यमयी",
         "telugu": "అగస్త్యమయీ",
-        "tamil": "அகஸ்த்யமயீ"
+        "tamil": "அகஸ்த்யமயீ",
+        "kannada": "ಅಗಸ್ತ್ಯಮಯೀ",
+        "malayalam": "അഗസ്ത്യമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -973,7 +1033,9 @@
         "marathi": "कालतापनमयी",
         "hindi": "कालतापनमयी",
         "telugu": "కాలతాపనమయీ",
-        "tamil": "காலதாபநமயீ"
+        "tamil": "காலதாபநமயீ",
+        "kannada": "ಕಾಲತಾಪನಮಯೀ",
+        "malayalam": "കാലതാപശമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -997,7 +1059,9 @@
         "marathi": "धर्माचार्यमयी",
         "hindi": "धर्माचार्यमयी",
         "telugu": "ధర్మాచార్యమయీ",
-        "tamil": "தர்மாசார்யமயீ"
+        "tamil": "தர்மாசார்யமயீ",
+        "kannada": "ಧರ್ಮಾಚಾರ್ಯಮಯೀ",
+        "malayalam": "ധര്മാചാര്യമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1021,7 +1085,9 @@
         "marathi": "मुक्तकेशीश्वरमयी",
         "hindi": "मुक्तकेशीश्वरमयी",
         "telugu": "ముక్తకేశీశ్వరమయీ",
-        "tamil": "முக்தகேஶீஶ்வரமயீ"
+        "tamil": "முக்தகேஶீஶ்வரமயீ",
+        "kannada": "ಮುಕ್ತಕೇಶೀಶ್ವರಮಯೀ",
+        "malayalam": "മുക്തകേശീശ്വരമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1045,7 +1111,9 @@
         "marathi": "दीपकलानाथमयी",
         "hindi": "दीपकलानाथमयी",
         "telugu": "దీపకలానాథమయీ",
-        "tamil": "தீபகலாநாதமயீ"
+        "tamil": "தீபகலாநாதமயீ",
+        "kannada": "ದೀಪಕಲಾನಾಥಮಯೀ",
+        "malayalam": "ദീപകലാനാഥമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1069,7 +1137,9 @@
         "marathi": "विष्णुदेवमयी",
         "hindi": "विष्णुदेवमयी",
         "telugu": "విష్ణుదేవమయీ",
-        "tamil": "விஷ்ணுதேவமயீ"
+        "tamil": "விஷ்ணுதேவமயீ",
+        "kannada": "ವಿಷ್ಣುದೇವಮಯೀ",
+        "malayalam": "വിഷ്ണുദേവമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1093,7 +1163,9 @@
         "marathi": "प्रभाकरदेवमयी",
         "hindi": "प्रभाकरदेवमयी",
         "telugu": "ప్రభాకరదేవమయీ",
-        "tamil": "ப்ரபாகரதேவமயீ"
+        "tamil": "ப்ரபாகரதேவமயீ",
+        "kannada": "ಪ್ರಭಾಕರದೇವಮಯೀ",
+        "malayalam": "പ്രഭാകരദേവമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1117,7 +1189,9 @@
         "marathi": "तेजोदेवमयी",
         "hindi": "तेजोदेवमयी",
         "telugu": "తేజోదేవమయీ",
-        "tamil": "தேஜோதேவமயீ"
+        "tamil": "தேஜோதேவமயீ",
+        "kannada": "ತೇಜೋದೇವಮಯೀ",
+        "malayalam": "തേജോദേവമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1141,7 +1215,9 @@
         "marathi": "मनोजदेवमयी",
         "hindi": "मनोजदेवमयी",
         "telugu": "మనోజదేవమయీ",
-        "tamil": "மநோஜதேவமயீ"
+        "tamil": "மநோஜதேவமயீ",
+        "kannada": "ಮನೋಜದೇವಮಯೀ",
+        "malayalam": "മനോജദേവമയി"
       },
       "position": {
         "angleDeg": null,
@@ -1165,7 +1241,9 @@
         "marathi": "कल्याणदेवमयी",
         "hindi": "कल्याणदेवमयी",
         "telugu": "కల్యాణదేవమయీ",
-        "tamil": "கல்யாணதேவமயீ"
+        "tamil": "கல்யாணதேவமயீ",
+        "kannada": "ಕಲ್ಯಾಣದೇವಮಯೀ",
+        "malayalam": "കള്യാണദേവമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1189,7 +1267,9 @@
         "marathi": "वासुदेवमयी",
         "hindi": "वासुदेवमयी",
         "telugu": "వాసుదేవమయీ",
-        "tamil": "வாஸுதேவமயீ"
+        "tamil": "வாஸுதேவமயீ",
+        "kannada": "ವಾಸುದೇವಮಯೀ",
+        "malayalam": "വാസുദേവമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1213,7 +1293,9 @@
         "marathi": "रत्नदेवमयी",
         "hindi": "रत्नदेवमयी",
         "telugu": "రత్నదేవమయీ",
-        "tamil": "ரத்நதேவமயீ"
+        "tamil": "ரத்நதேவமயீ",
+        "kannada": "ರತ್ನದೇವಮಯೀ",
+        "malayalam": "രത്നദേവമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1237,7 +1319,9 @@
         "marathi": "श्रीरामानन्दमयी",
         "hindi": "श्रीरामानन्दमयी",
         "telugu": "శ్రీరామానన్దమయీ",
-        "tamil": "ஶ்ரீராமாநந்தமயீ"
+        "tamil": "ஶ்ரீராமாநந்தமயீ",
+        "kannada": "ಶ್ರೀರಾಮಾನನ್ದಮಯೀ",
+        "malayalam": "ശ്രീരാമാനംദമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -1261,7 +1345,9 @@
         "marathi": "अणिमासिद्धे",
         "hindi": "अणिमासिद्धे",
         "telugu": "అణిమాసిద్ధే",
-        "tamil": "அணிமாஸித்தே"
+        "tamil": "அணிமாஸித்தே",
+        "kannada": "ಅಣಿಮಾಸಿದ್ಧೇ",
+        "malayalam": "അണിമാസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1286,7 +1372,9 @@
         "marathi": "लघिमासिद्धे",
         "hindi": "लघिमासिद्धे",
         "telugu": "లఘిమాసిద్ధే",
-        "tamil": "லகிமாஸித்தே"
+        "tamil": "லகிமாஸித்தே",
+        "kannada": "ಲಘಿಮಾಸಿದ್ಧೇ",
+        "malayalam": "ലഘിമാസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1304,14 +1392,16 @@
       "role": "deity",
       "group": "siddhiShakti",
       "scripts": {
-        "iast": "mahimāsiddhē",
-        "devanagari": "महिमासिद्धे",
-        "english": "Mahima Siddhe",
-        "translation": "Power of Greatness",
-        "marathi": "महिमासिद्धे",
-        "hindi": "महिमासिद्धे",
-        "telugu": "మహిమాసిద్ధే",
-        "tamil": "மஹிமாஸித்தே"
+        "iast": "garimāsiddhē",
+        "devanagari": "गरिमासिद्धे",
+        "english": "Garima Siddhe",
+        "translation": "Power of Heaviness",
+        "marathi": "गरिमासिद्धे",
+        "hindi": "गरिमासिद्धे",
+        "telugu": "గరిమాసిద్ధే",
+        "tamil": "கரிமாஸித்தே",
+        "kannada": "ಗರಿಮಾಸಿದ್ಧೇ",
+        "malayalam": "ഗരിമാസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1329,14 +1419,16 @@
       "role": "deity",
       "group": "siddhiShakti",
       "scripts": {
-        "iast": "īśitvasiddhē",
-        "devanagari": "ईशित्वसिद्धे",
-        "english": "Ishitva Siddhe",
-        "translation": "Power of Supremacy",
-        "marathi": "ईशित्वसिद्धे",
-        "hindi": "ईशित्वसिद्धे",
-        "telugu": "ఈశిత్వసిద్ధే",
-        "tamil": "ஈஶித்வஸித்தே"
+        "iast": "mahimāsiddhē",
+        "devanagari": "महिमासिद्धे",
+        "english": "Mahima Siddhe",
+        "translation": "Power of Greatness",
+        "marathi": "महिमासिद्धे",
+        "hindi": "महिमासिद्धे",
+        "telugu": "మహిమాసిద్ధే",
+        "tamil": "மஹிமாஸித்தே",
+        "kannada": "ಮಹಿಮಾಸಿದ್ಧೇ",
+        "malayalam": "മഹിമാസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1354,14 +1446,16 @@
       "role": "deity",
       "group": "siddhiShakti",
       "scripts": {
-        "iast": "vaśitvasiddhē",
-        "devanagari": "वशित्वसिद्धे",
-        "english": "Vashitva Siddhe",
-        "translation": "Power of Subjugation",
-        "marathi": "वशित्वसिद्धे",
-        "hindi": "वशित्वसिद्धे",
-        "telugu": "వశిత్వసిద్ధే",
-        "tamil": "வஶித்வஸித்தே"
+        "iast": "īśitvasiddhē",
+        "devanagari": "ईशित्वसिद्धे",
+        "english": "Ishitva Siddhe",
+        "translation": "Power of Supremacy",
+        "marathi": "ईशित्वसिद्धे",
+        "hindi": "ईशित्वसिद्धे",
+        "telugu": "ఈశిత్వసిద్ధే",
+        "tamil": "ஈஶித்வஸித்தே",
+        "kannada": "ಈಶಿತ್ವಸಿದ್ಧೇ",
+        "malayalam": "ഈശിത്വസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1379,14 +1473,16 @@
       "role": "deity",
       "group": "siddhiShakti",
       "scripts": {
-        "iast": "prākāmyasiddhē",
-        "devanagari": "प्राकाम्यसिद्धे",
-        "english": "Prakamya Siddhe",
-        "translation": "Power of Irresistible Will",
-        "marathi": "प्राकाम्यसिद्धे",
-        "hindi": "प्राकाम्यसिद्धे",
-        "telugu": "ప్రాకామ్యసిద్ధే",
-        "tamil": "ப்ராகாம்யஸித்தே"
+        "iast": "vaśitvasiddhē",
+        "devanagari": "वशित्वसिद्धे",
+        "english": "Vashitva Siddhe",
+        "translation": "Power of Subjugation",
+        "marathi": "वशित्वसिद्धे",
+        "hindi": "वशित्वसिद्धे",
+        "telugu": "వశిత్వసిద్ధే",
+        "tamil": "வஶித்வஸித்தே",
+        "kannada": "ವಶಿತ್ವಸಿದ್ಧೇ",
+        "malayalam": "വശിത്വസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1404,14 +1500,16 @@
       "role": "deity",
       "group": "siddhiShakti",
       "scripts": {
-        "iast": "bhuktisiddhē",
-        "devanagari": "भुक्तिसिद्धे",
-        "english": "Bhukti Siddhe",
-        "translation": "Power of Enjoyment",
-        "marathi": "भुक्तिसिद्धे",
-        "hindi": "भुक्तिसिद्धे",
-        "telugu": "భుక్తిసిద్ధే",
-        "tamil": "புக்திஸித்தே"
+        "iast": "prākāmyasiddhē",
+        "devanagari": "प्राकाम्यसिद्धे",
+        "english": "Prakamya Siddhe",
+        "translation": "Power of Irresistible Will",
+        "marathi": "प्राकाम्यसिद्धे",
+        "hindi": "प्राकाम्यसिद्धे",
+        "telugu": "ప్రాకామ్యసిద్ధే",
+        "tamil": "ப்ராகாம்யஸித்தே",
+        "kannada": "ಪ್ರಾಕಾಮ್ಯಸಿದ್ಧೇ",
+        "malayalam": "പ്രാകാമ്യസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1429,14 +1527,16 @@
       "role": "deity",
       "group": "siddhiShakti",
       "scripts": {
-        "iast": "icchāsiddhē",
-        "devanagari": "इच्छासिद्धे",
-        "english": "Iccha Siddhe",
-        "translation": "Power of Will",
-        "marathi": "इच्छासिद्धे",
-        "hindi": "इच्छासिद्धे",
-        "telugu": "ఇచ్ఛాసిద్ధే",
-        "tamil": "இச்சாஸித்தே"
+        "iast": "bhuktisiddhē",
+        "devanagari": "भुक्तिसिद्धे",
+        "english": "Bhukti Siddhe",
+        "translation": "Power of Enjoyment",
+        "marathi": "भुक्तिसिद्धे",
+        "hindi": "भुक्तिसिद्धे",
+        "telugu": "భుక్తిసిద్ధే",
+        "tamil": "புக்திஸித்தே",
+        "kannada": "ಭುಕ್ತಿಸಿದ್ಧೇ",
+        "malayalam": "ഭുക്തിസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1454,14 +1554,16 @@
       "role": "deity",
       "group": "siddhiShakti",
       "scripts": {
-        "iast": "prāptisiddhē",
-        "devanagari": "प्राप्तिसिद्धे",
-        "english": "Prapti Siddhe",
-        "translation": "Power of Attainment",
-        "marathi": "प्राप्तिसिद्धे",
-        "hindi": "प्राप्तिसिद्धे",
-        "telugu": "ప్రాప్తిసిద్ధే",
-        "tamil": "ப்ராப்திஸித்தே"
+        "iast": "icchāsiddhē",
+        "devanagari": "इच्छासिद्धे",
+        "english": "Iccha Siddhe",
+        "translation": "Power of Will",
+        "marathi": "इच्छासिद्धे",
+        "hindi": "इच्छासिद्धे",
+        "telugu": "ఇచ్ఛాసిద్ధే",
+        "tamil": "இச்சாஸித்தே",
+        "kannada": "ಇಚ್ಛಾಸಿದ್ಧೇ",
+        "malayalam": "ഇച്ഛാസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1479,6 +1581,33 @@
       "role": "deity",
       "group": "siddhiShakti",
       "scripts": {
+        "iast": "prāptisiddhē",
+        "devanagari": "प्राप्तिसिद्धे",
+        "english": "Prapti Siddhe",
+        "translation": "Power of Attainment",
+        "marathi": "प्राप्तिसिद्धे",
+        "hindi": "प्राप्तिसिद्धे",
+        "telugu": "ప్రాప్తిసిద్ధే",
+        "tamil": "ப்ராப்திஸித்தே",
+        "kannada": "ಪ್ರಾಪ್ತಿಸಿದ್ಧೇ",
+        "malayalam": "പ്രാപ്തിസിദ്ധേ"
+      },
+      "position": {
+        "angleDeg": null,
+        "x": null,
+        "y": null
+      },
+      "note": null,
+      "circuitNumber": 1
+    },
+    {
+      "id": "c1-siddhi-011",
+      "sectionId": "circuit-1",
+      "sequenceInChant": 53,
+      "sequenceInSection": 11,
+      "role": "deity",
+      "group": "siddhiShakti",
+      "scripts": {
         "iast": "sarvakāmasiddhē",
         "devanagari": "सर्वकामसिद्धे",
         "english": "Sarva Kama Siddhe",
@@ -1486,7 +1615,9 @@
         "marathi": "सर्वकामसिद्धे",
         "hindi": "सर्वकामसिद्धे",
         "telugu": "సర్వకామసిద్ధే",
-        "tamil": "ஸர்வகாமஸித்தே"
+        "tamil": "ஸர்வகாமஸித்தே",
+        "kannada": "ಸರ್ವಕಾಮಸಿದ್ಧೇ",
+        "malayalam": "സർവകാമസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -1499,8 +1630,8 @@
     {
       "id": "c1-matrika-001",
       "sectionId": "circuit-1",
-      "sequenceInChant": 53,
-      "sequenceInSection": 11,
+      "sequenceInChant": 54,
+      "sequenceInSection": 12,
       "role": "deity",
       "group": "ashtaMatrika",
       "scripts": {
@@ -1511,7 +1642,9 @@
         "marathi": "ब्राह्मी",
         "hindi": "ब्राह्मी",
         "telugu": "బ్రాహ్మీ",
-        "tamil": "ப்ராஹ்மீ"
+        "tamil": "ப்ராஹ்மீ",
+        "kannada": "ಬ್ರಾಹ್ಮೀ",
+        "malayalam": "ബ്രാഹ്മീ"
       },
       "position": {
         "angleDeg": null,
@@ -1524,8 +1657,8 @@
     {
       "id": "c1-matrika-002",
       "sectionId": "circuit-1",
-      "sequenceInChant": 54,
-      "sequenceInSection": 12,
+      "sequenceInChant": 55,
+      "sequenceInSection": 13,
       "role": "deity",
       "group": "ashtaMatrika",
       "scripts": {
@@ -1536,7 +1669,9 @@
         "marathi": "माहेश्वरी",
         "hindi": "माहेश्वरी",
         "telugu": "మాహేశ్వరీ",
-        "tamil": "மாஹேஶ்வரீ"
+        "tamil": "மாஹேஶ்வரீ",
+        "kannada": "ಮಾಹೇಶ್ವರೀ",
+        "malayalam": "മാഹേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -1549,8 +1684,8 @@
     {
       "id": "c1-matrika-003",
       "sectionId": "circuit-1",
-      "sequenceInChant": 55,
-      "sequenceInSection": 13,
+      "sequenceInChant": 56,
+      "sequenceInSection": 14,
       "role": "deity",
       "group": "ashtaMatrika",
       "scripts": {
@@ -1561,7 +1696,9 @@
         "marathi": "कौमारी",
         "hindi": "कौमारी",
         "telugu": "కౌమారీ",
-        "tamil": "கௌமாரீ"
+        "tamil": "கௌமாரீ",
+        "kannada": "ಕೌಮಾರೀ",
+        "malayalam": "കൌമാരി"
       },
       "position": {
         "angleDeg": null,
@@ -1574,8 +1711,8 @@
     {
       "id": "c1-matrika-004",
       "sectionId": "circuit-1",
-      "sequenceInChant": 56,
-      "sequenceInSection": 14,
+      "sequenceInChant": 57,
+      "sequenceInSection": 15,
       "role": "deity",
       "group": "ashtaMatrika",
       "scripts": {
@@ -1586,7 +1723,9 @@
         "marathi": "वैष्णवी",
         "hindi": "वैष्णवी",
         "telugu": "వైష్ణవీ",
-        "tamil": "வைஷ்ணவீ"
+        "tamil": "வைஷ்ணவீ",
+        "kannada": "ವೈಷ್ಣವೀ",
+        "malayalam": "വൈഷ്ണവീ"
       },
       "position": {
         "angleDeg": null,
@@ -1599,8 +1738,8 @@
     {
       "id": "c1-matrika-005",
       "sectionId": "circuit-1",
-      "sequenceInChant": 57,
-      "sequenceInSection": 15,
+      "sequenceInChant": 58,
+      "sequenceInSection": 16,
       "role": "deity",
       "group": "ashtaMatrika",
       "scripts": {
@@ -1611,7 +1750,9 @@
         "marathi": "वाराही",
         "hindi": "वाराही",
         "telugu": "వారాహీ",
-        "tamil": "வாராஹீ"
+        "tamil": "வாராஹீ",
+        "kannada": "ವಾರಾಹೀ",
+        "malayalam": "വാരാഹീ"
       },
       "position": {
         "angleDeg": null,
@@ -1624,8 +1765,8 @@
     {
       "id": "c1-matrika-006",
       "sectionId": "circuit-1",
-      "sequenceInChant": 58,
-      "sequenceInSection": 16,
+      "sequenceInChant": 59,
+      "sequenceInSection": 17,
       "role": "deity",
       "group": "ashtaMatrika",
       "scripts": {
@@ -1636,7 +1777,9 @@
         "marathi": "माहेन्द्री",
         "hindi": "माहेन्द्री",
         "telugu": "మాహేన్ద్రీ",
-        "tamil": "மாஹேந்த்ரீ"
+        "tamil": "மாஹேந்த்ரீ",
+        "kannada": "ಮಾಹೇನ್ದ್ರೀ",
+        "malayalam": "മാഹേംദ്രീ"
       },
       "position": {
         "angleDeg": null,
@@ -1649,8 +1792,8 @@
     {
       "id": "c1-matrika-007",
       "sectionId": "circuit-1",
-      "sequenceInChant": 59,
-      "sequenceInSection": 17,
+      "sequenceInChant": 60,
+      "sequenceInSection": 18,
       "role": "deity",
       "group": "ashtaMatrika",
       "scripts": {
@@ -1661,7 +1804,9 @@
         "marathi": "चामुण्डे",
         "hindi": "चामुण्डे",
         "telugu": "చాముణ్డే",
-        "tamil": "சாமுண்டே"
+        "tamil": "சாமுண்டே",
+        "kannada": "ಚಾಮುಣ್ಡೇ",
+        "malayalam": "ചാമുംഡേ"
       },
       "position": {
         "angleDeg": null,
@@ -1674,8 +1819,8 @@
     {
       "id": "c1-matrika-008",
       "sectionId": "circuit-1",
-      "sequenceInChant": 60,
-      "sequenceInSection": 18,
+      "sequenceInChant": 61,
+      "sequenceInSection": 19,
       "role": "deity",
       "group": "ashtaMatrika",
       "scripts": {
@@ -1686,7 +1831,9 @@
         "marathi": "महालक्ष्मी",
         "hindi": "महालक्ष्मी",
         "telugu": "మహాలక్ష్మీ",
-        "tamil": "மஹாலக்ஷ்மீ"
+        "tamil": "மஹாலக்ஷ்மீ",
+        "kannada": "ಮಹಾಲಕ್ಷ್ಮೀ",
+        "malayalam": "മഹാലക്ഷ്മീ"
       },
       "position": {
         "angleDeg": null,
@@ -1699,8 +1846,8 @@
     {
       "id": "c1-mudra-001",
       "sectionId": "circuit-1",
-      "sequenceInChant": 61,
-      "sequenceInSection": 19,
+      "sequenceInChant": 62,
+      "sequenceInSection": 20,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1711,7 +1858,9 @@
         "marathi": "सर्वसङ्क्षोभिणी",
         "hindi": "सर्वसङ्क्षोभिणी",
         "telugu": "సర్వసఙ్క్షోభిణీ",
-        "tamil": "ஸர்வஸங்க்ஷோபிணீ"
+        "tamil": "ஸர்வஸங்க்ஷோபிணீ",
+        "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಿಣೀ",
+        "malayalam": "സർവസംക്ഷോഭിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -1724,8 +1873,8 @@
     {
       "id": "c1-mudra-002",
       "sectionId": "circuit-1",
-      "sequenceInChant": 62,
-      "sequenceInSection": 20,
+      "sequenceInChant": 63,
+      "sequenceInSection": 21,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1736,7 +1885,9 @@
         "marathi": "सर्वविद्राविणी",
         "hindi": "सर्वविद्राविणी",
         "telugu": "సర్వవిద్రావిణీ",
-        "tamil": "ஸர்வவித்ராவிணீ"
+        "tamil": "ஸர்வவித்ராவிணீ",
+        "kannada": "ಸರ್ವವಿದ್ರಾವಿಣೀ",
+        "malayalam": "സർവവിദ്രാവിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -1749,8 +1900,8 @@
     {
       "id": "c1-mudra-003",
       "sectionId": "circuit-1",
-      "sequenceInChant": 63,
-      "sequenceInSection": 21,
+      "sequenceInChant": 64,
+      "sequenceInSection": 22,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1761,7 +1912,9 @@
         "marathi": "सर्वाकर्षिणी",
         "hindi": "सर्वाकर्षिणी",
         "telugu": "సర్వాకర్షిణీ",
-        "tamil": "ஸர்வாகர்ஷிணீ"
+        "tamil": "ஸர்வாகர்ஷிணீ",
+        "kannada": "ಸರ್ವಾಕರ್ಷಿಣೀ",
+        "malayalam": "സർവാകർഷിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -1774,8 +1927,8 @@
     {
       "id": "c1-mudra-004",
       "sectionId": "circuit-1",
-      "sequenceInChant": 64,
-      "sequenceInSection": 22,
+      "sequenceInChant": 65,
+      "sequenceInSection": 23,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1786,7 +1939,9 @@
         "marathi": "सर्ववशङ्करी",
         "hindi": "सर्ववशङ्करी",
         "telugu": "సర్వవశఙ్కరీ",
-        "tamil": "ஸர்வவஶங்கரீ"
+        "tamil": "ஸர்வவஶங்கரீ",
+        "kannada": "ಸರ್ವವಶಙ್ಕರೀ",
+        "malayalam": "സർവവശംകരീ"
       },
       "position": {
         "angleDeg": null,
@@ -1799,8 +1954,8 @@
     {
       "id": "c1-mudra-005",
       "sectionId": "circuit-1",
-      "sequenceInChant": 65,
-      "sequenceInSection": 23,
+      "sequenceInChant": 66,
+      "sequenceInSection": 24,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1811,7 +1966,9 @@
         "marathi": "सर्वोन्मादिनी",
         "hindi": "सर्वोन्मादिनी",
         "telugu": "సర్వోన్మాదినీ",
-        "tamil": "ஸர்வோந்மாதிநீ"
+        "tamil": "ஸர்வோந்மாதிநீ",
+        "kannada": "ಸರ್ವೋನ್ಮಾದಿನೀ",
+        "malayalam": "സർവോന്മാദിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -1824,8 +1981,8 @@
     {
       "id": "c1-mudra-006",
       "sectionId": "circuit-1",
-      "sequenceInChant": 66,
-      "sequenceInSection": 24,
+      "sequenceInChant": 67,
+      "sequenceInSection": 25,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1836,7 +1993,9 @@
         "marathi": "सर्वमहाङ्कुशे",
         "hindi": "सर्वमहाङ्कुशे",
         "telugu": "సర్వమహాఙ్కుశే",
-        "tamil": "ஸர்வமஹாங்குஶே"
+        "tamil": "ஸர்வமஹாங்குஶே",
+        "kannada": "ಸರ್ವಮಹಾಙ್ಕುಶೇ",
+        "malayalam": "സർവമഹാംകുശേ"
       },
       "position": {
         "angleDeg": null,
@@ -1849,8 +2008,8 @@
     {
       "id": "c1-mudra-007",
       "sectionId": "circuit-1",
-      "sequenceInChant": 67,
-      "sequenceInSection": 25,
+      "sequenceInChant": 68,
+      "sequenceInSection": 26,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1861,7 +2020,9 @@
         "marathi": "सर्वखेचरी",
         "hindi": "सर्वखेचरी",
         "telugu": "సర్వఖేచరీ",
-        "tamil": "ஸர்வகேசரீ"
+        "tamil": "ஸர்வகேசரீ",
+        "kannada": "ಸರ್ವಖೇಚರೀ",
+        "malayalam": "സർവഖേചരീ"
       },
       "position": {
         "angleDeg": null,
@@ -1874,8 +2035,8 @@
     {
       "id": "c1-mudra-008",
       "sectionId": "circuit-1",
-      "sequenceInChant": 68,
-      "sequenceInSection": 26,
+      "sequenceInChant": 69,
+      "sequenceInSection": 27,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1886,7 +2047,9 @@
         "marathi": "सर्वबीजे",
         "hindi": "सर्वबीजे",
         "telugu": "సర్వబీజే",
-        "tamil": "ஸர்வபீஜே"
+        "tamil": "ஸர்வபீஜே",
+        "kannada": "ಸರ್ವಬೀಜೇ",
+        "malayalam": "സർവബീജേ"
       },
       "position": {
         "angleDeg": null,
@@ -1899,8 +2062,8 @@
     {
       "id": "c1-mudra-009",
       "sectionId": "circuit-1",
-      "sequenceInChant": 69,
-      "sequenceInSection": 27,
+      "sequenceInChant": 70,
+      "sequenceInSection": 28,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1911,7 +2074,9 @@
         "marathi": "सर्वयोने",
         "hindi": "सर्वयोने",
         "telugu": "సర్వయోనే",
-        "tamil": "ஸர்வயோநே"
+        "tamil": "ஸர்வயோநே",
+        "kannada": "ಸರ್ವಯೋನೇ",
+        "malayalam": "സർവയോനേ"
       },
       "position": {
         "angleDeg": null,
@@ -1924,8 +2089,8 @@
     {
       "id": "c1-mudra-010",
       "sectionId": "circuit-1",
-      "sequenceInChant": 70,
-      "sequenceInSection": 28,
+      "sequenceInChant": 71,
+      "sequenceInSection": 29,
       "role": "deity",
       "group": "mudraShakti",
       "scripts": {
@@ -1936,7 +2101,9 @@
         "marathi": "सर्वत्रिखण्डे",
         "hindi": "सर्वत्रिखण्डे",
         "telugu": "సర్వత్రిఖణ్డే",
-        "tamil": "ஸர்வத்ரிகண்டே"
+        "tamil": "ஸர்வத்ரிகண்டே",
+        "kannada": "ಸರ್ವತ್ರಿಖಣ್ಡೇ",
+        "malayalam": "സർവത്രിഖംഡേ"
       },
       "position": {
         "angleDeg": null,
@@ -1949,8 +2116,8 @@
     {
       "id": "c1-svamini",
       "sectionId": "circuit-1",
-      "sequenceInChant": 71,
-      "sequenceInSection": 29,
+      "sequenceInChant": 72,
+      "sequenceInSection": 30,
       "role": "chakraSvamini",
       "group": null,
       "scripts": {
@@ -1961,7 +2128,9 @@
         "marathi": "त्रैलोक्यमोहन चक्रस्वामिनी",
         "hindi": "त्रैलोक्यमोहन चक्रस्वामिनी",
         "telugu": "త్రైలోక్యమోహన చక్రస్వామినీ",
-        "tamil": "த்ரைலோக்யமோஹந சக்ரஸ்வாமிநீ"
+        "tamil": "த்ரைலோக்யமோஹந சக்ரஸ்வாமிநீ",
+        "kannada": "ತ್ರೈಲೋಕ್ಯಮೋಹನ ಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "ത്രൈലോക്യമോഹന ചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -1974,8 +2143,8 @@
     {
       "id": "c1-yogini",
       "sectionId": "circuit-1",
-      "sequenceInChant": 72,
-      "sequenceInSection": 30,
+      "sequenceInChant": 73,
+      "sequenceInSection": 31,
       "role": "yoginiType",
       "group": null,
       "scripts": {
@@ -1986,7 +2155,9 @@
         "marathi": "प्रकटयोगिनी",
         "hindi": "प्रकटयोगिनी",
         "telugu": "ప్రకటయోగినీ",
-        "tamil": "ப்ரகடயோகிநீ"
+        "tamil": "ப்ரகடயோகிநீ",
+        "kannada": "ಪ್ರಕಟಯೋಗಿನೀ",
+        "malayalam": "പ്രകടയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -1999,7 +2170,7 @@
     {
       "id": "c2-001",
       "sectionId": "circuit-2",
-      "sequenceInChant": 73,
+      "sequenceInChant": 74,
       "sequenceInSection": 1,
       "role": "deity",
       "group": "guptaYogini",
@@ -2011,7 +2182,9 @@
         "marathi": "कामाकर्षिणी",
         "hindi": "कामाकर्षिणी",
         "telugu": "కామాకర్షిణీ",
-        "tamil": "காமாகர்ஷிணீ"
+        "tamil": "காமாகர்ஷிணீ",
+        "kannada": "ಕಾಮಾಕರ್ಷಿಣೀ",
+        "malayalam": "കാമാകർഷിണീ"
       },
       "position": {
         "angleDeg": 0,
@@ -2024,7 +2197,7 @@
     {
       "id": "c2-002",
       "sectionId": "circuit-2",
-      "sequenceInChant": 74,
+      "sequenceInChant": 75,
       "sequenceInSection": 2,
       "role": "deity",
       "group": "guptaYogini",
@@ -2036,7 +2209,9 @@
         "marathi": "बुद्ध्याकर्षिणी",
         "hindi": "बुद्ध्याकर्षिणी",
         "telugu": "బుద్ధ్యాకర్షిణీ",
-        "tamil": "புத்த்யாகர்ஷிணீ"
+        "tamil": "புத்த்யாகர்ஷிணீ",
+        "kannada": "ಬುದ್ಧ್ಯಾಕರ್ಷಿಣೀ",
+        "malayalam": "ബുദ്ധ്യാകർഷിണീ"
       },
       "position": {
         "angleDeg": 22.5,
@@ -2049,7 +2224,7 @@
     {
       "id": "c2-003",
       "sectionId": "circuit-2",
-      "sequenceInChant": 75,
+      "sequenceInChant": 76,
       "sequenceInSection": 3,
       "role": "deity",
       "group": "guptaYogini",
@@ -2061,7 +2236,9 @@
         "marathi": "अहङ्काराकर्षिणी",
         "hindi": "अहङ्काराकर्षिणी",
         "telugu": "అహఙ్కారాకర్షిణీ",
-        "tamil": "அஹங்காராகர்ஷிணீ"
+        "tamil": "அஹங்காராகர்ஷிணீ",
+        "kannada": "ಅಹಙ್ಕಾರಾಕರ್ಷಿಣೀ",
+        "malayalam": "അഹംകാരാകർഷിണീ"
       },
       "position": {
         "angleDeg": 45,
@@ -2074,7 +2251,7 @@
     {
       "id": "c2-004",
       "sectionId": "circuit-2",
-      "sequenceInChant": 76,
+      "sequenceInChant": 77,
       "sequenceInSection": 4,
       "role": "deity",
       "group": "guptaYogini",
@@ -2086,7 +2263,9 @@
         "marathi": "शब्दाकर्षिणी",
         "hindi": "शब्दाकर्षिणी",
         "telugu": "శబ్దాకర్షిణీ",
-        "tamil": "ஶப்தாகர்ஷிணீ"
+        "tamil": "ஶப்தாகர்ஷிணீ",
+        "kannada": "ಶಬ್ದಾಕರ್ಷಿಣೀ",
+        "malayalam": "ശബ്ദാകർഷിണീ"
       },
       "position": {
         "angleDeg": 67.5,
@@ -2099,7 +2278,7 @@
     {
       "id": "c2-005",
       "sectionId": "circuit-2",
-      "sequenceInChant": 77,
+      "sequenceInChant": 78,
       "sequenceInSection": 5,
       "role": "deity",
       "group": "guptaYogini",
@@ -2111,7 +2290,9 @@
         "marathi": "स्पर्शाकर्षिणी",
         "hindi": "स्पर्शाकर्षिणी",
         "telugu": "స్పర్శాకర్షిణీ",
-        "tamil": "ஸ்பர்ஶாகர்ஷிணீ"
+        "tamil": "ஸ்பர்ஶாகர்ஷிணீ",
+        "kannada": "ಸ್ಪರ್ಶಾಕರ್ಷಿಣೀ",
+        "malayalam": "സ്പർശാകർഷിണീ"
       },
       "position": {
         "angleDeg": 90,
@@ -2124,7 +2305,7 @@
     {
       "id": "c2-006",
       "sectionId": "circuit-2",
-      "sequenceInChant": 78,
+      "sequenceInChant": 79,
       "sequenceInSection": 6,
       "role": "deity",
       "group": "guptaYogini",
@@ -2136,7 +2317,9 @@
         "marathi": "रूपाकर्षिणी",
         "hindi": "रूपाकर्षिणी",
         "telugu": "రూపాకర్షిణీ",
-        "tamil": "ரூபாகர்ஷிணீ"
+        "tamil": "ரூபாகர்ஷிணீ",
+        "kannada": "ರೂಪಾಕರ್ಷಿಣೀ",
+        "malayalam": "രൂപാകർഷിണീ"
       },
       "position": {
         "angleDeg": 112.5,
@@ -2149,7 +2332,7 @@
     {
       "id": "c2-007",
       "sectionId": "circuit-2",
-      "sequenceInChant": 79,
+      "sequenceInChant": 80,
       "sequenceInSection": 7,
       "role": "deity",
       "group": "guptaYogini",
@@ -2161,7 +2344,9 @@
         "marathi": "रसाकर्षिणी",
         "hindi": "रसाकर्षिणी",
         "telugu": "రసాకర్షిణీ",
-        "tamil": "ரஸாகர்ஷிணீ"
+        "tamil": "ரஸாகர்ஷிணீ",
+        "kannada": "ರಸಾಕರ್ಷಿಣೀ",
+        "malayalam": "രസാകർഷിണീ"
       },
       "position": {
         "angleDeg": 135,
@@ -2174,7 +2359,7 @@
     {
       "id": "c2-008",
       "sectionId": "circuit-2",
-      "sequenceInChant": 80,
+      "sequenceInChant": 81,
       "sequenceInSection": 8,
       "role": "deity",
       "group": "guptaYogini",
@@ -2186,7 +2371,9 @@
         "marathi": "गन्धाकर्षिणी",
         "hindi": "गन्धाकर्षिणी",
         "telugu": "గన్ధాకర్షిణీ",
-        "tamil": "கந்தாகர்ஷிணீ"
+        "tamil": "கந்தாகர்ஷிணீ",
+        "kannada": "ಗನ್ಧಾಕರ್ಷಿಣೀ",
+        "malayalam": "ഗംധാകർഷിണീ"
       },
       "position": {
         "angleDeg": 157.5,
@@ -2199,7 +2386,7 @@
     {
       "id": "c2-009",
       "sectionId": "circuit-2",
-      "sequenceInChant": 81,
+      "sequenceInChant": 82,
       "sequenceInSection": 9,
       "role": "deity",
       "group": "guptaYogini",
@@ -2211,7 +2398,9 @@
         "marathi": "चित्ताकर्षिणी",
         "hindi": "चित्ताकर्षिणी",
         "telugu": "చిత్తాకర్షిణీ",
-        "tamil": "சித்தாகர்ஷிணீ"
+        "tamil": "சித்தாகர்ஷிணீ",
+        "kannada": "ಚಿತ್ತಾಕರ್ಷಿಣೀ",
+        "malayalam": "ചിത്താകർഷിണീ"
       },
       "position": {
         "angleDeg": 180,
@@ -2224,7 +2413,7 @@
     {
       "id": "c2-010",
       "sectionId": "circuit-2",
-      "sequenceInChant": 82,
+      "sequenceInChant": 83,
       "sequenceInSection": 10,
       "role": "deity",
       "group": "guptaYogini",
@@ -2236,7 +2425,9 @@
         "marathi": "धैर्याकर्षिणी",
         "hindi": "धैर्याकर्षिणी",
         "telugu": "ధైర్యాకర్షిణీ",
-        "tamil": "தைர்யாகர்ஷிணீ"
+        "tamil": "தைர்யாகர்ஷிணீ",
+        "kannada": "ಧೈರ್ಯಾಕರ್ಷಿಣೀ",
+        "malayalam": "ധൈര്യാകർഷിണീ"
       },
       "position": {
         "angleDeg": 202.5,
@@ -2249,7 +2440,7 @@
     {
       "id": "c2-011",
       "sectionId": "circuit-2",
-      "sequenceInChant": 83,
+      "sequenceInChant": 84,
       "sequenceInSection": 11,
       "role": "deity",
       "group": "guptaYogini",
@@ -2261,7 +2452,9 @@
         "marathi": "स्मृत्याकर्षिणी",
         "hindi": "स्मृत्याकर्षिणी",
         "telugu": "స్మృత్యాకర్షిణీ",
-        "tamil": "ஸ்மருத்யாகர்ஷிணீ"
+        "tamil": "ஸ்மருத்யாகர்ஷிணீ",
+        "kannada": "ಸ್ಮೃತ್ಯಾಕರ್ಷಿಣೀ",
+        "malayalam": "സ്മൃത്യാകർഷിണീ"
       },
       "position": {
         "angleDeg": 225,
@@ -2274,7 +2467,7 @@
     {
       "id": "c2-012",
       "sectionId": "circuit-2",
-      "sequenceInChant": 84,
+      "sequenceInChant": 85,
       "sequenceInSection": 12,
       "role": "deity",
       "group": "guptaYogini",
@@ -2286,7 +2479,9 @@
         "marathi": "नामाकर्षिणी",
         "hindi": "नामाकर्षिणी",
         "telugu": "నామాకర్షిణీ",
-        "tamil": "நாமாகர்ஷிணீ"
+        "tamil": "நாமாகர்ஷிணீ",
+        "kannada": "ನಾಮಾಕರ್ಷಿಣೀ",
+        "malayalam": "നാമാകർഷിണീ"
       },
       "position": {
         "angleDeg": 247.5,
@@ -2299,7 +2494,7 @@
     {
       "id": "c2-013",
       "sectionId": "circuit-2",
-      "sequenceInChant": 85,
+      "sequenceInChant": 86,
       "sequenceInSection": 13,
       "role": "deity",
       "group": "guptaYogini",
@@ -2311,7 +2506,9 @@
         "marathi": "बीजाकर्षिणी",
         "hindi": "बीजाकर्षिणी",
         "telugu": "బీజాకర్షిణీ",
-        "tamil": "பீஜாகர்ஷிணீ"
+        "tamil": "பீஜாகர்ஷிணீ",
+        "kannada": "ಬೀಜಾಕರ್ಷಿಣೀ",
+        "malayalam": "ബീജാകർഷിണീ"
       },
       "position": {
         "angleDeg": 270,
@@ -2324,7 +2521,7 @@
     {
       "id": "c2-014",
       "sectionId": "circuit-2",
-      "sequenceInChant": 86,
+      "sequenceInChant": 87,
       "sequenceInSection": 14,
       "role": "deity",
       "group": "guptaYogini",
@@ -2336,7 +2533,9 @@
         "marathi": "आत्माकर्षिणी",
         "hindi": "आत्माकर्षिणी",
         "telugu": "ఆత్మాకర్షిణీ",
-        "tamil": "ஆத்மாகர்ஷிணீ"
+        "tamil": "ஆத்மாகர்ஷிணீ",
+        "kannada": "ಆತ್ಮಾಕರ್ಷಿಣೀ",
+        "malayalam": "ആത്മാകർഷിണീ"
       },
       "position": {
         "angleDeg": 292.5,
@@ -2349,7 +2548,7 @@
     {
       "id": "c2-015",
       "sectionId": "circuit-2",
-      "sequenceInChant": 87,
+      "sequenceInChant": 88,
       "sequenceInSection": 15,
       "role": "deity",
       "group": "guptaYogini",
@@ -2361,7 +2560,9 @@
         "marathi": "अमृताकर्षिणी",
         "hindi": "अमृताकर्षिणी",
         "telugu": "అమృతాకర్షిణీ",
-        "tamil": "அமருதாகர்ஷிணீ"
+        "tamil": "அமருதாகர்ஷிணீ",
+        "kannada": "ಅಮೃತಾಕರ್ಷಿಣೀ",
+        "malayalam": "അമൃതാകർഷിണീ"
       },
       "position": {
         "angleDeg": 315,
@@ -2374,7 +2575,7 @@
     {
       "id": "c2-016",
       "sectionId": "circuit-2",
-      "sequenceInChant": 88,
+      "sequenceInChant": 89,
       "sequenceInSection": 16,
       "role": "deity",
       "group": "guptaYogini",
@@ -2386,7 +2587,9 @@
         "marathi": "शरीराकर्षिणी",
         "hindi": "शरीराकर्षिणी",
         "telugu": "శరీరాకర్షిణీ",
-        "tamil": "ஶரீராகர்ஷிணீ"
+        "tamil": "ஶரீராகர்ஷிணீ",
+        "kannada": "ಶರೀರಾಕರ್ಷಿಣೀ",
+        "malayalam": "ശരീരാകർഷിണീ"
       },
       "position": {
         "angleDeg": 337.5,
@@ -2399,7 +2602,7 @@
     {
       "id": "c2-svamini",
       "sectionId": "circuit-2",
-      "sequenceInChant": 89,
+      "sequenceInChant": 90,
       "sequenceInSection": 17,
       "role": "chakraSvamini",
       "group": null,
@@ -2411,7 +2614,9 @@
         "marathi": "सर्वाशापरिपूरक चक्रस्वामिनी",
         "hindi": "सर्वाशापरिपूरक चक्रस्वामिनी",
         "telugu": "సర్వాశాపరిపూరక చక్రస్వామినీ",
-        "tamil": "ஸர்வாஶாபரிபூரக சக்ரஸ்வாமிநீ"
+        "tamil": "ஸர்வாஶாபரிபூரக சக்ரஸ்வாமிநீ",
+        "kannada": "ಸರ್ವಾಶಾಪರಿಪೂರಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "സർവാശാപരിപൂരക ചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2424,7 +2629,7 @@
     {
       "id": "c2-yogini",
       "sectionId": "circuit-2",
-      "sequenceInChant": 90,
+      "sequenceInChant": 91,
       "sequenceInSection": 18,
       "role": "yoginiType",
       "group": null,
@@ -2436,7 +2641,9 @@
         "marathi": "गुप्तयोगिनी",
         "hindi": "गुप्तयोगिनी",
         "telugu": "గుప్తయోగినీ",
-        "tamil": "குப்தயோகிநீ"
+        "tamil": "குப்தயோகிநீ",
+        "kannada": "ಗುಪ್ತಯೋಗಿನೀ",
+        "malayalam": "ഗുപ്തയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2449,7 +2656,7 @@
     {
       "id": "c3-001",
       "sectionId": "circuit-3",
-      "sequenceInChant": 91,
+      "sequenceInChant": 92,
       "sequenceInSection": 1,
       "role": "deity",
       "group": "guptataraYogini",
@@ -2461,7 +2668,9 @@
         "marathi": "अनङ्गकुसुमे",
         "hindi": "अनङ्गकुसुमे",
         "telugu": "అనఙ్గకుసుమే",
-        "tamil": "அநங்ககுஸுமே"
+        "tamil": "அநங்ககுஸுமே",
+        "kannada": "ಅನಙ್ಗಕುಸುಮೇ",
+        "malayalam": "അനംഗകുസുമേ"
       },
       "position": {
         "angleDeg": 0,
@@ -2474,7 +2683,7 @@
     {
       "id": "c3-002",
       "sectionId": "circuit-3",
-      "sequenceInChant": 92,
+      "sequenceInChant": 93,
       "sequenceInSection": 2,
       "role": "deity",
       "group": "guptataraYogini",
@@ -2486,7 +2695,9 @@
         "marathi": "अनङ्गमेखले",
         "hindi": "अनङ्गमेखले",
         "telugu": "అనఙ్గమేఖలే",
-        "tamil": "அநங்கமேகலே"
+        "tamil": "அநங்கமேகலே",
+        "kannada": "ಅನಙ್ಗಮೇಖಲೇ",
+        "malayalam": "അനംഗമേഖലേ"
       },
       "position": {
         "angleDeg": 45,
@@ -2499,7 +2710,7 @@
     {
       "id": "c3-003",
       "sectionId": "circuit-3",
-      "sequenceInChant": 93,
+      "sequenceInChant": 94,
       "sequenceInSection": 3,
       "role": "deity",
       "group": "guptataraYogini",
@@ -2511,7 +2722,9 @@
         "marathi": "अनङ्गमदने",
         "hindi": "अनङ्गमदने",
         "telugu": "అనఙ్గమదనే",
-        "tamil": "அநங்கமதநே"
+        "tamil": "அநங்கமதநே",
+        "kannada": "ಅನಙ್ಗಮದನೇ",
+        "malayalam": "അനംഗമദനേ"
       },
       "position": {
         "angleDeg": 90,
@@ -2524,7 +2737,7 @@
     {
       "id": "c3-004",
       "sectionId": "circuit-3",
-      "sequenceInChant": 94,
+      "sequenceInChant": 95,
       "sequenceInSection": 4,
       "role": "deity",
       "group": "guptataraYogini",
@@ -2536,7 +2749,9 @@
         "marathi": "अनङ्गमदनातुरे",
         "hindi": "अनङ्गमदनातुरे",
         "telugu": "అనఙ్గమదనాతురే",
-        "tamil": "அநங்கமதநாதுரே"
+        "tamil": "அநங்கமதநாதுரே",
+        "kannada": "ಅನಙ್ಗಮದನಾತುರೇ",
+        "malayalam": "അനംഗമദനാതുരേ"
       },
       "position": {
         "angleDeg": 135,
@@ -2549,7 +2764,7 @@
     {
       "id": "c3-005",
       "sectionId": "circuit-3",
-      "sequenceInChant": 95,
+      "sequenceInChant": 96,
       "sequenceInSection": 5,
       "role": "deity",
       "group": "guptataraYogini",
@@ -2561,7 +2776,9 @@
         "marathi": "अनङ्गरेखे",
         "hindi": "अनङ्गरेखे",
         "telugu": "అనఙ్గరేఖే",
-        "tamil": "அநங்கரேகே"
+        "tamil": "அநங்கரேகே",
+        "kannada": "ಅನಙ್ಗರೇಖೇ",
+        "malayalam": "അനംഗരേഖേ"
       },
       "position": {
         "angleDeg": 180,
@@ -2574,7 +2791,7 @@
     {
       "id": "c3-006",
       "sectionId": "circuit-3",
-      "sequenceInChant": 96,
+      "sequenceInChant": 97,
       "sequenceInSection": 6,
       "role": "deity",
       "group": "guptataraYogini",
@@ -2586,7 +2803,9 @@
         "marathi": "अनङ्गवेगिनी",
         "hindi": "अनङ्गवेगिनी",
         "telugu": "అనఙ్గవేగినీ",
-        "tamil": "அநங்கவேகிநீ"
+        "tamil": "அநங்கவேகிநீ",
+        "kannada": "ಅನಙ್ಗವೇಗಿನೀ",
+        "malayalam": "അനംഗവേഗിനീ"
       },
       "position": {
         "angleDeg": 225,
@@ -2599,7 +2818,7 @@
     {
       "id": "c3-007",
       "sectionId": "circuit-3",
-      "sequenceInChant": 97,
+      "sequenceInChant": 98,
       "sequenceInSection": 7,
       "role": "deity",
       "group": "guptataraYogini",
@@ -2611,7 +2830,9 @@
         "marathi": "अनङ्गाङ्कुशे",
         "hindi": "अनङ्गाङ्कुशे",
         "telugu": "అనఙ్గాఙ్కుశే",
-        "tamil": "அநங்காங்குஶே"
+        "tamil": "அநங்காங்குஶே",
+        "kannada": "ಅನಙ್ಗಾಙ್ಕುಶೇ",
+        "malayalam": "അനംഗാംകുശേ"
       },
       "position": {
         "angleDeg": 270,
@@ -2624,7 +2845,7 @@
     {
       "id": "c3-008",
       "sectionId": "circuit-3",
-      "sequenceInChant": 98,
+      "sequenceInChant": 99,
       "sequenceInSection": 8,
       "role": "deity",
       "group": "guptataraYogini",
@@ -2636,7 +2857,9 @@
         "marathi": "अनङ्गमालिनी",
         "hindi": "अनङ्गमालिनी",
         "telugu": "అనఙ్గమాలినీ",
-        "tamil": "அநங்கமாலிநீ"
+        "tamil": "அநங்கமாலிநீ",
+        "kannada": "ಅನಙ್ಗಮಾಲಿನೀ",
+        "malayalam": "അനംഗമാലിനീ"
       },
       "position": {
         "angleDeg": 315,
@@ -2649,7 +2872,7 @@
     {
       "id": "c3-svamini",
       "sectionId": "circuit-3",
-      "sequenceInChant": 99,
+      "sequenceInChant": 100,
       "sequenceInSection": 9,
       "role": "chakraSvamini",
       "group": null,
@@ -2661,7 +2884,9 @@
         "marathi": "सर्वसङ्क्षोभणचक्रस्वामिनी",
         "hindi": "सर्वसङ्क्षोभणचक्रस्वामिनी",
         "telugu": "సర్వసఙ్క్షోభణచక్రస్వామినీ",
-        "tamil": "ஸர்வஸங்க்ஷோபணசக்ரஸ்வாமிநீ"
+        "tamil": "ஸர்வஸங்க்ஷோபணசக்ரஸ்வாமிநீ",
+        "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಣಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "സർവസംക്ഷോഭണചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2674,7 +2899,7 @@
     {
       "id": "c3-yogini",
       "sectionId": "circuit-3",
-      "sequenceInChant": 100,
+      "sequenceInChant": 101,
       "sequenceInSection": 10,
       "role": "yoginiType",
       "group": null,
@@ -2686,7 +2911,9 @@
         "marathi": "गुप्ततरयोगिनी",
         "hindi": "गुप्ततरयोगिनी",
         "telugu": "గుప్తతరయోగినీ",
-        "tamil": "குப்ததரயோகிநீ"
+        "tamil": "குப்ததரயோகிநீ",
+        "kannada": "ಗುಪ್ತತರಯೋಗಿನೀ",
+        "malayalam": "ഗുപ്തതരയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2699,7 +2926,7 @@
     {
       "id": "c4-001",
       "sectionId": "circuit-4",
-      "sequenceInChant": 101,
+      "sequenceInChant": 102,
       "sequenceInSection": 1,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2711,7 +2938,9 @@
         "marathi": "सर्वसङ्क्षोभिणी",
         "hindi": "सर्वसङ्क्षोभिणी",
         "telugu": "సర్వసఙ్క్షోభిణీ",
-        "tamil": "ஸர்வஸங்க்ஷோபிணீ"
+        "tamil": "ஸர்வஸங்க்ஷோபிணீ",
+        "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಿಣೀ",
+        "malayalam": "സർവസംക്ഷോഭിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -2724,7 +2953,7 @@
     {
       "id": "c4-002",
       "sectionId": "circuit-4",
-      "sequenceInChant": 102,
+      "sequenceInChant": 103,
       "sequenceInSection": 2,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2736,7 +2965,9 @@
         "marathi": "सर्वविद्राविनी",
         "hindi": "सर्वविद्राविनी",
         "telugu": "సర్వవిద్రావినీ",
-        "tamil": "ஸர்வவித்ராவிநீ"
+        "tamil": "ஸர்வவித்ராவிநீ",
+        "kannada": "ಸರ್ವವಿದ್ರಾವಿನೀ",
+        "malayalam": "സർവവിദ്രാവിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2749,7 +2980,7 @@
     {
       "id": "c4-003",
       "sectionId": "circuit-4",
-      "sequenceInChant": 103,
+      "sequenceInChant": 104,
       "sequenceInSection": 3,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2761,7 +2992,9 @@
         "marathi": "सर्वाकर्षिणी",
         "hindi": "सर्वाकर्षिणी",
         "telugu": "సర్వాకర్షిణీ",
-        "tamil": "ஸர்வாகர்ஷிணீ"
+        "tamil": "ஸர்வாகர்ஷிணீ",
+        "kannada": "ಸರ್ವಾಕರ್ಷಿಣೀ",
+        "malayalam": "സർവാകർഷിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -2774,7 +3007,7 @@
     {
       "id": "c4-004",
       "sectionId": "circuit-4",
-      "sequenceInChant": 104,
+      "sequenceInChant": 105,
       "sequenceInSection": 4,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2786,7 +3019,9 @@
         "marathi": "सर्वह्लादिनी",
         "hindi": "सर्वह्लादिनी",
         "telugu": "సర్వహ్లాదినీ",
-        "tamil": "ஸர்வஹ்லாதிநீ"
+        "tamil": "ஸர்வஹ்லாதிநீ",
+        "kannada": "ಸರ್ವಹ್ಲಾದಿನೀ",
+        "malayalam": "സർവഹ്ലാദിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2799,7 +3034,7 @@
     {
       "id": "c4-005",
       "sectionId": "circuit-4",
-      "sequenceInChant": 105,
+      "sequenceInChant": 106,
       "sequenceInSection": 5,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2811,7 +3046,9 @@
         "marathi": "सर्वसम्मोहिनी",
         "hindi": "सर्वसम्मोहिनी",
         "telugu": "సర్వసమ్మోహినీ",
-        "tamil": "ஸர்வஸம்மோஹிநீ"
+        "tamil": "ஸர்வஸம்மோஹிநீ",
+        "kannada": "ಸರ್ವಸಮ್ಮೋಹಿನೀ",
+        "malayalam": "സർവസമ്മോഹിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2824,7 +3061,7 @@
     {
       "id": "c4-006",
       "sectionId": "circuit-4",
-      "sequenceInChant": 106,
+      "sequenceInChant": 107,
       "sequenceInSection": 6,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2836,7 +3073,9 @@
         "marathi": "सर्वस्तम्भिनी",
         "hindi": "सर्वस्तम्भिनी",
         "telugu": "సర్వస్తమ్భినీ",
-        "tamil": "ஸர்வஸ்தம்பிநீ"
+        "tamil": "ஸர்வஸ்தம்பிநீ",
+        "kannada": "ಸರ್ವಸ್ತಮ್ಭಿನೀ",
+        "malayalam": "സർവസ്തംഭിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2849,7 +3088,7 @@
     {
       "id": "c4-007",
       "sectionId": "circuit-4",
-      "sequenceInChant": 107,
+      "sequenceInChant": 108,
       "sequenceInSection": 7,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2861,7 +3100,9 @@
         "marathi": "सर्वजृम्भिणी",
         "hindi": "सर्वजृम्भिणी",
         "telugu": "సర్వజృమ్భిణీ",
-        "tamil": "ஸர்வஜரும்பிணீ"
+        "tamil": "ஸர்வஜரும்பிணீ",
+        "kannada": "ಸರ್ವಜೃಮ್ಭಿಣೀ",
+        "malayalam": "സർവജൃംഭിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -2874,7 +3115,7 @@
     {
       "id": "c4-008",
       "sectionId": "circuit-4",
-      "sequenceInChant": 108,
+      "sequenceInChant": 109,
       "sequenceInSection": 8,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2886,7 +3127,9 @@
         "marathi": "सर्ववशङ्करी",
         "hindi": "सर्ववशङ्करी",
         "telugu": "సర్వవశఙ్కరీ",
-        "tamil": "ஸர்வவஶங்கரீ"
+        "tamil": "ஸர்வவஶங்கரீ",
+        "kannada": "ಸರ್ವವಶಙ್ಕರೀ",
+        "malayalam": "സർവവശംകരീ"
       },
       "position": {
         "angleDeg": null,
@@ -2899,7 +3142,7 @@
     {
       "id": "c4-009",
       "sectionId": "circuit-4",
-      "sequenceInChant": 109,
+      "sequenceInChant": 110,
       "sequenceInSection": 9,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2911,7 +3154,9 @@
         "marathi": "सर्वरञ्जनी",
         "hindi": "सर्वरञ्जनी",
         "telugu": "సర్వరఞ్జనీ",
-        "tamil": "ஸர்வரஞ்ஜநீ"
+        "tamil": "ஸர்வரஞ்ஜநீ",
+        "kannada": "ಸರ್ವರಞ್ಜನೀ",
+        "malayalam": "സർവരംജനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2924,7 +3169,7 @@
     {
       "id": "c4-010",
       "sectionId": "circuit-4",
-      "sequenceInChant": 110,
+      "sequenceInChant": 111,
       "sequenceInSection": 10,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2936,7 +3181,9 @@
         "marathi": "सर्वोन्मादिनी",
         "hindi": "सर्वोन्मादिनी",
         "telugu": "సర్వోన్మాదినీ",
-        "tamil": "ஸர்வோந்மாதிநீ"
+        "tamil": "ஸர்வோந்மாதிநீ",
+        "kannada": "ಸರ್ವೋನ್ಮಾದಿನೀ",
+        "malayalam": "സർവോന്മാദിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -2949,7 +3196,7 @@
     {
       "id": "c4-011",
       "sectionId": "circuit-4",
-      "sequenceInChant": 111,
+      "sequenceInChant": 112,
       "sequenceInSection": 11,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2961,7 +3208,9 @@
         "marathi": "सर्वार्थसाधिके",
         "hindi": "सर्वार्थसाधिके",
         "telugu": "సర్వార్థసాధికే",
-        "tamil": "ஸர்வார்தஸாதிகே"
+        "tamil": "ஸர்வார்தஸாதிகே",
+        "kannada": "ಸರ್ವಾರ್ಥಸಾಧಿಕೇ",
+        "malayalam": "സർവാർഥസാധികേ"
       },
       "position": {
         "angleDeg": null,
@@ -2974,7 +3223,7 @@
     {
       "id": "c4-012",
       "sectionId": "circuit-4",
-      "sequenceInChant": 112,
+      "sequenceInChant": 113,
       "sequenceInSection": 12,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -2986,7 +3235,9 @@
         "marathi": "सर्वसम्पत्तिपूरिणी",
         "hindi": "सर्वसम्पत्तिपूरिणी",
         "telugu": "సర్వసమ్పత్తిపూరిణీ",
-        "tamil": "ஸர்வஸம்பத்திபூரிணீ"
+        "tamil": "ஸர்வஸம்பத்திபூரிணீ",
+        "kannada": "ಸರ್ವಸಮ್ಪತ್ತಿಪೂರಿಣೀ",
+        "malayalam": "സർവസംപത്തിപൂരിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -2999,7 +3250,7 @@
     {
       "id": "c4-013",
       "sectionId": "circuit-4",
-      "sequenceInChant": 113,
+      "sequenceInChant": 114,
       "sequenceInSection": 13,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -3011,7 +3262,9 @@
         "marathi": "सर्वमन्त्रमयी",
         "hindi": "सर्वमन्त्रमयी",
         "telugu": "సర్వమన్త్రమయీ",
-        "tamil": "ஸர்வமந்த்ரமயீ"
+        "tamil": "ஸர்வமந்த்ரமயீ",
+        "kannada": "ಸರ್ವಮನ್ತ್ರಮಯೀ",
+        "malayalam": "സർവമംത്രമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -3024,7 +3277,7 @@
     {
       "id": "c4-014",
       "sectionId": "circuit-4",
-      "sequenceInChant": 114,
+      "sequenceInChant": 115,
       "sequenceInSection": 14,
       "role": "deity",
       "group": "sampradayaYogini",
@@ -3036,7 +3289,9 @@
         "marathi": "सर्वद्वन्द्वक्षयङ्करी",
         "hindi": "सर्वद्वन्द्वक्षयङ्करी",
         "telugu": "సర్వద్వన్ద్వక్షయఙ్కరీ",
-        "tamil": "ஸர்வத்வந்த்வக்ஷயங்கரீ"
+        "tamil": "ஸர்வத்வந்த்வக்ஷயங்கரீ",
+        "kannada": "ಸರ್ವದ್ವನ್ದ್ವಕ್ಷಯಙ್ಕರೀ",
+        "malayalam": "സർവദ്വംദ്വക്ഷയംകരീ"
       },
       "position": {
         "angleDeg": null,
@@ -3049,7 +3304,7 @@
     {
       "id": "c4-svamini",
       "sectionId": "circuit-4",
-      "sequenceInChant": 115,
+      "sequenceInChant": 116,
       "sequenceInSection": 15,
       "role": "chakraSvamini",
       "group": null,
@@ -3061,7 +3316,9 @@
         "marathi": "सर्वसौभाग्यदायक चक्रस्वामिनी",
         "hindi": "सर्वसौभाग्यदायक चक्रस्वामिनी",
         "telugu": "సర్వసౌభాగ్యదాయక చక్రస్వామినీ",
-        "tamil": "ஸர்வஸௌபாக்யதாயக சக்ரஸ்வாமிநீ"
+        "tamil": "ஸர்வஸௌபாக்யதாயக சக்ரஸ்வாமிநீ",
+        "kannada": "ಸರ್ವಸೌಭಾಗ್ಯದಾಯಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "സർവസൌഭാഗ്യദായക ചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3074,7 +3331,7 @@
     {
       "id": "c4-yogini",
       "sectionId": "circuit-4",
-      "sequenceInChant": 116,
+      "sequenceInChant": 117,
       "sequenceInSection": 16,
       "role": "yoginiType",
       "group": null,
@@ -3086,7 +3343,9 @@
         "marathi": "सम्प्रदाययोगिनी",
         "hindi": "सम्प्रदाययोगिनी",
         "telugu": "సమ్ప్రదాయయోగినీ",
-        "tamil": "ஸம்ப்ரதாயயோகிநீ"
+        "tamil": "ஸம்ப்ரதாயயோகிநீ",
+        "kannada": "ಸಮ್ಪ್ರದಾಯಯೋಗಿನೀ",
+        "malayalam": "സംപ്രദായയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3099,7 +3358,7 @@
     {
       "id": "c5-001",
       "sectionId": "circuit-5",
-      "sequenceInChant": 117,
+      "sequenceInChant": 118,
       "sequenceInSection": 1,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3111,7 +3370,9 @@
         "marathi": "सर्वसिद्धिप्रदे",
         "hindi": "सर्वसिद्धिप्रदे",
         "telugu": "సర్వసిద్ధిప్రదే",
-        "tamil": "ஸர்வஸித்திப்ரதே"
+        "tamil": "ஸர்வஸித்திப்ரதே",
+        "kannada": "ಸರ್ವಸಿದ್ಧಿಪ್ರದೇ",
+        "malayalam": "സർവസിദ്ധിപ്രദേ"
       },
       "position": {
         "angleDeg": null,
@@ -3124,7 +3385,7 @@
     {
       "id": "c5-002",
       "sectionId": "circuit-5",
-      "sequenceInChant": 118,
+      "sequenceInChant": 119,
       "sequenceInSection": 2,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3136,7 +3397,9 @@
         "marathi": "सर्वसम्पत्प्रदे",
         "hindi": "सर्वसम्पत्प्रदे",
         "telugu": "సర్వసమ్పత్ప్రదే",
-        "tamil": "ஸர்வஸம்பத்ப்ரதே"
+        "tamil": "ஸர்வஸம்பத்ப்ரதே",
+        "kannada": "ಸರ್ವಸಮ್ಪತ್ಪ್ರದೇ",
+        "malayalam": "സർവസംപത്പ്രദേ"
       },
       "position": {
         "angleDeg": null,
@@ -3149,7 +3412,7 @@
     {
       "id": "c5-003",
       "sectionId": "circuit-5",
-      "sequenceInChant": 119,
+      "sequenceInChant": 120,
       "sequenceInSection": 3,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3161,7 +3424,9 @@
         "marathi": "सर्वप्रियङ्करी",
         "hindi": "सर्वप्रियङ्करी",
         "telugu": "సర్వప్రియఙ్కరీ",
-        "tamil": "ஸர்வப்ரியங்கரீ"
+        "tamil": "ஸர்வப்ரியங்கரீ",
+        "kannada": "ಸರ್ವಪ್ರಿಯಙ್ಕರೀ",
+        "malayalam": "സർവപ്രിയംകരീ"
       },
       "position": {
         "angleDeg": null,
@@ -3174,7 +3439,7 @@
     {
       "id": "c5-004",
       "sectionId": "circuit-5",
-      "sequenceInChant": 120,
+      "sequenceInChant": 121,
       "sequenceInSection": 4,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3186,7 +3451,9 @@
         "marathi": "सर्वमङ्गळकारिणी",
         "hindi": "सर्वमङ्गळकारिणी",
         "telugu": "సర్వమఙ్గళకారిణీ",
-        "tamil": "ஸர்வமங்களகாரிணீ"
+        "tamil": "ஸர்வமங்களகாரிணீ",
+        "kannada": "ಸರ್ವಮಙ್ಗಳಕಾರಿಣೀ",
+        "malayalam": "സർവമംഗളകാരിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -3199,7 +3466,7 @@
     {
       "id": "c5-005",
       "sectionId": "circuit-5",
-      "sequenceInChant": 121,
+      "sequenceInChant": 122,
       "sequenceInSection": 5,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3211,7 +3478,9 @@
         "marathi": "सर्वकामप्रदे",
         "hindi": "सर्वकामप्रदे",
         "telugu": "సర్వకామప్రదే",
-        "tamil": "ஸர்வகாமப்ரதே"
+        "tamil": "ஸர்வகாமப்ரதே",
+        "kannada": "ಸರ್ವಕಾಮಪ್ರದೇ",
+        "malayalam": "സർവകാമപ്രദേ"
       },
       "position": {
         "angleDeg": null,
@@ -3224,7 +3493,7 @@
     {
       "id": "c5-006",
       "sectionId": "circuit-5",
-      "sequenceInChant": 122,
+      "sequenceInChant": 123,
       "sequenceInSection": 6,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3236,7 +3505,9 @@
         "marathi": "सर्वदुःखविमोचनी",
         "hindi": "सर्वदुःखविमोचनी",
         "telugu": "సర్వదుఃఖవిమోచనీ",
-        "tamil": "ஸர்வதுஃகவிமோசநீ"
+        "tamil": "ஸர்வதுஃகவிமோசநீ",
+        "kannada": "ಸರ್ವದುಃಖವಿಮೋಚನೀ",
+        "malayalam": "സർവദുഃഖവിമോചനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3249,7 +3520,7 @@
     {
       "id": "c5-007",
       "sectionId": "circuit-5",
-      "sequenceInChant": 123,
+      "sequenceInChant": 124,
       "sequenceInSection": 7,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3261,7 +3532,9 @@
         "marathi": "सर्वमृत्युप्रशमनी",
         "hindi": "सर्वमृत्युप्रशमनी",
         "telugu": "సర్వమృత్యుప్రశమనీ",
-        "tamil": "ஸர்வமருத்யுப்ரஶமநீ"
+        "tamil": "ஸர்வமருத்யுப்ரஶமநீ",
+        "kannada": "ಸರ್ವಮೃತ್ಯುಪ್ರಶಮನೀ",
+        "malayalam": "സർവമൃത്യുപ്രശമനി"
       },
       "position": {
         "angleDeg": null,
@@ -3274,7 +3547,7 @@
     {
       "id": "c5-008",
       "sectionId": "circuit-5",
-      "sequenceInChant": 124,
+      "sequenceInChant": 125,
       "sequenceInSection": 8,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3286,7 +3559,9 @@
         "marathi": "सर्वविघ्ननिवारिणी",
         "hindi": "सर्वविघ्ननिवारिणी",
         "telugu": "సర్వవిఘ్ననివారిణీ",
-        "tamil": "ஸர்வவிக்நநிவாரிணீ"
+        "tamil": "ஸர்வவிக்நநிவாரிணீ",
+        "kannada": "ಸರ್ವವಿಘ್ನನಿವಾರಿಣೀ",
+        "malayalam": "സർവവിഘ്നനിവാരിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -3299,7 +3574,7 @@
     {
       "id": "c5-009",
       "sectionId": "circuit-5",
-      "sequenceInChant": 125,
+      "sequenceInChant": 126,
       "sequenceInSection": 9,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3311,7 +3586,9 @@
         "marathi": "सर्वाङ्गसुन्दरी",
         "hindi": "सर्वाङ्गसुन्दरी",
         "telugu": "సర్వాఙ్గసున్దరీ",
-        "tamil": "ஸர்வாங்கஸுந்தரீ"
+        "tamil": "ஸர்வாங்கஸுந்தரீ",
+        "kannada": "ಸರ್ವಾಙ್ಗಸುನ್ದರೀ",
+        "malayalam": "സർവാംഗസുംദരീ"
       },
       "position": {
         "angleDeg": null,
@@ -3324,7 +3601,7 @@
     {
       "id": "c5-010",
       "sectionId": "circuit-5",
-      "sequenceInChant": 126,
+      "sequenceInChant": 127,
       "sequenceInSection": 10,
       "role": "deity",
       "group": "kulottirnaYogini",
@@ -3336,7 +3613,9 @@
         "marathi": "सर्वसौभाग्यदायिनी",
         "hindi": "सर्वसौभाग्यदायिनी",
         "telugu": "సర్వసౌభాగ్యదాయినీ",
-        "tamil": "ஸர்வஸௌபாக்யதாயிநீ"
+        "tamil": "ஸர்வஸௌபாக்யதாயிநீ",
+        "kannada": "ಸರ್ವಸೌಭಾಗ್ಯದಾಯಿನೀ",
+        "malayalam": "സർവസൌഭാഗ്യദായിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3349,7 +3628,7 @@
     {
       "id": "c5-svamini",
       "sectionId": "circuit-5",
-      "sequenceInChant": 127,
+      "sequenceInChant": 128,
       "sequenceInSection": 11,
       "role": "chakraSvamini",
       "group": null,
@@ -3361,7 +3640,9 @@
         "marathi": "सर्वार्थसाधक चक्रस्वामिनी",
         "hindi": "सर्वार्थसाधक चक्रस्वामिनी",
         "telugu": "సర్వార్థసాధక చక్రస్వామినీ",
-        "tamil": "ஸர்வார்தஸாதக சக்ரஸ்வாமிநீ"
+        "tamil": "ஸர்வார்தஸாதக சக்ரஸ்வாமிநீ",
+        "kannada": "ಸರ್ವಾರ್ಥಸಾಧಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "സർവാർഥസാധക ചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3374,7 +3655,7 @@
     {
       "id": "c5-yogini",
       "sectionId": "circuit-5",
-      "sequenceInChant": 128,
+      "sequenceInChant": 129,
       "sequenceInSection": 12,
       "role": "yoginiType",
       "group": null,
@@ -3386,7 +3667,9 @@
         "marathi": "कुलोत्तीर्णयोगिनी",
         "hindi": "कुलोत्तीर्णयोगिनी",
         "telugu": "కులోత్తీర్ణయోగినీ",
-        "tamil": "குலோத்தீர்ணயோகிநீ"
+        "tamil": "குலோத்தீர்ணயோகிநீ",
+        "kannada": "ಕುಲೋತ್ತೀರ್ಣಯೋಗಿನೀ",
+        "malayalam": "കുലോത്തീർണയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3399,7 +3682,7 @@
     {
       "id": "c6-001",
       "sectionId": "circuit-6",
-      "sequenceInChant": 129,
+      "sequenceInChant": 130,
       "sequenceInSection": 1,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3411,7 +3694,9 @@
         "marathi": "सर्वज्ञे",
         "hindi": "सर्वज्ञे",
         "telugu": "సర్వజ్ఞే",
-        "tamil": "ஸர்வஜ்ஞே"
+        "tamil": "ஸர்வஜ்ஞே",
+        "kannada": "ಸರ್ವಜ್ಞೇ",
+        "malayalam": "സർവജ്ഞേ"
       },
       "position": {
         "angleDeg": null,
@@ -3424,7 +3709,7 @@
     {
       "id": "c6-002",
       "sectionId": "circuit-6",
-      "sequenceInChant": 130,
+      "sequenceInChant": 131,
       "sequenceInSection": 2,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3436,7 +3721,9 @@
         "marathi": "सर्वशक्ते",
         "hindi": "सर्वशक्ते",
         "telugu": "సర్వశక్తే",
-        "tamil": "ஸர்வஶக்தே"
+        "tamil": "ஸர்வஶக்தே",
+        "kannada": "ಸರ್ವಶಕ್ತೇ",
+        "malayalam": "സർവശക്തേ"
       },
       "position": {
         "angleDeg": null,
@@ -3449,7 +3736,7 @@
     {
       "id": "c6-003",
       "sectionId": "circuit-6",
-      "sequenceInChant": 131,
+      "sequenceInChant": 132,
       "sequenceInSection": 3,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3461,7 +3748,9 @@
         "marathi": "सर्वैश्वर्यप्रदायिनी",
         "hindi": "सर्वैश्वर्यप्रदायिनी",
         "telugu": "సర్వైశ్వర్యప్రదాయినీ",
-        "tamil": "ஸர்வைஶ்வர்யப்ரதாயிநீ"
+        "tamil": "ஸர்வைஶ்வர்யப்ரதாயிநீ",
+        "kannada": "ಸರ್ವೈಶ್ವರ್ಯಪ್ರದಾಯಿನೀ",
+        "malayalam": "സർവൈശ്വർയപ്രദായിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3474,7 +3763,7 @@
     {
       "id": "c6-004",
       "sectionId": "circuit-6",
-      "sequenceInChant": 132,
+      "sequenceInChant": 133,
       "sequenceInSection": 4,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3486,7 +3775,9 @@
         "marathi": "सर्वज्ञानमयी",
         "hindi": "सर्वज्ञानमयी",
         "telugu": "సర్వజ్ఞానమయీ",
-        "tamil": "ஸர்வஜ்ஞாநமயீ"
+        "tamil": "ஸர்வஜ்ஞாநமயீ",
+        "kannada": "ಸರ್ವಜ್ಞಾನಮಯೀ",
+        "malayalam": "സർവജ്ഞാനമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -3499,7 +3790,7 @@
     {
       "id": "c6-005",
       "sectionId": "circuit-6",
-      "sequenceInChant": 133,
+      "sequenceInChant": 134,
       "sequenceInSection": 5,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3511,7 +3802,9 @@
         "marathi": "सर्वव्याधिविनाशिनी",
         "hindi": "सर्वव्याधिविनाशिनी",
         "telugu": "సర్వవ్యాధివినాశినీ",
-        "tamil": "ஸர்வவ்யாதிவிநாஶிநீ"
+        "tamil": "ஸர்வவ்யாதிவிநாஶிநீ",
+        "kannada": "ಸರ್ವವ್ಯಾಧಿವಿನಾಶಿನೀ",
+        "malayalam": "സർവവ്യാധിവിനാശിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3524,7 +3817,7 @@
     {
       "id": "c6-006",
       "sectionId": "circuit-6",
-      "sequenceInChant": 134,
+      "sequenceInChant": 135,
       "sequenceInSection": 6,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3536,7 +3829,9 @@
         "marathi": "सर्वाधारस्वरूपे",
         "hindi": "सर्वाधारस्वरूपे",
         "telugu": "సర్వాధారస్వరూపే",
-        "tamil": "ஸர்வாதாரஸ்வரூபே"
+        "tamil": "ஸர்வாதாரஸ்வரூபே",
+        "kannada": "ಸರ್ವಾಧಾರಸ್ವರೂಪೇ",
+        "malayalam": "സർവാധാരസ്വരൂപേ"
       },
       "position": {
         "angleDeg": null,
@@ -3549,7 +3844,7 @@
     {
       "id": "c6-007",
       "sectionId": "circuit-6",
-      "sequenceInChant": 135,
+      "sequenceInChant": 136,
       "sequenceInSection": 7,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3561,7 +3856,9 @@
         "marathi": "सर्वपापहरे",
         "hindi": "सर्वपापहरे",
         "telugu": "సర్వపాపహరే",
-        "tamil": "ஸர்வபாபஹரே"
+        "tamil": "ஸர்வபாபஹரே",
+        "kannada": "ಸರ್ವಪಾಪಹರೇ",
+        "malayalam": "സർവപാപഹരേ"
       },
       "position": {
         "angleDeg": null,
@@ -3574,7 +3871,7 @@
     {
       "id": "c6-008",
       "sectionId": "circuit-6",
-      "sequenceInChant": 136,
+      "sequenceInChant": 137,
       "sequenceInSection": 8,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3586,7 +3883,9 @@
         "marathi": "सर्वानन्दमयी",
         "hindi": "सर्वानन्दमयी",
         "telugu": "సర్వానన్దమయీ",
-        "tamil": "ஸர்வாநந்தமயீ"
+        "tamil": "ஸர்வாநந்தமயீ",
+        "kannada": "ಸರ್ವಾನನ್ದಮಯೀ",
+        "malayalam": "സർവാനംദമയീ"
       },
       "position": {
         "angleDeg": null,
@@ -3599,7 +3898,7 @@
     {
       "id": "c6-009",
       "sectionId": "circuit-6",
-      "sequenceInChant": 137,
+      "sequenceInChant": 138,
       "sequenceInSection": 9,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3611,7 +3910,9 @@
         "marathi": "सर्वरक्षास्वरूपिणी",
         "hindi": "सर्वरक्षास्वरूपिणी",
         "telugu": "సర్వరక్షాస్వరూపిణీ",
-        "tamil": "ஸர்வரக்ஷாஸ்வரூபிணீ"
+        "tamil": "ஸர்வரக்ஷாஸ்வரூபிணீ",
+        "kannada": "ಸರ್ವರಕ್ಷಾಸ್ವರೂಪಿಣೀ",
+        "malayalam": "സർവരക്ഷാസ്വരൂപിണീ"
       },
       "position": {
         "angleDeg": null,
@@ -3624,7 +3925,7 @@
     {
       "id": "c6-010",
       "sectionId": "circuit-6",
-      "sequenceInChant": 138,
+      "sequenceInChant": 139,
       "sequenceInSection": 10,
       "role": "deity",
       "group": "nigarbhaYogini",
@@ -3636,7 +3937,9 @@
         "marathi": "सर्वेप्सितफलप्रदे",
         "hindi": "सर्वेप्सितफलप्रदे",
         "telugu": "సర్వేప్సితఫలప్రదే",
-        "tamil": "ஸர்வேப்ஸிதபலப்ரதே"
+        "tamil": "ஸர்வேப்ஸிதபலப்ரதே",
+        "kannada": "ಸರ್ವೇಪ್ಸಿತಫಲಪ್ರದೇ",
+        "malayalam": "സർവേപ്സിതഫലപ്രദേ"
       },
       "position": {
         "angleDeg": null,
@@ -3649,7 +3952,7 @@
     {
       "id": "c6-svamini",
       "sectionId": "circuit-6",
-      "sequenceInChant": 139,
+      "sequenceInChant": 140,
       "sequenceInSection": 11,
       "role": "chakraSvamini",
       "group": null,
@@ -3661,7 +3964,9 @@
         "marathi": "सर्वरक्षाकरचक्रस्वामिनी",
         "hindi": "सर्वरक्षाकरचक्रस्वामिनी",
         "telugu": "సర్వరక్షాకరచక్రస్వామినీ",
-        "tamil": "ஸர்வரக்ஷாகரசக்ரஸ்வாமிநீ"
+        "tamil": "ஸர்வரக்ஷாகரசக்ரஸ்வாமிநீ",
+        "kannada": "ಸರ್ವರಕ್ಷಾಕರಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "സർവരക്ഷാകരചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3674,7 +3979,7 @@
     {
       "id": "c6-yogini",
       "sectionId": "circuit-6",
-      "sequenceInChant": 140,
+      "sequenceInChant": 141,
       "sequenceInSection": 12,
       "role": "yoginiType",
       "group": null,
@@ -3686,7 +3991,9 @@
         "marathi": "निगर्भयोगिनी",
         "hindi": "निगर्भयोगिनी",
         "telugu": "నిగర్భయోగినీ",
-        "tamil": "நிகர்பயோகிநீ"
+        "tamil": "நிகர்பயோகிநீ",
+        "kannada": "ನಿಗರ್ಭಯೋಗಿನೀ",
+        "malayalam": "നിഗർഭയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3699,7 +4006,7 @@
     {
       "id": "c7-001",
       "sectionId": "circuit-7",
-      "sequenceInChant": 141,
+      "sequenceInChant": 142,
       "sequenceInSection": 1,
       "role": "deity",
       "group": "rahasyaYogini",
@@ -3711,7 +4018,9 @@
         "marathi": "वशिनी",
         "hindi": "वशिनी",
         "telugu": "వశినీ",
-        "tamil": "வஶிநீ"
+        "tamil": "வஶிநீ",
+        "kannada": "ವಶಿನೀ",
+        "malayalam": "വശിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3724,7 +4033,7 @@
     {
       "id": "c7-002",
       "sectionId": "circuit-7",
-      "sequenceInChant": 142,
+      "sequenceInChant": 143,
       "sequenceInSection": 2,
       "role": "deity",
       "group": "rahasyaYogini",
@@ -3736,7 +4045,9 @@
         "marathi": "कामेश्वरी",
         "hindi": "कामेश्वरी",
         "telugu": "కామేశ్వరీ",
-        "tamil": "காமேஶ்வரீ"
+        "tamil": "காமேஶ்வரீ",
+        "kannada": "ಕಾಮೇಶ್ವರೀ",
+        "malayalam": "കാമേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -3749,7 +4060,7 @@
     {
       "id": "c7-003",
       "sectionId": "circuit-7",
-      "sequenceInChant": 143,
+      "sequenceInChant": 144,
       "sequenceInSection": 3,
       "role": "deity",
       "group": "rahasyaYogini",
@@ -3761,7 +4072,9 @@
         "marathi": "मोदिनी",
         "hindi": "मोदिनी",
         "telugu": "మోదినీ",
-        "tamil": "மோதிநீ"
+        "tamil": "மோதிநீ",
+        "kannada": "ಮೋದಿನೀ",
+        "malayalam": "മോദിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3774,7 +4087,7 @@
     {
       "id": "c7-004",
       "sectionId": "circuit-7",
-      "sequenceInChant": 144,
+      "sequenceInChant": 145,
       "sequenceInSection": 4,
       "role": "deity",
       "group": "rahasyaYogini",
@@ -3786,7 +4099,9 @@
         "marathi": "विमले",
         "hindi": "विमले",
         "telugu": "విమలే",
-        "tamil": "விமலே"
+        "tamil": "விமலே",
+        "kannada": "ವಿಮಲೇ",
+        "malayalam": "വിമലേ"
       },
       "position": {
         "angleDeg": null,
@@ -3799,7 +4114,7 @@
     {
       "id": "c7-005",
       "sectionId": "circuit-7",
-      "sequenceInChant": 145,
+      "sequenceInChant": 146,
       "sequenceInSection": 5,
       "role": "deity",
       "group": "rahasyaYogini",
@@ -3811,7 +4126,9 @@
         "marathi": "अरुणे",
         "hindi": "अरुणे",
         "telugu": "అరుణే",
-        "tamil": "அருணே"
+        "tamil": "அருணே",
+        "kannada": "ಅರುಣೇ",
+        "malayalam": "അരുണേ"
       },
       "position": {
         "angleDeg": null,
@@ -3824,7 +4141,7 @@
     {
       "id": "c7-006",
       "sectionId": "circuit-7",
-      "sequenceInChant": 146,
+      "sequenceInChant": 147,
       "sequenceInSection": 6,
       "role": "deity",
       "group": "rahasyaYogini",
@@ -3836,7 +4153,9 @@
         "marathi": "जयिनी",
         "hindi": "जयिनी",
         "telugu": "జయినీ",
-        "tamil": "ஜயிநீ"
+        "tamil": "ஜயிநீ",
+        "kannada": "ಜಯಿನೀ",
+        "malayalam": "ജയിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3849,7 +4168,7 @@
     {
       "id": "c7-007",
       "sectionId": "circuit-7",
-      "sequenceInChant": 147,
+      "sequenceInChant": 148,
       "sequenceInSection": 7,
       "role": "deity",
       "group": "rahasyaYogini",
@@ -3861,7 +4180,9 @@
         "marathi": "सर्वेश्वरी",
         "hindi": "सर्वेश्वरी",
         "telugu": "సర్వేశ్వరీ",
-        "tamil": "ஸர்வேஶ்வரீ"
+        "tamil": "ஸர்வேஶ்வரீ",
+        "kannada": "ಸರ್ವೇಶ್ವರೀ",
+        "malayalam": "സർവേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -3874,7 +4195,7 @@
     {
       "id": "c7-008",
       "sectionId": "circuit-7",
-      "sequenceInChant": 148,
+      "sequenceInChant": 149,
       "sequenceInSection": 8,
       "role": "deity",
       "group": "rahasyaYogini",
@@ -3886,7 +4207,9 @@
         "marathi": "कौळिनी",
         "hindi": "कौळिनी",
         "telugu": "కౌళినీ",
-        "tamil": "கௌளிநீ"
+        "tamil": "கௌளிநீ",
+        "kannada": "ಕೌಳಿನೀ",
+        "malayalam": "കൌളിനി"
       },
       "position": {
         "angleDeg": null,
@@ -3899,7 +4222,7 @@
     {
       "id": "c7-svamini",
       "sectionId": "circuit-7",
-      "sequenceInChant": 149,
+      "sequenceInChant": 150,
       "sequenceInSection": 9,
       "role": "chakraSvamini",
       "group": null,
@@ -3911,7 +4234,9 @@
         "marathi": "सर्वरोगहरचक्रस्वामिनी",
         "hindi": "सर्वरोगहरचक्रस्वामिनी",
         "telugu": "సర్వరోగహరచక్రస్వామినీ",
-        "tamil": "ஸர்வரோகஹரசக்ரஸ்வாமிநீ"
+        "tamil": "ஸர்வரோகஹரசக்ரஸ்வாமிநீ",
+        "kannada": "ಸರ್ವರೋಗಹರಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "സർവരോഗഹരചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3924,7 +4249,7 @@
     {
       "id": "c7-yogini",
       "sectionId": "circuit-7",
-      "sequenceInChant": 150,
+      "sequenceInChant": 151,
       "sequenceInSection": 10,
       "role": "yoginiType",
       "group": null,
@@ -3936,7 +4261,9 @@
         "marathi": "रहस्ययोगिनी",
         "hindi": "रहस्ययोगिनी",
         "telugu": "రహస్యయోగినీ",
-        "tamil": "ரஹஸ்யயோகிநீ"
+        "tamil": "ரஹஸ்யயோகிநீ",
+        "kannada": "ರಹಸ್ಯಯೋಗಿನೀ",
+        "malayalam": "രഹസ്യയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3949,7 +4276,7 @@
     {
       "id": "c8-001",
       "sectionId": "circuit-8",
-      "sequenceInChant": 151,
+      "sequenceInChant": 152,
       "sequenceInSection": 1,
       "role": "deity",
       "group": "atiRahasyaYogini",
@@ -3961,7 +4288,9 @@
         "marathi": "बाणिनी",
         "hindi": "बाणिनी",
         "telugu": "బాణినీ",
-        "tamil": "பாணிநீ"
+        "tamil": "பாணிநீ",
+        "kannada": "ಬಾಣಿನೀ",
+        "malayalam": "ബാണിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3974,7 +4303,7 @@
     {
       "id": "c8-002",
       "sectionId": "circuit-8",
-      "sequenceInChant": 152,
+      "sequenceInChant": 153,
       "sequenceInSection": 2,
       "role": "deity",
       "group": "atiRahasyaYogini",
@@ -3986,7 +4315,9 @@
         "marathi": "चापिनी",
         "hindi": "चापिनी",
         "telugu": "చాపినీ",
-        "tamil": "சாபிநீ"
+        "tamil": "சாபிநீ",
+        "kannada": "ಚಾಪಿನೀ",
+        "malayalam": "ചാപിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -3999,7 +4330,7 @@
     {
       "id": "c8-003",
       "sectionId": "circuit-8",
-      "sequenceInChant": 153,
+      "sequenceInChant": 154,
       "sequenceInSection": 3,
       "role": "deity",
       "group": "atiRahasyaYogini",
@@ -4011,7 +4342,9 @@
         "marathi": "पाशिनी",
         "hindi": "पाशिनी",
         "telugu": "పాశినీ",
-        "tamil": "பாஶிநீ"
+        "tamil": "பாஶிநீ",
+        "kannada": "ಪಾಶಿನೀ",
+        "malayalam": "പാശിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4024,7 +4357,7 @@
     {
       "id": "c8-004",
       "sectionId": "circuit-8",
-      "sequenceInChant": 154,
+      "sequenceInChant": 155,
       "sequenceInSection": 4,
       "role": "deity",
       "group": "atiRahasyaYogini",
@@ -4036,7 +4369,9 @@
         "marathi": "अङ्कुशिनी",
         "hindi": "अङ्कुशिनी",
         "telugu": "అఙ్కుశినీ",
-        "tamil": "அங்குஶிநீ"
+        "tamil": "அங்குஶிநீ",
+        "kannada": "ಅಙ್ಕುಶಿನೀ",
+        "malayalam": "അംകുശിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4049,7 +4384,7 @@
     {
       "id": "c8-005",
       "sectionId": "circuit-8",
-      "sequenceInChant": 155,
+      "sequenceInChant": 156,
       "sequenceInSection": 5,
       "role": "deity",
       "group": "atiRahasyaYogini",
@@ -4061,7 +4396,9 @@
         "marathi": "महाकामेश्वरी",
         "hindi": "महाकामेश्वरी",
         "telugu": "మహాకామేశ్వరీ",
-        "tamil": "மஹாகாமேஶ்வரீ"
+        "tamil": "மஹாகாமேஶ்வரீ",
+        "kannada": "ಮಹಾಕಾಮೇಶ್ವರೀ",
+        "malayalam": "മഹാകാമേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -4074,7 +4411,7 @@
     {
       "id": "c8-006",
       "sectionId": "circuit-8",
-      "sequenceInChant": 156,
+      "sequenceInChant": 157,
       "sequenceInSection": 6,
       "role": "deity",
       "group": "atiRahasyaYogini",
@@ -4086,7 +4423,9 @@
         "marathi": "महावज्रेश्वरी",
         "hindi": "महावज्रेश्वरी",
         "telugu": "మహావజ్రేశ్వరీ",
-        "tamil": "மஹாவஜ்ரேஶ்வரீ"
+        "tamil": "மஹாவஜ்ரேஶ்வரீ",
+        "kannada": "ಮಹಾವಜ್ರೇಶ್ವರೀ",
+        "malayalam": "മഹാവജ്രേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -4099,7 +4438,7 @@
     {
       "id": "c8-007",
       "sectionId": "circuit-8",
-      "sequenceInChant": 157,
+      "sequenceInChant": 158,
       "sequenceInSection": 7,
       "role": "deity",
       "group": "atiRahasyaYogini",
@@ -4111,7 +4450,9 @@
         "marathi": "महाभगमालिनी",
         "hindi": "महाभगमालिनी",
         "telugu": "మహాభగమాలినీ",
-        "tamil": "மஹாபகமாலிநீ"
+        "tamil": "மஹாபகமாலிநீ",
+        "kannada": "ಮಹಾಭಗಮಾಲಿನೀ",
+        "malayalam": "മഹാഭഗമാലിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4124,7 +4465,7 @@
     {
       "id": "c8-svamini",
       "sectionId": "circuit-8",
-      "sequenceInChant": 158,
+      "sequenceInChant": 159,
       "sequenceInSection": 8,
       "role": "chakraSvamini",
       "group": null,
@@ -4136,7 +4477,9 @@
         "marathi": "सर्वसिद्धिप्रदचक्रस्वामिनी",
         "hindi": "सर्वसिद्धिप्रदचक्रस्वामिनी",
         "telugu": "సర్వసిద్ధిప్రదచక్రస్వామినీ",
-        "tamil": "ஸர்வஸித்திப்ரதசக்ரஸ்வாமிநீ"
+        "tamil": "ஸர்வஸித்திப்ரதசக்ரஸ்வாமிநீ",
+        "kannada": "ಸರ್ವಸಿದ್ಧಿಪ್ರದಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "സർവസിദ്ധിപ്രദചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4149,7 +4492,7 @@
     {
       "id": "c8-yogini",
       "sectionId": "circuit-8",
-      "sequenceInChant": 159,
+      "sequenceInChant": 160,
       "sequenceInSection": 9,
       "role": "yoginiType",
       "group": null,
@@ -4161,7 +4504,9 @@
         "marathi": "अतिरहस्ययोगिनी",
         "hindi": "अतिरहस्ययोगिनी",
         "telugu": "అతిరహస్యయోగినీ",
-        "tamil": "அதிரஹஸ்யயோகிநீ"
+        "tamil": "அதிரஹஸ்யயோகிநீ",
+        "kannada": "ಅತಿರಹಸ್ಯಯೋಗಿನೀ",
+        "malayalam": "അതിരഹസ്യയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4174,7 +4519,7 @@
     {
       "id": "c9-001",
       "sectionId": "circuit-9",
-      "sequenceInChant": 160,
+      "sequenceInChant": 161,
       "sequenceInSection": 1,
       "role": "deity",
       "group": "paraParaRahasyaYogini",
@@ -4186,7 +4531,9 @@
         "marathi": "श्री श्री महाभट्टारिके",
         "hindi": "श्री श्री महाभट्टारिके",
         "telugu": "శ్రీ శ్రీ మహాభట్టారికే",
-        "tamil": "ஶ்ரீ ஶ்ரீ மஹாபட்டாரிகே"
+        "tamil": "ஶ்ரீ ஶ்ரீ மஹாபட்டாரிகே",
+        "kannada": "ಶ್ರೀ ಶ್ರೀ ಮಹಾಭಟ್ಟಾರಿಕೇ",
+        "malayalam": "ശ്രീ ശ്രീ മഹാഭട്ടാരികേ"
       },
       "position": {
         "angleDeg": 0,
@@ -4199,7 +4546,7 @@
     {
       "id": "c9-svamini",
       "sectionId": "circuit-9",
-      "sequenceInChant": 161,
+      "sequenceInChant": 162,
       "sequenceInSection": 2,
       "role": "chakraSvamini",
       "group": null,
@@ -4211,7 +4558,9 @@
         "marathi": "सर्वानन्दमयचक्रस्वामिनी",
         "hindi": "सर्वानन्दमयचक्रस्वामिनी",
         "telugu": "సర్వానన్దమయచక్రస్వామినీ",
-        "tamil": "ஸர்வாநந்தமயசக்ரஸ்வாமிநீ"
+        "tamil": "ஸர்வாநந்தமயசக்ரஸ்வாமிநீ",
+        "kannada": "ಸರ್ವಾನನ್ದಮಯಚಕ್ರಸ್ವಾಮಿನೀ",
+        "malayalam": "സർവാനംദമയചക്രസ്വാമിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4224,7 +4573,7 @@
     {
       "id": "c9-yogini",
       "sectionId": "circuit-9",
-      "sequenceInChant": 162,
+      "sequenceInChant": 163,
       "sequenceInSection": 3,
       "role": "yoginiType",
       "group": null,
@@ -4236,7 +4585,9 @@
         "marathi": "परापररहस्ययोगिनी",
         "hindi": "परापररहस्ययोगिनी",
         "telugu": "పరాపరరహస్యయోగినీ",
-        "tamil": "பராபரரஹஸ்யயோகிநீ"
+        "tamil": "பராபரரஹஸ்யயோகிநீ",
+        "kannada": "ಪರಾಪರರಹಸ್ಯಯೋಗಿನೀ",
+        "malayalam": "പരാപരരഹസ്യയോഗിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4249,7 +4600,7 @@
     {
       "id": "chakreshvari-001",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 163,
+      "sequenceInChant": 164,
       "sequenceInSection": 1,
       "role": "deity",
       "group": null,
@@ -4261,7 +4612,9 @@
         "marathi": "त्रिपुरे",
         "hindi": "त्रिपुरे",
         "telugu": "త్రిపురే",
-        "tamil": "த்ரிபுரே"
+        "tamil": "த்ரிபுரே",
+        "kannada": "ತ್ರಿಪುರೇ",
+        "malayalam": "ത്രിപുരേ"
       },
       "position": {
         "angleDeg": null,
@@ -4274,7 +4627,7 @@
     {
       "id": "chakreshvari-002",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 164,
+      "sequenceInChant": 165,
       "sequenceInSection": 2,
       "role": "deity",
       "group": null,
@@ -4286,7 +4639,9 @@
         "marathi": "त्रिपुरेशी",
         "hindi": "त्रिपुरेशी",
         "telugu": "త్రిపురేశీ",
-        "tamil": "த்ரிபுரேஶீ"
+        "tamil": "த்ரிபுரேஶீ",
+        "kannada": "ತ್ರಿಪುರೇಶೀ",
+        "malayalam": "ത്രിപുരേശീ"
       },
       "position": {
         "angleDeg": null,
@@ -4299,7 +4654,7 @@
     {
       "id": "chakreshvari-003",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 165,
+      "sequenceInChant": 166,
       "sequenceInSection": 3,
       "role": "deity",
       "group": null,
@@ -4311,7 +4666,9 @@
         "marathi": "त्रिपुरसुन्दरी",
         "hindi": "त्रिपुरसुन्दरी",
         "telugu": "త్రిపురసున్దరీ",
-        "tamil": "த்ரிபுரஸுந்தரீ"
+        "tamil": "த்ரிபுரஸுந்தரீ",
+        "kannada": "ತ್ರಿಪುರಸುನ್ದರೀ",
+        "malayalam": "ത്രിപുരസുംദരീ"
       },
       "position": {
         "angleDeg": null,
@@ -4324,7 +4681,7 @@
     {
       "id": "chakreshvari-004",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 166,
+      "sequenceInChant": 167,
       "sequenceInSection": 4,
       "role": "deity",
       "group": null,
@@ -4336,7 +4693,9 @@
         "marathi": "त्रिपुरवासिनी",
         "hindi": "त्रिपुरवासिनी",
         "telugu": "త్రిపురవాసినీ",
-        "tamil": "த்ரிபுரவாஸிநீ"
+        "tamil": "த்ரிபுரவாஸிநீ",
+        "kannada": "ತ್ರಿಪುರವಾಸಿನೀ",
+        "malayalam": "ത്രിപുരവാസിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4349,7 +4708,7 @@
     {
       "id": "chakreshvari-005",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 167,
+      "sequenceInChant": 168,
       "sequenceInSection": 5,
       "role": "deity",
       "group": null,
@@ -4361,7 +4720,9 @@
         "marathi": "त्रिपुराश्रीः",
         "hindi": "त्रिपुराश्रीः",
         "telugu": "త్రిపురాశ్రీః",
-        "tamil": "த்ரிபுராஶ்ரீஃ"
+        "tamil": "த்ரிபுராஶ்ரீஃ",
+        "kannada": "ತ್ರಿಪುರಾಶ್ರೀಃ",
+        "malayalam": "ത്രിപുരാശ്രീഃ"
       },
       "position": {
         "angleDeg": null,
@@ -4374,7 +4735,7 @@
     {
       "id": "chakreshvari-006",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 168,
+      "sequenceInChant": 169,
       "sequenceInSection": 6,
       "role": "deity",
       "group": null,
@@ -4386,7 +4747,9 @@
         "marathi": "त्रिपुरमालिनी",
         "hindi": "त्रिपुरमालिनी",
         "telugu": "త్రిపురమాలినీ",
-        "tamil": "த்ரிபுரமாலிநீ"
+        "tamil": "த்ரிபுரமாலிநீ",
+        "kannada": "ತ್ರಿಪುರಮಾಲಿನೀ",
+        "malayalam": "ത്രിപുരമാലിനീ"
       },
       "position": {
         "angleDeg": null,
@@ -4399,7 +4762,7 @@
     {
       "id": "chakreshvari-007",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 169,
+      "sequenceInChant": 170,
       "sequenceInSection": 7,
       "role": "deity",
       "group": null,
@@ -4411,7 +4774,9 @@
         "marathi": "त्रिपुरसिद्धे",
         "hindi": "त्रिपुरसिद्धे",
         "telugu": "త్రిపురసిద్ధే",
-        "tamil": "த்ரிபுரஸித்தே"
+        "tamil": "த்ரிபுரஸித்தே",
+        "kannada": "ತ್ರಿಪುರಸಿದ್ಧೇ",
+        "malayalam": "ത്രിപുരസിദ്ധേ"
       },
       "position": {
         "angleDeg": null,
@@ -4424,7 +4789,7 @@
     {
       "id": "chakreshvari-008",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 170,
+      "sequenceInChant": 171,
       "sequenceInSection": 8,
       "role": "deity",
       "group": null,
@@ -4436,7 +4801,9 @@
         "marathi": "त्रिपुराम्बा",
         "hindi": "त्रिपुराम्बा",
         "telugu": "త్రిపురామ్బా",
-        "tamil": "த்ரிபுராம்பா"
+        "tamil": "த்ரிபுராம்பா",
+        "kannada": "ತ್ರಿಪುರಾಮ್ಬಾ",
+        "malayalam": "ത്രിപുരാംബാ"
       },
       "position": {
         "angleDeg": null,
@@ -4449,7 +4816,7 @@
     {
       "id": "chakreshvari-009",
       "sectionId": "chakreshvari",
-      "sequenceInChant": 171,
+      "sequenceInChant": 172,
       "sequenceInSection": 9,
       "role": "deity",
       "group": null,
@@ -4461,7 +4828,9 @@
         "marathi": "महात्रिपुरसुन्दरी",
         "hindi": "महात्रिपुरसुन्दरी",
         "telugu": "మహాత్రిపురసున్దరీ",
-        "tamil": "மஹாத்ரிபுரஸுந்தரீ"
+        "tamil": "மஹாத்ரிபுரஸுந்தரீ",
+        "kannada": "ಮಹಾತ್ರಿಪುರಸುನ್ದರೀ",
+        "malayalam": "മഹാത്രിപുരസുംദരീ"
       },
       "position": {
         "angleDeg": null,
@@ -4474,7 +4843,7 @@
     {
       "id": "closing-001",
       "sectionId": "closing",
-      "sequenceInChant": 172,
+      "sequenceInChant": 173,
       "sequenceInSection": 1,
       "role": "deity",
       "group": null,
@@ -4486,7 +4855,9 @@
         "marathi": "महामहेश्वरी",
         "hindi": "महामहेश्वरी",
         "telugu": "మహామహేశ్వరీ",
-        "tamil": "மஹாமஹேஶ்வரீ"
+        "tamil": "மஹாமஹேஶ்வரீ",
+        "kannada": "ಮಹಾಮಹೇಶ್ವರೀ",
+        "malayalam": "മഹാമഹേശ്വരീ"
       },
       "position": {
         "angleDeg": null,
@@ -4498,7 +4869,7 @@
     {
       "id": "closing-002",
       "sectionId": "closing",
-      "sequenceInChant": 173,
+      "sequenceInChant": 174,
       "sequenceInSection": 2,
       "role": "deity",
       "group": null,
@@ -4510,7 +4881,9 @@
         "marathi": "महामहाराज्ञी",
         "hindi": "महामहाराज्ञी",
         "telugu": "మహామహారాజ్ఞీ",
-        "tamil": "மஹாமஹாராஜ்ஞீ"
+        "tamil": "மஹாமஹாராஜ்ஞீ",
+        "kannada": "ಮಹಾಮಹಾರಾಜ್ಞೀ",
+        "malayalam": "മഹാമഹാരാജ്ഞീ"
       },
       "position": {
         "angleDeg": null,
@@ -4522,7 +4895,7 @@
     {
       "id": "closing-003",
       "sectionId": "closing",
-      "sequenceInChant": 174,
+      "sequenceInChant": 175,
       "sequenceInSection": 3,
       "role": "deity",
       "group": null,
@@ -4534,7 +4907,9 @@
         "marathi": "महामहाशक्ते",
         "hindi": "महामहाशक्ते",
         "telugu": "మహామహాశక్తే",
-        "tamil": "மஹாமஹாஶக்தே"
+        "tamil": "மஹாமஹாஶக்தே",
+        "kannada": "ಮಹಾಮಹಾಶಕ್ತೇ",
+        "malayalam": "മഹാമഹാശക്തേ"
       },
       "position": {
         "angleDeg": null,
@@ -4546,7 +4921,7 @@
     {
       "id": "closing-004",
       "sectionId": "closing",
-      "sequenceInChant": 175,
+      "sequenceInChant": 176,
       "sequenceInSection": 4,
       "role": "deity",
       "group": null,
@@ -4558,7 +4933,9 @@
         "marathi": "महामहागुप्ते",
         "hindi": "महामहागुप्ते",
         "telugu": "మహామహాగుప్తే",
-        "tamil": "மஹாமஹாகுப்தே"
+        "tamil": "மஹாமஹாகுப்தே",
+        "kannada": "ಮಹಾಮಹಾಗುಪ್ತೇ",
+        "malayalam": "മഹാമഹാഗുപ്തേ"
       },
       "position": {
         "angleDeg": null,
@@ -4570,7 +4947,7 @@
     {
       "id": "closing-005",
       "sectionId": "closing",
-      "sequenceInChant": 176,
+      "sequenceInChant": 177,
       "sequenceInSection": 5,
       "role": "deity",
       "group": null,
@@ -4582,7 +4959,9 @@
         "marathi": "महामहाज्ञप्ते",
         "hindi": "महामहाज्ञप्ते",
         "telugu": "మహామహాజ్ఞప్తే",
-        "tamil": "மஹாமஹாஜ்ஞப்தே"
+        "tamil": "மஹாமஹாஜ்ஞப்தே",
+        "kannada": "ಮಹಾಮಹಾಜ್ಞಪ್ತೇ",
+        "malayalam": "മഹാമഹാജ്ഞപ്തേ"
       },
       "position": {
         "angleDeg": null,
@@ -4594,7 +4973,7 @@
     {
       "id": "closing-006",
       "sectionId": "closing",
-      "sequenceInChant": 177,
+      "sequenceInChant": 178,
       "sequenceInSection": 6,
       "role": "deity",
       "group": null,
@@ -4606,7 +4985,9 @@
         "marathi": "महामहानन्दे",
         "hindi": "महामहानन्दे",
         "telugu": "మహామహానన్దే",
-        "tamil": "மஹாமஹாநந்தே"
+        "tamil": "மஹாமஹாநந்தே",
+        "kannada": "ಮಹಾಮಹಾನನ್ದೇ",
+        "malayalam": "മഹാമഹാനംദേ"
       },
       "position": {
         "angleDeg": null,
@@ -4618,7 +4999,7 @@
     {
       "id": "closing-007",
       "sectionId": "closing",
-      "sequenceInChant": 178,
+      "sequenceInChant": 179,
       "sequenceInSection": 7,
       "role": "deity",
       "group": null,
@@ -4630,7 +5011,9 @@
         "marathi": "महामहास्कन्धे",
         "hindi": "महामहास्कन्धे",
         "telugu": "మహామహాస్కన్ధే",
-        "tamil": "மஹாமஹாஸ்கந்தே"
+        "tamil": "மஹாமஹாஸ்கந்தே",
+        "kannada": "ಮಹಾಮಹಾಸ್ಕನ್ಧೇ",
+        "malayalam": "മഹാമഹാസ്കംധേ"
       },
       "position": {
         "angleDeg": null,
@@ -4642,7 +5025,7 @@
     {
       "id": "closing-008",
       "sectionId": "closing",
-      "sequenceInChant": 179,
+      "sequenceInChant": 180,
       "sequenceInSection": 8,
       "role": "deity",
       "group": null,
@@ -4654,7 +5037,9 @@
         "marathi": "महामहाशये",
         "hindi": "महामहाशये",
         "telugu": "మహామహాశయే",
-        "tamil": "மஹாமஹாஶயே"
+        "tamil": "மஹாமஹாஶயே",
+        "kannada": "ಮಹಾಮಹಾಶಯೇ",
+        "malayalam": "മഹാമഹാശയേ"
       },
       "position": {
         "angleDeg": null,
@@ -4666,7 +5051,7 @@
     {
       "id": "closing-009",
       "sectionId": "closing",
-      "sequenceInChant": 180,
+      "sequenceInChant": 181,
       "sequenceInSection": 9,
       "role": "deity",
       "group": null,
@@ -4678,7 +5063,9 @@
         "marathi": "महामहा श्रीचक्रनगरसाम्राज्ञी",
         "hindi": "महामहा श्रीचक्रनगरसाम्राज्ञी",
         "telugu": "మహామహా శ్రీచక్రనగరసామ్రాజ్ఞీ",
-        "tamil": "மஹாமஹா ஶ்ரீசக்ரநகரஸாம்ராஜ்ஞீ"
+        "tamil": "மஹாமஹா ஶ்ரீசக்ரநகரஸாம்ராஜ்ஞீ",
+        "kannada": "ಮಹಾಮಹಾ ಶ್ರೀಚಕ್ರನಗರಸಾಮ್ರಾಜ್ಞೀ",
+        "malayalam": "മഹാമഹാ ശ്രീചക്രനഗരസാമ്രാജ്ഞീ"
       },
       "position": {
         "angleDeg": null,
@@ -4690,7 +5077,7 @@
     {
       "id": "closing-010",
       "sectionId": "closing",
-      "sequenceInChant": 181,
+      "sequenceInChant": 182,
       "sequenceInSection": 10,
       "role": "deity",
       "group": null,
@@ -4702,7 +5089,9 @@
         "marathi": "नमस्ते नमस्ते नमस्ते नमः",
         "hindi": "नमस्ते नमस्ते नमस्ते नमः",
         "telugu": "నమస్తే నమస్తే నమస్తే నమః",
-        "tamil": "நமஸ்தே நமஸ்தே நமஸ்தே நமஃ"
+        "tamil": "நமஸ்தே நமஸ்தே நமஸ்தே நமஃ",
+        "kannada": "ನಮಸ್ತೇ ನಮಸ್ತೇ ನಮಸ್ತೇ ನಮಃ",
+        "malayalam": "നമസ്തേ നമസ്തേ നമസ്തേ നമഃ"
       },
       "position": {
         "angleDeg": null,

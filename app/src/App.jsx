@@ -2784,8 +2784,8 @@ export default function App() {
   const rightPanel = (() => {
     if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
     if (activeTab === 'bhupura' && bhupuraMemorise) {
-      const bhupuraDotCount = bhupuraMemoGroup === 'all' ? 28
-        : bhupuraMemoGroup === 'siddhiShakti' ? 10
+      const bhupuraDotCount = bhupuraMemoGroup === 'all' ? 29
+        : bhupuraMemoGroup === 'siddhiShakti' ? 11
         : bhupuraMemoGroup === 'ashtaMatrika' ? 8
         : 10 // mudraShakti
       return (
@@ -3580,6 +3580,8 @@ export default function App() {
             { id: 'devanagari', label: 'देव'  },
             { id: 'telugu',     label: 'తె'   },
             { id: 'tamil',      label: 'த'    },
+            { id: 'kannada',    label: 'ಕ'    },
+            { id: 'malayalam',  label: 'മ'    },
             { id: 'english',    label: 'En'   },
           ].map(s => (
             <button key={s.id} onClick={() => setScript(s.id)}
@@ -3719,6 +3721,8 @@ export default function App() {
               { id: 'devanagari', label: 'देव'  },
               { id: 'telugu',     label: 'తె'   },
               { id: 'tamil',      label: 'த'    },
+              { id: 'kannada',    label: 'ಕ'    },
+              { id: 'malayalam',  label: 'മ'    },
               { id: 'english',    label: 'En'   },
             ].map(s => (
               <button
@@ -4519,7 +4523,7 @@ export default function App() {
               )}
             </div>
             {bhupuraMemorise && (() => {
-              const memoTotal = bhupuraMemoGroup === 'all' ? 30 : bhupuraMemoGroup === 'siddhiShakti' ? 12 : bhupuraMemoGroup === 'ashtaMatrika' ? 10 : 12
+              const memoTotal = bhupuraMemoGroup === 'all' ? 31 : bhupuraMemoGroup === 'siddhiShakti' ? 13 : bhupuraMemoGroup === 'ashtaMatrika' ? 10 : 12
               const correctCount = Object.values(bhupuraResults).filter(v => v === 'correct').length
               if (bhupuraCurrentSeq > memoTotal) return null
               return (

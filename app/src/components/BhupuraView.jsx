@@ -8,14 +8,14 @@
  * overlaid as a second SVG layer (same 500×500 viewBox).
  *
  * Dot positions mirror the numbered markers on the Śrī Yantra page exactly
- * (sequenceInSection 1–28 → BHUPURA_MARKERS n 1–28):
+ * (sequenceInSection 1–29 → BHUPURA_MARKERS n 1–29):
  *
- *   Level 1 outer  (s=228) : n 1–10  → 10 Siddhi Shaktis   — gold
- *   Level 2 middle (s=220) : n 11–18 → 8 Ashta Matrikas     — teal
- *   Level 3 inner  (s=212) : n 19–28 → 10 Mudra Shaktis     — red
+ *   Level 1 outer  (s=228) : n 1–11  → 11 Siddhi Shaktis   — gold (n=11 near laghimā)
+ *   Level 2 middle (s=220) : n 12–19 → 8 Ashta Matrikas     — teal
+ *   Level 3 inner  (s=212) : n 20–29 → 10 Mudra Shaktis     — red
  *
  * Supports Explore mode (tap to reveal, filter by group) and
- * Memorise mode (drill sequentially through all 28).
+ * Memorise mode (drill sequentially through all 29).
  */
 
 import { useState, useRef, useEffect } from 'react'
@@ -82,8 +82,8 @@ const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti').sort((a
 const matrikaDeities = c1Deities.filter(d => d.group === 'ashtaMatrika').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 
-const C1_TOTAL     = c1Deities.length  // 28 — dot-phase deities only
-const BHUPURA_TOTAL = 30               // 28 deities + Chakra Svāminī (29) + Yoginī (30)
+const C1_TOTAL     = c1Deities.length  // 29 — dot-phase deities only (includes garimāsiddhē)
+const BHUPURA_TOTAL = 31               // 29 deities + Chakra Svāminī (30) + Yoginī (31)
 
 // ── Colours ───────────────────────────────────────────────────────────────────
 

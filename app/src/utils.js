@@ -128,5 +128,7 @@ export function displayName(deity, script) {
   if (script === 'tamil')      return s.tamil      || s.iast
   if (script === 'marathi')    return s.marathi    || s.iast
   if (script === 'hindi')      return s.hindi      || s.iast
+  if (script === 'kannada')    return s.kannada    || s.iast
+  if (script === 'malayalam')  return s.malayalam  || s.iast
   return s.iast
 }
