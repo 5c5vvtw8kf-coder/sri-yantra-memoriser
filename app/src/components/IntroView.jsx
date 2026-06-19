@@ -62,9 +62,9 @@ export default function IntroView({ script = 'iast' }) {
             a tool for learning and internalising the Khadgamala Stotram through the sacred
             geometry of the Śrī Yantra.
           </p>
-          <p className="text-muted text-xs leading-relaxed">
+          <p className={`${skt} text-muted text-xs leading-relaxed`}>
             This is a memorisation and internalisation tool, not a guide to the philosophy or
-            theology of the <span className={skt}>Śrī Yantra</span> or the Khadgamala Stotram.
+            theology of the Śrī Yantra or the Khadgamala Stotram.
             Many excellent resources exist for that, some are listed in the References section.
           </p>
         </section>
@@ -74,14 +74,13 @@ export default function IntroView({ script = 'iast' }) {
           <h2 className={`${skt} text-gold-700 text-xs font-mono uppercase tracking-widest`}>
             The Śrī Yantra
           </h2>
-          <p className="text-muted text-xs leading-relaxed">
-            The <span className={skt}>Śrī Yantra</span> (also called the{' '}
-            <span className={skt}>Śrī Cakra</span>) is one of the most revered sacred geometric
-            diagrams in Hinduism, especially within the{' '}
-            <span className={skt}>Śrī Vidyā</span> school. Nine interlocking triangles, four pointing upward
+          <p className={`${skt} text-muted text-xs leading-relaxed`}>
+            The Śrī Yantra (also called the Śrī Cakra) is one of the most revered sacred geometric
+            mandalas in Hindu, especially within the{' '}
+            <span className={skt}>Śrī Vidyā</span> school, and Buddhist tantric traditions. Nine interlocking triangles, four pointing upward
             and five pointing downward, radiate from a central point, the Bindu, surrounded
             by lotus petals and an outer square enclosure with four gates. Together they form
-            nine circuits or 'veils' (<span className={skt}>āvaraṇas</span>), progressing from the
+            nine enclosures or 'veils' (<span className={skt}>āvaraṇas</span>), progressing from the
             outermost expression of manifest reality inward to the point of pure awareness.
           </p>
         </section>
@@ -91,10 +90,10 @@ export default function IntroView({ script = 'iast' }) {
           <h2 className="text-gold-700 text-xs font-mono uppercase tracking-widest">
             The Khadgamala Stotram
           </h2>
-          <p className="text-muted text-xs leading-relaxed">
+          <p className={`${skt} text-muted text-xs leading-relaxed`}>
             The Khadgamala Stotram, the Garland of the Sword, invokes by name the deities
             residing in each of the nine <span className={skt}>āvaraṇas</span>, moving from the outermost{' '}
-            <span className={skt}>Bhūpura</span> inward to the Bindu. The nine <span className={skt}>āvaraṇas</span> contain
+            <span className={skt}>Bhūpura</span> inward, with increasing secrecy, to the Bindu. The nine <span className={skt}>āvaraṇas</span> contain
             102 deity names. The full stotram also includes the{' '}
             <span className={skt}>Nyāsa Devatāḥ</span>, the{' '}
             <span className={skt}>Tithi Nitya Devatāḥ</span>, the <span className={skt}>Divyaugha</span>,{' '}
@@ -111,36 +110,37 @@ export default function IntroView({ script = 'iast' }) {
           <h2 className="text-gold-700 text-xs font-mono uppercase tracking-widest">
             How this app works
           </h2>
-          <p className="text-muted text-xs leading-relaxed">
+          <p className={`${skt} text-muted text-xs leading-relaxed`}>
             Most approaches to memorising the Khadgamala Stotram rely on rote sequential
-            repetition. This app takes a different path. The foundation is spatial memory,
+            repetition. This app offers a different approach as an aid. The foundation is spatial memory,
             learning not just the order of the names, but{' '}
             <em>where each deity lives</em> within the geometry of the{' '}
             <span className={skt}>Śrī Yantra</span>. When the geometry is genuinely
             internalised, the sequential chant follows naturally.
           </p>
-          <p className="text-muted text-xs leading-relaxed">
+          <p className={`${skt} text-muted text-xs leading-relaxed`}>
             Work through the <span className="text-gold-400">Explore and Memorise</span> section
             level by level. <span className="text-gold-400">Explore</span> mode is there to review
             the content and <span className="text-gold-400">Memorise</span> mode to recall the
             focus object in your mind before hovering over it to reveal the deity and recording
-            whether it is memorised or not. Then further test your recall with the random{' '}
+            whether it is memorised or not, by clicking or double-clicking respectively. Then further test your recall with the random{' '}
             <span className="text-gold-400">Spot Check</span> feature. The{' '}
             <span className="text-gold-400">Memory Map</span> exists to map out your strengths and
             weaknesses and where to focus further efforts.
           </p>
-          <p className="text-muted text-xs leading-relaxed">
+          <p className={`${skt} text-muted text-xs leading-relaxed`}>
             Before you begin, it is worth listening to a full chanting of the Khadgamala Stotram
             to familiarise yourself with the sound and rhythm of the names.{' '}
+            You may find that{' '}
             <a
               href="https://youtu.be/Ro701GJzg4c?si=YPV1Uwy-B8VFCHoD"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gold-400 hover:text-gold-300 underline underline-offset-2"
             >
-              This recording
+              this recording
             </a>{' '}
-            is a good starting point.
+            is a good starting point. We hope you enjoy this app and find it useful.
           </p>
         </section>
 
