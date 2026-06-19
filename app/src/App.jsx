@@ -3574,25 +3574,19 @@ export default function App() {
         <span className={`flex-1 text-sm font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
           {TABS.find(t => t.id === activeTab)?.footerLabel ?? ''}
         </span>
-        <div className="flex gap-1">
-          {[
-            { id: 'iast',       label: 'IAST' },
-            { id: 'devanagari', label: 'देव'  },
-            { id: 'telugu',     label: 'తె'   },
-            { id: 'tamil',      label: 'த'    },
-            { id: 'kannada',    label: 'ಕ'    },
-            { id: 'malayalam',  label: 'മ'    },
-            { id: 'english',    label: 'En'   },
-          ].map(s => (
-            <button key={s.id} onClick={() => setScript(s.id)}
-              className={`px-1.5 py-0.5 rounded text-[11px] transition-colors border
-                ${script === s.id
-                  ? 'text-gold-300 bg-gold-900/30 border-gold-700/50'
-                  : 'text-muted border-surface-700 hover:text-cream'}`}>
-              {s.label}
-            </button>
-          ))}
-        </div>
+        <select
+          value={script}
+          onChange={e => setScript(e.target.value)}
+          className="text-xs rounded border border-surface-700 bg-surface-900 text-gold-300 px-1.5 py-0.5 flex-shrink-0"
+        >
+          <option value="iast">IAST</option>
+          <option value="devanagari">Devanagari</option>
+          <option value="telugu">Telugu</option>
+          <option value="tamil">Tamil</option>
+          <option value="kannada">Kannada</option>
+          <option value="malayalam">Malayalam</option>
+          <option value="english">English</option>
+        </select>
       </div>
 
       {/* ── 3-column content row ─────────────────────────────────────────── */}
