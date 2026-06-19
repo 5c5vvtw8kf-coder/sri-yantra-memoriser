@@ -3581,11 +3581,11 @@ export default function App() {
         >
           <option value="iast">IAST</option>
           <option value="devanagari">Devanagari</option>
-          <option value="telugu">Telugu</option>
-          <option value="tamil">Tamil</option>
+          <option value="english">English</option>
           <option value="kannada">Kannada</option>
           <option value="malayalam">Malayalam</option>
-          <option value="english">English</option>
+          <option value="tamil">Tamil</option>
+          <option value="telugu">Telugu</option>
         </select>
       </div>
 
