@@ -62,7 +62,7 @@ export default function IntroView({ script = 'iast' }) {
             a tool for learning and internalising the Khadgamala Stotram through the sacred
             geometry of the Śrī Yantra.
           </p>
-          <p className={`${skt} text-muted text-xs leading-relaxed`}>
+          <p className={`${skt} text-muted text-sm leading-relaxed`}>
             This is a memorisation and internalisation tool, not a guide to the philosophy or
             theology of the Śrī Yantra or the Khadgamala Stotram.
             Many excellent resources exist for that, some are listed in the References section.
@@ -74,7 +74,7 @@ export default function IntroView({ script = 'iast' }) {
           <h2 className={`${skt} text-gold-700 text-xs font-mono uppercase tracking-widest`}>
             The Śrī Yantra
           </h2>
-          <p className={`${skt} text-muted text-xs leading-relaxed`}>
+          <p className={`${skt} text-muted text-sm leading-relaxed`}>
             The Śrī Yantra (also called the Śrī Cakra) is one of the most revered sacred geometric
             mandalas in Hindu, especially within the{' '}
             <span className={skt}>Śrī Vidyā</span> school, and Buddhist tantric traditions. Nine interlocking triangles, four pointing upward
@@ -90,7 +90,7 @@ export default function IntroView({ script = 'iast' }) {
           <h2 className="text-gold-700 text-xs font-mono uppercase tracking-widest">
             The Khadgamala Stotram
           </h2>
-          <p className={`${skt} text-muted text-xs leading-relaxed`}>
+          <p className={`${skt} text-muted text-sm leading-relaxed`}>
             The Khadgamala Stotram, the Garland of the Sword, invokes by name the deities
             residing in each of the nine <span className={skt}>āvaraṇas</span>, moving from the outermost{' '}
             <span className={skt}>Bhūpura</span> inward, with increasing secrecy, to the Bindu. The nine <span className={skt}>āvaraṇas</span> contain
@@ -110,7 +110,7 @@ export default function IntroView({ script = 'iast' }) {
           <h2 className="text-gold-700 text-xs font-mono uppercase tracking-widest">
             How this app works
           </h2>
-          <p className={`${skt} text-muted text-xs leading-relaxed`}>
+          <p className={`${skt} text-muted text-sm leading-relaxed`}>
             Most approaches to memorising the Khadgamala Stotram rely on rote sequential
             repetition. This app offers a different approach as an aid. The foundation is spatial memory,
             learning not just the order of the names, but{' '}
@@ -118,7 +118,7 @@ export default function IntroView({ script = 'iast' }) {
             <span className={skt}>Śrī Yantra</span>. When the geometry is genuinely
             internalised, the sequential chant follows naturally.
           </p>
-          <p className={`${skt} text-muted text-xs leading-relaxed`}>
+          <p className={`${skt} text-muted text-sm leading-relaxed`}>
             Work through the <span className="text-gold-400">Explore and Memorise</span> section
             level by level. <span className="text-gold-400">Explore</span> mode is there to review
             the content and <span className="text-gold-400">Memorise</span> mode to recall the
@@ -128,7 +128,7 @@ export default function IntroView({ script = 'iast' }) {
             <span className="text-gold-400">Memory Map</span> exists to map out your strengths and
             weaknesses and where to focus further efforts.
           </p>
-          <p className={`${skt} text-muted text-xs leading-relaxed`}>
+          <p className={`${skt} text-muted text-sm leading-relaxed`}>
             Before you begin, it is worth listening to a full chanting of the Khadgamala Stotram
             to familiarise yourself with the sound and rhythm of the names.{' '}
             You may find that{' '}
