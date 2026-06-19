@@ -91,7 +91,7 @@ export default function IntroView({ script = 'iast' }) {
             The Khadgamala Stotram
           </h2>
           <p className={`${skt} text-muted text-sm leading-relaxed`}>
-            The Khadgamala Stotram, the Garland of the Sword, invokes by name the deities
+            The Khadgamala Stotram, the Garland of Swords, invokes by name the deities
             residing in each of the nine <span className={skt}>āvaraṇas</span>, moving from the outermost{' '}
             <span className={skt}>Bhūpura</span> inward, with increasing secrecy, to the Bindu. The nine <span className={skt}>āvaraṇas</span> contain
             102 deity names. The full stotram also includes the{' '}
