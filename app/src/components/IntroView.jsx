@@ -65,7 +65,7 @@ export default function IntroView({ script = 'iast' }) {
           <p className={`${skt} text-muted text-sm leading-relaxed`}>
             This is a memorisation and internalisation tool, not a guide to the philosophy or
             theology of the Śrī Yantra or the Khadgamala Stotram.
-            Many excellent resources exist for that, some are listed in the References section.
+            Many excellent resources exist for that, some are listed in the References page of the Resources section.
           </p>
         </section>
 
