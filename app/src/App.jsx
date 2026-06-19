@@ -623,7 +623,7 @@ function CircuitTable({ selectedCircuit, onCircuitSelect }) {
 //   30    : Yoginī active — same
 //   > 30  : all done
 
-function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, svaminiSeq = 29, yoginiSeq = 30 }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -631,7 +631,7 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
   const section = circuitSections.find(s => s.circuitNumber === 1)
   if (!section) return null
 
-  const dotsDone = currentSeq > 28
+  const dotsDone = currentSeq >= svaminiSeq
 
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
@@ -720,14 +720,14 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
       </p>
 
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 29)}
-        {renderRow('Yoginī',         'yoginiType',    30)}
+        {renderRow('Chakra Svāminī', 'chakraSvamini', svaminiSeq)}
+        {renderRow('Yoginī',         'yoginiType',    yoginiSeq)}
       </div>
 
-      {currentSeq > 30 && (
+      {currentSeq > yoginiSeq && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
-            {Object.values(results).filter(v => v === 'correct').length === 30
+            {Object.values(results).filter(v => v === 'correct').length === yoginiSeq
               ? 'All memorised — well done!'
               : 'Round complete.'}
           </p>
@@ -2783,17 +2783,25 @@ export default function App() {
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {
     if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
-    if (activeTab === 'bhupura' && bhupuraMemorise && bhupuraMemoGroup === 'all') return (
-      <BhupuraMemoriseInfo
-        currentSeq={bhupuraCurrentSeq}
-        results={bhupuraResults}
-        onMarkResult={handleBhupuraMarkResult}
-        onToggleResult={handleBhupuraToggleResult}
-        onRestart={handleBhupuraStartMemorise}
-        onNavigate={handleNavigateToMemorise}
-        script={script}
-      />
-    )
+    if (activeTab === 'bhupura' && bhupuraMemorise) {
+      const bhupuraDotCount = bhupuraMemoGroup === 'all' ? 28
+        : bhupuraMemoGroup === 'siddhiShakti' ? 10
+        : bhupuraMemoGroup === 'ashtaMatrika' ? 8
+        : 10 // mudraShakti
+      return (
+        <BhupuraMemoriseInfo
+          currentSeq={bhupuraCurrentSeq}
+          results={bhupuraResults}
+          onMarkResult={handleBhupuraMarkResult}
+          onToggleResult={handleBhupuraToggleResult}
+          onRestart={handleBhupuraStartMemorise}
+          onNavigate={handleNavigateToMemorise}
+          script={script}
+          svaminiSeq={bhupuraDotCount + 1}
+          yoginiSeq={bhupuraDotCount + 2}
+        />
+      )
+    }
     if (activeTab === 'c2' && c2Memorise) return (
       <C2MemoriseInfo
         currentSeq={c2CurrentSeq}
@@ -4511,7 +4519,7 @@ export default function App() {
               )}
             </div>
             {bhupuraMemorise && (() => {
-              const memoTotal = bhupuraMemoGroup === 'all' ? 30 : bhupuraMemoGroup === 'siddhiShakti' ? 10 : bhupuraMemoGroup === 'ashtaMatrika' ? 8 : 10
+              const memoTotal = bhupuraMemoGroup === 'all' ? 30 : bhupuraMemoGroup === 'siddhiShakti' ? 12 : bhupuraMemoGroup === 'ashtaMatrika' ? 10 : 12
               const correctCount = Object.values(bhupuraResults).filter(v => v === 'correct').length
               if (bhupuraCurrentSeq > memoTotal) return null
               return (

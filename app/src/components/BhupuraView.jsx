@@ -336,7 +336,7 @@ export default function BhupuraView({
     : memoGroup === 'ashtaMatrika' ? matrikaDeities
     : memoGroup === 'mudraShakti'  ? mudraDeities
     : c1Deities
-  const MEMO_TOTAL = memoGroup === 'all' ? BHUPURA_TOTAL : memoDeities.length
+  const MEMO_TOTAL = memoGroup === 'all' ? BHUPURA_TOTAL : memoDeities.length + 2
 
   const done = memorise && currentSeq > MEMO_TOTAL
   const showCompletion = useDoneDelay(done)
@@ -597,8 +597,8 @@ export default function BhupuraView({
       <MobileSvaminiButtons
         section={bhupuraSection}
         script={script}
-        svaminiSeq={29}
-        yoginiSeq={30}
+        svaminiSeq={memoGroup === 'all' ? 29 : memoDeities.length + 1}
+        yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
         memorise={memorise}
         currentSeq={currentSeq}
         results={results}
