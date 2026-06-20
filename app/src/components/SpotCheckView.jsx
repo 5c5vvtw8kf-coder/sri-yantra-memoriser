@@ -289,24 +289,24 @@ function Tooltip({ x, y, label, script, clearance = 22 }) {
   )
 }
 
-function CompletionOverlay({ correct, total, onRestart, sectionLabel }) {
+function CompletionOverlay({ correct, total, onRestart, sectionLabel, tr = k => k }) {
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0
   return (
     <div className="flex flex-col items-center gap-5 py-10 text-center">
-      <p className="text-gold-400 text-lg">{sectionLabel || 'Round complete'}</p>
-      <p className="text-cream text-sm">Round complete</p>
+      <p className="text-gold-400 text-lg">{sectionLabel || tr('spot.round_complete')}</p>
+      <p className="text-cream text-sm">{tr('spot.round_complete')}</p>
       <div>
         <p className="text-4xl font-medium">
           <span className="text-red-400">{correct}</span>
           <span className="text-muted text-2xl">/{total}</span>
         </p>
-        <p className="text-xs text-muted mt-1">{pct}% memorised</p>
+        <p className="text-xs text-muted mt-1">{pct}% {tr('misc.memorised')}</p>
       </div>
       <button
         onClick={onRestart}
         className="px-5 py-2 bg-gold-800/40 border border-gold-700/50 text-gold-300 rounded-lg text-sm hover:bg-gold-800/60 transition-colors"
       >
-        New round
+        {tr('btn.new_round')}
       </button>
     </div>
   )
@@ -384,7 +384,7 @@ function CardPrompt({ deity, script, hovered, onMouseEnter, onMouseLeave, onClic
             {(hovered || flash) ? (
               <p className="iast text-gold-300 text-xl leading-snug">{name}</p>
             ) : (
-              <p className="text-muted italic hidden md:block" style={{ fontSize: '11px' }}>hover to reveal</p>
+              <p className="text-muted italic hidden md:block" style={{ fontSize: '11px' }}>{tr('instr.hover_reveal')}</p>
             )}
           </div>
         </div>
@@ -395,7 +395,7 @@ function CardPrompt({ deity, script, hovered, onMouseEnter, onMouseLeave, onClic
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export default function SpotCheckView({ script = 'iast', filter = 'all', subFilter = null, limit = null, onProgressSync, onRegisterSkip, onUpdateStats }) {
+export default function SpotCheckView({ script = 'iast', filter = 'all', subFilter = null, limit = null, onProgressSync, onRegisterSkip, onUpdateStats, tr = k => k }) {
   const [queue,          setQueue]          = useState(() => { const q = buildQueue(filter, subFilter); return limit ? q.slice(0, limit) : q })
   const [idx,            setIdx]            = useState(0)
   const [results,        setResults]        = useState({})
@@ -814,10 +814,4 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         <CompletionOverlay
           correct={correct} total={total}
           onRestart={startNewRound}
-          sectionLabel={getSectionLabel(filter, subFilter)}
-        />
-      )}
-
-    </div>
-  )
-}
+          sectionLabe

@@ -118,17 +118,30 @@ export function recordHistoryEntry(key, seq, result) {
 /**
  * Returns the display name for a deity in the requested script,
  * falling back to IAST if the requested script is unavailable.
+ *
+ * `scriptOrLocale` can be either a raw script key ('telugu', 'iast', …)
+ * or a locale id ('te', 'si', …).  Locale ids are resolved via
+ * localeScript() before lookup, so callers can pass either form.
  */
-export function displayName(deity, script) {
+export function displayName(deity, scriptOrLocale) {
   if (!deity) return ''
   const s = deity.scripts
-  if (script === 'devanagari') return s.devanagari || s.iast
-  if (script === 'english')    return s.english    || s.iast
-  if (script === 'telugu')     return s.telugu     || s.iast
-  if (script === 'tamil')      return s.tamil      || s.iast
-  if (script === 'marathi')    return s.marathi    || s.iast
-  if (script === 'hindi')      return s.hindi      || s.iast
-  if (script === 'kannada')    return s.kannada    || s.iast
-  if (script === 'malayalam')  return s.malayalam  || s.iast
-  return s.iast
+  // Resolve locale → script if needed (locale ids that differ from script ids)
+  const script = resolveScript(scriptOrLocale)
+  return s[script] || s.iast
+}
+
+/**
+ * Map a locale id or script key to the actual JSON script field name.
+ * Most existing locale ids happen to match the script field name directly.
+ * New locales (ne, si, id, ja, …) need explicit mappings here.
+ */
+function resolveScript(scriptOrLocale) {
+  const LOCALE_TO_SCRIPT = {
+    ne: 'devanagari',
+    si: 'sinhala',
+    id: 'iast',
+    ja: 'kana',
+  }
+  return LOCALE_TO_SCRIPT[scriptOrLocale] ?? scriptOrLocale
 }

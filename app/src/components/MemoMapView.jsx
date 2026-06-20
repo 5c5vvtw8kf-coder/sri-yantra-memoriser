@@ -147,7 +147,7 @@ function SharedColgroup() {
 // The frozen header is flex-shrink-0; the table body is flex-1 overflow-y-auto.
 // No sticky positioning needed — internal scroll handles everything.
 
-export default function MemoMapView({ allResults, script = 'iast' }) {
+export default function MemoMapView({ allResults, script = 'iast', tr = k => k }) {
   const [view,          setView]          = useState('maps')   // 'maps' | 'list'
   const [sectionFilter, setSectionFilter] = useState('all')
   const [statusFilter,  setStatusFilter]  = useState('all')
@@ -183,7 +183,7 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
   })
 
   const handleClearAll = () => {
-    if (!window.confirm('Clear all memo results and history? This cannot be undone.')) return
+    if (!window.confirm(tr('map.clear_confirm'))) return
     HISTORY_STORES.forEach(k => saveMemoStorage(k, {}, { clearHistory: true }))
     window.location.reload()
   }
@@ -202,15 +202,15 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
         {/* Title + key + clear */}
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-2">
-            <h1 className="text-cream text-sm font-medium">Memory Map</h1>
+            <h1 className="text-cream text-sm font-medium">{tr('map.title')}</h1>
             <div className="flex gap-1 mt-2">
               <button onClick={() => setView('maps')}
                 className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'maps' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>
-                Maps
+                {tr('map.maps')}
               </button>
               <button onClick={() => setView('list')}
                 className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'list' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>
-                List
+                {tr('map.list')}
               </button>
             </div>
             {view === 'list' && (
@@ -218,22 +218,22 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
               <div className="flex items-center gap-2">
                 <span className="text-green-400 w-3 flex-shrink-0">✓</span>
                 <span className="text-muted w-5 flex-shrink-0">{memorisedCount}</span>
-                <span className="text-muted">correct on last 3 attempts</span>
+                <span className="text-muted">{tr('map.correct_last3')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-amber-400 w-3 flex-shrink-0">~</span>
                 <span className="text-muted w-5 flex-shrink-0">{partialCount}</span>
-                <span className="text-muted">correct on &lt; last 3 attempts</span>
+                <span className="text-muted">{tr('map.correct_partial')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-red-400 w-3 flex-shrink-0">✗</span>
                 <span className="text-muted w-5 flex-shrink-0">{notMemoisedCount}</span>
-                <span className="text-muted">none of last 3 correct</span>
+                <span className="text-muted">{tr('map.none_correct')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-surface-500 w-3 flex-shrink-0">—</span>
                 <span className="text-muted w-5 flex-shrink-0">{notAttemptedCount}</span>
-                <span className="text-muted">not attempted</span>
+                <span className="text-muted">{tr('map.not_tried')}</span>
               </div>
             </div>
             )}
@@ -242,14 +242,14 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
             onClick={handleClearAll}
             className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0"
           >
-            Clear all
+            {tr('map.clear_all')}
           </button>
         </div>
 
         {/* Progress bar */}
         <div>
           <div className="flex justify-end mb-0.5">
-            <span className="text-[10px] font-mono text-surface-500">overall progress</span>
+            <span className="text-[10px] font-mono text-surface-500">{tr('map.progress')}</span>
           </div>
           <div className="h-1 bg-surface-800 rounded-full overflow-hidden flex">
             <div className="h-full bg-green-400 transition-all duration-300"  style={{ width: `${memorisedPct}%`   }} />
@@ -265,7 +265,7 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
             onChange={e => setSectionFilter(e.target.value)}
             className="flex-1 min-w-0 text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
           >
-            <option value="all">All sections</option>
+            <option value="all">{tr('map.all_sections')}</option>
             {FILTER_OPTIONS.map(({ id, label }) => (
               <option key={id} value={id}>{label}</option>
             ))}
@@ -275,11 +275,11 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
             onChange={e => setStatusFilter(e.target.value)}
             className="text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors flex-shrink-0"
           >
-            <option value="all">All</option>
-            <option value="memorised">✓ Memorised</option>
-            <option value="partial">~ Partially memorised</option>
-            <option value="notMemorised">✗ Not memorised</option>
-            <option value="notAttempted">— Not attempted</option>
+            <option value="all">{tr('misc.all')}</option>
+            <option value="memorised">{tr('map.memorised')}</option>
+            <option value="partial">{tr('map.partial')}</option>
+            <option value="notMemorised">{tr('map.not_memorised')}</option>
+            <option value="notAttempted">{tr('map.not_attempted')}</option>
           </select>
         </div>}
 
@@ -289,10 +289,10 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
             <SharedColgroup />
             <thead>
               <tr className="bg-surface-800">
-                <th className="px-3 py-2 text-left text-muted font-normal">#</th>
-                <th className="px-3 py-2 text-left text-muted font-normal">Name</th>
-                <th className="px-3 py-2 text-left text-muted font-normal">Section</th>
-                <th className="px-3 py-2 text-right text-muted font-normal">Status</th>
+                <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_num')}</th>
+                <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_name')}</th>
+                <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_section')}</th>
+                <th className="px-3 py-2 text-right text-muted font-normal">{tr('map.col_status')}</th>
               </tr>
             </thead>
           </table>
@@ -317,7 +317,7 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="px-3 py-8 text-center text-muted italic">
-                    No entries match
+                    {tr('map.no_entries')}
                   </td>
                 </tr>
               ) : filtered.map(row => {
@@ -349,14 +349,4 @@ export default function MemoMapView({ allResults, script = 'iast' }) {
 
         {filtered.length > 0 && (
           <p className="text-muted text-xs text-center mt-3">
-            {filtered.length} {filtered.length === 1 ? 'entry' : 'entries'}
-            {sectionFilter !== 'all' || statusFilter !== 'all' ? ' (filtered)' : ''}
-          </p>
-        )}
-        </>}
-
-      </div>
-
-    </div>
-  )
-}
+            {filtered.length} {filtered.length === 1 ? tr('misc.entry') : tr('misc.en

@@ -67,14 +67,14 @@ const SECTION_OPTIONS = Object.entries(SECTION_LABEL).map(([id, label]) => ({ id
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function ActivityLogView() {
+export default function ActivityLogView({ tr = k => k }) {
   // Load newest-first; re-read when cleared
   const [log, setLog] = useState(() => [...loadSessionLog()].reverse())
   const [sectionFilter, setSectionFilter] = useState('all')
   const [dateSearch,    setDateSearch]    = useState('')
 
   const handleClear = () => {
-    if (!window.confirm('Clear activity log? This cannot be undone.')) return
+    if (!window.confirm(tr('log.clear_confirm'))) return
     clearSessionLog()
     setLog([])
   }
@@ -96,9 +96,9 @@ export default function ActivityLogView() {
 
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h1 className="text-cream text-sm font-medium">Activity Log</h1>
+            <h1 className="text-cream text-sm font-medium">{tr('log.title')}</h1>
             <p className="text-muted text-xs mt-0.5">
-              {filtered.length}{filtered.length !== log.length ? ` of ${log.length}` : ''} {log.length === 1 ? 'session' : 'sessions'}
+              {filtered.length}{filtered.length !== log.length ? ` of ${log.length}` : ''} {log.length === 1 ? tr('log.session') : tr('log.sessions')}
             </p>
             <div className="flex gap-3 mt-1.5 text-[11px] font-mono">
               <span className="text-red-400">100%</span>
@@ -111,7 +111,7 @@ export default function ActivityLogView() {
               onClick={handleClear}
               className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0"
             >
-              Clear
+              {tr('log.clear')}
             </button>
           )}
         </div>
@@ -131,7 +131,7 @@ export default function ActivityLogView() {
               onChange={e => setSectionFilter(e.target.value)}
               className="flex-1 min-w-0 text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
             >
-              <option value="all">All sections</option>
+              <option value="all">{tr('log.all_sections')}</option>
               {SECTION_OPTIONS.map(({ id, label }) => (
                 <option key={id} value={id}>{label}</option>
               ))}
@@ -145,10 +145,10 @@ export default function ActivityLogView() {
             <Cols />
             <thead>
               <tr className="bg-surface-800">
-                <th className="px-1 py-2 text-left text-muted font-normal">Date</th>
-                <th className="px-1 py-2 text-left text-muted font-normal">Time</th>
-                <th className="px-1 py-2 text-left text-muted font-normal">Section</th>
-                <th className="px-1 py-2 text-right text-muted font-normal">Score</th>
+                <th className="px-1 py-2 text-left text-muted font-normal">{tr('log.col_date')}</th>
+                <th className="px-1 py-2 text-left text-muted font-normal">{tr('log.col_time')}</th>
+                <th className="px-1 py-2 text-left text-muted font-normal">{tr('log.col_section')}</th>
+                <th className="px-1 py-2 text-right text-muted font-normal">{tr('log.col_score')}</th>
               </tr>
             </thead>
           </table>
@@ -161,11 +161,11 @@ export default function ActivityLogView() {
         <div className="border-x border-b border-surface-700 rounded-b-lg overflow-hidden">
           {log.length === 0 ? (
             <p className="px-3 py-8 text-center text-muted italic text-xs">
-              No sessions yet — complete a Memo or Spot Check round to start logging.
+              {tr('log.empty')}
             </p>
           ) : filtered.length === 0 ? (
             <p className="px-3 py-8 text-center text-muted italic text-xs">
-              No entries match
+              {tr('log.no_entries')}
             </p>
           ) : (
             <table className="w-full table-fixed text-xs">
@@ -199,10 +199,4 @@ export default function ActivityLogView() {
                 })}
               </tbody>
             </table>
-          )}
-        </div>
-      </div>
-
-    </div>
-  )
-}
+          )}

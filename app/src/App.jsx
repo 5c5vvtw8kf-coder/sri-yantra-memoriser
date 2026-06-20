@@ -23,6 +23,7 @@ import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import data from './data/khadgamala-canonical.json'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
+import { translate, localeScript, LOCALE_ORDER, LOCALE_CONFIG } from './translations.js'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -430,7 +431,7 @@ function CircuitRows({ circuitNumber, script, onHoverFill = null }) {
   )
 }
 
-function SectionInfo({ tabId, script = 'iast', showRows = true }) {
+function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
   const circuitNumber = TAB_TO_CIRCUIT[tabId]
   const section       = circuitNumber
     ? circuitSections.find(s => s.circuitNumber === circuitNumber)
@@ -559,7 +560,7 @@ function SectionInfo({ tabId, script = 'iast', showRows = true }) {
           </div>
           {secrecy && (
             <div className="flex gap-2">
-              <span className="text-muted w-24 flex-shrink-0 pt-px">Secrecy</span>
+              <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.secrecy')}</span>
               <span className="text-muted">{secrecy}</span>
             </div>
           )}
@@ -573,7 +574,7 @@ function SectionInfo({ tabId, script = 'iast', showRows = true }) {
   )
 }
 
-function CircuitTable({ selectedCircuit, onCircuitSelect }) {
+function CircuitTable({ selectedCircuit, onCircuitSelect, tr = k => k }) {
   return (
     <div className="p-3">
       <div className="border border-surface-600 rounded-lg overflow-hidden">
@@ -606,7 +607,7 @@ function CircuitTable({ selectedCircuit, onCircuitSelect }) {
         </table>
       </div>
       {!selectedCircuit && (
-        <p className="text-muted text-xs text-center mt-2 italic">Tap a circuit to explore</p>
+        <p className="text-muted text-xs text-center mt-2 italic">{tr('hint.circuit')}</p>
       )}
     </div>
   )
@@ -623,7 +624,7 @@ function CircuitTable({ selectedCircuit, onCircuitSelect }) {
 //   30    : Yoginī active — same
 //   > 30  : all done
 
-function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, svaminiSeq = 29, yoginiSeq = 30 }) {
+function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, svaminiSeq = 29, yoginiSeq = 30, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -669,7 +670,7 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
     if (!dotsDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -728,21 +729,21 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === yoginiSeq
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('c2')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -764,7 +765,7 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
 //   18    : Yoginī active — same interaction; Chakra Svāminī shows its result
 //   > 18  : all done — both rows show final result state
 
-function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -811,7 +812,7 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (!petalsDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -874,21 +875,21 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === 18
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('c3')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -906,7 +907,7 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 //          10   = Yoginī active
 //          > 10 = done
 
-function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -952,7 +953,7 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (!petalsDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -1011,21 +1012,21 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === 10
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('c4')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -1043,7 +1044,7 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 //          16   = Yoginī active
 //          > 16 = done
 
-function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -1089,7 +1090,7 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -1148,21 +1149,21 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === 16
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('c5')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -1179,7 +1180,7 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 //          12   = Yoginī active
 //          > 12 = done
 
-function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -1225,7 +1226,7 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -1284,21 +1285,21 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === 12
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('c6')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -1315,7 +1316,7 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 //          12   = Yoginī active
 //          > 12 = done
 
-function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -1361,7 +1362,7 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -1420,21 +1421,21 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === 12
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('c7')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -1451,7 +1452,7 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 //          10   = Yoginī active
 //          > 10 = done
 
-function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -1497,7 +1498,7 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -1556,21 +1557,21 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === 10
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('c8')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -1589,7 +1590,7 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 //          9    = Yoginī active
 //          > 9  = done
 
-function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -1635,7 +1636,7 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (!trianglesDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -1691,21 +1692,21 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === 9
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('c9')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -1721,7 +1722,7 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 //          3    = Yoginī active
 //          > 3  = done
 
-function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script }) {
+function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onRestart, onNavigate, script, tr = k => k }) {
   const [hoveredField, setHoveredField] = useState(null)
   const [revealedSeq,  setRevealedSeq]  = useState(null)
   const extraTimer = useRef(null)
@@ -1767,7 +1768,7 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     if (!binduDone && !isActive) {
       valueContent = <span className="text-surface-600 tracking-widest">···</span>
     } else if (isActive && !isRevealed) {
-      valueContent = <span className="text-gold-300 italic text-xs">tap to reveal</span>
+      valueContent = <span className="text-gold-300 italic text-xs">{tr('instr.tap_reveal')}</span>
     } else if (isActive && isRevealed) {
       valueContent = <span className="text-gold-800">{value}</span>
     } else if (isPast && isCorrect) {
@@ -1823,21 +1824,21 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         <div className="pt-3 border-t border-surface-700 space-y-2">
           <p className="text-xs text-muted italic leading-snug">
             {Object.values(results).filter(v => v === 'correct').length === 3
-              ? 'All memorised — well done!'
-              : 'Round complete.'}
+              ? tr('misc.all_memorised')
+              : tr('spot.round_complete')}
           </p>
           <div className="flex flex-col gap-1.5">
             <button
               onClick={onRestart}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
             >
-              Try again
+              {tr('misc.try_again')}
             </button>
             <button
               onClick={() => onNavigate('chakreshvari')}
               className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
             >
-              Next →
+              {tr('misc.next')}
             </button>
           </div>
         </div>
@@ -1928,7 +1929,9 @@ const SECTION_IAST_LABELS = {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
-  const [script,    setScript]    = useState('iast')
+  const [locale,    setLocale]    = useState('iast')
+  const script  = localeScript(locale)          // script key for deity name display
+  const tr      = key => translate(locale, key) // UI string helper
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
@@ -2740,28 +2743,28 @@ export default function App() {
     'chakreshvari','closing','nyasa','inner','gurava','spotcheck',
   ])
   const EXPLORE_HINT = {
-    bhupura:      'Hover or click any dot to reveal the deity',
-    nyasa:        'Hover or click any dot to reveal the deity',
-    inner:        'Hover or click any dot to reveal the deity',
-    gurava:       'Hover or click any dot to reveal the deity',
-    c2:           'Hover or click any petal to reveal the deity',
-    c3:           'Hover or click any petal to reveal the deity',
-    c4:           'Hover or click any triangle to reveal the deity',
-    c5:           'Hover or click any triangle to reveal the deity',
-    c6:           'Hover or click any triangle to reveal the deity',
-    c7:           'Hover or click any triangle to reveal the deity',
-    c8:           'Hover or click to reveal the deity',
-    c9:           'Hover or click the bindu to reveal the deity',
-    chakreshvari: 'Hover any circuit to reveal its Tripura form',
-    closing:      'Hover a number to illuminate the Yantra · tap to reveal the epithet',
+    bhupura:      tr('hint.dot'),
+    nyasa:        tr('hint.dot'),
+    inner:        tr('hint.dot'),
+    gurava:       tr('hint.dot'),
+    c2:           tr('hint.petal'),
+    c3:           tr('hint.petal'),
+    c4:           tr('hint.triangle'),
+    c5:           tr('hint.triangle'),
+    c6:           tr('hint.triangle'),
+    c7:           tr('hint.triangle'),
+    c8:           tr('hint.dot'),
+    c9:           tr('hint.bindu'),
+    chakreshvari: tr('hint.tripura'),
+    closing:      tr('hint.closing'),
   }
   const INSTR_STYLE = { fontSize: '0.75rem', fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '0.03em' }
   const memoInstr = (
     <span className="text-muted" style={INSTR_STYLE}>
-      hover to reveal ·{' '}
-      <span className="text-red-400">click</span> = memorised ·{' '}
-      <span className="text-gold-400">dbl-click</span> = not memorised ·{' '}
-      right-click past = toggle
+      {tr('instr.hover_reveal')} ·{' '}
+      <span className="text-red-400">click</span> = {tr('instr.click_correct').replace('click = ', '')} ·{' '}
+      <span className="text-gold-400">dbl-click</span> = {tr('instr.dblclick_wrong').replace('dbl-click = ', '')} ·{' '}
+      {tr('instr.right_click_toggle')}
     </span>
   )
   const footerInstruction = !EXPLORE_TABS.has(activeTab) ? null
@@ -2770,9 +2773,9 @@ export default function App() {
         ? <span className="text-center flex flex-col gap-0.5" style={INSTR_STYLE}>
             <span className="text-muted">Proceed from the outer Bhūpura to the inner Bindu</span>
             <span className="text-muted">
-              hover to reveal ·{' '}
-              <span className="text-red-400">click</span> = memorised ·{' '}
-              <span className="text-gold-400">dbl-click</span> = not memorised
+              {tr('instr.hover_reveal')} ·{' '}
+              <span className="text-red-400">click</span> = {tr('instr.click_correct').replace('click = ', '')} ·{' '}
+              <span className="text-gold-400">dbl-click</span> = {tr('instr.dblclick_wrong').replace('dbl-click = ', '')}
             </span>
           </span>
         : activeTab === 'spotcheck'
@@ -2799,6 +2802,7 @@ export default function App() {
           script={script}
           svaminiSeq={bhupuraDotCount + 1}
           yoginiSeq={bhupuraDotCount + 2}
+          tr={tr}
         />
       )
     }
@@ -2811,6 +2815,7 @@ export default function App() {
         onRestart={handleC2StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
+        tr={tr}
       />
     )
     if (activeTab === 'c3' && c3Memorise) return (
@@ -2822,6 +2827,7 @@ export default function App() {
         onRestart={handleC3StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
+        tr={tr}
       />
     )
     if (activeTab === 'c4' && c4Memorise) return (
@@ -2833,6 +2839,7 @@ export default function App() {
         onRestart={handleC4StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
+        tr={tr}
       />
     )
     if (activeTab === 'c5' && c5Memorise) return (
@@ -2844,6 +2851,7 @@ export default function App() {
         onRestart={handleC5StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
+        tr={tr}
       />
     )
     if (activeTab === 'c6' && c6Memorise) return (
@@ -2855,6 +2863,7 @@ export default function App() {
         onRestart={handleC6StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
+        tr={tr}
       />
     )
     if (activeTab === 'c7' && c7Memorise) return (
@@ -2866,6 +2875,7 @@ export default function App() {
         onRestart={handleC7StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
+        tr={tr}
       />
     )
     if (activeTab === 'c8' && c8Memorise) return (
@@ -2877,6 +2887,7 @@ export default function App() {
         onRestart={handleC8StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
+        tr={tr}
       />
     )
     if (activeTab === 'c9' && c9Memorise) return (
@@ -2888,14 +2899,15 @@ export default function App() {
         onRestart={handleC9StartMemorise}
         onNavigate={handleNavigateToMemorise}
         script={script}
+        tr={tr}
       />
     )
     if (activeTab === 'spotcheck') return (
       <div className="px-5 py-6 space-y-5">
-        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">Spot Check</p>
+        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('spot.title')}</p>
 
         {/* Filter buttons */}
-        <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>Segment</p>
+        <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
         <div className="flex flex-wrap gap-1.5">
           {SC_FILTERS.map(f => (
             <button
@@ -2939,7 +2951,7 @@ export default function App() {
 
         {/* Limit buttons */}
         <div className="space-y-1.5">
-          <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>Round size</p>
+          <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.round_size')}</p>
           <div className="flex gap-1.5">
             {[10, 20, 50, 'whole'].map(n => (
               <button
@@ -2994,10 +3006,10 @@ export default function App() {
           const sesPct     = sesTotal > 0 ? Math.round((sesCorrect / sesTotal) * 100) : null
           return (
             <div className="space-y-1.5 pt-1 border-t border-surface-800">
-              <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold" style={{ fontSize: '9px' }}>Scores</p>
+              <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold" style={{ fontSize: '9px' }}>{tr('score.scores')}</p>
               {scProgress.idx > 0 && (
                 <div className="flex justify-between text-xs">
-                  <span className="text-muted">Round</span>
+                  <span className="text-muted">{tr('score.round')}</span>
                   <span>
                     <span className="text-cream font-mono">{scProgress.correct}/{scProgress.idx}</span>
                     <span className="text-muted ml-1.5">{roundPct}%</span>
@@ -3006,7 +3018,7 @@ export default function App() {
               )}
               {sesTotal > 0 && (
                 <div className="flex justify-between text-xs">
-                  <span className="text-muted">Session</span>
+                  <span className="text-muted">{tr('score.session')}</span>
                   <span>
                     <span className="text-cream font-mono">{sesCorrect}/{sesTotal}</span>
                     <span className="text-muted ml-1.5">{sesPct}%</span>
@@ -3025,7 +3037,7 @@ export default function App() {
     if (activeTab === 'inner' && innerMemorise) {
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="inner" script={script} />
+          <SectionInfo tabId="inner" script={script} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <div className="flex gap-1.5 pt-2">
               <button
@@ -3050,7 +3062,7 @@ export default function App() {
       const innerList = innerWaning ? [...first15.slice().reverse(), maha] : allNitya
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="inner" script={script} />
+          <SectionInfo tabId="inner" script={script} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-1">
             <div className="flex gap-1.5 pt-2 pb-1">
               <button
@@ -3068,7 +3080,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setInnerShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
               <span>{innerShowList ? '↑' : '↓'}</span>
             </button>
             {innerShowList && (
@@ -3105,13 +3117,13 @@ export default function App() {
       let runningIdx = 0
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="gurava" script={script} />
+          <SectionInfo tabId="gurava" script={script} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setGuravaShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
               <span>{guravaShowList ? '↑' : '↓'}</span>
             </button>
             {guravaShowList && (
@@ -3152,13 +3164,13 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="nyasa" script={script} />
+          <SectionInfo tabId="nyasa" script={script} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setNyasaShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
               <span>{nyasaShowList ? '↑' : '↓'}</span>
             </button>
             {nyasaShowList && (
@@ -3196,13 +3208,13 @@ export default function App() {
           .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
         return (
           <div className="overflow-y-auto">
-            <SectionInfo tabId={tab} script={script} showRows={false} />
+            <SectionInfo tabId={tab} script={script} showRows={false} tr={tr} />
             <div className="border-t border-surface-700 px-3 pb-3">
               <button
                 className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
                 onClick={() => setShowList(l => !l)}
               >
-                <span className="font-mono uppercase tracking-widest">Deity list</span>
+                <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
                 <span>{showList ? '↑' : '↓'}</span>
               </button>
               {showList && (
@@ -3235,13 +3247,13 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="c2" script={script} showRows={false} />
+          <SectionInfo tabId="c2" script={script} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setC2ShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
               <span>{c2ShowList ? '↑' : '↓'}</span>
             </button>
             {c2ShowList && (
@@ -3273,13 +3285,13 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="chakreshvari" script={script} />
+          <SectionInfo tabId="chakreshvari" script={script} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setNcShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
               <span>{ncShowList ? '↑' : '↓'}</span>
             </button>
             {ncShowList && (
@@ -3308,7 +3320,7 @@ export default function App() {
       const c9d = deities.find(d => d.sectionId === 'circuit-9' && d.role === 'deity')
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="c9" script={script} showRows={false} />
+          <SectionInfo tabId="c9" script={script} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3 pt-2">
             <p className="font-mono uppercase tracking-widest text-xs text-muted pb-1.5">Deity</p>
             {c9d && (
@@ -3333,13 +3345,13 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="c8" script={script} showRows={false} />
+          <SectionInfo tabId="c8" script={script} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setC8ShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
               <span>{c8ShowList ? '↑' : '↓'}</span>
             </button>
             {c8ShowList && (
@@ -3370,23 +3382,23 @@ export default function App() {
       const matrikaList = deities.filter(d => d.sectionId === 'circuit-1' && d.group === 'ashtaMatrika').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       const mudraList   = deities.filter(d => d.sectionId === 'circuit-1' && d.group === 'mudraShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       const groups = [
-        { label: 'Siddhi Shaktis', list: siddhiList  },
-        { label: 'Ashta Matrikas', list: matrikaList },
-        { label: 'Mudra Shaktis',  list: mudraList   },
+        { label: tr('bhupura.siddhi'),  list: siddhiList  },
+        { label: tr('bhupura.matrika'), list: matrikaList },
+        { label: tr('bhupura.mudra'),   list: mudraList   },
       ]
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="bhupura" script={script} showRows={false} />
+          <SectionInfo tabId="bhupura" script={script} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-1">
             <div className="flex gap-1.5 pt-2 pb-1">
               <button
                 className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${!bhupuraShowColors ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
                 onClick={() => setBhupuraShowColors(false)}
-              >Plain</button>
+              >{tr('toggle.plain')}</button>
               <button
                 className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${bhupuraShowColors ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
                 onClick={() => setBhupuraShowColors(true)}
-              >Colours</button>
+              >{tr('toggle.colours')}</button>
             </div>
           </div>
           <div className="border-t border-surface-700 px-3 pb-3">
@@ -3394,7 +3406,7 @@ export default function App() {
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setBhupuraShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
               <span>{bhupuraShowList ? '↑' : '↓'}</span>
             </button>
             {bhupuraShowList && (
@@ -3433,13 +3445,13 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="closing" script={script} />
+          <SectionInfo tabId="closing" script={script} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
               onClick={() => setClosingShowList(l => !l)}
             >
-              <span className="font-mono uppercase tracking-widest">Deity list</span>
+              <span className="font-mono uppercase tracking-widest">{tr('score.deity_list')}</span>
               <span>{closingShowList ? '↑' : '↓'}</span>
             </button>
             {closingShowList && (
@@ -3463,7 +3475,7 @@ export default function App() {
       )
     }
 
-    return <SectionInfo tabId={activeTab} script={script} />
+    return <SectionInfo tabId={activeTab} script={script} tr={tr} />
   })()
 
   // ── Yantra-tab sidebar controls (removed — Yantra tab is now a pure display) ─
@@ -3474,7 +3486,7 @@ export default function App() {
         onClick={() => setControlsOpen(o => !o)}
         className="w-full flex items-center justify-between px-5 py-2 text-xs text-muted uppercase tracking-widest font-mono hover:text-cream transition-colors"
       >
-        <span>Controls</span>
+        <span>{tr('yantra.controls')}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 12 12"
@@ -3488,13 +3500,13 @@ export default function App() {
       {/* Collapsible body */}
       {controlsOpen && (
         <div className="px-3 pb-2">
-          <ToggleRow label="Triangles" active={showTriangles}
+          <ToggleRow label={tr('yantra.triangles')} active={showTriangles}
             onClick={() => setShowTriangles(t => !t)} />
-          <ToggleRow label="Numbers" active={showNumbers}
+          <ToggleRow label={tr('yantra.numbers')} active={showNumbers}
             onClick={() => { setShowNumbers(n => !n); setLastTapped(null); if (selectedCircuit) setSelectedCircuit(null) }} />
-          <ToggleRow label="Labels" active={showLabels}
+          <ToggleRow label={tr('yantra.labels')} active={showLabels}
             onClick={() => setShowLabels(l => !l)} />
-          <ToggleRow label="Seed of Life" active={showSeedOfLife} colour="blue"
+          <ToggleRow label={tr('yantra.seed_of_life')} active={showSeedOfLife} colour="blue"
             onClick={() => setShowSeedOfLife(s => !s)} />
           {showSeedOfLife && (
             <div className="flex items-center gap-2 mt-1 px-2">
@@ -3552,7 +3564,7 @@ export default function App() {
           <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
         </svg>
         <p className="iast text-gold-400 text-lg font-medium">Please rotate your device</p>
-        <p className="text-muted text-sm">This app is designed for portrait mode</p>
+        <p className="text-muted text-sm">{tr('device.portrait')}</p>
       </div>
 
       {/* ── Mobile drawer backdrop ───────────────────────────────────────── */}
@@ -3567,25 +3579,24 @@ export default function App() {
           onClick={() => setMobileNavOpen(o => !o)}
           className="w-8 h-8 flex items-center justify-center text-muted hover:text-cream transition-colors"
           style={{ fontSize: 20 }}
-          aria-label="Open navigation"
+          aria-label={tr('nav.open')}
         >
           ☰
         </button>
         <span className={`flex-1 text-sm font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
-          {TABS.find(t => t.id === activeTab)?.footerLabel ?? ''}
+          {(() => {
+            const FOOTER_TR = { intro: tr('tab.intro'), spotcheck: tr('tab.spotcheck'), memomap: tr('tab.memomap'), 'activity-log': tr('tab.actlog'), references: tr('tab.references') }
+            return FOOTER_TR[activeTab] ?? TABS.find(t => t.id === activeTab)?.footerLabel ?? ''
+          })()}
         </span>
         <select
-          value={script}
-          onChange={e => setScript(e.target.value)}
+          value={locale}
+          onChange={e => setLocale(e.target.value)}
           className="text-xs rounded border border-surface-700 bg-surface-900 text-gold-300 px-1.5 py-0.5 flex-shrink-0"
         >
-          <option value="iast">IAST</option>
-          <option value="devanagari">Devanagari</option>
-          <option value="english">English</option>
-          <option value="kannada">Kannada</option>
-          <option value="malayalam">Malayalam</option>
-          <option value="tamil">Tamil</option>
-          <option value="telugu">Telugu</option>
+          {LOCALE_ORDER.map(id => (
+            <option key={id} value={id}>{LOCALE_CONFIG[id].label}</option>
+          ))}
         </select>
       </div>
 
@@ -3618,7 +3629,7 @@ export default function App() {
                 <button
                   data-tour="tour-btn"
                   onClick={startTour}
-                  title="Take the tour"
+                  title={tr('nav.take_tour')}
                   className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
                   style={{ fontSize: 11 }}
                 >
@@ -3628,7 +3639,7 @@ export default function App() {
               {/* Collapse toggle */}
               <button
                 onClick={() => setNavCollapsed(c => !c)}
-                title={navCollapsed ? 'Expand navigation' : 'Collapse navigation'}
+                title={navCollapsed ? tr('nav.expand') : tr('nav.collapse')}
                 className="w-5 h-5 rounded border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
                 style={{ fontSize: 11, fontFamily: 'monospace' }}
               >
@@ -3704,30 +3715,22 @@ export default function App() {
         {yantraControls}
         </>)} {/* end !navCollapsed */}
 
-        {/* Script selector — always visible; label hidden when collapsed; mt-auto pins to bottom */}
+        {/* Language selector — always visible; label hidden when collapsed; mt-auto pins to bottom */}
         <div className="mt-auto px-3 py-3 border-t border-surface-800 flex-shrink-0">
           {!navCollapsed && (
-            <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
+            <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">{tr('picker.label')}</p>
           )}
-          <div className="flex gap-1 px-1">
-            {[
-              { id: 'iast',       label: 'IAST' },
-              { id: 'devanagari', label: 'देव'  },
-              { id: 'telugu',     label: 'తె'   },
-              { id: 'tamil',      label: 'த'    },
-              { id: 'kannada',    label: 'ಕ'    },
-              { id: 'malayalam',  label: 'മ'    },
-              { id: 'english',    label: 'En'   },
-            ].map(s => (
+          <div className="flex flex-wrap gap-1 px-1">
+            {LOCALE_ORDER.map(id => (
               <button
-                key={s.id}
-                onClick={() => setScript(s.id)}
-                className={`flex-1 text-xs py-1 rounded-md transition-colors border
-                  ${script === s.id
+                key={id}
+                onClick={() => setLocale(id)}
+                className={`flex-1 min-w-[2rem] text-xs py-1 rounded-md transition-colors border
+                  ${locale === id
                     ? 'text-gold-300 bg-gold-900/30 border-gold-700/50'
                     : 'text-muted border-surface-700 hover:text-cream'}`}
               >
-                {s.label}
+                {LOCALE_CONFIG[id].label}
               </button>
             ))}
           </div>
@@ -3995,6 +3998,7 @@ export default function App() {
                   }))
                   saveSessionLog({ ts: Date.now(), section: 'spot-check', filter: scFilter, correct: c, total: t })
                 }}
+                tr={tr}
               />
             )}
 
@@ -4035,10 +4039,10 @@ export default function App() {
                   {/* Scores */}
                   {(scProgress.idx > 0 || sesTotal > 0) && (
                     <div className="space-y-1.5 pb-1 border-b border-surface-800">
-                      <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold" style={{ fontSize: '9px' }}>Scores</p>
+                      <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold" style={{ fontSize: '9px' }}>{tr('score.scores')}</p>
                       {scProgress.idx > 0 && (
                         <div className="flex justify-between text-xs">
-                          <span className="text-muted">Round</span>
+                          <span className="text-muted">{tr('score.round')}</span>
                           <span>
                             <span className="text-cream font-mono">{scProgress.correct}/{scProgress.idx}</span>
                             <span className="text-muted ml-1.5">{roundPct}%</span>
@@ -4047,7 +4051,7 @@ export default function App() {
                       )}
                       {sesTotal > 0 && (
                         <div className="flex justify-between text-xs">
-                          <span className="text-muted">Session</span>
+                          <span className="text-muted">{tr('score.session')}</span>
                           <span>
                             <span className="text-cream font-mono">{sesCorrect}/{sesTotal}</span>
                             <span className="text-muted ml-1.5">{sesPct}%</span>
@@ -4059,7 +4063,7 @@ export default function App() {
 
                   {/* Segment */}
                   <div className="space-y-1.5">
-                    <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>Segment</p>
+                    <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {SC_FILTERS.map(f => (
                         <button key={f.id} onClick={() => setFilter(f.id)}
@@ -4088,7 +4092,7 @@ export default function App() {
 
                   {/* Round size */}
                   <div className="space-y-1.5">
-                    <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>Round size</p>
+                    <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.round_size')}</p>
                     <div className="flex gap-1.5">
                       {[10, 20, 50, 'whole'].map(n => (
                         <button key={n} onClick={() => setScLimit(n === 'whole' ? null : n)}
@@ -4132,12 +4136,13 @@ export default function App() {
                   nc:      ncResults,
                   closing: closingResults,
                 }}
+                tr={tr}
               />
             </div>
           )}
           {activeTab === 'activity-log' && (
             <div className="flex-1 min-h-0 w-full max-w-lg flex flex-col">
-              <ActivityLogView />
+              <ActivityLogView tr={tr} />
             </div>
           )}
         </div>
@@ -4148,12 +4153,12 @@ export default function App() {
             <button onClick={mobileCtrl.onExplore}
               className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors
                 ${!mobileCtrl.isMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}>
-              Explore
+              {tr('mode.explore')}
             </button>
             <button onClick={mobileCtrl.onMemorise}
               className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors
                 ${mobileCtrl.isMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}>
-              Memorise
+              {tr('mode.memorise')}
             </button>
           </div>
         )}
@@ -4230,15 +4235,15 @@ export default function App() {
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   !nyasaMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >Explore</button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleNyasaStartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   nyasaMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >Memorise</button>
+              >{tr('mode.memorise')}</button>
               {nyasaMemorise && (
-                <button onClick={handleNyasaStartMemorise} title="Reset" className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
+                <button onClick={handleNyasaStartMemorise} title={tr('btn.reset')} className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
               )}
             </div>
             {nyasaMemorise && nyasaCurrentSeq <= 6 && (() => {
@@ -4258,7 +4263,7 @@ export default function App() {
             })()}
             {nyasaPrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(nyasaPrevResults).filter(v => v === 'correct').length
                   return (
@@ -4281,7 +4286,7 @@ export default function App() {
                 <div className="pt-1 border-t border-surface-700 space-y-1">
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Not memorised ({notMem.length})</span>
+                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.not_memorised')} ({notMem.length})</span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
                   {showErrors && (
@@ -4306,15 +4311,15 @@ export default function App() {
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   !innerMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >Explore</button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleInnerStartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   innerMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >Memorise</button>
+              >{tr('mode.memorise')}</button>
               {innerMemorise && (
-                <button onClick={handleInnerStartMemorise} title="Reset" className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
+                <button onClick={handleInnerStartMemorise} title={tr('btn.reset')} className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
               )}
             </div>
             {innerMemorise && innerCurrentSeq <= 16 && (() => {
@@ -4336,7 +4341,7 @@ export default function App() {
             })()}
             {innerPrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(innerPrevResults).filter(v => v === 'correct').length
                   return (
@@ -4359,7 +4364,7 @@ export default function App() {
                 <div className="pt-1 border-t border-surface-700 space-y-1">
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Not memorised ({notMem.length})</span>
+                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.not_memorised')} ({notMem.length})</span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
                   {showErrors && (
@@ -4375,8 +4380,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -4396,15 +4401,15 @@ export default function App() {
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   !guravaMemorse ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >Explore</button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleGuravaStartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   guravaMemorse ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >Memorise</button>
+              >{tr('mode.memorise')}</button>
               {guravaMemorse && (
-                <button onClick={handleGuravaStartMemorise} title="Reset" className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
+                <button onClick={handleGuravaStartMemorise} title={tr('btn.reset')} className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
               )}
             </div>
             {guravaMemorse && guravaCurrentSeq <= 19 && (() => {
@@ -4426,7 +4431,7 @@ export default function App() {
             })()}
             {guravaPrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(guravaPrevResults).filter(v => v === 'correct').length
                   return (
@@ -4452,7 +4457,7 @@ export default function App() {
                 <div className="pt-1 border-t border-surface-700 space-y-1">
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Not memorised ({notMem.length})</span>
+                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.not_memorised')} ({notMem.length})</span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
                   {showErrors && (
@@ -4468,8 +4473,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -4505,15 +4510,15 @@ export default function App() {
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   !bhupuraMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >Explore</button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleBhupuraStartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   bhupuraMemorise ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >Memorise</button>
+              >{tr('mode.memorise')}</button>
               {bhupuraMemorise && (
-                <button onClick={handleBhupuraStartMemorise} title="Reset" className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
+                <button onClick={handleBhupuraStartMemorise} title={tr('btn.reset')} className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors">↺</button>
               )}
             </div>
             {bhupuraMemorise && (() => {
@@ -4535,7 +4540,7 @@ export default function App() {
             })()}
             {bhupuraPrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(bhupuraPrevResults).filter(v => v === 'correct').length
                   return (
@@ -4563,7 +4568,7 @@ export default function App() {
                 <div className="pt-1 border-t border-surface-700 space-y-1">
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Not memorised ({notMem.length})</span>
+                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.not_memorised')} ({notMem.length})</span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
                   {showErrors && (
@@ -4579,8 +4584,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -4620,7 +4625,7 @@ export default function App() {
               {c2Memorise && (
                 <button
                   onClick={handleC2StartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -4654,7 +4659,7 @@ export default function App() {
             {/* Previous attempt summary */}
             {c2PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(c2PrevResults).filter(v => v === 'correct').length
                   const skipped = 18 - correct
@@ -4677,7 +4682,7 @@ export default function App() {
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
                     <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
+                      {tr('score.not_memorised')} ({notMem.length})
                     </span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
@@ -4696,8 +4701,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -4737,7 +4742,7 @@ export default function App() {
               {c4Memorise && (
                 <button
                   onClick={handleC4StartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -4769,7 +4774,7 @@ export default function App() {
 
             {c4PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(c4PrevResults).filter(v => v === 'correct').length
                   const skipped = 16 - correct
@@ -4790,7 +4795,7 @@ export default function App() {
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
                     <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
+                      {tr('score.not_memorised')} ({notMem.length})
                     </span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
@@ -4808,8 +4813,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -4849,7 +4854,7 @@ export default function App() {
               {c5Memorise && (
                 <button
                   onClick={handleC5StartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -4881,7 +4886,7 @@ export default function App() {
 
             {c5PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(c5PrevResults).filter(v => v === 'correct').length
                   const skipped = 12 - correct
@@ -4903,7 +4908,7 @@ export default function App() {
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
                     <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
+                      {tr('score.not_memorised')} ({notMem.length})
                     </span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
@@ -4921,8 +4926,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -4962,7 +4967,7 @@ export default function App() {
               {c6Memorise && (
                 <button
                   onClick={handleC6StartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -4994,7 +4999,7 @@ export default function App() {
 
             {c6PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(c6PrevResults).filter(v => v === 'correct').length
                   const skipped = 12 - correct
@@ -5016,7 +5021,7 @@ export default function App() {
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
                     <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
+                      {tr('score.not_memorised')} ({notMem.length})
                     </span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
@@ -5034,8 +5039,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -5075,7 +5080,7 @@ export default function App() {
               {c7Memorise && (
                 <button
                   onClick={handleC7StartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -5107,7 +5112,7 @@ export default function App() {
 
             {c7PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(c7PrevResults).filter(v => v === 'correct').length
                   const skipped = 10 - correct
@@ -5129,7 +5134,7 @@ export default function App() {
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
                     <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
+                      {tr('score.not_memorised')} ({notMem.length})
                     </span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
@@ -5147,8 +5152,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -5188,7 +5193,7 @@ export default function App() {
               {c8Memorise && (
                 <button
                   onClick={handleC8StartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -5220,7 +5225,7 @@ export default function App() {
 
             {c8PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(c8PrevResults).filter(v => v === 'correct').length
                   const skipped = 9 - correct
@@ -5247,7 +5252,7 @@ export default function App() {
                   <button className="flex items-center justify-between w-full text-left"
                     onClick={() => setShowErrors(e => !e)}>
                     <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
+                      {tr('score.not_memorised')} ({notMem.length})
                     </span>
                     <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
                   </button>
@@ -5265,8 +5270,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -5306,7 +5311,7 @@ export default function App() {
               {c9Memorise && (
                 <button
                   onClick={handleC9StartMemorise}
-                  title="Reset"
+                  title={tr('btn.reset')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -5316,7 +5321,7 @@ export default function App() {
 
             {c9PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 <p className="text-xs">
                   <span className="text-red-400">
                     {c9PrevResults[1] === 'correct' ? '1/1' : '0/1'} memorised
@@ -5328,8 +5333,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -5369,7 +5374,7 @@ export default function App() {
               {ncMemorise && (
                 <button
                   onClick={handleNcStartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -5401,7 +5406,7 @@ export default function App() {
 
             {ncPrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(ncPrevResults).filter(v => v === 'correct').length
                   const skipped = 9 - correct
@@ -5418,8 +5423,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -5459,7 +5464,7 @@ export default function App() {
               {closingMemorise && (
                 <button
                   onClick={handleClosingStartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -5491,7 +5496,7 @@ export default function App() {
 
             {closingPrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(closingPrevResults).filter(v => v === 'correct').length
                   const skipped = 10 - correct
@@ -5508,8 +5513,8 @@ export default function App() {
             {sessionStats.rounds > 0 && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
@@ -5549,7 +5554,7 @@ export default function App() {
               {c3Memorise && (
                 <button
                   onClick={handleC3StartMemorise}
-                  title="Reset whole level"
+                  title={tr('btn.reset_level')}
                   className="px-2.5 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors"
                 >
                   ↺
@@ -5581,7 +5586,7 @@ export default function App() {
 
             {c3PrevResults !== null && (
               <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Last attempt</p>
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
                 {(() => {
                   const correct = Object.values(c3PrevResults).filter(v => v === 'correct').length
                   const skipped = 10 - correct
@@ -5601,43 +5606,4 @@ export default function App() {
               return (
                 <div className="pt-1 border-t border-surface-700 space-y-1">
                   <button className="flex items-center justify-between w-full text-left"
-                    onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      Not memorised ({notMem.length})
-                    </span>
-                    <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
-                  </button>
-                  {showErrors && (
-                    <ul className="space-y-0.5 pt-0.5">
-                      {notMem.map((name, i) => (
-                        <li key={i} className={`text-xs leading-snug ${script !== 'english' ? 'iast ' : ''}text-amber-300`}>{name}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              )
-            })()}
-
-            {sessionStats.rounds > 0 && (
-              <div className="pt-1 border-t border-surface-700 space-y-1">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">Session</p>
-                  <button onClick={handleResetSession} title="Reset session" className="text-xs text-muted hover:text-cream transition-colors">↺</button>
-                </div>
-                <p className="text-xs">
-                  <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
-                </p>
-              </div>
-            )}
-
-          </div>
-        )}
-
-      </aside>
-
-      </div>{/* end 3-column content row */}
-
-    </div>
-  )
-}
+                    onClick={() => setShowE
