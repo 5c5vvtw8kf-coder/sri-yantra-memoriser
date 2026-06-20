@@ -814,4 +814,12 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         <CompletionOverlay
           correct={correct} total={total}
           onRestart={startNewRound}
-          sectionLabe
+
+          sectionLabel={getSectionLabel(filter, subFilter)}
+          tr={tr}
+        />
+      )}
+
+    </div>
+  )
+}

@@ -199,4 +199,10 @@ export default function ActivityLogView({ tr = k => k }) {
                 })}
               </tbody>
             </table>
-          )}
+          )}
+        </div>
+      </div>
+
+    </div>
+  )
+}

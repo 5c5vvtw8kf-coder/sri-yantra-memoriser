@@ -610,4 +610,42 @@ export default function BhupuraView({
                 color: item.active ? GOLD : 'rgba(201,168,76,0.40)',
                 fontWeight: item.active ? 600 : 400,
                 background: item.active ? 'rgba(201,168,76,0.12)' : 'transparent',
-                border: `1px solid ${
+
+                border: `1px solid ${item.active ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.20)'}`,
+                borderRadius: 20,
+                cursor: 'pointer',
+                padding: item.active ? '5px 14px' : '4px 12px',
+                whiteSpace: 'nowrap',
+                transition: 'color 0.2s, background 0.2s, border-color 0.2s',
+              }}
+            >
+              {item.active && item.groupLabel ? (
+                <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.3 }}>
+                  <span style={{ fontSize: 13 }}>{item.label}</span>
+                  <span style={{ fontSize: 11, opacity: 0.75 }}>{item.groupLabel}</span>
+                </span>
+              ) : item.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+{memorise && <MobileMemoriseInstr />}
+
+      <MobileSvaminiButtons
+        section={bhupuraSection}
+        script={script}
+        svaminiSeq={memoGroup === 'all' ? 29 : memoDeities.length + 1}
+        yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+
+      <div className="h-2" />
+    </div>
+  )
+}

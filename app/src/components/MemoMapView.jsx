@@ -349,4 +349,15 @@ export default function MemoMapView({ allResults, script = 'iast', tr = k => k }
 
         {filtered.length > 0 && (
           <p className="text-muted text-xs text-center mt-3">
-            {filtered.length} {filtered.length === 1 ? tr('misc.entry') : tr('misc.en
+
+            {filtered.length} {filtered.length === 1 ? tr('misc.entry') : tr('misc.entries')}
+            {sectionFilter !== 'all' || statusFilter !== 'all' ? ` (${tr('misc.filtered')})` : ''}
+          </p>
+        )}
+        </>}
+
+      </div>
+
+    </div>
+  )
+}
