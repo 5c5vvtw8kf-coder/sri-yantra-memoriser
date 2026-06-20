@@ -99,25 +99,27 @@ const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti').sort((a,
 const C1_TOTAL     = c1Deities.length  // 29 — dot-phase deities only (includes garimāsiddhē)
 const BHUPURA_TOTAL = 31               // 29 deities + Chakra Svāminī (30) + Yoginī (31)
 
-// Co-location map: dotN → [deity, ...] — allows detecting when multiple deities
-// share the same physical position (e.g. laghimāsiddhē and garimāsiddhē).
-const _deityDotN = Object.fromEntries(
-  c1Deities.map(d => [d.id, d.group === 'siddhiShakti' ? siddhiDotN(d.sequenceInSection) : d.sequenceInSection])
-)
-const _dotNDeities = {}
+// Co-location map: group deities by physical (x,y) position so that dots sharing
+// the same coordinates (e.g. laghimāsiddhē n=2 and garimāsiddhē n=11) are merged.
+const _posKeyDeities = {}
 c1Deities.forEach(d => {
-  const n = _deityDotN[d.id]
-  if (!_dotNDeities[n]) _dotNDeities[n] = []
-  _dotNDeities[n].push(d)
+  const pos = bhupuraPos(d)
+  if (!pos) return
+  const key = `${pos.x},${pos.y}`
+  if (!_posKeyDeities[key]) _posKeyDeities[key] = []
+  _posKeyDeities[key].push(d)
 })
 
 // Returns the display label for a dot — concatenates names when co-located deities share a position.
 function dotLabel(id, script) {
-  const n = _deityDotN[id]
-  const group = _dotNDeities[n] ?? []
+  const d = deityById[id]
+  if (!d) return id
+  const pos = bhupuraPos(d)
+  const key = pos ? `${pos.x},${pos.y}` : null
+  const group = key ? (_posKeyDeities[key] ?? []) : []
   return group.length > 1
-    ? group.map(d => displayName(d, script)).join(', ')
-    : displayName(deityById[id], script)
+    ? group.map(g => displayName(g, script)).join(', ')
+    : displayName(d, script)
 }
 
 // ── Colours ───────────────────────────────────────────────────────────────────
@@ -608,4 +610,4 @@ export default function BhupuraView({
                 color: item.active ? GOLD : 'rgba(201,168,76,0.40)',
                 fontWeight: item.active ? 600 : 400,
                 background: item.active ? 'rgba(201,168,76,0.12)' : 'transparent',
-                border: `1px solid ${item.active ? 'rgb
+                border: `1px solid ${
