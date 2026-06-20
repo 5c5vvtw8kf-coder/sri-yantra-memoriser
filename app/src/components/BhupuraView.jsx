@@ -70,6 +70,41 @@ const BHUPURA_POSITIONS = Object.fromEntries(
   BHUPURA_MARKERS.map(m => [m.n, { x: m.x, y: m.y, level: m.level }])
 )
 
+// garimāsiddhē (sequenceInSection=3) co-locates with laghimāsiddhē on dot n=11,
+// which has the same physical coordinates as n=2. Siddhis seq=4–11 shift back by
+// one slot to fill n=3–10, restoring the pre-garimā positions.
+function siddhiDotN(seq) {
+  if (seq <= 2) return seq   // aṇimā, laghimā — unchanged
+  if (seq === 3) return 11   // garimā — shares laghimā's physical position
+  return seq - 1             // mahimā (4→3) through sarvakāma (11→10)
+}
+
+function bhupuraPos(d) {
+  const n = d.group === 'siddhiShakti' ? siddhiDotN(d.sequenceInSection) : d.sequenceInSection
+  return BHUPURA_POSITIONS[n]
+}
+
+// Co-location map: dotN → [deity, ...] — allows detecting when multiple deities
+// share the same physical position (e.g. laghimāsiddhē and garimāsiddhē).
+const _deityDotN = Object.fromEntries(
+  c1Deities.map(d => [d.id, d.group === 'siddhiShakti' ? siddhiDotN(d.sequenceInSection) : d.sequenceInSection])
+)
+const _dotNDeities = {}
+c1Deities.forEach(d => {
+  const n = _deityDotN[d.id]
+  if (!_dotNDeities[n]) _dotNDeities[n] = []
+  _dotNDeities[n].push(d)
+})
+
+// Returns the display label for a dot — concatenates names when co-located deities share a position.
+function dotLabel(id, script) {
+  const n = _deityDotN[id]
+  const group = _dotNDeities[n] ?? []
+  return group.length > 1
+    ? group.map(d => displayName(d, script)).join(', ')
+    : displayName(deityById[id], script)
+}
+
 // ── Static data ───────────────────────────────────────────────────────────────
 
 const { deities, sections } = data
@@ -307,7 +342,7 @@ export default function BhupuraView({
     if (isMobileTap && currentSeq === seq && !mobileRevealed) {
       // First tap: reveal only
       const d   = memoDeities[seq - 1]
-      const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
+      const pos = d ? bhupuraPos(d) : null
       if (d && pos) setHoveredDot({ id: d.id, x: pos.x, y: pos.y })
       setMobileRevealed(true)
       lastTapRef.current = { seq: null, time: 0 }  // reset so confirm tap isn't mis-detected as double-tap
@@ -387,7 +422,7 @@ export default function BhupuraView({
               (() => {
                 const band = BAND_CONFIG[bandStep]
                 const makeDot = (d, bandIdx) => {
-                  const pos     = BHUPURA_POSITIONS[d.sequenceInSection]
+                  const pos     = bhupuraPos(d)
                   if (!pos) return null
                   const isFocus = bandIdx === navStep
                   const isPast  = bandIdx < navStep
@@ -417,7 +452,7 @@ export default function BhupuraView({
                 const filtered = activeFilter === 'all' ? c1Deities : c1Deities.filter(d => d.group === activeFilter)
                 const frontId  = hoveredDot?.id ?? highlightId ?? selectedId
                 const makeDot  = (d) => {
-                  const pos  = BHUPURA_POSITIONS[d.sequenceInSection]
+                  const pos  = bhupuraPos(d)
                   if (!pos) return null
                   const fill = showColors ? GROUP_COLOUR[d.group] : '#fff8c8'
                   return (
@@ -445,7 +480,7 @@ export default function BhupuraView({
             {/* ── Memorise mode dots ─────────────────────────────────────── */}
             {memorise && memoDeities.map((d, idx) => {
               const seq = idx + 1
-              const pos = BHUPURA_POSITIONS[d.sequenceInSection]
+              const pos = bhupuraPos(d)
               if (!pos) return null
 
               const isActive  = currentSeq === seq
@@ -496,15 +531,15 @@ export default function BhupuraView({
               if (!memorise) {
                 if (hoveredDot) return (
                   <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                    label={displayName(deityById[hoveredDot.id], script)}
+                    label={dotLabel(hoveredDot.id, script)}
                     fill={GOLD} script={script} />
                 )
                 const tooltipId = isMobile ? lastTappedId : selectedId
                 if (tooltipId) {
                   const d   = deityById[tooltipId]
-                  const pos = d ? BHUPURA_POSITIONS[d.sequenceInSection] : null
+                  const pos = d ? bhupuraPos(d) : null
                   if (!pos) return null
-                  return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} fill={GOLD} script={script} />
+                  return <Tooltip x={pos.x} y={pos.y} label={dotLabel(tooltipId, script)} fill={GOLD} script={script} />
                 }
               }
               return null
@@ -516,8 +551,8 @@ export default function BhupuraView({
               if (navStep >= band.list.length - 1) return null
               const fromD   = band.list[navStep]
               const toD     = band.list[navStep + 1]
-              const fromPos = BHUPURA_POSITIONS[fromD.sequenceInSection]
-              const toPos   = BHUPURA_POSITIONS[toD.sequenceInSection]
+              const fromPos = bhupuraPos(fromD)
+              const toPos   = bhupuraPos(toD)
               if (!fromPos || !toPos) return null
               return <NavArrow from={[fromPos.x, fromPos.y]} to={[toPos.x, toPos.y]} />
             })()}
@@ -573,41 +608,4 @@ export default function BhupuraView({
                 color: item.active ? GOLD : 'rgba(201,168,76,0.40)',
                 fontWeight: item.active ? 600 : 400,
                 background: item.active ? 'rgba(201,168,76,0.12)' : 'transparent',
-                border: `1px solid ${item.active ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.20)'}`,
-                borderRadius: 20,
-                cursor: 'pointer',
-                padding: item.active ? '5px 14px' : '4px 12px',
-                whiteSpace: 'nowrap',
-                transition: 'color 0.2s, background 0.2s, border-color 0.2s',
-              }}
-            >
-              {item.active && item.groupLabel ? (
-                <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.3 }}>
-                  <span style={{ fontSize: 13 }}>{item.label}</span>
-                  <span style={{ fontSize: 11, opacity: 0.75 }}>{item.groupLabel}</span>
-                </span>
-              ) : item.label}
-            </button>
-          ))}
-        </div>
-      )}
-
-{memorise && <MobileMemoriseInstr />}
-
-      <MobileSvaminiButtons
-        section={bhupuraSection}
-        script={script}
-        svaminiSeq={memoGroup === 'all' ? 29 : memoDeities.length + 1}
-        yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-
-      <div className="h-2" />
-    </div>
-  )
-}
+                border: `1px solid ${item.active ? 'rgb
