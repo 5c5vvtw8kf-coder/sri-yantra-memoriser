@@ -717,4 +717,79 @@ const ml = {
   'map.not_attempted':   '— ശ്രമിച്ചിട്ടില്ല',
   'map.no_entries':      'യോജിക്കുന്ന ഒരു ഇനവുമില്ല',
   'map.clear_confirm':   'എല്ലാ ഫലങ്ങളും മായ്ക്കണോ? ഇത് പഴയ അവസ്ഥയിലേക്ക് കൊണ്ടുവരാൻ കഴിയില്ല.',
-  'map.correct_last3':   'അവസാന 3 ശ്രമങ്ങളിൽ 
+
+  'map.correct_last3':   'അവസാന 3 ശ്രമങ്ങളിൽ ശരിയായവ',
+  'map.correct_partial': 'അവസാന 3-ൽ കുറഞ്ഞ ശ്രമങ്ങളിൽ ശരിയായവ',
+  'map.none_correct':    'അവസാന 3 ശ്രമങ്ങളിൽ ഒന്നും ശരിയില്ല',
+  'map.not_tried':       'ശ്രമിച്ചിട്ടില്ല',
+  'log.title':        'പ്രവർത്തന ലോഗ്',
+  'log.clear':        'മായ്ക്കുക',
+  'log.col_date':     'തീയതി',
+  'log.col_time':     'സമയം',
+  'log.col_section':  'വിഭാഗം',
+  'log.col_score':    'സ്കോർ',
+  'log.all_sections': 'എല്ലാ വിഭാഗങ്ങളും',
+  'log.empty':        'ഇതുവരെ സെഷനുകളൊന്നുമില്ല — ഒരു മെമ്മോ അല്ലെങ്കിൽ സ്പോട്ട് ചെക്ക് റൗണ്ട് പൂർത്തിയാക്കുക.',
+  'log.no_entries':   'യോജിക്കുന്ന ഒരു ഇനവുമില്ല',
+  'log.session':      'സെഷൻ',
+  'log.sessions':     'സെഷനുകൾ',
+  'yantra.controls':     'നിയന്ത്രണങ്ങൾ',
+  'yantra.triangles':    'ത്രികോണങ്ങൾ',
+  'yantra.numbers':      'സംഖ്യകൾ',
+  'yantra.labels':       'ലേബലുകൾ',
+  'yantra.seed_of_life': 'ജീവന്റെ ബീജം',
+  'deity.secrecy':        'രഹസ്യ തലം',
+  'deity.chakra_svamini': 'ചക്ര സ്വാമിനി',
+  'deity.yogini':         'യോഗിനി',
+  'deity.chakreshvari':   'ചക്രേശ്വരി',
+  'deity.singular':       'ദേവത',
+  'inner.waxing': '☽ ശുക്ലപക്ഷം',
+  'inner.waning': '☾ കൃഷ്ണപക്ഷം',
+  'gurava.divya':  'ദിവ്യൗഘ ഗുരുക്കൾ',
+  'gurava.siddha': 'സിദ്ധൗഘ ഗുരുക്കൾ',
+  'gurava.manava': 'മാനവൗഘ ഗുരുക്കൾ',
+  'bhupura.siddhi':      'സിദ്ധി ശക്തികൾ',
+  'bhupura.matrika':     'അഷ്ട മാതൃകകൾ',
+  'bhupura.mudra':       'മുദ്രാ ശക്തികൾ',
+  'bhupura.outer_band':  'പുറം ബാൻഡ്',
+  'bhupura.middle_band': 'മധ്യ ബാൻഡ്',
+  'bhupura.inner_band':  'അകം ബാൻഡ്',
+  'toggle.plain':   'ലളിതം',
+  'toggle.colours': 'നിറങ്ങൾ',
+  'nav.open':      'നാവിഗേഷൻ തുറക്കുക',
+  'nav.expand':    'നാവിഗേഷൻ വിപുലമാക്കുക',
+  'nav.collapse':  'നാവിഗേഷൻ ചുരുക്കുക',
+  'nav.take_tour': 'ടൂർ ആരംഭിക്കുക',
+  'tab.intro':      'ആമുഖം',
+  'tab.spotcheck':  'സ്പോട്ട് ചെക്ക്',
+  'tab.memomap':    'ഓർമ്മ മാപ്പ്',
+  'tab.actlog':     'പ്രവർത്തന ലോഗ്',
+  'tab.references': 'അവലംബം',
+  'device.portrait':   'ഈ ആപ്പ് പോർട്രെയ്റ്റ് മോഡിനായി ഡിസൈൻ ചെയ്തതാണ്',
+  'btn.reset':         'പുനഃക്രമീകരിക്കുക',
+  'btn.reset_session': 'സെഷൻ പുനഃക്രമീകരിക്കുക',
+  'btn.reset_level':   'ലെവൽ പൂർണ്ണമായും പുനഃക്രമീകരിക്കുക',
+  'misc.all':      'എല്ലാം',
+  'misc.entries':  'ഇനങ്ങൾ',
+  'misc.entry':    'ഇനം',
+  'misc.filtered': 'ഫിൽട്ടർ ചെയ്തത്',
+}
+
+// ── String table registry ─────────────────────────────────────────────────────
+
+const UI_STRINGS = { en, hi, te, ta, kn, ml }
+
+// ── Public translation function ───────────────────────────────────────────────
+
+/**
+ * translate(locale, key) → string
+ *
+ * Returns the UI string for `key` in the language appropriate for `locale`.
+ * Falls back to English if the key is missing in the target language.
+ * Returns the key itself if not found in English either (safe fallback).
+ */
+export function translate(locale, key) {
+  const lang   = localeUiLang(locale)
+  const table  = UI_STRINGS[lang] ?? UI_STRINGS.en
+  return table[key] ?? UI_STRINGS.en[key] ?? key
+}
