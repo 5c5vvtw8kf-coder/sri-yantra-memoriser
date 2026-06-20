@@ -357,7 +357,7 @@ function DeityDetail({ deity, script = 'iast' }) {
   )
 }
 
-function CircuitDetail({ circuitNumber, script = 'iast', onNavigate }) {
+function CircuitDetail({ circuitNumber, script = 'iast', onNavigate, tr = k => k }) {
   const section = circuitSections.find(s => s.circuitNumber === circuitNumber)
   if (!section) return null
   const secrecy = YOGINI_SECRECY[section.yoginiType]
@@ -376,18 +376,18 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate }) {
       )}
       <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
         <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
+          <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakra_svamini')}</span>
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
         </div>
         <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
+          <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>
             {sectionName(section, 'yoginiType', script)}
             {secrecy && <span className="text-muted ml-1">· {secrecy}</span>}
           </span>
         </div>
         <div className="flex gap-2">
-          <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
+          <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakreshvari')}</span>
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
         </div>
       </div>
@@ -403,7 +403,7 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate }) {
   )
 }
 
-function CircuitRows({ circuitNumber, script, onHoverFill = null }) {
+function CircuitRows({ circuitNumber, script, onHoverFill = null, tr = k => k }) {
   const section = circuitSections.find(s => s.circuitNumber === circuitNumber)
   if (!section) return null
   const secrecy = YOGINI_SECRECY[section.yoginiType]
@@ -413,18 +413,18 @@ function CircuitRows({ circuitNumber, script, onHoverFill = null }) {
   return (
     <div className="border-t border-surface-700 px-4 pb-4 pt-3 space-y-1.5 text-xs">
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
-        <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
+        <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakra_svamini')}</span>
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
-        <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
+        <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>
           {sectionName(section, 'yoginiType', script)}
           {secrecy && <span className="text-muted ml-1">· {secrecy}</span>}
         </span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
-        <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
+        <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakreshvari')}</span>
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
       </div>
     </div>
@@ -551,11 +551,11 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
       {showRows && (
         <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
           <div className="flex gap-2">
-            <span className="text-muted w-24 flex-shrink-0 pt-px">Chakra Svāminī</span>
+            <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakra_svamini')}</span>
             <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
           </div>
           <div className="flex gap-2">
-            <span className="text-muted w-24 flex-shrink-0 pt-px">Yoginī</span>
+            <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
             <span className="text-gold-500">{sectionName(section, 'yoginiType', script)}</span>
           </div>
           {secrecy && (
@@ -565,7 +565,7 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
             </div>
           )}
           <div className="flex gap-2">
-            <span className="text-muted w-24 flex-shrink-0 pt-px">Chakreshvarī</span>
+            <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakreshvari')}</span>
             <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
           </div>
         </div>
@@ -721,8 +721,8 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
       </p>
 
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', svaminiSeq)}
-        {renderRow('Yoginī',         'yoginiType',    yoginiSeq)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', svaminiSeq)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    yoginiSeq)}
       </div>
 
       {currentSeq > yoginiSeq && (
@@ -865,8 +865,8 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
       {/* Chakra Svāminī + Yoginī rows */}
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 17)}
-        {renderRow('Yoginī',         'yoginiType',    18)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', 17)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    18)}
       </div>
 
       {/* Hint during active extra phases */}
@@ -1004,8 +1004,8 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
       </p>
 
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 9)}
-        {renderRow('Yoginī',         'yoginiType',    10)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', 9)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    10)}
       </div>
 
       {currentSeq > 10 && (
@@ -1141,8 +1141,8 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
       </p>
 
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 15)}
-        {renderRow('Yoginī',         'yoginiType',    16)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', 15)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    16)}
       </div>
 
       {currentSeq > 16 && (
@@ -1277,8 +1277,8 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
       </p>
 
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 11)}
-        {renderRow('Yoginī',         'yoginiType',    12)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', 11)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    12)}
       </div>
 
       {currentSeq > 12 && (
@@ -1413,8 +1413,8 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
       </p>
 
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 11)}
-        {renderRow('Yoginī',         'yoginiType',    12)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', 11)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    12)}
       </div>
 
       {currentSeq > 12 && (
@@ -1549,8 +1549,8 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
       </p>
 
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 9)}
-        {renderRow('Yoginī',         'yoginiType',    10)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', 9)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    10)}
       </div>
 
       {currentSeq > 10 && (
@@ -1685,8 +1685,8 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         {circuitLabel(8, script)}
       </p>
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 8)}
-        {renderRow('Yoginī',         'yoginiType',    9)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', 8)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    9)}
       </div>
       {currentSeq > 9 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
@@ -1817,8 +1817,8 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
         {circuitLabel(9, script)}
       </p>
       <div className="pt-3 border-t border-surface-700 space-y-1">
-        {renderRow('Chakra Svāminī', 'chakraSvamini', 2)}
-        {renderRow('Yoginī',         'yoginiType',    3)}
+        {renderRow(tr('deity.chakra_svamini'), 'chakraSvamini', 2)}
+        {renderRow(tr('deity.yogini'), 'yoginiType',    3)}
       </div>
       {currentSeq > 3 && (
         <div className="pt-3 border-t border-surface-700 space-y-2">
@@ -3043,11 +3043,11 @@ export default function App() {
               <button
                 className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${!innerWaning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
                 onClick={() => handleInnerSetWaning(false)}
-              >☽ Waxing</button>
+              >{tr('inner.waxing')}</button>
               <button
                 className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${innerWaning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
                 onClick={() => handleInnerSetWaning(true)}
-              >☾ Waning</button>
+              >{tr('inner.waning')}</button>
             </div>
           </div>
         </div>
@@ -3068,11 +3068,11 @@ export default function App() {
               <button
                 className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${!innerWaning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
                 onClick={() => setInnerWaning(false)}
-              >☽ Waxing</button>
+              >{tr('inner.waxing')}</button>
               <button
                 className={`flex-1 py-1 rounded-lg text-xs font-medium transition-colors ${innerWaning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'}`}
                 onClick={() => setInnerWaning(true)}
-              >☾ Waning</button>
+              >{tr('inner.waning')}</button>
             </div>
           </div>
           <div className="border-t border-surface-700 px-3 pb-3">
@@ -3107,9 +3107,9 @@ export default function App() {
     // Gurava explore list
     if (activeTab === 'gurava' && !guravaMemorse) {
       const guravaGroups = [
-        { sectionId: 'guru-divya',  label: 'divyaugha guravaḥ'  },
-        { sectionId: 'guru-siddha', label: 'siddhaugha guravaḥ' },
-        { sectionId: 'guru-manava', label: 'mānavaugha guravaḥ' },
+        { sectionId: 'guru-divya',  label: tr('gurava.divya')  },
+        { sectionId: 'guru-siddha', label: tr('gurava.siddha') },
+        { sectionId: 'guru-manava', label: tr('gurava.manava') },
       ].map(g => ({
         ...g,
         list: deities.filter(d => d.sectionId === g.sectionId).sort((a, b) => a.sequenceInSection - b.sequenceInSection),
@@ -3234,7 +3234,7 @@ export default function App() {
                 </div>
               )}
             </div>
-            <CircuitRows circuitNumber={cNum} script={script} onHoverFill={setCircuitFillAll} />
+            <CircuitRows circuitNumber={cNum} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
           </div>
         )
       }
@@ -3273,7 +3273,7 @@ export default function App() {
               </div>
             )}
           </div>
-          <CircuitRows circuitNumber={2} script={script} onHoverFill={setCircuitFillAll} />
+          <CircuitRows circuitNumber={2} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
         </div>
       )
     }
@@ -3322,7 +3322,7 @@ export default function App() {
         <div className="overflow-y-auto">
           <SectionInfo tabId="c9" script={script} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3 pt-2">
-            <p className="font-mono uppercase tracking-widest text-xs text-muted pb-1.5">Deity</p>
+            <p className="font-mono uppercase tracking-widest text-xs text-muted pb-1.5">{tr('deity.singular')}</p>
             {c9d && (
               <p
                 className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-400 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors cursor-default`}
@@ -3333,7 +3333,7 @@ export default function App() {
               </p>
             )}
           </div>
-          <CircuitRows circuitNumber={9} script={script} onHoverFill={setCircuitFillAll} />
+          <CircuitRows circuitNumber={9} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
         </div>
       )
     }
@@ -3371,7 +3371,7 @@ export default function App() {
               </div>
             )}
           </div>
-          <CircuitRows circuitNumber={8} script={script} onHoverFill={setCircuitFillAll} />
+          <CircuitRows circuitNumber={8} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
         </div>
       )
     }
@@ -3433,7 +3433,7 @@ export default function App() {
               </div>
             )}
           </div>
-          <CircuitRows circuitNumber={1} script={script} onHoverFill={setCircuitFillAll} />
+          <CircuitRows circuitNumber={1} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
         </div>
       )
     }
@@ -4491,10 +4491,10 @@ export default function App() {
             {bhupuraMemorise && (
               <div className="grid grid-cols-2 gap-1.5">
                 {[
-                  { id: 'all',          label: 'All',            title: null              },
-                  { id: 'siddhiShakti', label: 'Outer Band',    title: 'Outer level'    },
-                  { id: 'ashtaMatrika', label: 'Middle Band',   title: 'Middle level'   },
-                  { id: 'mudraShakti',  label: 'Inner Band',    title: 'Inner level'    },
+                  { id: 'all',          label: tr('misc.all'),             title: null           },
+                  { id: 'siddhiShakti', label: tr('bhupura.outer_band'),  title: 'Outer level'  },
+                  { id: 'ashtaMatrika', label: tr('bhupura.middle_band'), title: 'Middle level' },
+                  { id: 'mudraShakti',  label: tr('bhupura.inner_band'),  title: 'Inner level'  },
                 ].map(g => (
                   <button key={g.id}
                     title={g.title ?? undefined}
@@ -5601,9 +5601,4 @@ export default function App() {
             )}
 
             {c3PrevResults !== null && (() => {
-              const notMem = getNotMemorisedNames(3, c3PrevResults, 10, script)
-              if (notMem.length === 0) return null
-              return (
-                <div className="pt-1 border-t border-surface-700 space-y-1">
-                  <button className="flex items-center justify-between w-full text-left"
-                    onClick={() => setShowE
+              const notMem = 
