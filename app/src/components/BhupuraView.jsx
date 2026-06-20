@@ -84,6 +84,21 @@ function bhupuraPos(d) {
   return BHUPURA_POSITIONS[n]
 }
 
+// ── Static data ───────────────────────────────────────────────────────────────
+
+const { deities, sections } = data
+const deityById   = Object.fromEntries(deities.map(d => [d.id, d]))
+const sectionById = Object.fromEntries(sections.map(s => [s.id, s]))
+const bhupuraSection = sections.find(s => s.circuitNumber === 1 && s.type === 'circuit') || {}
+
+const c1Deities      = deities.filter(d => d.sectionId === 'circuit-1')
+const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+const matrikaDeities = c1Deities.filter(d => d.group === 'ashtaMatrika').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+
+const C1_TOTAL     = c1Deities.length  // 29 — dot-phase deities only (includes garimāsiddhē)
+const BHUPURA_TOTAL = 31               // 29 deities + Chakra Svāminī (30) + Yoginī (31)
+
 // Co-location map: dotN → [deity, ...] — allows detecting when multiple deities
 // share the same physical position (e.g. laghimāsiddhē and garimāsiddhē).
 const _deityDotN = Object.fromEntries(
@@ -104,21 +119,6 @@ function dotLabel(id, script) {
     ? group.map(d => displayName(d, script)).join(', ')
     : displayName(deityById[id], script)
 }
-
-// ── Static data ───────────────────────────────────────────────────────────────
-
-const { deities, sections } = data
-const deityById   = Object.fromEntries(deities.map(d => [d.id, d]))
-const sectionById = Object.fromEntries(sections.map(s => [s.id, s]))
-const bhupuraSection = sections.find(s => s.circuitNumber === 1 && s.type === 'circuit') || {}
-
-const c1Deities      = deities.filter(d => d.sectionId === 'circuit-1')
-const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
-const matrikaDeities = c1Deities.filter(d => d.group === 'ashtaMatrika').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
-const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
-
-const C1_TOTAL     = c1Deities.length  // 29 — dot-phase deities only (includes garimāsiddhē)
-const BHUPURA_TOTAL = 31               // 29 deities + Chakra Svāminī (30) + Yoginī (31)
 
 // ── Colours ───────────────────────────────────────────────────────────────────
 
