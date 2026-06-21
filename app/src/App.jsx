@@ -261,11 +261,14 @@ function circuitLabel(circuitNumber, script) {
 function sectionName(section, field, script) {
   if (!section) return ''
   const iastKey = field + 'Iast'
+  const devKey  = field + 'Devanagari'
   if (script === 'english') {
     if (field === 'avarana' && section.circuitNumber)
       return `${ordinal(section.circuitNumber)} Enclosure`
     return section[field] || section[iastKey] || ''
   }
+  if (script === 'devanagari' && section[devKey])
+    return section[devKey]
   return section[iastKey] || section[field] || ''
 }
 

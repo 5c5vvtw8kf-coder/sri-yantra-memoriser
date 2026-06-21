@@ -75,7 +75,10 @@
       "chakreshvariIast": "tripurē",
       "description": "Devis of the 1st Avarana Chakra",
       "geometry": "square",
-      "labelIast": "Chakra Prathamāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Prathamāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "त्रैलोक्यमोहन चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "प्रकटयोगिनी",
+      "chakreshvariDevanagari": "त्रिपुरे"
     },
     {
       "id": "circuit-2",
@@ -93,7 +96,10 @@
       "description": "Devis of the 2nd Avarana Chakra",
       "geometry": "lotus-16",
       "petalCount": 16,
-      "labelIast": "Chakra Dvitīyāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Dvitīyāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "सर्वाशापरिपूरक चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "गुप्तयोगिनी",
+      "chakreshvariDevanagari": "त्रिपुरेशी"
     },
     {
       "id": "circuit-3",
@@ -111,7 +117,10 @@
       "description": "Devis of the 3rd Avarana Chakra",
       "geometry": "lotus-8",
       "petalCount": 8,
-      "labelIast": "Chakra Tṛtīyāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Tṛtīyāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "सर्वसङ्क्षोभण चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "गुप्ततरयोगिनी",
+      "chakreshvariDevanagari": "त्रिपुरसुन्दरी"
     },
     {
       "id": "circuit-4",
@@ -129,7 +138,10 @@
       "description": "Devis of the 4th Avarana Chakra",
       "geometry": "triangles-14",
       "triangleCount": 14,
-      "labelIast": "Chakra Chaturthāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Chaturthāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "सर्वसौभाग्यदायक चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "सम्प्रदाययोगिनी",
+      "chakreshvariDevanagari": "त्रिपुरवासिनी"
     },
     {
       "id": "circuit-5",
@@ -147,7 +159,10 @@
       "description": "Devis of the 5th Avarana Chakra",
       "geometry": "triangles-10-outer",
       "triangleCount": 10,
-      "labelIast": "Chakra Pañcamāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Pañcamāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "सर्वार्थसाधक चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "कुलोत्तीर्णयोगिनी",
+      "chakreshvariDevanagari": "त्रिपुराश्रीः"
     },
     {
       "id": "circuit-6",
@@ -165,7 +180,10 @@
       "description": "Devis of the 6th Avarana Chakra",
       "geometry": "triangles-10-inner",
       "triangleCount": 10,
-      "labelIast": "Chakra Ṣaṣṭhāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Ṣaṣṭhāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "सर्वरक्षाकर चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "निगर्भयोगिनी",
+      "chakreshvariDevanagari": "त्रिपुरमालिनी"
     },
     {
       "id": "circuit-7",
@@ -183,7 +201,10 @@
       "description": "Devis of the 7th Avarana Chakra (Vagdevis)",
       "geometry": "triangles-8",
       "triangleCount": 8,
-      "labelIast": "Chakra Saptamāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Saptamāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "सर्वरोगहर चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "रहस्ययोगिनी",
+      "chakreshvariDevanagari": "त्रिपुरसिद्धे"
     },
     {
       "id": "circuit-8",
@@ -201,7 +222,10 @@
       "description": "Devis of the 8th Avarana Chakra",
       "geometry": "triangle-primary",
       "triangleCount": 1,
-      "labelIast": "Chakra Aṣṭamāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Aṣṭamāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "सर्वसिद्धिप्रद चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "अतिरहस्ययोगिनी",
+      "chakreshvariDevanagari": "त्रिपुराम्बा"
     },
     {
       "id": "circuit-9",
@@ -218,7 +242,10 @@
       "chakreshvariIast": "mahātripurasundarī",
       "description": "Devi of the 9th Avarana Chakra (Bindu)",
       "geometry": "bindu",
-      "labelIast": "Chakra Navamāvaraṇa Devatāḥ"
+      "labelIast": "Chakra Navamāvaraṇa Devatāḥ",
+      "chakraSvaminiDevanagari": "सर्वानन्दमय चक्रस्वामिनी",
+      "yoginiTypeDevanagari": "परापररहस्ययोगिनी",
+      "chakreshvariDevanagari": "महात्रिपुरसुन्दरी"
     },
     {
       "id": "chakreshvari",
