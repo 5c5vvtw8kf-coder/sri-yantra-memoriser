@@ -53,7 +53,7 @@ const cardDeities = deities.filter(d => CARD_SECTION_IDS.includes(d.sectionId))
 // recall. They'll get card-based spot-check views when their dedicated pages
 // are built. Tithi Nitya and Guravah likewise need dedicated pages.
 export const SC_FILTERS = [
-  { id: 'nyasa',     label: 'Nyāsa', visualMode: 'nyasa' },
+  { id: 'nyasa',     label: 'Nyāsa', labelEn: 'Nyasa', visualMode: 'nyasa' },
   { id: 'nitya',     label: 'Nitya', visualMode: 'nitya' },
   {
     id: 'guravah', label: 'Gurus',
@@ -95,16 +95,16 @@ export const SC_FILTERS = [
     ],
   },
   {
-    id: 'nava-cakra', label: 'Cakra',
+    id: 'nava-cakra', label: 'Cakra', labelEn: 'Chakra',
     visualMode: 'navaCakra',
     defaultSubFilter: null,
     subFilters: [
-      { id: 'nc-svamini', label: 'Svāminī' },
-      { id: 'nc-yogini',  label: 'Yoginī'  },
+      { id: 'nc-svamini', label: 'Svāminī', labelEn: 'Svamini' },
+      { id: 'nc-yogini',  label: 'Yoginī', labelEn: 'Yogini'  },
       { id: 'nc-both',    label: 'Both',    groupIds: null },
     ],
   },
-  { id: 'chakreshvari', label: 'Tripurā', visualMode: 'chakreshvari' },
+  { id: 'chakreshvari', label: 'Tripurā', labelEn: 'Tripura', visualMode: 'chakreshvari' },
   { id: 'all',       label: 'All', sectionIds: null },
 ]
 

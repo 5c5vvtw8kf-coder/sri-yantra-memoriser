@@ -2927,7 +2927,7 @@ export default function App() {
                   : 'bg-surface-800 text-muted hover:text-cream',
               ].join(' ')}
             >
-              {f.label}
+              {script === 'english' ? (f.labelEn || f.label) : f.label}
             </button>
           ))}
         </div>
@@ -2949,7 +2949,7 @@ export default function App() {
                       : 'bg-surface-800 text-muted hover:text-cream',
                   ].join(' ')}
                 >
-                  {s.label}
+                  {script === 'english' ? (s.labelEn || s.label) : s.label}
                 </button>
               ))}
             </div>
@@ -4164,7 +4164,7 @@ export default function App() {
                         <button key={f.id} onClick={() => setFilter(f.id)}
                           className={['px-2.5 py-1 rounded text-xs font-mono transition-colors',
                             scFilter === f.id ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
-                          {f.label}
+                          {script === 'english' ? (f.labelEn || f.label) : f.label}
                         </button>
                       ))}
                     </div>
@@ -4179,7 +4179,7 @@ export default function App() {
                           className={['flex-1 py-1 rounded text-xs font-mono transition-colors text-center',
                             (s.groupIds === null ? scSubFilter === null : scSubFilter === s.id)
                               ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
-                          {s.label}
+                          {script === 'english' ? (s.labelEn || s.label) : s.label}
                         </button>
                       ))}
                     </div>
