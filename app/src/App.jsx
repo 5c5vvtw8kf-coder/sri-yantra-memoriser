@@ -3606,6 +3606,7 @@ export default function App() {
             </button>
             {showLangMenu && (
               <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[130px]">
+                <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">Language</p>
                 <button
                   onClick={() => { setUiLang('en'); setShowLangMenu(false) }}
                   className="w-full text-left px-3 py-1.5 text-xs text-cream hover:bg-surface-700 flex items-center justify-between"
@@ -3629,7 +3630,8 @@ export default function App() {
               <PenLine size={13} />
             </button>
             {showMobileScriptMenu && (
-              <div className="absolute right-0 bottom-9 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[160px]">
+              <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[160px]">
+                <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">Script</p>
                 {LOCALE_ORDER.map(id => (
                   <button key={id} onClick={() => { setScript(id); setShowMobileScriptMenu(false) }}
                     className={`w-full text-left px-3 py-1.5 text-xs font-mono transition-colors flex items-center justify-between
