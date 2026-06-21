@@ -450,7 +450,7 @@ export default function ClosingView({
                 whiteSpace: 'nowrap',
               }}
             >
-              <p className="iast" style={{ color: textColor, fontSize: isMobile ? '17px' : '16px', fontWeight: 700 }}>
+              <p className="iast" style={{ color: textColor, fontSize: isMobile ? '18px' : '16px', fontWeight: 700 }}>
                 {displayName(d, script)}
               </p>
             </div>
@@ -475,7 +475,7 @@ export default function ClosingView({
                 whiteSpace: 'nowrap',
               }}
             >
-              <p className="iast" style={{ color: isLast ? RED_TEXT : CREAM, fontSize: '17px', fontWeight: 700 }}>
+              <p className="iast" style={{ color: isLast ? RED_TEXT : CREAM, fontSize: '18px', fontWeight: 700 }}>
                 {displayName(d, script)}
               </p>
             </div>
@@ -506,7 +506,7 @@ export default function ClosingView({
                 className="px-2 py-1.5 rounded shadow-lg"
                 style={{ background: 'rgba(15,8,5,0.95)', border: '0.6px solid rgba(255,248,200,0.6)' }}
               >
-                <p className="iast" style={{ color: CREAM, fontSize: isMobile ? '17px' : '16px', fontWeight: 700 }}>
+                <p className="iast" style={{ color: CREAM, fontSize: isMobile ? '18px' : '16px', fontWeight: 700 }}>
                   {displayName(d, script)}
                 </p>
                 {script !== 'iast' && d.scripts.iast && (
