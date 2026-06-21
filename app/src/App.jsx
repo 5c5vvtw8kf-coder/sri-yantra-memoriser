@@ -252,7 +252,7 @@ const CIRCUIT_LABELS = {
 }
 
 function circuitLabel(circuitNumber, script) {
-  if (script === 'english') return `${ordinal(circuitNumber)} Āvaraṇa`
+  if (script === 'english') return `${ordinal(circuitNumber)} Avarana`
   const labels = CIRCUIT_LABELS[circuitNumber]
   if (!labels) return `Circuit ${circuitNumber}`
   return script === 'devanagari' ? labels.dev : labels.iast
@@ -516,7 +516,7 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
             {script === 'english' ? 'Nine Tripura Forms' : 'nava tripurā rūpāṇi'}
           </h2>
           <p className="text-cream text-xs leading-relaxed">
-            Nine Tripurā forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.
+            {script === 'english' ? 'Nine Tripura forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.' : 'Nine Tripurā forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.'}
           </p>
         </div>
       )

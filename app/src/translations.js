@@ -252,8 +252,8 @@ const en = {
 
   // ── Deity detail ───────────────────────────────────────────────────────────
   'deity.secrecy':        'Secrecy',
-  'deity.chakra_svamini': 'Chakra Svāminī',
-  'deity.yogini':         'Yoginī',
+  'deity.chakra_svamini': 'Chakra Svamini',
+  'deity.yogini':         'Yogini',
   'deity.chakreshvari':   'Chakreshvarī',
   'deity.singular':       'Deity',
 
