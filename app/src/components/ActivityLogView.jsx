@@ -71,7 +71,18 @@ export default function ActivityLogView({ tr = k => k, script = 'iast' }) {
 
   // Script-aware label helpers
   // iastToEnglish handles diacritics but not c→ch or sv→sw; add explicit overrides
-  const ENGLISH_LABEL_OVERRIDES = { 'Cakra': 'Chakra' }
+  const ENGLISH_LABEL_OVERRIDES = {
+    'Cakra':      'Chakra',
+    '1st Āvaraṇa': '1st Enclosure',
+    '2nd Āvaraṇa': '2nd Enclosure',
+    '3rd Āvaraṇa': '3rd Enclosure',
+    '4th Āvaraṇa': '4th Enclosure',
+    '5th Āvaraṇa': '5th Enclosure',
+    '6th Āvaraṇa': '6th Enclosure',
+    '7th Āvaraṇa': '7th Enclosure',
+    '8th Āvaraṇa': '8th Enclosure',
+    '9th Āvaraṇa': '9th Enclosure',
+  }
   const label = str => script === 'english'
     ? (ENGLISH_LABEL_OVERRIDES[str] ?? iastToEnglish(str))
     : str

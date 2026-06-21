@@ -252,7 +252,7 @@ const CIRCUIT_LABELS = {
 }
 
 function circuitLabel(circuitNumber, script) {
-  if (script === 'english') return `${ordinal(circuitNumber)} Avarana`
+  if (script === 'english') return `${ordinal(circuitNumber)} Enclosure`
   const labels = CIRCUIT_LABELS[circuitNumber]
   if (!labels) return `Circuit ${circuitNumber}`
   return script === 'devanagari' ? labels.dev : labels.iast
@@ -263,7 +263,7 @@ function sectionName(section, field, script) {
   const iastKey = field + 'Iast'
   if (script === 'english') {
     if (field === 'avarana' && section.circuitNumber)
-      return `${ordinal(section.circuitNumber)} Āvaraṇa`
+      return `${ordinal(section.circuitNumber)} Enclosure`
     return section[field] || section[iastKey] || ''
   }
   return section[iastKey] || section[field] || ''
