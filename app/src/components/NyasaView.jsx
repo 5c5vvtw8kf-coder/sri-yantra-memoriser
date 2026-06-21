@@ -332,10 +332,10 @@ export default function NyasaView({
   // ── Render ───────────────────────────────────────────────────────────────────
 
   return (
-    <div className="w-full px-4 pt-3 pb-0 md:p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
 
       {/* ── Yantra + dot overlay ── */}
-      <div className="relative w-full" style={{ paddingBottom: '100%' }}>
+      <div className="relative w-full flex-1 min-h-0 md:flex-none md:[padding-bottom:100%]">
 
         {/* Base yantra — clipped to rounded corners */}
         <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60">

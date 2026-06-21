@@ -478,12 +478,11 @@ export default function NavaChakreshvariView({
     : (hoveredCircuit ?? lastTappedCircuit)
 
   return (
-    <div className="w-full px-4 pt-3 pb-0 md:p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
 
 
       <div
-        className="relative w-full"
-        style={{ paddingBottom: '100%' }}
+        className="relative w-full flex-1 min-h-0 md:flex-none md:[padding-bottom:100%]"
         onContextMenu={handleContextMenu}
       >
 

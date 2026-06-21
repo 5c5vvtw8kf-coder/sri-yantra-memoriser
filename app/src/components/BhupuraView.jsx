@@ -387,12 +387,11 @@ export default function BhupuraView({
         : YANTRA_FILLS)
 
   return (
-    <div className="w-full px-4 pt-3 pb-0 md:p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
 
       {/* Diagram — full Sri Yantra background + dot overlay */}
       <div ref={yantraRef}
-           className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
-           style={{ paddingBottom: '100%' }}>
+           className="relative w-full flex-1 min-h-0 md:flex-none rounded-xl overflow-hidden shadow-2xl shadow-black/60 md:[padding-bottom:100%]">
         <div className="absolute inset-0">
 
           {/* Layer 1: full Sri Yantra */}

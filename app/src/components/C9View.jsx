@@ -176,10 +176,11 @@ export default function C9View({
   }
 
   return (
-    <div className="w-full px-4 pt-3 pb-0 md:p-4">
-      <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+    <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
+      <div className="relative w-full flex-1 min-h-0 md:flex-none rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
         <svg viewBox="-30 181 560 500" xmlns="http://www.w3.org/2000/svg"
+             style={{ display: 'block', width: '100%', height: '100%' }}
              aria-label="Circuit 9 — Sarvānandamaya Chakra — bindu">
 
           {/* Context geometry — even-odd light fill, then surrounding outlines */}

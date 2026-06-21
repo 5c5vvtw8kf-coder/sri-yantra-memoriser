@@ -256,13 +256,13 @@ export default function InnerView({
     .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
 
   return (
-    <div className="w-full px-4 pt-3 pb-0 md:p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
 
 
-      <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+      <div className="relative w-full flex-1 min-h-0 md:flex-none rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
         <svg viewBox="25 165 465 445" xmlns="http://www.w3.org/2000/svg"
-             style={{ background: BG, display: 'block', width: '100%' }}
+             style={{ background: BG, display: 'block', width: '100%', height: '100%' }}
              aria-label="Tithi Nitya Devatas around DFT5">
 
           {/* Arrowhead markers */}

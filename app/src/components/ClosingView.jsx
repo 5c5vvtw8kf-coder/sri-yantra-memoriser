@@ -246,7 +246,7 @@ export default function ClosingView({
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
-    <div className="w-full px-4 pt-3 pb-0 md:p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
 
 
       {/* SVG filter: converts blue channel to red, leaves yellow/gold untouched.
@@ -264,7 +264,7 @@ export default function ClosingView({
       </svg>
 
       {/* Yantra */}
-      <div ref={yantraRef} className="relative w-full" style={{ paddingBottom: '100%' }}>
+      <div ref={yantraRef} className="relative w-full flex-1 min-h-0 md:flex-none md:[padding-bottom:100%]">
         <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60"
              style={{ opacity: isMobile && !allMemorised ? 0.25 : 1, transition: 'opacity 0.3s' }}>
           <SriYantraSVG
