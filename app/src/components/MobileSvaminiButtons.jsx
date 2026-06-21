@@ -30,7 +30,9 @@ export function MobileMemoriseInstr() {
 function getName(section, field, script) {
   if (!section) return ''
   const iastKey = field + 'Iast'
-  if (script === 'english') return section[field] || section[iastKey] || ''
+  const devKey  = field + 'Devanagari'
+  if (script === 'english')    return section[field] || section[iastKey] || ''
+  if (script === 'devanagari') return section[devKey] || section[iastKey] || section[field] || ''
   return section[iastKey] || section[field] || ''
 }
 
