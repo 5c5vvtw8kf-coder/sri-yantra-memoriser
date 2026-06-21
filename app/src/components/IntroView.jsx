@@ -22,7 +22,7 @@ export default function IntroView({ script = 'iast' }) {
     : 'Namastripurasundari'
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full overflow-x-hidden">
 
       {/* ── Watermark — full Sri Yantra at low opacity ─────────────────────── */}
       <div
