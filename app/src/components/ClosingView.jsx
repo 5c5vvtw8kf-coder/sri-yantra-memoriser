@@ -444,13 +444,15 @@ export default function ClosingView({
               style={{
                 position: 'absolute',
                 left: 30,
-                top: buttonCenterTop(n),
-                transform: 'translateY(-50%)',
+                top: buttonCenterTop(n) - slotH / 2,
+                height: slotH,
+                display: 'flex',
+                alignItems: 'center',
                 zIndex: 31,
                 whiteSpace: 'nowrap',
               }}
             >
-              <p className="iast" style={{ color: textColor, fontSize: isMobile ? '18px' : '16px', fontWeight: 700 }}>
+              <p className="iast" style={{ color: textColor, fontSize: isMobile ? '20px' : '16px', fontWeight: 700 }}>
                 {displayName(d, script)}
               </p>
             </div>
@@ -469,13 +471,15 @@ export default function ClosingView({
               style={{
                 position: 'absolute',
                 left: 30,
-                top: buttonCenterTop(n),
-                transform: 'translateY(-50%)',
+                top: buttonCenterTop(n) - slotH / 2,
+                height: slotH,
+                display: 'flex',
+                alignItems: 'center',
                 zIndex: 31,
                 whiteSpace: 'nowrap',
               }}
             >
-              <p className="iast" style={{ color: isLast ? RED_TEXT : CREAM, fontSize: '18px', fontWeight: 700 }}>
+              <p className="iast" style={{ color: isLast ? RED_TEXT : CREAM, fontSize: '20px', fontWeight: 700 }}>
                 {displayName(d, script)}
               </p>
             </div>
@@ -496,8 +500,10 @@ export default function ClosingView({
               style={{
                 position: 'absolute',
                 left: 30,
-                top: buttonCenterTop(activeN),
-                transform: 'translateY(-50%)',
+                top: buttonCenterTop(activeN) - slotH / 2,
+                height: slotH,
+                display: 'flex',
+                alignItems: 'center',
                 zIndex: 32,
                 whiteSpace: 'nowrap',
               }}
@@ -506,7 +512,7 @@ export default function ClosingView({
                 className="px-2 py-1.5 rounded shadow-lg"
                 style={{ background: 'rgba(15,8,5,0.95)', border: '0.6px solid rgba(255,248,200,0.6)' }}
               >
-                <p className="iast" style={{ color: CREAM, fontSize: isMobile ? '18px' : '16px', fontWeight: 700 }}>
+                <p className="iast" style={{ color: CREAM, fontSize: isMobile ? '20px' : '16px', fontWeight: 700 }}>
                   {displayName(d, script)}
                 </p>
                 {script !== 'iast' && d.scripts.iast && (
