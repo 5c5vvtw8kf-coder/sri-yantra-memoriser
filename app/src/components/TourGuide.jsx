@@ -129,7 +129,12 @@ function TourOverlay({ onDone, script = 'iast' }) {
     const el = document.querySelector(step.selector)
     if (!el) { setRect(null); return }
     el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    setRect(el.getBoundingClientRect())
+    const r = el.getBoundingClientRect()
+    // If element is off-screen (e.g. mobile sidebar hidden), fall back to centred modal
+    if (r.right <= 0 || r.left >= window.innerWidth || r.bottom <= 0 || r.top >= window.innerHeight) {
+      setRect(null); return
+    }
+    setRect(r)
   }, [step.selector])
 
   useEffect(() => {
