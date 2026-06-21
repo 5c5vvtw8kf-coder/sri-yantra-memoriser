@@ -23,7 +23,8 @@ import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import data from './data/khadgamala-canonical.json'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
-import { translate, localeScript, LOCALE_ORDER, LOCALE_CONFIG } from './translations.js'
+import { translate, LOCALE_ORDER, LOCALE_CONFIG } from './translations.js'
+import { Globe, Bus } from 'lucide-react'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -1929,9 +1930,10 @@ const SECTION_IAST_LABELS = {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
-  const [locale,    setLocale]    = useState('iast')
-  const script  = localeScript(locale)          // script key for deity name display
-  const tr      = key => translate(locale, key) // UI string helper
+  const [script,   setScript]   = useState('iast') // script key for deity name display
+  const [uiLang,   setUiLang]   = useState('en')   // UI language (future use)
+  const [showLangMenu, setShowLangMenu] = useState(false)
+  const tr = key => translate('en', key)            // UI string helper (always English for now)
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
@@ -3589,15 +3591,41 @@ export default function App() {
             return FOOTER_TR[activeTab] ?? TABS.find(t => t.id === activeTab)?.footerLabel ?? ''
           })()}
         </span>
-        <select
-          value={locale}
-          onChange={e => setLocale(e.target.value)}
-          className="text-xs rounded border border-surface-700 bg-surface-900 text-gold-300 px-1.5 py-0.5 flex-shrink-0"
-        >
-          {LOCALE_ORDER.map(id => (
-            <option key={id} value={id}>{LOCALE_CONFIG[id].label}</option>
-          ))}
-        </select>
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          <div className="relative">
+            <button
+              onClick={() => setShowLangMenu(m => !m)}
+              title="UI Language"
+              className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
+            >
+              <Globe size={13} />
+            </button>
+            {showLangMenu && (
+              <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[130px]">
+                <button
+                  onClick={() => { setUiLang('en'); setShowLangMenu(false) }}
+                  className="w-full text-left px-3 py-1.5 text-xs text-cream hover:bg-surface-700 flex items-center justify-between"
+                >
+                  English <span className="text-gold-400">✓</span>
+                </button>
+                {['हिन्दी','తెలుగు','தமிழ்','ಕನ್ನಡ','മലയാളം'].map(lang => (
+                  <button key={lang} disabled
+                    className="w-full text-left px-3 py-1.5 text-xs text-muted opacity-40 cursor-not-allowed"
+                  >{lang}</button>
+                ))}
+              </div>
+            )}
+          </div>
+          <select
+            value={script}
+            onChange={e => { setScript(e.target.value); setShowLangMenu(false) }}
+            className="text-xs rounded border border-surface-700 bg-surface-900 text-gold-300 px-1.5 py-0.5"
+          >
+            {LOCALE_ORDER.map(id => (
+              <option key={id} value={id}>{LOCALE_CONFIG[id].shortLabel}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* ── 3-column content row ─────────────────────────────────────────── */}
@@ -3624,18 +3652,42 @@ export default function App() {
               )}
             </div>
             <div className="flex items-center gap-1 flex-shrink-0 mt-0.5">
-              {/* Tour trigger button */}
-              {!navCollapsed && (
+              {!navCollapsed && (<>
+                {/* Language picker */}
+                <div className="relative">
+                  <button
+                    onClick={() => setShowLangMenu(m => !m)}
+                    title="UI Language"
+                    className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
+                  >
+                    <Globe size={11} />
+                  </button>
+                  {showLangMenu && (
+                    <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[130px]">
+                      <button
+                        onClick={() => { setUiLang('en'); setShowLangMenu(false) }}
+                        className="w-full text-left px-3 py-1.5 text-xs text-cream hover:bg-surface-700 flex items-center justify-between"
+                      >
+                        English <span className="text-gold-400">✓</span>
+                      </button>
+                      {['हिन्दी','తెలుగు','தமிழ்','ಕನ್ನಡ','മലയാളം'].map(lang => (
+                        <button key={lang} disabled
+                          className="w-full text-left px-3 py-1.5 text-xs text-muted opacity-40 cursor-not-allowed"
+                        >{lang}</button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {/* Tour trigger button */}
                 <button
                   data-tour="tour-btn"
                   onClick={startTour}
                   title={tr('nav.take_tour')}
                   className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
-                  style={{ fontSize: 11 }}
                 >
-                  ?
+                  <Bus size={11} />
                 </button>
-              )}
+              </>)}
               {/* Collapse toggle */}
               <button
                 onClick={() => setNavCollapsed(c => !c)}
@@ -3715,18 +3767,18 @@ export default function App() {
         {yantraControls}
         </>)} {/* end !navCollapsed */}
 
-        {/* Language selector — always visible; label hidden when collapsed; mt-auto pins to bottom */}
+        {/* Script selector — always visible; label hidden when collapsed; mt-auto pins to bottom */}
         <div className="mt-auto px-3 py-3 border-t border-surface-800 flex-shrink-0">
           {!navCollapsed && (
-            <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">{tr('picker.label')}</p>
+            <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
           )}
           <div className="flex flex-wrap gap-1 px-1">
             {LOCALE_ORDER.map(id => (
               <button
                 key={id}
-                onClick={() => setLocale(id)}
+                onClick={() => setScript(id)}
                 className={`flex-1 min-w-[2rem] text-xs py-1 rounded-md transition-colors border
-                  ${locale === id
+                  ${script === id
                     ? 'text-gold-300 bg-gold-900/30 border-gold-700/50'
                     : 'text-muted border-surface-700 hover:text-cream'}`}
               >
@@ -5599,7 +5651,6 @@ export default function App() {
                 })()}
               </div>
             )}
-
 
             {c3PrevResults !== null && (() => {
               const notMem = getNotMemorisedNames(3, c3PrevResults, 10, script)

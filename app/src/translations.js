@@ -29,41 +29,52 @@
 // ── Locale registry ───────────────────────────────────────────────────────────
 
 export const LOCALE_CONFIG = {
-  // ── Existing script-based locales ─────────────────────────────────────────
+  // ── Script options (deity name rendering) ─────────────────────────────────
+  // label:      shown in the desktop script picker (full native name)
+  // shortLabel: shown in the mobile script dropdown (abbreviated)
+  // script:     key used to look up displayName() in canonical data
+  // uiLang:     reserved for future Language picker; always 'en' for now
   iast: {
-    label:   'IAST',
-    script:  'iast',
-    uiLang:  'en',
-  },
-  english: {
-    label:   'En',
-    script:  'english',
-    uiLang:  'en',
+    label:      'IAST',
+    shortLabel: 'IAST',
+    script:     'iast',
+    uiLang:     'en',
   },
   devanagari: {
-    label:   'देव',
-    script:  'devanagari',
-    uiLang:  'hi',
+    label:      'देवनागरी',
+    shortLabel: 'देव',
+    script:     'devanagari',
+    uiLang:     'en',
   },
   telugu: {
-    label:   'తె',
-    script:  'telugu',
-    uiLang:  'te',
+    label:      'తెలుగు',
+    shortLabel: 'తెలు',
+    script:     'telugu',
+    uiLang:     'en',
   },
   tamil: {
-    label:   'த',
-    script:  'tamil',
-    uiLang:  'ta',
+    label:      'தமிழ்',
+    shortLabel: 'தமி',
+    script:     'tamil',
+    uiLang:     'en',
   },
   kannada: {
-    label:   'ಕ',
-    script:  'kannada',
-    uiLang:  'kn',
+    label:      'ಕನ್ನಡ',
+    shortLabel: 'ಕನ್ನ',
+    script:     'kannada',
+    uiLang:     'en',
   },
   malayalam: {
-    label:   'മ',
-    script:  'malayalam',
-    uiLang:  'ml',
+    label:      'മലയാളം',
+    shortLabel: 'മലയ',
+    script:     'malayalam',
+    uiLang:     'en',
+  },
+  english: {
+    label:      'English',
+    shortLabel: 'En',
+    script:     'english',
+    uiLang:     'en',
   },
 
   // ── New full-language locales ──────────────────────────────────────────────
@@ -92,7 +103,7 @@ export const LOCALE_CONFIG = {
   // },
 }
 
-/** Returns the list of locales in display order for the picker. */
+/** Returns the list of scripts in display order for the picker. */
 export const LOCALE_ORDER = [
   'iast', 'devanagari', 'telugu', 'tamil', 'kannada', 'malayalam', 'english',
   // 'ne', 'si', 'id', 'ja',
@@ -120,7 +131,7 @@ export function localeUiLang(locale) {
 
 const en = {
   // ── Language picker ────────────────────────────────────────────────────────
-  'picker.label':       'Language',
+  'picker.label':       'Script',
 
   // ── Mode toggles ──────────────────────────────────────────────────────────
   'mode.explore':       'Explore',
@@ -717,7 +728,6 @@ const ml = {
   'map.not_attempted':   '— ശ്രമിച്ചിട്ടില്ല',
   'map.no_entries':      'യോജിക്കുന്ന ഒരു ഇനവുമില്ല',
   'map.clear_confirm':   'എല്ലാ ഫലങ്ങളും മായ്ക്കണോ? ഇത് പഴയ അവസ്ഥയിലേക്ക് കൊണ്ടുവരാൻ കഴിയില്ല.',
-
   'map.correct_last3':   'അവസാന 3 ശ്രമങ്ങളിൽ ശരിയായവ',
   'map.correct_partial': 'അവസാന 3-ൽ കുറഞ്ഞ ശ്രമങ്ങളിൽ ശരിയായവ',
   'map.none_correct':    'അവസാന 3 ശ്രമങ്ങളിൽ ഒന്നും ശരിയില്ല',
