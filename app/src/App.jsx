@@ -5677,8 +5677,6 @@ export default function App() {
             )}
 
             {c3PrevResults !== null && (() => {
-
-            {c3PrevResults !== null && (() => {
               const notMem = getNotMemorisedNames(3, c3PrevResults, 10, script)
               if (notMem.length === 0) return null
               return (
