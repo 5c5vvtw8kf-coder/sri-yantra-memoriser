@@ -83,6 +83,8 @@
 .syt-tour-body strong  { color: #e8d08a; font-weight: 600; }
 .syt-tour-red          { color: #c45c5c; }
 .syt-tour-gold         { color: #c9a84c; }
+.syt-tour-green        { color: #4ade80; }
+.syt-tour-amber        { color: #fbbf24; }
 
 /* Scrollbar styling for dark theme */
 ::-webkit-scrollbar {

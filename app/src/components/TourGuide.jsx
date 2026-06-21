@@ -59,8 +59,9 @@ const STEPS = [
     title: 'Memory Map',
     body:
       'The <strong>Memory Map</strong> shows your progress across the entire yantra at a ' +
-      'glance — <span class="syt-tour-red">red</span> for memorised, ' +
-      '<span class="syt-tour-gold">gold</span> for still learning.',
+      'glance — <span class="syt-tour-green">✓ green</span> for memorised, ' +
+      '<span class="syt-tour-amber">~ amber</span> for partially correct, ' +
+      '<span class="syt-tour-red">✗ red</span> for not yet memorised.',
   },
   {
     selector: '[data-tour="nav-yantra"]',
