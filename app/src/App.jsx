@@ -23,7 +23,7 @@ import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import data from './data/khadgamala-canonical.json'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
-import { translate, LOCALE_ORDER, LOCALE_CONFIG } from './translations.js'
+import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
 import { Globe, Plane } from 'lucide-react'
 
 const { sections, deities } = data
@@ -3589,7 +3589,8 @@ export default function App() {
         <span className={`flex-1 text-sm font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
           {(() => {
             const FOOTER_TR = { intro: tr('tab.intro'), spotcheck: tr('tab.spotcheck'), memomap: tr('tab.memomap'), 'activity-log': tr('tab.actlog'), references: tr('tab.references') }
-            return FOOTER_TR[activeTab] ?? TABS.find(t => t.id === activeTab)?.footerLabel ?? ''
+            const raw = FOOTER_TR[activeTab] ?? TABS.find(t => t.id === activeTab)?.footerLabel ?? ''
+            return script === 'english' ? iastToEnglish(raw) : raw
           })()}
         </span>
         <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -3752,7 +3753,7 @@ export default function App() {
                     {script === 'devanagari'
                       ? (tab.navLabelDev || tab.navLabel)
                       : script === 'english'
-                      ? (tab.navLabelEn || tab.navLabel)
+                      ? iastToEnglish(tab.navLabelEn || tab.navLabel)
                       : tab.navLabel}
                   </span>
                   {dot && (
@@ -4267,7 +4268,7 @@ export default function App() {
           >
             <span className="flex items-center gap-1.5 min-w-0">
               <span className="flex-shrink-0 text-base leading-none">←</span>
-              <span className="truncate">{prevTab?.footerLabel ?? ''}</span>
+              <span className="truncate">{script === 'english' ? iastToEnglish(prevTab?.footerLabel ?? '') : (prevTab?.footerLabel ?? '')}</span>
             </span>
           </button>
           {footerInstruction && (
@@ -4284,7 +4285,7 @@ export default function App() {
               transition-colors overflow-hidden"
           >
             <span className="flex items-center justify-end gap-1.5 min-w-0">
-              <span className="truncate">{nextTab?.footerLabel ?? ''}</span>
+              <span className="truncate">{script === 'english' ? iastToEnglish(nextTab?.footerLabel ?? '') : (nextTab?.footerLabel ?? '')}</span>
               <span className="flex-shrink-0 text-base leading-none">→</span>
             </span>
           </button>
@@ -5674,6 +5675,8 @@ export default function App() {
                 })()}
               </div>
             )}
+
+            {c3PrevResults !== null && (() => {
 
             {c3PrevResults !== null && (() => {
               const notMem = getNotMemorisedNames(3, c3PrevResults, 10, script)

@@ -124,6 +124,45 @@ export function localeUiLang(locale) {
   return LOCALE_CONFIG[locale]?.uiLang ?? 'en'
 }
 
+/**
+ * Converts an IAST string to English romanisation by replacing diacritics
+ * with their conventional English equivalents.
+ * Used when script === 'english' to render labels and names without diacritics.
+ *
+ * Mapping agreed 2026-06-21:
+ *   ā/Ā → a/A   ī/Ī → i/I   ū/Ū → u/U   ṛ/Ṛ → ri/Ri
+ *   ś/Ś → sh/Sh  ṣ/Ṣ → sh/Sh
+ *   ṇ/Ṇ → n/N   ṭ/Ṭ → t/T   ḍ/Ḍ → d/D
+ *   ṃ/Ṃ → m/M (anusvara)   ḥ/Ḥ → h/H (visarga)
+ *   ṅ/Ṅ → n/N   ñ/Ñ → n/N   ḷ/Ḷ → l/L
+ */
+export function iastToEnglish(str) {
+  if (!str) return str
+  return str
+    // Sibilants first (must come before plain s/S)
+    .replace(/ś/g, 'sh').replace(/Ś/g, 'Sh')
+    .replace(/ṣ/g, 'sh').replace(/Ṣ/g, 'Sh')
+    // Long vowels
+    .replace(/ā/g, 'a').replace(/Ā/g, 'A')
+    .replace(/ī/g, 'i').replace(/Ī/g, 'I')
+    .replace(/ū/g, 'u').replace(/Ū/g, 'U')
+    // Vocalic r
+    .replace(/ṛ/g, 'ri').replace(/Ṛ/g, 'Ri')
+    .replace(/ṝ/g, 'ri').replace(/Ṝ/g, 'Ri')
+    // Retroflex consonants
+    .replace(/ṇ/g, 'n').replace(/Ṇ/g, 'N')
+    .replace(/ṭ/g, 't').replace(/Ṭ/g, 'T')
+    .replace(/ḍ/g, 'd').replace(/Ḍ/g, 'D')
+    .replace(/ḷ/g, 'l').replace(/Ḷ/g, 'L')
+    // Nasals
+    .replace(/ṅ/g, 'n').replace(/Ṅ/g, 'N')
+    .replace(/ñ/g, 'n').replace(/Ñ/g, 'N')
+    // Anusvara and visarga
+    .replace(/ṃ/g, 'm').replace(/Ṃ/g, 'M')
+    .replace(/ḥ/g, 'h').replace(/Ḥ/g, 'H')
+}
+
+
 // ── UI string tables ──────────────────────────────────────────────────────────
 // Keys use dot-notation: 'category.key'
 // All new keys MUST be added to the 'en' table first, then other tables.
