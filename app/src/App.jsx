@@ -24,7 +24,7 @@ import ActivityLogView from './components/ActivityLogView'
 import data from './data/khadgamala-canonical.json'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
-import { Globe, Plane } from 'lucide-react'
+import { Globe, Plane, PenLine } from 'lucide-react'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -1932,8 +1932,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
   const [script,   setScript]   = useState('iast') // script key for deity name display
   const [uiLang,   setUiLang]   = useState('en')   // UI language (future use)
-  const [showLangMenu,    setShowLangMenu]    = useState(false)
-  const [showScriptMenu,  setShowScriptMenu]  = useState(false)
+  const [showLangMenu,         setShowLangMenu]         = useState(false)
+  const [showScriptMenu,       setShowScriptMenu]       = useState(false)
+  const [showMobileScriptMenu, setShowMobileScriptMenu] = useState(false)
   const tr = key => translate('en', key)            // UI string helper (always English for now)
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
@@ -3619,15 +3620,27 @@ export default function App() {
               </div>
             )}
           </div>
-          <select
-            value={script}
-            onChange={e => { setScript(e.target.value); setShowLangMenu(false) }}
-            className="text-xs rounded border border-surface-700 bg-surface-900 text-gold-300 px-1.5 py-0.5"
-          >
-            {LOCALE_ORDER.map(id => (
-              <option key={id} value={id}>{LOCALE_CONFIG[id].shortLabel}</option>
-            ))}
-          </select>
+          <div className="relative">
+            <button
+              onClick={() => { setShowMobileScriptMenu(m => !m); setShowLangMenu(false) }}
+              title="Script"
+              className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
+            >
+              <PenLine size={13} />
+            </button>
+            {showMobileScriptMenu && (
+              <div className="absolute right-0 bottom-9 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[160px]">
+                {LOCALE_ORDER.map(id => (
+                  <button key={id} onClick={() => { setScript(id); setShowMobileScriptMenu(false) }}
+                    className={`w-full text-left px-3 py-1.5 text-xs font-mono transition-colors flex items-center justify-between
+                      ${id === script ? 'text-gold-300 bg-gold-900/20' : 'text-muted hover:text-gold-300 hover:bg-surface-700'}`}>
+                    {LOCALE_CONFIG[id].label}
+                    {id === script && <span className="text-gold-400 text-[10px]">✓</span>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
