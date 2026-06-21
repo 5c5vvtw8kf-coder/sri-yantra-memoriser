@@ -320,18 +320,20 @@ function ToggleRow({ label, active, onClick, colour = 'gold' }) {
 function DeityDetail({ deity, script = 'iast' }) {
   if (!deity) return null
   const { scripts, sequenceInSection, sectionId, sequenceInChant, note } = deity
-  const section   = circuitSections.find(s => `circuit-${s.circuitNumber}` === sectionId)
-  const primary   = displayName(deity, script)
-  const isDevPrim = script === 'devanagari'
-  const secrecy   = section ? YOGINI_SECRECY[section.yoginiType] : null
+  const section       = circuitSections.find(s => `circuit-${s.circuitNumber}` === sectionId)
+  const nonCircuitSec = !section ? sections.find(s => s.id === sectionId) : null
+  const primary       = displayName(deity, script)
+  const isDevPrim     = script === 'devanagari'
+  const secrecy       = section ? YOGINI_SECRECY[section.yoginiType] : null
+  const engLabel      = nonCircuitSec?.label || ''
 
   let subtitle = ''
   if (section)              subtitle = `Circuit ${section.circuitNumber} · ${sequenceInSection} of ${section.triangleCount || section.petalCount || '?'}`
-  else if (sectionId === 'nyasa')       subtitle = `Nyāsāṅga · ${sequenceInSection} of 6`
-  else if (sectionId === 'nitya')       subtitle = `Tithi Nitya · ${sequenceInSection} of 16`
-  else if (sectionId === 'guru-divya')  subtitle = `Divyaugha Guravaḥ · ${sequenceInSection} of 7`
-  else if (sectionId === 'guru-siddha') subtitle = `Siddhaugha Guravaḥ · ${sequenceInSection} of 4`
-  else if (sectionId === 'guru-manava') subtitle = `Mānavaugha Guravaḥ · ${sequenceInSection} of 8`
+  else if (sectionId === 'nyasa')       subtitle = `${script === 'english' ? engLabel : 'Nyāsāṅga'} · ${sequenceInSection} of 6`
+  else if (sectionId === 'nitya')       subtitle = `${script === 'english' ? engLabel : 'Tithi Nitya'} · ${sequenceInSection} of 16`
+  else if (sectionId === 'guru-divya')  subtitle = `${script === 'english' ? engLabel : 'Divyaugha Guravaḥ'} · ${sequenceInSection} of 7`
+  else if (sectionId === 'guru-siddha') subtitle = `${script === 'english' ? engLabel : 'Siddhaugha Guravaḥ'} · ${sequenceInSection} of 4`
+  else if (sectionId === 'guru-manava') subtitle = `${script === 'english' ? engLabel : 'Mānavaugha Guravaḥ'} · ${sequenceInSection} of 8`
   else                                  subtitle = sectionId?.replace('circuit-', 'Circuit ') ?? ''
 
   return (
@@ -369,8 +371,8 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate, tr = k => k
       <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script === 'iast' ? ' iast' : ''}`}>
         {circuitLabel(circuitNumber, script)}
       </p>
-      <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
-        {section.avaranaIast}
+      <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
+        {sectionName(section, 'avarana', script)}
       </h2>
       {script !== 'english' && (
         <p className="text-cream text-xs">{section.avarana}</p>
