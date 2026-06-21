@@ -24,7 +24,7 @@ import ActivityLogView from './components/ActivityLogView'
 import data from './data/khadgamala-canonical.json'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG } from './translations.js'
-import { Globe, Bus } from 'lucide-react'
+import { Globe, Plane } from 'lucide-react'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -1932,7 +1932,8 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
   const [script,   setScript]   = useState('iast') // script key for deity name display
   const [uiLang,   setUiLang]   = useState('en')   // UI language (future use)
-  const [showLangMenu, setShowLangMenu] = useState(false)
+  const [showLangMenu,    setShowLangMenu]    = useState(false)
+  const [showScriptMenu,  setShowScriptMenu]  = useState(false)
   const tr = key => translate('en', key)            // UI string helper (always English for now)
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
@@ -3687,7 +3688,7 @@ export default function App() {
                     onClick={startTour}
                     className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
                   >
-                    <Bus size={11} />
+                    <Plane size={11} />
                   </button>
                   <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/tour:opacity-100 transition-opacity z-50">
                     {tr('nav.take_tour')}
@@ -3695,14 +3696,18 @@ export default function App() {
                 </div>
               </>)}
               {/* Collapse toggle */}
-              <button
-                onClick={() => setNavCollapsed(c => !c)}
-                title={navCollapsed ? tr('nav.expand') : tr('nav.collapse')}
-                className="w-5 h-5 rounded border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
-                style={{ fontSize: 11, fontFamily: 'monospace' }}
-              >
-                {navCollapsed ? '»' : '«'}
-              </button>
+              <div className="relative group/collapse">
+                <button
+                  onClick={() => setNavCollapsed(c => !c)}
+                  className="w-5 h-5 rounded border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
+                  style={{ fontSize: 11, fontFamily: 'monospace' }}
+                >
+                  {navCollapsed ? '»' : '«'}
+                </button>
+                <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/collapse:opacity-100 transition-opacity z-50">
+                  {navCollapsed ? tr('nav.expand') : tr('nav.collapse')}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -3778,15 +3783,32 @@ export default function App() {
           {!navCollapsed && (
             <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
           )}
-          <select
-            value={script}
-            onChange={e => setScript(e.target.value)}
-            className="w-full text-xs rounded border border-surface-700 bg-surface-800 text-gold-300 px-2 py-1.5"
-          >
-            {LOCALE_ORDER.map(id => (
-              <option key={id} value={id}>{LOCALE_CONFIG[id].label}</option>
-            ))}
-          </select>
+          <div className="relative">
+            <button
+              onClick={() => setShowScriptMenu(m => !m)}
+              className="w-full text-left flex items-center justify-between px-2 py-1.5 rounded border border-surface-700 bg-surface-800 hover:border-gold-600 transition-colors"
+            >
+              <span className="text-xs text-gold-300 font-mono">{LOCALE_CONFIG[script]?.label ?? script}</span>
+              <span className="text-muted text-[10px]">▾</span>
+            </button>
+            {showScriptMenu && (
+              <div className="absolute bottom-full left-0 mb-1 w-full bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1">
+                {LOCALE_ORDER.map(id => (
+                  <button
+                    key={id}
+                    onClick={() => { setScript(id); setShowScriptMenu(false) }}
+                    className={`w-full text-left px-3 py-1.5 text-xs font-mono transition-colors flex items-center justify-between
+                      ${id === script
+                        ? 'text-gold-300 bg-gold-900/20'
+                        : 'text-muted hover:text-gold-300 hover:bg-surface-700'}`}
+                  >
+                    {LOCALE_CONFIG[id].label}
+                    {id === script && <span className="text-gold-400 text-[10px]">✓</span>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
       </aside>
@@ -5657,46 +5679,4 @@ export default function App() {
               const notMem = getNotMemorisedNames(3, c3PrevResults, 10, script)
               if (notMem.length === 0) return null
               return (
-                <div className="pt-1 border-t border-surface-700 space-y-1">
-                  <button className="flex items-center justify-between w-full text-left"
-                    onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      {tr('score.not_memorised')} ({notMem.length})
-                    </span>
-                    <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
-                  </button>
-                  {showErrors && (
-                    <ul className="space-y-0.5 pt-0.5">
-                      {notMem.map((name, i) => (
-                        <li key={i} className={`text-xs leading-snug ${script !== 'english' ? 'iast ' : ''}text-amber-300`}>{name}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              )
-            })()}
-
-            {sessionStats.rounds > 0 && (
-              <div className="pt-1 border-t border-surface-700 space-y-1">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
-                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
-                </div>
-
-                <p className="text-xs">
-                  <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
-                </p>
-              </div>
-            )}
-
-          </div>
-        )}
-
-      </aside>
-
-      </div>{/* end 3-column content row */}
-
-    </div>
-  )
-}
+                <d
