@@ -22,12 +22,13 @@ const STEPS = [
       'in the yantra. Spatial memory makes sequential recall natural.</p>',
   },
   {
-    selector: '[data-tour="sidebar"]',
+    // No selector — sidebar is hidden on mobile; centred modal works on all devices
     title: 'Navigation',
     body:
-      'The sidebar lists the main chant sections — Nyāsa Deities, Gurus, all nine ' +
-      'āvaraṇas through to the bindu — plus tools like Spot Check and Memory Map. ' +
-      'The Prārthana and Dhyānam are on the full stotram page. Click any section to open it.',
+      'On desktop the sidebar is always visible on the left. On mobile, tap the ' +
+      '<strong>☰</strong> button to open it.<br><br>' +
+      'It lists every chant section — Nyāsa Deities, Gurus, all nine āvaraṇas through ' +
+      'to the bindu — plus tools like Spot Check and Memory Map. Tap any item to open it.',
   },
   {
     selector: '[data-tour="heading-explore"]',
