@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
+import { iastToEnglish } from '../translations.js'
 
 // ── Tour state key ────────────────────────────────────────────────────────────
 const TOUR_KEY = 'sriYantra_tourSeen_v1'
@@ -79,7 +80,7 @@ const STEPS = [
     selector: '[data-tour="tour-btn"]',
     title: "You're all set",
     body:
-      'Click the <strong>?</strong> button here any time to revisit this tour.<br><br>' +
+      'Click the <strong>✈</strong> button here any time to revisit this tour.<br><br>' +
       'Begin with <em>Welcome and Introduction</em>, then work through the circuits in ' +
       'order. Take your time — this is a practice, not a race. 🙏',
   },
@@ -110,11 +111,14 @@ const btnPrimary = {
 }
 
 // ── Overlay + popover component ───────────────────────────────────────────────
-function TourOverlay({ onDone }) {
+function TourOverlay({ onDone, script = 'iast' }) {
   const [stepIndex, setStepIndex] = useState(0)
   const [rect, setRect]   = useState(null)
 
-  const step   = STEPS[stepIndex]
+  const rawStep = STEPS[stepIndex]
+  const step = script === 'english'
+    ? { ...rawStep, title: iastToEnglish(rawStep.title), body: iastToEnglish(rawStep.body) }
+    : rawStep
   const isLast  = stepIndex === STEPS.length - 1
   const isFirst = stepIndex === 0
 
@@ -293,7 +297,7 @@ function TourOverlay({ onDone }) {
  * onBeforeStart fires before the overlay mounts — use it to ensure all nav
  * sections are open so every data-tour element is present in the DOM.
  */
-export function useTour({ onBeforeStart } = {}) {
+export function useTour({ onBeforeStart, script = 'iast' } = {}) {
   const [active, setActive] = useState(false)
   const cbRef = useRef(onBeforeStart)
   useEffect(() => { cbRef.current = onBeforeStart })
@@ -317,6 +321,6 @@ export function useTour({ onBeforeStart } = {}) {
 
   return {
     startTour,
-    tourElement: active ? <TourOverlay onDone={endTour} /> : null,
+    tourElement: active ? <TourOverlay onDone={endTour} script={script} /> : null,
   }
 }

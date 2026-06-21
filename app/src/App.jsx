@@ -1948,6 +1948,7 @@ export default function App() {
       'h-spotcheck':        true,
       'h-references':       true,
     }),
+    script,
   })
 
   // ── Yantra-tab state ───────────────────────────────────────────────────────
@@ -3886,6 +3887,7 @@ export default function App() {
                                         />}
             {activeTab === 'bhupura' && <BhupuraView
                                           script={script}
+                                          tr={tr}
                                           onDeitySelect={handleDeitySelect}
                                           memorise={bhupuraMemorise}
                                           currentSeq={bhupuraCurrentSeq}
@@ -4218,7 +4220,7 @@ export default function App() {
           )}
           {activeTab === 'activity-log' && (
             <div className="flex-1 min-h-0 w-full max-w-lg flex flex-col">
-              <ActivityLogView tr={tr} />
+              <ActivityLogView tr={tr} script={script} />
             </div>
           )}
         </div>

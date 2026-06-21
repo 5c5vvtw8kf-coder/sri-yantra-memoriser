@@ -231,6 +231,7 @@ function NavArrow({ from, to, gap = 14, length = 27 }) {
 
 export default function BhupuraView({
   script = 'iast',
+  tr = k => k,
   onDeitySelect = () => {},
   highlightId = null,
   showColors = false,
@@ -573,8 +574,8 @@ export default function BhupuraView({
               <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">bhūpura · circuit 1</p>
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === MEMO_TOTAL
-                  ? 'All memorised — well done!'
-                  : 'Round complete.'}
+                  ? tr('misc.all_memorised')
+                  : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
                 {Object.values(results).filter(v => v === 'correct').length}/{MEMO_TOTAL} memorised

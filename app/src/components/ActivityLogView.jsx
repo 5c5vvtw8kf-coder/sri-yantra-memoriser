@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { loadSessionLog, clearSessionLog } from '../utils.js'
+import { iastToEnglish } from '../translations.js'
 
 // ── Section label map (store key → display label) ─────────────────────────────
 
@@ -61,16 +62,17 @@ const SPOT_FILTER_LABEL = {
   'chakreshvari': 'Tripurā',
 }
 
-// ── Filter section options ────────────────────────────────────────────────────
-
-const SECTION_OPTIONS = Object.entries(SECTION_LABEL).map(([id, label]) => ({ id, label }))
-
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function ActivityLogView({ tr = k => k }) {
+export default function ActivityLogView({ tr = k => k, script = 'iast' }) {
   // Load newest-first; re-read when cleared
   const [log, setLog] = useState(() => [...loadSessionLog()].reverse())
   const [sectionFilter, setSectionFilter] = useState('all')
+
+  // Script-aware label helpers
+  const label = str => script === 'english' ? iastToEnglish(str) : str
+  const sectionLabel = key => label(SECTION_LABEL[key] ?? key)
+  const spotLabel    = key => label(SPOT_FILTER_LABEL[key] ?? key)
   const [dateSearch,    setDateSearch]    = useState('')
 
   const handleClear = () => {
@@ -132,8 +134,8 @@ export default function ActivityLogView({ tr = k => k }) {
               className="flex-1 min-w-0 text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
             >
               <option value="all">{tr('log.all_sections')}</option>
-              {SECTION_OPTIONS.map(({ id, label }) => (
-                <option key={id} value={id}>{label}</option>
+              {Object.keys(SECTION_LABEL).map(id => (
+                <option key={id} value={id}>{sectionLabel(id)}</option>
               ))}
             </select>
           </div>
@@ -186,9 +188,9 @@ export default function ActivityLogView({ tr = k => k }) {
                       <td className="px-1 py-2 iast text-muted text-[15px]">{fmtDate(entry.ts)}</td>
                       <td className="px-1 py-2 iast text-muted text-[15px]">{fmtTime(entry.ts)}</td>
                       <td className="px-1 py-2 iast text-gold-400 truncate text-[15px]">
-                        {SECTION_LABEL[entry.section] ?? entry.section}
+                        {sectionLabel(entry.section)}
                         {entry.section === 'spot-check' && entry.filter && entry.filter !== 'all' && (
-                          <span> – {SPOT_FILTER_LABEL[entry.filter] ?? entry.filter}</span>
+                          <span> – {spotLabel(entry.filter)}</span>
                         )}
                       </td>
                       <td className={`px-1 py-2 iast text-right text-[15px] ${scoreClass}`}>
