@@ -4218,7 +4218,7 @@ export default function App() {
               )
             })()}
             {activeTab === 'browser'      && <CircuitBrowser script="devanagari" />}
-            {activeTab === 'intro'        && <IntroView script={script} />}
+            {activeTab === 'intro'        && <IntroView script={script} onStartTour={startTour} />}
             {activeTab === 'references'   && <ReferencesView />}
           </div>
 

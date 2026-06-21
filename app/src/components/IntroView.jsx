@@ -9,7 +9,7 @@
 
 import SriYantraSVG from './SriYantraSVG'
 
-export default function IntroView({ script = 'iast' }) {
+export default function IntroView({ script = 'iast', onStartTour }) {
   const isDev = script === 'devanagari'
   const skt   = isDev ? '' : 'iast'
 
@@ -142,6 +142,18 @@ export default function IntroView({ script = 'iast' }) {
             </a>{' '}
             is a good starting point. We hope you enjoy this app and find it useful.
           </p>
+          {onStartTour && (
+            <p className={`${skt} text-muted text-sm leading-relaxed`}>
+              New to the app?{' '}
+              <button
+                onClick={onStartTour}
+                className="text-gold-400 hover:text-gold-300 underline underline-offset-2 cursor-pointer"
+              >
+                Take the guided tour
+              </button>{' '}
+              for a quick introduction to all the features.
+            </p>
+          )}
         </section>
 
 
