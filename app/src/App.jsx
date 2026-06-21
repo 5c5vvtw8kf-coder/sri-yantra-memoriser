@@ -1937,7 +1937,7 @@ export default function App() {
   const [showLangMenu,         setShowLangMenu]         = useState(false)
   const [showScriptMenu,       setShowScriptMenu]       = useState(false)
   const [showMobileScriptMenu, setShowMobileScriptMenu] = useState(false)
-  const tr = key => translate('en', key)            // UI string helper (always English for now)
+  const tr = key => translate(script, key)          // UI string helper — script-aware via LOCALE_OVERRIDES
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
