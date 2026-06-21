@@ -3654,14 +3654,16 @@ export default function App() {
             <div className="flex items-center gap-1 flex-shrink-0 mt-0.5">
               {!navCollapsed && (<>
                 {/* Language picker */}
-                <div className="relative">
+                <div className="relative group/lang">
                   <button
                     onClick={() => setShowLangMenu(m => !m)}
-                    title="UI Language"
                     className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
                   >
                     <Globe size={11} />
                   </button>
+                  <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/lang:opacity-100 transition-opacity z-50">
+                    Language
+                  </div>
                   {showLangMenu && (
                     <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[130px]">
                       <button
@@ -3679,14 +3681,18 @@ export default function App() {
                   )}
                 </div>
                 {/* Tour trigger button */}
-                <button
-                  data-tour="tour-btn"
-                  onClick={startTour}
-                  title={tr('nav.take_tour')}
-                  className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
-                >
-                  <Bus size={11} />
-                </button>
+                <div className="relative group/tour">
+                  <button
+                    data-tour="tour-btn"
+                    onClick={startTour}
+                    className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
+                  >
+                    <Bus size={11} />
+                  </button>
+                  <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/tour:opacity-100 transition-opacity z-50">
+                    {tr('nav.take_tour')}
+                  </div>
+                </div>
               </>)}
               {/* Collapse toggle */}
               <button
@@ -3772,20 +3778,15 @@ export default function App() {
           {!navCollapsed && (
             <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
           )}
-          <div className="flex flex-wrap gap-1 px-1">
+          <select
+            value={script}
+            onChange={e => setScript(e.target.value)}
+            className="w-full text-xs rounded border border-surface-700 bg-surface-800 text-gold-300 px-2 py-1.5"
+          >
             {LOCALE_ORDER.map(id => (
-              <button
-                key={id}
-                onClick={() => setScript(id)}
-                className={`flex-1 min-w-[2rem] text-xs py-1 rounded-md transition-colors border
-                  ${script === id
-                    ? 'text-gold-300 bg-gold-900/30 border-gold-700/50'
-                    : 'text-muted border-surface-700 hover:text-cream'}`}
-              >
-                {LOCALE_CONFIG[id].label}
-              </button>
+              <option key={id} value={id}>{LOCALE_CONFIG[id].label}</option>
             ))}
-          </div>
+          </select>
         </div>
 
       </aside>
@@ -5681,6 +5682,7 @@ export default function App() {
                   <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
                   <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
                 </div>
+
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
                   <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
