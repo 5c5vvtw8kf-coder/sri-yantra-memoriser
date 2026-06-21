@@ -452,7 +452,7 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
             {script === 'english' ? 'Closing Namaskara' : 'namaskāra-navākṣarī ca'}
           </h2>
           <p className="text-cream text-xs leading-relaxed">
-            Nine special epithets of Śrīdevī, followed by the closing Namaskāra Navākṣarī.
+            {script === 'english' ? 'Nine special epithets of Sridevi, followed by the closing Namaskara Navakshari.' : 'Nine special epithets of Śrīdevī, followed by the closing Namaskāra Navākṣarī.'}
           </p>
         </div>
       )
@@ -468,7 +468,7 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
             {script === 'english' ? 'Sixteen Nitya Devis' : 'ṣoḍaśa nitya dēvī'}
           </h2>
           <p className="text-cream text-xs leading-relaxed">
-            The devis representing the 15 lunar phases of the moon's cycle plus Mahānityē.
+            {script === 'english' ? "The devis representing the 15 lunar phases of the moon's cycle plus Mahanitye." : "The devis representing the 15 lunar phases of the moon's cycle plus Mahānityē."}
           </p>
         </div>
       )
