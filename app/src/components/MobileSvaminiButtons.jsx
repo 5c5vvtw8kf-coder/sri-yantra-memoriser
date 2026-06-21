@@ -224,3 +224,11 @@ export default function MobileSvaminiButtons({
           <span className="text-sm leading-snug min-w-0">
             {renderNameContent(yoginiActive, yoginiPast, yoginiCorrect, yoginiLocked,
                                revealedYogini, yoginiName)
+}
+          </span>
+        </div>
+      </button>
+
+    </div>
+  )
+}
