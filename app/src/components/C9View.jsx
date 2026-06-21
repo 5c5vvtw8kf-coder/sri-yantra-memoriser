@@ -176,7 +176,7 @@ export default function C9View({
   }
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4">
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
         <svg viewBox="-30 181 560 500" xmlns="http://www.w3.org/2000/svg"

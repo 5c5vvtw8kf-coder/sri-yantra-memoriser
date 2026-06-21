@@ -241,7 +241,7 @@ export default function GuravaView({
     .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4">
 
 
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
@@ -413,7 +413,7 @@ export default function GuravaView({
 
       {memorise && <MobileMemoriseInstr />}
 
-      <div className="h-8" />
+      <div className="h-0 md:h-8" />
 
     </div>
   )

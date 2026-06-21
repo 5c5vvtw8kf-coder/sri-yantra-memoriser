@@ -387,7 +387,7 @@ export default function BhupuraView({
         : YANTRA_FILLS)
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4">
 
       {/* Diagram — full Sri Yantra background + dot overlay */}
       <div ref={yantraRef}
@@ -597,7 +597,7 @@ export default function BhupuraView({
 
       {/* Filter strip — Explore mode only */}
       {!memorise && (
-        <div className="flex items-center justify-center gap-2 mt-3">
+        <div className="flex items-center justify-center gap-2 mt-2">
           {(isMobile ? BAND_CONFIG.map((b, i) => ({ id: b.id, label: b.label, groupLabel: b.groupLabel, active: bandStep === i, onSelect: () => setBandStep(i) }))
                      : FILTERS.map(f => ({ id: f.id, label: f.label, active: activeFilter === f.id, onSelect: () => setActiveFilter(f.id) }))
           ).map(item => (
@@ -646,7 +646,7 @@ export default function BhupuraView({
       />
 
 
-      <div className="h-2" />
+      
     </div>
   )
 }

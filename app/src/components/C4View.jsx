@@ -313,7 +313,7 @@ export default function C4View({
   const activeViewBox = isMobileView ? CIRCUIT_VIEWBOX : FULL_VIEWBOX
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4">
 
       {/* Diagram */}
       <div

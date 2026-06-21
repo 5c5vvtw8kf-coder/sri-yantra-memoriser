@@ -332,7 +332,7 @@ export default function NyasaView({
   // ── Render ───────────────────────────────────────────────────────────────────
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4">
 
       {/* ── Yantra + dot overlay ── */}
       <div className="relative w-full" style={{ paddingBottom: '100%' }}>
@@ -561,7 +561,7 @@ export default function NyasaView({
 
       {memorise && <MobileMemoriseInstr />}
 
-      <div className="h-8" />
+      <div className="h-0 md:h-8" />
     </div>
   )
 }

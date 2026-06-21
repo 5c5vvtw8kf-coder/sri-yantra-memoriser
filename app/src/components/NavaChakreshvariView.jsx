@@ -478,7 +478,7 @@ export default function NavaChakreshvariView({
     : (hoveredCircuit ?? lastTappedCircuit)
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4">
 
 
       <div
@@ -594,7 +594,7 @@ export default function NavaChakreshvariView({
       )}
       {memorise && <MobileMemoriseInstr />}
 
-      <div className="h-8" />
+      <div className="h-0 md:h-8" />
     </div>
   )
 }

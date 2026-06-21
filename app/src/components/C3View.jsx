@@ -357,7 +357,7 @@ export default function C3View({
     : true                                    // always shown in Explore
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-4 pt-3 pb-0 md:p-4">
 
       {/* Diagram */}
       <div
