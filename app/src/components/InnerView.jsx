@@ -409,12 +409,9 @@ export default function InnerView({
               (idx >= 0 && idx <= 5) || (waning && idx >= 11 && idx <= 14)
             if (hoveredDot) {
               const hdIdx = nityaDeities.findIndex(x => x.id === hoveredDot.id)
-              const _dbgDeity = deityById[hoveredDot.id]
-              const _dbgLabel = displayName(_dbgDeity, script)
-              console.log('[InnerView tooltip]', { id: hoveredDot.id, script, english: _dbgDeity?.scripts?.english, label: _dbgLabel })
               return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={_dbgLabel}
+                  label={displayName(deityById[hoveredDot.id], script)}
                   fill={GOLD} script={script}
                   below={isBelow(hdIdx)} />
               )
@@ -424,9 +421,7 @@ export default function InnerView({
               const idx = nityaDeities.findIndex(x => x.id === selectedId)
               const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
               if (!pos) return null
-              const _dbgLabel2 = displayName(d, script)
-              console.log('[InnerView tap]', { id: selectedId, script, english: d?.scripts?.english, label: _dbgLabel2 })
-              return <Tooltip x={pos[0]} y={pos[1]} label={_dbgLabel2} fill={GOLD} script={script} below={isBelow(idx)} />
+              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={isBelow(idx)} />
             }
             return null
           })()}
