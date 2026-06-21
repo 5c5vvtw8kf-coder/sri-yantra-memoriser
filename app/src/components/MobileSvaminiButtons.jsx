@@ -202,7 +202,7 @@ export default function MobileSvaminiButtons({
         onClick={handleSvaminiClick}
       >
         <div className="flex items-baseline gap-2 min-w-0">
-          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">Svāminī</span>
+          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">{script === 'english' ? 'Swamini' : 'Svāminī'}</span>
           <span className="text-sm leading-snug min-w-0">
             {renderNameContent(svaminiActive, svaminiPast, svaminiCorrect, false,
                                revealedSvamini, svaminiName)}
@@ -220,14 +220,7 @@ export default function MobileSvaminiButtons({
         onClick={handleYoginiClick}
       >
         <div className="flex items-baseline gap-2 min-w-0">
-          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">Yoginī</span>
+          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">{script === 'english' ? 'Yogini' : 'Yoginī'}</span>
           <span className="text-sm leading-snug min-w-0">
             {renderNameContent(yoginiActive, yoginiPast, yoginiCorrect, yoginiLocked,
-                               revealedYogini, yoginiName)}
-          </span>
-        </div>
-      </button>
-
-    </div>
-  )
-}
+                               revealedYogini, yoginiName)
