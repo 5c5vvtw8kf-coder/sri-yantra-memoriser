@@ -3704,7 +3704,7 @@ export default function App() {
                 >
                   {navCollapsed ? '»' : '«'}
                 </button>
-                <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/collapse:opacity-100 transition-opacity z-50">
+                <div className="pointer-events-none absolute right-0 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/collapse:opacity-100 transition-opacity z-50">
                   {navCollapsed ? tr('nav.expand') : tr('nav.collapse')}
                 </div>
               </div>
@@ -3788,7 +3788,7 @@ export default function App() {
               onClick={() => setShowScriptMenu(m => !m)}
               className="w-full text-left flex items-center justify-between px-2 py-1.5 rounded border border-surface-700 bg-surface-800 hover:border-gold-600 transition-colors"
             >
-              <span className="text-xs text-gold-300 font-mono">{LOCALE_CONFIG[script]?.label ?? script}</span>
+              <span className="text-xs text-muted font-mono">{LOCALE_CONFIG[script]?.label ?? script}</span>
               <span className="text-muted text-[10px]">▾</span>
             </button>
             {showScriptMenu && (
