@@ -367,6 +367,7 @@ export default function C3View({
 
           <SriYantraSVG
             className="w-full h-full"
+            preserveAspectRatio="xMidYMin meet"
             showTriangles={true}
             showLabels={false}
             showNumbers={false}
@@ -375,6 +376,7 @@ export default function C3View({
 
           <svg
             viewBox="45 55 430 430"
+            preserveAspectRatio="xMidYMin meet"
             xmlns="http://www.w3.org/2000/svg"
             className="absolute inset-0 w-full h-full"
             style={{ background: 'transparent' }}

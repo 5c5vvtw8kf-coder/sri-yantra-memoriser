@@ -695,8 +695,9 @@ export { BHUPURA_MARKERS, C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_
 // ── Main SVG component ────────────────────────────────────────────────────────
 
 export default function SriYantraSVG({
-  className           = '',
-  viewBox             = '45 55 430 430',
+  className              = '',
+  viewBox                = '45 55 430 430',
+  preserveAspectRatio    = 'xMidYMid meet',
   showLabels          = false,
   showTriangles       = true,
   showSeedOfLife      = false,
@@ -741,6 +742,7 @@ export default function SriYantraSVG({
   return (
     <svg
       viewBox={viewBox}
+      preserveAspectRatio={preserveAspectRatio}
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       style={{ background: bg }}

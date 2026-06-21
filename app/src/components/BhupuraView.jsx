@@ -397,6 +397,7 @@ export default function BhupuraView({
           {/* Layer 1: full Sri Yantra */}
           <SriYantraSVG
             className="w-full h-full"
+            preserveAspectRatio="xMidYMin meet"
             showTriangles={true}
             showLabels={false}
             showNumbers={false}
@@ -406,6 +407,7 @@ export default function BhupuraView({
           {/* Layer 2: deity dots + tooltip + nav */}
           <svg
             viewBox="45 55 430 430"
+            preserveAspectRatio="xMidYMin meet"
             xmlns="http://www.w3.org/2000/svg"
             className="absolute inset-0 w-full h-full"
             style={{ background: 'transparent' }}

@@ -361,6 +361,7 @@ export default function C2View({
           {/* Layer 1: full Śrī Yantra background */}
           <SriYantraSVG
             className="w-full h-full"
+            preserveAspectRatio="xMidYMin meet"
             showTriangles={true}
             showLabels={false}
             showNumbers={false}
@@ -370,6 +371,7 @@ export default function C2View({
           {/* Layer 2: deity dots / petal overlays + tooltip + hint */}
           <svg
             viewBox="45 55 430 430"
+            preserveAspectRatio="xMidYMin meet"
             xmlns="http://www.w3.org/2000/svg"
             className="absolute inset-0 w-full h-full"
             style={{ background: 'transparent' }}
