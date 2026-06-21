@@ -314,4 +314,13 @@ export function useTour({ onBeforeStart, script = 'iast' } = {}) {
   // Auto-trigger on first visit
   useEffect(() => {
     if (!localStorage.getItem(TOUR_KEY)) {
-      const t 
+      const t = setTimeout(startTour, 1200)
+      return () => clearTimeout(t)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  return {
+    startTour,
+    tourElement: active ? <TourOverlay onDone={endTour} script={script} /> : null,
+  }
+}
