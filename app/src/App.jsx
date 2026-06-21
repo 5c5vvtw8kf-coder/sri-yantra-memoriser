@@ -445,11 +445,11 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
     if (tabId === 'closing') {
       return (
         <div className="p-4 space-y-2">
-          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
-            śrīdevī viśēṣaṇāni
+          <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script !== 'english' ? ' iast' : ''}`}>
+            {script === 'english' ? 'Sridevi Epithets' : 'śrīdevī viśēṣaṇāni'}
           </p>
-          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
-            namaskāra-navākṣarī ca
+          <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
+            {script === 'english' ? 'Closing Namaskara' : 'namaskāra-navākṣarī ca'}
           </h2>
           <p className="text-cream text-xs leading-relaxed">
             Nine special epithets of Śrīdevī, followed by the closing Namaskāra Navākṣarī.
@@ -461,11 +461,11 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
     if (tabId === 'inner') {
       return (
         <div className="p-4 space-y-2">
-          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
-            tithi nitya dēvatāḥ
+          <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script !== 'english' ? ' iast' : ''}`}>
+            {script === 'english' ? 'Tithi Nitya Devatas' : 'tithi nitya dēvatāḥ'}
           </p>
-          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
-            ṣoḍaśa nitya dēvī
+          <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
+            {script === 'english' ? 'Sixteen Nitya Devis' : 'ṣoḍaśa nitya dēvī'}
           </h2>
           <p className="text-cream text-xs leading-relaxed">
             The devis representing the 15 lunar phases of the moon's cycle plus Mahānityē.
@@ -477,11 +477,11 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
     if (tabId === 'gurava') {
       return (
         <div className="p-4 space-y-2">
-          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
-            guravaḥ
+          <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script !== 'english' ? ' iast' : ''}`}>
+            {script === 'english' ? 'Gurus' : 'guravaḥ'}
           </p>
-          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
-            divyaugha · siddhaugha · mānavaugha
+          <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
+            {script === 'english' ? 'Divine · Siddha · Human' : 'divyaugha · siddhaugha · mānavaugha'}
           </h2>
           <p className="text-cream text-xs leading-relaxed">
             Three classes of spiritual masters representing the divine, perfected and human currents of transmission.
@@ -493,11 +493,11 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
     if (tabId === 'nyasa') {
       return (
         <div className="p-4 space-y-2">
-          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
-            nyāsāṅga dēvatāḥ
+          <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script !== 'english' ? ' iast' : ''}`}>
+            {script === 'english' ? 'Nyasa Devatas' : 'nyāsāṅga dēvatāḥ'}
           </p>
-          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
-            ṣaḍ-aṅga nyāsa
+          <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
+            {script === 'english' ? 'Six-Limb Nyasa' : 'ṣaḍ-aṅga nyāsa'}
           </h2>
           <p className="text-cream text-xs leading-relaxed">
             Six limb-deities invoked at the opening of the stotra, each consecrates a part of the body and the subtle body before worship begins.
@@ -509,11 +509,11 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
     if (tabId === 'chakreshvari') {
       return (
         <div className="p-4 space-y-2">
-          <p className="iast text-xs font-mono text-gold-700 uppercase tracking-widest">
-            navacakrēśvarī nāmāni
+          <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script !== 'english' ? ' iast' : ''}`}>
+            {script === 'english' ? 'Nava Chakreshvari' : 'navacakrēśvarī nāmāni'}
           </p>
-          <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
-            nava tripurā rūpāṇi
+          <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
+            {script === 'english' ? 'Nine Tripura Forms' : 'nava tripurā rūpāṇi'}
           </h2>
           <p className="text-cream text-xs leading-relaxed">
             Nine Tripurā forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.
@@ -545,8 +545,8 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
       <p className={`text-xs font-mono text-gold-700 uppercase tracking-widest${script === 'iast' ? ' iast' : ''}`}>
         {circuitLabel(circuitNumber, script)}
       </p>
-      <h2 className="iast text-gold-400 text-sm font-medium leading-snug">
-        {section.avaranaIast}
+      <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
+        {sectionName(section, 'avarana', script)}
       </h2>
       {script !== 'english' && (
         <p className="text-cream text-xs">{section.avarana}</p>
