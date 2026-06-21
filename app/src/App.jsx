@@ -3824,7 +3824,12 @@ export default function App() {
                         ? 'text-gold-300 bg-gold-900/20'
                         : 'text-muted hover:text-gold-300 hover:bg-surface-700'}`}
                   >
-                    {LOCALE_CONFIG[id].label}
+                    <span className="flex items-center gap-1.5">
+                      {LOCALE_CONFIG[id].label}
+                      {LOCALE_CONFIG[id].englishName && (
+                        <span className="text-[10px] opacity-50">({LOCALE_CONFIG[id].englishName})</span>
+                      )}
+                    </span>
                     {id === script && <span className="text-gold-400 text-[10px]">✓</span>}
                   </button>
                 ))}
