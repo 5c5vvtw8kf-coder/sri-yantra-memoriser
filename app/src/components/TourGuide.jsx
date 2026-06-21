@@ -127,11 +127,12 @@ function TourOverlay({ onDone, script = 'iast' }) {
   // Recompute the highlighted element's bounding rect whenever the step changes
   const updateRect = useCallback(() => {
     if (!step.selector) { setRect(null); return }
+    // On mobile the sidebar is hidden — skip highlighting, use centred modal for all steps
+    if (window.innerWidth < 768) { setRect(null); return }
     const el = document.querySelector(step.selector)
     if (!el) { setRect(null); return }
     el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     const r = el.getBoundingClientRect()
-    // If element is off-screen (e.g. mobile sidebar hidden), fall back to centred modal
     if (r.right <= 0 || r.left >= window.innerWidth || r.bottom <= 0 || r.top >= window.innerHeight) {
       setRect(null); return
     }
