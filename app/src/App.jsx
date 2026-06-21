@@ -3827,7 +3827,7 @@ export default function App() {
                     <span className="flex items-center gap-1.5">
                       {LOCALE_CONFIG[id].label}
                       {LOCALE_CONFIG[id].englishName && (
-                        <span className="text-[10px] opacity-50">({LOCALE_CONFIG[id].englishName})</span>
+                        <span className="text-[11px] opacity-70">({LOCALE_CONFIG[id].englishName})</span>
                       )}
                     </span>
                     {id === script && <span className="text-gold-400 text-[10px]">✓</span>}
