@@ -3836,7 +3836,7 @@ export default function App() {
             onTouchEnd={handleSwipeEnd}>
 
         {/* Scrollable content area */}
-        <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto pt-2 relative">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-start overflow-y-auto pt-2 relative">
           <div className="w-full" style={{ maxWidth: 'min(100%, calc(100vh - 6rem))' }}>
             {activeTab === 'yantra'  && (
               <div className="w-full p-4">
