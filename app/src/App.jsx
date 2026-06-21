@@ -252,7 +252,7 @@ const CIRCUIT_LABELS = {
 }
 
 function circuitLabel(circuitNumber, script) {
-  if (script === 'english') return `${ordinal(circuitNumber)} Enclosure`
+  if (script === 'english') return `${ordinal(circuitNumber)} Avarana`
   const labels = CIRCUIT_LABELS[circuitNumber]
   if (!labels) return `Circuit ${circuitNumber}`
   return script === 'devanagari' ? labels.dev : labels.iast
