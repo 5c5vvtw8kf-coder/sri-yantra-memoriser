@@ -26,28 +26,47 @@ const SECTION_COL_LABEL = {
   closing:        'Śrīdevī Epithets',
 }
 
+const SECTION_COL_LABEL_EN = {
+  nyasa:          'Nyasanga',
+  nitya:          'Tithi Nitya',
+  'guru-divya':   'Gurus',
+  'guru-siddha':  'Gurus',
+  'guru-manava':  'Gurus',
+  'circuit-1':    '1st Avarana',
+  'circuit-2':    '2nd Avarana',
+  'circuit-3':    '3rd Avarana',
+  'circuit-4':    '4th Avarana',
+  'circuit-5':    '5th Avarana',
+  'circuit-6':    '6th Avarana',
+  'circuit-7':    '7th Avarana',
+  'circuit-8':    '8th Avarana',
+  'circuit-9':    '9th Avarana',
+  chakreshvari:   'Nava Chakreshvari',
+  closing:        'Sridevi Epithets',
+}
+
 const STOTRA_SECTION_IDS = new Set(Object.keys(SECTION_COL_LABEL))
 const GURU_IDS = new Set(['guru-divya', 'guru-siddha', 'guru-manava'])
 
 // ── Filter dropdown options ───────────────────────────────────────────────────
 
 const FILTER_OPTIONS = [
-  { id: 'nyasa',          label: 'Nyāsāṅga'        },
+  { id: 'nyasa',          label: 'Nyāsāṅga',        labelEn: 'Nyasanga'         },
   { id: 'nitya',          label: 'Tithi Nitya'      },
-  { id: 'gurava',         label: 'Guravaḥ'          },
-  { id: 'circuit-1',      label: '1st Āvaraṇa'      },
-  { id: 'circuit-2',      label: '2nd Āvaraṇa'      },
-  { id: 'circuit-3',      label: '3rd Āvaraṇa'      },
-  { id: 'circuit-4',      label: '4th Āvaraṇa'      },
-  { id: 'circuit-5',      label: '5th Āvaraṇa'      },
-  { id: 'circuit-6',      label: '6th Āvaraṇa'      },
-  { id: 'circuit-7',      label: '7th Āvaraṇa'      },
-  { id: 'circuit-8',      label: '8th Āvaraṇa'      },
-  { id: 'circuit-9',      label: '9th Āvaraṇa'      },
-  { id: 'chakreshvari',   label: 'Nava Chakreshvarī' },
-  { id: 'closing',        label: 'Śrīdevī Epithets'  },
-  { id: 'chakra-svamini', label: 'Chakra Svāminī'   },
-  { id: 'yogini',         label: 'Yoginī'            },
+  { id: 'gurava',         label: 'Guravaḥ',          labelEn: 'Gurus'            },
+  { id: 'circuit-1',      label: '1st Āvaraṇa',      labelEn: '1st Avarana'      },
+  { id: 'circuit-2',      label: '2nd Āvaraṇa',      labelEn: '2nd Avarana'      },
+  { id: 'circuit-3',      label: '3rd Āvaraṇa',      labelEn: '3rd Avarana'      },
+  { id: 'circuit-4',      label: '4th Āvaraṇa',      labelEn: '4th Avarana'      },
+  { id: 'circuit-5',      label: '5th Āvaraṇa',      labelEn: '5th Avarana'      },
+  { id: 'circuit-6',      label: '6th Āvaraṇa',      labelEn: '6th Avarana'      },
+  { id: 'circuit-7',      label: '7th Āvaraṇa',      labelEn: '7th Avarana'      },
+  { id: 'circuit-8',      label: '8th Āvaraṇa',      labelEn: '8th Avarana'      },
+  { id: 'circuit-9',      label: '9th Āvaraṇa',      labelEn: '9th Avarana'      },
+  { id: 'chakreshvari',   label: 'Nava Chakreshvarī', labelEn: 'Nava Chakreshvari' },
+  { id: 'closing',        label: 'Śrīdevī Epithets',  labelEn: 'Sridevi Epithets'  },
+  { id: 'chakra-svamini', label: 'Chakra Svāminī',   labelEn: 'Chakra Svamini'    },
+  { id: 'yogini',         label: 'Yoginī',            labelEn: 'Yogini'            },
 ]
 
 // ── Circuit store and extra-row seq numbers ───────────────────────────────────
@@ -266,8 +285,8 @@ export default function MemoMapView({ allResults, script = 'iast', tr = k => k }
             className="flex-1 min-w-0 text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
           >
             <option value="all">{tr('map.all_sections')}</option>
-            {FILTER_OPTIONS.map(({ id, label }) => (
-              <option key={id} value={id}>{label}</option>
+            {FILTER_OPTIONS.map(({ id, label, labelEn }) => (
+              <option key={id} value={id}>{script === 'english' ? (labelEn || label) : label}</option>
             ))}
           </select>
           <select
@@ -335,7 +354,7 @@ export default function MemoMapView({ allResults, script = 'iast', tr = k => k }
                       {displayName({ scripts: row.scripts }, script)}
                     </td>
                     <td className="px-3 py-2 iast text-muted truncate text-[15px]">
-                      {SECTION_COL_LABEL[row.sectionId]}
+                      {(script === 'english' ? SECTION_COL_LABEL_EN : SECTION_COL_LABEL)[row.sectionId]}
                     </td>
                     <td className={`px-3 py-2 text-right ${className}`}>
                       {symbol}
