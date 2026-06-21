@@ -30,13 +30,6 @@ const STEPS = [
       'The Prārthana and Dhyānam are on the full stotram page. Click any section to open it.',
   },
   {
-    selector: '[data-tour="nav-yantra"]',
-    title: 'Śrī Yantra',
-    body:
-      'The <strong>Śrī Yantra</strong> tab shows the complete diagram as a reference — ' +
-      'all nine circuits from the Bhūpura to the bindu.',
-  },
-  {
     selector: '[data-tour="heading-explore"]',
     title: 'Explore and Memorise',
     body:
@@ -68,6 +61,13 @@ const STEPS = [
       'The <strong>Memory Map</strong> shows your progress across the entire yantra at a ' +
       'glance — <span class="syt-tour-red">red</span> for memorised, ' +
       '<span class="syt-tour-gold">gold</span> for still learning.',
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: 'Śrī Yantra',
+    body:
+      'The <strong>Śrī Yantra</strong> tab shows the complete diagram as a reference — ' +
+      'all nine circuits from the Bhūpura to the bindu.',
   },
   {
     selector: '[data-tour="nav-browser"]',
@@ -314,13 +314,4 @@ export function useTour({ onBeforeStart, script = 'iast' } = {}) {
   // Auto-trigger on first visit
   useEffect(() => {
     if (!localStorage.getItem(TOUR_KEY)) {
-      const t = setTimeout(startTour, 1200)
-      return () => clearTimeout(t)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  return {
-    startTour,
-    tourElement: active ? <TourOverlay onDone={endTour} script={script} /> : null,
-  }
-}
+      const t 
