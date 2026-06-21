@@ -3763,7 +3763,7 @@ export default function App() {
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
-                  className={`w-full text-left text-xs px-2 py-1.5 rounded-md transition-colors flex items-center justify-between gap-1
+                  className={`w-full text-left ${script === 'iast' ? 'text-sm' : 'text-xs'} px-2 py-1.5 rounded-md transition-colors flex items-center justify-between gap-1
                     ${script !== 'devanagari' ? 'iast' : ''}
                     ${activeTab === tab.id
                       ? 'text-gold-300 bg-gold-900/30'
