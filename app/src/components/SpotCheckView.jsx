@@ -99,7 +99,7 @@ export const SC_FILTERS = [
     visualMode: 'navaCakra',
     defaultSubFilter: null,
     subFilters: [
-      { id: 'nc-svamini', label: 'Svāminī', labelEn: 'Svamini' },
+      { id: 'nc-svamini', label: 'Svāminī', labelEn: 'Swamini' },
       { id: 'nc-yogini',  label: 'Yoginī', labelEn: 'Yogini'  },
       { id: 'nc-both',    label: 'Both',    groupIds: null },
     ],

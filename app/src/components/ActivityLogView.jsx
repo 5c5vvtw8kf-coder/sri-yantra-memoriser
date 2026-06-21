@@ -70,7 +70,11 @@ export default function ActivityLogView({ tr = k => k, script = 'iast' }) {
   const [sectionFilter, setSectionFilter] = useState('all')
 
   // Script-aware label helpers
-  const label = str => script === 'english' ? iastToEnglish(str) : str
+  // iastToEnglish handles diacritics but not c→ch or sv→sw; add explicit overrides
+  const ENGLISH_LABEL_OVERRIDES = { 'Cakra': 'Chakra' }
+  const label = str => script === 'english'
+    ? (ENGLISH_LABEL_OVERRIDES[str] ?? iastToEnglish(str))
+    : str
   const sectionLabel = key => label(SECTION_LABEL[key] ?? key)
   const spotLabel    = key => label(SPOT_FILTER_LABEL[key] ?? key)
   const [dateSearch,    setDateSearch]    = useState('')

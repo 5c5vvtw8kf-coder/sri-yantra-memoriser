@@ -65,7 +65,7 @@ const FILTER_OPTIONS = [
   { id: 'circuit-9',      label: '9th Āvaraṇa',      labelEn: '9th Avarana'      },
   { id: 'chakreshvari',   label: 'Nava Chakreshvarī', labelEn: 'Nava Chakreshvari' },
   { id: 'closing',        label: 'Śrīdevī Epithets',  labelEn: 'Sridevi Epithets'  },
-  { id: 'chakra-svamini', label: 'Chakra Svāminī',   labelEn: 'Chakra Svamini'    },
+  { id: 'chakra-svamini', label: 'Cakra Svāminī',    labelEn: 'Chakra Swamini'    },
   { id: 'yogini',         label: 'Yoginī',            labelEn: 'Yogini'            },
 ]
 

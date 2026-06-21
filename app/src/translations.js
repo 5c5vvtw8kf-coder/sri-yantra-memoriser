@@ -252,7 +252,7 @@ const en = {
 
   // ── Deity detail ───────────────────────────────────────────────────────────
   'deity.secrecy':        'Secrecy',
-  'deity.chakra_svamini': 'Chakra Svamini',
+  'deity.chakra_svamini': 'Chakra Swamini',
   'deity.yogini':         'Yogini',
   'deity.chakreshvari':   'Chakreshvarī',
   'deity.singular':       'Deity',
@@ -837,8 +837,19 @@ const UI_STRINGS = { en, hi, te, ta, kn, ml }
  * Falls back to English if the key is missing in the target language.
  * Returns the key itself if not found in English either (safe fallback).
  */
+// Per-locale UI string overrides — used when a locale needs different
+// UI label text from its base uiLang (e.g. IAST uses 'Cakra' not 'Chakra').
+const LOCALE_OVERRIDES = {
+  iast: {
+    'deity.chakra_svamini': 'Cakra Svāminī',
+    'deity.yogini':         'Yoginī',
+  },
+}
+
 export function translate(locale, key) {
-  const lang   = localeUiLang(locale)
-  const table  = UI_STRINGS[lang] ?? UI_STRINGS.en
+  if (LOCALE_OVERRIDES[locale]?.[key] !== undefined)
+    return LOCALE_OVERRIDES[locale][key]
+  const lang  = localeUiLang(locale)
+  const table = UI_STRINGS[lang] ?? UI_STRINGS.en
   return table[key] ?? UI_STRINGS.en[key] ?? key
 }
