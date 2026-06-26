@@ -39,7 +39,7 @@ const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
 
 // Native-numeral helper: uses Unicode numbering system extension for South Indian scripts
-const LOCALE_NUMERAL_SYS = { kn: 'knda', ta: 'taml', te: 'telu', ml: 'mlym' }
+const LOCALE_NUMERAL_SYS = { hi: 'deva', kn: 'knda', ta: 'taml', te: 'telu', ml: 'mlym' }
 function localNum(n, uiLang) {
   if (uiLang === 'en') return n
   const nu = LOCALE_NUMERAL_SYS[uiLang]
