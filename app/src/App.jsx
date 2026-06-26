@@ -3208,7 +3208,7 @@ export default function App() {
                     onMouseEnter={() => setInnerHighlightId(d.id)}
                     onMouseLeave={() => setInnerHighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
                     <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3345,7 +3345,7 @@ export default function App() {
                       onMouseEnter={() => setHighlight(d.id)}
                       onMouseLeave={() => setHighlight(null)}
                     >
-                      <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                      <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
                       <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                         {displayName(d, script)}
                       </span>
@@ -3386,7 +3386,7 @@ export default function App() {
                     onMouseEnter={() => setC2HighlightId(d.id)}
                     onMouseLeave={() => setC2HighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
                     <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3426,7 +3426,7 @@ export default function App() {
                     onMouseEnter={() => setNcHighlightCircuit(d.circuitNumber ?? d.sequenceInSection)}
                     onMouseLeave={() => setNcHighlightCircuit(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
                     <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3489,7 +3489,7 @@ export default function App() {
                     onMouseEnter={() => setC8HighlightId(d.id)}
                     onMouseLeave={() => setC8HighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
                     <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3593,7 +3593,7 @@ export default function App() {
                     onMouseEnter={() => setClosingListHighlight(true)}
                     onMouseLeave={() => setClosingListHighlight(false)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{i + 1}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
                     <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -4852,9 +4852,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleC2StartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -4862,9 +4860,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {c2Memorise && (
                 <button
                   onClick={handleC2StartMemorise}
@@ -4969,9 +4965,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleC4StartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -4979,9 +4973,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {c4Memorise && (
                 <button
                   onClick={handleC4StartMemorise}
@@ -5081,9 +5073,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleC5StartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -5091,9 +5081,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {c5Memorise && (
                 <button
                   onClick={handleC5StartMemorise}
@@ -5194,9 +5182,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleC6StartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -5204,9 +5190,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {c6Memorise && (
                 <button
                   onClick={handleC6StartMemorise}
@@ -5307,9 +5291,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleC7StartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -5317,9 +5299,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {c7Memorise && (
                 <button
                   onClick={handleC7StartMemorise}
@@ -5420,9 +5400,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleC8StartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -5430,9 +5408,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {c8Memorise && (
                 <button
                   onClick={handleC8StartMemorise}
@@ -5538,9 +5514,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleC9StartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -5548,9 +5522,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {c9Memorise && (
                 <button
                   onClick={handleC9StartMemorise}
@@ -5601,9 +5573,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleNcStartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -5611,9 +5581,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {ncMemorise && (
                 <button
                   onClick={handleNcStartMemorise}
@@ -5691,9 +5659,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleClosingStartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -5701,9 +5667,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {closingMemorise && (
                 <button
                   onClick={handleClosingStartMemorise}
@@ -5781,9 +5745,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Explore
-              </button>
+              >{tr('mode.explore')}</button>
               <button
                 onClick={handleC3StartMemorise}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
@@ -5791,9 +5753,7 @@ export default function App() {
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
-              >
-                Memorise
-              </button>
+              >{tr('mode.memorise')}</button>
               {c3Memorise && (
                 <button
                   onClick={handleC3StartMemorise}
