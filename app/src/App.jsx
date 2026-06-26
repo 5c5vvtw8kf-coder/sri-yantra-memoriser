@@ -543,9 +543,9 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Closing Namaskara' : 'namaskāra-navākṣarī ca'}
           </h2>
-          <p className="text-cream text-xs leading-relaxed">
+          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
             {script === 'english' ? 'Nine special epithets of Sridevi, followed by the closing Namaskara Navakshari.' : 'Nine special epithets of Śrīdevī, followed by the closing Namaskāra Navākṣarī.'}
-          </p>
+          </p>}
         </div>
       )
     }
@@ -559,9 +559,9 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Sixteen Nitya Devis' : 'ṣoḍaśa nitya dēvī'}
           </h2>
-          <p className="text-cream text-xs leading-relaxed">
+          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
             {script === 'english' ? "The devis representing the 15 lunar phases of the moon's cycle plus Mahanitye." : "The devis representing the 15 lunar phases of the moon's cycle plus Mahānityē."}
-          </p>
+          </p>}
         </div>
       )
     }
@@ -575,9 +575,9 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Divine · Siddha · Human' : 'divyaugha · siddhaugha · mānavaugha'}
           </h2>
-          <p className="text-cream text-xs leading-relaxed">
+          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
             Three classes of spiritual masters representing the divine, perfected and human currents of transmission.
-          </p>
+          </p>}
         </div>
       )
     }
@@ -591,9 +591,9 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Six-Limb Nyasa' : 'ṣaḍ-aṅga nyāsa'}
           </h2>
-          <p className="text-cream text-xs leading-relaxed">
+          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
             Six limb-deities invoked at the opening of the stotra, each consecrates a part of the body and the subtle body before worship begins.
-          </p>
+          </p>}
         </div>
       )
     }
@@ -607,9 +607,9 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Nine Tripura Forms' : 'nava tripurā rūpāṇi'}
           </h2>
-          <p className="text-cream text-xs leading-relaxed">
+          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
             {script === 'english' ? 'Nine Tripura forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.' : 'Nine Tripurā forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.'}
-          </p>
+          </p>}
         </div>
       )
     }
@@ -3035,7 +3035,7 @@ export default function App() {
                   : 'bg-surface-800 text-muted hover:text-cream',
               ].join(' ')}
             >
-              {script === 'english' ? (f.labelEn || f.label) : f.label}
+              {f.trKey && uiLang !== 'en' ? tr(f.trKey) : (script === 'english' ? (f.labelEn || f.label) : f.label)}
             </button>
           ))}
         </div>
@@ -3057,7 +3057,7 @@ export default function App() {
                       : 'bg-surface-800 text-muted hover:text-cream',
                   ].join(' ')}
                 >
-                  {script === 'english' ? (s.labelEn || s.label) : s.label}
+                  {s.trKey && uiLang !== 'en' ? tr(s.trKey) : (script === 'english' ? (s.labelEn || s.label) : s.label)}
                 </button>
               ))}
             </div>
@@ -3110,7 +3110,7 @@ export default function App() {
           onClick={() => scSkipRef.current?.()}
           className="w-full py-1.5 rounded bg-surface-800 text-xs text-muted hover:text-cream hover:bg-surface-700 transition-colors font-mono"
         >
-          skip →
+          {tr('btn.skip')}
         </button>
 
         {/* Scores */}
@@ -4312,7 +4312,7 @@ export default function App() {
                         <button key={f.id} onClick={() => setFilter(f.id)}
                           className={['px-2.5 py-1 rounded text-xs font-mono transition-colors',
                             scFilter === f.id ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
-                          {script === 'english' ? (f.labelEn || f.label) : f.label}
+                          {f.trKey && uiLang !== 'en' ? tr(f.trKey) : (script === 'english' ? (f.labelEn || f.label) : f.label)}
                         </button>
                       ))}
                     </div>
@@ -4327,7 +4327,7 @@ export default function App() {
                           className={['flex-1 py-1 rounded text-xs font-mono transition-colors text-center',
                             (s.groupIds === null ? scSubFilter === null : scSubFilter === s.id)
                               ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
-                          {script === 'english' ? (s.labelEn || s.label) : s.label}
+                          {s.trKey && uiLang !== 'en' ? tr(s.trKey) : (script === 'english' ? (s.labelEn || s.label) : s.label)}
                         </button>
                       ))}
                     </div>
@@ -4351,7 +4351,7 @@ export default function App() {
                   {/* Skip */}
                   <button onClick={() => scSkipRef.current?.()}
                     className="w-full py-1.5 rounded bg-surface-800 text-xs text-muted font-mono">
-                    skip →
+                    {tr('btn.skip')}
                   </button>
 
                 </div>

@@ -7,23 +7,25 @@ const { deities, sections } = data
 
 // ── Section column labels ─────────────────────────────────────────────────────
 
-const SECTION_COL_LABEL = {
-  nyasa:          'Nyāsāṅga',
-  nitya:          'Tithi Nitya',
-  'guru-divya':   'Guravaḥ',
-  'guru-siddha':  'Guravaḥ',
-  'guru-manava':  'Guravaḥ',
-  'circuit-1':    '1st Āvaraṇa',
-  'circuit-2':    '2nd Āvaraṇa',
-  'circuit-3':    '3rd Āvaraṇa',
-  'circuit-4':    '4th Āvaraṇa',
-  'circuit-5':    '5th Āvaraṇa',
-  'circuit-6':    '6th Āvaraṇa',
-  'circuit-7':    '7th Āvaraṇa',
-  'circuit-8':    '8th Āvaraṇa',
-  'circuit-9':    '9th Āvaraṇa',
-  chakreshvari:   'Nava Chakreshvarī',
-  closing:        'Śrīdevī Epithets',
+function buildSectionColLabel(tr) {
+  return {
+    nyasa:          tr('sec.nyasa'),
+    nitya:          tr('sec.inner'),
+    'guru-divya':   tr('sec.gurava'),
+    'guru-siddha':  tr('sec.gurava'),
+    'guru-manava':  tr('sec.gurava'),
+    'circuit-1':    tr('av.1'),
+    'circuit-2':    tr('av.2'),
+    'circuit-3':    tr('av.3'),
+    'circuit-4':    tr('av.4'),
+    'circuit-5':    tr('av.5'),
+    'circuit-6':    tr('av.6'),
+    'circuit-7':    tr('av.7'),
+    'circuit-8':    tr('av.8'),
+    'circuit-9':    tr('av.9'),
+    chakreshvari:   tr('sec.nc'),
+    closing:        tr('sec.closing'),
+  }
 }
 
 const SECTION_COL_LABEL_EN = {
@@ -50,24 +52,27 @@ const GURU_IDS = new Set(['guru-divya', 'guru-siddha', 'guru-manava'])
 
 // ── Filter dropdown options ───────────────────────────────────────────────────
 
-const FILTER_OPTIONS = [
-  { id: 'nyasa',          label: 'Nyāsāṅga',        labelEn: 'Nyasanga'         },
-  { id: 'nitya',          label: 'Tithi Nitya'      },
-  { id: 'gurava',         label: 'Guravaḥ',          labelEn: 'Gurus'            },
-  { id: 'circuit-1',      label: '1st Āvaraṇa',      labelEn: '1st Enclosure'      },
-  { id: 'circuit-2',      label: '2nd Āvaraṇa',      labelEn: '2nd Enclosure'      },
-  { id: 'circuit-3',      label: '3rd Āvaraṇa',      labelEn: '3rd Enclosure'      },
-  { id: 'circuit-4',      label: '4th Āvaraṇa',      labelEn: '4th Enclosure'      },
-  { id: 'circuit-5',      label: '5th Āvaraṇa',      labelEn: '5th Enclosure'      },
-  { id: 'circuit-6',      label: '6th Āvaraṇa',      labelEn: '6th Enclosure'      },
-  { id: 'circuit-7',      label: '7th Āvaraṇa',      labelEn: '7th Enclosure'      },
-  { id: 'circuit-8',      label: '8th Āvaraṇa',      labelEn: '8th Enclosure'      },
-  { id: 'circuit-9',      label: '9th Āvaraṇa',      labelEn: '9th Enclosure'      },
-  { id: 'chakreshvari',   label: 'Nava Chakreshvarī', labelEn: 'Nava Chakreshvari' },
-  { id: 'closing',        label: 'Śrīdevī Epithets',  labelEn: 'Sridevi Epithets'  },
-  { id: 'chakra-svamini', label: 'Cakra Svāminī',    labelEn: 'Chakra Swamini'    },
-  { id: 'yogini',         label: 'Yoginī',            labelEn: 'Yogini'            },
-]
+function buildFilterOptions(tr, script) {
+  const l = (iast, en) => script === 'english' ? (en || iast) : iast
+  return [
+    { id: 'nyasa',          label: tr('sec.nyasa')    },
+    { id: 'nitya',          label: tr('sec.inner')    },
+    { id: 'gurava',         label: tr('sec.gurava')   },
+    { id: 'circuit-1',      label: tr('av.1')         },
+    { id: 'circuit-2',      label: tr('av.2')         },
+    { id: 'circuit-3',      label: tr('av.3')         },
+    { id: 'circuit-4',      label: tr('av.4')         },
+    { id: 'circuit-5',      label: tr('av.5')         },
+    { id: 'circuit-6',      label: tr('av.6')         },
+    { id: 'circuit-7',      label: tr('av.7')         },
+    { id: 'circuit-8',      label: tr('av.8')         },
+    { id: 'circuit-9',      label: tr('av.9')         },
+    { id: 'chakreshvari',   label: tr('sec.nc')       },
+    { id: 'closing',        label: tr('sec.closing')  },
+    { id: 'chakra-svamini', label: l('Cakra Svāminī', 'Chakra Swamini') },
+    { id: 'yogini',         label: l('Yoginī', 'Yogini')                },
+  ]
+}
 
 // ── Circuit store and extra-row seq numbers ───────────────────────────────────
 
@@ -170,6 +175,9 @@ export default function MemoMapView({ allResults, script = 'iast', tr = k => k }
   const [view,          setView]          = useState('maps')   // 'maps' | 'list'
   const [sectionFilter, setSectionFilter] = useState('all')
   const [statusFilter,  setStatusFilter]  = useState('all')
+
+  const SECTION_COL_LABEL = buildSectionColLabel(tr)
+  const FILTER_OPTIONS    = buildFilterOptions(tr, script)
 
   const allHistory = Object.fromEntries(
     HISTORY_STORES.map(k => [k, loadMemoHistory(k)])
@@ -285,8 +293,8 @@ export default function MemoMapView({ allResults, script = 'iast', tr = k => k }
             className="flex-1 min-w-0 text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
           >
             <option value="all">{tr('map.all_sections')}</option>
-            {FILTER_OPTIONS.map(({ id, label, labelEn }) => (
-              <option key={id} value={id}>{script === 'english' ? (labelEn || label) : label}</option>
+            {FILTER_OPTIONS.map(({ id, label }) => (
+              <option key={id} value={id}>{label}</option>
             ))}
           </select>
           <select
@@ -324,7 +332,7 @@ export default function MemoMapView({ allResults, script = 'iast', tr = k => k }
 
         {/* Maps view */}
         {view === 'maps' && (
-          <MemoMapVisuals allHistory={allHistory} script={script} />
+          <MemoMapVisuals allHistory={allHistory} script={script} tr={tr} />
         )}
 
         {/* List view */}
@@ -354,7 +362,7 @@ export default function MemoMapView({ allResults, script = 'iast', tr = k => k }
                       {displayName({ scripts: row.scripts }, script)}
                     </td>
                     <td className="px-3 py-2 iast text-muted truncate text-[15px]">
-                      {(script === 'english' ? SECTION_COL_LABEL_EN : SECTION_COL_LABEL)[row.sectionId]}
+                      {SECTION_COL_LABEL[row.sectionId]}
                     </td>
                     <td className={`px-3 py-2 text-right ${className}`}>
                       {symbol}
@@ -364,19 +372,4 @@ export default function MemoMapView({ allResults, script = 'iast', tr = k => k }
               })}
             </tbody>
           </table>
-        </div>
-
-        {filtered.length > 0 && (
-          <p className="text-muted text-xs text-center mt-3">
-
-            {filtered.length} {filtered.length === 1 ? tr('misc.entry') : tr('misc.entries')}
-            {sectionFilter !== 'all' || statusFilter !== 'all' ? ` (${tr('misc.filtered')})` : ''}
-          </p>
-        )}
-        </>}
-
-      </div>
-
-    </div>
-  )
-}
+        </d

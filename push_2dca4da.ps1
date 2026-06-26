@@ -1,0 +1,11 @@
+$repo   = "C:\Users\ChrisHughes\PTS AUS\PTS Australia - Management\Claude\Workspace\projects\Sri Yantra\Sri Yantra Memoriser"
+$bundle = "$repo\push_2dca4da.bundle"
+foreach ($lock in @("$repo\.git\refs\heads\dev.lock", "$repo\.git\HEAD.lock")) {
+    if (Test-Path $lock) { Remove-Item $lock -Force; Write-Host "Removed $lock" }
+}
+git -C $repo bundle unbundle $bundle
+git -C $repo update-ref refs/heads/dev 2dca4da
+Write-Host "dev now at: $(git -C $repo rev-parse dev)"
+git -C $repo push origin dev
+Remove-Item $bundle -Force
+Write-Host "Done"

@@ -196,20 +196,20 @@ function hasNotMemorised(sectionIds, allHistory) {
 // -- 14 map definitions -------------------------------------------------------
 
 const MAPS = [
-  { id: 'nyasa',        label: 'Nyasanga',            sectionIds: ['nyasa'],                                  type: 'nyasa'  },
-  { id: 'nitya',        label: 'Tithi Nitya',          sectionIds: ['nitya'],                                  type: 'nitya'  },
-  { id: 'gurava',       label: 'Guravah',                       sectionIds: ['guru-divya','guru-siddha','guru-manava'], type: 'gurava' },
-  { id: 'circuit-1',    label: '1st Avarana',                  sectionIds: ['circuit-1'],                              type: 'yantra' },
-  { id: 'circuit-2',    label: '2nd Avarana',                  sectionIds: ['circuit-2'],                              type: 'yantra' },
-  { id: 'circuit-3',    label: '3rd Avarana',                  sectionIds: ['circuit-3'],                              type: 'yantra' },
-  { id: 'circuit-4',    label: '4th Avarana',                  sectionIds: ['circuit-4'],                              type: 'yantra' },
-  { id: 'circuit-5',    label: '5th Avarana',                  sectionIds: ['circuit-5'],                              type: 'yantra' },
-  { id: 'circuit-6',    label: '6th Avarana',                  sectionIds: ['circuit-6'],                              type: 'yantra' },
-  { id: 'circuit-7',    label: '7th Avarana',                  sectionIds: ['circuit-7'],                              type: 'yantra' },
-  { id: 'circuit-8',    label: '8th Avarana',                  sectionIds: ['circuit-8'],                              type: 'c8'     },
-  { id: 'circuit-9',    label: '9th Avarana',                  sectionIds: ['circuit-9'],                              type: 'c9'     },
-  { id: 'chakreshvari', label: 'Nava Chakreshvari',             sectionIds: ['chakreshvari'],                           type: 'list'   },
-  { id: 'closing',      label: 'Sridevi Visesanani',           sectionIds: ['closing'],                                type: 'list'   },
+  { id: 'nyasa',        label: 'Nyasanga',           trKey: 'sec.nyasa',  sectionIds: ['nyasa'],                                  type: 'nyasa'  },
+  { id: 'nitya',        label: 'Tithi Nitya',         trKey: 'sec.inner',  sectionIds: ['nitya'],                                  type: 'nitya'  },
+  { id: 'gurava',       label: 'Guravah',             trKey: 'sec.gurava', sectionIds: ['guru-divya','guru-siddha','guru-manava'], type: 'gurava' },
+  { id: 'circuit-1',    label: '1st Avarana',         trKey: 'av.1',       sectionIds: ['circuit-1'],                              type: 'yantra' },
+  { id: 'circuit-2',    label: '2nd Avarana',         trKey: 'av.2',       sectionIds: ['circuit-2'],                              type: 'yantra' },
+  { id: 'circuit-3',    label: '3rd Avarana',         trKey: 'av.3',       sectionIds: ['circuit-3'],                              type: 'yantra' },
+  { id: 'circuit-4',    label: '4th Avarana',         trKey: 'av.4',       sectionIds: ['circuit-4'],                              type: 'yantra' },
+  { id: 'circuit-5',    label: '5th Avarana',         trKey: 'av.5',       sectionIds: ['circuit-5'],                              type: 'yantra' },
+  { id: 'circuit-6',    label: '6th Avarana',         trKey: 'av.6',       sectionIds: ['circuit-6'],                              type: 'yantra' },
+  { id: 'circuit-7',    label: '7th Avarana',         trKey: 'av.7',       sectionIds: ['circuit-7'],                              type: 'yantra' },
+  { id: 'circuit-8',    label: '8th Avarana',         trKey: 'av.8',       sectionIds: ['circuit-8'],                              type: 'c8'     },
+  { id: 'circuit-9',    label: '9th Avarana',         trKey: 'av.9',       sectionIds: ['circuit-9'],                              type: 'c9'     },
+  { id: 'chakreshvari', label: 'Nava Chakreshvari',   trKey: 'sec.nc',     sectionIds: ['chakreshvari'],                           type: 'list'   },
+  { id: 'closing',      label: 'Sridevi Visesanani',  trKey: 'sec.closing',sectionIds: ['closing'],                                type: 'list'   },
 ]
 
 // -- Nyasa geometry (0 0 500 500 overlay coordinate space) --------------------
@@ -687,34 +687,34 @@ function ListMap({ sectionId, allHistory, script }) {
 
 // -- Status counts summary ----------------------------------------------------
 
-function StatusCounts({ counts }) {
+function StatusCounts({ counts, tr = k => k }) {
   return (
     <div className="flex items-center gap-3 text-xs font-mono">
       <span className="text-green-400">✓ {counts.memorised}</span>
       <span className="text-amber-400">~ {counts.partial}</span>
       <span className="text-red-400">✗ {counts.notMemorised}</span>
       <span className="text-surface-600">— {counts.notAttempted}</span>
-      <span className="text-surface-600">(last 3 attempts)</span>
+      <span className="text-surface-600">({tr('map.last3')})</span>
     </div>
   )
 }
 
 // -- Legend -------------------------------------------------------------------
 
-function Legend() {
+function Legend({ tr = k => k }) {
   return (
     <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-xs font-mono pt-2 border-t border-surface-800 text-center justify-center">
-      <span className="text-green-400">✓ memorised</span>
-      <span className="text-amber-400">~ partial</span>
-      <span className="text-red-400">✗ not memorised</span>
-      <span className="text-surface-600">— not attempted</span>
+      <span className="text-green-400">✓ {tr('map.leg_mem')}</span>
+      <span className="text-amber-400">~ {tr('map.leg_part')}</span>
+      <span className="text-red-400">✗ {tr('map.leg_not')}</span>
+      <span className="text-surface-600">— {tr('map.leg_none')}</span>
     </div>
   )
 }
 
 // -- Main carousel ------------------------------------------------------------
 
-export default function MemoMapVisuals({ allHistory, script = 'iast' }) {
+export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => k }) {
   const [mapIdx, setMapIdx] = useState(0)
 
   const map   = MAPS[mapIdx] || MAPS[0]
@@ -735,7 +735,7 @@ export default function MemoMapVisuals({ allHistory, script = 'iast' }) {
             ←
           </button>
           <div className="flex-1 text-center min-w-0">
-            <div className="iast text-cream text-sm font-medium truncate">{map.label}</div>
+            <div className="text-cream text-sm font-medium truncate">{map.trKey ? tr(map.trKey) : map.label}</div>
           </div>
           <button onClick={next} disabled={mapIdx === total - 1}
             className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded text-cream text-xl hover:bg-surface-800 disabled:opacity-20 transition-colors">
@@ -743,13 +743,13 @@ export default function MemoMapVisuals({ allHistory, script = 'iast' }) {
           </button>
         </div>
         <div className="flex items-center justify-between text-[11px] font-mono text-muted -mt-2">
-          <span className="w-10 text-center">previous</span>
+          <span className="w-10 text-center">{tr('map.previous')}</span>
           <span>{mapIdx + 1} / {total}</span>
-          <span className="w-10 text-center">next</span>
+          <span className="w-10 text-center">{tr('map.next')}</span>
         </div>
       </div>
 
-      <StatusCounts counts={counts} />
+      <StatusCounts counts={counts} tr={tr} />
 
       {map.type === 'nyasa'  && <NyasaMap allHistory={allHistory} />}
       {map.type === 'nitya'  && <NityaMap allHistory={allHistory} />}
@@ -760,7 +760,7 @@ export default function MemoMapVisuals({ allHistory, script = 'iast' }) {
       {map.type === 'list'   && <ListMap sectionId={map.id} allHistory={allHistory} script={script} />}
 
 
-      <Legend />
+      <Legend tr={tr} />
 
     </div>
   )
