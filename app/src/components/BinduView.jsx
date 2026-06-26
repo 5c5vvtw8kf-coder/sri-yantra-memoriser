@@ -171,8 +171,8 @@ function DeityPanel({ deity, script, onDismiss }) {
 function Tooltip({ x, y, label, fill, script }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
+  const h        = (script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48
+  const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
   const tx       = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
   const ty       = y - h / 2 - 12
@@ -293,14 +293,4 @@ export default function BinduView({ script = 'iast', onDeitySelect = () => {} })
 
         <div className="mt-3 text-center">
           <p className="iast text-gold-600 text-xs">
-            sarvasiddhiprada cakra · sarvānandamaya cakra
-          </p>
-          <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-            Positions are approximate — verify against your lineage source
-          </p>
-        </div>
-
-        <div className="h-0 md:h-8" />
-    </div>
-  )
-}
+            sar

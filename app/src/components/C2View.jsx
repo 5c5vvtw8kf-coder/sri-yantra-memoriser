@@ -155,8 +155,8 @@ function DeityPanel({ deity, script, onDismiss }) {
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
+  const h        = (script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48
+  const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
   const hw = w / 2, hh = h / 2
 
@@ -523,27 +523,4 @@ export default function C2View({
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
-        section={c2Section}
-        script={script}
-        svaminiSeq={17}
-        yoginiSeq={18}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {/* Completion panel */}
-      {showCompletion && (
-        <CompletionPanel
-          results={results}
-          onRestart={onStartMemorise}
-          onNavigate={onNavigate}
-        />
-      )}
-
-      <div className="h-0 md:h-8" />
-    </div>
-  )
-}
+    

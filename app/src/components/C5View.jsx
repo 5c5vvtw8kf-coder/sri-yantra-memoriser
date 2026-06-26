@@ -104,11 +104,11 @@ function Tooltip({ x, y, label, script, seq, isMobile }) {
     ? (script === 'devanagari' ? 14 : script === 'english' ? 14 : 13)
     : (script === 'devanagari' ? 26 : script === 'english' ? 25 : 24)
   const h = isMobile
-    ? (script === 'devanagari' ? 28 : script === 'english' ? 28 : 26)
-    : (script === 'devanagari' ? 52 : script === 'english' ? 50 : 48)
+    ? ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 28 : script === 'english' ? 28 : 26)
+    : ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
   const charW = isMobile
-    ? (script === 'devanagari' ? 11.0 : script === 'telugu' ? 13 : script === 'tamil' ? 14 : script === 'english' ? 9.0 : 8.0)
-    : (script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5)
+    ? (script === 'devanagari' ? 11.0 : script === 'telugu' ? 13 : script === 'tamil' ? 14 : script === 'kannada' ? 12.5 : script === 'malayalam' ? 13.5 : script === 'english' ? 9.0 : 8.0)
+    : (script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5)
   const w  = isMobile ? Math.max(48, label.length * charW + 13) : Math.max(60, label.length * charW + 18)
   const tx = isMobile
     ? Math.min(Math.max(x, 153 + w / 2), 367 - w / 2)
@@ -384,19 +384,4 @@ export default function C5View({
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
-        section={c5Section}
-        script={script}
-        svaminiSeq={11}
-        yoginiSeq={12}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
-
-    </div>
-  )
-}
+        section={c5

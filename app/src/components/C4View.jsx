@@ -128,11 +128,11 @@ function Tooltip({ x, y, label, script, seq, isMobile }) {
     ? (script === 'devanagari' ? 18 : script === 'english' ? 17 : 16)
     : (script === 'devanagari' ? 26 : script === 'english' ? 25 : 24)
   const h = isMobile
-    ? (script === 'devanagari' ? 36 : script === 'english' ? 34 : 32)
-    : (script === 'devanagari' ? 52 : script === 'english' ? 50 : 48)
+    ? ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 36 : script === 'english' ? 34 : 32)
+    : ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
   const charW = isMobile
-    ? (script === 'devanagari' ? 12.5 : script === 'telugu' ? 14.5 : script === 'tamil' ? 15.5 : script === 'english' ? 10 : 9.5)
-    : (script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5)
+    ? (script === 'devanagari' ? 12.5 : script === 'telugu' ? 14.5 : script === 'tamil' ? 15.5 : script === 'kannada' ? 14 : script === 'malayalam' ? 15 : script === 'english' ? 10 : 9.5)
+    : (script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5)
   const w  = isMobile ? Math.max(50, label.length * charW + 14) : Math.max(60, label.length * charW + 18)
   const tx = isMobile
     ? Math.min(Math.max(x, 135 + w / 2), 385 - w / 2)
@@ -486,26 +486,4 @@ export default function C4View({
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
-        section={c4Section}
-        script={script}
-        svaminiSeq={15}
-        yoginiSeq={16}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {/* Completion panel */}
-      {showCompletion && (
-        <CompletionPanel
-          results={results}
-          onRestart={onStartMemorise}
-          onNavigate={onNavigate}
-        />
-      )}
-
-    </div>
-  )
-}
+    
