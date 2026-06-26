@@ -51,30 +51,110 @@ const YOGINI_SECRECY = {
 }
 
 const TABS = [
-  { id: 'intro',        navLabel: 'Welcome and Introduction',      navLabelEn: 'Welcome and Introduction',              navLabelDev: 'Welcome and Introduction', footerLabel: 'Introduction'        },
+  { id: 'intro',        navLabel: 'Welcome and Introduction',      navLabelEn: 'Welcome and Introduction',  navLabelDev: 'Welcome and Introduction', footerLabel: 'Introduction' },
   { id: 'h-explore-memorise', heading: 'EXPLORE AND MEMORISE' },
-  { id: 'nyasa',        navLabel: 'nyāsāṅga-devatāḥ',             navLabelEn: 'Nyāsa Deities',                         navLabelDev: 'न्यासांगदेवताः',        footerLabel: 'Nyāsa Deities'        },
-  { id: 'inner',        navLabel: 'tithi-nitya-devatāḥ',           navLabelEn: 'Tithi Nitya Deities',                   navLabelDev: 'तिथिनित्यदेवताः',      footerLabel: 'Tithi Nitya'          },
-  { id: 'gurava',       navLabel: 'guravaḥ',                       navLabelEn: 'Gurus',                                 navLabelDev: 'गुरवः',                 footerLabel: 'Guravaḥ'              },
-  { id: 'bhupura',      navLabel: '1. cakra-prathamāvaraṇa-devatāḥ', navLabelEn: '1st Enclosure Deities', navLabelDev: '१. चक्रप्रथमावरणदेवताः', footerLabel: '1st Āvaraṇa' },
-  { id: 'c2',           navLabel: '2. cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: '2nd Enclosure Deities', navLabelDev: '२. चक्रद्वितीयावरणदेवताः',footerLabel: '2nd Āvaraṇa' },
-  { id: 'c3',           navLabel: '3. cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: '3rd Enclosure Deities', navLabelDev: '३. चक्रतृतीयावरणदेवताः', footerLabel: '3rd Āvaraṇa' },
-  { id: 'c4',           navLabel: '4. cakra-caturthāvaraṇa-devatāḥ', navLabelEn: '4th Enclosure Deities', navLabelDev: '४. चक्रचतुर्थावरणदेवताः',footerLabel: '4th Āvaraṇa' },
-  { id: 'c5',           navLabel: '5. cakra-pañcamāvaraṇa-devatāḥ',  navLabelEn: '5th Enclosure Deities', navLabelDev: '५. चक्रपञ्चमावरणदेवताः', footerLabel: '5th Āvaraṇa' },
-  { id: 'c6',           navLabel: '6. cakra-ṣaṣṭhāvaraṇa-devatāḥ',  navLabelEn: '6th Enclosure Deities', navLabelDev: '६. चक्रषष्ठावरणदेवताः',  footerLabel: '6th Āvaraṇa' },
-  { id: 'c7',           navLabel: '7. cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: '7th Enclosure Deities', navLabelDev: '७. चक्रसप्तमावरणदेवताः', footerLabel: '7th Āvaraṇa' },
-  { id: 'c8',           navLabel: '8. cakra-aṣṭamāvaraṇa-devatāḥ',   navLabelEn: '8th Enclosure Deities', navLabelDev: '८. चक्राष्टमावरणदेवताः', footerLabel: '8th Āvaraṇa' },
-  { id: 'c9',           navLabel: '9. cakra-navamāvaraṇa-devatāḥ',    navLabelEn: '9th Enclosure Deity', navLabelDev: '९. चक्रनवमावरणदेवताः',   footerLabel: '9th Āvaraṇa' },
-  { id: 'chakreshvari', navLabel: 'navacakrēśvarī nāmāni',         navLabelEn: 'Names of the Nine Chakras',            navLabelDev: 'नवचक्रेश्वरी नामानि', footerLabel: 'Nava Chakreshvarī'   },
-  { id: 'closing',      navLabel: 'śrīdevī-viśēṣaṇāni',           navLabelEn: 'Śrīdevī Epithets and Namaskāra',        navLabelDev: 'श्रीदेवी विशेषणानि',   footerLabel: 'Śrīdevī Epithets'    },
+  { id: 'nyasa',
+    navLabel:    'nyāsāṅga-devatāḥ',         navLabelEn: 'Nyāsa Deities',
+    navLabelDev: 'न्यासांगदेवताः',
+    navLabelTe:  'న్యాసాంగదేవతాః',           navLabelTa: 'ந்யாஸாங்கதேவதாஃ',
+    navLabelKn:  'ನ್ಯಾಸಾಂಗದೇವತಾಃ',           navLabelMl: 'ന്യാസാംഗദേവതാഃ',
+    footerLabel: 'Nyāsa Deities' },
+  { id: 'inner',
+    navLabel:    'tithi-nitya-devatāḥ',       navLabelEn: 'Tithi Nitya Deities',
+    navLabelDev: 'तिथिनित्यदेवताः',
+    navLabelTe:  'తిథినిత్యదేవతాః',           navLabelTa: 'திதிநித்யதேவதாஃ',
+    navLabelKn:  'ತಿಥಿನಿತ್ಯದೇವತಾಃ',           navLabelMl: 'തിഥിനിത്യദേവതാഃ',
+    footerLabel: 'Tithi Nitya' },
+  { id: 'gurava',
+    navLabel:    'guravaḥ',                   navLabelEn: 'Gurus',
+    navLabelDev: 'गुरवः',
+    navLabelTe:  'గురవః',                     navLabelTa: 'குரவஃ',
+    navLabelKn:  'ಗುರವಃ',                     navLabelMl: 'ഗുരവഃ',
+    footerLabel: 'Guravaḥ' },
+  { id: 'bhupura',
+    navLabel:    '1. cakra-prathamāvaraṇa-devatāḥ', navLabelEn: '1st Enclosure Deities',
+    navLabelDev: '१. चक्रप्रथमावरणदेवताः',
+    navLabelTe:  '౧. చక్రప్రథమావరణదేవతాః',   navLabelTa: '௧. சக்ரப்ரதமாவரணதேவதாஃ',
+    navLabelKn:  '೧. ಚಕ್ರಪ್ರಥಮಾವರಣದೇವತಾಃ',   navLabelMl: '൧. ചക്രപ്രഥമാവരണദേവതാഃ',
+    footerLabel: '1st Āvaraṇa' },
+  { id: 'c2',
+    navLabel:    '2. cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: '2nd Enclosure Deities',
+    navLabelDev: '२. चक्रद्वितीयावरणदेवताः',
+    navLabelTe:  '౨. చక్రద్వితీయావరణదేవతాః',  navLabelTa: '௨. சக்ரத்விதீயாவரணதேவதாஃ',
+    navLabelKn:  '೨. ಚಕ್ರದ್ವಿತೀಯಾವರಣದೇವತಾಃ',  navLabelMl: '൨. ചക്രദ്വിതീയാവരണദേവതാഃ',
+    footerLabel: '2nd Āvaraṇa' },
+  { id: 'c3',
+    navLabel:    '3. cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: '3rd Enclosure Deities',
+    navLabelDev: '३. चक्रतृतीयावरणदेवताः',
+    navLabelTe:  '౩. చక్రతృతీయావరణదేవతాః',   navLabelTa: '௩. சக்ரத்ருதீயாவரணதேவதாஃ',
+    navLabelKn:  '೩. ಚಕ್ರತೃತೀಯಾವರಣದೇವತಾಃ',   navLabelMl: '൩. ചക്രതൃതീയാവരണദേവതാഃ',
+    footerLabel: '3rd Āvaraṇa' },
+  { id: 'c4',
+    navLabel:    '4. cakra-caturthāvaraṇa-devatāḥ',  navLabelEn: '4th Enclosure Deities',
+    navLabelDev: '४. चक्रचतुर्थावरणदेवताः',
+    navLabelTe:  '౪. చక్రచతుర్థావరణదేవతాః',   navLabelTa: '௪. சக்ரசதுர்தாவரணதேவதாஃ',
+    navLabelKn:  '೪. ಚಕ್ರಚತುರ್ಥಾವರಣದೇವತಾಃ',   navLabelMl: '൪. ചക്രചതുർഥാവരണദേവതാഃ',
+    footerLabel: '4th Āvaraṇa' },
+  { id: 'c5',
+    navLabel:    '5. cakra-pañcamāvaraṇa-devatāḥ',   navLabelEn: '5th Enclosure Deities',
+    navLabelDev: '५. चक्रपञ्चमावरणदेवताः',
+    navLabelTe:  '౫. చక్రపంచమావరణదేవతాః',    navLabelTa: '௫. சக்ரபஞ்சமாவரணதேவதாஃ',
+    navLabelKn:  '೫. ಚಕ್ರಪಂಚಮಾವರಣದೇವತಾಃ',    navLabelMl: '൫. ചക്രപഞ്ചമാവരണദേവതാഃ',
+    footerLabel: '5th Āvaraṇa' },
+  { id: 'c6',
+    navLabel:    '6. cakra-ṣaṣṭhāvaraṇa-devatāḥ',   navLabelEn: '6th Enclosure Deities',
+    navLabelDev: '६. चक्रषष्ठावरणदेवताः',
+    navLabelTe:  '౬. చక్రషష్ఠావరణదేవతాః',    navLabelTa: '௬. சக்ரஷஷ்டாவரணதேவதாஃ',
+    navLabelKn:  '೬. ಚಕ್ರಷಷ್ಠಾವರಣದೇವತಾಃ',    navLabelMl: '൬. ചക്രഷഷ്ഠാവരണദേവതാഃ',
+    footerLabel: '6th Āvaraṇa' },
+  { id: 'c7',
+    navLabel:    '7. cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: '7th Enclosure Deities',
+    navLabelDev: '७. चक्रसप्तमावरणदेवताः',
+    navLabelTe:  '౭. చక్రసప్తమావరణదేవతాః',   navLabelTa: '௭. சக்ரஸப்தமாவரணதேவதாஃ',
+    navLabelKn:  '೭. ಚಕ್ರಸಪ್ತಮಾವರಣದೇವತಾಃ',   navLabelMl: '൭. ചക്രസപ്തമാവരണദേവതാഃ',
+    footerLabel: '7th Āvaraṇa' },
+  { id: 'c8',
+    navLabel:    '8. cakra-aṣṭamāvaraṇa-devatāḥ',    navLabelEn: '8th Enclosure Deities',
+    navLabelDev: '८. चक्राष्टमावरणदेवताः',
+    navLabelTe:  '౮. చక్రాష్టమావరణదేవతాః',   navLabelTa: '௮. சக்ராஷ்டமாவரணதேவதாஃ',
+    navLabelKn:  '೮. ಚಕ್ರಾಷ್ಟಮಾವರಣದೇವತಾಃ',   navLabelMl: '൮. ചക്രാഷ്ടമാവരണദേവതാഃ',
+    footerLabel: '8th Āvaraṇa' },
+  { id: 'c9',
+    navLabel:    '9. cakra-navamāvaraṇa-devatāḥ',    navLabelEn: '9th Enclosure Deity',
+    navLabelDev: '९. चक्रनवमावरणदेवताः',
+    navLabelTe:  '౯. చక్రనవమావరణదేవతాః',    navLabelTa: '௯. சக்ரநவமாவரணதேவதாஃ',
+    navLabelKn:  '೯. ಚಕ್ರನವಮಾವರಣದೇವತಾಃ',    navLabelMl: '൯. ചക്രനവമാവരണദേവതാഃ',
+    footerLabel: '9th Āvaraṇa' },
+  { id: 'chakreshvari',
+    navLabel:    'navacakrēśvarī nāmāni',     navLabelEn: 'Names of the Nine Chakras',
+    navLabelDev: 'नवचक्रेश्वरी नामानि',
+    navLabelTe:  'నవచక్రేశ్వరీ నామాని',       navLabelTa: 'நவசக்ரேஶ்வரீ நாமானி',
+    navLabelKn:  'ನವಚಕ್ರೇಶ್ವರೀ ನಾಮಾನಿ',       navLabelMl: 'നവചക്രേശ്വരീ നാമാനി',
+    footerLabel: 'Nava Chakreshvarī' },
+  { id: 'closing',
+    navLabel:    'śrīdevī-viśēṣaṇāni',        navLabelEn: 'Śrīdevī Epithets and Namaskāra',
+    navLabelDev: 'श्रीदेवी विशेषणानि',
+    navLabelTe:  'శ్రీదేవీ విశేషణాని',         navLabelTa: 'ஶ்ரீதேவீ விஶேஷணானி',
+    navLabelKn:  'ಶ್ರೀದೇವೀ ವಿಶೇಷಣಾನಿ',         navLabelMl: 'ശ്രീദേവീ വിശേഷണാനി',
+    footerLabel: 'Śrīdevī Epithets' },
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP' },
-  { id: 'spotcheck',    navLabel: 'Spot Check',                    navLabelEn: 'Spot Check',                           navLabelDev: 'Spot Check',            footerLabel: 'Spot Check'           },
-  { id: 'memomap',      navLabel: 'Memory Map',                      navLabelEn: 'Memory Map',                              navLabelDev: 'Memory Map',              footerLabel: 'Memory Map'             },
-  { id: 'activity-log', navLabel: 'Activity Log',                  navLabelEn: 'Activity Log',                          navLabelDev: 'Activity Log',          footerLabel: 'Activity Log'         },
+  { id: 'spotcheck',    navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
+  { id: 'memomap',      navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
+  { id: 'activity-log', navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
   { id: 'h-references', heading: 'RESOURCES' },
-  { id: 'yantra',       navLabel: 'śrī yantra',                    navLabelEn: 'Śrī Yantra',                            navLabelDev: 'श्री यन्त्र',           footerLabel: 'Śrī Yantra'           },
-  { id: 'browser',      navLabel: 'śrī devī khaḍgamālā stōtram',  navLabelEn: 'Sri Devi Khadgamala Stotram',          navLabelDev: 'श्री देवी खड्गमाला स्तोत्रम्', footerLabel: 'Khadgamala Stotram'   },
-  { id: 'references',   navLabel: 'References',                    navLabelEn: 'References',                           navLabelDev: 'References',            footerLabel: 'References'           },
+  { id: 'yantra',
+    navLabel:    'śrī yantra',                navLabelEn: 'Śrī Yantra',
+    navLabelDev: 'श्री यन्त्र',
+    navLabelTe:  'శ్రీ యన్త్ర',               navLabelTa: 'ஶ்ரீ யந்த்ர',
+    navLabelKn:  'ಶ್ರೀ ಯಂತ್ರ',               navLabelMl: 'ശ്രീ യന്ത്ര',
+    footerLabel: 'Śrī Yantra' },
+  { id: 'browser',
+    navLabel:    'śrī devī khaḍgamālā stōtram', navLabelEn: 'Sri Devi Khadgamala Stotram',
+    navLabelDev: 'श्री देवी खड्गमाला स्तोत्रम्',
+    navLabelTe:  'శ్రీ దేవీ ఖడ్గమాలా స్తోత్రమ్', navLabelTa: 'ஶ்ரீ தேவீ கட்கமாலா ஸ்தோத்ரம்',
+    navLabelKn:  'ಶ್ರೀ ದೇವೀ ಖಡ್ಗಮಾಲಾ ಸ್ತೋತ್ರಮ್', navLabelMl: 'ശ്രീ ദേവീ ഖഡ്ഗമാലാ സ്തോത്രം',
+    footerLabel: 'Khadgamala Stotram' },
+  { id: 'references',   navLabel: 'References',   navLabelEn: 'References',   navLabelDev: 'References',   footerLabel: 'References'   },
 ]
 
 // Navigable tabs only (excludes heading entries — used for footer prev/next)
@@ -3785,17 +3865,19 @@ export default function App() {
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
                   className={`w-full text-left ${script === 'iast' || script === 'english' || script === 'devanagari' || ['spotcheck','memomap','activity-log','references'].includes(tab.id) ? 'text-sm' : 'text-xs'} px-2 py-1.5 rounded-md transition-colors flex items-center justify-between gap-1
-                    ${script !== 'devanagari' || ['spotcheck','memomap','activity-log','references','intro'].includes(tab.id) ? 'iast' : ''}
+                    ${(script === 'iast' || script === 'english' || ['spotcheck','memomap','activity-log','references','intro'].includes(tab.id)) ? 'iast' : ''}
                     ${activeTab === tab.id
                       ? 'text-gold-300 bg-gold-900/30'
                       : 'text-muted hover:text-cream'}`}
                   {...(TOUR_NAV_IDS[tab.id] ? { 'data-tour': TOUR_NAV_IDS[tab.id] } : {})}
                 >
                   <span className="flex-1 min-w-0">
-                    {script === 'devanagari'
-                      ? (tab.navLabelDev || tab.navLabel)
-                      : script === 'english'
-                      ? iastToEnglish(tab.navLabelEn || tab.navLabel)
+                    {script === 'devanagari' ? (tab.navLabelDev || tab.navLabel)
+                      : script === 'telugu'    ? (tab.navLabelTe  || tab.navLabel)
+                      : script === 'tamil'     ? (tab.navLabelTa  || tab.navLabel)
+                      : script === 'kannada'   ? (tab.navLabelKn  || tab.navLabel)
+                      : script === 'malayalam' ? (tab.navLabelMl  || tab.navLabel)
+                      : script === 'english'   ? iastToEnglish(tab.navLabelEn || tab.navLabel)
                       : tab.navLabel}
                   </span>
                   {dot && (
