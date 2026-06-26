@@ -38,12 +38,18 @@ import { Globe, Plane, PenLine } from 'lucide-react'
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
 
-// Native-numeral helper: uses Unicode numbering system extension for South Indian scripts
-const LOCALE_NUMERAL_SYS = { hi: 'deva', kn: 'knda', ta: 'taml', te: 'telu', ml: 'mlym' }
+// Native-numeral helper: digit-by-digit map — browser-independent, works for all Indian scripts
+const NUMERAL_DIGITS = {
+  hi: ['०','१','२','३','४','५','६','७','८','९'],
+  kn: ['೦','೧','೨','೩','೪','೫','೬','೭','೮','೯'],
+  ta: ['௦','௧','௨','௩','௪','௫','௬','௭','௮','௯'],
+  te: ['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'],
+  ml: ['൦','൧','൨','൩','൪','൫','൬','൭','൮','൯'],
+}
 function localNum(n, uiLang) {
-  if (uiLang === 'en') return n
-  const nu = LOCALE_NUMERAL_SYS[uiLang]
-  return nu ? n.toLocaleString(`${uiLang}-u-nu-${nu}`) : n.toLocaleString(uiLang)
+  const digits = NUMERAL_DIGITS[uiLang]
+  if (!digits) return n
+  return String(n).replace(/[0-9]/g, d => digits[+d])
 }
 
 
