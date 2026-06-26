@@ -3457,7 +3457,7 @@ export default function App() {
                             onMouseEnter={() => setGuravaHighlightId(d.id)}
                             onMouseLeave={() => setGuravaHighlightId(null)}
                           >
-                            <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{n}.</span>
+                            <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(n, uiLang)}.</span>
                             <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                               {displayName(d, script)}
                             </span>
@@ -3499,7 +3499,7 @@ export default function App() {
                     onMouseEnter={() => setNyasaHighlightId(d.id)}
                     onMouseLeave={() => setNyasaHighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
+                    <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{localNum(d.sequenceInSection, uiLang)}.</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3749,7 +3749,7 @@ export default function App() {
                           onMouseEnter={() => setBhupuraHighlightId(d.id)}
                           onMouseLeave={() => setBhupuraHighlightId(null)}
                         >
-                          <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
+                          <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(d.sequenceInSection, uiLang)}.</span>
                           <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                             {displayName(d, script)}
                           </span>
