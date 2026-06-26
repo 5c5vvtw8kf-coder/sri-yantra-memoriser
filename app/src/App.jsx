@@ -148,13 +148,13 @@ const TABS = [
     navLabelTe:  'శ్రీ యన్త్ర',               navLabelTa: 'ஶ்ரீ யந்த்ர',
     navLabelKn:  'ಶ್ರೀ ಯಂತ್ರ',               navLabelMl: 'ശ്രീ യന്ത്ര',
     footerLabel: 'Śrī Yantra' },
-  { id: 'browser',
+  { id: 'browser',      englishOnly: true,
     navLabel:    'śrī devī khaḍgamālā stōtram', navLabelEn: 'Sri Devi Khadgamala Stotram',
     navLabelDev: 'श्री देवी खड्गमाला स्तोत्रम्',
     navLabelTe:  'శ్రీ దేవీ ఖడ్గమాలా స్తోత్రమ్', navLabelTa: 'ஶ்ரீ தேவீ கட்கமாலா ஸ்தோத்ரம்',
     navLabelKn:  'ಶ್ರೀ ದೇವೀ ಖಡ್ಗಮಾಲಾ ಸ್ತೋತ್ರಮ್', navLabelMl: 'ശ്രീ ദേവീ ഖഡ്ഗമാലാ സ്തോത്രം',
     footerLabel: 'Khadgamala Stotram' },
-  { id: 'references',   trKey: 'tab.references', navLabel: 'References',   navLabelEn: 'References',   navLabelDev: 'References',   footerLabel: 'References'   },
+  { id: 'references',   englishOnly: true, trKey: 'tab.references', navLabel: 'References',   navLabelEn: 'References',   navLabelDev: 'References',   footerLabel: 'References'   },
 ]
 
 // Navigable tabs only (excludes heading entries — used for footer prev/next)
@@ -2819,9 +2819,18 @@ export default function App() {
   }
 
   // ── Sequential navigation ──────────────────────────────────────────────────
-  const currentTabIdx = NAVIGABLE_TABS.findIndex(t => t.id === activeTab)
-  const prevTab = currentTabIdx > 0 ? NAVIGABLE_TABS[currentTabIdx - 1] : null
-  const nextTab = currentTabIdx < NAVIGABLE_TABS.length - 1 ? NAVIGABLE_TABS[currentTabIdx + 1] : null
+  // visibleNavTabs excludes englishOnly tabs when a non-English language is active
+  const visibleNavTabs = NAVIGABLE_TABS.filter(t => !t.englishOnly || uiLang === 'en')
+  const currentTabIdx = visibleNavTabs.findIndex(t => t.id === activeTab)
+  const prevTab = currentTabIdx > 0 ? visibleNavTabs[currentTabIdx - 1] : null
+  const nextTab = currentTabIdx < visibleNavTabs.length - 1 ? visibleNavTabs[currentTabIdx + 1] : null
+
+  // Redirect away from englishOnly tabs if language switches
+  useEffect(() => {
+    if (uiLang !== 'en' && NAVIGABLE_TABS.find(t => t.id === activeTab)?.englishOnly) {
+      handleTabChange('intro')
+    }
+  }, [uiLang])
 
   // ── Footer instruction (replaces n/N counter) ─────────────────────────────
   // Shows context-appropriate hint in the footer bar so individual views don't
@@ -3859,6 +3868,7 @@ export default function App() {
                 )
               }
               if (currentHeadingId !== null && !openSections[currentHeadingId]) return null
+              if (tab.englishOnly && uiLang !== 'en') return null
               const dot = tabDotMap[tab.id]
               return (
                 <button
