@@ -38,6 +38,15 @@ import { Globe, Plane, PenLine } from 'lucide-react'
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
 
+// Native-numeral helper: uses Unicode numbering system extension for South Indian scripts
+const LOCALE_NUMERAL_SYS = { kn: 'knda', ta: 'taml', te: 'telu', ml: 'mlym' }
+function localNum(n, uiLang) {
+  if (uiLang === 'en') return n
+  const nu = LOCALE_NUMERAL_SYS[uiLang]
+  return nu ? n.toLocaleString(`${uiLang}-u-nu-${nu}`) : n.toLocaleString(uiLang)
+}
+
+
 // Script variants for section-level Sanskrit metadata (chakraSvamini, yoginiType, chakreshvari)
 // Keyed by circuitNumber → field → script.  Augments what is in the JSON (which has only IAST + Devanagari).
 const SECTION_SCRIPTS = {
@@ -662,18 +671,18 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
       <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakra_svamini')}</span>
-          <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
+          <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
         </div>
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
-          <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>
+          <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
             {sectionName(section, 'yoginiType', script)}
             {secrecy && uiLang === 'en' && <span className="text-muted ml-1">· {secrecy}</span>}
           </span>
         </div>
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakreshvari')}</span>
-          <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
+          <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
         </div>
       </div>
       {onNavigate && targetTab && (
@@ -699,18 +708,18 @@ function CircuitRows({ circuitNumber, script, uiLang = 'en', onHoverFill = null,
     <div className="border-t border-surface-700 px-4 pb-4 pt-3 space-y-1.5 text-xs">
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakra_svamini')}</span>
-        <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
+        <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
-        <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>
+        <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
           {sectionName(section, 'yoginiType', script)}
           {secrecy && uiLang === 'en' && <span className="text-muted ml-1">· {secrecy}</span>}
         </span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakreshvari')}</span>
-        <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
+        <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
       </div>
     </div>
   )
@@ -3398,8 +3407,8 @@ export default function App() {
                     onMouseEnter={() => setInnerHighlightId(d.id)}
                     onMouseLeave={() => setInnerHighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3449,7 +3458,7 @@ export default function App() {
                             onMouseLeave={() => setGuravaHighlightId(null)}
                           >
                             <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{n}.</span>
-                            <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                            <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                               {displayName(d, script)}
                             </span>
                           </div>
@@ -3491,7 +3500,7 @@ export default function App() {
                     onMouseLeave={() => setNyasaHighlightId(null)}
                   >
                     <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
-                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3535,8 +3544,8 @@ export default function App() {
                       onMouseEnter={() => setHighlight(d.id)}
                       onMouseLeave={() => setHighlight(null)}
                     >
-                      <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                      <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                      <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                      <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                         {displayName(d, script)}
                       </span>
                     </div>
@@ -3576,8 +3585,8 @@ export default function App() {
                     onMouseEnter={() => setC2HighlightId(d.id)}
                     onMouseLeave={() => setC2HighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3616,8 +3625,8 @@ export default function App() {
                     onMouseEnter={() => setNcHighlightCircuit(d.circuitNumber ?? d.sequenceInSection)}
                     onMouseLeave={() => setNcHighlightCircuit(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3679,8 +3688,8 @@ export default function App() {
                     onMouseEnter={() => setC8HighlightId(d.id)}
                     onMouseLeave={() => setC8HighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3741,7 +3750,7 @@ export default function App() {
                           onMouseLeave={() => setBhupuraHighlightId(null)}
                         >
                           <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
-                          <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                          <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                             {displayName(d, script)}
                           </span>
                         </div>
@@ -3783,8 +3792,8 @@ export default function App() {
                     onMouseEnter={() => setClosingListHighlight(true)}
                     onMouseLeave={() => setClosingListHighlight(false)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
