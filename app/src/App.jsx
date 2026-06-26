@@ -3705,7 +3705,7 @@ export default function App() {
               <Globe size={13} />
             </button>
             {showLangMenu && (
-              <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[130px]">
+              <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
                 <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">Language</p>
                 {LANG_OPTIONS.map(opt => (
                   <button key={opt.code} onClick={() => handleLangChange(opt.code)}
@@ -3754,7 +3754,7 @@ export default function App() {
 
       {/* ── Left sidebar ─────────────────────────────────────────────────── */}
       <aside data-tour="sidebar"
-        className={`w-72 flex-shrink-0 flex flex-col border-r border-surface-800 overflow-hidden bg-surface-900
+        className={`w-72 flex-shrink-0 flex flex-col border-r border-surface-800 bg-surface-900
           fixed inset-y-0 left-0 z-50 transition-transform duration-300
           md:relative md:translate-x-0 md:transition-none md:z-auto
           ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full'}`}>
@@ -3786,7 +3786,7 @@ export default function App() {
                     Language
                   </div>
                   {showLangMenu && (
-                    <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[130px]">
+                    <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
                       {LANG_OPTIONS.map(opt => (
                         <button key={opt.code} onClick={() => handleLangChange(opt.code)}
                           className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
