@@ -47,7 +47,7 @@ const SECTION_COL_LABEL_EN = {
   closing:        'Sridevi Epithets',
 }
 
-const STOTRA_SECTION_IDS = new Set(Object.keys(SECTION_COL_LABEL))
+const STOTRA_SECTION_IDS = new Set(Object.keys(SECTION_COL_LABEL_EN))
 const GURU_IDS = new Set(['guru-divya', 'guru-siddha', 'guru-manava'])
 
 // ── Filter dropdown options ───────────────────────────────────────────────────
