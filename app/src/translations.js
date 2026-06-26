@@ -110,7 +110,7 @@ export const LOCALE_CONFIG = {
 
 /** Returns the list of scripts in display order for the picker. */
 export const LOCALE_ORDER = [
-  'iast', 'devanagari', 'telugu', 'tamil', 'kannada', 'malayalam', 'english',
+  'iast', 'devanagari', 'kannada', 'malayalam', 'tamil', 'telugu', 'english',
   // 'ne', 'si', 'id', 'ja',
 ]
 

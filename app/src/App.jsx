@@ -26,12 +26,12 @@ import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHi
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
 
 const LANG_OPTIONS = [
-  { code: 'en', label: 'English',   englishName: null,        beta: false, defaultScript: 'iast'      },
+  { code: 'en', label: 'English',   englishName: null,        beta: false, defaultScript: 'iast'       },
   { code: 'hi', label: 'हिन्दी',     englishName: 'Hindi',     beta: true,  defaultScript: 'devanagari' },
-  { code: 'te', label: 'తెలుగు',     englishName: 'Telugu',    beta: true,  defaultScript: 'telugu'    },
-  { code: 'ta', label: 'தமிழ்',      englishName: 'Tamil',     beta: true,  defaultScript: 'tamil'     },
-  { code: 'kn', label: 'ಕನ್ನಡ',      englishName: 'Kannada',   beta: true,  defaultScript: 'kannada'   },
-  { code: 'ml', label: 'മലയാളം',     englishName: 'Malayalam', beta: true,  defaultScript: 'malayalam' },
+  { code: 'kn', label: 'ಕನ್ನಡ',      englishName: 'Kannada',   beta: true,  defaultScript: 'kannada'    },
+  { code: 'ml', label: 'മലയാളം',     englishName: 'Malayalam', beta: true,  defaultScript: 'malayalam'  },
+  { code: 'ta', label: 'தமிழ்',      englishName: 'Tamil',     beta: true,  defaultScript: 'tamil'      },
+  { code: 'te', label: 'తెలుగు',     englishName: 'Telugu',    beta: true,  defaultScript: 'telugu'     },
 ]
 import { Globe, Plane, PenLine } from 'lucide-react'
 
