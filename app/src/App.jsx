@@ -3810,7 +3810,12 @@ export default function App() {
               onClick={() => setShowScriptMenu(m => !m)}
               className="w-full text-left flex items-center justify-between px-2 py-1.5 rounded border border-surface-700 bg-surface-800 hover:border-gold-600 transition-colors"
             >
-              <span className="text-xs text-muted font-mono">{LOCALE_CONFIG[script]?.label ?? script}</span>
+              <span className="text-xs text-muted font-mono">
+                {LOCALE_CONFIG[script]?.label ?? script}
+                {LOCALE_CONFIG[script]?.englishName && (
+                  <span className="text-[11px] opacity-70"> ({LOCALE_CONFIG[script].englishName})</span>
+                )}
+              </span>
               <span className="text-muted text-[10px]">▾</span>
             </button>
             {showScriptMenu && (
