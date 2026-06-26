@@ -110,33 +110,34 @@ export const SC_FILTERS = [
 
 // ── Section label for completion overlay ─────────────────────────────────────
 
-function getSectionLabel(filter, subFilter) {
-  const ordinals = {
-    'circuit-1': '1st', 'circuit-2': '2nd', 'circuit-3': '3rd',
-    'circuit-4': '4th', 'circuit-5': '5th', 'circuit-6': '6th', 'circuit-7': '7th',
+function getSectionLabel(filter, subFilter, tr = k => k) {
+  const AV = {
+    'circuit-1': tr('av.1'), 'circuit-2': tr('av.2'), 'circuit-3': tr('av.3'),
+    'circuit-4': tr('av.4'), 'circuit-5': tr('av.5'), 'circuit-6': tr('av.6'),
+    'circuit-7': tr('av.7'),
   }
-  if (ordinals[filter]) return `${ordinals[filter]} Āvaraṇa`
-  if (filter === 'nyasa')         return 'Nyāsa Deities'
-  if (filter === 'nitya')         return 'Tithi Nitya Deities'
-  if (filter === 'chakreshvari')  return 'Nava Cakreshvarī'
-  if (filter === 'all')           return 'All Deities'
+  if (AV[filter]) return AV[filter]
+  if (filter === 'nyasa')         return tr('sec.nyasa')
+  if (filter === 'nitya')         return tr('sec.inner')
+  if (filter === 'chakreshvari')  return tr('sec.nc')
+  if (filter === 'all')           return tr('misc.all')
   if (filter === 'guravah') {
-    if (subFilter === 'gurus-divya')  return 'Divyaugha Gurus'
-    if (subFilter === 'gurus-siddha') return 'Siddyaugha Gurus'
-    if (subFilter === 'gurus-manava') return 'Mānavaugha Gurus'
-    return 'Gurus'
+    if (subFilter === 'gurus-divya')  return tr('gurava.divya')
+    if (subFilter === 'gurus-siddha') return tr('gurava.siddha')
+    if (subFilter === 'gurus-manava') return tr('gurava.manava')
+    return tr('sec.gurava')
   }
   if (filter === 'c8-c9') {
-    if (subFilter === 'c8c9-8th') return '8th Āvaraṇa'
-    if (subFilter === 'c8c9-9th') return '9th Āvaraṇa'
-    return '8th & 9th Āvaraṇas'
+    if (subFilter === 'c8c9-8th') return tr('av.8')
+    if (subFilter === 'c8c9-9th') return tr('av.9')
+    return tr('av.89')
   }
   if (filter === 'nava-cakra') {
     if (subFilter === 'nc-svamini') return 'Cakra Svāminī'
     if (subFilter === 'nc-yogini')  return 'Cakra Yoginī'
     return 'Cakra Svāminī & Yoginī'
   }
-  return 'Round'
+  return tr('spot.round_complete')
 }
 
 // ── Region-ID lookup ──────────────────────────────────────────────────────────
@@ -599,7 +600,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
-        sectionLabel={getSectionLabel(filter, subFilter)}
+        sectionLabel={getSectionLabel(filter, subFilter, tr)}
       />
     )
   }
@@ -611,7 +612,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
-        sectionLabel={getSectionLabel(filter, subFilter)}
+        sectionLabel={getSectionLabel(filter, subFilter, tr)}
       />
     )
   }
@@ -622,7 +623,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
-        sectionLabel={getSectionLabel(filter, subFilter)}
+        sectionLabel={getSectionLabel(filter, subFilter, tr)}
       />
     )
   }
@@ -633,7 +634,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
-        sectionLabel={getSectionLabel(filter, subFilter)}
+        sectionLabel={getSectionLabel(filter, subFilter, tr)}
       />
     )
   }
@@ -645,7 +646,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
-        sectionLabel={getSectionLabel(filter, subFilter)}
+        sectionLabel={getSectionLabel(filter, subFilter, tr)}
       />
     )
   }
@@ -656,7 +657,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onProgressSync={onProgressSync}
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
-        sectionLabel={getSectionLabel(filter, subFilter)}
+        sectionLabel={getSectionLabel(filter, subFilter, tr)}
       />
     )
   }
@@ -815,7 +816,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
           correct={correct} total={total}
           onRestart={startNewRound}
 
-          sectionLabel={getSectionLabel(filter, subFilter)}
+          sectionLabel={getSectionLabel(filter, subFilter, tr)}
           tr={tr}
         />
       )}

@@ -167,6 +167,7 @@ function Tooltip({ x, label, fill, script }) {
 
 export default function GuravaView({
   script = 'iast',
+  tr = k => k,
   onDeitySelect = () => {},
   highlightId = null,
   memorise = false,
@@ -286,11 +287,13 @@ export default function GuravaView({
           {(() => {
             const sharedX = (GURU_POSITIONS['guru-manava'][0][0] - 9 - 8).toFixed(1)
             return [
-              { iast: 'divyaugha guravaḥ',  devanagari: 'दिव्यौघ गुरवः', english: 'Divine Gurus', y: GURU_Y.divya  },
-              { iast: 'siddhaugha guravaḥ', devanagari: 'सिद्धौघ गुरवः', english: 'Siddha Gurus', y: GURU_Y.siddha },
-              { iast: 'mānavaugha guravaḥ', devanagari: 'मानवौघ गुरवः',  english: 'Human Gurus',  y: GURU_Y.manava },
-            ].map(({ iast, devanagari, english, y }) => {
-              const label = script === 'devanagari' ? devanagari : script === 'english' ? english : iast
+              { iast: 'divyaugha guravaḥ',  devanagari: 'दिव्यौघ गुरवः', english: 'Divine Gurus', trKey: 'gurava.divya',  y: GURU_Y.divya  },
+              { iast: 'siddhaugha guravaḥ', devanagari: 'सिद्धौघ गुरवः', english: 'Siddha Gurus', trKey: 'gurava.siddha', y: GURU_Y.siddha },
+              { iast: 'mānavaugha guravaḥ', devanagari: 'मानवौघ गुरवः',  english: 'Human Gurus',  trKey: 'gurava.manava', y: GURU_Y.manava },
+            ].map(({ iast, devanagari, english, trKey, y }) => {
+              const label = script === 'english' ? english
+                          : (tr(trKey) !== trKey) ? tr(trKey)
+                          : script === 'devanagari' ? devanagari : iast
               return (
                 <text key={iast} x={sharedX} y={y.toFixed(1)}
                   textAnchor="end" dominantBaseline="middle"

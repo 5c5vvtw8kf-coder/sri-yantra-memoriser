@@ -197,18 +197,18 @@ function Tooltip({ x, y, label, fill, script }) {
 // ── Desktop filter config ─────────────────────────────────────────────────────
 
 const FILTERS = [
-  { id: 'all',          label: 'All'                          },
-  { id: 'siddhiShakti', label: 'Outer Band — Siddhi Shaktis' },
-  { id: 'ashtaMatrika', label: 'Middle Band — Ashta Matrikas' },
-  { id: 'mudraShakti',  label: 'Inner Band — Mudra Shaktis'  },
+  { id: 'all',          label: 'All',                           trKey: 'misc.all'        },
+  { id: 'siddhiShakti', label: 'Outer Band — Siddhi Shaktis',   trKey: 'bhupura.outer'   },
+  { id: 'ashtaMatrika', label: 'Middle Band — Ashta Matrikas',  trKey: 'bhupura.middle'  },
+  { id: 'mudraShakti',  label: 'Inner Band — Mudra Shaktis',    trKey: 'bhupura.inner'   },
 ]
 
 // ── Mobile band config (Explore mode navigation) ──────────────────────────────
 
 const BAND_CONFIG = [
-  { id: 'siddhiShakti', list: siddhiDeities,  label: 'Outer Band',  groupLabel: 'Siddhi Shaktis' },
-  { id: 'ashtaMatrika', list: matrikaDeities, label: 'Middle Band', groupLabel: 'Ashta Matrikas' },
-  { id: 'mudraShakti',  list: mudraDeities,   label: 'Inner Band',  groupLabel: 'Mudra Shaktis'  },
+  { id: 'siddhiShakti', list: siddhiDeities,  label: 'Outer Band',  groupLabel: 'Siddhi Shaktis', trKey: 'bhupura.outer'  },
+  { id: 'ashtaMatrika', list: matrikaDeities, label: 'Middle Band', groupLabel: 'Ashta Matrikas', trKey: 'bhupura.middle' },
+  { id: 'mudraShakti',  list: mudraDeities,   label: 'Inner Band',  groupLabel: 'Mudra Shaktis',  trKey: 'bhupura.inner'  },
 ]
 
 // ── NavArrow ──────────────────────────────────────────────────────────────────
@@ -600,7 +600,7 @@ export default function BhupuraView({
       {!memorise && (
         <div className="flex items-center justify-center gap-2 mt-2">
           {(isMobile ? BAND_CONFIG.map((b, i) => ({ id: b.id, label: b.label, groupLabel: b.groupLabel, active: bandStep === i, onSelect: () => setBandStep(i) }))
-                     : FILTERS.map(f => ({ id: f.id, label: f.label, active: activeFilter === f.id, onSelect: () => setActiveFilter(f.id) }))
+                     : FILTERS.map(f => ({ id: f.id, label: f.trKey ? tr(f.trKey) : f.label, active: activeFilter === f.id, onSelect: () => setActiveFilter(f.id) }))
           ).map(item => (
             <button
               key={item.id}

@@ -168,6 +168,7 @@ function Tooltip({ x, y, label, fill, script, below = false }) {
 
 export default function InnerView({
   script = 'iast',
+  tr = k => k,
   onDeitySelect = () => {},
   highlightId = null,
   waning = false,
@@ -313,7 +314,7 @@ export default function InnerView({
                   fontSize="15" fill={GOLD} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="start">
-                  Anti-clockwise · waxing moon
+                  {tr('inner.dir_waxing')}
                 </text>
               </g>
             )
@@ -345,7 +346,7 @@ export default function InnerView({
                   fontSize="15" fill={GOLD} opacity="0.65"
                   fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
                   textAnchor="end">
-                  Clockwise · waning moon
+                  {tr('inner.dir_waning')}
                 </text>
               </g>
             )

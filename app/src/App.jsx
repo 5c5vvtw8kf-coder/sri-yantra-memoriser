@@ -452,7 +452,7 @@ function DeityDetail({ deity, script = 'iast' }) {
   )
 }
 
-function CircuitDetail({ circuitNumber, script = 'iast', onNavigate, tr = k => k }) {
+function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNavigate, tr = k => k }) {
   const section = circuitSections.find(s => s.circuitNumber === circuitNumber)
   if (!section) return null
   const secrecy = YOGINI_SECRECY[section.yoginiType]
@@ -466,7 +466,7 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate, tr = k => k
       <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
         {sectionName(section, 'avarana', script)}
       </h2>
-      {script !== 'english' && (
+      {script === 'iast' && (
         <p className="text-cream text-xs">{section.avarana}</p>
       )}
       <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
@@ -478,7 +478,7 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate, tr = k => k
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>
             {sectionName(section, 'yoginiType', script)}
-            {secrecy && <span className="text-muted ml-1">· {secrecy}</span>}
+            {secrecy && uiLang === 'en' && <span className="text-muted ml-1">· {secrecy}</span>}
           </span>
         </div>
         <div className="flex gap-2">
@@ -498,7 +498,7 @@ function CircuitDetail({ circuitNumber, script = 'iast', onNavigate, tr = k => k
   )
 }
 
-function CircuitRows({ circuitNumber, script, onHoverFill = null, tr = k => k }) {
+function CircuitRows({ circuitNumber, script, uiLang = 'en', onHoverFill = null, tr = k => k }) {
   const section = circuitSections.find(s => s.circuitNumber === circuitNumber)
   if (!section) return null
   const secrecy = YOGINI_SECRECY[section.yoginiType]
@@ -515,7 +515,7 @@ function CircuitRows({ circuitNumber, script, onHoverFill = null, tr = k => k })
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}text-sm text-gold-500`}>
           {sectionName(section, 'yoginiType', script)}
-          {secrecy && <span className="text-muted ml-1">· {secrecy}</span>}
+          {secrecy && uiLang === 'en' && <span className="text-muted ml-1">· {secrecy}</span>}
         </span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
@@ -526,7 +526,7 @@ function CircuitRows({ circuitNumber, script, onHoverFill = null, tr = k => k })
   )
 }
 
-function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
+function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, tr = k => k }) {
   const circuitNumber = TAB_TO_CIRCUIT[tabId]
   const section       = circuitNumber
     ? circuitSections.find(s => s.circuitNumber === circuitNumber)
@@ -640,7 +640,7 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
       <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
         {sectionName(section, 'avarana', script)}
       </h2>
-      {script !== 'english' && (
+      {script === 'iast' && (
         <p className="text-cream text-xs">{section.avarana}</p>
       )}
       {showRows && (
@@ -653,7 +653,7 @@ function SectionInfo({ tabId, script = 'iast', showRows = true, tr = k => k }) {
             <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
             <span className="text-gold-500">{sectionName(section, 'yoginiType', script)}</span>
           </div>
-          {secrecy && (
+          {secrecy && uiLang === 'en' && (
             <div className="flex gap-2">
               <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.secrecy')}</span>
               <span className="text-muted">{secrecy}</span>
@@ -3152,7 +3152,8 @@ export default function App() {
     if (activeTab === 'inner' && innerMemorise) {
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="inner" script={script} tr={tr} />
+          <SectionInfo tabId="inner" script={script}
+                                          uiLang={uiLang} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <div className="flex gap-1.5 pt-2">
               <button
@@ -3177,7 +3178,8 @@ export default function App() {
       const innerList = innerWaning ? [...first15.slice().reverse(), maha] : allNitya
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="inner" script={script} tr={tr} />
+          <SectionInfo tabId="inner" script={script}
+                                          uiLang={uiLang} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-1">
             <div className="flex gap-1.5 pt-2 pb-1">
               <button
@@ -3232,7 +3234,8 @@ export default function App() {
       let runningIdx = 0
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="gurava" script={script} tr={tr} />
+          <SectionInfo tabId="gurava" script={script}
+                                          uiLang={uiLang} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
@@ -3279,7 +3282,8 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="nyasa" script={script} tr={tr} />
+          <SectionInfo tabId="nyasa" script={script}
+                                          uiLang={uiLang} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
@@ -3323,7 +3327,8 @@ export default function App() {
           .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
         return (
           <div className="overflow-y-auto">
-            <SectionInfo tabId={tab} script={script} showRows={false} tr={tr} />
+            <SectionInfo tabId={tab} script={script}
+                                          uiLang={uiLang} showRows={false} tr={tr} />
             <div className="border-t border-surface-700 px-3 pb-3">
               <button
                 className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
@@ -3349,7 +3354,8 @@ export default function App() {
                 </div>
               )}
             </div>
-            <CircuitRows circuitNumber={cNum} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
+            <CircuitRows circuitNumber={cNum} script={script}
+                                           uiLang={uiLang} onHoverFill={setCircuitFillAll} tr={tr} />
           </div>
         )
       }
@@ -3362,7 +3368,8 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="c2" script={script} showRows={false} tr={tr} />
+          <SectionInfo tabId="c2" script={script}
+                                          uiLang={uiLang} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
@@ -3388,7 +3395,8 @@ export default function App() {
               </div>
             )}
           </div>
-          <CircuitRows circuitNumber={2} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
+          <CircuitRows circuitNumber={2} script={script}
+                                           uiLang={uiLang} onHoverFill={setCircuitFillAll} tr={tr} />
         </div>
       )
     }
@@ -3400,7 +3408,8 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="chakreshvari" script={script} tr={tr} />
+          <SectionInfo tabId="chakreshvari" script={script}
+                                          uiLang={uiLang} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
@@ -3435,7 +3444,8 @@ export default function App() {
       const c9d = deities.find(d => d.sectionId === 'circuit-9' && d.role === 'deity')
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="c9" script={script} showRows={false} tr={tr} />
+          <SectionInfo tabId="c9" script={script}
+                                          uiLang={uiLang} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3 pt-2">
             <p className="font-mono uppercase tracking-widest text-xs text-muted pb-1.5">{tr('deity.singular')}</p>
             {c9d && (
@@ -3448,7 +3458,8 @@ export default function App() {
               </p>
             )}
           </div>
-          <CircuitRows circuitNumber={9} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
+          <CircuitRows circuitNumber={9} script={script}
+                                           uiLang={uiLang} onHoverFill={setCircuitFillAll} tr={tr} />
         </div>
       )
     }
@@ -3460,7 +3471,8 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="c8" script={script} showRows={false} tr={tr} />
+          <SectionInfo tabId="c8" script={script}
+                                          uiLang={uiLang} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
@@ -3486,7 +3498,8 @@ export default function App() {
               </div>
             )}
           </div>
-          <CircuitRows circuitNumber={8} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
+          <CircuitRows circuitNumber={8} script={script}
+                                           uiLang={uiLang} onHoverFill={setCircuitFillAll} tr={tr} />
         </div>
       )
     }
@@ -3503,7 +3516,8 @@ export default function App() {
       ]
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="bhupura" script={script} showRows={false} tr={tr} />
+          <SectionInfo tabId="bhupura" script={script}
+                                          uiLang={uiLang} showRows={false} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-1">
             <div className="flex gap-1.5 pt-2 pb-1">
               <button
@@ -3548,7 +3562,8 @@ export default function App() {
               </div>
             )}
           </div>
-          <CircuitRows circuitNumber={1} script={script} onHoverFill={setCircuitFillAll} tr={tr} />
+          <CircuitRows circuitNumber={1} script={script}
+                                           uiLang={uiLang} onHoverFill={setCircuitFillAll} tr={tr} />
         </div>
       )
     }
@@ -3560,7 +3575,8 @@ export default function App() {
         .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
       return (
         <div className="overflow-y-auto">
-          <SectionInfo tabId="closing" script={script} tr={tr} />
+          <SectionInfo tabId="closing" script={script}
+                                          uiLang={uiLang} tr={tr} />
           <div className="border-t border-surface-700 px-3 pb-3">
             <button
               className="w-full flex items-center justify-between py-2 text-xs text-muted hover:text-cream transition-colors"
@@ -3590,7 +3606,8 @@ export default function App() {
       )
     }
 
-    return <SectionInfo tabId={activeTab} script={script} tr={tr} />
+    return <SectionInfo tabId={activeTab} script={script}
+                                          uiLang={uiLang} tr={tr} />
   })()
 
   // ── Yantra-tab sidebar controls (removed — Yantra tab is now a pure display) ─
@@ -4002,6 +4019,7 @@ export default function App() {
                                         />}
             {activeTab === 'inner'   && <InnerView
                                           script={script}
+                                          tr={tr}
                                           onDeitySelect={handleDeitySelect}
                                           memorise={innerMemorise}
                                           currentSeq={innerCurrentSeq}
@@ -4018,6 +4036,7 @@ export default function App() {
                                         />}
             {activeTab === 'gurava'  && <GuravaView
                                           script={script}
+                                          tr={tr}
                                           onDeitySelect={handleDeitySelect}
                                           memorise={guravaMemorse}
                                           currentSeq={guravaCurrentSeq}
@@ -4192,6 +4211,7 @@ export default function App() {
             {activeTab === 'closing' && (
               <ClosingView
                 script={script}
+                tr={tr}
                 onDeitySelect={handleDeitySelect}
                 memorise={closingMemorise}
                 currentSeq={closingCurrentSeq}

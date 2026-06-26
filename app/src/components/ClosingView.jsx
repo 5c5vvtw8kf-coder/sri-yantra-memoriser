@@ -106,6 +106,7 @@ const LIST_RED_FILLS = { ...ALL_RED_FILLS, 'c9': '#5a0f0f' }
 
 export default function ClosingView({
   script = 'iast',
+  tr = k => k,
   onDeitySelect = () => {},
   listHighlight = false,
   memorise = false,
@@ -301,7 +302,7 @@ export default function ClosingView({
               khadgamālā sampūrṇā
             </p>
             <p className="text-cream text-sm">
-              {correctCount === TOTAL ? 'Stotra complete — well done!' : 'Round complete.'}
+              {correctCount === TOTAL ? tr('closing.complete') : tr('spot.round_complete')}
             </p>
             <p className="text-muted text-xs">{correctCount}/{TOTAL} memorised</p>
             <div className="flex flex-col gap-2 pt-1">
@@ -309,13 +310,13 @@ export default function ClosingView({
                 onClick={onStartMemorise}
                 className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
               >
-                Try again
+                {tr('misc.try_again')}
               </button>
               <button
                 onClick={() => onNavigate && onNavigate('nyasa')}
                 className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
               >
-                Start from beginning
+                {tr('closing.start_over')}
               </button>
             </div>
           </div>

@@ -4,22 +4,24 @@ import { iastToEnglish } from '../translations.js'
 
 // ── Section label map (store key → display label) ─────────────────────────────
 
-const SECTION_LABEL = {
-  nyasa:       'Nyāsāṅga',
-  inner:       'Tithi Nitya',
-  gurava:      'Guravaḥ',
-  bhupura:     '1st Āvaraṇa',
-  c2:          '2nd Āvaraṇa',
-  c3:          '3rd Āvaraṇa',
-  c4:          '4th Āvaraṇa',
-  c5:          '5th Āvaraṇa',
-  c6:          '6th Āvaraṇa',
-  c7:          '7th Āvaraṇa',
-  c8:          '8th Āvaraṇa',
-  c9:          '9th Āvaraṇa',
-  nc:          'Nava Chakreshvarī',
-  closing:     'Śrīdevī Epithets',
-  'spot-check': 'Spot Check',
+function buildSectionLabel(tr) {
+  return {
+    nyasa:        tr('sec.nyasa'),
+    inner:        tr('sec.inner'),
+    gurava:       tr('sec.gurava'),
+    bhupura:      tr('av.1'),
+    c2:           tr('av.2'),
+    c3:           tr('av.3'),
+    c4:           tr('av.4'),
+    c5:           tr('av.5'),
+    c6:           tr('av.6'),
+    c7:           tr('av.7'),
+    c8:           tr('av.8'),
+    c9:           tr('av.9'),
+    nc:           tr('sec.nc'),
+    closing:      tr('sec.closing'),
+    'spot-check': tr('sec.spotcheck'),
+  }
 }
 
 // ── Date / time helpers ───────────────────────────────────────────────────────
@@ -45,21 +47,23 @@ function Cols() {
   )
 }
 
-const SPOT_FILTER_LABEL = {
-  'all':          'All',
-  'nyasa':        'Nyāsa',
-  'nitya':        'Nitya',
-  'guravah':      'Guruvah',
-  'circuit-1':    '1st Āvaraṇa',
-  'circuit-2':    '2nd Āvaraṇa',
-  'circuit-3':    '3rd Āvaraṇa',
-  'circuit-4':    '4th Āvaraṇa',
-  'circuit-5':    '5th Āvaraṇa',
-  'circuit-6':    '6th Āvaraṇa',
-  'circuit-7':    '7th Āvaraṇa',
-  'c8-c9':        '8th & 9th',
-  'nava-cakra':   'Cakra',
-  'chakreshvari': 'Tripurā',
+function buildSpotFilterLabel(tr) {
+  return {
+    'all':          tr('misc.all'),
+    'nyasa':        'Nyāsa',
+    'nitya':        'Nitya',
+    'guravah':      tr('sec.gurava'),
+    'circuit-1':    tr('av.1'),
+    'circuit-2':    tr('av.2'),
+    'circuit-3':    tr('av.3'),
+    'circuit-4':    tr('av.4'),
+    'circuit-5':    tr('av.5'),
+    'circuit-6':    tr('av.6'),
+    'circuit-7':    tr('av.7'),
+    'c8-c9':        tr('av.89'),
+    'nava-cakra':   'Cakra',
+    'chakreshvari': 'Tripurā',
+  }
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -68,6 +72,10 @@ export default function ActivityLogView({ tr = k => k, script = 'iast' }) {
   // Load newest-first; re-read when cleared
   const [log, setLog] = useState(() => [...loadSessionLog()].reverse())
   const [sectionFilter, setSectionFilter] = useState('all')
+
+  // Build translated label maps
+  const SECTION_LABEL     = buildSectionLabel(tr)
+  const SPOT_FILTER_LABEL = buildSpotFilterLabel(tr)
 
   // Script-aware label helpers
   // iastToEnglish handles diacritics but not c→ch or sv→sw; add explicit overrides
