@@ -4404,7 +4404,7 @@ export default function App() {
           >
             <span className="flex items-center gap-1.5 min-w-0">
               <span className="flex-shrink-0 text-base leading-none">←</span>
-              <span className="truncate">{prevTab ? (prevTab.trKey ? tr(prevTab.trKey) : script === 'english' ? iastToEnglish(prevTab.footerLabel) : prevTab.footerLabel) : ''}</span>
+              <span className="truncate">{prevTab ? (prevTab.trKey ? tr(prevTab.trKey) : script === 'devanagari' ? (prevTab.navLabelDev || prevTab.footerLabel) : script === 'telugu' ? (prevTab.navLabelTe || prevTab.footerLabel) : script === 'tamil' ? (prevTab.navLabelTa || prevTab.footerLabel) : script === 'kannada' ? (prevTab.navLabelKn || prevTab.footerLabel) : script === 'malayalam' ? (prevTab.navLabelMl || prevTab.footerLabel) : script === 'english' ? iastToEnglish(prevTab.navLabelEn || prevTab.footerLabel) : prevTab.footerLabel) : ''}</span>
             </span>
           </button>
           {footerInstruction && (
@@ -4421,7 +4421,7 @@ export default function App() {
               transition-colors overflow-hidden"
           >
             <span className="flex items-center justify-end gap-1.5 min-w-0">
-              <span className="truncate">{nextTab ? (nextTab.trKey ? tr(nextTab.trKey) : script === 'english' ? iastToEnglish(nextTab.footerLabel) : nextTab.footerLabel) : ''}</span>
+              <span className="truncate">{nextTab ? (nextTab.trKey ? tr(nextTab.trKey) : script === 'devanagari' ? (nextTab.navLabelDev || nextTab.footerLabel) : script === 'telugu' ? (nextTab.navLabelTe || nextTab.footerLabel) : script === 'tamil' ? (nextTab.navLabelTa || nextTab.footerLabel) : script === 'kannada' ? (nextTab.navLabelKn || nextTab.footerLabel) : script === 'malayalam' ? (nextTab.navLabelMl || nextTab.footerLabel) : script === 'english' ? iastToEnglish(nextTab.navLabelEn || nextTab.footerLabel) : nextTab.footerLabel) : ''}</span>
               <span className="flex-shrink-0 text-base leading-none">→</span>
             </span>
           </button>
