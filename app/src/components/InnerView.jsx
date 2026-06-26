@@ -308,14 +308,20 @@ export default function InnerView({
                   y2={ay2.toFixed(1)}
                   stroke={GREEN} strokeWidth={2.5} opacity="0.65"
                   markerEnd="url(#flow-arrow-green-inner)" />
-                <text
-                  x={(ax1 + 12).toFixed(1)}
-                  y={(ay1 + 4).toFixed(1)}
-                  fontSize="15" fill={GOLD} opacity="0.65"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
-                  textAnchor="start">
-                  {tr('inner.dir_waxing')}
-                </text>
+                {(() => {
+                  const label = tr('inner.dir_waxing')
+                  const parts = label.split(' · ')
+                  const x = (ax1 + 12).toFixed(1)
+                  const y0 = ay1 + 28
+                  return (
+                    <text x={x} fontSize="11" fill={GOLD} opacity="0.75"
+                      fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
+                      textAnchor="start">
+                      <tspan x={x} y={y0.toFixed(1)}>{parts[0]}</tspan>
+                      {parts[1] && <tspan x={x} y={(y0 + 14).toFixed(1)}>{parts[1]}</tspan>}
+                    </text>
+                  )
+                })()}
               </g>
             )
           })()}
@@ -340,14 +346,20 @@ export default function InnerView({
                   y2={ay2.toFixed(1)}
                   stroke={GREEN} strokeWidth={2.5} opacity="0.65"
                   markerEnd="url(#flow-arrow-green-inner)" />
-                <text
-                  x={(ax1 - 8).toFixed(1)}
-                  y={(ay1 + 4).toFixed(1)}
-                  fontSize="15" fill={GOLD} opacity="0.65"
-                  fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
-                  textAnchor="end">
-                  {tr('inner.dir_waning')}
-                </text>
+                {(() => {
+                  const label = tr('inner.dir_waning')
+                  const parts = label.split(' · ')
+                  const x = (ax1 - 8).toFixed(1)
+                  const y0 = ay1 + 28
+                  return (
+                    <text x={x} fontSize="11" fill={GOLD} opacity="0.75"
+                      fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
+                      textAnchor="end">
+                      <tspan x={x} y={y0.toFixed(1)}>{parts[0]}</tspan>
+                      {parts[1] && <tspan x={x} y={(y0 + 14).toFixed(1)}>{parts[1]}</tspan>}
+                    </text>
+                  )
+                })()}
               </g>
             )
           })()}
