@@ -2050,6 +2050,7 @@ export default function App() {
       'h-references':       true,
     }),
     script,
+    uiLang,
   })
 
   // ── Yantra-tab state ───────────────────────────────────────────────────────
@@ -4337,7 +4338,7 @@ export default function App() {
               )
             })()}
             {activeTab === 'browser'      && <CircuitBrowser script="devanagari" />}
-            {activeTab === 'intro'        && <IntroView script={script} onStartTour={startTour} />}
+            {activeTab === 'intro'        && <IntroView script={script} uiLang={uiLang} onStartTour={startTour} />}
             {activeTab === 'references'   && <ReferencesView />}
           </div>
 
