@@ -367,6 +367,16 @@ const STEPS_TE = [
 
 const STEPS_BY_LANG = { en: STEPS_EN, hi: STEPS_HI, kn: STEPS_KN, ml: STEPS_ML, ta: STEPS_TA, te: STEPS_TE }
 
+// ── Language options shown in the first tour step ─────────────────────────────
+const TOUR_LANG_OPTIONS = [
+  { code: 'en', label: 'English'  },
+  { code: 'hi', label: 'हिन्दी'   },
+  { code: 'kn', label: 'ಕನ್ನಡ'   },
+  { code: 'ml', label: 'മലയാളം'  },
+  { code: 'ta', label: 'தமிழ்'   },
+  { code: 'te', label: 'తెలుగు'  },
+]
+
 function getSteps(uiLang) {
   const base = STEPS_BY_LANG[uiLang] ?? STEPS_EN
   // For English, include all steps; for others, filter out englishOnly steps
@@ -399,7 +409,7 @@ const btnPrimary = {
 }
 
 // ── Overlay + popover component ───────────────────────────────────────────────
-function TourOverlay({ onDone, script = 'iast', uiLang = 'en' }) {
+function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange }) {
   const STEPS = getSteps(uiLang)
   const [stepIndex, setStepIndex] = useState(0)
   const [rect, setRect]   = useState(null)
@@ -559,6 +569,40 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en' }) {
           dangerouslySetInnerHTML={{ __html: step.body }}
         />
 
+        {/* Language picker — shown on first step only */}
+        {isFirst && onLanguageChange && (
+          <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #2a1a0a' }}>
+            <p style={{
+              fontSize: 10, color: '#c8600a', fontFamily: 'monospace',
+              textTransform: 'uppercase', letterSpacing: '0.10em', marginBottom: 8,
+            }}>
+              Language
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+              {TOUR_LANG_OPTIONS.map(({ code, label }) => (
+                <button
+                  key={code}
+                  onClick={() => onLanguageChange(code)}
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: 4,
+                    fontSize: 12.5,
+                    cursor: 'pointer',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    lineHeight: 1.3,
+                    border: uiLang === code ? '1px solid #c9a84c' : '1px solid #352415',
+                    background: uiLang === code ? '#2a1c08' : '#0f0a05',
+                    color: uiLang === code ? '#d4b96a' : '#7a6a52',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Navigation buttons */}
         <div style={{
           display: 'flex', gap: 8, marginTop: 16,
@@ -592,7 +636,7 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en' }) {
  * onBeforeStart fires before the overlay mounts — use it to ensure all nav
  * sections are open so every data-tour element is present in the DOM.
  */
-export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en' } = {}) {
+export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en', onLanguageChange } = {}) {
   const [active, setActive] = useState(false)
   const cbRef = useRef(onBeforeStart)
   useEffect(() => { cbRef.current = onBeforeStart })
@@ -616,6 +660,6 @@ export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en' } = {}) 
 
   return {
     startTour,
-    tourElement: active ? <TourOverlay onDone={endTour} script={script} uiLang={uiLang} /> : null,
+    tourElement: active ? <TourOverlay onDone={endTour} script={script} uiLang={uiLang} onLanguageChange={onLanguageChange} /> : null,
   }
 }

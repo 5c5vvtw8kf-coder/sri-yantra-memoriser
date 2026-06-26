@@ -2256,6 +2256,7 @@ export default function App() {
     }),
     script,
     uiLang,
+    onLanguageChange: handleLangChange,
   })
 
   // ── Yantra-tab state ───────────────────────────────────────────────────────
