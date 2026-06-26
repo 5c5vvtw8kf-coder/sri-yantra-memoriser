@@ -38,6 +38,192 @@ import { Globe, Plane, PenLine } from 'lucide-react'
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
 
+// Script variants for section-level Sanskrit metadata (chakraSvamini, yoginiType, chakreshvari)
+// Keyed by circuitNumber → field → script.  Augments what is in the JSON (which has only IAST + Devanagari).
+const SECTION_SCRIPTS = {
+  1: {
+    chakraSvamini: {
+      kannada:   'ತ್ರೈಲೋಕ್ಯಮೋಹನ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'ത്രൈലോക്യമോഹന ചക്രസ്വാമിനീ',
+      tamil:     'த்ரைலோக்யமோஹந சக்ரஸ்வாமினீ',
+      telugu:    'త్రైలోక్యమోహన చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ಪ್ರಕಟಯೋಗಿನೀ',
+      malayalam: 'പ്രകടയോഗിനീ',
+      tamil:     'ப்ரகடயோகினீ',
+      telugu:    'ప్రకటయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ತ್ರಿಪುರೇ',
+      malayalam: 'ത്രിപുരേ',
+      tamil:     'த்ரிபுரே',
+      telugu:    'త్రిపురే',
+    },
+  },
+  2: {
+    chakraSvamini: {
+      kannada:   'ಸರ್ವಾಶಾಪರಿಪೂರಕ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'സർവാശാപരിപൂരക ചക്രസ്വാമിനീ',
+      tamil:     'ஸர்வாஶாபரிபூரக சக்ரஸ்வாமினீ',
+      telugu:    'సర్వాశాపరిపూరక చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ಗುಪ್ತಯೋಗಿನೀ',
+      malayalam: 'ഗുപ്തയോഗിനീ',
+      tamil:     'குப்தயோகினீ',
+      telugu:    'గుప్తయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ತ್ರಿಪುರೇಶೀ',
+      malayalam: 'ത്രിപുരേശീ',
+      tamil:     'த்ரிபுரேஶீ',
+      telugu:    'త్రిపురేశీ',
+    },
+  },
+  3: {
+    chakraSvamini: {
+      kannada:   'ಸರ್ವಸಂಕ್ಷೋಭಣ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'സർവസങ്ക്ഷോഭണ ചക്രസ്വാമിനീ',
+      tamil:     'ஸர்வஸங்க்ஷோபண சக்ரஸ்வாமினீ',
+      telugu:    'సర్వసంక్షోభణ చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ಗುಪ್ತತರಯೋಗಿನೀ',
+      malayalam: 'ഗുപ്തതരയോഗിനീ',
+      tamil:     'குப்ததரயோகினீ',
+      telugu:    'గుప్తతరయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ತ್ರಿಪುರಸುಂದರೀ',
+      malayalam: 'ത്രിപുരസുന്ദരീ',
+      tamil:     'த்ரிபுரஸுந்தரீ',
+      telugu:    'త్రిపురసుందరీ',
+    },
+  },
+  4: {
+    chakraSvamini: {
+      kannada:   'ಸರ್ವಸೌಭಾಗ್ಯದಾಯಕ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'സർവസൗഭാഗ്യദായക ചക്രസ്വാമിനീ',
+      tamil:     'ஸர்வஸௌபாக்யதாயக சக்ரஸ்வாமினீ',
+      telugu:    'సర్వసౌభాగ్యదాయక చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ಸಂಪ್ರದಾಯಯೋಗಿನೀ',
+      malayalam: 'സമ്പ്രദായയോഗിനീ',
+      tamil:     'ஸம்ப்ரதாயயோகினீ',
+      telugu:    'సంప్రదాయయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ತ್ರಿಪುರವಾಸಿನೀ',
+      malayalam: 'ത്രിപുരവാസിനീ',
+      tamil:     'த்ரிபுரவாஸினீ',
+      telugu:    'త్రిపురవాసినీ',
+    },
+  },
+  5: {
+    chakraSvamini: {
+      kannada:   'ಸರ್ವಾರ್ಥಸಾಧಕ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'സർവാർഥസാധക ചക്രസ്വാമിനീ',
+      tamil:     'ஸர்வார்தஸாதக சக்ரஸ்வாமினீ',
+      telugu:    'సర్వార్థసాధక చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ಕುಲೋತ್ತೀರ್ಣಯೋಗಿನೀ',
+      malayalam: 'കുലോത്തീർണ്ണയോഗിനീ',
+      tamil:     'குலோத்தீர்ணயோகினீ',
+      telugu:    'కులోత్తీర్ణయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ತ್ರಿಪುರಾಶ್ರೀಃ',
+      malayalam: 'ത്രിപുരാശ്രീഃ',
+      tamil:     'த்ரிபுராஶ்ரீஃ',
+      telugu:    'త్రిపురాశ్రీః',
+    },
+  },
+  6: {
+    chakraSvamini: {
+      kannada:   'ಸರ್ವರಕ್ಷಾಕರ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'സർവരക്ഷാകര ചക്രസ്വാമിനീ',
+      tamil:     'ஸர்வரக்ஷாகர சக்ரஸ்வாமினீ',
+      telugu:    'సర్వరక్షాకర చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ನಿಗರ್ಭಯೋಗಿನೀ',
+      malayalam: 'നിഗർഭയോഗിനീ',
+      tamil:     'நிகர்பயோகினீ',
+      telugu:    'నిగర్భయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ತ್ರಿಪುರಮಾಲಿನೀ',
+      malayalam: 'ത്രിപുരമാലിനീ',
+      tamil:     'த்ரிபுரமாலினீ',
+      telugu:    'త్రిపురమాలినీ',
+    },
+  },
+  7: {
+    chakraSvamini: {
+      kannada:   'ಸರ್ವರೋಗಹರ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'സർവരോഗഹര ചക്രസ്വാമിനീ',
+      tamil:     'ஸர்வரோகஹர சக்ரஸ்வாமினீ',
+      telugu:    'సర్వరోగహర చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ರಹಸ್ಯಯೋಗಿನೀ',
+      malayalam: 'രഹസ്യയോഗിനീ',
+      tamil:     'ரஹஸ்யயோகினீ',
+      telugu:    'రహస్యయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ತ್ರಿಪುರಸಿದ್ಧೇ',
+      malayalam: 'ത്രിപുരസിദ്ധേ',
+      tamil:     'த்ரிபுரஸித்தே',
+      telugu:    'త్రిపురసిద్ధే',
+    },
+  },
+  8: {
+    chakraSvamini: {
+      kannada:   'ಸರ್ವಸಿದ್ಧಿಪ್ರದ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'സർവസിദ്ധിപ്രദ ചക്രസ്വാമിനീ',
+      tamil:     'ஸர்வஸித்திப்ரத சக்ரஸ்வாமினீ',
+      telugu:    'సర్వసిద్ధిప్రద చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ಅತಿರಹಸ್ಯಯೋಗಿನೀ',
+      malayalam: 'അതിരഹസ്യയോഗിനീ',
+      tamil:     'அதிரஹஸ்யயோகினீ',
+      telugu:    'అతిరహస్యయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ತ್ರಿಪುರಾಂಬಾ',
+      malayalam: 'ത്രിപുരാംബാ',
+      tamil:     'த்ரிபுராம்பா',
+      telugu:    'త్రిపురాంబా',
+    },
+  },
+  9: {
+    chakraSvamini: {
+      kannada:   'ಸರ್ವಾನಂದಮಯ ಚಕ್ರಸ್ವಾಮಿನೀ',
+      malayalam: 'സർവാനന്ദമയ ചക്രസ്വാമിനീ',
+      tamil:     'ஸர்வானந்தமய சக்ரஸ்வாமினீ',
+      telugu:    'సర్వానందమయ చక్రస్వామినీ',
+    },
+    yoginiType: {
+      kannada:   'ಪರಾಪರರಹಸ್ಯಯೋಗಿನೀ',
+      malayalam: 'പരാപരരഹസ്യയോഗിനീ',
+      tamil:     'பராபரரஹஸ்யயோகினீ',
+      telugu:    'పరాపరరహస్యయోగినీ',
+    },
+    chakreshvari: {
+      kannada:   'ಮಹಾತ್ರಿಪುರಸುಂದರೀ',
+      malayalam: 'മഹാത്രിപുരസുന്ദരീ',
+      tamil:     'மஹாத்ரிபுரஸுந்தரீ',
+      telugu:    'మహాత్రిపురసుందరీ',
+    },
+  },
+}
+
+
 const YOGINI_SECRECY = {
   'Prakata Yogini':           'Manifest',
   'Gupta Yogini':             'Hidden',
@@ -358,6 +544,10 @@ function sectionName(section, field, script) {
   }
   if (script === 'devanagari' && section[devKey])
     return section[devKey]
+  // Indian script lookup (kannada / malayalam / tamil / telugu)
+  const cn = section.circuitNumber
+  if (cn && SECTION_SCRIPTS[cn]?.[field]?.[script])
+    return SECTION_SCRIPTS[cn][field][script]
   return section[iastKey] || section[field] || ''
 }
 
@@ -3209,7 +3399,7 @@ export default function App() {
                     onMouseLeave={() => setInnerHighlightId(null)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3259,7 +3449,7 @@ export default function App() {
                             onMouseLeave={() => setGuravaHighlightId(null)}
                           >
                             <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{n}.</span>
-                            <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                            <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                               {displayName(d, script)}
                             </span>
                           </div>
@@ -3301,7 +3491,7 @@ export default function App() {
                     onMouseLeave={() => setNyasaHighlightId(null)}
                   >
                     <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
-                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3346,7 +3536,7 @@ export default function App() {
                       onMouseLeave={() => setHighlight(null)}
                     >
                       <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                      <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                      <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                         {displayName(d, script)}
                       </span>
                     </div>
@@ -3387,7 +3577,7 @@ export default function App() {
                     onMouseLeave={() => setC2HighlightId(null)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3427,7 +3617,7 @@ export default function App() {
                     onMouseLeave={() => setNcHighlightCircuit(null)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3490,7 +3680,7 @@ export default function App() {
                     onMouseLeave={() => setC8HighlightId(null)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
@@ -3551,7 +3741,7 @@ export default function App() {
                           onMouseLeave={() => setBhupuraHighlightId(null)}
                         >
                           <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{d.sequenceInSection}.</span>
-                          <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                          <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                             {displayName(d, script)}
                           </span>
                         </div>
@@ -3594,7 +3784,7 @@ export default function App() {
                     onMouseLeave={() => setClosingListHighlight(false)}
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{uiLang !== 'en' ? (i + 1).toLocaleString(uiLang) : i + 1}.</span>
-                    <span className={`${script !== 'devanagari' ? 'iast text-base ' : 'text-sm '}text-gold-400`}>
+                    <span className={`${script === 'devanagari' ? 'text-sm ' : (script === 'malayalam' || script === 'tamil') ? 'iast text-sm ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
                   </div>
