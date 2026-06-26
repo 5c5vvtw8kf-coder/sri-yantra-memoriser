@@ -293,4 +293,14 @@ export default function BinduView({ script = 'iast', onDeitySelect = () => {} })
 
         <div className="mt-3 text-center">
           <p className="iast text-gold-600 text-xs">
-            sar
+            sarvasiddhiprada cakra · sarvānandamaya cakra
+          </p>
+          <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
+            Positions are approximate — verify against your lineage source
+          </p>
+        </div>
+
+        <div className="h-0 md:h-8" />
+    </div>
+  )
+}

@@ -384,4 +384,19 @@ export default function C7View({
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
-        section={c
+        section={c7Section}
+        script={script}
+        svaminiSeq={9}
+        yoginiSeq={10}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
+
+    </div>
+  )
+}

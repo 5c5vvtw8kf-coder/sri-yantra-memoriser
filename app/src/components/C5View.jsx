@@ -384,4 +384,19 @@ export default function C5View({
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
-        section={c5
+        section={c5Section}
+        script={script}
+        svaminiSeq={11}
+        yoginiSeq={12}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
+
+    </div>
+  )
+}

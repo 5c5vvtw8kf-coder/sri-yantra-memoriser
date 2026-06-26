@@ -523,4 +523,27 @@ export default function C2View({
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
-    
+        section={c2Section}
+        script={script}
+        svaminiSeq={17}
+        yoginiSeq={18}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+        />
+      )}
+
+      <div className="h-0 md:h-8" />
+    </div>
+  )
+}

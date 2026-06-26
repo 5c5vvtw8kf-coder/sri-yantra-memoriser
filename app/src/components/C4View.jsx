@@ -486,4 +486,26 @@ export default function C4View({
       {memorise && <MobileMemoriseInstr />}
 
       <MobileSvaminiButtons
-    
+        section={c4Section}
+        script={script}
+        svaminiSeq={15}
+        yoginiSeq={16}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+        />
+      )}
+
+    </div>
+  )
+}

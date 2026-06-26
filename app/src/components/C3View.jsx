@@ -533,4 +533,29 @@ export default function C3View({
         </div>
       </div>
 
-      {memorise && <MobileMem
+      {memorise && <MobileMemoriseInstr />}
+
+      <MobileSvaminiButtons
+        section={c3Section}
+        script={script}
+        svaminiSeq={9}
+        yoginiSeq={10}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+        />
+      )}
+
+    </div>
+  )
+}
