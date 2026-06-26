@@ -51,7 +51,7 @@ const YOGINI_SECRECY = {
 }
 
 const TABS = [
-  { id: 'intro',        navLabel: 'Welcome and Introduction',      navLabelEn: 'Welcome and Introduction',  navLabelDev: 'Welcome and Introduction', footerLabel: 'Introduction' },
+  { id: 'intro',        trKey: 'tab.intro',    navLabel: 'Welcome and Introduction',      navLabelEn: 'Welcome and Introduction',  navLabelDev: 'Welcome and Introduction', footerLabel: 'Introduction' },
   { id: 'h-explore-memorise', heading: 'EXPLORE AND MEMORISE' },
   { id: 'nyasa',
     navLabel:    'nyāsāṅga-devatāḥ',         navLabelEn: 'Nyāsa Deities',
@@ -138,9 +138,9 @@ const TABS = [
     navLabelKn:  'ಶ್ರೀದೇವೀ ವಿಶೇಷಣಾನಿ',         navLabelMl: 'ശ്രീദേവീ വിശേഷണാനി',
     footerLabel: 'Śrīdevī Epithets' },
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP' },
-  { id: 'spotcheck',    navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
-  { id: 'memomap',      navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
-  { id: 'activity-log', navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
+  { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
+  { id: 'memomap',      trKey: 'tab.memomap',   navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
+  { id: 'activity-log', trKey: 'tab.actlog',    navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
   { id: 'h-references', heading: 'RESOURCES' },
   { id: 'yantra',
     navLabel:    'śrī yantra',                navLabelEn: 'Śrī Yantra',
@@ -154,7 +154,7 @@ const TABS = [
     navLabelTe:  'శ్రీ దేవీ ఖడ్గమాలా స్తోత్రమ్', navLabelTa: 'ஶ்ரீ தேவீ கட்கமாலா ஸ்தோத்ரம்',
     navLabelKn:  'ಶ್ರೀ ದೇವೀ ಖಡ್ಗಮಾಲಾ ಸ್ತೋತ್ರಮ್', navLabelMl: 'ശ്രീ ദേവീ ഖഡ്ഗമാലാ സ്തോത്രം',
     footerLabel: 'Khadgamala Stotram' },
-  { id: 'references',   navLabel: 'References',   navLabelEn: 'References',   navLabelDev: 'References',   footerLabel: 'References'   },
+  { id: 'references',   trKey: 'tab.references', navLabel: 'References',   navLabelEn: 'References',   navLabelDev: 'References',   footerLabel: 'References'   },
 ]
 
 // Navigable tabs only (excludes heading entries — used for footer prev/next)
@@ -3872,7 +3872,8 @@ export default function App() {
                   {...(TOUR_NAV_IDS[tab.id] ? { 'data-tour': TOUR_NAV_IDS[tab.id] } : {})}
                 >
                   <span className="flex-1 min-w-0">
-                    {script === 'devanagari' ? (tab.navLabelDev || tab.navLabel)
+                    {tab.trKey ? tr(tab.trKey)
+                      : script === 'devanagari' ? (tab.navLabelDev || tab.navLabel)
                       : script === 'telugu'    ? (tab.navLabelTe  || tab.navLabel)
                       : script === 'tamil'     ? (tab.navLabelTa  || tab.navLabel)
                       : script === 'kannada'   ? (tab.navLabelKn  || tab.navLabel)
