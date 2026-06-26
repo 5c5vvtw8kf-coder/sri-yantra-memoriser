@@ -126,7 +126,9 @@ export function localeRuby(locale) {
 
 /** Returns the UI language code for a given locale id (defaults to 'en'). */
 export function localeUiLang(locale) {
-  return LOCALE_CONFIG[locale]?.uiLang ?? 'en'
+  // If the locale is a known LOCALE_CONFIG entry, use its uiLang.
+  // Otherwise treat it as a raw language code (e.g. 'hi', 'te') and use directly.
+  return LOCALE_CONFIG[locale]?.uiLang ?? locale
 }
 
 /**

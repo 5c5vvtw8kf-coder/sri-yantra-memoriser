@@ -24,6 +24,15 @@ import ActivityLogView from './components/ActivityLogView'
 import data from './data/khadgamala-canonical.json'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
+
+const LANG_OPTIONS = [
+  { code: 'en', label: 'English',   englishName: null,        beta: false, defaultScript: 'iast'      },
+  { code: 'hi', label: 'हिन्दी',     englishName: 'Hindi',     beta: true,  defaultScript: 'devanagari' },
+  { code: 'te', label: 'తెలుగు',     englishName: 'Telugu',    beta: true,  defaultScript: 'telugu'    },
+  { code: 'ta', label: 'தமிழ்',      englishName: 'Tamil',     beta: true,  defaultScript: 'tamil'     },
+  { code: 'kn', label: 'ಕನ್ನಡ',      englishName: 'Kannada',   beta: true,  defaultScript: 'kannada'   },
+  { code: 'ml', label: 'മലയാളം',     englishName: 'Malayalam', beta: true,  defaultScript: 'malayalam' },
+]
 import { Globe, Plane, PenLine } from 'lucide-react'
 
 const { sections, deities } = data
@@ -1936,11 +1945,17 @@ const SECTION_IAST_LABELS = {
 export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
   const [script,   setScript]   = useState('iast') // script key for deity name display
-  const [uiLang,   setUiLang]   = useState('en')   // UI language (future use)
+  const [uiLang,   setUiLang]   = useState('en')   // UI language
+  const handleLangChange = (lang) => {
+    setUiLang(lang)
+    const opt = LANG_OPTIONS.find(o => o.code === lang)
+    if (opt?.defaultScript) setScript(opt.defaultScript)
+    setShowLangMenu(false)
+  }
   const [showLangMenu,         setShowLangMenu]         = useState(false)
   const [showScriptMenu,       setShowScriptMenu]       = useState(false)
   const [showMobileScriptMenu, setShowMobileScriptMenu] = useState(false)
-  const tr = key => translate(script, key)          // UI string helper — script-aware via LOCALE_OVERRIDES
+  const tr = key => translate(uiLang !== 'en' ? uiLang : script, key)  // UI string helper — uses uiLang when set, else script (for IAST overrides)
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
@@ -3612,17 +3627,20 @@ export default function App() {
             {showLangMenu && (
               <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[130px]">
                 <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">Language</p>
-                <button
-                  onClick={() => { setUiLang('en'); setShowLangMenu(false) }}
-                  className="w-full text-left px-3 py-1.5 text-xs text-cream hover:bg-surface-700 flex items-center justify-between"
-                >
-                  English <span className="text-gold-400">✓</span>
-                </button>
-                {['हिन्दी','తెలుగు','தமிழ்','ಕನ್ನಡ','മലയാളം'].map(lang => (
-                  <button key={lang} disabled
-                    className="w-full text-left px-3 py-1.5 text-xs text-muted opacity-40 cursor-not-allowed"
-                  >{lang}</button>
+                {LANG_OPTIONS.map(opt => (
+                  <button key={opt.code} onClick={() => handleLangChange(opt.code)}
+                    className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
+                      ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
+                  >
+                    <span className="flex items-center gap-1.5">
+                      {opt.label}
+                      {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
+                      {opt.beta && <span className="text-[9px] text-amber-500 font-mono">β</span>}
+                    </span>
+                    {uiLang === opt.code && <span className="text-gold-400">✓</span>}
+                  </button>
                 ))}
+                <p className="px-3 pt-1 pb-0.5 text-[9px] text-muted border-t border-surface-700 mt-1">β = AI translation, needs review</p>
               </div>
             )}
           </div>
@@ -3689,17 +3707,20 @@ export default function App() {
                   </div>
                   {showLangMenu && (
                     <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[130px]">
-                      <button
-                        onClick={() => { setUiLang('en'); setShowLangMenu(false) }}
-                        className="w-full text-left px-3 py-1.5 text-xs text-cream hover:bg-surface-700 flex items-center justify-between"
-                      >
-                        English <span className="text-gold-400">✓</span>
-                      </button>
-                      {['हिन्दी','తెలుగు','தமிழ்','ಕನ್ನಡ','മലയാളം'].map(lang => (
-                        <button key={lang} disabled
-                          className="w-full text-left px-3 py-1.5 text-xs text-muted opacity-40 cursor-not-allowed"
-                        >{lang}</button>
+                      {LANG_OPTIONS.map(opt => (
+                        <button key={opt.code} onClick={() => handleLangChange(opt.code)}
+                          className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
+                            ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
+                        >
+                          <span className="flex items-center gap-1.5">
+                            {opt.label}
+                            {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
+                            {opt.beta && <span className="text-[9px] text-amber-500 font-mono">β</span>}
+                          </span>
+                          {uiLang === opt.code && <span className="text-gold-400">✓</span>}
+                        </button>
                       ))}
+                      <p className="px-3 pt-1 pb-0.5 text-[9px] text-muted border-t border-surface-700 mt-1">β = AI translation, needs review</p>
                     </div>
                   )}
                 </div>
