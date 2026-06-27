@@ -541,6 +541,7 @@ export default function C2View({
       <MobileSvaminiButtons
         section={c2Section}
         script={script}
+        tr={tr}
         svaminiSeq={17}
         yoginiSeq={18}
         memorise={memorise}

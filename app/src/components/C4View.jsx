@@ -504,6 +504,7 @@ export default function C4View({
       <MobileSvaminiButtons
         section={c4Section}
         script={script}
+        tr={tr}
         svaminiSeq={15}
         yoginiSeq={16}
         memorise={memorise}

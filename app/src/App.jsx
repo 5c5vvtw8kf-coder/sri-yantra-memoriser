@@ -2236,8 +2236,10 @@ export default function App() {
     const opt = LANG_OPTIONS.find(o => o.code === lang)
     if (opt?.defaultScript) setScript(opt.defaultScript)
     setShowLangMenu(false)
+    setShowSidebarLangMenu(false)
   }
   const [showLangMenu,         setShowLangMenu]         = useState(false)
+  const [showSidebarLangMenu,  setShowSidebarLangMenu]  = useState(false)
   const [showScriptMenu,       setShowScriptMenu]       = useState(false)
   const [showMobileScriptMenu, setShowMobileScriptMenu] = useState(false)
 
@@ -4034,7 +4036,7 @@ export default function App() {
                 {/* Language picker */}
                 <div className="relative group/lang">
                   <button
-                    onClick={() => setShowLangMenu(m => !m)}
+                    onClick={() => setShowSidebarLangMenu(m => !m)}
                     className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
                   >
                     <Globe size={11} />
@@ -4042,7 +4044,7 @@ export default function App() {
                   <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/lang:opacity-100 transition-opacity z-50">
                     Language
                   </div>
-                  {showLangMenu && (
+                  {showSidebarLangMenu && (
                     <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
                       {LANG_OPTIONS.map(opt => (
                         <button key={opt.code} onClick={() => handleLangChange(opt.code)}

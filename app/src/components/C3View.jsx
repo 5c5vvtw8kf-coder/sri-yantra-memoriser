@@ -554,6 +554,7 @@ export default function C3View({
       <MobileSvaminiButtons
         section={c3Section}
         script={script}
+        tr={tr}
         svaminiSeq={9}
         yoginiSeq={10}
         memorise={memorise}
