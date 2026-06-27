@@ -636,6 +636,7 @@ export default function BhupuraView({
       <MobileSvaminiButtons
         section={bhupuraSection}
         script={script}
+        tr={tr}
         svaminiSeq={memoGroup === 'all' ? 29 : memoDeities.length + 1}
         yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
         memorise={memorise}
