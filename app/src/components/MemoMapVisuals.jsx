@@ -456,7 +456,7 @@ function YantraContainer({ children, sectionId, allHistory }) {
 
 // -- Map panel components -----------------------------------------------------
 
-function NyasaMap({ allHistory }) {
+function NyasaMap({ allHistory, script = 'iast' }) {
   const [tooltips, setTooltips] = useState([])
   const nyasaDeities = deityBySection['nyasa'] || []
   return (
@@ -475,7 +475,7 @@ function NyasaMap({ allHistory }) {
           const dots   = seq >= 1 && seq <= 5
             ? [BODY_POSITIONS[seq - 1]]
             : seq === 6 ? ASTRA_POSITIONS : []
-          const text   = d.scripts?.iast || ''
+          const text   = displayName(d, script)
           // Astra (seq 6): hovering any dot shows tooltips at all 4 positions
           const handleEnter = tip ? () => setTooltips(
             seq === 6
@@ -497,7 +497,7 @@ function NyasaMap({ allHistory }) {
   )
 }
 
-function YantraCircuitMap({ sectionId, allHistory }) {
+function YantraCircuitMap({ sectionId, allHistory, script = 'iast' }) {
   const [hoveredName, setHoveredName] = useState(null)
   const [mousePos,    setMousePos]    = useState(null)  // { x, y } as 0..1 fractions
   const targetDeities = deityBySection[sectionId] || []
@@ -513,7 +513,7 @@ function YantraCircuitMap({ sectionId, allHistory }) {
     if (d && d.sectionId === sectionId) {
       const st = getDeityStatus(d, allHistory)
       if (st === 'partial' || st === 'notMemorised') {
-        setHoveredName(d.scripts?.iast || d.scripts?.english || '')
+        setHoveredName(displayName(d, script))
         return
       }
     }
@@ -555,7 +555,7 @@ function YantraCircuitMap({ sectionId, allHistory }) {
   )
 }
 
-function NityaMap({ allHistory }) {
+function NityaMap({ allHistory, script = 'iast' }) {
   const [tooltip, setTooltip] = useState(null)
   const nityaDeities = deityBySection['nitya'] || []
   return (
@@ -571,7 +571,7 @@ function NityaMap({ allHistory }) {
             r={status === 'notAttempted' ? 7 : 10}
             fill={STATUS_FILL[status]}
             opacity={status === 'notAttempted' ? 0.4 : 0.92}
-            onMouseEnter={tip ? () => setTooltip({ text: d.scripts?.iast || '', x: pos[0], y: pos[1] }) : undefined}
+            onMouseEnter={tip ? () => setTooltip({ text: displayName(d, script), x: pos[0], y: pos[1] }) : undefined}
             onMouseLeave={tip ? () => setTooltip(null) : undefined} />
         )
       })}
@@ -580,7 +580,7 @@ function NityaMap({ allHistory }) {
   )
 }
 
-function GuravahMap({ allHistory }) {
+function GuravahMap({ allHistory, script = 'iast' }) {
   const [tooltip, setTooltip] = useState(null)
   const allDots = []
   for (const sid of GURU_SECTION_IDS) {
@@ -600,7 +600,7 @@ function GuravahMap({ allHistory }) {
             r={status === 'notAttempted' ? 7 : 10}
             fill={STATUS_FILL[status]}
             opacity={status === 'notAttempted' ? 0.4 : 0.92}
-            onMouseEnter={tip ? () => setTooltip({ text: d.scripts?.iast || '', x: pos[0], y: pos[1] }) : undefined}
+            onMouseEnter={tip ? () => setTooltip({ text: displayName(d, script), x: pos[0], y: pos[1] }) : undefined}
             onMouseLeave={tip ? () => setTooltip(null) : undefined} />
         )
       })}
@@ -609,7 +609,7 @@ function GuravahMap({ allHistory }) {
   )
 }
 
-function C8Map({ allHistory }) {
+function C8Map({ allHistory, script = 'iast' }) {
   const [tooltip, setTooltip] = useState(null)
   const c8Deities = deityBySection['circuit-8'] || []
   return (
@@ -625,7 +625,7 @@ function C8Map({ allHistory }) {
             r={status === 'notAttempted' ? 7 : 11}
             fill={STATUS_FILL[status]}
             opacity={status === 'notAttempted' ? 0.4 : 0.92}
-            onMouseEnter={tip ? () => setTooltip({ text: d.scripts?.iast || '', x: pos[0], y: pos[1] }) : undefined}
+            onMouseEnter={tip ? () => setTooltip({ text: displayName(d, script), x: pos[0], y: pos[1] }) : undefined}
             onMouseLeave={tip ? () => setTooltip(null) : undefined} />
         )
       })}
@@ -634,7 +634,7 @@ function C8Map({ allHistory }) {
   )
 }
 
-function C9Map({ allHistory }) {
+function C9Map({ allHistory, script = 'iast' }) {
   const c9Deities = deityBySection['circuit-9'] || []
   const status    = c9Deities.length > 0 ? getDeityStatus(c9Deities[0], allHistory) : 'notAttempted'
   const d         = c9Deities[0]
@@ -654,7 +654,7 @@ function C9Map({ allHistory }) {
           fontFamily="'Gentium Plus', Georgia, serif"
           style={{ filter: 'drop-shadow(0 1px 4px rgba(0,0,0,1))' }}
           pointerEvents="none">
-          {d.scripts?.iast || ''}
+          {displayName(d, script)}
         </text>
       )}
     </KorvinBase>
@@ -751,12 +751,12 @@ export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => 
 
       <StatusCounts counts={counts} tr={tr} />
 
-      {map.type === 'nyasa'  && <NyasaMap allHistory={allHistory} />}
-      {map.type === 'nitya'  && <NityaMap allHistory={allHistory} />}
-      {map.type === 'gurava' && <GuravahMap allHistory={allHistory} />}
-      {map.type === 'yantra' && <YantraCircuitMap sectionId={map.id} allHistory={allHistory} />}
-      {map.type === 'c8'     && <C8Map allHistory={allHistory} />}
-      {map.type === 'c9'     && <C9Map allHistory={allHistory} />}
+      {map.type === 'nyasa'  && <NyasaMap allHistory={allHistory} script={script} />}
+      {map.type === 'nitya'  && <NityaMap allHistory={allHistory} script={script} />}
+      {map.type === 'gurava' && <GuravahMap allHistory={allHistory} script={script} />}
+      {map.type === 'yantra' && <YantraCircuitMap sectionId={map.id} allHistory={allHistory} script={script} />}
+      {map.type === 'c8'     && <C8Map allHistory={allHistory} script={script} />}
+      {map.type === 'c9'     && <C9Map allHistory={allHistory} script={script} />}
       {map.type === 'list'   && <ListMap sectionId={map.id} allHistory={allHistory} script={script} />}
 
 
