@@ -804,13 +804,13 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
              style={{ fontSize: '11px', fontFamily: "'Inter', system-ui, sans-serif", color: 'rgba(201,168,76,0.55)', letterSpacing: '0.02em' }}>
           {isCardMode ? (
             <>
-              <span>tap to reveal · <span style={{ color: '#f87171' }}>tap again</span> = memorised</span>
-              <span><span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised</span>
+              <span>{tr('instr.tap_reveal')} · <span style={{ color: '#f87171' }}>{tr('instr.tap_again_correct')}</span></span>
+              <span><span style={{ color: '#c9a84c' }}>{tr('instr.dbltap_wrong')}</span></span>
             </>
           ) : (
             <>
-              <span>tap to reveal · <span style={{ color: '#f87171' }}>tap</span> = memorised</span>
-              <span><span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> past = toggle</span>
+              <span>{tr('instr.tap_reveal')} · <span style={{ color: '#f87171' }}>{tr('instr.tap_again_correct')}</span></span>
+              <span><span style={{ color: '#c9a84c' }}>{tr('instr.dbltap_wrong')}</span> · <span style={{ color: '#c9a84c' }}>{tr('instr.dbltap_toggle')}</span></span>
             </>
           )}
         </div>
