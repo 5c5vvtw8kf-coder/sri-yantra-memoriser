@@ -499,7 +499,7 @@ export default function C4View({
         </div>
       </div>
 
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <MobileSvaminiButtons
         section={c4Section}

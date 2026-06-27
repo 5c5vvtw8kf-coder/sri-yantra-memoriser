@@ -15,12 +15,12 @@ import { useState, useRef, useEffect } from 'react'
 
 // ── Shared mobile memorise instruction strip ──────────────────────────────────
 
-export function MobileMemoriseInstr() {
+export function MobileMemoriseInstr({ tr = k => k }) {
   return (
     <div className="md:hidden flex flex-col items-center gap-0.5 pt-1 pb-0.5"
          style={{ fontSize: '11px', fontFamily: "'Inter', system-ui, sans-serif", color: 'rgba(201,168,76,0.55)', letterSpacing: '0.02em' }}>
-      <span>tap to reveal · <span style={{ color: '#f87171' }}>tap again</span> = memorised</span>
-      <span><span style={{ color: '#c9a84c' }}>dbl-tap</span> = not memorised · <span style={{ color: '#c9a84c' }}>dbl-tap</span> past = toggle</span>
+      <span>{tr('instr.tap_reveal')} · <span style={{ color: '#f87171' }}>{tr('instr.tap_again_correct')}</span></span>
+      <span><span style={{ color: '#c9a84c' }}>{tr('instr.dbltap_wrong')}</span> · <span style={{ color: '#c9a84c' }}>{tr('instr.dbltap_toggle')}</span></span>
     </div>
   )
 }

@@ -593,7 +593,7 @@ export default function NavaChakreshvariView({
           Proceed from the outer Bhūpura into the Bindu
         </p>
       )}
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <div className="h-0 md:h-8" />
     </div>

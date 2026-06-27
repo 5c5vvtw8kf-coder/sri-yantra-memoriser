@@ -285,7 +285,7 @@ export default function C9View({
         )}
       </div>
 
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <MobileSvaminiButtons
         section={c9Section}

@@ -362,7 +362,7 @@ export default function C8View({
         )}
       </div>
 
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <MobileSvaminiButtons
         section={c8Section}

@@ -397,7 +397,7 @@ export default function C7View({
         </div>
       </div>
 
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <MobileSvaminiButtons
         section={c7Section}

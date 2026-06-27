@@ -632,7 +632,7 @@ export default function BhupuraView({
         </div>
       )}
 
-{memorise && <MobileMemoriseInstr />}
+{memorise && <MobileMemoriseInstr tr={tr} />}
 
       <MobileSvaminiButtons
         section={bhupuraSection}

@@ -397,7 +397,7 @@ export default function C6View({
         </div>
       </div>
 
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <MobileSvaminiButtons
         section={c6Section}

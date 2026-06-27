@@ -561,7 +561,7 @@ export default function NyasaView({
 
 
 
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <div className="h-0 md:h-8" />
     </div>

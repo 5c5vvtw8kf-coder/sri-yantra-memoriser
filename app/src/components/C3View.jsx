@@ -549,7 +549,7 @@ export default function C3View({
         </div>
       </div>
 
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <MobileSvaminiButtons
         section={c3Section}

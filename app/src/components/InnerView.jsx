@@ -502,17 +502,17 @@ export default function InnerView({
             className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
               waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
             }`}
-          >☾ Waning</button>
+          >{tr('inner.waning')}</button>
           <button
             onClick={() => onSetWaning(false)}
             className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
               !waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
             }`}
-          >☽ Waxing</button>
+          >{tr('inner.waxing')}</button>
         </div>
       )}
 
-      {memorise && <MobileMemoriseInstr />}
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
     </div>
   )
