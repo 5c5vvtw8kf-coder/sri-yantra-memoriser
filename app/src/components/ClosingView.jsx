@@ -261,7 +261,7 @@ export default function ClosingView({
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
-    <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
+    <div className="w-full pl-5 pr-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
 
 
       {/* SVG filter: converts blue channel to red, leaves yellow/gold untouched.
@@ -568,7 +568,7 @@ export default function ClosingView({
       </div>
 
       {/* Mobile in-flow ascend label + instructions — mt-auto pins to bottom of flex column */}
-      <div className="md:hidden mt-auto flex flex-col">
+      <div className="md:hidden mt-auto flex flex-col pb-1">
         {!done && (
           <div className="flex items-center gap-1.5 pt-1.5 pointer-events-none">
             <span className={arrowFlash ? 'animate-pulse' : ''} style={{ color: arrowFlash ? CREAM : GOLD, fontSize: '18px', lineHeight: 1, transition: 'color 0.6s' }}>↑</span>
