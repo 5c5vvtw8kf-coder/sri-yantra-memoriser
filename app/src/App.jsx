@@ -3921,12 +3921,11 @@ export default function App() {
         >
           ☰
         </button>
-        <span className={`flex-1 text-sm font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
-          {(() => {
-            const FOOTER_TR = { intro: tr('tab.intro'), spotcheck: tr('tab.spotcheck'), memomap: tr('tab.memomap'), 'activity-log': tr('tab.actlog'), references: tr('tab.references') }
-            const raw = FOOTER_TR[activeTab] ?? TABS.find(t => t.id === activeTab)?.footerLabel ?? ''
-            return script === 'english' ? iastToEnglish(raw) : raw
-          })()}
+        <span className="flex-1 min-w-0 flex items-center gap-1.5 text-gold-400">
+          <span className="text-sm font-medium truncate">{LOCALE_CONFIG[locale]?.label ?? locale}</span>
+          {LOCALE_CONFIG[locale]?.englishName && (
+            <span className="text-xs text-muted font-normal flex-shrink-0">{LOCALE_CONFIG[locale].englishName}</span>
+          )}
         </span>
         <div className="flex items-center gap-1.5 flex-shrink-0">
           <div className="relative">
