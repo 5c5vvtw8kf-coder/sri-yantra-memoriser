@@ -257,12 +257,12 @@ export default function InnerView({
     .map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
 
   return (
-    <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
+    <div className="w-full px-4 pt-0 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
 
 
       <div className="relative w-full flex-1 min-h-0 md:flex-none rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
-        <svg viewBox="25 165 465 445" xmlns="http://www.w3.org/2000/svg"
+        <svg viewBox="25 195 440 410" xmlns="http://www.w3.org/2000/svg"
              style={{ background: BG, display: 'block', width: '100%', height: '100%' }}
              aria-label="Tithi Nitya Devatas around DFT5">
 
@@ -314,11 +314,11 @@ export default function InnerView({
                   const x = (ax1 + 12).toFixed(1)
                   const y0 = ay1 + 28
                   return (
-                    <text x={x} fontSize="11" fill={GOLD} opacity="0.75"
-                      fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
+                    <text x={x} fontSize="13" fill={GOLD} opacity="0.75"
+                      fontFamily="'Gentium Plus', Georgia, serif" fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
                       textAnchor="start">
                       <tspan x={x} y={y0.toFixed(1)}>{parts[0]}</tspan>
-                      {parts[1] && <tspan x={x} y={(y0 + 14).toFixed(1)}>{parts[1]}</tspan>}
+                      {parts[1] && <tspan x={x} y={(y0 + 16).toFixed(1)}>{parts[1]}</tspan>}
                     </text>
                   )
                 })()}
@@ -352,11 +352,11 @@ export default function InnerView({
                   const x = (ax1 - 8).toFixed(1)
                   const y0 = ay1 + 28
                   return (
-                    <text x={x} fontSize="11" fill={GOLD} opacity="0.75"
-                      fontFamily="'Gentium Plus', Georgia, serif" fontStyle="italic"
+                    <text x={x} fontSize="13" fill={GOLD} opacity="0.75"
+                      fontFamily="'Gentium Plus', Georgia, serif" fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
                       textAnchor="end">
                       <tspan x={x} y={y0.toFixed(1)}>{parts[0]}</tspan>
-                      {parts[1] && <tspan x={x} y={(y0 + 14).toFixed(1)}>{parts[1]}</tspan>}
+                      {parts[1] && <tspan x={x} y={(y0 + 16).toFixed(1)}>{parts[1]}</tspan>}
                     </text>
                   )
                 })()}
@@ -455,7 +455,7 @@ export default function InnerView({
               padding: '6px 18px',
             }}>
               <span className={script !== 'english' ? 'iast' : ''}
-                    style={{ color: '#c9a84c', fontSize: '16px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
+                    style={{ color: '#c9a84c', fontSize: '20px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
                 {displayName(revealedRef.current, script)}
               </span>
             </div>
