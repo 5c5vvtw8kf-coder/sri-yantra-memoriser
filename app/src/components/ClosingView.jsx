@@ -567,17 +567,18 @@ export default function ClosingView({
         )}
       </div>
 
-      {/* Mobile in-flow ascend label */}
-      {!done && (
-        <div className="md:hidden flex items-center gap-1.5 mt-2 pointer-events-none">
-          <span className={arrowFlash ? 'animate-pulse' : ''} style={{ color: arrowFlash ? CREAM : GOLD, fontSize: '18px', lineHeight: 1, transition: 'color 0.6s' }}>↑</span>
-          <span className={arrowFlash ? 'animate-pulse' : ''} style={{ color: arrowFlash ? CREAM : 'rgba(255,248,200,0.45)', fontSize: '0.75rem', transition: 'color 0.6s' }}>
-            {tr('closing.ascend')}
-          </span>
-        </div>
-      )}
-
-      {memorise && <MobileMemoriseInstr tr={tr} />}
+      {/* Mobile in-flow ascend label + instructions — mt-auto pins to bottom of flex column */}
+      <div className="md:hidden mt-auto flex flex-col">
+        {!done && (
+          <div className="flex items-center gap-1.5 pt-1.5 pointer-events-none">
+            <span className={arrowFlash ? 'animate-pulse' : ''} style={{ color: arrowFlash ? CREAM : GOLD, fontSize: '18px', lineHeight: 1, transition: 'color 0.6s' }}>↑</span>
+            <span className={arrowFlash ? 'animate-pulse' : ''} style={{ color: arrowFlash ? CREAM : 'rgba(255,248,200,0.45)', fontSize: '0.75rem', transition: 'color 0.6s' }}>
+              {tr('closing.ascend')}
+            </span>
+          </div>
+        )}
+        {memorise && <MobileMemoriseInstr tr={tr} />}
+      </div>
 
       <div className="h-0 md:h-8" />
     </div>
