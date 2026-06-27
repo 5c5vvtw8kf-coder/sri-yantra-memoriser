@@ -590,7 +590,7 @@ export default function NavaChakreshvariView({
 
       {!memorise && exploreStep <= 9 && (
         <p className="md:hidden text-center text-xs mt-3 text-muted">
-          Proceed from the outer Bhūpura into the Bindu
+          {tr('nc.proceed')}
         </p>
       )}
       {memorise && <MobileMemoriseInstr tr={tr} />}

@@ -401,6 +401,7 @@ export default function C5View({
 
       <MobileSvaminiButtons
         section={c5Section}
+        tr={tr}
         script={script}
         svaminiSeq={11}
         yoginiSeq={12}

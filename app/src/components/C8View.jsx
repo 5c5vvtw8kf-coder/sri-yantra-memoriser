@@ -366,6 +366,7 @@ export default function C8View({
 
       <MobileSvaminiButtons
         section={c8Section}
+        tr={tr}
         script={script}
         svaminiSeq={8}
         yoginiSeq={9}

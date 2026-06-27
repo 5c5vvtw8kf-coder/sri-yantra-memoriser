@@ -41,6 +41,7 @@ function getName(section, field, script) {
 export default function MobileSvaminiButtons({
   section        = null,
   script         = 'iast',
+  tr             = k => k,
   svaminiSeq,
   yoginiSeq,
   memorise       = false,
@@ -163,10 +164,10 @@ export default function MobileSvaminiButtons({
       // Explore: toggle
       return revealed
         ? <span className={`${nameClass} text-gold-400`}>{name || '—'}</span>
-        : <span className="text-gold-600/60 italic text-sm">tap to reveal</span>
+        : <span className="text-gold-600/60 italic text-sm">{tr('instr.tap_reveal')}</span>
     }
     if (isActive && !revealed) {
-      return <span className="text-gold-300 italic text-sm">tap to reveal</span>
+      return <span className="text-gold-300 italic text-sm">{tr('instr.tap_reveal')}</span>
     }
     if (isActive && revealed) {
       return <span className={`${nameClass} text-gold-200`}>{name || '—'}</span>
@@ -204,7 +205,7 @@ export default function MobileSvaminiButtons({
         onClick={handleSvaminiClick}
       >
         <div className="flex items-baseline gap-2 min-w-0">
-          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">{script === 'english' ? 'Swamini' : 'Svāminī'}</span>
+          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">{tr('sc.svamini')}</span>
           <span className="text-sm leading-snug min-w-0">
             {renderNameContent(svaminiActive, svaminiPast, svaminiCorrect, false,
                                revealedSvamini, svaminiName)}
@@ -222,7 +223,7 @@ export default function MobileSvaminiButtons({
         onClick={handleYoginiClick}
       >
         <div className="flex items-baseline gap-2 min-w-0">
-          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">{script === 'english' ? 'Yogini' : 'Yoginī'}</span>
+          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">{tr('sc.yogini_lbl')}</span>
           <span className="text-sm leading-snug min-w-0">
             {renderNameContent(yoginiActive, yoginiPast, yoginiCorrect, yoginiLocked,
                                revealedYogini, yoginiName)

@@ -289,6 +289,7 @@ export default function C9View({
 
       <MobileSvaminiButtons
         section={c9Section}
+        tr={tr}
         script={script}
         svaminiSeq={2}
         yoginiSeq={3}

@@ -401,6 +401,7 @@ export default function C7View({
 
       <MobileSvaminiButtons
         section={c7Section}
+        tr={tr}
         script={script}
         svaminiSeq={9}
         yoginiSeq={10}

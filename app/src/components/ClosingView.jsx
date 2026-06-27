@@ -99,6 +99,20 @@ const ALL_RED_FILLS = {
 // All circuits red, bindu darker red — list hover fill
 const LIST_RED_FILLS = { ...ALL_RED_FILLS, 'c9': '#5a0f0f' }
 
+// ── Script numerals ───────────────────────────────────────────────────────────
+
+const SCRIPT_DIGITS = {
+  devanagari: ['१','२','३','४','५','६','७','८','९'],
+  telugu:     ['౧','౨','౩','౪','౫','౬','౭','౮','౯'],
+  tamil:      ['௧','௨','௩','௪','௫','௬','௭','௮','௯'],
+  kannada:    ['೧','೨','೩','೪','೫','೬','೭','೮','೯'],
+  malayalam:  ['൧','൨','൩','൪','൫','൬','൭','൮','൯'],
+}
+
+function scriptNum(n, script) {
+  return SCRIPT_DIGITS[script]?.[n - 1] ?? n
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 
@@ -265,7 +279,7 @@ export default function ClosingView({
       </svg>
 
       {/* Yantra */}
-      <div ref={yantraRef} className="relative w-full flex-1 min-h-0 md:flex-none md:[padding-bottom:100%]">
+      <div ref={yantraRef} className="relative w-full aspect-square md:aspect-auto md:flex-none md:[padding-bottom:100%]">
         <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60"
              style={{ opacity: isMobile && !allMemorised ? 0.25 : 1, transition: 'opacity 0.3s' }}>
           <SriYantraSVG
@@ -380,7 +394,7 @@ export default function ClosingView({
                 }}
                 title={n === 10 ? 'namastē namastē namastē namaḥ' : undefined}
               >
-                {n === 10 ? '🙏' : n}
+                {n === 10 ? '🙏' : scriptNum(n, script)}
               </button>
             )
           })}
@@ -527,15 +541,14 @@ export default function ClosingView({
         })()}
       </div>
 
-      {/* Direction arrow — below the number strip, indicates chant flows upward (1→10) */}
+      {/* Direction arrow — desktop: fixed below strip; mobile: in-flow below yantra */}
       <div
-        className="pointer-events-none"
+        className="hidden md:flex pointer-events-none"
         style={{
           position: 'fixed',
           left: sidebarRight + 6,
           top: yantraPos.top + yantraPos.height + 4,
           zIndex: 30,
-          display: 'flex',
           alignItems: 'center',
           gap: 6,
         }}
@@ -549,12 +562,22 @@ export default function ClosingView({
             className={arrowFlash ? 'animate-pulse' : ''}
             style={{ color: arrowFlash ? CREAM : 'rgba(255,248,200,0.45)', fontSize: '0.75rem', whiteSpace: 'nowrap', transition: 'color 0.6s' }}
           >
-            Ascend to the top from here
+            {tr('closing.ascend')}
           </span>
         )}
       </div>
 
-      {memorise && <div className="mt-10"><MobileMemoriseInstr tr={tr} /></div>}
+      {/* Mobile in-flow ascend label */}
+      {!done && (
+        <div className="md:hidden flex items-center gap-1.5 mt-2 pointer-events-none">
+          <span className={arrowFlash ? 'animate-pulse' : ''} style={{ color: arrowFlash ? CREAM : GOLD, fontSize: '18px', lineHeight: 1, transition: 'color 0.6s' }}>↑</span>
+          <span className={arrowFlash ? 'animate-pulse' : ''} style={{ color: arrowFlash ? CREAM : 'rgba(255,248,200,0.45)', fontSize: '0.75rem', transition: 'color 0.6s' }}>
+            {tr('closing.ascend')}
+          </span>
+        </div>
+      )}
+
+      {memorise && <MobileMemoriseInstr tr={tr} />}
 
       <div className="h-0 md:h-8" />
     </div>
