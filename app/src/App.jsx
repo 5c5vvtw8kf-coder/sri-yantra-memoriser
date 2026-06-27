@@ -3921,11 +3921,19 @@ export default function App() {
         >
           ☰
         </button>
-        <span className="flex-1 min-w-0 flex items-center gap-1.5 text-gold-400">
-          <span className="text-sm font-medium truncate">{LOCALE_CONFIG[script]?.label ?? script}</span>
-          {LOCALE_CONFIG[script]?.englishName && (
-            <span className="text-xs text-muted font-normal flex-shrink-0">{LOCALE_CONFIG[script].englishName}</span>
-          )}
+        <span className={`flex-1 text-sm font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
+          {(() => {
+            const tab = TABS.find(t => t.id === activeTab)
+            if (!tab) return ''
+            if (tab.trKey) return tr(tab.trKey)
+            if (script === 'devanagari') return tab.navLabelDev || tab.navLabel
+            if (script === 'telugu')     return tab.navLabelTe  || tab.navLabel
+            if (script === 'tamil')      return tab.navLabelTa  || tab.navLabel
+            if (script === 'kannada')    return tab.navLabelKn  || tab.navLabel
+            if (script === 'malayalam')  return tab.navLabelMl  || tab.navLabel
+            if (script === 'english')    return iastToEnglish(tab.navLabelEn || tab.navLabel)
+            return tab.navLabel
+          })()}
         </span>
         <div className="flex items-center gap-1.5 flex-shrink-0">
           <div className="relative">
