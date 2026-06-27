@@ -3911,6 +3911,12 @@ export default function App() {
              onClick={() => setMobileNavOpen(false)} />
       )}
 
+      {/* ── Mobile dropdown backdrop — closes lang/script menus on outside tap */}
+      {(showLangMenu || showMobileScriptMenu) && (
+        <div className="md:hidden fixed inset-0" style={{ zIndex: 49 }}
+             onClick={() => { setShowLangMenu(false); setShowMobileScriptMenu(false) }} />
+      )}
+
       {/* ── Mobile top bar (portrait only) ──────────────────────────────── */}
       <div className="flex md:hidden flex-shrink-0 h-11 items-center px-3 gap-2 bg-surface-950 border-b border-surface-800 z-30">
         <button
@@ -3936,9 +3942,9 @@ export default function App() {
           })()}
         </span>
         <div className="flex items-center gap-1.5 flex-shrink-0">
-          <div className="relative">
+          <div className="relative" style={{ zIndex: 50 }}>
             <button
-              onClick={() => setShowLangMenu(m => !m)}
+              onClick={() => { setShowLangMenu(m => !m); setShowMobileScriptMenu(false) }}
               title="UI Language"
               className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
             >
@@ -3964,7 +3970,7 @@ export default function App() {
               </div>
             )}
           </div>
-          <div className="relative">
+          <div className="relative" style={{ zIndex: 50 }}>
             <button
               onClick={() => { setShowMobileScriptMenu(m => !m); setShowLangMenu(false) }}
               title="Script"
