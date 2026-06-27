@@ -2289,7 +2289,7 @@ export default function App() {
 
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)
-  const [navCollapsed, setNavCollapsed] = useState(() => window.innerWidth >= 768)
+  const [navCollapsed, setNavCollapsed] = useState(() => window.innerWidth >= 768 && window.innerHeight <= 770)
   const [rightPanelOpen, setRightPanelOpen] = useState(true)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 

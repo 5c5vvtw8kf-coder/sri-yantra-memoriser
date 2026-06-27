@@ -97,8 +97,8 @@
   @apply bg-surface-600 rounded-full;
 }
 
-/* iPad landscape — tablet viewport (md+ width, short height) */
-@media (min-width: 768px) and (max-height: 820px) {
+/* iPad landscape — tablet viewport (md+ width, ≤770px height) */
+@media (min-width: 768px) and (max-height: 770px) {
   .ipad-segment-bar { display: flex !important; }
   .ipad-nav-title   { display: flex !important; }
 }
