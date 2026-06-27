@@ -353,6 +353,7 @@ export default function NavaChakreshvariView({
     const effectiveC = (c === 8 && exploreStep === 9) ? 9 : c
     if (effectiveC !== exploreStep) return
     setLastTappedCircuit(effectiveC)
+    setHoveredCircuit(null)   // clear stale hover so tooltipCircuit resolves to lastTappedCircuit
     setExploreStep(prev => Math.min(prev + 1, 10))
     onDeitySelect(deityByCircuit[effectiveC] ?? null)
   }
@@ -588,17 +589,8 @@ export default function NavaChakreshvariView({
         )}
       </div>
 
-      {/* Mobile name strip — Explore mode — replaces SVG tooltip on touch */}
-      {!memorise && lastTappedCircuit && (
-        <div className="md:hidden text-center mt-2 px-2 min-h-[1.5rem]">
-          <span className="iast text-cream text-sm leading-snug">
-            {lastTappedCircuit}. {displayName(deityByCircuit[lastTappedCircuit], script)}
-          </span>
-        </div>
-      )}
-
       {!memorise && exploreStep <= 9 && (
-        <p className="md:hidden text-center text-xs mt-1.5 text-muted">
+        <p className="md:hidden text-center text-xs mt-3 text-muted">
           {tr('nc.proceed')}
         </p>
       )}
