@@ -533,24 +533,24 @@ export default function NyasaView({
               </p>
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === 6
-                  ? 'All memorised — well done!'
+                  ? tr('misc.all_memorised')
                   : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
-                {Object.values(results).filter(v => v === 'correct').length}/6 memorised
+                {Object.values(results).filter(v => v === 'correct').length}/6 {tr('misc.memorised')}
               </p>
               <div className="flex flex-col gap-2 pt-1">
                 <button
                   onClick={onStartMemorise}
                   className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
                 >
-                  Try again
+                  {tr('misc.try_again')}
                 </button>
                 <button
                   onClick={() => onNavigate && onNavigate('inner')}
                   className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
                 >
-                  Next →
+                  {tr('misc.next')}
                 </button>
               </div>
             </div>

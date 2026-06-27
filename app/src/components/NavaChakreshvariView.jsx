@@ -567,7 +567,7 @@ export default function NavaChakreshvariView({
               <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">navacakrēśvarī</p>
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === TOTAL
-                  ? 'All memorised — well done!'
+                  ? tr('misc.all_memorised')
                   : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">

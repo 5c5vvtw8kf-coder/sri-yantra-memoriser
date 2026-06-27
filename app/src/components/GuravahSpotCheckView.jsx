@@ -398,7 +398,7 @@ export default function GuravahSpotCheckView({
               <p className="text-gold-500 text-base font-medium">{sectionLabel || 'Gurus'}</p>
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === total
-                  ? 'All memorised — well done!'
+                  ? tr('misc.all_memorised')
                   : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
