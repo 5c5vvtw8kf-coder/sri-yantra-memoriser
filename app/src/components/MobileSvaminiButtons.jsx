@@ -192,6 +192,11 @@ export default function MobileSvaminiButtons({
 
   // ── Render ──────────────────────────────────────────────────────────────────
 
+  const isIndic = !['iast', 'english'].includes(script)
+  const labelClass = isIndic
+    ? 'text-sm text-muted font-medium shrink-0'
+    : 'text-[11px] uppercase tracking-widest text-muted font-medium shrink-0'
+
   return (
     <div className="md:hidden mt-2 flex flex-col gap-1.5 px-0">
 
@@ -205,7 +210,7 @@ export default function MobileSvaminiButtons({
         onClick={handleSvaminiClick}
       >
         <div className="flex items-baseline gap-2 min-w-0">
-          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">{tr('sc.svamini')}</span>
+          <span className={labelClass}>{tr('sc.svamini')}</span>
           <span className="text-sm leading-snug min-w-0">
             {renderNameContent(svaminiActive, svaminiPast, svaminiCorrect, false,
                                revealedSvamini, svaminiName)}
@@ -223,7 +228,7 @@ export default function MobileSvaminiButtons({
         onClick={handleYoginiClick}
       >
         <div className="flex items-baseline gap-2 min-w-0">
-          <span className="text-[11px] uppercase tracking-widest text-muted font-medium shrink-0">{tr('sc.yogini_lbl')}</span>
+          <span className={labelClass}>{tr('sc.yogini_lbl')}</span>
           <span className="text-sm leading-snug min-w-0">
             {renderNameContent(yoginiActive, yoginiPast, yoginiCorrect, yoginiLocked,
                                revealedYogini, yoginiName)
