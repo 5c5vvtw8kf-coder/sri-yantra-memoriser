@@ -97,13 +97,13 @@
   @apply bg-surface-600 rounded-full;
 }
 
-/* iPad landscape — tablet viewport (md+ width, ≤770px height) */
-@media (min-width: 768px) and (max-height: 770px) {
+/* iPad landscape — touch tablet in landscape (covers mini through Pro 11") */
+@media (min-width: 768px) and (max-height: 900px) and (pointer: coarse) {
   .ipad-segment-bar { display: flex !important; }
   .ipad-nav-title   { display: flex !important; }
 }
 
-/* Portrait lock — show on tablet in portrait */
-@media (orientation: portrait) and (min-width: 768px) {
+/* Portrait lock — touch tablet in portrait */
+@media (orientation: portrait) and (min-width: 768px) and (pointer: coarse) {
   #portrait-lock-overlay { display: flex !important; }
 }
