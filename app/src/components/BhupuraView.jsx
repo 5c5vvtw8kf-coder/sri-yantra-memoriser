@@ -90,6 +90,8 @@ const { deities, sections } = data
 const deityById   = Object.fromEntries(deities.map(d => [d.id, d]))
 const sectionById = Object.fromEntries(sections.map(s => [s.id, s]))
 const bhupuraSection = sections.find(s => s.circuitNumber === 1 && s.type === 'circuit') || {}
+const bhupuraSvaminiDeity = deities.find(d => d.sectionId === 'circuit-1' && d.role === 'chakraSvamini') ?? null
+const bhupuraYoginiDeity  = deities.find(d => d.sectionId === 'circuit-1' && d.role === 'yoginiType')  ?? null
 
 const c1Deities      = deities.filter(d => d.sectionId === 'circuit-1')
 const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
@@ -637,6 +639,8 @@ export default function BhupuraView({
         section={bhupuraSection}
         script={script}
         tr={tr}
+        svaminiDeity={bhupuraSvaminiDeity}
+        yoginiDeity={bhupuraYoginiDeity}
         svaminiSeq={memoGroup === 'all' ? 29 : memoDeities.length + 1}
         yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
         memorise={memorise}

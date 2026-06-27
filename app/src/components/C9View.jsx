@@ -36,6 +36,9 @@ const { deities } = data
 const c9Deity   = deities.find(d => d.sectionId === 'circuit-9' && d.role === 'deity')
 const c9Section = data.sections?.find(s => s.circuitNumber === 9 && s.type === 'circuit') || {}
 
+const c9SvaminiDeity = deities.find(d => d.sectionId === 'circuit-9' && d.role === 'chakraSvamini') ?? null
+const c9YoginiDeity = deities.find(d => d.sectionId === 'circuit-9' && d.role === 'yoginiType') ?? null
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 
@@ -289,6 +292,8 @@ export default function C9View({
 
       <MobileSvaminiButtons
         section={c9Section}
+        svaminiDeity={c9SvaminiDeity}
+        yoginiDeity={c9YoginiDeity}
         tr={tr}
         script={script}
         svaminiSeq={2}

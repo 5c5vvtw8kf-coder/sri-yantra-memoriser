@@ -27,7 +27,13 @@ export function MobileMemoriseInstr({ tr = k => k }) {
 
 // ── Name helper ───────────────────────────────────────────────────────────────
 
-function getName(section, field, script) {
+function getName(section, field, script, deity) {
+  // Prefer the deity object's scripts map — has full Indic coverage
+  if (deity?.scripts) {
+    if (script === 'english') return deity.scripts.english || deity.scripts.iast || ''
+    return deity.scripts[script] || deity.scripts.iast || ''
+  }
+  // Fallback: read from section object (IAST + Devanagari only)
   if (!section) return ''
   const iastKey = field + 'Iast'
   const devKey  = field + 'Devanagari'
@@ -44,6 +50,8 @@ export default function MobileSvaminiButtons({
   tr             = k => k,
   svaminiSeq,
   yoginiSeq,
+  svaminiDeity   = null,   // deity object with .scripts — enables full Indic script support
+  yoginiDeity    = null,   // deity object with .scripts — enables full Indic script support
   memorise       = false,
   currentSeq     = 1,
   results        = {},
@@ -78,8 +86,8 @@ export default function MobileSvaminiButtons({
     }
   }, [memorise, currentSeq, yoginiSeq])
 
-  const svaminiName = getName(section, 'chakraSvamini', script)
-  const yoginiName  = getName(section, 'yoginiType', script)
+  const svaminiName = getName(section, 'chakraSvamini', script, svaminiDeity)
+  const yoginiName  = getName(section, 'yoginiType',    script, yoginiDeity)
 
   // ── Visibility ─────────────────────────────────────────────────────────────
 

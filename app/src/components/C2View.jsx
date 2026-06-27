@@ -95,6 +95,9 @@ const c2Deities = deities
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const c2Section = data.sections?.find(s => s.circuitNumber === 2 && s.type === 'circuit') || {}
 
+const c2SvaminiDeity = deities.find(d => d.sectionId === 'circuit-2' && d.role === 'chakraSvamini') ?? null
+const c2YoginiDeity = deities.find(d => d.sectionId === 'circuit-2' && d.role === 'yoginiType') ?? null
+
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 function DeityDot({ x, y, selected, onClick, onMouseEnter, onMouseLeave }) {
@@ -540,6 +543,8 @@ export default function C2View({
 
       <MobileSvaminiButtons
         section={c2Section}
+        svaminiDeity={c2SvaminiDeity}
+        yoginiDeity={c2YoginiDeity}
         script={script}
         tr={tr}
         svaminiSeq={17}

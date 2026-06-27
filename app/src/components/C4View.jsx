@@ -114,6 +114,9 @@ const c4Deities = deities
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const c4Section = data.sections?.find(s => s.circuitNumber === 4 && s.type === 'circuit') || {}
 
+const c4SvaminiDeity = deities.find(d => d.sectionId === 'circuit-4' && d.role === 'chakraSvamini') ?? null
+const c4YoginiDeity = deities.find(d => d.sectionId === 'circuit-4' && d.role === 'yoginiType') ?? null
+
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 
 // Per-sequence vertical offset (SVG units) to clear the next triangle's dot.
@@ -503,6 +506,8 @@ export default function C4View({
 
       <MobileSvaminiButtons
         section={c4Section}
+        svaminiDeity={c4SvaminiDeity}
+        yoginiDeity={c4YoginiDeity}
         script={script}
         tr={tr}
         svaminiSeq={15}

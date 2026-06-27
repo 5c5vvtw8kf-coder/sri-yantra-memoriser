@@ -86,6 +86,9 @@ const c8Deities = deities
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const c8Section = data.sections?.find(s => s.circuitNumber === 8 && s.type === 'circuit') || {}
 
+const c8SvaminiDeity = deities.find(d => d.sectionId === 'circuit-8' && d.role === 'chakraSvamini') ?? null
+const c8YoginiDeity = deities.find(d => d.sectionId === 'circuit-8' && d.role === 'yoginiType') ?? null
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -366,6 +369,8 @@ export default function C8View({
 
       <MobileSvaminiButtons
         section={c8Section}
+        svaminiDeity={c8SvaminiDeity}
+        yoginiDeity={c8YoginiDeity}
         tr={tr}
         script={script}
         svaminiSeq={8}

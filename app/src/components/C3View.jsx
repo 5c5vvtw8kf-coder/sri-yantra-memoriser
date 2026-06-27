@@ -129,6 +129,9 @@ const c3Deities = deities
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const c3Section = data.sections?.find(s => s.circuitNumber === 3 && s.type === 'circuit') || {}
 
+const c3SvaminiDeity = deities.find(d => d.sectionId === 'circuit-3' && d.role === 'chakraSvamini') ?? null
+const c3YoginiDeity = deities.find(d => d.sectionId === 'circuit-3' && d.role === 'yoginiType') ?? null
+
 // ── Tooltip — four fixed corner zones (same as C2) ────────────────────────────
 //
 // Quadrant of the petal centroid relative to the yantra centre determines
@@ -553,6 +556,8 @@ export default function C3View({
 
       <MobileSvaminiButtons
         section={c3Section}
+        svaminiDeity={c3SvaminiDeity}
+        yoginiDeity={c3YoginiDeity}
         script={script}
         tr={tr}
         svaminiSeq={9}

@@ -96,6 +96,9 @@ const c6Deities = deities
   .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const c6Section = data.sections?.find(s => s.circuitNumber === 6 && s.type === 'circuit') || {}
 
+const c6SvaminiDeity = deities.find(d => d.sectionId === 'circuit-6' && d.role === 'chakraSvamini') ?? null
+const c6YoginiDeity = deities.find(d => d.sectionId === 'circuit-6' && d.role === 'yoginiType') ?? null
+
 const C6_TOOLTIP_OFFSET = { 1: 20, 2: 22, 3: 32, 6: 20, 7: 24, 8: 32 }
 
 function Tooltip({ x, y, label, script, seq, isMobile }) {
@@ -401,6 +404,8 @@ export default function C6View({
 
       <MobileSvaminiButtons
         section={c6Section}
+        svaminiDeity={c6SvaminiDeity}
+        yoginiDeity={c6YoginiDeity}
         tr={tr}
         script={script}
         svaminiSeq={11}
