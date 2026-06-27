@@ -3922,9 +3922,9 @@ export default function App() {
           ☰
         </button>
         <span className="flex-1 min-w-0 flex items-center gap-1.5 text-gold-400">
-          <span className="text-sm font-medium truncate">{LOCALE_CONFIG[locale]?.label ?? locale}</span>
-          {LOCALE_CONFIG[locale]?.englishName && (
-            <span className="text-xs text-muted font-normal flex-shrink-0">{LOCALE_CONFIG[locale].englishName}</span>
+          <span className="text-sm font-medium truncate">{LOCALE_CONFIG[script]?.label ?? script}</span>
+          {LOCALE_CONFIG[script]?.englishName && (
+            <span className="text-xs text-muted font-normal flex-shrink-0">{LOCALE_CONFIG[script].englishName}</span>
           )}
         </span>
         <div className="flex items-center gap-1.5 flex-shrink-0">
