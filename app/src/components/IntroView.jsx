@@ -251,4 +251,3 @@ export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour 
     </div>
   )
 }
-  
