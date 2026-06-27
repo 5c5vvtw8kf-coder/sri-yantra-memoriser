@@ -182,7 +182,7 @@ export default function C6View({
   flash           = false,
   onNavigate      = () => {},
   tr               = k => k,
-  uiLang           = \'en\',
+  uiLang           = 'en',
 }) {
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)

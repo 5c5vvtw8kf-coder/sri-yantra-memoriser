@@ -251,7 +251,7 @@ export default function C2View({
   flash            = false,      // true during all-correct victory flash
   onNavigate       = () => {},   // (tabId) — for "Next circuit →"
   tr               = k => k,
-  uiLang           = \'en\',
+  uiLang           = 'en',
 }) {
   // Explore mode state (local)
   const [selectedId,    setSelectedId]    = useState(null)

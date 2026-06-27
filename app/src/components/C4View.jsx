@@ -218,7 +218,7 @@ export default function C4View({
   flash           = false,
   onNavigate      = () => {},
   tr               = k => k,
-  uiLang           = \'en\',
+  uiLang           = 'en',
 }) {
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)
