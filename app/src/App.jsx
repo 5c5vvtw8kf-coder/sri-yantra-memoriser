@@ -2289,7 +2289,8 @@ export default function App() {
 
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)
-  const [navCollapsed, setNavCollapsed] = useState(false)
+  const [navCollapsed, setNavCollapsed] = useState(() => window.innerWidth >= 768)
+  const [rightPanelOpen, setRightPanelOpen] = useState(true)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   // ── Global deity selection ─────────────────────────────────────────────────
@@ -3908,7 +3909,16 @@ export default function App() {
   }[activeTab] ?? null
 
   return (
-    <div className="h-screen flex flex-col bg-surface-950 text-cream overflow-hidden">
+    <div className="h-[100dvh] flex flex-col bg-surface-950 text-cream overflow-hidden">
+
+      {/* ── Portrait lock overlay — tablet only (md+ in portrait) ────────── */}
+      <div id="portrait-lock-overlay"
+           className="fixed inset-0 z-[999] bg-surface-950 flex-col items-center justify-center gap-6 text-center px-8"
+           style={{ display: 'none' }}>
+        <div style={{ fontSize: '3rem', lineHeight: 1 }}>↺</div>
+        <p className="text-cream text-lg font-light">Please rotate your device</p>
+        <p className="text-muted text-sm">This app works in landscape</p>
+      </div>
 
       {/* ── Site tour portal (renders to document.body via createPortal) ──── */}
       {tourElement}
@@ -4013,24 +4023,25 @@ export default function App() {
 
       {/* ── Left sidebar ─────────────────────────────────────────────────── */}
       <aside data-tour="sidebar"
-        className={`w-72 flex-shrink-0 flex flex-col border-r border-surface-800 bg-surface-900
-          fixed inset-y-0 left-0 z-50 transition-transform duration-300
-          md:relative md:translate-x-0 md:transition-none md:z-auto
-          ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        className={`flex-shrink-0 flex flex-col border-r border-surface-800 bg-surface-900
+          fixed inset-y-0 left-0 z-50 transition-all duration-300
+          md:relative md:translate-x-0 md:z-auto
+          w-72 ${navCollapsed ? 'md:w-12' : 'md:w-72'}
+          ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
 
         {/* Title block */}
-        <div className="px-4 pt-4 pb-3 border-b border-surface-800 flex-shrink-0">
-          <div className="flex items-start justify-between gap-1">
-            <div className="flex-1 min-w-0">
-              <h1 className="iast text-gold-400 text-base font-semibold tracking-wide leading-tight">
-                śrī yantra memoriser
-              </h1>
-              {!navCollapsed && (
+        <div className={`${navCollapsed ? 'px-1.5 pt-3 pb-3' : 'px-4 pt-4 pb-3'} border-b border-surface-800 flex-shrink-0`}>
+          <div className={`flex gap-1 ${navCollapsed ? 'items-center justify-center' : 'items-start justify-between'}`}>
+            {!navCollapsed && (
+              <div className="flex-1 min-w-0">
+                <h1 className="iast text-gold-400 text-base font-semibold tracking-wide leading-tight">
+                  śrī yantra memoriser
+                </h1>
                 <p className="iast mt-1 text-muted italic" style={{ fontSize: '13px', letterSpacing: '0.03em' }}>
                   for the Khadgamala Stotram
                 </p>
-              )}
-            </div>
+              </div>
+            )}
             <div className="flex items-center gap-1 flex-shrink-0 mt-0.5">
               {!navCollapsed && (<>
                 {/* Language picker */}
@@ -4164,11 +4175,17 @@ export default function App() {
         {yantraControls}
         </>)} {/* end !navCollapsed */}
 
-        {/* Script selector — always visible; label hidden when collapsed; mt-auto pins to bottom */}
-        <div className="mt-auto px-3 py-3 border-t border-surface-800 flex-shrink-0">
-          {!navCollapsed && (
-            <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
-          )}
+        {/* Script selector — always visible; collapses to Aa icon when sidebar is narrow */}
+        <div className={`mt-auto ${navCollapsed ? 'px-1 py-2' : 'px-3 py-3'} border-t border-surface-800 flex-shrink-0`}>
+          {navCollapsed ? (
+            <button
+              onClick={() => setNavCollapsed(false)}
+              className="w-full flex items-center justify-center py-1.5 text-muted hover:text-gold-400 transition-colors rounded text-xs font-mono"
+              title="Script settings — expand panel"
+            >Aa</button>
+          ) : (
+          <>
+          <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
           <div className="relative">
             <button
               onClick={() => setShowScriptMenu(m => !m)}
@@ -4205,6 +4222,8 @@ export default function App() {
               </div>
             )}
           </div>
+          </>
+          )} {/* end !navCollapsed script picker */}
         </div>
 
       </aside>
@@ -4216,7 +4235,7 @@ export default function App() {
 
         {/* Scrollable content area */}
         <div className="flex-1 min-h-0 flex flex-col items-center justify-start overflow-y-auto pt-2 relative">
-          <div className="w-full h-full flex flex-col md:block md:h-auto" style={{ maxWidth: 'min(100%, calc(100vh - 6rem))' }}>
+          <div className="w-full h-full flex flex-col md:block md:h-auto" style={{ maxWidth: 'min(100%, calc(100dvh - 120px))' }}>
             {activeTab === 'yantra'  && (
               <div className="w-full p-4">
                 <div
@@ -4655,7 +4674,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
-        <div className={`${['spotcheck', 'activity-log', 'memomap'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden flex-shrink-0 px-2 py-1 gap-1`}>
+        <div className={`${['spotcheck', 'activity-log', 'memomap'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}
@@ -4686,11 +4705,24 @@ export default function App() {
               <span className="truncate">{prevTab ? (prevTab.trKey ? tr(prevTab.trKey) : script === 'devanagari' ? (prevTab.navLabelDev || prevTab.footerLabel) : script === 'telugu' ? (prevTab.navLabelTe || prevTab.footerLabel) : script === 'tamil' ? (prevTab.navLabelTa || prevTab.footerLabel) : script === 'kannada' ? (prevTab.navLabelKn || prevTab.footerLabel) : script === 'malayalam' ? (prevTab.navLabelMl || prevTab.footerLabel) : script === 'english' ? iastToEnglish(prevTab.navLabelEn || prevTab.footerLabel) : prevTab.footerLabel) : ''}</span>
             </span>
           </button>
-          {footerInstruction && (
-            <span className="hidden md:flex flex-shrink-0 px-1 text-center select-none">
-              {footerInstruction}
-            </span>
-          )}
+          {/* Centre: section title — iPad only via CSS class */}
+          {(() => {
+            const tab = TABS.find(t => t.id === activeTab)
+            if (!tab) return null
+            const label = tab.trKey ? tr(tab.trKey)
+              : script === 'devanagari' ? (tab.navLabelDev || tab.navLabel)
+              : script === 'telugu'     ? (tab.navLabelTe  || tab.navLabel)
+              : script === 'tamil'      ? (tab.navLabelTa  || tab.navLabel)
+              : script === 'kannada'    ? (tab.navLabelKn  || tab.navLabel)
+              : script === 'malayalam'  ? (tab.navLabelMl  || tab.navLabel)
+              : script === 'english'    ? iastToEnglish(tab.navLabelEn || tab.navLabel)
+              : tab.navLabel
+            return (
+              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-xs text-gold-400 font-medium tracking-wide ${script !== 'english' ? 'iast' : ''}`}>
+                {label}
+              </span>
+            )
+          })()}
           <button
             onClick={() => nextTab && handleTabChange(nextTab.id)}
             disabled={!nextTab}
@@ -4708,9 +4740,19 @@ export default function App() {
 
       </main>
 
+      {/* ── Right panel toggle strip — desktop only; hidden on intro/yantra ── */}
+      {(activeTab !== 'yantra' && activeTab !== 'intro') && (
+        <button
+          className="hidden md:flex items-center justify-center w-5 flex-shrink-0 bg-surface-900 border-l border-surface-800 text-muted hover:text-cream hover:bg-surface-800 transition-colors"
+          onClick={() => setRightPanelOpen(o => !o)}
+          title={rightPanelOpen ? 'Close info panel' : 'Open info panel'}
+          style={{ fontSize: 10 }}
+        >{rightPanelOpen ? '›' : '‹'}</button>
+      )}
+
       {/* ── Right panel ──────────────────────────────────────────────────── */}
-      <aside className="hidden md:flex w-64 flex-shrink-0 border-l border-surface-800 flex-col"
-             style={{ visibility: activeTab === 'yantra' ? 'hidden' : undefined }}>
+      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 overflow-hidden transition-all duration-300 ${(rightPanelOpen && activeTab !== 'yantra' && activeTab !== 'intro') ? 'w-64' : 'w-0'}`}
+             style={{ visibility: (activeTab === 'yantra' || activeTab === 'intro') ? 'hidden' : undefined }}>
 
         {/* Scrollable info area */}
         <div className="flex-1 overflow-y-auto min-h-0">

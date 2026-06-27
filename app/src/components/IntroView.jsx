@@ -164,7 +164,7 @@ export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour 
       </div>
 
       {/* ── Content ────────────────────────────────────────────────────────── */}
-      <div className="relative max-w-xl mx-auto px-6 py-10 space-y-8">
+      <div className="relative max-w-xl md:max-w-3xl mx-auto px-6 py-10 space-y-8">
 
         {/* Opening invocation */}
         <div className="text-center space-y-2 pb-6 border-b border-surface-800">
