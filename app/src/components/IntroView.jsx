@@ -146,7 +146,7 @@ export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour 
   const skt = isEnglish ? 'iast' : ''
 
   return (
-    <div className="relative w-full overflow-y-auto">
+    <div className="relative w-full overflow-x-hidden overflow-y-auto">
 
       {/* ── Watermark — full Sri Yantra at low opacity ─────────────────────── */}
       <div
