@@ -197,18 +197,18 @@ function Tooltip({ x, y, label, fill, script }) {
 // ── Desktop filter config ─────────────────────────────────────────────────────
 
 const FILTERS = [
-  { id: 'all',          label: 'All'                          },
-  { id: 'siddhiShakti', label: 'Outer Band — Siddhi Shaktis' },
-  { id: 'ashtaMatrika', label: 'Middle Band — Ashta Matrikas' },
-  { id: 'mudraShakti',  label: 'Inner Band — Mudra Shaktis'  },
+  { id: 'all',          label: 'All',                          trKey: 'misc.all' },
+  { id: 'siddhiShakti', label: 'Outer Band — Siddhi Shaktis',  trKey: 'bhupura.outer_band', groupTrKey: 'bhupura.siddhi'  },
+  { id: 'ashtaMatrika', label: 'Middle Band — Ashta Matrikas', trKey: 'bhupura.middle_band', groupTrKey: 'bhupura.matrika' },
+  { id: 'mudraShakti',  label: 'Inner Band — Mudra Shaktis',   trKey: 'bhupura.inner_band',  groupTrKey: 'bhupura.mudra'   },
 ]
 
 // ── Mobile band config (Explore mode navigation) ──────────────────────────────
 
 const BAND_CONFIG = [
-  { id: 'siddhiShakti', list: siddhiDeities,  label: 'Outer Band',  groupLabel: 'Siddhi Shaktis' },
-  { id: 'ashtaMatrika', list: matrikaDeities, label: 'Middle Band', groupLabel: 'Ashta Matrikas' },
-  { id: 'mudraShakti',  list: mudraDeities,   label: 'Inner Band',  groupLabel: 'Mudra Shaktis'  },
+  { id: 'siddhiShakti', list: siddhiDeities,  label: 'Outer Band',  groupLabel: 'Siddhi Shaktis', trKey: 'bhupura.outer_band',  groupTrKey: 'bhupura.siddhi'  },
+  { id: 'ashtaMatrika', list: matrikaDeities, label: 'Middle Band', groupLabel: 'Ashta Matrikas', trKey: 'bhupura.middle_band', groupTrKey: 'bhupura.matrika' },
+  { id: 'mudraShakti',  list: mudraDeities,   label: 'Inner Band',  groupLabel: 'Mudra Shaktis',  trKey: 'bhupura.inner_band',  groupTrKey: 'bhupura.mudra'   },
 ]
 
 // ── NavArrow ──────────────────────────────────────────────────────────────────
@@ -599,8 +599,8 @@ export default function BhupuraView({
       {/* Filter strip — Explore mode only */}
       {!memorise && (
         <div className="flex items-center justify-center gap-2 mt-2">
-          {(isMobile ? BAND_CONFIG.map((b, i) => ({ id: b.id, label: b.label, groupLabel: b.groupLabel, active: bandStep === i, onSelect: () => setBandStep(i) }))
-                     : FILTERS.map(f => ({ id: f.id, label: f.label, active: activeFilter === f.id, onSelect: () => setActiveFilter(f.id) }))
+          {(isMobile ? BAND_CONFIG.map((b, i) => ({ id: b.id, label: tr(b.trKey) || b.label, groupLabel: tr(b.groupTrKey) || b.groupLabel, active: bandStep === i, onSelect: () => setBandStep(i) }))
+                     : FILTERS.map(f => ({ id: f.id, label: tr(f.trKey) || f.label, groupLabel: f.groupTrKey ? tr(f.groupTrKey) : null, active: activeFilter === f.id, onSelect: () => setActiveFilter(f.id) }))
           ).map(item => (
             <button
               key={item.id}
@@ -612,7 +612,6 @@ export default function BhupuraView({
                 color: item.active ? GOLD : 'rgba(201,168,76,0.40)',
                 fontWeight: item.active ? 600 : 400,
                 background: item.active ? 'rgba(201,168,76,0.12)' : 'transparent',
-
                 border: `1px solid ${item.active ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.20)'}`,
                 borderRadius: 20,
                 cursor: 'pointer',
