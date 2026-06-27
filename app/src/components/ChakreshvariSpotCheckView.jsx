@@ -192,7 +192,6 @@ export default function ChakreshvariSpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
-})
   tr               = k => k,
 }) {
   const [queue,   setQueue]   = useState(() => buildQueue())

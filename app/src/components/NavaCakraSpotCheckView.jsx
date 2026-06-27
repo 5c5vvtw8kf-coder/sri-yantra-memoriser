@@ -226,7 +226,6 @@ export default function NavaCakraSpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
-})
   tr               = k => k,
 }) {
   const [queue,   setQueue]   = useState(() => buildQueue(subFilter))

@@ -147,7 +147,6 @@ export default function NityaSpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
-})
   tr               = k => k,
 }) {
   const [queue,     setQueue]     = useState(() => buildQueue())

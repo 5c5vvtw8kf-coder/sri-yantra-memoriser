@@ -158,7 +158,6 @@ export default function GuravahSpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
-})
   tr               = k => k,
 }) {
   const [queue,     setQueue]     = useState(() => buildQueue(subFilter))

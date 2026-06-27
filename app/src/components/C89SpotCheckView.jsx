@@ -163,7 +163,6 @@ export default function C89SpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
-})
   tr               = k => k,
 }) {
   const [queue,   setQueue]   = useState(() => buildQueue(subFilter))

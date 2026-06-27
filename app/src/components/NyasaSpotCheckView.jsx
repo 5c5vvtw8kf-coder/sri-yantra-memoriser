@@ -170,7 +170,6 @@ export default function NyasaSpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
-})
   tr               = k => k,
 }) {
   const [queue,   setQueue]   = useState(() => shuffle(nyasaDeities.map(d => d.id)))
