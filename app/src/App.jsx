@@ -2240,6 +2240,22 @@ export default function App() {
   const [showLangMenu,         setShowLangMenu]         = useState(false)
   const [showScriptMenu,       setShowScriptMenu]       = useState(false)
   const [showMobileScriptMenu, setShowMobileScriptMenu] = useState(false)
+
+  // Close mobile top-bar dropdowns on any outside tap — iOS-safe (no covering div)
+  const mobileDropdownRef = useRef(null)
+  useEffect(() => {
+    if (!showLangMenu && !showMobileScriptMenu) return
+    const close = (e) => {
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(e.target)) {
+        setShowLangMenu(false)
+        setShowMobileScriptMenu(false)
+      }
+    }
+    // Small delay so the opening tap doesn't immediately fire the handler
+    const t = setTimeout(() => document.addEventListener('touchstart', close, { passive: true }), 50)
+    return () => { clearTimeout(t); document.removeEventListener('touchstart', close) }
+  }, [showLangMenu, showMobileScriptMenu])
+
   const tr = key => translate(uiLang !== 'en' ? uiLang : script, key)  // UI string helper — uses uiLang when set, else script (for IAST overrides)
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
@@ -3911,11 +3927,6 @@ export default function App() {
              onClick={() => setMobileNavOpen(false)} />
       )}
 
-      {/* ── Mobile dropdown backdrop — closes lang/script menus on outside tap */}
-      {(showLangMenu || showMobileScriptMenu) && (
-        <div className="md:hidden fixed inset-0" style={{ zIndex: 49 }}
-             onClick={() => { setShowLangMenu(false); setShowMobileScriptMenu(false) }} />
-      )}
 
       {/* ── Mobile top bar (portrait only) ──────────────────────────────── */}
       <div className="flex md:hidden flex-shrink-0 h-11 items-center px-3 gap-2 bg-surface-950 border-b border-surface-800 z-30">
@@ -3941,8 +3952,8 @@ export default function App() {
             return tab.navLabel
           })()}
         </span>
-        <div className="flex items-center gap-1.5 flex-shrink-0">
-          <div className="relative" style={{ zIndex: 50 }}>
+        <div ref={mobileDropdownRef} className="flex items-center gap-1.5 flex-shrink-0">
+          <div className="relative">
             <button
               onClick={() => { setShowLangMenu(m => !m); setShowMobileScriptMenu(false) }}
               title="UI Language"
@@ -3970,7 +3981,7 @@ export default function App() {
               </div>
             )}
           </div>
-          <div className="relative" style={{ zIndex: 50 }}>
+          <div className="relative">
             <button
               onClick={() => { setShowMobileScriptMenu(m => !m); setShowLangMenu(false) }}
               title="Script"
