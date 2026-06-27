@@ -142,8 +142,9 @@ function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter,
 
 function Tooltip({ x, y, label, fill, script, below = false }) {
   if (!label) return null
-  const fontSize = script === 'devanagari' ? 27 : script === 'english' ? 26 : 25
-  const h        = script === 'devanagari' ? 54 : script === 'english' ? 52 : 50
+  const isIndic  = script !== 'iast' && script !== 'english'
+  const fontSize = isIndic ? 30 : script === 'english' ? 26 : 25
+  const h        = isIndic ? 58 : script === 'english' ? 52 : 50
   const charW    = script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const w        = Math.max(60, label.length * charW + 18)
   const tx       = Math.min(Math.max(x, 25 + w / 2), 490 - w / 2)
@@ -455,7 +456,7 @@ export default function InnerView({
               padding: '6px 18px',
             }}>
               <span className={script !== 'english' ? 'iast' : ''}
-                    style={{ color: '#c9a84c', fontSize: '20px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
+                    style={{ color: '#c9a84c', fontSize: script === 'iast' || script === 'english' ? '20px' : '26px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
                 {displayName(revealedRef.current, script)}
               </span>
             </div>
