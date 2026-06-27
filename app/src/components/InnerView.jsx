@@ -301,29 +301,11 @@ export default function InnerView({
             const ax2 = x2 + N_RIGHT[0] * off
             const ay2 = y2 + N_RIGHT[1] * off
             return (
-              <g>
-                <line
-                  x1={ax1.toFixed(1)}
-                  y1={ay1.toFixed(1)}
-                  x2={ax2.toFixed(1)}
-                  y2={ay2.toFixed(1)}
-                  stroke={GREEN} strokeWidth={2.5} opacity="0.65"
-                  markerEnd="url(#flow-arrow-green-inner)" />
-                {(() => {
-                  const label = tr('inner.dir_waxing')
-                  const parts = label.split(' · ')
-                  const x = (ax1 + 12).toFixed(1)
-                  const y0 = ay1 + 28
-                  return (
-                    <text x={x} fontSize="15" fill={GOLD} opacity="0.75"
-                      fontFamily="'Gentium Plus', Georgia, serif" fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
-                      textAnchor="start">
-                      <tspan x={x} y={y0.toFixed(1)}>{parts[0]}</tspan>
-                      {parts[1] && <tspan x={x} y={(y0 + 16).toFixed(1)}>{parts[1]}</tspan>}
-                    </text>
-                  )
-                })()}
-              </g>
+              <line
+                x1={ax1.toFixed(1)} y1={ay1.toFixed(1)}
+                x2={ax2.toFixed(1)} y2={ay2.toFixed(1)}
+                stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+                markerEnd="url(#flow-arrow-green-inner)" />
             )
           })()}
 
@@ -339,29 +321,11 @@ export default function InnerView({
             const ax2 = x2 + N_LEFT[0] * off
             const ay2 = y2 + N_LEFT[1] * off
             return (
-              <g>
-                <line
-                  x1={ax1.toFixed(1)}
-                  y1={ay1.toFixed(1)}
-                  x2={ax2.toFixed(1)}
-                  y2={ay2.toFixed(1)}
-                  stroke={GREEN} strokeWidth={2.5} opacity="0.65"
-                  markerEnd="url(#flow-arrow-green-inner)" />
-                {(() => {
-                  const label = tr('inner.dir_waning')
-                  const parts = label.split(' · ')
-                  const x = (ax1 - 8).toFixed(1)
-                  const y0 = ay1 + 28
-                  return (
-                    <text x={x} fontSize="15" fill={GOLD} opacity="0.75"
-                      fontFamily="'Gentium Plus', Georgia, serif" fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
-                      textAnchor="end">
-                      <tspan x={x} y={y0.toFixed(1)}>{parts[0]}</tspan>
-                      {parts[1] && <tspan x={x} y={(y0 + 16).toFixed(1)}>{parts[1]}</tspan>}
-                    </text>
-                  )
-                })()}
-              </g>
+              <line
+                x1={ax1.toFixed(1)} y1={ay1.toFixed(1)}
+                x2={ax2.toFixed(1)} y2={ay2.toFixed(1)}
+                stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+                markerEnd="url(#flow-arrow-green-inner)" />
             )
           })()}
 
@@ -493,6 +457,18 @@ export default function InnerView({
         )}
 
       </div>
+
+      {/* ── Explore mode: direction badges (replaces clipped SVG text labels) ── */}
+      {!memorise && (
+        <div className="flex justify-between mt-1.5 px-1 select-none" style={{ fontSize: '11px' }}>
+          <span className={`text-gold-600 opacity-55 ${script !== 'english' ? 'iast' : ''}`}>
+            {tr('inner.dir_waning')}
+          </span>
+          <span className={`text-gold-600 opacity-55 ${script !== 'english' ? 'iast' : ''}`}>
+            {tr('inner.dir_waxing')}
+          </span>
+        </div>
+      )}
 
       {/* ── Waxing / Waning toggle — mobile Memorise only ── */}
       {memorise && (
