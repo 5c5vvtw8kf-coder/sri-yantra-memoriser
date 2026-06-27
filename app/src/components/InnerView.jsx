@@ -262,7 +262,7 @@ export default function InnerView({
 
       <div className="relative w-full flex-1 min-h-0 md:flex-none rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
-        <svg viewBox="25 195 440 410" xmlns="http://www.w3.org/2000/svg"
+        <svg viewBox="69 236 352 328" xmlns="http://www.w3.org/2000/svg"
              style={{ background: BG, display: 'block', width: '100%', height: '100%' }}
              aria-label="Tithi Nitya Devatas around DFT5">
 
@@ -314,7 +314,7 @@ export default function InnerView({
                   const x = (ax1 + 12).toFixed(1)
                   const y0 = ay1 + 28
                   return (
-                    <text x={x} fontSize="13" fill={GOLD} opacity="0.75"
+                    <text x={x} fontSize="15" fill={GOLD} opacity="0.75"
                       fontFamily="'Gentium Plus', Georgia, serif" fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
                       textAnchor="start">
                       <tspan x={x} y={y0.toFixed(1)}>{parts[0]}</tspan>
@@ -352,7 +352,7 @@ export default function InnerView({
                   const x = (ax1 - 8).toFixed(1)
                   const y0 = ay1 + 28
                   return (
-                    <text x={x} fontSize="13" fill={GOLD} opacity="0.75"
+                    <text x={x} fontSize="15" fill={GOLD} opacity="0.75"
                       fontFamily="'Gentium Plus', Georgia, serif" fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
                       textAnchor="end">
                       <tspan x={x} y={y0.toFixed(1)}>{parts[0]}</tspan>
