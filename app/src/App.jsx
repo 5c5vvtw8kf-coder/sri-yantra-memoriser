@@ -696,7 +696,7 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
           onClick={() => onNavigate(targetTab)}
           className="mt-3 w-full text-left text-xs text-gold-500 hover:text-gold-300 py-2 px-3 border border-gold-800/40 hover:border-gold-700/60 rounded-lg transition-colors bg-gold-900/10 hover:bg-gold-900/20"
         >
-          Explore Circuit {circuitNumber} →
+          {uiLang === 'en' ? `Explore ${ordinal(circuitNumber)} Enclosure →` : `${tr('mode.explore')} ${circuitLabel(circuitNumber, script)} →`}
         </button>
       )}
     </div>
@@ -4222,6 +4222,7 @@ export default function App() {
                                           flash={nyasaFlash}
                                           onNavigate={handleNavigateToMemorise}
                                           highlightId={nyasaHighlightId}
+                                          tr={tr}
                                         />}
             {activeTab === 'inner'   && <InnerView
                                           script={script}
@@ -4287,6 +4288,8 @@ export default function App() {
                                           onNavigate={handleNavigateToMemorise}
                                           highlightId={c2HighlightId}
                                           fillAll={circuitFillAll}
+                                          tr={tr}
+                                          uiLang={uiLang}
                                         />}
             {activeTab === 'c3'      && <C3View
                                           script={script}
@@ -4302,6 +4305,8 @@ export default function App() {
                                           onNavigate={handleNavigateToMemorise}
                                           highlightId={c3HighlightId}
                                           fillAll={circuitFillAll}
+                                          tr={tr}
+                                          uiLang={uiLang}
                                         />}
             {activeTab === 'c4'      && <C4View
                                           script={script}
@@ -4317,6 +4322,8 @@ export default function App() {
                                           onNavigate={handleNavigateToMemorise}
                                           highlightId={c4HighlightId}
                                           fillAll={circuitFillAll}
+                                          tr={tr}
+                                          uiLang={uiLang}
                                         />}
             {activeTab === 'c5'      && <C5View
                                           script={script}
@@ -4332,6 +4339,8 @@ export default function App() {
                                           onNavigate={handleNavigateToMemorise}
                                           highlightId={c5HighlightId}
                                           fillAll={circuitFillAll}
+                                          tr={tr}
+                                          uiLang={uiLang}
                                         />}
             {activeTab === 'c6'      && <C6View
                                           script={script}
@@ -4347,6 +4356,8 @@ export default function App() {
                                           onNavigate={handleNavigateToMemorise}
                                           highlightId={c6HighlightId}
                                           fillAll={circuitFillAll}
+                                          tr={tr}
+                                          uiLang={uiLang}
                                         />}
             {activeTab === 'c7'      && <C7View
                                           script={script}
@@ -4362,6 +4373,8 @@ export default function App() {
                                           onNavigate={handleNavigateToMemorise}
                                           highlightId={c7HighlightId}
                                           fillAll={circuitFillAll}
+                                          tr={tr}
+                                          uiLang={uiLang}
                                         />}
             {activeTab === 'c8' && (
               <C8View
@@ -4379,6 +4392,7 @@ export default function App() {
                 highlightId={c8HighlightId}
                 fillAll={circuitFillAll}
                 done={c8Memorise && c8CurrentSeq > 9}
+                tr={tr}
               />
             )}
             {activeTab === 'c9' && (
@@ -4396,6 +4410,7 @@ export default function App() {
                 onNavigate={handleNavigateToMemorise}
                 fillAll={circuitFillAll}
                 done={c9Memorise && c9CurrentSeq > 3}
+                tr={tr}
               />
             )}
             {activeTab === 'chakreshvari' && (
@@ -4412,6 +4427,7 @@ export default function App() {
                 flash={ncFlash}
                 onNavigate={handleNavigateToMemorise}
                 listHighlightCircuit={ncHighlightCircuit}
+                tr={tr}
               />
             )}
             {activeTab === 'closing' && (
@@ -4717,8 +4733,8 @@ export default function App() {
                   const correct = Object.values(nyasaPrevResults).filter(v => v === 'correct').length
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/6 memorised</span>
-                      {6 - correct > 0 && <span className="text-muted"> · {6 - correct} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(6,uiLang)} {tr('misc.memorised')}</span>
+                      {6 - correct > 0 && <span className="text-muted"> · {localNum(6 - correct,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -4795,8 +4811,8 @@ export default function App() {
                   const correct = Object.values(innerPrevResults).filter(v => v === 'correct').length
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/16 memorised</span>
-                      {16 - correct > 0 && <span className="text-muted"> · {16 - correct} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(16,uiLang)} {tr('misc.memorised')}</span>
+                      {16 - correct > 0 && <span className="text-muted"> · {localNum(16 - correct,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -4834,7 +4850,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -4885,8 +4901,8 @@ export default function App() {
                   const correct = Object.values(guravaPrevResults).filter(v => v === 'correct').length
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/19 memorised</span>
-                      {19 - correct > 0 && <span className="text-muted"> · {19 - correct} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(19,uiLang)} {tr('misc.memorised')}</span>
+                      {19 - correct > 0 && <span className="text-muted"> · {localNum(19 - correct,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -4927,7 +4943,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -4994,8 +5010,8 @@ export default function App() {
                   const correct = Object.values(bhupuraPrevResults).filter(v => v === 'correct').length
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/30 memorised</span>
-                      {30 - correct > 0 && <span className="text-muted"> · {30 - correct} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(30,uiLang)} {tr('misc.memorised')}</span>
+                      {30 - correct > 0 && <span className="text-muted"> · {localNum(30 - correct,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5038,7 +5054,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5110,8 +5126,8 @@ export default function App() {
                   const skipped = 18 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/18 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(18,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5151,7 +5167,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5221,8 +5237,8 @@ export default function App() {
                   const skipped = 16 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/16 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(16,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5259,7 +5275,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5329,8 +5345,8 @@ export default function App() {
                   const skipped = 12 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/12 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(12,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5368,7 +5384,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5438,8 +5454,8 @@ export default function App() {
                   const skipped = 12 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/12 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(12,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5477,7 +5493,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5547,8 +5563,8 @@ export default function App() {
                   const skipped = 10 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/10 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(10,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5586,7 +5602,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5656,8 +5672,8 @@ export default function App() {
                   const skipped = 9 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/9 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(9,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5700,7 +5716,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5759,7 +5775,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5829,8 +5845,8 @@ export default function App() {
                   const skipped = 9 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/9 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(9,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5845,7 +5861,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -5915,8 +5931,8 @@ export default function App() {
                   const skipped = 10 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/10 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(10,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -5931,7 +5947,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}
@@ -6001,8 +6017,8 @@ export default function App() {
                   const skipped = 10 - correct
                   return (
                     <p className="text-xs">
-                      <span className="text-red-400">{correct}/10 memorised</span>
-                      {skipped > 0 && <span className="text-muted"> · {skipped} not memorised</span>}
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(10,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
                     </p>
                   )
                 })()}
@@ -6040,7 +6056,7 @@ export default function App() {
                 </div>
                 <p className="text-xs">
                   <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {sessionStats.rounds} round{sessionStats.rounds !== 1 ? 's' : ''}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
                 </p>
               </div>
             )}

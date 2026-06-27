@@ -394,7 +394,7 @@ export default function GuravaView({
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === GURU_TOTAL
                   ? 'All memorised — well done!'
-                  : 'Round complete.'}
+                  : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
                 {Object.values(results).filter(v => v === 'correct').length}/{GURU_TOTAL} memorised

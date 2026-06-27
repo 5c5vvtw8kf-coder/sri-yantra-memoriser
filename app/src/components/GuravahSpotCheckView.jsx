@@ -158,6 +158,8 @@ export default function GuravahSpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
+})
+  tr               = k => k,
 }) {
   const [queue,     setQueue]     = useState(() => buildQueue(subFilter))
   const [idx,       setIdx]       = useState(0)
@@ -398,7 +400,7 @@ export default function GuravahSpotCheckView({
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === total
                   ? 'All memorised — well done!'
-                  : 'Round complete.'}
+                  : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
                 {Object.values(results).filter(v => v === 'correct').length}/{total} memorised

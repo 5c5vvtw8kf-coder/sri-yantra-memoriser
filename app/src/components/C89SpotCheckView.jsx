@@ -135,8 +135,8 @@ function CompletionOverlay({ correct, total, onRestart, sectionLabel }) {
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0
   return (
     <div className="flex flex-col items-center gap-5 py-10 text-center">
-      <p className="text-gold-400 text-lg">{sectionLabel || 'Round complete'}</p>
-      <p className="text-cream text-sm">Round complete</p>
+      <p className="text-gold-400 text-lg">{sectionLabel || tr('spot.round_complete')}</p>
+      {tr('spot.round_complete')}
       <div>
         <p className="text-4xl font-medium">
           <span className="text-red-400">{correct}</span>
@@ -163,6 +163,8 @@ export default function C89SpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
+})
+  tr               = k => k,
 }) {
   const [queue,   setQueue]   = useState(() => buildQueue(subFilter))
   const [idx,     setIdx]     = useState(0)

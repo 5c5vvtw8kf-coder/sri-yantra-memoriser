@@ -163,6 +163,8 @@ export default function C8View({
   flash = false,
   onNavigate,
   done: doneProp = null,
+  tr               = k => k,
+  uiLang           = 'en',
 }) {
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)
@@ -339,8 +341,8 @@ export default function C8View({
               <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">sarvasiddhiprada cakra</p>
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === TOTAL
-                  ? 'Memorised — well done!'
-                  : 'Round complete.'}
+                  ? tr('misc.all_memorised')
+                  : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
                 {Object.values(results).filter(v => v === 'correct').length}/{TOTAL} memorised

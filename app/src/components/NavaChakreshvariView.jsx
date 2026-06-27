@@ -318,6 +318,8 @@ export default function NavaChakreshvariView({
   onToggleResult,
   flash = false,
   onNavigate,
+  tr               = k => k,
+  uiLang           = 'en',
 }) {
   const [exploreStep,        setExploreStep]        = useState(1)
   const [lastTappedCircuit,  setLastTappedCircuit]  = useState(null)
@@ -566,7 +568,7 @@ export default function NavaChakreshvariView({
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === TOTAL
                   ? 'All memorised — well done!'
-                  : 'Round complete.'}
+                  : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
                 {Object.values(results).filter(v => v === 'correct').length}/{TOTAL} memorised

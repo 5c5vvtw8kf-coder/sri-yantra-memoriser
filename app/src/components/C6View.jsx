@@ -129,24 +129,38 @@ function Tooltip({ x, y, label, script, seq, isMobile }) {
   )
 }
 
-function CompletionPanel({ results, onRestart, onNavigate }) {
+
+const NUMERAL_DIGITS_CP = {
+  hi: ['०','१','२','३','४','५','६','७','८','९'],
+  kn: ['೦','೧','೨','೩','೪','೫','೬','೭','೮','೯'],
+  ta: ['௦','௧','௨','௩','௪','௫','௬','௭','௮','௯'],
+  te: ['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'],
+  ml: ['൦','൧','൨','൩','൪','൫','൬','൭','൮','൯'],
+}
+function localNumCP(n, lang) {
+  const d = NUMERAL_DIGITS_CP[lang]
+  if (!d) return n
+  return String(n).replace(/[0-9]/g, x => d[+x])
+}
+
+function CompletionPanel({ results, onRestart, onNavigate, tr = k => k, uiLang = 'en' }) {
   const correct = Object.values(results).filter(v => v === 'correct').length
   const skipped = 12 - correct
   return (
     <div className="mt-4 rounded-xl border border-surface-700 bg-surface-900/80 p-5 text-center">
-      <p className="text-gold-400 text-base font-medium mb-1">Round complete</p>
+      <p className="text-gold-400 text-base font-medium mb-1">{Object.values(results).filter(v => v === 'correct').length === 12 ? tr('misc.all_memorised') : tr('spot.round_complete')}</p>
       <p className="text-cream text-sm mb-4">
-        <span className="text-red-400">{correct}/12 memorised</span>
-        {skipped > 0 && <span className="text-muted"> · {skipped} to review</span>}
+        <span className="text-red-400">{localNumCP(correct,uiLang)}/{localNumCP(12,uiLang)} {tr('misc.memorised')}</span>
+        {skipped > 0 && <span className="text-muted"> · {localNumCP(skipped,uiLang)} {tr('score.not_memorised')}</span>}
       </p>
       <div className="flex gap-3 justify-center">
         <button onClick={onRestart}
           className="px-4 py-2 rounded-lg bg-surface-700 hover:bg-surface-600 text-cream text-sm transition-colors">
-          Try again
+          {tr('misc.try_again')}
         </button>
         <button onClick={() => onNavigate('c7')}
           className="px-4 py-2 rounded-lg bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 text-sm transition-colors">
-          Next →
+          {tr('misc.next')}
         </button>
       </div>
     </div>
@@ -167,6 +181,8 @@ export default function C6View({
   onToggleResult  = () => {},
   flash           = false,
   onNavigate      = () => {},
+  tr               = k => k,
+  uiLang           = \'en\',
 }) {
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)

@@ -601,6 +601,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
         sectionLabel={getSectionLabel(filter, subFilter, tr)}
+        tr={tr}
       />
     )
   }
@@ -613,6 +614,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
         sectionLabel={getSectionLabel(filter, subFilter, tr)}
+        tr={tr}
       />
     )
   }
@@ -624,6 +626,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
         sectionLabel={getSectionLabel(filter, subFilter, tr)}
+        tr={tr}
       />
     )
   }
@@ -635,6 +638,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
         sectionLabel={getSectionLabel(filter, subFilter, tr)}
+        tr={tr}
       />
     )
   }
@@ -647,6 +651,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
         sectionLabel={getSectionLabel(filter, subFilter, tr)}
+        tr={tr}
       />
     )
   }
@@ -658,6 +663,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
         onRegisterSkip={onRegisterSkip}
         onUpdateStats={onUpdateStats}
         sectionLabel={getSectionLabel(filter, subFilter, tr)}
+        tr={tr}
       />
     )
   }

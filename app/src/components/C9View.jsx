@@ -82,6 +82,8 @@ export default function C9View({
   flash = false,
   onNavigate,
   done: doneProp = null,
+  tr               = k => k,
+  uiLang           = 'en',
 }) {
   const [selected,       setSelected]       = useState(false)
   const [hovered,        setHovered]        = useState(false)
@@ -263,7 +265,7 @@ export default function C9View({
                  style={{ maxWidth: '15rem', margin: '0 1rem' }}>
               <p className="iast text-gold-500 text-xs font-mono uppercase tracking-widest">sarvānandamaya cakra</p>
               <p className="text-cream text-sm">
-                {isCorrect ? 'Memorised — well done!' : 'Round complete.'}
+                {isCorrect ? tr('misc.all_memorised') : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
                 {isCorrect ? '1/1' : '0/1'} memorised

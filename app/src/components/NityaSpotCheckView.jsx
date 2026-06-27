@@ -147,6 +147,8 @@ export default function NityaSpotCheckView({
   onRegisterSkip,
   onUpdateStats,
   sectionLabel,
+})
+  tr               = k => k,
 }) {
   const [queue,     setQueue]     = useState(() => buildQueue())
   const [idx,       setIdx]       = useState(0)
@@ -371,8 +373,8 @@ export default function NityaSpotCheckView({
               <p className="text-gold-500 text-base font-medium">{sectionLabel || 'Tithi Nitya Deities'}</p>
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === total
-                  ? 'Memorised — well done!'
-                  : 'Round complete.'}
+                  ? tr('misc.all_memorised')
+                  : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
                 {Object.values(results).filter(v => v === 'correct').length}/{total} memorised

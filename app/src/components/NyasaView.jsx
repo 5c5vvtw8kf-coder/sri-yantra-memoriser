@@ -257,6 +257,8 @@ export default function NyasaView({
   onToggleResult,
   flash            = false,
   onNavigate,
+  tr               = k => k,
+  uiLang           = 'en',
 }) {
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)     // { id, x, y }
@@ -532,7 +534,7 @@ export default function NyasaView({
               <p className="text-cream text-sm">
                 {Object.values(results).filter(v => v === 'correct').length === 6
                   ? 'All memorised — well done!'
-                  : 'Round complete.'}
+                  : tr('spot.round_complete')}
               </p>
               <p className="text-muted text-xs">
                 {Object.values(results).filter(v => v === 'correct').length}/6 memorised
