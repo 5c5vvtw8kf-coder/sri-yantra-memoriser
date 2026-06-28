@@ -4263,8 +4263,8 @@ export default function App() {
             onTouchEnd={handleSwipeEnd}>
 
         {/* Scrollable content area */}
-        <div className="flex-1 min-h-0 flex flex-col items-center justify-start overflow-y-auto pt-2 relative">
-          <div className="w-full h-full flex flex-col md:block md:h-auto" style={{ maxWidth: 'min(100%, calc(100dvh - 120px))' }}>
+        <div className={`flex-1 min-h-0 flex flex-col items-center justify-start pt-2 relative ${['memomap', 'activity-log'].includes(activeTab) ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+          <div className={`w-full flex flex-col md:block md:h-auto ${['memomap', 'activity-log'].includes(activeTab) ? '' : 'h-full'}`} style={{ maxWidth: 'min(100%, calc(100dvh - 120px))' }}>
             {activeTab === 'yantra'  && (
               <div className="w-full p-4">
                 <div
