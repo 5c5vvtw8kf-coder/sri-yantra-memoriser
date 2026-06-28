@@ -3118,6 +3118,8 @@ export default function App() {
     closing:      tr('hint.closing'),
   }
   const INSTR_STYLE = { fontSize: '0.75rem', fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '0.03em' }
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+  // Desktop (mouse) memorise instructions
   const memoInstr = (
     <span className="text-muted" style={INSTR_STYLE}>
       {tr('instr.hover_reveal')} ·{' '}
@@ -3126,20 +3128,28 @@ export default function App() {
       {tr('instr.right_click_toggle')}
     </span>
   )
+  // Touch (iPad) memorise instructions — same wording as mobile strip
+  const memoInstrTouch = (
+    <span className="text-center flex flex-col gap-0.5 text-muted" style={INSTR_STYLE}>
+      <span>{tr('instr.tap_reveal')} · <span className="text-red-400">{tr('instr.tap_again_correct')}</span></span>
+      <span><span className="text-gold-400">{tr('instr.dbltap_wrong')}</span> · <span className="text-gold-400">{tr('instr.dbltap_toggle')}</span></span>
+    </span>
+  )
   const footerInstruction = !EXPLORE_TABS.has(activeTab) ? null
     : isInMemoriseMode
       ? activeTab === 'chakreshvari'
         ? <span className="text-center flex flex-col gap-0.5" style={INSTR_STYLE}>
             <span className="text-muted">Proceed from the outer Bhūpura to the inner Bindu</span>
             <span className="text-muted">
-              {tr('instr.hover_reveal')} ·{' '}
-              <span className="text-red-400">click</span> = {tr('instr.click_correct').replace('click = ', '')} ·{' '}
-              <span className="text-gold-400">dbl-click</span> = {tr('instr.dblclick_wrong').replace('dbl-click = ', '')}
+              {isTouchDevice
+                ? <>{tr('instr.tap_reveal')} · <span className="text-red-400">{tr('instr.tap_again_correct')}</span> · <span className="text-gold-400">{tr('instr.dbltap_wrong')}</span></>
+                : <>{tr('instr.hover_reveal')} · <span className="text-red-400">click</span> = {tr('instr.click_correct').replace('click = ', '')} · <span className="text-gold-400">dbl-click</span> = {tr('instr.dblclick_wrong').replace('dbl-click = ', '')}</>
+              }
             </span>
           </span>
         : activeTab === 'spotcheck'
-          ? <span className="hidden md:inline">{memoInstr}</span>
-          : memoInstr
+          ? <span className="hidden md:inline">{isTouchDevice ? memoInstrTouch : memoInstr}</span>
+          : isTouchDevice ? memoInstrTouch : memoInstr
       : null
 
   // ── Right panel ────────────────────────────────────────────────────────────
@@ -4688,6 +4698,13 @@ export default function App() {
             </div>
           )}
         </div>
+
+        {/* ── Desktop/iPad memorise instructions (hidden on mobile — mobile has its own strip) */}
+        {footerInstruction && (
+          <div className="hidden md:flex flex-shrink-0 justify-center items-center px-4 py-2 border-t border-surface-800">
+            {footerInstruction}
+          </div>
+        )}
 
         {/* ── Mobile Explore / Memorise bar ────────────────────────────────── */}
         {mobileCtrl && (
