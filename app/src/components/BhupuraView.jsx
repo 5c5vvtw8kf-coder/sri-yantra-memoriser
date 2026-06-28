@@ -296,14 +296,18 @@ export default function BhupuraView({
     const newId = selectedId === id ? null : id
     setSelectedId(newId)
     setHoveredDot(null)
-    if (newId) {
-      const pos  = bhupuraPos(deityById[newId])
-      const key  = pos ? `${pos.x},${pos.y}` : null
-      const group = (key ? (_posKeyDeities[key] ?? []) : [deityById[newId]])
-        .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
-      onDeitySelect(group.length > 1 ? group : group[0])
+    if (!newId) { onDeitySelect(null); return }
+    const deity = deityById[newId]
+    if (!deity)  { onDeitySelect(null); return }
+    // Co-location: if siblings share this dot (e.g. laghimā + garimā), show both
+    const pos      = bhupuraPos(deity)
+    const key      = pos ? `${pos.x},${pos.y}` : null
+    const siblings = key ? _posKeyDeities[key] : null
+    if (siblings && siblings.length > 1) {
+      const sorted = [...siblings].sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      onDeitySelect(sorted)
     } else {
-      onDeitySelect(null)
+      onDeitySelect(deity)
     }
   }
 
