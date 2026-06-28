@@ -3980,17 +3980,17 @@ export default function App() {
         >
           ☰
         </button>
-        <span className={`flex-1 text-sm font-medium truncate ${script !== 'devanagari' ? 'iast' : ''} text-gold-400`}>
+        <span className={`flex-1 text-sm font-medium truncate ${uiLang === 'en' ? 'iast' : ''} text-gold-400`}>
           {(() => {
             const tab = TABS.find(t => t.id === activeTab)
             if (!tab) return ''
             if (tab.trKey) return tr(tab.trKey)
-            if (script === 'devanagari') return tab.navLabelDev || tab.navLabel
-            if (script === 'telugu')     return tab.navLabelTe  || tab.navLabel
-            if (script === 'tamil')      return tab.navLabelTa  || tab.navLabel
-            if (script === 'kannada')    return tab.navLabelKn  || tab.navLabel
-            if (script === 'malayalam')  return tab.navLabelMl  || tab.navLabel
-            if (script === 'english')    return iastToEnglish(tab.navLabelEn || tab.navLabel)
+            if (uiLang === 'hi') return tab.navLabelDev || tab.navLabel
+            if (uiLang === 'te') return tab.navLabelTe  || tab.navLabel
+            if (uiLang === 'ta') return tab.navLabelTa  || tab.navLabel
+            if (uiLang === 'kn') return tab.navLabelKn  || tab.navLabel
+            if (uiLang === 'ml') return tab.navLabelMl  || tab.navLabel
+            if (uiLang === 'en') return tab.navLabelEn  || tab.navLabel
             return tab.navLabel
           })()}
         </span>
@@ -4174,12 +4174,12 @@ export default function App() {
                 >
                   <span className="flex-1 min-w-0">
                     {tab.trKey ? tr(tab.trKey)
-                      : script === 'devanagari' ? (tab.navLabelDev || tab.navLabel)
-                      : script === 'telugu'    ? (tab.navLabelTe  || tab.navLabel)
-                      : script === 'tamil'     ? (tab.navLabelTa  || tab.navLabel)
-                      : script === 'kannada'   ? (tab.navLabelKn  || tab.navLabel)
-                      : script === 'malayalam' ? (tab.navLabelMl  || tab.navLabel)
-                      : script === 'english'   ? iastToEnglish(tab.navLabelEn || tab.navLabel)
+                      : uiLang === 'hi' ? (tab.navLabelDev || tab.navLabel)
+                      : uiLang === 'te' ? (tab.navLabelTe  || tab.navLabel)
+                      : uiLang === 'ta' ? (tab.navLabelTa  || tab.navLabel)
+                      : uiLang === 'kn' ? (tab.navLabelKn  || tab.navLabel)
+                      : uiLang === 'ml' ? (tab.navLabelMl  || tab.navLabel)
+                      : uiLang === 'en' ? (tab.navLabelEn  || tab.navLabel)
                       : tab.navLabel}
                   </span>
                   {dot && (
@@ -4765,7 +4765,7 @@ export default function App() {
           >
             <span className="flex items-center gap-1.5 min-w-0">
               <span className="flex-shrink-0 text-base leading-none">←</span>
-              <span className="truncate">{prevTab ? (prevTab.trKey ? tr(prevTab.trKey) : script === 'devanagari' ? (prevTab.navLabelDev || prevTab.footerLabel) : script === 'telugu' ? (prevTab.navLabelTe || prevTab.footerLabel) : script === 'tamil' ? (prevTab.navLabelTa || prevTab.footerLabel) : script === 'kannada' ? (prevTab.navLabelKn || prevTab.footerLabel) : script === 'malayalam' ? (prevTab.navLabelMl || prevTab.footerLabel) : script === 'english' ? iastToEnglish(prevTab.navLabelEn || prevTab.footerLabel) : prevTab.footerLabel) : ''}</span>
+              <span className="truncate">{prevTab ? (prevTab.trKey ? tr(prevTab.trKey) : uiLang === 'hi' ? (prevTab.navLabelDev || prevTab.footerLabel) : uiLang === 'te' ? (prevTab.navLabelTe || prevTab.footerLabel) : uiLang === 'ta' ? (prevTab.navLabelTa || prevTab.footerLabel) : uiLang === 'kn' ? (prevTab.navLabelKn || prevTab.footerLabel) : uiLang === 'ml' ? (prevTab.navLabelMl || prevTab.footerLabel) : uiLang === 'en' ? (prevTab.navLabelEn || prevTab.footerLabel) : prevTab.footerLabel) : ''}</span>
             </span>
           </button>
           {/* Centre: section title — iPad only via CSS class */}
@@ -4773,15 +4773,15 @@ export default function App() {
             const tab = TABS.find(t => t.id === activeTab)
             if (!tab) return null
             const label = tab.trKey ? tr(tab.trKey)
-              : script === 'devanagari' ? (tab.navLabelDev || tab.navLabel)
-              : script === 'telugu'     ? (tab.navLabelTe  || tab.navLabel)
-              : script === 'tamil'      ? (tab.navLabelTa  || tab.navLabel)
-              : script === 'kannada'    ? (tab.navLabelKn  || tab.navLabel)
-              : script === 'malayalam'  ? (tab.navLabelMl  || tab.navLabel)
-              : script === 'english'    ? iastToEnglish(tab.navLabelEn || tab.navLabel)
+              : uiLang === 'hi' ? (tab.navLabelDev || tab.navLabel)
+              : uiLang === 'te' ? (tab.navLabelTe  || tab.navLabel)
+              : uiLang === 'ta' ? (tab.navLabelTa  || tab.navLabel)
+              : uiLang === 'kn' ? (tab.navLabelKn  || tab.navLabel)
+              : uiLang === 'ml' ? (tab.navLabelMl  || tab.navLabel)
+              : uiLang === 'en' ? (tab.navLabelEn  || tab.navLabel)
               : tab.navLabel
             return (
-              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 ${script === 'english' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>
+              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 ${uiLang === 'en' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>
                 {label}
               </span>
             )
@@ -4795,7 +4795,7 @@ export default function App() {
               transition-colors overflow-hidden"
           >
             <span className="flex items-center justify-end gap-1.5 min-w-0">
-              <span className="truncate">{nextTab ? (nextTab.trKey ? tr(nextTab.trKey) : script === 'devanagari' ? (nextTab.navLabelDev || nextTab.footerLabel) : script === 'telugu' ? (nextTab.navLabelTe || nextTab.footerLabel) : script === 'tamil' ? (nextTab.navLabelTa || nextTab.footerLabel) : script === 'kannada' ? (nextTab.navLabelKn || nextTab.footerLabel) : script === 'malayalam' ? (nextTab.navLabelMl || nextTab.footerLabel) : script === 'english' ? iastToEnglish(nextTab.navLabelEn || nextTab.footerLabel) : nextTab.footerLabel) : ''}</span>
+              <span className="truncate">{nextTab ? (nextTab.trKey ? tr(nextTab.trKey) : uiLang === 'hi' ? (nextTab.navLabelDev || nextTab.footerLabel) : uiLang === 'te' ? (nextTab.navLabelTe || nextTab.footerLabel) : uiLang === 'ta' ? (nextTab.navLabelTa || nextTab.footerLabel) : uiLang === 'kn' ? (nextTab.navLabelKn || nextTab.footerLabel) : uiLang === 'ml' ? (nextTab.navLabelMl || nextTab.footerLabel) : uiLang === 'en' ? (nextTab.navLabelEn || nextTab.footerLabel) : nextTab.footerLabel) : ''}</span>
               <span className="flex-shrink-0 text-base leading-none">→</span>
             </span>
           </button>
@@ -6130,75 +6130,4 @@ export default function App() {
                       />
                     </div>
                     <span className="text-xs text-muted font-mono whitespace-nowrap">
-                      {c3CurrentSeq - 1} / 8
-                      {correctCount > 0 && (
-                        <span className="text-red-400"> · {correctCount}✓</span>
-                      )}
-                    </span>
-                  </div>
-                </div>
-              )
-            })()}
-
-            {c3PrevResults !== null && (
-              <div className="pt-1 border-t border-surface-700 space-y-1">
-                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
-                {(() => {
-                  const correct = Object.values(c3PrevResults).filter(v => v === 'correct').length
-                  const skipped = 10 - correct
-                  return (
-                    <p className="text-xs">
-                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(10,uiLang)} {tr('misc.memorised')}</span>
-                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
-                    </p>
-                  )
-                })()}
-              </div>
-            )}
-
-            {c3PrevResults !== null && (() => {
-              const notMem = getNotMemorisedNames(3, c3PrevResults, 10, script)
-              if (notMem.length === 0) return null
-              return (
-                <div className="pt-1 border-t border-surface-700 space-y-1">
-                  <button className="flex items-center justify-between w-full text-left"
-                    onClick={() => setShowErrors(e => !e)}>
-                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
-                      {tr('score.not_memorised')} ({notMem.length})
-                    </span>
-                    <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
-                  </button>
-                  {showErrors && (
-                    <ul className="space-y-0.5 pt-0.5">
-                      {notMem.map((name, i) => (
-                        <li key={i} className={`text-xs leading-snug ${script !== 'english' ? 'iast ' : ''}text-amber-300`}>{name}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              )
-            })()}
-
-            {sessionStats.rounds > 0 && (
-              <div className="pt-1 border-t border-surface-700 space-y-1">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
-                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
-                </div>
-                <p className="text-xs">
-                  <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
-                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
-                </p>
-              </div>
-            )}
-
-          </div>
-        )}
-
-      </aside>
-
-      </div>{/* end 3-column content row */}
-
-    </div>
-  )
-}
+      
