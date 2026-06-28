@@ -413,7 +413,7 @@ export default function BhupuraView({
             preserveAspectRatio="xMidYMin meet"
             xmlns="http://www.w3.org/2000/svg"
             className="absolute inset-0 w-full h-full"
-            style={{ background: 'transparent' }}
+            style={{ background: 'transparent', touchAction: 'manipulation' }}
             aria-label="Bhūpura deity positions"
           >
             <defs>
