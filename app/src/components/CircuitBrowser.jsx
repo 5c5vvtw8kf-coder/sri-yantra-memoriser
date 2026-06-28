@@ -199,7 +199,7 @@ function SecrecyBar({ selectedSection }) {
 const NITYA_DEITIES = [
   { iast: 'kāmēśvarī', dev: 'कामेश्वरी',      translation: 'Goddess of Desire' },
   { iast: 'bhagamālinī', dev: 'भगमालिनी',    translation: 'Garlanded with Splendour' },
-  { iast: 'nityaklinnē', dev: 'नित्यक्लिन्ने',    translation: 'Ever Moist' },
+  { iast: 'nityaklinnē', dev: 'नित्यक्लिन्ने',    translation: 'Ever Moist (with Mercy)' },
   { iast: 'bhēruṇḍē', dev: 'भेरुण्डे',      translation: 'The Terrible' },
   { iast: 'vahnivāsinī', dev: 'वह्निवासिनी',    translation: 'Dwelling in Fire' },
   { iast: 'mahāvajrēśvarī', dev: 'महावज्रेश्वरी', translation: 'Great Goddess of the Vajra' },
