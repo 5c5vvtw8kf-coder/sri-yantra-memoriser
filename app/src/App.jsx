@@ -3275,6 +3275,16 @@ export default function App() {
       <div className="px-4 py-3 space-y-3">
         <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('spot.title')}</p>
 
+        {/* Collapse left panel hint — shown when nav is expanded */}
+        {!navCollapsed && (
+          <button
+            onClick={() => setNavCollapsed(true)}
+            className="w-full py-1 rounded bg-surface-800 text-xs text-muted hover:text-cream hover:bg-surface-700 transition-colors font-mono text-left px-2"
+          >
+            {tr('nav.collapse_enlarge')}
+          </button>
+        )}
+
         {/* Filter buttons */}
         <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
         <div className="flex flex-wrap gap-1">
