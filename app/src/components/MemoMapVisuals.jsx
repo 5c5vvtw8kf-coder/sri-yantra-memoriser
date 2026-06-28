@@ -775,12 +775,14 @@ export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => 
     )
   }
 
-  // Default stacked layout (unchanged)
+  // Default stacked layout — cap map width so the 1:1 SVG fits viewport height on desktop
   return (
     <div className="space-y-3">
       {nav}
       <StatusCounts counts={counts} tr={tr} />
-      {mapPanel}
+      <div style={{ maxWidth: 'calc(100dvh - 340px)', margin: '0 auto' }}>
+        {mapPanel}
+      </div>
       <Legend tr={tr} />
     </div>
   )
