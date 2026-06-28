@@ -153,7 +153,7 @@ const GROUP_LABEL = {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
+function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, onClick, onTouchEnd, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
     <circle
@@ -164,8 +164,8 @@ function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, on
       strokeWidth={0}
       opacity={opacity ?? 1}
       style={{ cursor: isInteractive ? 'pointer' : 'default', transition: 'opacity 0.2s' }}
+      onTouchEnd={onTouchEnd}
       onClick={onClick}
-      onTouchEnd={onClick ? (e) => { e.preventDefault(); onClick() } : undefined}
       onContextMenu={onContextMenu}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -260,7 +260,7 @@ export default function BhupuraView({
   // Shared
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [isMobile,      setIsMobile]      = useState(() => window.innerWidth < 768)
-  const isTouch = useRef(window.matchMedia('(pointer: coarse)').matches).current
+  const touchFiredRef = useRef(false)   // ghost-click guard: suppress onClick after onTouchEnd
   const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
   const lastTapRef     = useRef({ seq: null, time: 0 })
@@ -296,7 +296,15 @@ export default function BhupuraView({
     const newId = selectedId === id ? null : id
     setSelectedId(newId)
     setHoveredDot(null)
-    onDeitySelect(newId ? deityById[newId] : null)
+    if (newId) {
+      const pos  = bhupuraPos(deityById[newId])
+      const key  = pos ? `${pos.x},${pos.y}` : null
+      const group = (key ? (_posKeyDeities[key] ?? []) : [deityById[newId]])
+        .sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+      onDeitySelect(group.length > 1 ? group : group[0])
+    } else {
+      onDeitySelect(null)
+    }
   }
 
   // Mobile: every tap always sets lastTappedId (no toggle/deselect). This ensures the
@@ -472,7 +480,15 @@ export default function BhupuraView({
                       highlighted={!selectedId && highlightId === d.id}
                       isHovered={hoveredDot?.id === d.id}
                       opacity={1}
-                      onClick={() => isTouch ? tap(d.id) : toggle(d.id)}
+                      onTouchEnd={() => {
+                        touchFiredRef.current = true
+                        setTimeout(() => { touchFiredRef.current = false }, 600)
+                        toggle(d.id)
+                      }}
+                      onClick={() => {
+                        if (touchFiredRef.current) return  // suppress ghost click
+                        toggle(d.id)
+                      }}
                       onMouseEnter={() => hover(d.id, pos.x, pos.y)}
                       onMouseLeave={unhover}
                     />
@@ -542,7 +558,7 @@ export default function BhupuraView({
                     label={dotLabel(hoveredDot.id, script)}
                     fill={GOLD} script={script} />
                 )
-                const tooltipId = (isMobile || isTouch) ? lastTappedId : selectedId
+                const tooltipId = isMobile ? lastTappedId : selectedId
                 if (tooltipId) {
                   const d   = deityById[tooltipId]
                   const pos = d ? bhupuraPos(d) : null

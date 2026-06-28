@@ -616,6 +616,19 @@ function ToggleRow({ label, active, onClick, colour = 'gold' }) {
 
 function DeityDetail({ deity, script = 'iast' }) {
   if (!deity) return null
+  // Co-located deities (e.g. laghimā + garimā on the same bhupura dot) — render both
+  if (Array.isArray(deity)) {
+    return (
+      <div>
+        {deity.map((d, i) => (
+          <div key={d.id}>
+            {i > 0 && <div className="border-t border-surface-700 mx-4" />}
+            <DeityDetail deity={d} script={script} />
+          </div>
+        ))}
+      </div>
+    )
+  }
   const { scripts, sequenceInSection, sectionId, sequenceInChant, note } = deity
   const section       = circuitSections.find(s => `circuit-${s.circuitNumber}` === sectionId)
   const nonCircuitSec = !section ? sections.find(s => s.id === sectionId) : null
