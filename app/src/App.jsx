@@ -4640,7 +4640,7 @@ export default function App() {
                   className="w-full py-2 rounded-lg border border-surface-700 text-muted hover:text-cream hover:border-gold-600 transition-colors text-xs text-center"
                   style={{ fontSize: '12px' }}
                 >
-                  ← Collapse left panel to enlarge image
+                  {tr('nav.collapse_enlarge')}
                 </button>
               </div>
             )}
