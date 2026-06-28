@@ -6130,4 +6130,75 @@ export default function App() {
                       />
                     </div>
                     <span className="text-xs text-muted font-mono whitespace-nowrap">
-      
+                      {c3CurrentSeq - 1} / 8
+                      {correctCount > 0 && (
+                        <span className="text-red-400"> · {correctCount}✓</span>
+                      )}
+                    </span>
+                  </div>
+                </div>
+              )
+            })()}
+
+            {c3PrevResults !== null && (
+              <div className="pt-1 border-t border-surface-700 space-y-1">
+                <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.last_attempt')}</p>
+                {(() => {
+                  const correct = Object.values(c3PrevResults).filter(v => v === 'correct').length
+                  const skipped = 10 - correct
+                  return (
+                    <p className="text-xs">
+                      <span className="text-red-400">{localNum(correct,uiLang)}/{localNum(10,uiLang)} {tr('misc.memorised')}</span>
+                      {skipped > 0 && <span className="text-muted"> · {localNum(skipped,uiLang)} {tr('score.not_memorised')}</span>}
+                    </p>
+                  )
+                })()}
+              </div>
+            )}
+
+            {c3PrevResults !== null && (() => {
+              const notMem = getNotMemorisedNames(3, c3PrevResults, 10, script)
+              if (notMem.length === 0) return null
+              return (
+                <div className="pt-1 border-t border-surface-700 space-y-1">
+                  <button className="flex items-center justify-between w-full text-left"
+                    onClick={() => setShowErrors(e => !e)}>
+                    <span className="text-xs text-muted font-mono uppercase tracking-widest leading-none">
+                      {tr('score.not_memorised')} ({notMem.length})
+                    </span>
+                    <span className="text-xs text-muted">{showErrors ? '↑' : '↓'}</span>
+                  </button>
+                  {showErrors && (
+                    <ul className="space-y-0.5 pt-0.5">
+                      {notMem.map((name, i) => (
+                        <li key={i} className={`text-xs leading-snug ${script !== 'english' ? 'iast ' : ''}text-amber-300`}>{name}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )
+            })()}
+
+            {sessionStats.rounds > 0 && (
+              <div className="pt-1 border-t border-surface-700 space-y-1">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-muted font-mono uppercase tracking-widest leading-none">{tr('score.session')}</p>
+                  <button onClick={handleResetSession} title={tr('btn.reset_session')} className="text-xs text-muted hover:text-cream transition-colors">↺</button>
+                </div>
+                <p className="text-xs">
+                  <span className="text-gold-400">{sessionStats.correct}/{sessionStats.total}</span>
+                  <span className="text-muted"> · {uiLang === 'en' ? `${sessionStats.rounds} round${sessionStats.rounds !== 1 ? 's' : ''}` : `${localNum(sessionStats.rounds,uiLang)} ${tr('score.round')}`}</span>
+                </p>
+              </div>
+            )}
+
+          </div>
+        )}
+
+      </aside>
+
+      </div>{/* end 3-column content row */}
+
+    </div>
+  )
+}
