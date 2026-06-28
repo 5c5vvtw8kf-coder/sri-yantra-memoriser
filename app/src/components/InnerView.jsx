@@ -261,9 +261,10 @@ export default function InnerView({
     <div className="w-full px-4 pt-0 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
 
 
-      <div className="relative w-full flex-1 min-h-0 md:flex-none rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+      <div className="relative w-full flex-1 min-h-0 md:flex-none md:[padding-bottom:100%] rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
-        <svg viewBox="69 236 352 328" xmlns="http://www.w3.org/2000/svg"
+        <div className="absolute inset-0">
+        <svg viewBox="20 160 460 460" xmlns="http://www.w3.org/2000/svg"
              style={{ background: BG, display: 'block', width: '100%', height: '100%' }}
              aria-label="Tithi Nitya Devatas around DFT5">
 
@@ -288,7 +289,7 @@ export default function InnerView({
             fill="rgba(201,168,76,0.04)" stroke={GOLD}
             strokeWidth={3} strokeLinejoin="miter" />
 
-          {/* Flow arrow — right side, diagonal */}
+          {/* Flow arrow — right side (waxing / anti-clockwise) */}
           {!memorise && (() => {
             const off = NITYA_OFFSET + 28
             const kamBottomY = lerp(APEX, BASE_R, 0.10)[1] + N_RIGHT[1] * NITYA_OFFSET + 10
@@ -301,19 +302,27 @@ export default function InnerView({
             const ax2 = x2 + N_RIGHT[0] * off
             const ay2 = y2 + N_RIGHT[1] * off
             return (
-              <line
-                x1={ax1.toFixed(1)} y1={ay1.toFixed(1)}
-                x2={ax2.toFixed(1)} y2={ay2.toFixed(1)}
-                stroke={GREEN} strokeWidth={2.5} opacity="0.65"
-                markerEnd="url(#flow-arrow-green-inner)" />
+              <g>
+                <line x1={ax1.toFixed(1)} y1={ay1.toFixed(1)}
+                      x2={ax2.toFixed(1)} y2={ay2.toFixed(1)}
+                      stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+                      markerEnd="url(#flow-arrow-green-inner)" />
+                <text x={(ax1 + 14).toFixed(1)} y={(ay1 + 26).toFixed(1)}
+                      fontSize="13" fill={GOLD} opacity="0.7"
+                      fontFamily="'Gentium Plus', Georgia, serif"
+                      fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
+                      textAnchor="start">
+                  {tr('inner.waxing')}
+                </text>
+              </g>
             )
           })()}
 
-          {/* Flow arrow — left side near Citrā, anti-clockwise */}
+          {/* Flow arrow — left side (waning / clockwise) */}
           {!memorise && (() => {
             const off    = NITYA_OFFSET + 28
-            const tTail  = 0.88   // near Citrā
-            const tHead  = 0.74   // above Citrā — arrowhead points upward = anti-clockwise
+            const tTail  = 0.88
+            const tHead  = 0.74
             const [x1, y1] = lerp(BASE_L, APEX, tTail)
             const [x2, y2] = lerp(BASE_L, APEX, tHead)
             const ax1 = x1 + N_LEFT[0] * off
@@ -321,11 +330,19 @@ export default function InnerView({
             const ax2 = x2 + N_LEFT[0] * off
             const ay2 = y2 + N_LEFT[1] * off
             return (
-              <line
-                x1={ax1.toFixed(1)} y1={ay1.toFixed(1)}
-                x2={ax2.toFixed(1)} y2={ay2.toFixed(1)}
-                stroke={GREEN} strokeWidth={2.5} opacity="0.65"
-                markerEnd="url(#flow-arrow-green-inner)" />
+              <g>
+                <line x1={ax1.toFixed(1)} y1={ay1.toFixed(1)}
+                      x2={ax2.toFixed(1)} y2={ay2.toFixed(1)}
+                      stroke={GREEN} strokeWidth={2.5} opacity="0.65"
+                      markerEnd="url(#flow-arrow-green-inner)" />
+                <text x={(ax1 - 14).toFixed(1)} y={(ay1 + 26).toFixed(1)}
+                      fontSize="13" fill={GOLD} opacity="0.7"
+                      fontFamily="'Gentium Plus', Georgia, serif"
+                      fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
+                      textAnchor="end">
+                  {tr('inner.waning')}
+                </text>
+              </g>
             )
           })()}
 
@@ -408,6 +425,7 @@ export default function InnerView({
 
 
         </svg>
+        </div>{/* end absolute inset-0 */}
 
         {/* ── Memorise: name overlay above the triangle — mobile only, persists until next dot tapped ── */}
         {memorise && revealedRef.current && !flash && !showCompletion && (
@@ -457,18 +475,6 @@ export default function InnerView({
         )}
 
       </div>
-
-      {/* ── Explore mode: direction badges (replaces clipped SVG text labels) ── */}
-      {!memorise && (
-        <div className="flex justify-between mt-1.5 px-1 select-none" style={{ fontSize: '11px' }}>
-          <span className={`text-gold-600 opacity-55 ${script !== 'english' ? 'iast' : ''}`}>
-            {tr('inner.dir_waning')}
-          </span>
-          <span className={`text-gold-600 opacity-55 ${script !== 'english' ? 'iast' : ''}`}>
-            {tr('inner.dir_waxing')}
-          </span>
-        </div>
-      )}
 
       {/* ── Waxing / Waning toggle — mobile Memorise only ── */}
       {memorise && (
