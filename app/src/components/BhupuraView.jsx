@@ -153,7 +153,7 @@ const GROUP_LABEL = {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, onClick, onTouchEnd, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
+function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, onClick, onTouchStart, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
     <circle
@@ -164,7 +164,7 @@ function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, on
       strokeWidth={0}
       opacity={opacity ?? 1}
       style={{ cursor: isInteractive ? 'pointer' : 'default', transition: 'opacity 0.2s' }}
-      onTouchEnd={onTouchEnd}
+      onTouchStart={onTouchStart}
       onClick={onClick}
       onContextMenu={onContextMenu}
       onMouseEnter={onMouseEnter}
@@ -260,7 +260,7 @@ export default function BhupuraView({
   // Shared
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [isMobile,      setIsMobile]      = useState(() => window.innerWidth < 768)
-  const touchFiredRef = useRef(false)   // ghost-click guard: suppress onClick after onTouchEnd
+  const touchFiredRef = useRef(0)   // ms timestamp of last touchStart; 0 = never; suppresses ghost click in onClick
   const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
   const lastTapRef     = useRef({ seq: null, time: 0 })
@@ -484,13 +484,12 @@ export default function BhupuraView({
                       highlighted={!selectedId && highlightId === d.id}
                       isHovered={hoveredDot?.id === d.id}
                       opacity={1}
-                      onTouchEnd={() => {
-                        touchFiredRef.current = true
-                        setTimeout(() => { touchFiredRef.current = false }, 600)
+                      onTouchStart={() => {
+                        touchFiredRef.current = Date.now()
                         toggle(d.id)
                       }}
                       onClick={() => {
-                        if (touchFiredRef.current) return  // suppress ghost click
+                        if (Date.now() - touchFiredRef.current < 800) return  // suppress ghost click after touchstart
                         toggle(d.id)
                       }}
                       onMouseEnter={() => hover(d.id, pos.x, pos.y)}
