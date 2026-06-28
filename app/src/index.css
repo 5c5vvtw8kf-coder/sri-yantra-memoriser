@@ -97,6 +97,14 @@
   @apply bg-surface-600 rounded-full;
 }
 
+/* Touch devices: prevent hover colour sticking after tap */
+@media (hover: none) {
+  .nav-footer-btn:hover {
+    color: inherit !important;
+    background-color: transparent !important;
+  }
+}
+
 /* iPad landscape — touch tablet in landscape (covers mini through Pro 11") */
 @media (min-width: 768px) and (max-height: 900px) and (pointer: coarse) {
   .ipad-segment-bar      { display: flex !important; }

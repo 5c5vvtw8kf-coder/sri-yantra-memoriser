@@ -4712,7 +4712,7 @@ export default function App() {
           <button
             onClick={() => prevTab && handleTabChange(prevTab.id)}
             disabled={!prevTab}
-            className="flex-1 min-w-0 text-left text-xs py-1.5 px-2 rounded-md
+            className="nav-footer-btn flex-1 min-w-0 text-left text-xs py-1.5 px-2 rounded-md
               text-muted hover:text-gold-300 hover:bg-surface-800/60
               disabled:opacity-20 disabled:cursor-default disabled:hover:bg-transparent disabled:hover:text-muted
               transition-colors overflow-hidden"
@@ -4735,7 +4735,7 @@ export default function App() {
               : script === 'english'    ? iastToEnglish(tab.navLabelEn || tab.navLabel)
               : tab.navLabel
             return (
-              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 font-medium tracking-wide ${script !== 'english' ? 'iast' : ''}`}>
+              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 font-bold tracking-wide ${script !== 'english' ? 'iast' : ''}`}>
                 {label}
               </span>
             )
@@ -4743,7 +4743,7 @@ export default function App() {
           <button
             onClick={() => nextTab && handleTabChange(nextTab.id)}
             disabled={!nextTab}
-            className="flex-1 min-w-0 text-right text-xs py-1.5 px-2 rounded-md
+            className="nav-footer-btn flex-1 min-w-0 text-right text-xs py-1.5 px-2 rounded-md
               text-muted hover:text-gold-300 hover:bg-surface-800/60
               disabled:opacity-20 disabled:cursor-default disabled:hover:bg-transparent disabled:hover:text-muted
               transition-colors overflow-hidden"
