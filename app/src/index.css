@@ -100,7 +100,7 @@
 /* Touch devices: prevent hover colour sticking after tap */
 @media (hover: none) {
   .nav-footer-btn:hover {
-    color: inherit !important;
+    color: #8a7560 !important;
     background-color: transparent !important;
   }
 }
