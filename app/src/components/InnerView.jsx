@@ -264,7 +264,7 @@ export default function InnerView({
       <div className="relative w-full flex-1 min-h-0 md:flex-none md:[padding-bottom:100%] rounded-xl overflow-hidden shadow-2xl shadow-black/60"
            style={{ background: BG }}>
         <div className="absolute inset-0">
-        <svg viewBox="20 160 460 460" xmlns="http://www.w3.org/2000/svg"
+        <svg viewBox="20 100 460 560" xmlns="http://www.w3.org/2000/svg"
              style={{ background: BG, display: 'block', width: '100%', height: '100%' }}
              aria-label="Tithi Nitya Devatas around DFT5">
 
@@ -307,13 +307,21 @@ export default function InnerView({
                       x2={ax2.toFixed(1)} y2={ay2.toFixed(1)}
                       stroke={GREEN} strokeWidth={2.5} opacity="0.65"
                       markerEnd="url(#flow-arrow-green-inner)" />
-                <text x={(ax1 + 14).toFixed(1)} y={(ay1 + 26).toFixed(1)}
-                      fontSize="13" fill={GOLD} opacity="0.7"
-                      fontFamily="'Gentium Plus', Georgia, serif"
-                      fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
-                      textAnchor="start">
-                  {tr('inner.waxing')}
-                </text>
+                {(() => {
+                  const label = tr('inner.dir_waxing')
+                  const parts = label.split(' · ')
+                  const x = (ax1 + 16).toFixed(1)
+                  const y0 = (ay1 + 22).toFixed(1)
+                  return (
+                    <text x={x} fontSize="20" fill={GOLD} opacity="0.7"
+                          fontFamily="'Gentium Plus', Georgia, serif"
+                          fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
+                          textAnchor="start">
+                      <tspan x={x} y={y0}>{parts[0]}</tspan>
+                      {parts[1] && <tspan x={x} dy="18">{parts[1]}</tspan>}
+                    </text>
+                  )
+                })()}
               </g>
             )
           })()}
@@ -335,13 +343,21 @@ export default function InnerView({
                       x2={ax2.toFixed(1)} y2={ay2.toFixed(1)}
                       stroke={GREEN} strokeWidth={2.5} opacity="0.65"
                       markerEnd="url(#flow-arrow-green-inner)" />
-                <text x={(ax1 - 14).toFixed(1)} y={(ay1 + 26).toFixed(1)}
-                      fontSize="13" fill={GOLD} opacity="0.7"
-                      fontFamily="'Gentium Plus', Georgia, serif"
-                      fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
-                      textAnchor="end">
-                  {tr('inner.waning')}
-                </text>
+                {(() => {
+                  const label = tr('inner.dir_waning')
+                  const parts = label.split(' · ')
+                  const x = (ax1 - 16).toFixed(1)
+                  const y0 = (ay1 + 22).toFixed(1)
+                  return (
+                    <text x={x} fontSize="20" fill={GOLD} opacity="0.7"
+                          fontFamily="'Gentium Plus', Georgia, serif"
+                          fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
+                          textAnchor="end">
+                      <tspan x={x} y={y0}>{parts[0]}</tspan>
+                      {parts[1] && <tspan x={x} dy="18">{parts[1]}</tspan>}
+                    </text>
+                  )
+                })()}
               </g>
             )
           })()}
