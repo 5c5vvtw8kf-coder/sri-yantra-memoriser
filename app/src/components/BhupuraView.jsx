@@ -260,6 +260,7 @@ export default function BhupuraView({
   // Shared
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [isMobile,      setIsMobile]      = useState(() => window.innerWidth < 768)
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
   const touchFiredRef = useRef(0)   // ms timestamp of last touchStart; 0 = never; suppresses ghost click in onClick
   const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
@@ -491,11 +492,8 @@ export default function BhupuraView({
                         if (Date.now() - touchFiredRef.current < 800) return  // suppress ghost click after touchstart
                         toggle(d.id)
                       }}
-                      onMouseEnter={() => {
-                        if (Date.now() - touchFiredRef.current < 800) return  // suppress ghost mouseenter after touchstart
-                        hover(d.id, pos.x, pos.y)
-                      }}
-                      onMouseLeave={unhover}
+                      onMouseEnter={isTouchDevice ? undefined : () => hover(d.id, pos.x, pos.y)}
+                      onMouseLeave={isTouchDevice ? undefined : unhover}
                     />
                   )
                 }
