@@ -300,7 +300,7 @@ export default function NyasaView({
   // ── Memorise mode ────────────────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     if (isMobile && currentSeq === seq && !mobileRevealed) {
       // First tap: reveal only
       const d = nyasaDeities[seq - 1]

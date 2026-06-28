@@ -107,7 +107,7 @@ export default function C9View({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = () => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     if (isMobile) {
       // Mobile path — two-step: first tap reveals, then double-tap=wrong / single-tap=correct
       if (currentSeq === 1 && !mobileRevealed) {

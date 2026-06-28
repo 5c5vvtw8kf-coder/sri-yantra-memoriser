@@ -221,8 +221,8 @@ export default function ClosingView({
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
       if (n !== currentSeq) return
-      if (window.innerWidth >= 768) {
-        // Desktop: hover already revealed the name — single click = mark correct
+      if (window.innerWidth >= 768 && navigator.maxTouchPoints === 0) {
+        // Desktop (mouse): hover already revealed the name — single click = mark correct
         onMarkResult(n, 'correct')
         setRevealedNum(null)
       } else if (revealedNum !== n) {

@@ -209,7 +209,7 @@ export default function InnerView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     if (seq === currentSeq) {
       if (isMobile && !mobileRevealed) {
         // First tap: reveal only
@@ -482,37 +482,4 @@ export default function InnerView({
                   Try again
                 </button>
                 <button onClick={() => onNavigate && onNavigate('gurava')}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors">
-                  Next →
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-      </div>
-
-      {/* ── Waxing / Waning toggle — mobile Memorise only ── */}
-      {memorise && (
-        <div className="flex gap-2 mt-3 md:hidden">
-          <button
-            onClick={() => onSetWaning(true)}
-            className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
-            }`}
-          >{tr('inner.waning')}</button>
-          <button
-            onClick={() => onSetWaning(false)}
-            className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              !waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
-            }`}
-          >{tr('inner.waxing')}</button>
-        </div>
-      )}
-
-      {memorise && <MobileMemoriseInstr tr={tr} />}
-
-    </div>
-  )
-}
-   
+                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 ho

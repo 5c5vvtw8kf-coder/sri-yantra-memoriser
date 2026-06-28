@@ -361,7 +361,7 @@ export default function NavaChakreshvariView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     if (isMobile) {
       // Mobile: first tap on active seq reveals name only; subsequent double-tap=wrong, single-tap=correct
       if (currentSeq === seq && mobileRevealedSeq !== seq) {
@@ -477,7 +477,7 @@ export default function NavaChakreshvariView({
     ? (ncDeities.find(d => d.sequenceInSection === mobileRevealedSeq)?.circuitNumber ?? null)
     : null
   const tooltipCircuit = flash ? null
-    : memorise ? (hoveredCircuit ?? (window.innerWidth < 768 ? mobileRevealCircuit : null))
+    : memorise ? (hoveredCircuit ?? ((window.innerWidth < 768 || navigator.maxTouchPoints > 0) ? mobileRevealCircuit : null))
     : (hoveredCircuit ?? lastTappedCircuit)
 
   return (

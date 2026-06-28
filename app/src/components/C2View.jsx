@@ -290,7 +290,7 @@ export default function C2View({
 
   const handleMemoriseClick = (seq) => {
     if (seq !== currentSeq) return
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     if (isMobile && !mobileRevealed) {
       // First tap: reveal only
       const d   = c2Deities[seq - 1]
@@ -314,7 +314,7 @@ export default function C2View({
 
   const lastPastTapRef = useRef({ seq: null, time: 0 })
   const handlePastPetalClick = (seq) => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     const now = Date.now()
     const isDoubleTap = lastPastTapRef.current.seq === seq && (now - lastPastTapRef.current.time) < 300
     lastPastTapRef.current = { seq, time: now }

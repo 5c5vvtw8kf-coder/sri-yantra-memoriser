@@ -195,7 +195,7 @@ export default function C8View({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     if (isMobile && currentSeq === seq && !mobileRevealed) {
       // First tap: reveal only
       const i = c8Deities.findIndex(d => d.sequenceInSection === seq)

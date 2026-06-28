@@ -256,7 +256,7 @@ export default function C4View({
 
   const handleMemoriseClick = (seq) => {
     if (seq !== currentSeq) return
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     if (isMobile && !mobileRevealed) {
       const d   = c4Deities[seq - 1]
       const pos = C4_DOT_POSITIONS[seq]
@@ -279,7 +279,7 @@ export default function C4View({
 
   const lastPastTapRef = useRef({ seq: null, time: 0 })
   const handlePastTriangleClick = (seq) => {
-    const isMobile = window.innerWidth < 768
+    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
     const now = Date.now()
     const isDoubleTap = lastPastTapRef.current.seq === seq && (now - lastPastTapRef.current.time) < 300
     lastPastTapRef.current = { seq, time: now }
