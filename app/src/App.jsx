@@ -3272,18 +3272,18 @@ export default function App() {
       />
     )
     if (activeTab === 'spotcheck') return (
-      <div className="px-5 py-6 space-y-5">
+      <div className="px-4 py-3 space-y-3">
         <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('spot.title')}</p>
 
         {/* Filter buttons */}
         <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1">
           {SC_FILTERS.map(f => (
             <button
               key={f.id}
               onClick={() => { setScFilter(f.id); const filt = SC_FILTERS.find(sf => sf.id === f.id); const def = 'defaultSubFilter' in (filt ?? {}) ? filt.defaultSubFilter : (filt?.subFilters?.find(s => s.groupIds !== null)?.id ?? null); setScSubFilter(def) }}
               className={[
-                'px-2.5 py-1 rounded text-xs font-mono transition-colors',
+                'px-2 py-0.5 rounded text-xs font-mono transition-colors',
                 scFilter === f.id
                   ? 'bg-gold-400 text-surface-900 font-bold'
                   : 'bg-surface-800 text-muted hover:text-cream',
@@ -3305,7 +3305,7 @@ export default function App() {
                   key={s.id}
                   onClick={() => setScSubFilter(s.groupIds === null ? null : s.id)}
                   className={[
-                    'flex-1 py-1 rounded text-xs font-mono transition-colors text-center',
+                    'flex-1 py-0.5 rounded text-xs font-mono transition-colors text-center',
                     (s.groupIds === null ? scSubFilter === null : scSubFilter === s.id)
                       ? 'bg-gold-400 text-surface-900 font-bold'
                       : 'bg-surface-800 text-muted hover:text-cream',
@@ -3319,15 +3319,15 @@ export default function App() {
         })()}
 
         {/* Limit buttons */}
-        <div className="space-y-1.5">
+        <div className="space-y-1">
           <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.round_size')}</p>
-          <div className="flex gap-1.5">
+          <div className="flex gap-1">
             {[10, 20, 50, 'whole'].map(n => (
               <button
                 key={n}
                 onClick={() => setScLimit(n === 'whole' ? null : n)}
                 className={[
-                  'px-2.5 py-1 rounded text-xs font-mono transition-colors',
+                  'px-2 py-0.5 rounded text-xs font-mono transition-colors',
                   (n === 'whole' ? scLimit === null : scLimit === n)
                     ? 'bg-gold-400 text-surface-900 font-bold'
                     : 'bg-surface-800 text-muted hover:text-cream',
@@ -3341,7 +3341,7 @@ export default function App() {
 
         {/* Progress */}
         {scProgress.total > 0 && (
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             <div className="flex justify-between text-xs text-muted">
               <span>{scProgress.idx} / {scProgress.total}</span>
               <span>
@@ -3350,7 +3350,7 @@ export default function App() {
                 <span className="text-gold-400">{scProgress.wrong}✗</span>
               </span>
             </div>
-            <div className="w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
+            <div className="w-full h-1 bg-surface-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gold-400 rounded-full transition-all"
                 style={{ width: `${Math.round((scProgress.idx / scProgress.total) * 100)}%` }}
@@ -3362,7 +3362,7 @@ export default function App() {
         {/* Skip button */}
         <button
           onClick={() => scSkipRef.current?.()}
-          className="w-full py-1.5 rounded bg-surface-800 text-xs text-muted hover:text-cream hover:bg-surface-700 transition-colors font-mono"
+          className="w-full py-1 rounded bg-surface-800 text-xs text-muted hover:text-cream hover:bg-surface-700 transition-colors font-mono"
         >
           {tr('btn.skip')}
         </button>
@@ -3374,7 +3374,7 @@ export default function App() {
           const sesTotal   = sessionStats.total   + scProgress.idx
           const sesPct     = sesTotal > 0 ? Math.round((sesCorrect / sesTotal) * 100) : null
           return (
-            <div className="space-y-1.5 pt-1 border-t border-surface-800">
+            <div className="space-y-1 pt-1 border-t border-surface-800">
               <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold" style={{ fontSize: '9px' }}>{tr('score.scores')}</p>
               {scProgress.idx > 0 && (
                 <div className="flex justify-between text-xs">
@@ -4674,7 +4674,7 @@ export default function App() {
           {/* Memomap renders outside the w-full wrapper so flex-1 min-h-0 gives
               MemoMapView a real defined height for its internal h-full flex-col layout */}
           {activeTab === 'memomap' && (
-            <div className="flex-1 min-h-0 w-full max-w-lg flex flex-col">
+            <div className="flex-1 min-h-0 w-full flex flex-col">
               <MemoMapView
                 script={script}
                 allResults={{
@@ -4693,7 +4693,7 @@ export default function App() {
             </div>
           )}
           {activeTab === 'activity-log' && (
-            <div className="flex-1 min-h-0 w-full max-w-lg flex flex-col">
+            <div className="flex-1 min-h-0 w-full flex flex-col">
               <ActivityLogView tr={tr} script={script} />
             </div>
           )}
@@ -4800,7 +4800,7 @@ export default function App() {
       )}
 
       {/* ── Right panel ──────────────────────────────────────────────────── */}
-      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 overflow-hidden transition-all duration-300 ${(rightPanelOpen && activeTab !== 'yantra' && activeTab !== 'intro') ? 'w-64' : 'w-0'}`}
+      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['yantra', 'intro', 'memomap', 'activity-log'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
              style={{ visibility: (activeTab === 'yantra' || activeTab === 'intro') ? 'hidden' : undefined }}>
 
         {/* Scrollable info area */}
