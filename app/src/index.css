@@ -99,8 +99,10 @@
 
 /* iPad landscape — touch tablet in landscape (covers mini through Pro 11") */
 @media (min-width: 768px) and (max-height: 900px) and (pointer: coarse) {
-  .ipad-segment-bar { display: flex !important; }
-  .ipad-nav-title   { display: flex !important; }
+  .ipad-segment-bar      { display: flex !important; }
+  .ipad-nav-title        { display: flex !important; }
+  .ipad-collapse-hint    { display: block !important; }
+  .ipad-collapse-tooltip { display: none !important; }
 }
 
 /* Portrait lock — touch tablet in portrait */

@@ -4101,7 +4101,7 @@ export default function App() {
                 >
                   {navCollapsed ? '»' : '«'}
                 </button>
-                <div className="pointer-events-none absolute right-0 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/collapse:opacity-100 transition-opacity z-50">
+                <div className="ipad-collapse-tooltip pointer-events-none absolute right-0 top-6 px-1.5 py-0.5 rounded text-[10px] bg-surface-700 text-cream whitespace-nowrap opacity-0 group-hover/collapse:opacity-100 transition-opacity z-50">
                   {navCollapsed ? tr('nav.expand') : tr('nav.collapse')}
                 </div>
               </div>
@@ -4631,6 +4631,19 @@ export default function App() {
             {activeTab === 'browser'      && <CircuitBrowser script="devanagari" />}
             {activeTab === 'intro'        && <IntroView script={script} uiLang={uiLang} onStartTour={startTour} />}
             {activeTab === 'references'   && <ReferencesView />}
+
+            {/* iPad-only: collapse hint shown below diagram when sidebar is open on explore tabs */}
+            {!navCollapsed && EXPLORE_TAB_IDS.includes(activeTab) && (
+              <div className="ipad-collapse-hint hidden md:hidden px-4 pb-3 pt-1">
+                <button
+                  onClick={() => setNavCollapsed(true)}
+                  className="w-full py-2 rounded-lg border border-surface-700 text-muted hover:text-cream hover:border-gold-600 transition-colors text-xs text-center"
+                  style={{ fontSize: '12px' }}
+                >
+                  ← Collapse left panel to enlarge
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Memomap renders outside the w-full wrapper so flex-1 min-h-0 gives
