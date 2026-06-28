@@ -3275,16 +3275,6 @@ export default function App() {
       <div className="px-4 py-3 space-y-3">
         <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('spot.title')}</p>
 
-        {/* Collapse left panel hint — shown when nav is expanded */}
-        {!navCollapsed && (
-          <button
-            onClick={() => setNavCollapsed(true)}
-            className="w-full py-1 rounded bg-surface-800 text-xs text-muted hover:text-cream hover:bg-surface-700 transition-colors font-mono text-left px-2"
-          >
-            {tr('nav.collapse_enlarge')}
-          </button>
-        )}
-
         {/* Filter buttons */}
         <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
         <div className="flex flex-wrap gap-1">
@@ -4551,6 +4541,18 @@ export default function App() {
               />
             )}
 
+            {/* Collapse hint below Spot Check yantra — iPad/desktop only, when nav is expanded */}
+            {activeTab === 'spotcheck' && !navCollapsed && (
+              <div className="hidden md:block flex-shrink-0 px-4 pb-2 pt-1">
+                <button
+                  onClick={() => setNavCollapsed(true)}
+                  className="w-full py-1.5 rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-600 transition-colors text-xs text-center font-mono"
+                >
+                  {tr('nav.collapse_enlarge')}
+                </button>
+              </div>
+            )}
+
             {/* ── Mobile Spot Check controls — mirrors right panel, hidden on desktop ── */}
             {activeTab === 'spotcheck' && (() => {
               const activeFilt = SC_FILTERS.find(f => f.id === scFilter)
@@ -4687,6 +4689,7 @@ export default function App() {
             <div className="flex-1 min-h-0 w-full flex flex-col">
               <MemoMapView
                 script={script}
+                navCollapsed={navCollapsed}
                 allResults={{
                   nyasa:   nyasaResults,
                   inner:   innerResults,

@@ -714,7 +714,7 @@ function Legend({ tr = k => k }) {
 
 // -- Main carousel ------------------------------------------------------------
 
-export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => k }) {
+export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => k, navCollapsed = false }) {
   const [mapIdx, setMapIdx] = useState(0)
 
   const map   = MAPS[mapIdx] || MAPS[0]
@@ -725,32 +725,31 @@ export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => 
 
   const counts = getSectionStatusCounts(map.sectionIds, allHistory)
 
-  return (
-    <div className="space-y-3">
-
-      <div>
-        <div className="flex items-center gap-2">
-          <button onClick={prev} disabled={mapIdx === 0}
-            className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded text-cream text-xl hover:bg-surface-800 disabled:opacity-20 transition-colors">
-            ←
-          </button>
-          <div className="flex-1 text-center min-w-0">
-            <div className="text-cream text-sm font-medium truncate">{map.trKey ? tr(map.trKey) : map.label}</div>
-          </div>
-          <button onClick={next} disabled={mapIdx === total - 1}
-            className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded text-cream text-xl hover:bg-surface-800 disabled:opacity-20 transition-colors">
-            →
-          </button>
+  const nav = (
+    <div className="flex-shrink-0">
+      <div className="flex items-center gap-2">
+        <button onClick={prev} disabled={mapIdx === 0}
+          className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded text-cream text-xl hover:bg-surface-800 disabled:opacity-20 transition-colors">
+          ←
+        </button>
+        <div className="flex-1 text-center min-w-0">
+          <div className="text-cream text-sm font-medium truncate">{map.trKey ? tr(map.trKey) : map.label}</div>
         </div>
-        <div className="flex items-center justify-between text-[11px] font-mono text-muted -mt-2">
-          <span className="w-10 text-center">{tr('map.previous')}</span>
-          <span>{mapIdx + 1} / {total}</span>
-          <span className="w-10 text-center">{tr('map.next')}</span>
-        </div>
+        <button onClick={next} disabled={mapIdx === total - 1}
+          className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded text-cream text-xl hover:bg-surface-800 disabled:opacity-20 transition-colors">
+          →
+        </button>
       </div>
+      <div className="flex items-center justify-between text-[11px] font-mono text-muted -mt-2">
+        <span className="w-10 text-center">{tr('map.previous')}</span>
+        <span>{mapIdx + 1} / {total}</span>
+        <span className="w-10 text-center">{tr('map.next')}</span>
+      </div>
+    </div>
+  )
 
-      <StatusCounts counts={counts} tr={tr} />
-
+  const mapPanel = (
+    <>
       {map.type === 'nyasa'  && <NyasaMap allHistory={allHistory} script={script} />}
       {map.type === 'nitya'  && <NityaMap allHistory={allHistory} script={script} />}
       {map.type === 'gurava' && <GuravahMap allHistory={allHistory} script={script} />}
@@ -758,10 +757,31 @@ export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => 
       {map.type === 'c8'     && <C8Map allHistory={allHistory} script={script} />}
       {map.type === 'c9'     && <C9Map allHistory={allHistory} script={script} />}
       {map.type === 'list'   && <ListMap sectionId={map.id} allHistory={allHistory} script={script} />}
+    </>
+  )
 
+  // navCollapsed: h-full flex-col; map width is capped to viewport height so 1:1 ratio fits without scroll
+  if (navCollapsed) {
+    return (
+      <div className="h-full flex flex-col gap-2 overflow-hidden">
+        {nav}
+        <StatusCounts counts={counts} tr={tr} />
+        {/* maxWidth = 100vh − header/footer overhead so the 1:1 map never exceeds available height */}
+        <div className="flex-shrink-0 w-full" style={{ maxWidth: 'calc(100vh - 200px)', margin: '0 auto' }}>
+          {mapPanel}
+        </div>
+        <Legend tr={tr} />
+      </div>
+    )
+  }
 
+  // Default stacked layout (scrollable)
+  return (
+    <div className="space-y-3">
+      {nav}
+      <StatusCounts counts={counts} tr={tr} />
+      {mapPanel}
       <Legend tr={tr} />
-
     </div>
   )
 }
