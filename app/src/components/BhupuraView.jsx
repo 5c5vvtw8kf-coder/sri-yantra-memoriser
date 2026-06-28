@@ -165,6 +165,7 @@ function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, on
       opacity={opacity ?? 1}
       style={{ cursor: isInteractive ? 'pointer' : 'default', transition: 'opacity 0.2s' }}
       onClick={onClick}
+      onTouchEnd={onClick ? (e) => { e.preventDefault(); onClick() } : undefined}
       onContextMenu={onContextMenu}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
