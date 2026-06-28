@@ -4735,7 +4735,7 @@ export default function App() {
               : script === 'english'    ? iastToEnglish(tab.navLabelEn || tab.navLabel)
               : tab.navLabel
             return (
-              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 font-bold tracking-wide ${script !== 'english' ? 'iast' : ''}`}>
+              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 ${script === 'english' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>
                 {label}
               </span>
             )

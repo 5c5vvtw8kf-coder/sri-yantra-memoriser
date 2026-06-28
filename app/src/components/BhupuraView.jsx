@@ -259,6 +259,7 @@ export default function BhupuraView({
   // Shared
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [isMobile,      setIsMobile]      = useState(() => window.innerWidth < 768)
+  const isTouch = useRef(window.matchMedia('(pointer: coarse)').matches).current
   const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
   const lastTapRef     = useRef({ seq: null, time: 0 })
@@ -470,7 +471,7 @@ export default function BhupuraView({
                       highlighted={!selectedId && highlightId === d.id}
                       isHovered={hoveredDot?.id === d.id}
                       opacity={1}
-                      onClick={() => toggle(d.id)}
+                      onClick={() => isTouch ? tap(d.id) : toggle(d.id)}
                       onMouseEnter={() => hover(d.id, pos.x, pos.y)}
                       onMouseLeave={unhover}
                     />
@@ -540,7 +541,7 @@ export default function BhupuraView({
                     label={dotLabel(hoveredDot.id, script)}
                     fill={GOLD} script={script} />
                 )
-                const tooltipId = isMobile ? lastTappedId : selectedId
+                const tooltipId = (isMobile || isTouch) ? lastTappedId : selectedId
                 if (tooltipId) {
                   const d   = deityById[tooltipId]
                   const pos = d ? bhupuraPos(d) : null
