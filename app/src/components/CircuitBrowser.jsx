@@ -205,7 +205,7 @@ const NITYA_DEITIES = [
   { iast: 'mahāvajrēśvarī', dev: 'महावज्रेश्वरी', translation: 'Great Goddess of the Vajra' },
   { iast: 'śivadūtī', dev: 'शिवदूती',       translation: "Shiva's Messenger" },
   { iast: 'tvaritē', dev: 'त्वरिते',        translation: 'The Swift One' },
-  { iast: 'kulasundarī', dev: 'कुलसुन्दरी',    translation: 'Beautiful One of the Kula' },
+  { iast: 'kulasundarī', dev: 'कुलसुन्दरी',    translation: 'Beautiful One of the Kula (group)' },
   { iast: 'nityē', dev: 'नित्ये',          translation: 'The Eternal' },
   { iast: 'nīlapatākē', dev: 'नीलपताके',     translation: 'Blue Banner' },
   { iast: 'vijayē', dev: 'विजये',         translation: 'The Victorious' },
