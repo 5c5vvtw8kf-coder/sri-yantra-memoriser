@@ -473,7 +473,7 @@ export default function BhupuraView({
                   const pos  = bhupuraPos(d)
                   if (!pos) return null
                   const isSelected = selectedId === d.id
-                  const fill = isSelected ? RED : (showColors ? GROUP_COLOUR[d.group] : GOLD)
+                  const fill = isSelected ? RED : (showColors ? GROUP_COLOUR[d.group] : '#fff8c8')
                   return (
                     <DeityDot key={d.id}
                       x={pos.x} y={pos.y}
@@ -491,7 +491,10 @@ export default function BhupuraView({
                         if (Date.now() - touchFiredRef.current < 800) return  // suppress ghost click after touchstart
                         toggle(d.id)
                       }}
-                      onMouseEnter={() => hover(d.id, pos.x, pos.y)}
+                      onMouseEnter={() => {
+                        if (Date.now() - touchFiredRef.current < 800) return  // suppress ghost mouseenter after touchstart
+                        hover(d.id, pos.x, pos.y)
+                      }}
                       onMouseLeave={unhover}
                     />
                   )
