@@ -260,7 +260,7 @@ export default function BhupuraView({
   // Shared
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [isMobile,      setIsMobile]      = useState(() => window.innerWidth < 768)
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+  const isTouchDevice = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const touchFiredRef = useRef(0)   // ms timestamp of last touchStart; 0 = never; suppresses ghost click in onClick
   const [mobileRevealed, setMobileRevealed] = useState(false)
   const clickTimer = useRef(null)
@@ -356,7 +356,7 @@ export default function BhupuraView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    const isMobileTap = window.innerWidth < 768 || navigator.maxTouchPoints > 0
+    const isMobileTap = window.innerWidth < 768 || (navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches)
     if (isMobileTap && currentSeq === seq && !mobileRevealed) {
       // First tap: reveal only
       const d   = memoDeities[seq - 1]

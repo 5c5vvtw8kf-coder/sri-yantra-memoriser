@@ -221,7 +221,7 @@ export default function ClosingView({
     clickTimer.current = setTimeout(() => {
       clickTimer.current = null
       if (n !== currentSeq) return
-      if (window.innerWidth >= 768 && navigator.maxTouchPoints === 0) {
+      if (window.innerWidth >= 768 && window.matchMedia('(pointer: fine)').matches) {
         // Desktop (mouse): hover already revealed the name — single click = mark correct
         onMarkResult(n, 'correct')
         setRevealedNum(null)
@@ -580,7 +580,4 @@ export default function ClosingView({
         {memorise && <MobileMemoriseInstr tr={tr} />}
       </div>
 
-      <div className="h-0 md:h-8" />
-    </div>
-  )
-}
+      <div class

@@ -209,7 +209,7 @@ export default function InnerView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
+    const isMobile = window.innerWidth < 768 || (navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches)
     if (seq === currentSeq) {
       if (isMobile && !mobileRevealed) {
         // First tap: reveal only

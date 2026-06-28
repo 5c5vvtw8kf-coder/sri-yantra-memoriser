@@ -201,7 +201,7 @@ export default function GuravaView({
   // ── Memorise mode handlers ─────────────────────────────────────────────────
 
   const handleMemClick = (seq) => {
-    const isMobile = window.innerWidth < 768 || navigator.maxTouchPoints > 0
+    const isMobile = window.innerWidth < 768 || (navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches)
     if (isMobile && currentSeq === seq && !mobileRevealed) {
       // First tap: reveal only
       const d = guruAll[seq - 1]
