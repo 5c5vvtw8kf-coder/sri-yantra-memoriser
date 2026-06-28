@@ -625,7 +625,13 @@ function DeityDetail({ deity, script = 'iast' }) {
   const engLabel      = nonCircuitSec?.label || ''
 
   let subtitle = ''
-  if (section)              subtitle = `Circuit ${section.circuitNumber} · ${sequenceInSection} of ${section.triangleCount || section.petalCount || '?'}`
+  const AVARANA_ORDINAL = ['','1st','2nd','3rd','4th','5th','6th','7th','8th','9th']
+  const C1_DOT_COUNT = '28/29'
+  if (section) {
+    const ordinal = AVARANA_ORDINAL[section.circuitNumber] || `${section.circuitNumber}th`
+    const total   = section.circuitNumber === 1 ? C1_DOT_COUNT : (section.triangleCount || section.petalCount || '?')
+    subtitle = `${ordinal} Āvaraṇa · ${sequenceInSection} of ${total}`
+  }
   else if (sectionId === 'nyasa')       subtitle = `${script === 'english' ? engLabel : 'Nyāsāṅga'} · ${sequenceInSection} of 6`
   else if (sectionId === 'nitya')       subtitle = `${script === 'english' ? engLabel : 'Tithi Nitya'} · ${sequenceInSection} of 16`
   else if (sectionId === 'guru-divya')  subtitle = `${script === 'english' ? engLabel : 'Divyaugha Guravaḥ'} · ${sequenceInSection} of 7`
