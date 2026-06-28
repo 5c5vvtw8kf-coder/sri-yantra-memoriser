@@ -378,12 +378,13 @@ function circuitAggregateStatus(sectionId, allHistory) {
 function CircuitSideBox({ label, tipText, status, tooltipSide }) {
   const [showTooltip, setShowTooltip] = useState(false)
   const attempted = status !== 'notAttempted'
-  const fill      = attempted ? STATUS_FILL[status] : 'rgba(201,168,76,0.10)'
-  const textCol   = attempted ? 'rgba(15,8,5,0.9)' : '#8a7560'
+  const fill      = attempted ? STATUS_FILL[status] : 'transparent'
+  const textCol   = attempted ? 'rgba(15,8,5,0.9)' : 'rgba(201,168,76,0.75)'
+  const border    = attempted ? 'none' : '1px solid rgba(201,168,76,0.35)'
   const showTip   = status === 'partial' || status === 'notMemorised'
   return (
     <div className="relative rounded-md px-2 py-1 text-[13px] font-semibold cursor-default select-none iast"
-         style={{ background: fill, color: textCol }}
+         style={{ background: fill, color: textCol, border }}
          onMouseEnter={showTip ? () => setShowTooltip(true) : undefined}
          onMouseLeave={showTip ? () => setShowTooltip(false) : undefined}>
       {label}
@@ -775,14 +776,12 @@ export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => 
     )
   }
 
-  // Default stacked layout — cap map width so the 1:1 SVG fits viewport height on desktop
+  // Default stacked layout — entire panel constrained so prev/next align with image edges
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" style={{ maxWidth: 'calc(100dvh - 340px)', margin: '0 auto' }}>
       {nav}
       <StatusCounts counts={counts} tr={tr} />
-      <div style={{ maxWidth: 'calc(100dvh - 340px)', margin: '0 auto' }}>
-        {mapPanel}
-      </div>
+      {mapPanel}
       <Legend tr={tr} />
     </div>
   )

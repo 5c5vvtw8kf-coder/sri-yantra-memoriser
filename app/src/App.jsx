@@ -3118,7 +3118,8 @@ export default function App() {
     closing:      tr('hint.closing'),
   }
   const INSTR_STYLE = { fontSize: '0.75rem', fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: '0.03em' }
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+  // pointer:fine = mouse (desktop), pointer:coarse = touch (iPad/phone)
+  const isTouchDevice = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   // Desktop (mouse) memorise instructions
   const memoInstr = (
     <span className="text-muted" style={INSTR_STYLE}>
