@@ -291,14 +291,12 @@ export default function BhupuraView({
     return () => window.removeEventListener('resize', update)
   }, [])
 
-  // Desktop: original toggle (select / deselect)
+  // Explore: tap always selects (no deselect on re-tap). Show deity details in right panel.
   const toggle  = (id) => {
-    const newId = selectedId === id ? null : id
-    setSelectedId(newId)
+    setSelectedId(id)
     setHoveredDot(null)
-    if (!newId) { onDeitySelect(null); return }
-    const deity = deityById[newId]
-    if (!deity)  { onDeitySelect(null); return }
+    const deity = deityById[id]
+    if (!deity) { onDeitySelect(null); return }
     // Co-location: if siblings share this dot (e.g. laghimā + garimā), show both
     const pos      = bhupuraPos(deity)
     const key      = pos ? `${pos.x},${pos.y}` : null
@@ -474,13 +472,14 @@ export default function BhupuraView({
                 const makeDot  = (d) => {
                   const pos  = bhupuraPos(d)
                   if (!pos) return null
-                  const fill = showColors ? GROUP_COLOUR[d.group] : '#fff8c8'
+                  const isSelected = selectedId === d.id
+                  const fill = isSelected ? RED : (showColors ? GROUP_COLOUR[d.group] : GOLD)
                   return (
                     <DeityDot key={d.id}
                       x={pos.x} y={pos.y}
-                      r={selectedId === d.id ? DOT_R_FOCUS : DOT_R_NORMAL}
+                      r={DOT_R_NORMAL}
                       fill={fill}
-                      selected={selectedId === d.id}
+                      selected={isSelected}
                       highlighted={!selectedId && highlightId === d.id}
                       isHovered={hoveredDot?.id === d.id}
                       opacity={1}
