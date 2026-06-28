@@ -760,13 +760,13 @@ export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => 
     </>
   )
 
-  // navCollapsed: h-full flex-col; map width is capped to viewport height so 1:1 ratio fits without scroll
+  // navCollapsed: cap map width to viewport height so 1:1 ratio fits without scroll
   if (navCollapsed) {
     return (
       <div className="h-full flex flex-col gap-2 overflow-hidden">
         {nav}
         <StatusCounts counts={counts} tr={tr} />
-        {/* maxWidth = 100vh − header/footer overhead so the 1:1 map never exceeds available height */}
+        {/* maxWidth = 100vh − chrome so the square map never exceeds available height */}
         <div className="flex-shrink-0 w-full" style={{ maxWidth: 'calc(100vh - 200px)', margin: '0 auto' }}>
           {mapPanel}
         </div>
@@ -775,7 +775,7 @@ export default function MemoMapVisuals({ allHistory, script = 'iast', tr = k => 
     )
   }
 
-  // Default stacked layout (scrollable)
+  // Default stacked layout (unchanged)
   return (
     <div className="space-y-3">
       {nav}

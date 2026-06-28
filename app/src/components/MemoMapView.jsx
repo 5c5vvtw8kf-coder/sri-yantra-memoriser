@@ -219,78 +219,188 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
   const partialPct     = totalCount > 0 ? (partialCount     / totalCount) * 100 : 0
   const notMemoisedPct = totalCount > 0 ? (notMemoisedCount / totalCount) * 100 : 0
 
-  // ── Controls panel (shared between stacked and side-by-side layouts) ──────────
-
-  const controlsPanel = (
-    <div className="flex flex-col gap-3">
-      {/* Title + view toggle */}
-      <div className="flex items-start justify-between gap-2">
-        <div className="space-y-2">
-          <h1 className="text-cream text-sm font-medium">{tr('map.title')}</h1>
-          <div className="flex gap-1">
-            <button onClick={() => setView('maps')}
-              className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'maps' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>
-              {tr('map.maps')}
-            </button>
-            <button onClick={() => setView('list')}
-              className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'list' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>
-              {tr('map.list')}
-            </button>
-          </div>
-        </div>
-        <button
-          onClick={handleClearAll}
-          className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0"
-        >
-          {tr('map.clear_all')}
-        </button>
+  // ── Two-column layout when left nav is collapsed (iPad landscape) ─────────────
+  // Controls move to a right sidebar; map panel width is capped so the 1:1
+  // aspect-ratio image never overflows vertically.
+  if (navCollapsed) {
+    const listTable = (
+      <div className="border border-surface-700 rounded-lg overflow-hidden">
+        <table className="w-full table-fixed text-xs">
+          <SharedColgroup />
+          <thead>
+            <tr className="bg-surface-800">
+              <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_num')}</th>
+              <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_name')}</th>
+              <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_section')}</th>
+              <th className="px-3 py-2 text-right text-muted font-normal">{tr('map.col_status')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.length === 0 ? (
+              <tr><td colSpan={4} className="px-3 py-8 text-center text-muted italic">{tr('map.no_entries')}</td></tr>
+            ) : filtered.map(row => {
+              const { symbol, className } = STATUS_DISPLAY[row.status]
+              const isExtra = row.rowType !== 'deity'
+              return (
+                <tr key={row.rowKey} className={`border-b border-surface-700/40 hover:bg-surface-800/50 transition-colors last:border-b-0${isExtra ? ' bg-surface-900/30' : ''}`}>
+                  <td className="px-3 py-2 text-muted font-mono tabular-nums">{row.seqNum ?? ''}</td>
+                  <td className={`px-3 py-2 text-sm leading-snug${isExtra ? ' text-gold-600 italic' : ' text-gold-400'}${script === 'iast' ? ' iast' : ''}`}>
+                    {displayName({ scripts: row.scripts }, script)}
+                  </td>
+                  <td className="px-3 py-2 iast text-muted truncate text-[15px]">{SECTION_COL_LABEL[row.sectionId]}</td>
+                  <td className={`px-3 py-2 text-right ${className}`}>{symbol}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
+    )
+    return (
+      <div className="h-full flex flex-row overflow-hidden">
 
-      {/* Progress bar */}
-      <div>
-        <div className="flex justify-end mb-0.5">
-          <span className="text-[10px] font-mono text-surface-500">{tr('map.progress')}</span>
+        {/* Left: map or scrollable list */}
+        <div className="flex-1 min-w-0 h-full flex flex-col overflow-hidden px-4 pt-4 pb-2">
+          {view === 'maps' && (
+            <MemoMapVisuals allHistory={allHistory} script={script} tr={tr} navCollapsed={true} />
+          )}
+          {view === 'list' && (
+            <div className="flex-1 min-h-0 overflow-y-auto">
+              {listTable}
+              {filtered.length > 0 && (
+                <p className="text-muted text-xs text-center mt-3">
+                  {filtered.length} {filtered.length === 1 ? tr('misc.entry') : tr('misc.entries')}
+                  {sectionFilter !== 'all' || statusFilter !== 'all' ? ` (${tr('misc.filtered')})` : ''}
+                </p>
+              )}
+            </div>
+          )}
         </div>
-        <div className="h-1 bg-surface-800 rounded-full overflow-hidden flex">
-          <div className="h-full bg-green-400 transition-all duration-300"  style={{ width: `${memorisedPct}%`   }} />
-          <div className="h-full bg-amber-400 transition-all duration-300"  style={{ width: `${partialPct}%`     }} />
-          <div className="h-full bg-red-400   transition-all duration-300"  style={{ width: `${notMemoisedPct}%` }} />
+
+        {/* Right: controls sidebar */}
+        <div className="w-52 flex-shrink-0 border-l border-surface-700 px-4 pt-4 pb-4 overflow-y-auto space-y-3">
+          <div className="flex items-start justify-between gap-2">
+            <div className="space-y-2">
+              <h1 className="text-cream text-sm font-medium">{tr('map.title')}</h1>
+              <div className="flex gap-1">
+                <button onClick={() => setView('maps')} className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'maps' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>{tr('map.maps')}</button>
+                <button onClick={() => setView('list')} className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'list' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>{tr('map.list')}</button>
+              </div>
+            </div>
+            <button onClick={handleClearAll} className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0">{tr('map.clear_all')}</button>
+          </div>
+
+          <div>
+            <div className="flex justify-end mb-0.5"><span className="text-[10px] font-mono text-surface-500">{tr('map.progress')}</span></div>
+            <div className="h-1 bg-surface-800 rounded-full overflow-hidden flex">
+              <div className="h-full bg-green-400 transition-all duration-300" style={{ width: `${memorisedPct}%` }} />
+              <div className="h-full bg-amber-400 transition-all duration-300" style={{ width: `${partialPct}%` }} />
+              <div className="h-full bg-red-400   transition-all duration-300" style={{ width: `${notMemoisedPct}%` }} />
+            </div>
+          </div>
+
+          {view === 'list' && (
+            <div className="space-y-0.5 text-[11px] font-mono">
+              <div className="flex items-center gap-2"><span className="text-green-400 w-3 flex-shrink-0">✓</span><span className="text-muted w-5 flex-shrink-0">{memorisedCount}</span><span className="text-muted">{tr('map.correct_last3')}</span></div>
+              <div className="flex items-center gap-2"><span className="text-amber-400 w-3 flex-shrink-0">~</span><span className="text-muted w-5 flex-shrink-0">{partialCount}</span><span className="text-muted">{tr('map.correct_partial')}</span></div>
+              <div className="flex items-center gap-2"><span className="text-red-400 w-3 flex-shrink-0">✗</span><span className="text-muted w-5 flex-shrink-0">{notMemoisedCount}</span><span className="text-muted">{tr('map.none_correct')}</span></div>
+              <div className="flex items-center gap-2"><span className="text-surface-500 w-3 flex-shrink-0">—</span><span className="text-muted w-5 flex-shrink-0">{notAttemptedCount}</span><span className="text-muted">{tr('map.not_tried')}</span></div>
+            </div>
+          )}
+
+          {view === 'list' && (
+            <div className="flex flex-col gap-2">
+              <select value={sectionFilter} onChange={e => setSectionFilter(e.target.value)} className="w-full text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors">
+                <option value="all">{tr('map.all_sections')}</option>
+                {FILTER_OPTIONS.map(({ id, label }) => <option key={id} value={id}>{label}</option>)}
+              </select>
+              <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="w-full text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors">
+                <option value="all">{tr('misc.all')}</option>
+                <option value="memorised">{tr('map.memorised')}</option>
+                <option value="partial">{tr('map.partial')}</option>
+                <option value="notMemorised">{tr('map.not_memorised')}</option>
+                <option value="notAttempted">{tr('map.not_attempted')}</option>
+              </select>
+            </div>
+          )}
         </div>
+
       </div>
+    )
+  }
 
-      {/* Legend */}
-      {view === 'list' && (
-        <div className="space-y-0.5 text-[11px] font-mono">
-          <div className="flex items-center gap-2">
-            <span className="text-green-400 w-3 flex-shrink-0">✓</span>
-            <span className="text-muted w-5 flex-shrink-0">{memorisedCount}</span>
-            <span className="text-muted">{tr('map.correct_last3')}</span>
+  return (
+    // h-full fills the flex-1 min-h-0 wrapper in App.jsx
+    <div className="h-full flex flex-col px-4">
+
+      {/* ── Frozen top section (never scrolls) ── */}
+      <div className="flex-shrink-0 pt-6 pb-3 space-y-3">
+
+        {/* Title + key + clear */}
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-2">
+            <h1 className="text-cream text-sm font-medium">{tr('map.title')}</h1>
+            <div className="flex gap-1 mt-2">
+              <button onClick={() => setView('maps')}
+                className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'maps' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>
+                {tr('map.maps')}
+              </button>
+              <button onClick={() => setView('list')}
+                className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'list' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>
+                {tr('map.list')}
+              </button>
+            </div>
+            {view === 'list' && (
+            <div className="space-y-0.5 text-[11px] font-mono">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 w-3 flex-shrink-0">✓</span>
+                <span className="text-muted w-5 flex-shrink-0">{memorisedCount}</span>
+                <span className="text-muted">{tr('map.correct_last3')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-amber-400 w-3 flex-shrink-0">~</span>
+                <span className="text-muted w-5 flex-shrink-0">{partialCount}</span>
+                <span className="text-muted">{tr('map.correct_partial')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-red-400 w-3 flex-shrink-0">✗</span>
+                <span className="text-muted w-5 flex-shrink-0">{notMemoisedCount}</span>
+                <span className="text-muted">{tr('map.none_correct')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-surface-500 w-3 flex-shrink-0">—</span>
+                <span className="text-muted w-5 flex-shrink-0">{notAttemptedCount}</span>
+                <span className="text-muted">{tr('map.not_tried')}</span>
+              </div>
+            </div>
+            )}
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-amber-400 w-3 flex-shrink-0">~</span>
-            <span className="text-muted w-5 flex-shrink-0">{partialCount}</span>
-            <span className="text-muted">{tr('map.correct_partial')}</span>
+          <button
+            onClick={handleClearAll}
+            className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0"
+          >
+            {tr('map.clear_all')}
+          </button>
+        </div>
+
+        {/* Progress bar */}
+        <div>
+          <div className="flex justify-end mb-0.5">
+            <span className="text-[10px] font-mono text-surface-500">{tr('map.progress')}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-red-400 w-3 flex-shrink-0">✗</span>
-            <span className="text-muted w-5 flex-shrink-0">{notMemoisedCount}</span>
-            <span className="text-muted">{tr('map.none_correct')}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-surface-500 w-3 flex-shrink-0">—</span>
-            <span className="text-muted w-5 flex-shrink-0">{notAttemptedCount}</span>
-            <span className="text-muted">{tr('map.not_tried')}</span>
+          <div className="h-1 bg-surface-800 rounded-full overflow-hidden flex">
+            <div className="h-full bg-green-400 transition-all duration-300"  style={{ width: `${memorisedPct}%`   }} />
+            <div className="h-full bg-amber-400 transition-all duration-300"  style={{ width: `${partialPct}%`     }} />
+            <div className="h-full bg-red-400   transition-all duration-300"  style={{ width: `${notMemoisedPct}%` }} />
           </div>
         </div>
-      )}
 
-      {/* Filters -- list mode only */}
-      {view === 'list' && (
-        <div className="flex flex-col gap-2">
+        {/* Filters -- list mode only */}
+        {view === 'list' && <div className="flex gap-2">
           <select
             value={sectionFilter}
             onChange={e => setSectionFilter(e.target.value)}
-            className="w-full text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
+            className="flex-1 min-w-0 text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
           >
             <option value="all">{tr('map.all_sections')}</option>
             {FILTER_OPTIONS.map(({ id, label }) => (
@@ -300,7 +410,7 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
           <select
             value={statusFilter}
             onChange={e => setStatusFilter(e.target.value)}
-            className="w-full text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors"
+            className="text-xs bg-surface-800 border border-surface-700 text-cream rounded-lg px-2 py-1.5 focus:outline-none focus:border-gold-700 transition-colors flex-shrink-0"
           >
             <option value="all">{tr('misc.all')}</option>
             <option value="memorised">{tr('map.memorised')}</option>
@@ -308,33 +418,36 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
             <option value="notMemorised">{tr('map.not_memorised')}</option>
             <option value="notAttempted">{tr('map.not_attempted')}</option>
           </select>
-        </div>
-      )}
-    </div>
-  )
+        </div>}
 
-  // ── Body content (map or list table) ─────────────────────────────────────────
+        {/* Frozen table header row -- list mode only */}
+        {view === 'list' && <div className="border border-surface-700 rounded-t-lg overflow-hidden">
+          <table className="w-full table-fixed text-xs">
+            <SharedColgroup />
+            <thead>
+              <tr className="bg-surface-800">
+                <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_num')}</th>
+                <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_name')}</th>
+                <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_section')}</th>
+                <th className="px-3 py-2 text-right text-muted font-normal">{tr('map.col_status')}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>}
 
-  const bodyContent = (
-    <>
-      {view === 'maps' && (
-        <MemoMapVisuals allHistory={allHistory} script={script} tr={tr} />
-      )}
-      {view === 'list' && <>
-        <div className={`border border-surface-700 ${navCollapsed ? 'rounded-lg' : 'rounded-b-lg border-t-0'} overflow-hidden`}>
-          {navCollapsed && (
-            <table className="w-full table-fixed text-xs">
-              <SharedColgroup />
-              <thead>
-                <tr className="bg-surface-800">
-                  <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_num')}</th>
-                  <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_name')}</th>
-                  <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_section')}</th>
-                  <th className="px-3 py-2 text-right text-muted font-normal">{tr('map.col_status')}</th>
-                </tr>
-              </thead>
-            </table>
-          )}
+      </div>{/* end frozen */}
+
+      {/* -- Scrollable body -- */}
+      <div className="flex-1 overflow-y-auto pb-4">
+
+        {/* Maps view */}
+        {view === 'maps' && (
+          <MemoMapVisuals allHistory={allHistory} script={script} tr={tr} />
+        )}
+
+        {/* List view */}
+        {view === 'list' && <>
+        <div className="border-x border-b border-surface-700 rounded-b-lg overflow-hidden">
           <table className="w-full table-fixed text-xs">
             <SharedColgroup />
             <tbody>
@@ -352,84 +465,34 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
                     key={row.rowKey}
                     className={`border-b border-surface-700/40 hover:bg-surface-800/50 transition-colors last:border-b-0${isExtra ? ' bg-surface-900/30' : ''}`}
                   >
-                    <td className="px-3 py-2 text-muted font-mono tabular-nums">{row.seqNum ?? ''}</td>
+                    <td className="px-3 py-2 text-muted font-mono tabular-nums">
+                      {row.seqNum ?? ''}
+                    </td>
                     <td className={`px-3 py-2 text-sm leading-snug${isExtra ? ' text-gold-600 italic' : ' text-gold-400'}${script === 'iast' ? ' iast' : ''}`}>
                       {displayName({ scripts: row.scripts }, script)}
                     </td>
                     <td className="px-3 py-2 iast text-muted truncate text-[15px]">
                       {SECTION_COL_LABEL[row.sectionId]}
                     </td>
-                    <td className={`px-3 py-2 text-right ${className}`}>{symbol}</td>
+                    <td className={`px-3 py-2 text-right ${className}`}>
+                      {symbol}
+                    </td>
                   </tr>
                 )
               })}
             </tbody>
           </table>
         </div>
+
         {filtered.length > 0 && (
           <p className="text-muted text-xs text-center mt-3">
+
             {filtered.length} {filtered.length === 1 ? tr('misc.entry') : tr('misc.entries')}
             {sectionFilter !== 'all' || statusFilter !== 'all' ? ` (${tr('misc.filtered')})` : ''}
           </p>
         )}
-      </>}
-    </>
-  )
+        </>}
 
-  // ── Two-column layout (navCollapsed — more horizontal space) ─────────────────
-
-  if (navCollapsed) {
-    return (
-      <div className="h-full flex flex-row overflow-hidden">
-        {/* Left: map/list content — no outer scroll; inner content manages its own overflow */}
-        <div className="flex-1 min-w-0 h-full flex flex-col overflow-hidden px-4 pt-4 pb-2">
-          {view === 'maps' && (
-            <MemoMapVisuals allHistory={allHistory} script={script} tr={tr} navCollapsed={navCollapsed} />
-          )}
-          {view === 'list' && (
-            <div className="flex-1 min-h-0 overflow-y-auto">
-              {bodyContent}
-            </div>
-          )}
-        </div>
-        {/* Right: controls panel */}
-        <div className="w-52 flex-shrink-0 border-l border-surface-700 px-4 pt-4 pb-4 overflow-y-auto">
-          {controlsPanel}
-        </div>
-      </div>
-    )
-  }
-
-  // ── Default stacked layout ────────────────────────────────────────────────────
-
-  return (
-    <div className="h-full flex flex-col px-4">
-
-      {/* Frozen top section */}
-      <div className="flex-shrink-0 pt-6 pb-3 space-y-3">
-        {controlsPanel}
-
-        {/* Frozen table header row -- list mode only */}
-        {view === 'list' && (
-          <div className="border border-surface-700 rounded-t-lg overflow-hidden">
-            <table className="w-full table-fixed text-xs">
-              <SharedColgroup />
-              <thead>
-                <tr className="bg-surface-800">
-                  <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_num')}</th>
-                  <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_name')}</th>
-                  <th className="px-3 py-2 text-left text-muted font-normal">{tr('map.col_section')}</th>
-                  <th className="px-3 py-2 text-right text-muted font-normal">{tr('map.col_status')}</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-        )}
-      </div>
-
-      {/* Scrollable body */}
-      <div className="flex-1 overflow-y-auto pb-4">
-        {bodyContent}
       </div>
 
     </div>
