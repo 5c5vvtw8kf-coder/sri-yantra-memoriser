@@ -369,12 +369,18 @@ const STEPS_BY_LANG = { en: STEPS_EN, hi: STEPS_HI, kn: STEPS_KN, ml: STEPS_ML, 
 
 // ── Language options shown in the first tour step ─────────────────────────────
 const TOUR_LANG_OPTIONS = [
-  { code: 'en', label: 'English'  },
-  { code: 'hi', label: 'हिन्दी'   },
-  { code: 'kn', label: 'ಕನ್ನಡ'   },
-  { code: 'ml', label: 'മലയാളം'  },
-  { code: 'ta', label: 'தமிழ்'   },
-  { code: 'te', label: 'తెలుగు'  },
+  { code: 'en', label: 'English'   },
+  { code: 'de', label: 'Deutsch'   },
+  { code: 'es', label: 'Español'   },
+  { code: 'fr', label: 'Français'  },
+  { code: 'hi', label: 'हिन्दी'    },
+  { code: 'it', label: 'Italiano'  },
+  { code: 'kn', label: 'ಕನ್ನಡ'    },
+  { code: 'ml', label: 'മലയാളം'   },
+  { code: 'mr', label: 'मराठी'    },
+  { code: 'pt', label: 'Português' },
+  { code: 'ta', label: 'தமிழ்'    },
+  { code: 'te', label: 'తెలుగు'   },
 ]
 
 function getSteps(uiLang) {
@@ -553,7 +559,7 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
 
         {/* Title — use IAST serif font for English; system font for Indic */}
         <h3
-          className={uiLang === 'en' ? 'iast' : ''}
+          className={['en','fr','es','it','pt','de'].includes(uiLang) ? 'iast' : ''}
           style={{
             fontSize: 14, fontWeight: 600, color: '#d4b96a',
             marginBottom: 10, lineHeight: 1.35, paddingRight: 18,
