@@ -402,6 +402,11 @@ const en = {
   'sc.inner2': 'Inner',
   'sc.whole': 'Whole',
   'sc.both': 'Both',
+  'nav.nyasa': 'Nyāsa Deities',
+  'nav.inner': 'Tithi Nitya Deities',
+  'nav.gurava': 'Gurus',
+  'nav.nc': 'Names of the Nine Chakras',
+  'nav.closing': 'Śrīdevī Epithets and Namaskāra',
 }
 
 // ── Hindi / Devanagari ────────────────────────────────────────────────────────
@@ -558,6 +563,11 @@ const hi = {
   'log.clear_confirm':  'गतिविधि लॉग मिटाएं? यह पूर्ववत नहीं किया जा सकता।',
   'tab.yantra':         'श्री यन्त्र',
   'tab.browser':        'खड्गमाला स्तोत्र',
+  'nav.nyasa': 'न्यासांगदेवताः',
+  'nav.inner': 'तिथिनित्यदेवताः',
+  'nav.gurava': 'गुरवः',
+  'nav.nc': 'नवचक्रेश्वरी नामानि',
+  'nav.closing': 'श्रीदेवी विशेषणानि',
 }
 
 // ── Telugu ────────────────────────────────────────────────────────────────────
@@ -714,6 +724,11 @@ const te = {
   'log.clear_confirm':  'కార్యకలాప నమోదును తొలగించాలా? ఇది రద్దు చేయడం సాధ్యం కాదు.',
   'tab.yantra':         'శ్రీ యన్త్ర',
   'tab.browser':        'ఖడ్గమాలా స్తోత్రమ్',
+  'nav.nyasa': 'న్యాసాంగదేవతాః',
+  'nav.inner': 'తిథినిత్యదేవతాః',
+  'nav.gurava': 'గురవః',
+  'nav.nc': 'నవచక్రేశ్వరీ నామాని',
+  'nav.closing': 'శ్రీదేవీ విశేషణాని',
 }
 
 // ── Tamil ─────────────────────────────────────────────────────────────────────
@@ -870,6 +885,11 @@ const ta = {
   'log.clear_confirm':  'செயல்பாட்டு பதிவை அழிக்கவா? இதை மீளவியலாது.',
   'tab.yantra':         'ஶ்ரீ யந்த்ர',
   'tab.browser':        'கட்கமாலா ஸ்தோத்ரம்',
+  'nav.nyasa': 'ந்யாஸாங்கதேவதாஃ',
+  'nav.inner': 'திதிநித்யதேவதாஃ',
+  'nav.gurava': 'குரவஃ',
+  'nav.nc': 'நவசக்ரேஶ்வரீ நாமானி',
+  'nav.closing': 'ஶ்ரீதேவீ விஶேஷணானி',
 }
 
 // ── Kannada ───────────────────────────────────────────────────────────────────
@@ -1026,6 +1046,11 @@ const kn = {
   'log.clear_confirm':  'ಚಟುವಟಿಕೆ ದಾಖಲೆ ತೆರವು ಮಾಡಬೇಕೇ? ಇದನ್ನು ರದ್ದು ಮಾಡಲಾಗದು.',
   'tab.yantra':         'ಶ್ರೀ ಯಂತ್ರ',
   'tab.browser':        'ಖಡ್ಗಮಾಲಾ ಸ್ತೋತ್ರಮ್',
+  'nav.nyasa': 'ನ್ಯಾಸಾಂಗದೇವತಾಃ',
+  'nav.inner': 'ತಿಥಿನಿತ್ಯದೇವತಾಃ',
+  'nav.gurava': 'ಗುರವಃ',
+  'nav.nc': 'ನವಚಕ್ರೇಶ್ವರೀ ನಾಮಾನಿ',
+  'nav.closing': 'ಶ್ರೀದೇವೀ ವಿಶೇಷಣಾನಿ',
 }
 
 // ── Malayalam ─────────────────────────────────────────────────────────────────
@@ -1182,6 +1207,11 @@ const ml = {
   'log.clear_confirm':  'പ്രവർത്തന ലോഗ് മായ്ക്കണോ? ഇത് പഴയ അവസ്ഥയിലേക്ക് കൊണ്ടുവരാൻ കഴിയില്ല.',
   'tab.yantra':         'ശ്രീ യന്ത്ര',
   'tab.browser':        'ഖഡ്ഗമാലാ സ്തോത്രം',
+  'nav.nyasa': 'ന്യാസാംഗദേവതാഃ',
+  'nav.inner': 'തിഥിനിത്യദേവതാഃ',
+  'nav.gurava': 'ഗുരവഃ',
+  'nav.nc': 'നവചക്രേശ്വരീ നാമാനി',
+  'nav.closing': 'ശ്രീദേവീ വിശേഷണാനി',
 }
 
 
@@ -1339,6 +1369,11 @@ const mr = {
   'sc.inner2': 'आंतरिक',
   'sc.whole':  'संपूर्ण',
   'sc.both':   'दोन्ही',
+  'nav.nyasa': 'न्यासांगदेवताः',
+  'nav.inner': 'तिथिनित्यदेवताः',
+  'nav.gurava': 'गुरवः',
+  'nav.nc': 'नवचक्रेश्वरी नामानि',
+  'nav.closing': 'श्रीदेवी विशेषणानि',
 }
 
 // ── French ────────────────────────────────────────────────────────────────────
@@ -1495,6 +1530,11 @@ const fr = {
   'sc.inner2': 'Intérieur',
   'sc.whole':  'Entier',
   'sc.both':   'Les deux',
+  'nav.nyasa': 'Divinités Nyāsa',
+  'nav.inner': 'Divinités Tithi Nitya',
+  'nav.gurava': 'Gourous',
+  'nav.nc': 'Noms des Neuf Chakras',
+  'nav.closing': 'Épithètes de Śrīdevī et Namaskāra',
 }
 
 // ── Spanish ───────────────────────────────────────────────────────────────────
@@ -1651,6 +1691,11 @@ const es = {
   'sc.inner2': 'Interior',
   'sc.whole':  'Completo',
   'sc.both':   'Ambos',
+  'nav.nyasa': 'Divinidades Nyāsa',
+  'nav.inner': 'Divinidades Tithi Nitya',
+  'nav.gurava': 'Gurús',
+  'nav.nc': 'Nombres de los Nueve Chakras',
+  'nav.closing': 'Epítetos de Śrīdevī y Namaskāra',
 }
 
 // ── Italian ───────────────────────────────────────────────────────────────────
@@ -1807,6 +1852,11 @@ const it = {
   'sc.inner2': 'Interno',
   'sc.whole':  'Intero',
   'sc.both':   'Entrambi',
+  'nav.nyasa': 'Divinità Nyāsa',
+  'nav.inner': 'Divinità Tithi Nitya',
+  'nav.gurava': 'Guru',
+  'nav.nc': 'Nomi dei Nove Chakra',
+  'nav.closing': 'Epiteti di Śrīdevī e Namaskāra',
 }
 
 
@@ -1964,6 +2014,11 @@ const pt = {
   'sc.inner2': 'Interior',
   'sc.whole':  'Completo',
   'sc.both':   'Ambos',
+  'nav.nyasa': 'Divindades Nyāsa',
+  'nav.inner': 'Divindades Tithi Nitya',
+  'nav.gurava': 'Gurus',
+  'nav.nc': 'Nomes dos Nove Chakras',
+  'nav.closing': 'Epítetos de Śrīdevī e Namaskāra',
 }
 
 // ── German ────────────────────────────────────────────────────────────────────
@@ -2120,6 +2175,11 @@ const de = {
   'sc.inner2': 'Innen',
   'sc.whole':  'Gesamt',
   'sc.both':   'Beide',
+  'nav.nyasa': 'Nyāsa-Gottheiten',
+  'nav.inner': 'Tithi-Nitya-Gottheiten',
+  'nav.gurava': 'Gurus',
+  'nav.nc': 'Namen der Neun Chakras',
+  'nav.closing': 'Śrīdevī-Epitheta und Namaskāra',
 }
 
 // ── String table registry ─────────────────────────────────────────────────────
