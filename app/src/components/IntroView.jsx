@@ -136,14 +136,135 @@ const CONTENT = {
     tour_link: 'మార్గదర్శిత పర్యటన చేయండి',
     tour_post: ' — అన్ని లక్షణాల త్వరిత పరిచయానికి.',
   },
+  mr: {
+    mantra: 'ॐ ऐं ह्रीं श्रीं ऐं क्लीं सौः',
+    salut:  'नमस्त्रिपुरसुन्दरि',
+    fontClass: '',
+    welcome1: 'नमस्कारम् आणि श्री यन्त्र स्मरण सहायकामध्ये आपले स्वागत आहे — श्री यन्त्राच्या पवित्र भूमितीद्वारे खड्गमाला स्तोत्र शिकण्याचे आणि आत्मसात करण्याचे एक साधन.',
+    welcome2: 'हे एक स्मरण आणि आत्मसातीकरण साधन आहे — श्री यन्त्र किंवा खड्गमाला स्तोत्राच्या तत्त्वज्ञान अथवा धर्मशास्त्राचे मार्गदर्शन नाही. त्यासाठी इतर अनेक उत्कृष्ट संसाधने उपलब्ध आहेत.',
+    h_yantra: 'श्री यन्त्र',
+    yantra: 'श्री यन्त्र (श्री चक्र असेही म्हणतात) हिंदू, विशेषतः श्री विद्या संप्रदायात, आणि बौद्ध तांत्रिक परंपरांमधील सर्वाधिक पूजनीय पवित्र भौमितिक मंडलांपैकी एक आहे. नऊ परस्परसंबंधित त्रिकोण — चार ऊर्ध्वमुखी आणि पाच अधोमुखी — एका केंद्रीय बिंदूपासून विकिरण पावतात, कमळाच्या दलांनी आणि चार द्वारांसह बाह्य चौरस आवरणाने वेढलेले. एकत्रितपणे ते नऊ आवरणे निर्माण करतात — सर्वात बाहेरच्या व्यक्त वास्तवापासून शुद्ध जाणिवेच्या बिंदूपर्यंत.',
+    h_stotram: 'खड्गमाला स्तोत्र',
+    stotram: 'खड्गमाला स्तोत्र, म्हणजे 'तलवारांची माळ', नऊ आवरणांमध्ये वास करणाऱ्या देवतांना नावाने आवाहन करते — सर्वात बाहेरच्या भूपुरापासून सुरू होऊन, वाढत्या गोपनीयतेसह, बिंदूपर्यंत. नऊ आवरणांमध्ये 102 देवतानामे आहेत. पूर्ण स्तोत्रात न्यास देवताः, तिथी नित्य देवताः, दिव्यौघ, सिद्धौघ आणि मानवौघ गुरू, नव चक्रेश्वरी, तथा समापन विशेषणे यांचाही समावेश होतो — एकूण सुमारे 160 नामे, परंपरेनुसार किंचित भिन्न. श्री यन्त्र स्पष्टपणे मनात ठेवून संपूर्ण स्तोत्र जपणे श्री चक्र पूजेसमान मानले जाते.',
+    h_how: 'हे अ‍ॅप कसे कार्य करते',
+    how1: 'खड्गमाला स्तोत्र पाठ करण्याचे बहुतेक उपाय क्रमिक पुनरावृत्तीवर अवलंबून असतात. हे अ‍ॅप स्थानिक स्मृतीच्या आधारावर वेगळा दृष्टिकोन देते — केवळ नामांचा क्रम नाही, तर श्री यन्त्राच्या भूमितीत प्रत्येक देवता कुठे वास करते हेही शिकायचे आहे. भूमिती खऱ्या अर्थाने आत्मसात झाली की क्रमिक पाठ आपोआप येतो.',
+    how2: 'अन्वेषण आणि पाठ विभागात स्तर-दर-स्तर कार्य करा. अन्वेषण मोड सामग्रीच्या आढाव्यासाठी आहे आणि पाठ मोडमध्ये देवतेचे नाव मनात आठवा, नंतर प्रकट करा — बरोबर असल्यास क्लिक, चुकीचे असल्यास दुहेरी-क्लिक. स्पॉट चेक यादृच्छिक पुनरावृत्ती देते. स्मृती नकाशा तुमची बलस्थाने आणि कमकुवत बाजू दाखवतो.',
+    how3_pre:  'सुरुवात करण्यापूर्वी, नामांचे ध्वनी आणि ताल यांशी परिचित होण्यासाठी खड्गमाला स्तोत्राचे संपूर्ण पठण ऐकणे उपयुक्त आहे. ',
+    how3_link: 'ही रेकॉर्डिंग',
+    how3_post: ' एक चांगला प्रारंभबिंदू असू शकते. हे अ‍ॅप तुम्हाला उपयुक्त आणि आनंददायक ठरो अशी आमची इच्छा आहे.',
+    tour_pre:  'अ‍ॅपमध्ये नवीन आहात? ',
+    tour_link: 'मार्गदर्शित भ्रमण करा',
+    tour_post: ' — सर्व वैशिष्ट्यांचा त्वरित परिचय.',
+  },
+  fr: {
+    mantra: 'Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ',
+    salut:  'Namastripurasundarī',
+    fontClass: 'iast',
+    welcome1: 'Namaskāram et bienvenue dans le Śrī Yantra Memoriser, un outil pour apprendre et intérioriser le Khadgamalā Stotram à travers la géométrie sacrée du Śrī Yantra.',
+    welcome2: "Cet outil est conçu pour la mémorisation et l'intériorisation — ce n'est pas un guide sur la philosophie ou la théologie du Śrī Yantra ou du Khadgamalā Stotram. De nombreuses autres excellentes ressources existent à cet effet, dont certaines sont répertoriées dans la page Références.",
+    h_yantra: 'Le Śrī Yantra',
+    yantra: "Le Śrī Yantra (également appelé Śrī Cakra) est l'un des mandalas géométriques sacrés les plus vénérés dans les traditions hindoues, notamment au sein de l'école Śrī Vidyā, et dans les traditions tantriques bouddhistes. Neuf triangles entrelacés, quatre pointant vers le haut et cinq vers le bas, rayonnent depuis un point central, le Bindu, entourés de pétales de lotus et d'une enceinte extérieure carrée à quatre portails. Ensemble, ils forment neuf enceintes ou 'voiles' (āvaraṇas), progressant de l'expression la plus extérieure de la réalité manifestée jusqu'au point de pure conscience.",
+    h_stotram: 'Le Khadgamalā Stotram',
+    stotram: "Le Khadgamalā Stotram, ou 'le Collier d'épées', invoque par leur nom les divinités résidant dans chacune des neuf āvaraṇas, en progressant du Bhūpura extérieur vers l'intérieur, avec un secret croissant, jusqu'au Bindu. Les neuf āvaraṇas contiennent 102 noms de divinités. Le stotram complet inclut également les Nyāsa Devatāḥ, les Tithi Nitya Devatāḥ, les gourous Divyaugha, Siddhaugha et Mānavaugha, les Nava Cakreśvarī, et des épithètes finaux — environ 160 noms au total, variant légèrement selon la lignée. Réciter le stotram complet en ayant clairement le Śrī Yantra à l'esprit est considéré comme équivalent à une pūjā du Śrī Cakra.",
+    h_how: "Fonctionnement de l'application",
+    how1: "La plupart des approches pour mémoriser le Khadgamalā Stotram reposent sur la répétition séquentielle par cœur. Cette application propose une approche différente : la mémoire spatiale — apprendre non seulement l'ordre des noms, mais aussi où chaque divinité réside dans la géométrie du Śrī Yantra. Lorsque la géométrie est véritablement intériorisée, le chant séquentiel suit naturellement.",
+    how2: "Parcourez les sections Explorer et Mémoriser niveau par niveau. Le mode Explorer permet de réviser le contenu, tandis que le mode Mémoriser invite à rappeler mentalement la divinité avant de survoler pour la révéler, puis d'enregistrer si elle est mémorisée ou non par un clic ou double-clic. Testez ensuite votre mémorisation avec la fonction aléatoire Contrôle Rapide. La Carte Mémoire permet de visualiser vos points forts et vos lacunes.",
+    how3_pre:  "Avant de commencer, il est utile d'écouter une récitation complète du Khadgamalā Stotram pour se familiariser avec les sons et le rythme des noms. Vous trouverez peut-être que ",
+    how3_link: 'cet enregistrement',
+    how3_post: " est un bon point de départ. Nous espérons que vous apprécierez cette application et la trouverez utile.",
+    tour_pre:  "Nouveau sur l'application ? ",
+    tour_link: 'Faites la visite guidée',
+    tour_post: ' pour une introduction rapide à toutes les fonctionnalités.',
+  },
+  es: {
+    mantra: 'Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ',
+    salut:  'Namastripurasundarī',
+    fontClass: 'iast',
+    welcome1: 'Namaskāram y bienvenido al Śrī Yantra Memoriser, una herramienta para aprender e interiorizar el Khadgamalā Stotram a través de la geometría sagrada del Śrī Yantra.',
+    welcome2: 'Esta es una herramienta de memorización e interiorización, no una guía sobre la filosofía o la teología del Śrī Yantra o el Khadgamalā Stotram. Existen muchos otros excelentes recursos para ello, algunos de los cuales se encuentran en la página de Referencias.',
+    h_yantra: 'El Śrī Yantra',
+    yantra: "El Śrī Yantra (también llamado Śrī Cakra) es uno de los mandalas geométricos sagrados más venerados en las tradiciones hindúes, especialmente dentro de la escuela Śrī Vidyā, y en las tradiciones tántricas budistas. Nueve triángulos entrelazados, cuatro apuntando hacia arriba y cinco hacia abajo, irradian desde un punto central, el Bindu, rodeados de pétalos de loto y un recinto cuadrado exterior con cuatro portales. Juntos forman nueve recintos o 'velos' (āvaraṇas), progresando desde la expresión más externa de la realidad manifestada hasta el punto de pura conciencia.",
+    h_stotram: 'El Khadgamalā Stotram',
+    stotram: "El Khadgamalā Stotram, o 'el Collar de Espadas', invoca por nombre a las deidades que residen en cada una de las nueve āvaraṇas, avanzando desde el Bhūpura más exterior hacia adentro, con creciente secreto, hasta el Bindu. Las nueve āvaraṇas contienen 102 nombres de deidades. El stotram completo también incluye los Nyāsa Devatāḥ, los Tithi Nitya Devatāḥ, los gurús Divyaugha, Siddhaugha y Mānavaugha, los Nava Cakreśvarī, y epítetos finales — alrededor de 160 nombres en total, variando ligeramente según el linaje. Recitar el stotram completo con el Śrī Yantra claramente en mente se considera equivalente a una pūjā del Śrī Cakra.",
+    h_how: 'Cómo funciona esta aplicación',
+    how1: 'La mayoría de los enfoques para memorizar el Khadgamalā Stotram se basan en la repetición secuencial mecánica. Esta aplicación ofrece un enfoque diferente: la memoria espacial — aprender no solo el orden de los nombres, sino dónde reside cada deidad dentro de la geometría del Śrī Yantra. Cuando la geometría se interioriza genuinamente, el canto secuencial sigue de manera natural.',
+    how2: 'Trabaja las secciones de Explorar y Memorizar nivel por nivel. El modo Explorar sirve para revisar el contenido y el modo Memorizar para recordar la deidad en tu mente antes de revelarla pasando el cursor, registrando si está memorizada o no con un clic o doble clic. Luego comprueba tu memorización con la función aleatoria de Comprobación Rápida. El Mapa de Memoria permite visualizar tus fortalezas y debilidades.',
+    how3_pre:  'Antes de comenzar, es útil escuchar una recitación completa del Khadgamalā Stotram para familiarizarse con el sonido y el ritmo de los nombres. Puede que encuentres que ',
+    how3_link: 'esta grabación',
+    how3_post: ' es un buen punto de partida. Esperamos que disfrutes de esta aplicación y la encuentres útil.',
+    tour_pre:  '¿Nuevo en la aplicación? ',
+    tour_link: 'Haz el recorrido guiado',
+    tour_post: ' para una introducción rápida a todas las funciones.',
+  },
+  it: {
+    mantra: 'Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ',
+    salut:  'Namastripurasundarī',
+    fontClass: 'iast',
+    welcome1: 'Namaskāram e benvenuto nello Śrī Yantra Memoriser, uno strumento per imparare e interiorizzare il Khadgamalā Stotram attraverso la geometria sacra dello Śrī Yantra.',
+    welcome2: "Questo è uno strumento di memorizzazione e interiorizzazione, non una guida alla filosofia o alla teologia dello Śrī Yantra o del Khadgamalā Stotram. Esistono molte altre ottime risorse per questo scopo, alcune delle quali sono elencate nella pagina Riferimenti.",
+    h_yantra: 'Lo Śrī Yantra',
+    yantra: "Lo Śrī Yantra (chiamato anche Śrī Cakra) è uno dei mandala geometrici sacri più venerati nelle tradizioni indù, specialmente all'interno della scuola Śrī Vidyā, e nelle tradizioni tantriche buddhiste. Nove triangoli intrecciati, quattro rivolti verso l'alto e cinque verso il basso, irradiano da un punto centrale, il Bindu, circondati da petali di loto e da un recinto quadrato esterno con quattro portali. Insieme formano nove recinti o 'veli' (āvaraṇas), progredendo dall'espressione più esterna della realtà manifestata fino al punto di pura consapevolezza.",
+    h_stotram: 'Il Khadgamalā Stotram',
+    stotram: "Il Khadgamalā Stotram, ovvero 'la Ghirlanda di Spade', invoca per nome le divinità che risiedono in ciascuna delle nove āvaraṇas, procedendo dal Bhūpura più esterno verso l'interno, con crescente segretezza, fino al Bindu. Le nove āvaraṇas contengono 102 nomi di divinità. Lo stotram completo include anche i Nyāsa Devatāḥ, i Tithi Nitya Devatāḥ, i guru Divyaugha, Siddhaugha e Mānavaugha, i Nava Cakreśvarī, ed epiteti finali — circa 160 nomi in totale, variando leggermente secondo il lignaggio. Recitare lo stotram completo con lo Śrī Yantra chiaramente in mente è considerato equivalente a una pūjā dello Śrī Cakra.",
+    h_how: "Come funziona questa applicazione",
+    how1: "La maggior parte degli approcci per memorizzare il Khadgamalā Stotram si basa sulla ripetizione sequenziale meccanica. Questa applicazione offre un approccio diverso: la memoria spaziale — imparare non solo l'ordine dei nomi, ma dove ogni divinità risiede nella geometria dello Śrī Yantra. Quando la geometria viene genuinamente interiorizzata, il canto sequenziale segue naturalmente.",
+    how2: "Lavora le sezioni Esplora e Memorizza livello per livello. La modalità Esplora serve per ripassare il contenuto, mentre la modalità Memorizza invita a richiamare mentalmente la divinità prima di rivelare il nome passando il cursore, registrando se è memorizzata o meno con un clic o doppio clic. Poi metti alla prova la tua memorizzazione con la funzione casuale Controllo Rapido. La Mappa della Memoria permette di visualizzare i tuoi punti di forza e di debolezza.",
+    how3_pre:  "Prima di iniziare, è utile ascoltare una recitazione completa del Khadgamalā Stotram per familiarizzarsi con il suono e il ritmo dei nomi. Potresti trovare che ",
+    how3_link: 'questa registrazione',
+    how3_post: ' sia un buon punto di partenza. Speriamo che tu possa apprezzare questa applicazione e trovarla utile.',
+    tour_pre:  "Nuovo nell'applicazione? ",
+    tour_link: 'Fai il tour guidato',
+    tour_post: ' per una rapida introduzione a tutte le funzioni.',
+  },
+  pt: {
+    mantra: 'Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ',
+    salut:  'Namastripurasundarī',
+    fontClass: 'iast',
+    welcome1: 'Namaskāram e bem-vindo ao Śrī Yantra Memoriser, uma ferramenta para aprender e interiorizar o Khadgamalā Stotram através da geometria sagrada do Śrī Yantra.',
+    welcome2: 'Esta é uma ferramenta de memorização e interiorização, não um guia sobre a filosofia ou a teologia do Śrī Yantra ou do Khadgamalā Stotram. Existem muitos outros excelentes recursos para esse fim, alguns dos quais estão listados na página de Referências.',
+    h_yantra: 'O Śrī Yantra',
+    yantra: "O Śrī Yantra (também chamado de Śrī Cakra) é um dos mandalas geométricos sagrados mais venerados nas tradições hindus, especialmente dentro da escola Śrī Vidyā, e nas tradições tântricas budistas. Nove triângulos entrelaçados, quatro apontando para cima e cinco para baixo, irradiam de um ponto central, o Bindu, rodeados por pétalas de lótus e um recinto quadrado exterior com quatro portais. Juntos formam nove recintos ou 'véus' (āvaraṇas), progredindo da expressão mais externa da realidade manifestada até ao ponto de pura consciência.",
+    h_stotram: 'O Khadgamalā Stotram',
+    stotram: "O Khadgamalā Stotram, ou 'o Colar de Espadas', invoca pelo nome as divindades que residem em cada uma das nove āvaraṇas, avançando desde o Bhūpura mais externo para o interior, com crescente sigilo, até ao Bindu. As nove āvaraṇas contêm 102 nomes de divindades. O stotram completo inclui também os Nyāsa Devatāḥ, os Tithi Nitya Devatāḥ, os gurus Divyaugha, Siddhaugha e Mānavaugha, os Nava Cakreśvarī, e epítetos finais — cerca de 160 nomes no total, variando ligeiramente consoante a linhagem. Recitar o stotram completo com o Śrī Yantra claramente em mente é considerado equivalente a uma pūjā do Śrī Cakra.",
+    h_how: 'Como funciona esta aplicação',
+    how1: 'A maioria das abordagens para memorizar o Khadgamalā Stotram baseia-se na repetição sequencial mecânica. Esta aplicação oferece uma abordagem diferente: a memória espacial — aprender não apenas a ordem dos nomes, mas onde cada divindade reside na geometria do Śrī Yantra. Quando a geometria é genuinamente interiorizada, o canto sequencial segue naturalmente.',
+    how2: 'Trabalhe as secções de Explorar e Memorizar nível a nível. O modo Explorar serve para rever o conteúdo e o modo Memorizar convida a recordar mentalmente a divindade antes de revelar o nome passando o cursor, registando se está memorizada ou não com um clique ou duplo clique. Depois teste a sua memorização com a função aleatória de Verificação Rápida. O Mapa de Memória permite visualizar os seus pontos fortes e fracos.',
+    how3_pre:  'Antes de começar, é útil ouvir uma recitação completa do Khadgamalā Stotram para se familiarizar com o som e o ritmo dos nomes. Pode descobrir que ',
+    how3_link: 'esta gravação',
+    how3_post: ' é um bom ponto de partida. Esperamos que aprecie esta aplicação e a encontre útil.',
+    tour_pre:  'Novo na aplicação? ',
+    tour_link: 'Faça a visita guiada',
+    tour_post: ' para uma introdução rápida a todas as funcionalidades.',
+  },
+  de: {
+    mantra: 'Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ',
+    salut:  'Namastripurasundarī',
+    fontClass: 'iast',
+    welcome1: 'Namaskāram und willkommen beim Śrī Yantra Memoriser — einem Werkzeug, um den Khadgamalā Stotram durch die heilige Geometrie des Śrī Yantra zu lernen und zu verinnerlichen.',
+    welcome2: 'Dies ist ein Werkzeug zur Memorierung und Verinnerlichung, kein Leitfaden zur Philosophie oder Theologie des Śrī Yantra oder des Khadgamalā Stotram. Dafür gibt es viele andere hervorragende Quellen, einige davon sind auf der Seite Referenzen aufgeführt.',
+    h_yantra: 'Das Śrī Yantra',
+    yantra: "Das Śrī Yantra (auch Śrī Cakra genannt) ist eines der verehrtesten heiligen geometrischen Mandalas in hinduistischen Traditionen, besonders innerhalb der Śrī Vidyā-Schule, sowie in buddhistischen Tantra-Traditionen. Neun ineinandergreifende Dreiecke — vier nach oben und fünf nach unten weisend — strahlen von einem zentralen Punkt, dem Bindu, aus, umgeben von Lotusblütenblättern und einem äußeren quadratischen Gehege mit vier Toren. Zusammen bilden sie neun Umhüllungen oder 'Schleier' (āvaraṇas), die von der äußersten Ausdrucksform der manifestierten Wirklichkeit bis zum Punkt reinen Bewusstseins fortschreiten.",
+    h_stotram: 'Der Khadgamalā Stotram',
+    stotram: "Der Khadgamalā Stotram, oder 'das Schwerterkollier', ruft namentlich die Gottheiten an, die in jeder der neun āvaraṇas wohnen — vom äußersten Bhūpura nach innen, mit zunehmender Geheimhaltung, bis zum Bindu. Die neun āvaraṇas enthalten 102 Götternamen. Der vollständige Stotram umfasst auch die Nyāsa Devatāḥ, die Tithi Nitya Devatāḥ, die Divyaugha-, Siddhaugha- und Mānavaugha-Gurus, die Nava Cakreśvarī sowie abschließende Beinamen — insgesamt etwa 160 Namen, je nach Überlieferungslinie leicht variierend. Das vollständige Stotram mit dem Śrī Yantra klar vor Augen zu rezitieren gilt als gleichwertig mit einer Śrī Cakra-Pūjā.",
+    h_how: 'Wie diese App funktioniert',
+    how1: 'Die meisten Ansätze zur Memorierung des Khadgamalā Stotram beruhen auf sequenzieller Wiederholung. Diese App bietet einen anderen Ansatz: räumliches Gedächtnis — nicht nur die Reihenfolge der Namen zu lernen, sondern auch wo jede Gottheit innerhalb der Geometrie des Śrī Yantra wohnt. Wenn die Geometrie wirklich verinnerlicht ist, folgt der sequenzielle Gesang auf natürliche Weise.',
+    how2: 'Arbeite die Abschnitte Erkunden und Einprägen Ebene für Ebene durch. Der Erkunden-Modus dient zur Wiederholung des Inhalts, während der Einprägen-Modus dazu einlädt, die Gottheit gedanklich zu erinnern, bevor man über sie fährt, um sie zu enthüllen, und dann durch Klick oder Doppelklick festzuhalten, ob sie eingeprägt wurde. Teste deine Memorierung anschließend mit der zufälligen Schnelltest-Funktion. Die Gedächtniskarte zeigt deine Stärken und Schwächen.',
+    how3_pre:  'Bevor du beginnst, ist es hilfreich, eine vollständige Rezitation des Khadgamalā Stotram zu hören, um sich mit dem Klang und dem Rhythmus der Namen vertraut zu machen. Vielleicht findest du, dass ',
+    how3_link: 'diese Aufnahme',
+    how3_post: ' ein guter Ausgangspunkt ist. Wir hoffen, dass dir diese App gefällt und du sie nützlich findest.',
+    tour_pre:  'Neu in der App? ',
+    tour_link: 'Mache die geführte Tour',
+    tour_post: ' für eine schnelle Einführung in alle Funktionen.',
+  },
 }
 
 export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour }) {
   const c = CONTENT[uiLang] ?? CONTENT.en
+  const isLatinScript = ['en','fr','es','it','pt','de'].includes(uiLang)
   const isEnglish = uiLang === 'en'
 
   // For Sanskrit inline spans: use iast class when rendering IAST/English UI
-  const skt = isEnglish ? 'iast' : ''
+  const skt = isLatinScript ? 'iast' : ''
 
   return (
     <div className="relative w-full overflow-x-hidden overflow-y-auto">
@@ -169,12 +290,12 @@ export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour 
         {/* Opening invocation */}
         <div className="text-center space-y-2 pb-6 border-b border-surface-800">
           <p
-            className={`${isEnglish ? 'iast' : ''} text-gold-300 leading-relaxed tracking-wide`}
+            className={`${isLatinScript ? 'iast' : ''} text-gold-300 leading-relaxed tracking-wide`}
             style={{ fontSize: '22px' }}
           >
             {c.mantra}
           </p>
-          <p className={`${isEnglish ? 'iast' : ''} text-gold-600 text-lg`}>
+          <p className={`${isLatinScript ? 'iast' : ''} text-gold-600 text-lg`}>
             {c.salut}
           </p>
         </div>
