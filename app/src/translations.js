@@ -106,10 +106,6 @@ export const LOCALE_CONFIG = {
   //   uiLang:  'ja',
   //   ruby:    'iast',      // IAST shown as furigana above katakana
   // },
-}
-
-/** Returns the list of scripts in display order for the picker. */
-
   mr: {
     label:       'मराठी',
     englishName: 'Marathi',
@@ -152,6 +148,9 @@ export const LOCALE_CONFIG = {
     script:      'iast',
     uiLang:      'de',
   },
+}
+
+/** Returns the list of scripts in display order for the picker. */
 export const LOCALE_ORDER = [
   'iast', 'devanagari', 'kannada', 'malayalam', 'tamil', 'telugu', 'english',
   'mr', 'fr', 'es', 'it', 'pt', 'de',
