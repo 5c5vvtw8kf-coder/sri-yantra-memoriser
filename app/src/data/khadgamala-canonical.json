@@ -315,7 +315,23 @@
         "x": null,
         "y": null
       },
-      "note": "Nyasa of the heart"
+      "note": "Nyasa of the heart",
+      "translations": {
+        "en": "Heart Goddess",
+        "fr": "Déesse du Cœur",
+        "es": "Diosa del Corazón",
+        "it": "Dea del Cuore",
+        "pt": "Deusa do Coração",
+        "de": "Göttin des Herzens"
+      },
+      "notes": {
+        "en": "Nyasa of the heart",
+        "fr": "Nyāsa du cœur",
+        "es": "Nyāsa del corazón",
+        "it": "Nyāsa del cuore",
+        "pt": "Nyāsa do coração",
+        "de": "Nyāsa des Herzens"
+      }
     },
     {
       "id": "nyasa-002",
@@ -341,7 +357,23 @@
         "x": null,
         "y": null
       },
-      "note": "Nyasa of the head"
+      "note": "Nyasa of the head",
+      "translations": {
+        "en": "Head Goddess",
+        "fr": "Déesse de la Tête",
+        "es": "Diosa de la Cabeza",
+        "it": "Dea della Testa",
+        "pt": "Deusa da Cabeça",
+        "de": "Göttin des Kopfes"
+      },
+      "notes": {
+        "en": "Nyasa of the head",
+        "fr": "Nyāsa de la tête",
+        "es": "Nyāsa de la cabeza",
+        "it": "Nyāsa della testa",
+        "pt": "Nyāsa da cabeça",
+        "de": "Nyāsa des Kopfes"
+      }
     },
     {
       "id": "nyasa-003",
@@ -367,7 +399,23 @@
         "x": null,
         "y": null
       },
-      "note": "Nyasa of the crown/topknot"
+      "note": "Nyasa of the crown/topknot",
+      "translations": {
+        "en": "Crown Goddess",
+        "fr": "Déesse de la Couronne",
+        "es": "Diosa de la Corona",
+        "it": "Dea della Corona",
+        "pt": "Deusa da Coroa",
+        "de": "Göttin der Krone"
+      },
+      "notes": {
+        "en": "Nyasa of the crown/topknot",
+        "fr": "Nyāsa de la couronne",
+        "es": "Nyāsa de la corona",
+        "it": "Nyāsa della corona",
+        "pt": "Nyāsa da coroa",
+        "de": "Nyāsa der Krone"
+      }
     },
     {
       "id": "nyasa-004",
@@ -393,7 +441,23 @@
         "x": null,
         "y": null
       },
-      "note": "Nyasa of the armour/protective sheath"
+      "note": "Nyasa of the armour/protective sheath",
+      "translations": {
+        "en": "Armour Goddess",
+        "fr": "Déesse de l'Armure",
+        "es": "Diosa de la Armadura",
+        "it": "Dea dell'Armatura",
+        "pt": "Deusa da Armadura",
+        "de": "Göttin der Rüstung"
+      },
+      "notes": {
+        "en": "Nyasa of the armour/protective sheath",
+        "fr": "Nyāsa de l'armure",
+        "es": "Nyāsa de la armadura",
+        "it": "Nyāsa dell'armatura",
+        "pt": "Nyāsa da armadura",
+        "de": "Nyāsa der Rüstung"
+      }
     },
     {
       "id": "nyasa-005",
@@ -419,7 +483,23 @@
         "x": null,
         "y": null
       },
-      "note": "Nyasa of the eyes"
+      "note": "Nyasa of the eyes",
+      "translations": {
+        "en": "Eye Goddess",
+        "fr": "Déesse des Yeux",
+        "es": "Diosa de los Ojos",
+        "it": "Dea degli Occhi",
+        "pt": "Deusa dos Olhos",
+        "de": "Göttin der Augen"
+      },
+      "notes": {
+        "en": "Nyasa of the eyes",
+        "fr": "Nyāsa des yeux",
+        "es": "Nyāsa de los ojos",
+        "it": "Nyāsa degli occhi",
+        "pt": "Nyāsa dos olhos",
+        "de": "Nyāsa der Augen"
+      }
     },
     {
       "id": "nyasa-006",
@@ -445,7 +525,23 @@
         "x": null,
         "y": null
       },
-      "note": "Nyasa of the weapon/astra"
+      "note": "Nyasa of the weapon/astra",
+      "translations": {
+        "en": "Weapon Goddess",
+        "fr": "Déesse de l'Arme",
+        "es": "Diosa del Arma",
+        "it": "Dea dell'Arma",
+        "pt": "Deusa da Arma",
+        "de": "Göttin der Waffe"
+      },
+      "notes": {
+        "en": "Nyasa of the weapon/astra",
+        "fr": "Nyāsa de l'arme",
+        "es": "Nyāsa del arma",
+        "it": "Nyāsa dell'arma",
+        "pt": "Nyāsa da arma",
+        "de": "Nyāsa der Waffe"
+      }
     },
     {
       "id": "nitya-001",
@@ -471,7 +567,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Goddess of Desire",
+        "fr": "Déesse du Désir",
+        "es": "Diosa del Deseo",
+        "it": "Dea del Desiderio",
+        "pt": "Deusa do Desejo",
+        "de": "Göttin des Begehrens"
+      }
     },
     {
       "id": "nitya-002",
@@ -497,7 +601,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Garlanded with Splendour",
+        "fr": "Couronnée de Splendeur",
+        "es": "Guirnalda de Esplendor",
+        "it": "Ghirlandata di Splendore",
+        "pt": "Ornada de Esplendor",
+        "de": "Mit Glanz Bekränzte"
+      }
     },
     {
       "id": "nitya-003",
@@ -523,7 +635,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Ever Moist (with Mercy)",
+        "fr": "Toujours Humide",
+        "es": "Siempre Húmeda",
+        "it": "Sempre Umida",
+        "pt": "Sempre Úmida",
+        "de": "Stets Feucht"
+      }
     },
     {
       "id": "nitya-004",
@@ -549,7 +669,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "The Terrible",
+        "fr": "La Terrible",
+        "es": "La Terrible",
+        "it": "La Terribile",
+        "pt": "A Terrível",
+        "de": "Die Schreckliche"
+      }
     },
     {
       "id": "nitya-005",
@@ -575,7 +703,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Dwelling in Fire",
+        "fr": "Demeurant dans le Feu",
+        "es": "Morando en el Fuego",
+        "it": "Dimorante nel Fuoco",
+        "pt": "Morando no Fogo",
+        "de": "Im Feuer Wohnende"
+      }
     },
     {
       "id": "nitya-006",
@@ -601,7 +737,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Goddess of the Vajra",
+        "fr": "Grande Déesse du Vajra",
+        "es": "Gran Diosa del Vajra",
+        "it": "Grande Dea del Vajra",
+        "pt": "Grande Deusa do Vajra",
+        "de": "Große Göttin des Vajra"
+      }
     },
     {
       "id": "nitya-007",
@@ -627,7 +771,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Shiva's Messenger",
+        "fr": "Messagère de Shiva",
+        "es": "Mensajera de Shiva",
+        "it": "Messaggera di Shiva",
+        "pt": "Mensageira de Shiva",
+        "de": "Shivas Botin"
+      }
     },
     {
       "id": "nitya-008",
@@ -653,7 +805,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "The Swift One",
+        "fr": "La Rapide",
+        "es": "La Veloz",
+        "it": "La Veloce",
+        "pt": "A Veloz",
+        "de": "Die Schnelle"
+      }
     },
     {
       "id": "nitya-009",
@@ -679,7 +839,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Beautiful One of the Kula (group)",
+        "fr": "Belle du Kula",
+        "es": "Bella del Kula",
+        "it": "Bella del Kula",
+        "pt": "Bela do Kula",
+        "de": "Schöne des Kula"
+      }
     },
     {
       "id": "nitya-010",
@@ -705,7 +873,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "The Eternal",
+        "fr": "L'Éternelle",
+        "es": "La Eterna",
+        "it": "L'Eterna",
+        "pt": "A Eterna",
+        "de": "Die Ewige"
+      }
     },
     {
       "id": "nitya-011",
@@ -731,7 +907,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Blue Banner",
+        "fr": "Bannière Bleue",
+        "es": "Estandarte Azul",
+        "it": "Stendardo Blu",
+        "pt": "Estandarte Azul",
+        "de": "Blaues Banner"
+      }
     },
     {
       "id": "nitya-012",
@@ -757,7 +941,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "The Victorious",
+        "fr": "La Victorieuse",
+        "es": "La Victoriosa",
+        "it": "La Vittoriosa",
+        "pt": "A Vitoriosa",
+        "de": "Die Siegreiche"
+      }
     },
     {
       "id": "nitya-013",
@@ -783,7 +975,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "All Auspicious",
+        "fr": "Toute Auspicieuse",
+        "es": "Toda Auspiciosa",
+        "it": "Tutta Auspiciosa",
+        "pt": "Toda Auspiciosa",
+        "de": "Allverheißungsvolle"
+      }
     },
     {
       "id": "nitya-014",
@@ -809,7 +1009,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Garlanded with Flames",
+        "fr": "Couronnée de Flammes",
+        "es": "Guirnalda de Llamas",
+        "it": "Ghirlandata di Fiamme",
+        "pt": "Ornada de Chamas",
+        "de": "Mit Flammen Bekränzte"
+      }
     },
     {
       "id": "nitya-015",
@@ -835,7 +1043,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "The Variegated",
+        "fr": "La Bigarrée",
+        "es": "La Variegada",
+        "it": "La Variegata",
+        "pt": "A Variegada",
+        "de": "Die Bunte"
+      }
     },
     {
       "id": "nitya-016",
@@ -861,7 +1077,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "The Great Eternal",
+        "fr": "La Grande Éternelle",
+        "es": "La Gran Eterna",
+        "it": "La Grande Eterna",
+        "pt": "A Grande Eterna",
+        "de": "Die Große Ewige"
+      }
     },
     {
       "id": "guru-divya-001",
@@ -887,7 +1111,23 @@
         "x": null,
         "y": null
       },
-      "note": "Chanted as a pair — the primordial divine couple"
+      "note": "Chanted as a pair — the primordial divine couple",
+      "translations": {
+        "en": "The Divine God and Divine Goddess",
+        "fr": "Le Dieu Divin et la Déesse Divine",
+        "es": "El Dios Divino y la Diosa Divina",
+        "it": "Il Dio Divino e la Dea Divina",
+        "pt": "O Deus Divino e a Deusa Divina",
+        "de": "Der Göttliche Gott und die Göttliche Göttin"
+      },
+      "notes": {
+        "en": "Chanted as a pair — the primordial divine couple",
+        "fr": "Chanté en paire — couple divin primordial",
+        "es": "Cantado en pareja — la pareja divina primordial",
+        "it": "Cantato in coppia — la coppia divina primordiale",
+        "pt": "Cantado em par — o casal divino primordial",
+        "de": "Als Paar gesungen — das uranfängliche göttliche Paar"
+      }
     },
     {
       "id": "guru-divya-002",
@@ -913,7 +1153,23 @@
         "x": null,
         "y": null
       },
-      "note": "Mitrēśa ('lord of friends') is a form of Śiva; second in the divine lineage"
+      "note": "Mitrēśa ('lord of friends') is a form of Śiva; second in the divine lineage",
+      "translations": {
+        "en": "She who embodies Mitrēśa",
+        "fr": "Celle qui incarne Mitresha",
+        "es": "La que encarna a Mitresha",
+        "it": "Colei che incarna Mitresha",
+        "pt": "Aquela que encarna Mitresha",
+        "de": "Die Mitresha verkörpert"
+      },
+      "notes": {
+        "en": "Mitrēśa ('lord of friends') is a form of Śiva; second in the divine lineage",
+        "fr": "Mitresha est une forme de Shiva ; second dans la lignée",
+        "es": "Mitresha es una forma de Shiva; segundo en el linaje",
+        "it": "Mitresha è una forma di Shiva; secondo nella lignea",
+        "pt": "Mitresha é uma forma de Shiva; segundo na linhagem",
+        "de": "Mitresha ist eine Form Shivas; zweiter in der Linie"
+      }
     },
     {
       "id": "guru-divya-003",
@@ -939,7 +1195,23 @@
         "x": null,
         "y": null
       },
-      "note": "Ṣaṣṭhīśa is a form of Śiva; third in the divine lineage"
+      "note": "Ṣaṣṭhīśa is a form of Śiva; third in the divine lineage",
+      "translations": {
+        "en": "She who embodies Ṣaṣṭhīśa",
+        "fr": "Celle qui incarne Shashthisha",
+        "es": "La que encarna a Shashthisha",
+        "it": "Colei che incarna Shashthisha",
+        "pt": "Aquela que encarna Shashthisha",
+        "de": "Die Shashthisha verkörpert"
+      },
+      "notes": {
+        "en": "Ṣaṣṭhīśa is a form of Śiva; third in the divine lineage",
+        "fr": "Shashthisha est une forme de Shiva ; troisième",
+        "es": "Shashthisha es una forma de Shiva; tercero",
+        "it": "Shashthisha è una forma di Shiva; terzo",
+        "pt": "Shashthisha é uma forma de Shiva; terceiro",
+        "de": "Shashthisha ist eine Form Shivas; dritter"
+      }
     },
     {
       "id": "guru-divya-004",
@@ -965,7 +1237,23 @@
         "x": null,
         "y": null
       },
-      "note": "Fourth in the divine lineage"
+      "note": "Fourth in the divine lineage",
+      "translations": {
+        "en": "She who embodies Uddīśa",
+        "fr": "Celle qui incarne Uddisha",
+        "es": "La que encarna a Uddisha",
+        "it": "Colei che incarna Uddisha",
+        "pt": "Aquela que encarna Uddisha",
+        "de": "Die Uddisha verkörpert"
+      },
+      "notes": {
+        "en": "Fourth in the divine lineage",
+        "fr": "Quatrième dans la lignée divine",
+        "es": "Cuarto en el linaje divino",
+        "it": "Quarto nella lignea divina",
+        "pt": "Quarto na linhagem divina",
+        "de": "Vierter in der göttlichen Linie"
+      }
     },
     {
       "id": "guru-divya-005",
@@ -991,7 +1279,23 @@
         "x": null,
         "y": null
       },
-      "note": "Caryānātha is a master revered in both Śaiva and Nātha traditions; fifth in the divine lineage"
+      "note": "Caryānātha is a master revered in both Śaiva and Nātha traditions; fifth in the divine lineage",
+      "translations": {
+        "en": "She who embodies Caryānātha",
+        "fr": "Celle qui incarne Caryanatha",
+        "es": "La que encarna a Caryanatha",
+        "it": "Colei che incarna Caryanatha",
+        "pt": "Aquela que encarna Caryanatha",
+        "de": "Die Caryanatha verkörpert"
+      },
+      "notes": {
+        "en": "Caryānātha is a master revered in both Śaiva and Nātha traditions; fifth in the divine lineage",
+        "fr": "Caryanatha — maître des traditions Shaiva et Natha",
+        "es": "Caryanatha — maestro de las tradiciones Shaiva y Natha",
+        "it": "Caryanatha — maestro nelle tradizioni Shaiva e Natha",
+        "pt": "Caryanatha — mestre das tradições Shaiva e Natha",
+        "de": "Caryanatha — Meister der Shaiva- und Natha-Traditionen"
+      }
     },
     {
       "id": "guru-divya-006",
@@ -1017,7 +1321,23 @@
         "x": null,
         "y": null
       },
-      "note": "Wife of Agastya and a great adept in her own right; co-revealer of Śrī Vidyā and author of hymns in the Ṛgveda"
+      "note": "Wife of Agastya and a great adept in her own right; co-revealer of Śrī Vidyā and author of hymns in the Ṛgveda",
+      "translations": {
+        "en": "She who embodies Lōpāmudrā",
+        "fr": "Celle qui incarne Lopamudra",
+        "es": "La que encarna a Lopamudra",
+        "it": "Colei che incarna Lopamudra",
+        "pt": "Aquela que encarna Lopamudra",
+        "de": "Die Lopamudra verkörpert"
+      },
+      "notes": {
+        "en": "Wife of Agastya and a great adept in her own right; co-revealer of Śrī Vidyā and author of hymns in the Ṛgveda",
+        "fr": "Épouse d'Agastya ; co-révélatrice de Sri Vidya",
+        "es": "Esposa de Agastya; co-reveladora de Sri Vidya",
+        "it": "Moglie di Agastya; co-rivelatrice di Sri Vidya",
+        "pt": "Esposa de Agastya; co-reveladora de Sri Vidya",
+        "de": "Ehefrau von Agastya; Mitoffenbarerin der Sri Vidya"
+      }
     },
     {
       "id": "guru-divya-007",
@@ -1043,7 +1363,23 @@
         "x": null,
         "y": null
       },
-      "note": "Vedic sage and one of the Saptaṛṣis; widely credited with transmitting Śrī Vidyā to South India"
+      "note": "Vedic sage and one of the Saptaṛṣis; widely credited with transmitting Śrī Vidyā to South India",
+      "translations": {
+        "en": "She who embodies Agastya",
+        "fr": "Celle qui incarne Agastya",
+        "es": "La que encarna a Agastya",
+        "it": "Colei che incarna Agastya",
+        "pt": "Aquela que encarna Agastya",
+        "de": "Die Agastya verkörpert"
+      },
+      "notes": {
+        "en": "Vedic sage and one of the Saptaṛṣis; widely credited with transmitting Śrī Vidyā to South India",
+        "fr": "Sage védique transmetteur de Sri Vidya en Inde du Sud",
+        "es": "Sabio védico que transmitió Sri Vidya al sur de India",
+        "it": "Saggio vedico trasmettitore di Sri Vidya nel Sud India",
+        "pt": "Sábio védico transmissor de Sri Vidya ao sul da Índia",
+        "de": "Vedischer Weiser, der Sri Vidya nach Südindien übermittelte"
+      }
     },
     {
       "id": "guru-siddha-001",
@@ -1069,7 +1405,23 @@
         "x": null,
         "y": null
       },
-      "note": "Kālatāpana means 'one who burns away time'; first of the perfected (siddha) lineage"
+      "note": "Kālatāpana means 'one who burns away time'; first of the perfected (siddha) lineage",
+      "translations": {
+        "en": "She who embodies Kālatāpana",
+        "fr": "Celle qui incarne Kalatapana",
+        "es": "La que encarna a Kalatapana",
+        "it": "Colei che incarna Kalatapana",
+        "pt": "Aquela que encarna Kalatapana",
+        "de": "Die Kalatapana verkörpert"
+      },
+      "notes": {
+        "en": "Kālatāpana means 'one who burns away time'; first of the perfected (siddha) lineage",
+        "fr": "Kalatapana — 'celui qui brûle le temps'",
+        "es": "Kalatapana — 'aquel que quema el tiempo'",
+        "it": "Kalatapana — 'colui che brucia il tempo'",
+        "pt": "Kalatapana — 'aquele que queima o tempo'",
+        "de": "Kalatapana — 'der die Zeit verbrennt'"
+      }
     },
     {
       "id": "guru-siddha-002",
@@ -1095,7 +1447,23 @@
         "x": null,
         "y": null
       },
-      "note": "Dharmācārya means 'teacher of dharma'; second of the perfected lineage"
+      "note": "Dharmācārya means 'teacher of dharma'; second of the perfected lineage",
+      "translations": {
+        "en": "She who embodies Dharmācārya",
+        "fr": "Celle qui incarne Dharmacarya",
+        "es": "La que encarna a Dharmacarya",
+        "it": "Colei che incarna Dharmacarya",
+        "pt": "Aquela que encarna Dharmacarya",
+        "de": "Die Dharmacarya verkörpert"
+      },
+      "notes": {
+        "en": "Dharmācārya means 'teacher of dharma'; second of the perfected lineage",
+        "fr": "Dharmacarya — 'enseignant du dharma'",
+        "es": "Dharmacarya — 'maestro del dharma'",
+        "it": "Dharmacarya — 'insegnante del dharma'",
+        "pt": "Dharmacarya — 'professor do dharma'",
+        "de": "Dharmacarya — 'Lehrer des Dharma'"
+      }
     },
     {
       "id": "guru-siddha-003",
@@ -1121,7 +1489,23 @@
         "x": null,
         "y": null
       },
-      "note": "Muktakēśīśvara means 'lord of unbound hair'; third of the perfected lineage"
+      "note": "Muktakēśīśvara means 'lord of unbound hair'; third of the perfected lineage",
+      "translations": {
+        "en": "She who embodies Muktakēśīśvara",
+        "fr": "Celle qui incarne Muktakeshishvara",
+        "es": "La que encarna a Muktakeshishvara",
+        "it": "Colei che incarna Muktakeshishvara",
+        "pt": "Aquela que encarna Muktakeshishvara",
+        "de": "Die Muktakeshishvara verkörpert"
+      },
+      "notes": {
+        "en": "Muktakēśīśvara means 'lord of unbound hair'; third of the perfected lineage",
+        "fr": "Muktakeshishvara — 'seigneur aux cheveux dénoués'",
+        "es": "Muktakeshishvara — 'señor del cabello suelto'",
+        "it": "Muktakeshishvara — 'signore dei capelli sciolti'",
+        "pt": "Muktakeshishvara — 'senhor dos cabelos soltos'",
+        "de": "Muktakeshishvara — 'Herr des offenen Haares'"
+      }
     },
     {
       "id": "guru-siddha-004",
@@ -1147,7 +1531,23 @@
         "x": null,
         "y": null
       },
-      "note": "Dīpakalānātha means 'lord of the art of light'; fourth of the perfected lineage"
+      "note": "Dīpakalānātha means 'lord of the art of light'; fourth of the perfected lineage",
+      "translations": {
+        "en": "She who embodies Dīpakalānātha",
+        "fr": "Celle qui incarne Dipakalanatha",
+        "es": "La que encarna a Dipakalanatha",
+        "it": "Colei che incarna Dipakalanatha",
+        "pt": "Aquela que encarna Dipakalanatha",
+        "de": "Die Dipakalanatha verkörpert"
+      },
+      "notes": {
+        "en": "Dīpakalānātha means 'lord of the art of light'; fourth of the perfected lineage",
+        "fr": "Dipakalanatha — 'seigneur de l'art de la lumière'",
+        "es": "Dipakalanatha — 'señor del arte de la luz'",
+        "it": "Dipakalanatha — 'signore dell'arte della luce'",
+        "pt": "Dipakalanatha — 'senhor da arte da luz'",
+        "de": "Dipakalanatha — 'Herr der Kunst des Lichts'"
+      }
     },
     {
       "id": "guru-manava-001",
@@ -1173,7 +1573,23 @@
         "x": null,
         "y": null
       },
-      "note": "First of the human lineage masters"
+      "note": "First of the human lineage masters",
+      "translations": {
+        "en": "She who embodies Viṣṇudēva",
+        "fr": "Celle qui incarne Vishnudeva",
+        "es": "La que encarna a Vishnudeva",
+        "it": "Colei che incarna Vishnudeva",
+        "pt": "Aquela que encarna Vishnudeva",
+        "de": "Die Vishnudeva verkörpert"
+      },
+      "notes": {
+        "en": "First of the human lineage masters",
+        "fr": "Premier des maîtres de la lignée humaine",
+        "es": "Primero de los maestros del linaje humano",
+        "it": "Primo dei maestri della lignea umana",
+        "pt": "Primeiro dos mestres da linhagem humana",
+        "de": "Erster der menschlichen Linienmeister"
+      }
     },
     {
       "id": "guru-manava-002",
@@ -1199,7 +1615,23 @@
         "x": null,
         "y": null
       },
-      "note": "Prabhākara means 'he who makes radiant'; second of the human lineage"
+      "note": "Prabhākara means 'he who makes radiant'; second of the human lineage",
+      "translations": {
+        "en": "She who embodies Prabhākaradēva",
+        "fr": "Celle qui incarne Prabhakaradeva",
+        "es": "La que encarna a Prabhakaradeva",
+        "it": "Colei che incarna Prabhakaradeva",
+        "pt": "Aquela que encarna Prabhakaradeva",
+        "de": "Die Prabhakaradeva verkörpert"
+      },
+      "notes": {
+        "en": "Prabhākara means 'he who makes radiant'; second of the human lineage",
+        "fr": "Prabhakara — 'celui qui fait rayonner'",
+        "es": "Prabhakara — 'aquel que hace radiar'",
+        "it": "Prabhakara — 'colui che fa risplendere'",
+        "pt": "Prabhakara — 'aquele que faz radiar'",
+        "de": "Prabhakara — 'der Strahlende'"
+      }
     },
     {
       "id": "guru-manava-003",
@@ -1225,7 +1657,23 @@
         "x": null,
         "y": null
       },
-      "note": "Tējas means 'radiance' or 'splendour'; third of the human lineage"
+      "note": "Tējas means 'radiance' or 'splendour'; third of the human lineage",
+      "translations": {
+        "en": "She who embodies Tējōdēva",
+        "fr": "Celle qui incarne Tejodeva",
+        "es": "La que encarna a Tejodeva",
+        "it": "Colei che incarna Tejodeva",
+        "pt": "Aquela que encarna Tejodeva",
+        "de": "Die Tejodeva verkörpert"
+      },
+      "notes": {
+        "en": "Tējas means 'radiance' or 'splendour'; third of the human lineage",
+        "fr": "Tejas — 'rayonnement' ou 'splendeur'",
+        "es": "Tejas — 'resplandor' o 'esplendor'",
+        "it": "Tejas — 'raggiante' o 'splendore'",
+        "pt": "Tejas — 'radiância' ou 'esplendor'",
+        "de": "Tejas — 'Ausstrahlung' oder 'Glanz'"
+      }
     },
     {
       "id": "guru-manava-004",
@@ -1251,7 +1699,23 @@
         "x": null,
         "y": null
       },
-      "note": "Manōja means 'born of the mind'; fourth of the human lineage"
+      "note": "Manōja means 'born of the mind'; fourth of the human lineage",
+      "translations": {
+        "en": "She who embodies Manōjadēva",
+        "fr": "Celle qui incarne Manojadeva",
+        "es": "La que encarna a Manojadeva",
+        "it": "Colei che incarna Manojadeva",
+        "pt": "Aquela que encarna Manojadeva",
+        "de": "Die Manojadeva verkörpert"
+      },
+      "notes": {
+        "en": "Manōja means 'born of the mind'; fourth of the human lineage",
+        "fr": "Manoja — 'né de l'esprit'",
+        "es": "Manoja — 'nacido de la mente'",
+        "it": "Manoja — 'nato dalla mente'",
+        "pt": "Manoja — 'nascido da mente'",
+        "de": "Manoja — 'aus dem Geist geboren'"
+      }
     },
     {
       "id": "guru-manava-005",
@@ -1277,7 +1741,23 @@
         "x": null,
         "y": null
       },
-      "note": "Kalyāṇa means 'auspicious' or 'well-being'; fifth of the human lineage"
+      "note": "Kalyāṇa means 'auspicious' or 'well-being'; fifth of the human lineage",
+      "translations": {
+        "en": "She who embodies Kalyāṇadēva",
+        "fr": "Celle qui incarne Kalyanadeva",
+        "es": "La que encarna a Kalyanadeva",
+        "it": "Colei che incarna Kalyanadeva",
+        "pt": "Aquela que encarna Kalyanadeva",
+        "de": "Die Kalyanadeva verkörpert"
+      },
+      "notes": {
+        "en": "Kalyāṇa means 'auspicious' or 'well-being'; fifth of the human lineage",
+        "fr": "Kalyana — 'auspicieux' ou 'bien-être'",
+        "es": "Kalyana — 'auspicioso' o 'bienestar'",
+        "it": "Kalyana — 'auspicioso' o 'benessere'",
+        "pt": "Kalyana — 'auspicioso' ou 'bem-estar'",
+        "de": "Kalyana — 'verheißungsvoll' oder 'Wohlergehen'"
+      }
     },
     {
       "id": "guru-manava-006",
@@ -1303,7 +1783,23 @@
         "x": null,
         "y": null
       },
-      "note": "Vāsudēva is a name of Viṣṇu-Kṛṣṇa meaning 'son of Vasudeva'; seventh of the human lineage"
+      "note": "Vāsudēva is a name of Viṣṇu-Kṛṣṇa meaning 'son of Vasudeva'; seventh of the human lineage",
+      "translations": {
+        "en": "She who embodies Vāsudēva",
+        "fr": "Celle qui incarne Vasudeva",
+        "es": "La que encarna a Vasudeva",
+        "it": "Colei che incarna Vasudeva",
+        "pt": "Aquela que encarna Vasudeva",
+        "de": "Die Vasudeva verkörpert"
+      },
+      "notes": {
+        "en": "Vāsudēva is a name of Viṣṇu-Kṛṣṇa meaning 'son of Vasudeva'; seventh of the human lineage",
+        "fr": "Vasudeva — nom de Vishnu-Krishna",
+        "es": "Vasudeva — nombre de Vishnu-Krishna",
+        "it": "Vasudeva — nome di Vishnu-Krishna",
+        "pt": "Vasudeva — nome de Vishnu-Krishna",
+        "de": "Vasudeva — Name von Vishnu-Krishna"
+      }
     },
     {
       "id": "guru-manava-007",
@@ -1329,7 +1825,23 @@
         "x": null,
         "y": null
       },
-      "note": "Ratna means 'jewel' or 'gem'; sixth of the human lineage"
+      "note": "Ratna means 'jewel' or 'gem'; sixth of the human lineage",
+      "translations": {
+        "en": "She who embodies Ratnadēva",
+        "fr": "Celle qui incarne Ratnadeva",
+        "es": "La que encarna a Ratnadeva",
+        "it": "Colei che incarna Ratnadeva",
+        "pt": "Aquela que encarna Ratnadeva",
+        "de": "Die Ratnadeva verkörpert"
+      },
+      "notes": {
+        "en": "Ratna means 'jewel' or 'gem'; sixth of the human lineage",
+        "fr": "Ratna — 'joyau' ou 'gemme'",
+        "es": "Ratna — 'joya' o 'gema'",
+        "it": "Ratna — 'gioiello' o 'gemma'",
+        "pt": "Ratna — 'joia' ou 'gema'",
+        "de": "Ratna — 'Juwel' oder 'Edelstein'"
+      }
     },
     {
       "id": "guru-manava-008",
@@ -1355,7 +1867,23 @@
         "x": null,
         "y": null
       },
-      "note": "The final human teacher in the lineage, through whom the living tradition reaches the practitioner"
+      "note": "The final human teacher in the lineage, through whom the living tradition reaches the practitioner",
+      "translations": {
+        "en": "She who embodies Śrī Rāmānanda",
+        "fr": "Celle qui incarne Sri Ramananda",
+        "es": "La que encarna a Sri Ramananda",
+        "it": "Colei che incarna Sri Ramananda",
+        "pt": "Aquela que encarna Sri Ramananda",
+        "de": "Die Sri Ramananda verkörpert"
+      },
+      "notes": {
+        "en": "The final human teacher in the lineage, through whom the living tradition reaches the practitioner",
+        "fr": "Dernier enseignant humain dans la lignée",
+        "es": "El último maestro humano en el linaje",
+        "it": "L'ultimo insegnante umano nella lignea",
+        "pt": "O último professor humano na linhagem",
+        "de": "Der letzte menschliche Lehrer in der Linie"
+      }
     },
     {
       "id": "c1-siddhi-001",
@@ -1382,7 +1910,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Minuteness",
+        "fr": "Pouvoir de la Petitesse",
+        "es": "Poder de la Pequeñez",
+        "it": "Potere della Piccolezza",
+        "pt": "Poder da Pequenez",
+        "de": "Kraft der Winzigkeit"
+      }
     },
     {
       "id": "c1-siddhi-002",
@@ -1409,7 +1945,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Lightness",
+        "fr": "Pouvoir de la Légèreté",
+        "es": "Poder de la Ligereza",
+        "it": "Potere della Leggerezza",
+        "pt": "Poder da Leveza",
+        "de": "Kraft der Leichtigkeit"
+      }
     },
     {
       "id": "c1-siddhi-003",
@@ -1436,7 +1980,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Heaviness",
+        "fr": "Pouvoir de la Pesanteur",
+        "es": "Poder de la Pesadez",
+        "it": "Potere della Pesantezza",
+        "pt": "Poder da Gravidade",
+        "de": "Kraft der Schwere"
+      }
     },
     {
       "id": "c1-siddhi-004",
@@ -1463,7 +2015,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Greatness",
+        "fr": "Pouvoir de la Grandeur",
+        "es": "Poder de la Grandeza",
+        "it": "Potere della Grandezza",
+        "pt": "Poder da Grandeza",
+        "de": "Kraft der Größe"
+      }
     },
     {
       "id": "c1-siddhi-005",
@@ -1490,7 +2050,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Supremacy",
+        "fr": "Pouvoir de la Suprématie",
+        "es": "Poder de la Supremacía",
+        "it": "Potere della Supremazia",
+        "pt": "Poder da Supremacia",
+        "de": "Kraft der Vorherrschaft"
+      }
     },
     {
       "id": "c1-siddhi-006",
@@ -1517,7 +2085,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Subjugation",
+        "fr": "Pouvoir de la Subjugation",
+        "es": "Poder de la Subyugación",
+        "it": "Potere della Subjugazione",
+        "pt": "Poder da Subjugação",
+        "de": "Kraft der Unterwerfung"
+      }
     },
     {
       "id": "c1-siddhi-007",
@@ -1544,7 +2120,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Irresistible Will",
+        "fr": "Pouvoir de la Volonté Irrésistible",
+        "es": "Poder de la Voluntad Irresistible",
+        "it": "Potere della Volontà Irresistibile",
+        "pt": "Poder da Vontade Irresistível",
+        "de": "Kraft des Unwiderstehlichen Willens"
+      }
     },
     {
       "id": "c1-siddhi-008",
@@ -1571,7 +2155,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Enjoyment",
+        "fr": "Pouvoir de la Jouissance",
+        "es": "Poder del Goce",
+        "it": "Potere del Godimento",
+        "pt": "Poder do Gozo",
+        "de": "Kraft des Genusses"
+      }
     },
     {
       "id": "c1-siddhi-009",
@@ -1598,7 +2190,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Will",
+        "fr": "Pouvoir de la Volonté",
+        "es": "Poder de la Voluntad",
+        "it": "Potere della Volontà",
+        "pt": "Poder da Vontade",
+        "de": "Kraft des Willens"
+      }
     },
     {
       "id": "c1-siddhi-010",
@@ -1625,7 +2225,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Power of Attainment",
+        "fr": "Pouvoir de l'Accomplissement",
+        "es": "Poder del Logro",
+        "it": "Potere del Raggiungimento",
+        "pt": "Poder da Realização",
+        "de": "Kraft der Erlangung"
+      }
     },
     {
       "id": "c1-siddhi-011",
@@ -1651,7 +2259,15 @@
         "x": null,
         "y": null
       },
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Perfection of All Desires",
+        "fr": "Perfection de Tous les Désirs",
+        "es": "Perfección de Todos los Deseos",
+        "it": "Perfezione di Tutti i Desideri",
+        "pt": "Perfeição de Todos os Desejos",
+        "de": "Vollendung Aller Wünsche"
+      }
     },
     {
       "id": "c1-matrika-001",
@@ -1678,7 +2294,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Shakti of Brahma",
+        "fr": "Shakti de Brahma",
+        "es": "Shakti de Brahma",
+        "it": "Shakti di Brahma",
+        "pt": "Shakti de Brahma",
+        "de": "Shakti des Brahma"
+      }
     },
     {
       "id": "c1-matrika-002",
@@ -1705,7 +2329,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Shakti of Shiva",
+        "fr": "Shakti de Shiva",
+        "es": "Shakti de Shiva",
+        "it": "Shakti di Shiva",
+        "pt": "Shakti de Shiva",
+        "de": "Shakti des Shiva"
+      }
     },
     {
       "id": "c1-matrika-003",
@@ -1732,7 +2364,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Shakti of Skanda",
+        "fr": "Shakti de Skanda",
+        "es": "Shakti de Skanda",
+        "it": "Shakti di Skanda",
+        "pt": "Shakti de Skanda",
+        "de": "Shakti des Skanda"
+      }
     },
     {
       "id": "c1-matrika-004",
@@ -1759,7 +2399,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Shakti of Vishnu",
+        "fr": "Shakti de Vishnu",
+        "es": "Shakti de Vishnu",
+        "it": "Shakti di Vishnu",
+        "pt": "Shakti de Vishnu",
+        "de": "Shakti des Vishnu"
+      }
     },
     {
       "id": "c1-matrika-005",
@@ -1786,7 +2434,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Shakti of Varaha",
+        "fr": "Shakti de Varaha",
+        "es": "Shakti de Varaha",
+        "it": "Shakti di Varaha",
+        "pt": "Shakti de Varaha",
+        "de": "Shakti des Varaha"
+      }
     },
     {
       "id": "c1-matrika-006",
@@ -1813,7 +2469,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Shakti of Indra",
+        "fr": "Shakti d'Indra",
+        "es": "Shakti de Indra",
+        "it": "Shakti di Indra",
+        "pt": "Shakti de Indra",
+        "de": "Shakti des Indra"
+      }
     },
     {
       "id": "c1-matrika-007",
@@ -1840,7 +2504,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Slayer of Chanda-Munda",
+        "fr": "Tueuse de Canda-Munda",
+        "es": "Destructora de Canda-Munda",
+        "it": "Uccisore di Canda-Munda",
+        "pt": "Destruidora de Canda-Munda",
+        "de": "Bezwingerin des Canda-Munda"
+      }
     },
     {
       "id": "c1-matrika-008",
@@ -1867,7 +2539,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "The Great Goddess of Abundance",
+        "fr": "La Grande Déesse de l'Abondance",
+        "es": "La Gran Diosa de la Abundancia",
+        "it": "La Grande Dea dell'Abbondanza",
+        "pt": "A Grande Deusa da Abundância",
+        "de": "Die Große Göttin des Überflusses"
+      }
     },
     {
       "id": "c1-mudra-001",
@@ -1894,7 +2574,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All-Agitating",
+        "fr": "Toute-Agitatrice",
+        "es": "Todo-Agitadora",
+        "it": "Tutta-Agitatrice",
+        "pt": "Toda-Agitadora",
+        "de": "All-Bewegende"
+      }
     },
     {
       "id": "c1-mudra-002",
@@ -1921,7 +2609,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All-Dispersing",
+        "fr": "Toute-Dispersante",
+        "es": "Todo-Dispersora",
+        "it": "Tutta-Dispersante",
+        "pt": "Toda-Dispersora",
+        "de": "All-Zerstreuende"
+      }
     },
     {
       "id": "c1-mudra-003",
@@ -1948,7 +2644,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All-Attracting",
+        "fr": "Toute-Attirante",
+        "es": "Todo-Atrayente",
+        "it": "Tutta-Attraente",
+        "pt": "Toda-Atraente",
+        "de": "All-Anziehende"
+      }
     },
     {
       "id": "c1-mudra-004",
@@ -1975,7 +2679,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All-Subjugating",
+        "fr": "Toute-Subjugatrice",
+        "es": "Todo-Subyugadora",
+        "it": "Tutta-Subjugatrice",
+        "pt": "Toda-Subjugadora",
+        "de": "All-Unterwerfende"
+      }
     },
     {
       "id": "c1-mudra-005",
@@ -2002,7 +2714,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All-Intoxicating",
+        "fr": "Toute-Enivrante",
+        "es": "Todo-Embriagadora",
+        "it": "Tutta-Inebriante",
+        "pt": "Toda-Embriagante",
+        "de": "All-Berauschende"
+      }
     },
     {
       "id": "c1-mudra-006",
@@ -2029,7 +2749,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Great All-Goading Hook",
+        "fr": "Grand Crochet Universel",
+        "es": "Gran Gancho Universal",
+        "it": "Grande Uncino Universale",
+        "pt": "Grande Gancho Universal",
+        "de": "Großer Allstachelnder Haken"
+      }
     },
     {
       "id": "c1-mudra-007",
@@ -2056,7 +2784,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All Sky-Moving",
+        "fr": "Toute-Mouveuse du Ciel",
+        "es": "Todo-Movedora del Cielo",
+        "it": "Tutta-Moventrice del Cielo",
+        "pt": "Toda-Movente do Céu",
+        "de": "All-Himmelbewegende"
+      }
     },
     {
       "id": "c1-mudra-008",
@@ -2083,7 +2819,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All Seed",
+        "fr": "Toute Graine",
+        "es": "Toda Semilla",
+        "it": "Tutto Seme",
+        "pt": "Toda Semente",
+        "de": "All-Samen"
+      }
     },
     {
       "id": "c1-mudra-009",
@@ -2110,7 +2854,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All Womb/Source",
+        "fr": "Tout Utérus/Source",
+        "es": "Todo Útero/Fuente",
+        "it": "Tutto Grembo/Fonte",
+        "pt": "Todo Útero/Fonte",
+        "de": "All-Mutterschoss/Quelle"
+      }
     },
     {
       "id": "c1-mudra-010",
@@ -2137,7 +2889,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "All Three-Sectioned",
+        "fr": "Toute en Trois Sections",
+        "es": "Toda en Tres Secciones",
+        "it": "Tutta a Tre Sezioni",
+        "pt": "Toda em Três Seções",
+        "de": "Alldrei-Geteilte"
+      }
     },
     {
       "id": "c1-svamini",
@@ -2164,7 +2924,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Enchantress of the Three Worlds — Presiding Deity",
+        "fr": "Enchanteresse des Trois Mondes — Divinité Présidante",
+        "es": "Encantadora de los Tres Mundos — Divinidad Presidenta",
+        "it": "Incantatrice dei Tre Mondi — Divinità Presiedente",
+        "pt": "Encantadora dos Três Mundos — Divindade Presidenta",
+        "de": "Bezauberin der Drei Welten — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c1-yogini",
@@ -2191,7 +2959,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Manifest Yogini",
+        "fr": "Yogini Manifesta",
+        "es": "Yogini Manifiesta",
+        "it": "Yogini Manifesta",
+        "pt": "Yogini Manifesta",
+        "de": "Manifeste Yogini"
+      }
     },
     {
       "id": "c2-001",
@@ -2218,7 +2994,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Desire/Kama",
+        "fr": "Attirante du Désir",
+        "es": "Atrayendo el Deseo",
+        "it": "Che attrae il Desiderio",
+        "pt": "Atraindo o Desejo",
+        "de": "Begehren Anziehende"
+      }
     },
     {
       "id": "c2-002",
@@ -2245,7 +3029,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Intellect",
+        "fr": "Attirante de l'Intellect",
+        "es": "Atrayendo el Intelecto",
+        "it": "Che attrae l'Intelletto",
+        "pt": "Atraindo o Intelecto",
+        "de": "Intellekt Anziehende"
+      }
     },
     {
       "id": "c2-003",
@@ -2272,7 +3064,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Ego",
+        "fr": "Attirante de l'Ego",
+        "es": "Atrayendo el Ego",
+        "it": "Che attrae l'Ego",
+        "pt": "Atraindo o Ego",
+        "de": "Ego Anziehende"
+      }
     },
     {
       "id": "c2-004",
@@ -2299,7 +3099,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Sound",
+        "fr": "Attirante du Son",
+        "es": "Atrayendo el Sonido",
+        "it": "Che attrae il Suono",
+        "pt": "Atraindo o Som",
+        "de": "Klang Anziehende"
+      }
     },
     {
       "id": "c2-005",
@@ -2326,7 +3134,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Touch",
+        "fr": "Attirante du Toucher",
+        "es": "Atrayendo el Tacto",
+        "it": "Che attrae il Tatto",
+        "pt": "Atraindo o Toque",
+        "de": "Berührung Anziehende"
+      }
     },
     {
       "id": "c2-006",
@@ -2353,7 +3169,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Form",
+        "fr": "Attirante de la Forme",
+        "es": "Atrayendo la Forma",
+        "it": "Che attrae la Forma",
+        "pt": "Atraindo a Forma",
+        "de": "Form Anziehende"
+      }
     },
     {
       "id": "c2-007",
@@ -2380,7 +3204,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Taste",
+        "fr": "Attirante du Goût",
+        "es": "Atrayendo el Gusto",
+        "it": "Che attrae il Gusto",
+        "pt": "Atraindo o Sabor",
+        "de": "Geschmack Anziehende"
+      }
     },
     {
       "id": "c2-008",
@@ -2407,7 +3239,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Smell",
+        "fr": "Attirante de l'Odeur",
+        "es": "Atrayendo el Olfato",
+        "it": "Che attrae l'Olfatto",
+        "pt": "Atraindo o Olfato",
+        "de": "Geruch Anziehende"
+      }
     },
     {
       "id": "c2-009",
@@ -2434,7 +3274,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Mind/Consciousness",
+        "fr": "Attirante de l'Esprit",
+        "es": "Atrayendo la Mente",
+        "it": "Che attrae la Mente",
+        "pt": "Atraindo a Mente",
+        "de": "Geist Anziehende"
+      }
     },
     {
       "id": "c2-010",
@@ -2461,7 +3309,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Courage",
+        "fr": "Attirante du Courage",
+        "es": "Atrayendo el Coraje",
+        "it": "Che attrae il Coraggio",
+        "pt": "Atraindo a Coragem",
+        "de": "Mut Anziehende"
+      }
     },
     {
       "id": "c2-011",
@@ -2488,7 +3344,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Memory",
+        "fr": "Attirante de la Mémoire",
+        "es": "Atrayendo la Memoria",
+        "it": "Che attrae la Memoria",
+        "pt": "Atraindo a Memória",
+        "de": "Gedächtnis Anziehende"
+      }
     },
     {
       "id": "c2-012",
@@ -2515,7 +3379,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Name",
+        "fr": "Attirante du Nom",
+        "es": "Atrayendo el Nombre",
+        "it": "Che attrae il Nome",
+        "pt": "Atraindo o Nome",
+        "de": "Name Anziehende"
+      }
     },
     {
       "id": "c2-013",
@@ -2542,7 +3414,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Seed/Mantra",
+        "fr": "Attirante de la Graine",
+        "es": "Atrayendo la Semilla",
+        "it": "Che attrae il Seme",
+        "pt": "Atraindo a Semente",
+        "de": "Samen Anziehende"
+      }
     },
     {
       "id": "c2-014",
@@ -2569,7 +3449,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting the Self/Soul",
+        "fr": "Attirante du Soi",
+        "es": "Atrayendo el Sí Mismo",
+        "it": "Che attrae il Sé",
+        "pt": "Atraindo o Eu",
+        "de": "Selbst Anziehende"
+      }
     },
     {
       "id": "c2-015",
@@ -2596,7 +3484,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting Nectar/Immortality",
+        "fr": "Attirante du Nectar",
+        "es": "Atrayendo el Néctar",
+        "it": "Che attrae il Nettare",
+        "pt": "Atraindo o Néctar",
+        "de": "Nektar Anziehende"
+      }
     },
     {
       "id": "c2-016",
@@ -2623,7 +3519,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Attracting the Body",
+        "fr": "Attirante du Corps",
+        "es": "Atrayendo el Cuerpo",
+        "it": "Che attrae il Corpo",
+        "pt": "Atraindo o Corpo",
+        "de": "Körper Anziehende"
+      }
     },
     {
       "id": "c2-svamini",
@@ -2650,7 +3554,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Fulfiller of All Hopes — Presiding Deity",
+        "fr": "Combleuse de Tous les Espoirs — Divinité Présidante",
+        "es": "Cumplidora de Todas las Esperanzas — Divinidad Presidenta",
+        "it": "Compitrice di Tutte le Speranze — Divinità Presiedente",
+        "pt": "Realizadora de Todas as Esperanças — Divindade Presidenta",
+        "de": "Erfüllerin Aller Hoffnungen — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c2-yogini",
@@ -2677,7 +3589,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Secret Yogini",
+        "fr": "Yogini Secrète",
+        "es": "Yogini Secreta",
+        "it": "Yogini Segreta",
+        "pt": "Yogini Secreta",
+        "de": "Geheime Yogini"
+      }
     },
     {
       "id": "c3-001",
@@ -2704,7 +3624,23 @@
         "y": null
       },
       "note": "Represents speech",
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Flower of Love",
+        "fr": "Fleur d'Amour",
+        "es": "Flor del Amor",
+        "it": "Fiore d'Amore",
+        "pt": "Flor do Amor",
+        "de": "Blume der Liebe"
+      },
+      "notes": {
+        "en": "Represents speech",
+        "fr": "Représente la parole",
+        "es": "Representa el habla",
+        "it": "Rappresenta la parola",
+        "pt": "Representa a fala",
+        "de": "Steht für Sprache"
+      }
     },
     {
       "id": "c3-002",
@@ -2731,7 +3667,23 @@
         "y": null
       },
       "note": "Represents grasping",
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Girdle of Love",
+        "fr": "Ceinture d'Amour",
+        "es": "Cinto del Amor",
+        "it": "Cintura d'Amore",
+        "pt": "Cinto do Amor",
+        "de": "Gürtel der Liebe"
+      },
+      "notes": {
+        "en": "Represents grasping",
+        "fr": "Représente la saisie",
+        "es": "Representa el agarre",
+        "it": "Rappresenta la presa",
+        "pt": "Representa a apreensão",
+        "de": "Steht für Greifen"
+      }
     },
     {
       "id": "c3-003",
@@ -2758,7 +3710,23 @@
         "y": null
       },
       "note": "Represents sight",
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Intoxication of Love",
+        "fr": "Ivresse d'Amour",
+        "es": "Embriaguez del Amor",
+        "it": "Ebbrezza d'Amore",
+        "pt": "Embriaguez do Amor",
+        "de": "Taumel der Liebe"
+      },
+      "notes": {
+        "en": "Represents sight",
+        "fr": "Représente la vue",
+        "es": "Representa la vista",
+        "it": "Rappresenta la vista",
+        "pt": "Representa a visão",
+        "de": "Steht für Sehen"
+      }
     },
     {
       "id": "c3-004",
@@ -2785,7 +3753,23 @@
         "y": null
       },
       "note": "Represents taste",
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Afflicted by Love",
+        "fr": "Affligée par l'Amour",
+        "es": "Afligida por el Amor",
+        "it": "Afflita dall'Amore",
+        "pt": "Afligida pelo Amor",
+        "de": "Von Liebe Befallene"
+      },
+      "notes": {
+        "en": "Represents taste",
+        "fr": "Représente le goût",
+        "es": "Representa el gusto",
+        "it": "Rappresenta il gusto",
+        "pt": "Representa o paladar",
+        "de": "Steht für Schmecken"
+      }
     },
     {
       "id": "c3-005",
@@ -2812,7 +3796,23 @@
         "y": null
       },
       "note": "Represents smell",
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Line/Mark of Love",
+        "fr": "Ligne d'Amour",
+        "es": "Línea del Amor",
+        "it": "Linea d'Amore",
+        "pt": "Linha do Amor",
+        "de": "Linie der Liebe"
+      },
+      "notes": {
+        "en": "Represents smell",
+        "fr": "Représente l'odorat",
+        "es": "Representa el olfato",
+        "it": "Rappresenta l'olfatto",
+        "pt": "Representa o olfato",
+        "de": "Steht für Riechen"
+      }
     },
     {
       "id": "c3-006",
@@ -2839,7 +3839,23 @@
         "y": null
       },
       "note": "Represents thought",
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Speed of Love",
+        "fr": "Vitesse d'Amour",
+        "es": "Velocidad del Amor",
+        "it": "Velocità d'Amore",
+        "pt": "Velocidade do Amor",
+        "de": "Geschwindigkeit der Liebe"
+      },
+      "notes": {
+        "en": "Represents thought",
+        "fr": "Représente la pensée",
+        "es": "Representa el pensamiento",
+        "it": "Rappresenta il pensiero",
+        "pt": "Representa o pensamento",
+        "de": "Steht für Denken"
+      }
     },
     {
       "id": "c3-007",
@@ -2866,7 +3882,23 @@
         "y": null
       },
       "note": "Represents walking",
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Goad of Love",
+        "fr": "Aiguillon d'Amour",
+        "es": "Aguijón del Amor",
+        "it": "Pungolo d'Amore",
+        "pt": "Aguilhão do Amor",
+        "de": "Stachel der Liebe"
+      },
+      "notes": {
+        "en": "Represents walking",
+        "fr": "Représente la marche",
+        "es": "Representa el caminar",
+        "it": "Rappresenta il camminare",
+        "pt": "Representa o caminhar",
+        "de": "Steht für Gehen"
+      }
     },
     {
       "id": "c3-008",
@@ -2893,7 +3925,23 @@
         "y": null
       },
       "note": "Represents hearing",
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Garland of Love",
+        "fr": "Guirlande d'Amour",
+        "es": "Guirnalda del Amor",
+        "it": "Ghirlanda d'Amore",
+        "pt": "Guirlanda do Amor",
+        "de": "Girlande der Liebe"
+      },
+      "notes": {
+        "en": "Represents hearing",
+        "fr": "Représente l'ouïe",
+        "es": "Representa el oído",
+        "it": "Rappresenta l'udito",
+        "pt": "Representa a audição",
+        "de": "Steht für Hören"
+      }
     },
     {
       "id": "c3-svamini",
@@ -2920,7 +3968,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "All-Agitating — Presiding Deity",
+        "fr": "Toute-Agitatrice — Divinité Présidante",
+        "es": "Todo-Agitadora — Divinidad Presidenta",
+        "it": "Tutta-Agitatrice — Divinità Presiedente",
+        "pt": "Toda-Agitadora — Divindade Presidenta",
+        "de": "All-Aufrührende — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c3-yogini",
@@ -2947,7 +4003,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "More Secret Yogini",
+        "fr": "Yogini Plus Secrète",
+        "es": "Yogini Más Secreta",
+        "it": "Yogini Più Segreta",
+        "pt": "Yogini Mais Secreta",
+        "de": "Noch Geheimere Yogini"
+      }
     },
     {
       "id": "c4-001",
@@ -2974,7 +4038,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Agitating",
+        "fr": "Toute-Agitatrice",
+        "es": "Todo-Agitadora",
+        "it": "Tutta-Agitatrice",
+        "pt": "Toda-Agitadora",
+        "de": "All-Aufrührende"
+      }
     },
     {
       "id": "c4-002",
@@ -3001,7 +4073,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Dispersing",
+        "fr": "Toute-Dispersante",
+        "es": "Todo-Dispersora",
+        "it": "Tutta-Dispersante",
+        "pt": "Toda-Dispersora",
+        "de": "All-Zerstreuende"
+      }
     },
     {
       "id": "c4-003",
@@ -3028,7 +4108,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Attracting",
+        "fr": "Toute-Attirante",
+        "es": "Todo-Atrayente",
+        "it": "Tutta-Attraente",
+        "pt": "Toda-Atraente",
+        "de": "All-Anziehende"
+      }
     },
     {
       "id": "c4-004",
@@ -3055,7 +4143,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Delighting",
+        "fr": "Toute-Réjouissante",
+        "es": "Todo-Deleitosa",
+        "it": "Tutta-Gioiante",
+        "pt": "Toda-Deliciante",
+        "de": "All-Erfreuende"
+      }
     },
     {
       "id": "c4-005",
@@ -3082,7 +4178,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Deluding",
+        "fr": "Toute-Illusionnante",
+        "es": "Todo-Delusoria",
+        "it": "Tutta-Illudente",
+        "pt": "Toda-Iludindo",
+        "de": "All-Täuschende"
+      }
     },
     {
       "id": "c4-006",
@@ -3109,7 +4213,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Paralyzing",
+        "fr": "Toute-Paralysante",
+        "es": "Todo-Paralizadora",
+        "it": "Tutta-Paralizzante",
+        "pt": "Toda-Paralisadora",
+        "de": "All-Lähmende"
+      }
     },
     {
       "id": "c4-007",
@@ -3136,7 +4248,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Expanding",
+        "fr": "Toute-Expansive",
+        "es": "Todo-Expansiva",
+        "it": "Tutta-Espansiva",
+        "pt": "Toda-Expansiva",
+        "de": "All-Ausdehnende"
+      }
     },
     {
       "id": "c4-008",
@@ -3163,7 +4283,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Subjugating",
+        "fr": "Toute-Subjugatrice",
+        "es": "Todo-Subyugadora",
+        "it": "Tutta-Subjugatrice",
+        "pt": "Toda-Subjugadora",
+        "de": "All-Unterwerfende"
+      }
     },
     {
       "id": "c4-009",
@@ -3190,7 +4318,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Pleasing",
+        "fr": "Toute-Agréable",
+        "es": "Todo-Agradable",
+        "it": "Tutta-Gradita",
+        "pt": "Toda-Agradável",
+        "de": "All-Gefällige"
+      }
     },
     {
       "id": "c4-010",
@@ -3217,7 +4353,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "All-Maddening",
+        "fr": "Toute-Enragée",
+        "es": "Todo-Enloquecedora",
+        "it": "Tutta-Folle",
+        "pt": "Toda-Enlouquecedora",
+        "de": "All-Verrückt-Machende"
+      }
     },
     {
       "id": "c4-011",
@@ -3244,7 +4388,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "Accomplisher of All Goals",
+        "fr": "Accomplisseuse de Tous les Buts",
+        "es": "Realizadora de Todos los Objetivos",
+        "it": "Realizatrice di Tutti gli Obiettivi",
+        "pt": "Realizadora de Todos os Objetivos",
+        "de": "Vollbringerin Aller Ziele"
+      }
     },
     {
       "id": "c4-012",
@@ -3271,7 +4423,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "Fulfiller of All Wealth",
+        "fr": "Combleuse de Toute Richesse",
+        "es": "Cumplidora de Toda Riqueza",
+        "it": "Compitrice di Tutta la Ricchezza",
+        "pt": "Realizadora de Toda Riqueza",
+        "de": "Erfüllerin Allen Reichtums"
+      }
     },
     {
       "id": "c4-013",
@@ -3298,7 +4458,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "Embodiment of All Mantras",
+        "fr": "Incarnation de Tous les Mantras",
+        "es": "Encarnación de Todos los Mantras",
+        "it": "Incarnazione di Tutti i Mantra",
+        "pt": "Encarnação de Todos os Mantras",
+        "de": "Verkörperung Aller Mantras"
+      }
     },
     {
       "id": "c4-014",
@@ -3325,7 +4493,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "Destroyer of All Dualities",
+        "fr": "Destructrice de Toutes les Dualités",
+        "es": "Destructora de Todas las Dualidades",
+        "it": "Distruttrice di Tutte le Dualità",
+        "pt": "Destruidora de Todas as Dualidades",
+        "de": "Vernichterin Aller Dualitäten"
+      }
     },
     {
       "id": "c4-svamini",
@@ -3352,7 +4528,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "Bestower of All Good Fortune — Presiding Deity",
+        "fr": "Pourvoyeuse de Toute Bonne Fortune — Divinité Présidante",
+        "es": "Otorgadora de Toda Buena Fortuna — Divinidad Presidenta",
+        "it": "Elargitrice di Tutta la Buona Fortuna — Divinità Presiedente",
+        "pt": "Outorgadora de Toda Boa Fortuna — Divindade Presidenta",
+        "de": "Spenderin Allen Glücks — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c4-yogini",
@@ -3379,7 +4563,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "Traditional/Lineage Yogini",
+        "fr": "Yogini de la Tradition",
+        "es": "Yogini de la Tradición",
+        "it": "Yogini della Tradizione",
+        "pt": "Yogini da Tradição",
+        "de": "Yogini der Überlieferung"
+      }
     },
     {
       "id": "c5-001",
@@ -3406,7 +4598,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Bestower of All Perfections",
+        "fr": "Pourvoyeuse de Toutes les Perfections",
+        "es": "Otorgadora de Todas las Perfecciones",
+        "it": "Elargitrice di Tutte le Perfezioni",
+        "pt": "Outorgadora de Todas as Perfeições",
+        "de": "Spenderin Aller Vollkommenheiten"
+      }
     },
     {
       "id": "c5-002",
@@ -3433,7 +4633,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Bestower of All Wealth",
+        "fr": "Pourvoyeuse de Toute Richesse",
+        "es": "Otorgadora de Toda Riqueza",
+        "it": "Elargitrice di Tutta la Ricchezza",
+        "pt": "Outorgadora de Toda Riqueza",
+        "de": "Spenderin Allen Reichtums"
+      }
     },
     {
       "id": "c5-003",
@@ -3460,7 +4668,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Maker of All that is Beloved",
+        "fr": "Créatrice de Tout ce qui est Aimé",
+        "es": "Creadora de Todo lo Amado",
+        "it": "Creatrice di Tutto ciò che è Amato",
+        "pt": "Criadora de Tudo que é Amado",
+        "de": "Erschafferin Alles Geliebten"
+      }
     },
     {
       "id": "c5-004",
@@ -3487,7 +4703,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Bringer of All Auspiciousness",
+        "fr": "Apporteuse de Toute Auspiciosité",
+        "es": "Portadora de Toda Auspiciosidad",
+        "it": "Portatrice di Tutta l'Auspicità",
+        "pt": "Portadora de Toda Auspiciosidade",
+        "de": "Bringerin Allen Glückes"
+      }
     },
     {
       "id": "c5-005",
@@ -3514,7 +4738,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Fulfiller of All Desires",
+        "fr": "Réalisatrice de Tous les Désirs",
+        "es": "Cumplidora de Todos los Deseos",
+        "it": "Compitrice di Tutti i Desideri",
+        "pt": "Realizadora de Todos os Desejos",
+        "de": "Erfüllerin Aller Wünsche"
+      }
     },
     {
       "id": "c5-006",
@@ -3541,7 +4773,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Liberator from All Suffering",
+        "fr": "Libératrice de Toute Souffrance",
+        "es": "Liberadora de Todo Sufrimiento",
+        "it": "Liberatrice da Tutta la Sofferenza",
+        "pt": "Libertadora de Todo Sofrimento",
+        "de": "Befreierin von Allem Leid"
+      }
     },
     {
       "id": "c5-007",
@@ -3568,7 +4808,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Pacifier of All Deaths",
+        "fr": "Pacificatrice de Toutes les Morts",
+        "es": "Pacificadora de Todas las Muertes",
+        "it": "Pacificatrice di Tutte le Morti",
+        "pt": "Pacificadora de Todas as Mortes",
+        "de": "Beruhigerin Aller Tode"
+      }
     },
     {
       "id": "c5-008",
@@ -3595,7 +4843,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Remover of All Obstacles",
+        "fr": "Supprimatrice de Tous les Obstacles",
+        "es": "Removedora de Todos los Obstáculos",
+        "it": "Rimovitrice di Tutti gli Ostacoli",
+        "pt": "Removedora de Todos os Obstáculos",
+        "de": "Beseitigerin Aller Hindernisse"
+      }
     },
     {
       "id": "c5-009",
@@ -3622,7 +4878,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Beautiful in All Limbs",
+        "fr": "Belle en Tous les Membres",
+        "es": "Bella en Todos los Miembros",
+        "it": "Bella in Tutte le Membra",
+        "pt": "Bela em Todos os Membros",
+        "de": "Schön in Allen Gliedern"
+      }
     },
     {
       "id": "c5-010",
@@ -3649,7 +4913,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Bestower of All Good Fortune",
+        "fr": "Pourvoyeuse de Toute Bonne Fortune",
+        "es": "Otorgadora de Toda Buena Fortuna",
+        "it": "Elargitrice di Tutta la Buona Fortuna",
+        "pt": "Outorgadora de Toda Boa Fortuna",
+        "de": "Spenderin Allen Glücks"
+      }
     },
     {
       "id": "c5-svamini",
@@ -3676,7 +4948,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Accomplisher of All Goals — Presiding Deity",
+        "fr": "Accomplisseuse de Tous les Buts — Divinité Présidante",
+        "es": "Realizadora de Todos los Objetivos — Divinidad Presidenta",
+        "it": "Realizatrice di Tutti gli Obiettivi — Divinità Presiedente",
+        "pt": "Realizadora de Todos os Objetivos — Divindade Presidenta",
+        "de": "Vollbringerin Aller Ziele — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c5-yogini",
@@ -3703,7 +4983,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Yogini who Transcends the Kula",
+        "fr": "Yogini qui Transcende le Kula",
+        "es": "Yogini que Trasciende el Kula",
+        "it": "Yogini che Trascende il Kula",
+        "pt": "Yogini que Transcende o Kula",
+        "de": "Das Kula Überschreitende Yogini"
+      }
     },
     {
       "id": "c6-001",
@@ -3730,7 +5018,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Omniscient",
+        "fr": "Omnisciente",
+        "es": "Omnisciente",
+        "it": "Onnisciente",
+        "pt": "Onisciente",
+        "de": "Allwissende"
+      }
     },
     {
       "id": "c6-002",
@@ -3757,7 +5053,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Omnipotent",
+        "fr": "Omnipotente",
+        "es": "Omnipotente",
+        "it": "Onnipotente",
+        "pt": "Onipotente",
+        "de": "Allmächtige"
+      }
     },
     {
       "id": "c6-003",
@@ -3784,7 +5088,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Bestower of All Sovereignty",
+        "fr": "Pourvoyeuse de Toute Souveraineté",
+        "es": "Otorgadora de Toda Soberanía",
+        "it": "Elargitrice di Tutta la Sovranità",
+        "pt": "Outorgadora de Toda Soberania",
+        "de": "Spenderin Aller Hoheit"
+      }
     },
     {
       "id": "c6-004",
@@ -3811,7 +5123,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Embodiment of All Knowledge",
+        "fr": "Incarnation de Toute Connaissance",
+        "es": "Encarnación de Todo el Conocimiento",
+        "it": "Incarnazione di Tutta la Conoscenza",
+        "pt": "Encarnação de Todo o Conhecimento",
+        "de": "Verkörperung Alles Wissens"
+      }
     },
     {
       "id": "c6-005",
@@ -3838,7 +5158,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Destroyer of All Disease",
+        "fr": "Destructrice de Toute Maladie",
+        "es": "Destructora de Toda Enfermedad",
+        "it": "Distruttrice di Ogni Malattia",
+        "pt": "Destruidora de Toda Doença",
+        "de": "Vernichterin Aller Krankheit"
+      }
     },
     {
       "id": "c6-006",
@@ -3865,7 +5193,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "The Form that Supports All",
+        "fr": "La Forme qui Soutient Tout",
+        "es": "La Forma que Sostiene Todo",
+        "it": "La Forma che Sostiene Tutto",
+        "pt": "A Forma que Sustenta Tudo",
+        "de": "Die Form, die Alles Trägt"
+      }
     },
     {
       "id": "c6-007",
@@ -3892,7 +5228,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Remover of All Sin",
+        "fr": "Supprimatrice de Tout Péché",
+        "es": "Removedora de Todo Pecado",
+        "it": "Rimovitrice di Ogni Peccato",
+        "pt": "Removedora de Todo Pecado",
+        "de": "Beseitigerin Aller Sünde"
+      }
     },
     {
       "id": "c6-008",
@@ -3919,7 +5263,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Embodiment of All Bliss",
+        "fr": "Incarnation de Toute Béatitude",
+        "es": "Encarnación de Toda Bienaventuranza",
+        "it": "Incarnazione di Tutta la Beatitudine",
+        "pt": "Encarnação de Toda Bem-aventurança",
+        "de": "Verkörperung Aller Wonne"
+      }
     },
     {
       "id": "c6-009",
@@ -3946,7 +5298,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Form of All Protection",
+        "fr": "Forme de Toute Protection",
+        "es": "Forma de Toda Protección",
+        "it": "Forma di Tutta la Protezione",
+        "pt": "Forma de Toda Proteção",
+        "de": "Form Aller Zuflucht"
+      }
     },
     {
       "id": "c6-010",
@@ -3973,7 +5333,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Giver of All Desired Fruits",
+        "fr": "Donneuse de Tous les Fruits Désirés",
+        "es": "Dadora de Todos los Frutos Deseados",
+        "it": "Donatrice di Tutti i Frutti Desiderati",
+        "pt": "Doadora de Todos os Frutos Desejados",
+        "de": "Geberin Aller Ersehnten Früchte"
+      }
     },
     {
       "id": "c6-svamini",
@@ -4000,7 +5368,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "All-Protecting — Presiding Deity",
+        "fr": "Toute-Protectrice — Divinité Présidante",
+        "es": "Todo-Protectora — Divinidad Presidenta",
+        "it": "Tutta-Protettrice — Divinità Presiedente",
+        "pt": "Toda-Protetora — Divindade Presidenta",
+        "de": "All-Schützende — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c6-yogini",
@@ -4027,7 +5403,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Concealed/Womb Yogini",
+        "fr": "Yogini Dissimulée",
+        "es": "Yogini Oculta",
+        "it": "Yogini Nascosta",
+        "pt": "Yogini Oculta",
+        "de": "Verborgene Yogini"
+      }
     },
     {
       "id": "c7-001",
@@ -4054,7 +5438,23 @@
         "y": null
       },
       "note": "Vagdevi — Goddess of Speech",
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Subjugating Power of Speech",
+        "fr": "Pouvoir Subjugateur de la Parole",
+        "es": "Poder Subyugador del Habla",
+        "it": "Potere Soggiogante della Parola",
+        "pt": "Poder Subjugador da Fala",
+        "de": "Unterwerfende Kraft der Sprache"
+      },
+      "notes": {
+        "en": "Vagdevi — Goddess of Speech",
+        "fr": "Vagdevi — Déesse de la Parole",
+        "es": "Vagdevi — Diosa del Habla",
+        "it": "Vagdevi — Dea della Parola",
+        "pt": "Vagdevi — Deusa da Fala",
+        "de": "Vagdevi — Göttin der Sprache"
+      }
     },
     {
       "id": "c7-002",
@@ -4081,7 +5481,23 @@
         "y": null
       },
       "note": "Vagdevi",
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Goddess of Desire in Speech",
+        "fr": "Déesse du Désir dans la Parole",
+        "es": "Diosa del Deseo en el Habla",
+        "it": "Dea del Desiderio nella Parola",
+        "pt": "Deusa do Desejo na Fala",
+        "de": "Göttin des Begehrens in der Sprache"
+      },
+      "notes": {
+        "en": "Vagdevi",
+        "fr": "Vagdevi",
+        "es": "Vagdevi",
+        "it": "Vagdevi",
+        "pt": "Vagdevi",
+        "de": "Vagdevi"
+      }
     },
     {
       "id": "c7-003",
@@ -4108,7 +5524,23 @@
         "y": null
       },
       "note": "Vagdevi",
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Gladdening Speech",
+        "fr": "Parole Joyeuse",
+        "es": "Habla Alegre",
+        "it": "Parola Gioiosa",
+        "pt": "Fala Alegre",
+        "de": "Erfreuende Sprache"
+      },
+      "notes": {
+        "en": "Vagdevi",
+        "fr": "Vagdevi",
+        "es": "Vagdevi",
+        "it": "Vagdevi",
+        "pt": "Vagdevi",
+        "de": "Vagdevi"
+      }
     },
     {
       "id": "c7-004",
@@ -4135,7 +5567,23 @@
         "y": null
       },
       "note": "Vagdevi",
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Pure Speech",
+        "fr": "Parole Pure",
+        "es": "Habla Pura",
+        "it": "Parola Pura",
+        "pt": "Fala Pura",
+        "de": "Reine Sprache"
+      },
+      "notes": {
+        "en": "Vagdevi",
+        "fr": "Vagdevi",
+        "es": "Vagdevi",
+        "it": "Vagdevi",
+        "pt": "Vagdevi",
+        "de": "Vagdevi"
+      }
     },
     {
       "id": "c7-005",
@@ -4162,7 +5610,23 @@
         "y": null
       },
       "note": "Vagdevi",
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Rosy/Dawn Speech",
+        "fr": "Parole de l'Aurore",
+        "es": "Habla del Alba",
+        "it": "Parola dell'Aurora",
+        "pt": "Fala da Aurora",
+        "de": "Morgenröte-Sprache"
+      },
+      "notes": {
+        "en": "Vagdevi",
+        "fr": "Vagdevi",
+        "es": "Vagdevi",
+        "it": "Vagdevi",
+        "pt": "Vagdevi",
+        "de": "Vagdevi"
+      }
     },
     {
       "id": "c7-006",
@@ -4189,7 +5653,23 @@
         "y": null
       },
       "note": "Vagdevi",
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Victorious Speech",
+        "fr": "Parole Victorieuse",
+        "es": "Habla Victoriosa",
+        "it": "Parola Vittoriosa",
+        "pt": "Fala Vitoriosa",
+        "de": "Siegreiche Sprache"
+      },
+      "notes": {
+        "en": "Vagdevi",
+        "fr": "Vagdevi",
+        "es": "Vagdevi",
+        "it": "Vagdevi",
+        "pt": "Vagdevi",
+        "de": "Vagdevi"
+      }
     },
     {
       "id": "c7-007",
@@ -4216,7 +5696,23 @@
         "y": null
       },
       "note": "Vagdevi",
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Goddess of All Speech",
+        "fr": "Déesse de Toute Parole",
+        "es": "Diosa de Todo el Habla",
+        "it": "Dea di Tutta la Parola",
+        "pt": "Deusa de Toda a Fala",
+        "de": "Göttin Aller Sprache"
+      },
+      "notes": {
+        "en": "Vagdevi",
+        "fr": "Vagdevi",
+        "es": "Vagdevi",
+        "it": "Vagdevi",
+        "pt": "Vagdevi",
+        "de": "Vagdevi"
+      }
     },
     {
       "id": "c7-008",
@@ -4243,7 +5739,23 @@
         "y": null
       },
       "note": "Vagdevi",
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Of the Kula Lineage",
+        "fr": "De la Lignée Kula",
+        "es": "De la Línea Kula",
+        "it": "Della Lignea Kula",
+        "pt": "Da Linhagem Kula",
+        "de": "Der Kula-Linie"
+      },
+      "notes": {
+        "en": "Vagdevi",
+        "fr": "Vagdevi",
+        "es": "Vagdevi",
+        "it": "Vagdevi",
+        "pt": "Vagdevi",
+        "de": "Vagdevi"
+      }
     },
     {
       "id": "c7-svamini",
@@ -4270,7 +5782,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Remover of All Disease — Presiding Deity",
+        "fr": "Supprimatrice de Toute Maladie — Divinité Présidante",
+        "es": "Removedora de Toda Enfermedad — Divinidad Presidenta",
+        "it": "Rimovitrice di Ogni Malattia — Divinità Presiedente",
+        "pt": "Removedora de Toda Doença — Divindade Presidenta",
+        "de": "Beseitigerin Aller Krankheit — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c7-yogini",
@@ -4297,7 +5817,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Secret Yogini",
+        "fr": "Yogini Secrète",
+        "es": "Yogini Secreta",
+        "it": "Yogini Segreta",
+        "pt": "Yogini Secreta",
+        "de": "Geheime Yogini"
+      }
     },
     {
       "id": "c8-001",
@@ -4324,7 +5852,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "She Who Holds the Arrow",
+        "fr": "Celle qui Tient la Flèche",
+        "es": "La que Sostiene la Flecha",
+        "it": "Colei che Tiene la Freccia",
+        "pt": "Aquela que Segura a Flecha",
+        "de": "Die den Pfeil Hält"
+      }
     },
     {
       "id": "c8-002",
@@ -4351,7 +5887,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "She Who Holds the Bow",
+        "fr": "Celle qui Tient l'Arc",
+        "es": "La que Sostiene el Arco",
+        "it": "Colei che Tiene l'Arco",
+        "pt": "Aquela que Segura o Arco",
+        "de": "Die den Bogen Hält"
+      }
     },
     {
       "id": "c8-003",
@@ -4378,7 +5922,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "She Who Holds the Noose",
+        "fr": "Celle qui Tient le Nœud",
+        "es": "La que Sostiene el Lazo",
+        "it": "Colei che Tiene il Laccio",
+        "pt": "Aquela que Segura o Laço",
+        "de": "Die die Schlinge Hält"
+      }
     },
     {
       "id": "c8-004",
@@ -4405,7 +5957,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "She Who Holds the Goad",
+        "fr": "Celle qui Tient l'Aiguillon",
+        "es": "La que Sostiene el Aguijón",
+        "it": "Colei che Tiene il Pungolo",
+        "pt": "Aquela que Segura o Aguilhão",
+        "de": "Die den Stachel Hält"
+      }
     },
     {
       "id": "c8-005",
@@ -4432,7 +5992,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "Great Goddess of Desire",
+        "fr": "Grande Déesse du Désir",
+        "es": "Gran Diosa del Deseo",
+        "it": "Grande Dea del Desiderio",
+        "pt": "Grande Deusa do Desejo",
+        "de": "Große Göttin des Begehrens"
+      }
     },
     {
       "id": "c8-006",
@@ -4459,7 +6027,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "Great Goddess of the Vajra",
+        "fr": "Grande Déesse du Vajra",
+        "es": "Gran Diosa del Vajra",
+        "it": "Grande Dea del Vajra",
+        "pt": "Grande Deusa do Vajra",
+        "de": "Große Göttin des Vajra"
+      }
     },
     {
       "id": "c8-007",
@@ -4486,7 +6062,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "Great Goddess Garlanded with Splendour",
+        "fr": "Grande Déesse Couronnée de Splendeur",
+        "es": "Gran Diosa Guirnaldada de Esplendor",
+        "it": "Grande Dea Ghirlandata di Splendore",
+        "pt": "Grande Deusa Ornada de Esplendor",
+        "de": "Große Göttin mit Glanz Bekränzt"
+      }
     },
     {
       "id": "c8-svamini",
@@ -4513,7 +6097,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "Bestower of All Perfections — Presiding Deity",
+        "fr": "Pourvoyeuse de Toutes les Perfections — Divinité Présidante",
+        "es": "Otorgadora de Todas las Perfecciones — Divinidad Presidenta",
+        "it": "Elargitrice di Tutte le Perfezioni — Divinità Presiedente",
+        "pt": "Outorgadora de Todas as Perfeições — Divindade Presidenta",
+        "de": "Spenderin Aller Vollkommenheiten — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c8-yogini",
@@ -4540,7 +6132,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "Most Secret Yogini",
+        "fr": "Yogini Très Secrète",
+        "es": "Yogini Muy Secreta",
+        "it": "Yogini Molto Segreta",
+        "pt": "Yogini Muito Secreta",
+        "de": "Höchst Geheime Yogini"
+      }
     },
     {
       "id": "c9-001",
@@ -4567,7 +6167,15 @@
         "y": 0
       },
       "note": null,
-      "circuitNumber": 9
+      "circuitNumber": 9,
+      "translations": {
+        "en": "The Great Empress — Lalita Mahatripura Sundari",
+        "fr": "La Grande Impératrice",
+        "es": "La Gran Emperatriz",
+        "it": "La Grande Imperatrice",
+        "pt": "A Grande Imperatriz",
+        "de": "Die Große Kaiserin"
+      }
     },
     {
       "id": "c9-svamini",
@@ -4594,7 +6202,15 @@
         "y": 0
       },
       "note": null,
-      "circuitNumber": 9
+      "circuitNumber": 9,
+      "translations": {
+        "en": "All-Blissful — Presiding Deity",
+        "fr": "Toute-Bienheureuse — Divinité Présidante",
+        "es": "Toda-Bienaventurada — Divinidad Presidenta",
+        "it": "Tutta-Beata — Divinità Presiedente",
+        "pt": "Toda-Bem-aventurada — Divindade Presidenta",
+        "de": "All-Selige — Vorsitzende Gottheit"
+      }
     },
     {
       "id": "c9-yogini",
@@ -4621,7 +6237,15 @@
         "y": 0
       },
       "note": null,
-      "circuitNumber": 9
+      "circuitNumber": 9,
+      "translations": {
+        "en": "Supreme Secret Beyond Secret Yogini",
+        "fr": "Yogini du Secret Suprême",
+        "es": "Yogini del Secreto Supremo",
+        "it": "Yogini del Segreto Supremo",
+        "pt": "Yogini do Segredo Supremo",
+        "de": "Yogini des Höchsten Geheimnisses"
+      }
     },
     {
       "id": "chakreshvari-001",
@@ -4648,7 +6272,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 1
+      "circuitNumber": 1,
+      "translations": {
+        "en": "Goddess of the Three Cities/Worlds",
+        "fr": "Déesse des Trois Cités",
+        "es": "Diosa de las Tres Ciudades",
+        "it": "Dea delle Tre Città",
+        "pt": "Deusa das Três Cidades",
+        "de": "Göttin der Drei Städte"
+      }
     },
     {
       "id": "chakreshvari-002",
@@ -4675,7 +6307,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 2
+      "circuitNumber": 2,
+      "translations": {
+        "en": "Ruler of the Three Worlds",
+        "fr": "Souveraine des Trois Mondes",
+        "es": "Gobernante de los Tres Mundos",
+        "it": "Sovrana dei Tre Mondi",
+        "pt": "Governante dos Três Mundos",
+        "de": "Herrscherin der Drei Welten"
+      }
     },
     {
       "id": "chakreshvari-003",
@@ -4702,7 +6342,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 3
+      "circuitNumber": 3,
+      "translations": {
+        "en": "Beautiful Goddess of the Three Worlds",
+        "fr": "Belle Déesse des Trois Mondes",
+        "es": "Bella Diosa de los Tres Mundos",
+        "it": "Bella Dea dei Tre Mondi",
+        "pt": "Bela Deusa dos Três Mundos",
+        "de": "Schöne Göttin der Drei Welten"
+      }
     },
     {
       "id": "chakreshvari-004",
@@ -4729,7 +6377,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 4
+      "circuitNumber": 4,
+      "translations": {
+        "en": "Dweller of the Three Worlds",
+        "fr": "Habitante des Trois Mondes",
+        "es": "Moradora de los Tres Mundos",
+        "it": "Abitante dei Tre Mondi",
+        "pt": "Moradora dos Três Mundos",
+        "de": "Bewohnerin der Drei Welten"
+      }
     },
     {
       "id": "chakreshvari-005",
@@ -4756,7 +6412,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 5
+      "circuitNumber": 5,
+      "translations": {
+        "en": "Auspiciousness of the Three Worlds",
+        "fr": "Auspiciosité des Trois Mondes",
+        "es": "Auspiciosidad de los Tres Mundos",
+        "it": "Auspicità dei Tre Mondi",
+        "pt": "Auspiciosidade dos Três Mundos",
+        "de": "Verheißung der Drei Welten"
+      }
     },
     {
       "id": "chakreshvari-006",
@@ -4783,7 +6447,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 6
+      "circuitNumber": 6,
+      "translations": {
+        "en": "Garlanded Goddess of the Three Worlds",
+        "fr": "Déesse Guirlande des Trois Mondes",
+        "es": "Diosa Guirnaldada de los Tres Mundos",
+        "it": "Dea Ghirlandata dei Tre Mondi",
+        "pt": "Deusa Ornada dos Três Mundos",
+        "de": "Bekränzte Göttin der Drei Welten"
+      }
     },
     {
       "id": "chakreshvari-007",
@@ -4810,7 +6482,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 7
+      "circuitNumber": 7,
+      "translations": {
+        "en": "Perfected Goddess of the Three Worlds",
+        "fr": "Déesse Perfectionnée des Trois Mondes",
+        "es": "Diosa Perfeccionada de los Tres Mundos",
+        "it": "Dea Perfezionata dei Tre Mondi",
+        "pt": "Deusa Aperfeiçoada dos Três Mundos",
+        "de": "Vollendete Göttin der Drei Welten"
+      }
     },
     {
       "id": "chakreshvari-008",
@@ -4837,7 +6517,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 8
+      "circuitNumber": 8,
+      "translations": {
+        "en": "Mother of the Three Worlds",
+        "fr": "Mère des Trois Mondes",
+        "es": "Madre de los Tres Mundos",
+        "it": "Madre dei Tre Mondi",
+        "pt": "Mãe dos Três Mundos",
+        "de": "Mutter der Drei Welten"
+      }
     },
     {
       "id": "chakreshvari-009",
@@ -4864,7 +6552,15 @@
         "y": null
       },
       "note": null,
-      "circuitNumber": 9
+      "circuitNumber": 9,
+      "translations": {
+        "en": "The Great Beautiful Goddess of the Three Worlds",
+        "fr": "La Grande Belle Déesse des Trois Mondes",
+        "es": "La Gran Bella Diosa de los Tres Mundos",
+        "it": "La Grande Bella Dea dei Tre Mondi",
+        "pt": "A Grande Bela Deusa dos Três Mundos",
+        "de": "Die Große Schöne Göttin der Drei Welten"
+      }
     },
     {
       "id": "closing-001",
@@ -4890,7 +6586,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Goddess",
+        "fr": "Grande Grande Déesse",
+        "es": "Gran Gran Diosa",
+        "it": "Grande Grande Dea",
+        "pt": "Grande Grande Deusa",
+        "de": "Große Große Göttin"
+      }
     },
     {
       "id": "closing-002",
@@ -4916,7 +6620,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Queen",
+        "fr": "Grande Grande Reine",
+        "es": "Gran Gran Reina",
+        "it": "Grande Grande Regina",
+        "pt": "Grande Grande Rainha",
+        "de": "Große Große Königin"
+      }
     },
     {
       "id": "closing-003",
@@ -4942,7 +6654,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Power",
+        "fr": "Grande Grande Puissance",
+        "es": "Gran Gran Poder",
+        "it": "Grande Grande Potere",
+        "pt": "Grande Grande Poder",
+        "de": "Große Große Macht"
+      }
     },
     {
       "id": "closing-004",
@@ -4968,7 +6688,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Secret",
+        "fr": "Grand Grand Secret",
+        "es": "Gran Gran Secreto",
+        "it": "Grande Grande Segreto",
+        "pt": "Grande Grande Segredo",
+        "de": "Großes Großes Geheimnis"
+      }
     },
     {
       "id": "closing-005",
@@ -4994,7 +6722,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Known One",
+        "fr": "Grande Grande Connue",
+        "es": "Gran Gran Conocida",
+        "it": "Grande Grande Conosciuta",
+        "pt": "Grande Grande Conhecida",
+        "de": "Große Große Bekannte"
+      }
     },
     {
       "id": "closing-006",
@@ -5020,7 +6756,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Bliss",
+        "fr": "Grande Grande Béatitude",
+        "es": "Gran Gran Bienaventuranza",
+        "it": "Grande Grande Beatitudine",
+        "pt": "Grande Grande Bem-aventurança",
+        "de": "Große Große Wonne"
+      }
     },
     {
       "id": "closing-007",
@@ -5046,7 +6790,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Trunk/Support",
+        "fr": "Grand Grand Tronc",
+        "es": "Gran Gran Tronco",
+        "it": "Grande Grande Tronco",
+        "pt": "Grande Grande Tronco",
+        "de": "Großer Großer Stamm"
+      }
     },
     {
       "id": "closing-008",
@@ -5072,7 +6824,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Resting Place",
+        "fr": "Grand Grand Lieu de Repos",
+        "es": "Gran Gran Lugar de Descanso",
+        "it": "Grande Grande Luogo di Riposo",
+        "pt": "Grande Grande Lugar de Descanso",
+        "de": "Großer Großer Ruheplatz"
+      }
     },
     {
       "id": "closing-009",
@@ -5098,7 +6858,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Great Great Empress of the Shri Chakra City",
+        "fr": "Grande Grande Impératrice du Sri Chakra",
+        "es": "Gran Gran Emperatriz del Sri Chakra",
+        "it": "Grande Grande Imperatrice dello Sri Chakra",
+        "pt": "Grande Grande Imperatriz do Sri Chakra",
+        "de": "Große Große Kaiserin des Sri Chakra"
+      }
     },
     {
       "id": "closing-010",
@@ -5124,7 +6892,15 @@
         "x": null,
         "y": null
       },
-      "note": null
+      "note": null,
+      "translations": {
+        "en": "Salutations, Salutations, Salutations, I bow",
+        "fr": "Salutations, Je m'incline",
+        "es": "Salutaciones, Me inclino",
+        "it": "Saluti, Mi inchino",
+        "pt": "Saudações, Me inclino",
+        "de": "Verehrung, Ich verbeuge mich"
+      }
     }
   ],
   "lines": [

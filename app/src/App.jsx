@@ -260,7 +260,7 @@ const YOGINI_SECRECY = {
 
 const TABS = [
   { id: 'intro',        trKey: 'tab.intro',    navLabel: 'Welcome and Introduction',      navLabelEn: 'Welcome and Introduction',  navLabelDev: 'Welcome and Introduction', footerLabel: 'Introduction' },
-  { id: 'h-explore-memorise', heading: 'EXPLORE AND MEMORISE' },
+  { id: 'h-explore-memorise', heading: 'EXPLORE AND MEMORISE', trKey: 'heading.explore' },
   { id: 'nyasa', trKey: 'nav.nyasa',
     navLabel:    'nyāsāṅga-devatāḥ',         navLabelEn: 'Nyāsa Deities',
     navLabelDev: 'न्यासांगदेवताः',
@@ -345,11 +345,11 @@ const TABS = [
     navLabelTe:  'శ్రీదేవీ విశేషణాని',         navLabelTa: 'ஶ்ரீதேவீ விஶேஷணானி',
     navLabelKn:  'ಶ್ರೀದೇವೀ ವಿಶೇಷಣಾನಿ',         navLabelMl: 'ശ്രീദേവീ വിശേഷണാനി',
     footerLabel: 'Śrīdevī Epithets' },
-  { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP' },
+  { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP', trKey: 'heading.spot' },
   { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
   { id: 'memomap',      trKey: 'tab.memomap',   navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
   { id: 'activity-log', trKey: 'tab.actlog',    navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
-  { id: 'h-references', heading: 'RESOURCES' },
+  { id: 'h-references', heading: 'RESOURCES', trKey: 'heading.resources' },
   { id: 'yantra',
     navLabel:    'śrī yantra',                navLabelEn: 'Śrī Yantra',
     navLabelDev: 'श्री यन्त्र',
@@ -621,7 +621,7 @@ function ToggleRow({ label, active, onClick, colour = 'gold' }) {
 
 // ── Right panel components ────────────────────────────────────────────────────
 
-function DeityDetail({ deity, script = 'iast' }) {
+function DeityDetail({ deity, script = 'iast', uiLang = 'en' }) {
   if (!deity) return null
   // Co-located deities (e.g. laghimā + garimā on the same bhupura dot) — render both
   if (Array.isArray(deity)) {
@@ -630,7 +630,7 @@ function DeityDetail({ deity, script = 'iast' }) {
         {deity.map((d, i) => (
           <div key={d.id}>
             {i > 0 && <div className="border-t border-surface-700 mx-4" />}
-            <DeityDetail deity={d} script={script} />
+            <DeityDetail deity={d} script={script} uiLang={uiLang} />
           </div>
         ))}
       </div>
@@ -673,11 +673,11 @@ function DeityDetail({ deity, script = 'iast' }) {
       {script !== 'english' && scripts.english && (
         <p className="text-cream text-xs">{scripts.english}</p>
       )}
-      {scripts.translation && (
-        <p className="text-muted text-xs italic mt-1">{scripts.translation}</p>
+      {(deity.translations?.[uiLang] || deity.translations?.en || scripts.translation) && (
+        <p className="text-muted text-xs italic mt-1">{deity.translations?.[uiLang] || deity.translations?.en || scripts.translation}</p>
       )}
-      {note && (
-        <p className="text-muted text-xs mt-1">{note}</p>
+      {(deity.notes?.[uiLang] || deity.notes?.en || note) && (
+        <p className="text-muted text-xs mt-1">{deity.notes?.[uiLang] || deity.notes?.en || note}</p>
       )}
     </div>
   )
@@ -3398,7 +3398,7 @@ export default function App() {
 
       </div>
     )
-    if (selectedDeity) return <DeityDetail deity={selectedDeity} script={script} />
+    if (selectedDeity) return <DeityDetail deity={selectedDeity} script={script} uiLang={uiLang} />
 
     // Inner (Tithi Nitya) memo — moon toggle in same position as explore
     if (activeTab === 'inner' && innerMemorise) {
@@ -4149,7 +4149,7 @@ export default function App() {
                     {...(TOUR_HEADING_IDS[tab.id] ? { 'data-tour': TOUR_HEADING_IDS[tab.id] } : {})}
                   >
                     <span className="text-[11px] font-mono text-cream uppercase tracking-[0.12em]">
-                      {tab.heading}
+                      {tab.trKey ? tr(tab.trKey) : tab.heading}
                     </span>
                     <span className="text-cream text-[11px]">{isOpen ? '▾' : '▸'}</span>
                   </button>

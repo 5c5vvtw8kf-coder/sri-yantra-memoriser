@@ -421,6 +421,9 @@ const en = {
   'desc.gurava': 'Three classes of spiritual masters representing the divine, perfected and human currents of transmission.',
   'desc.chakreshvari': 'Nine Tripurā forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.',
   'desc.closing': 'Nine special epithets of Śrīdevī, followed by the closing Namaskāra Navākṣarī.',
+  'heading.explore': 'EXPLORE AND MEMORISE',
+  'heading.spot': 'SPOT CHECK AND MEMORY MAP',
+  'heading.resources': 'RESOURCES',
 }
 
 // ── Hindi / Devanagari ────────────────────────────────────────────────────────
@@ -596,6 +599,9 @@ const hi = {
   'desc.gurava': 'तीन प्रकार के आध्यात्मिक गुरु — दिव्य, सिद्ध और मानव — परम्परा की धाराओं का प्रतिनिधित्व करते हैं।',
   'desc.chakreshvari': 'नौ त्रिपुरा रूप, भूपुर से बिंदु तक प्रत्येक आवरण की अध्यक्ष देवी।',
   'desc.closing': 'श्रीदेवी के नौ विशेष विशेषण, अंत में नमस्कार नवाक्षरी।',
+  'heading.explore': 'अन्वेषण और स्मरण',
+  'heading.spot': 'स्पॉट चेक और स्मृति मानचित्र',
+  'heading.resources': 'संसाधन',
 }
 
 // ── Telugu ────────────────────────────────────────────────────────────────────
@@ -771,6 +777,9 @@ const te = {
   'desc.gurava': 'మూడు రకాల ఆధ్యాత్మిక గురువులు — దివ్య, సిద్ధ మరియు మానవ — పరంపర యొక్క ధారలను సూచిస్తారు.',
   'desc.chakreshvari': 'తొమ్మిది త్రిపుర రూపాలు, భూపుర నుండి బిందువు వరకు తొమ్మిది ఆవరణలలో ఒక్కొక్క అధ్యక్ష దేవత.',
   'desc.closing': 'శ్రీదేవి తొమ్మిది ప్రత్యేక నామాలు, చివరన నమస్కార నవాక్షరి.',
+  'heading.explore': 'అన్వేషణ మరియు స్మరణ',
+  'heading.spot': 'స్పాట్ చెక్ మరియు మెమరీ మ్యాప్',
+  'heading.resources': 'వనరులు',
 }
 
 // ── Tamil ─────────────────────────────────────────────────────────────────────
@@ -946,6 +955,9 @@ const ta = {
   'desc.gurava': 'மூன்று வகையான ஆன்மீக குருமார்கள் — தெய்வீக, சித்த மற்றும் மானவ — பரம்பரையின் ஓட்டங்களை பிரதிநிதித்துவப்படுத்துகின்றனர்.',
   'desc.chakreshvari': 'ஒன்பது திரிபுர ரூபங்கள், பூபுரத்திலிருந்து பிந்துவரை ஒவ்வொரு ஆவரணத்திலும் ஒரு தலைமை தேவதை.',
   'desc.closing': 'ஶ்ரீதேவியின் ஒன்பது சிறப்பு விசேஷணங்கள், இறுதியில் நமஸ்கார நவாக்ஷரி.',
+  'heading.explore': 'ஆராய்வு மற்றும் மனனம்',
+  'heading.spot': 'ஸ்பாட் செக் மற்றும் நினைவக வரைபடம்',
+  'heading.resources': 'வளங்கள்',
 }
 
 // ── Kannada ───────────────────────────────────────────────────────────────────
@@ -1121,6 +1133,9 @@ const kn = {
   'desc.gurava': 'ಮೂರು ವಿಧದ ಆಧ್ಯಾತ್ಮಿಕ ಗುರುಗಳು — ದಿವ್ಯ, ಸಿದ್ಧ ಮತ್ತು ಮಾನವ — ಪರಂಪರೆಯ ಧಾರೆಗಳನ್ನು ಪ್ರತಿನಿಧಿಸುತ್ತಾರೆ.',
   'desc.chakreshvari': 'ಒಂಬತ್ತು ತ್ರಿಪುರ ರೂಪಗಳು, ಭೂಪುರದಿಂದ ಬಿಂದುವರೆಗೆ ಒಂಬತ್ತು ಆವರಣಗಳಲ್ಲಿ ಒಂದೊಂದು ಅಧ್ಯಕ್ಷ ದೇವತೆ.',
   'desc.closing': 'ಶ್ರೀದೇವಿಯ ಒಂಬತ್ತು ವಿಶೇಷ ವಿಶೇಷಣಗಳು, ಅಂತ್ಯದಲ್ಲಿ ನಮಸ್ಕಾರ ನವಾಕ್ಷರಿ.',
+  'heading.explore': 'ಅನ್ವೇಷಣೆ ಮತ್ತು ಸ್ಮರಣೆ',
+  'heading.spot': 'ಸ್ಪಾಟ್ ಚೆಕ್ ಮತ್ತು ಮೆಮೊರಿ ಮ್ಯಾಪ್',
+  'heading.resources': 'ಸಂಪನ್ಮೂಲಗಳು',
 }
 
 // ── Malayalam ─────────────────────────────────────────────────────────────────
@@ -1296,6 +1311,9 @@ const ml = {
   'desc.gurava': 'മൂന്ന് തരം ആധ്യാത്മിക ഗുരുക്കൾ — ദിവ്യ, സിദ്ധ, മാനവ — പരമ്പരയുടെ ധാരകളെ പ്രതിനിധീകരിക്കുന്നു.',
   'desc.chakreshvari': 'ഒൻപത് ത്രിപുര രൂപങ്ങൾ, ഭൂപുരത്തിൽ നിന്ന് ബിന്ദുവരെ ഒൻപത് ആവരണങ്ങളിൽ ഓരോ അധ്യക്ഷ ദേവത.',
   'desc.closing': 'ശ്രീദേവിയുടെ ഒൻപത് പ്രത്യേക വിശേഷണങ്ങൾ, അവസാനം നമസ്കാര നവാക്ഷരി.',
+  'heading.explore': 'പര്യവേക്ഷണം & ഓർമ്മ',
+  'heading.spot': 'സ്പോട്ട് ചെക്ക് & മെമ്മറി മാപ്പ്',
+  'heading.resources': 'വിഭവങ്ങൾ',
 }
 
 
@@ -1472,6 +1490,9 @@ const mr = {
   'desc.gurava': 'तीन प्रकारचे आध्यात्मिक गुरू — दिव्य, सिद्ध आणि मानव — परंपरेच्या प्रवाहांचे प्रतिनिधित्व करतात.',
   'desc.chakreshvari': 'नऊ त्रिपुरा रूपे, भूपुरापासून बिंदूपर्यंत प्रत्येक आवरणाची अध्यक्ष देवता.',
   'desc.closing': 'श्रीदेवीच्या नऊ विशेष विशेषणांनंतर नमस्कार नवाक्षरी.',
+  'heading.explore': 'अन्वेषण आणि स्मरण',
+  'heading.spot': 'स्पॉट चेक आणि स्मृती नकाशा',
+  'heading.resources': 'संसाधने',
 }
 
 // ── French ────────────────────────────────────────────────────────────────────
@@ -1647,6 +1668,9 @@ const fr = {
   'desc.gurava': 'Trois classes de maîtres spirituels représentant les courants divin, parfait et humain de la transmission.',
   'desc.chakreshvari': "Neuf formes Tripurā, une divinité présidant chacun des neuf circuits, du bhupura extérieur jusqu'au bindu.",
   'desc.closing': 'Neuf épithètes spéciaux de Śrīdevī, suivis du Namaskāra Navākṣarī final.',
+  'heading.explore': 'EXPLORER ET MÉMORISER',
+  'heading.spot': 'VÉRIFICATION PONCTUELLE ET CARTE MÉMOIRE',
+  'heading.resources': 'RESSOURCES',
 }
 
 // ── Spanish ───────────────────────────────────────────────────────────────────
@@ -1822,6 +1846,9 @@ const es = {
   'desc.gurava': 'Tres clases de maestros espirituales que representan las corrientes divina, perfeccionada y humana de la transmisión.',
   'desc.chakreshvari': 'Nueve formas Tripurā, una deidad que preside cada uno de los nueve circuitos, desde el bhupura más exterior hasta el bindu.',
   'desc.closing': 'Nueve epítetos especiales de Śrīdevī, seguidos del Namaskāra Navākṣarī final.',
+  'heading.explore': 'EXPLORAR Y MEMORIZAR',
+  'heading.spot': 'VERIFICACIÓN PUNTUAL Y MAPA DE MEMORIA',
+  'heading.resources': 'RECURSOS',
 }
 
 // ── Italian ───────────────────────────────────────────────────────────────────
@@ -1997,6 +2024,9 @@ const it = {
   'desc.gurava': 'Tre classi di maestri spirituali che rappresentano le correnti divina, perfezionata e umana della trasmissione.',
   'desc.chakreshvari': 'Nove forme Tripurā, una divinità presiedente per ciascuno dei nove circuiti, dal bhupura più esterno fino al bindu.',
   'desc.closing': 'Nove epiteti speciali di Śrīdevī, seguiti dal Namaskāra Navākṣarī finale.',
+  'heading.explore': 'ESPLORA E MEMORIZZA',
+  'heading.spot': 'VERIFICA PUNTUALE E MAPPA DELLA MEMORIA',
+  'heading.resources': 'RISORSE',
 }
 
 
@@ -2173,6 +2203,9 @@ const pt = {
   'desc.gurava': 'Três classes de mestres espirituais representando as correntes divina, perfeita e humana da transmissão.',
   'desc.chakreshvari': 'Nove formas Tripurā, uma divindade presidindo cada um dos nove circuitos, desde o bhupura mais externo até ao bindu.',
   'desc.closing': 'Nove epítetos especiais de Śrīdevī, seguidos do Namaskāra Navākṣarī final.',
+  'heading.explore': 'EXPLORAR E MEMORIZAR',
+  'heading.spot': 'VERIFICAÇÃO PONTUAL E MAPA DE MEMÓRIA',
+  'heading.resources': 'RECURSOS',
 }
 
 // ── German ────────────────────────────────────────────────────────────────────
@@ -2348,6 +2381,9 @@ const de = {
   'desc.gurava': 'Drei Klassen spiritueller Meister, die den göttlichen, vollendeten und menschlichen Strom der Überlieferung repräsentieren.',
   'desc.chakreshvari': 'Neun Tripurā-Formen, je eine Vorsitzgottheit für jeden der neun Kreise, vom äußersten Bhupura bis zum Bindu.',
   'desc.closing': 'Neun besondere Beinamen Śrīdevīs, gefolgt vom abschließenden Namaskāra Navākṣarī.',
+  'heading.explore': 'ERKUNDEN UND EINPRÄGEN',
+  'heading.spot': 'STICHPROBE UND GEDÄCHTNISKARTE',
+  'heading.resources': 'RESSOURCEN',
 }
 
 // ── String table registry ─────────────────────────────────────────────────────
