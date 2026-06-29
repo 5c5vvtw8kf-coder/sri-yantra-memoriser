@@ -247,15 +247,15 @@ const SECTION_SCRIPTS = {
 
 
 const YOGINI_SECRECY = {
-  'Prakata Yogini':           'Manifest',
-  'Gupta Yogini':             'Hidden',
-  'Guptatara Yogini':         'More Hidden',
-  'Sampradaya Yogini':        'Transmitted',
-  'Kulottirna Yogini':        'Beyond Kula',
-  'Nigarbha Yogini':          'Concealed',
-  'Rahasya Yogini':           'Secret',
-  'Ati Rahasya Yogini':       'Most Secret',
-  'Para Para Rahasya Yogini': 'Supreme Secret',
+  'Prakata Yogini':           'secrecy.prakata',
+  'Gupta Yogini':             'secrecy.gupta',
+  'Guptatara Yogini':         'secrecy.guptatara',
+  'Sampradaya Yogini':        'secrecy.sampradaya',
+  'Kulottirna Yogini':        'secrecy.kulottirna',
+  'Nigarbha Yogini':          'secrecy.nigarbha',
+  'Rahasya Yogini':           'secrecy.rahasya',
+  'Ati Rahasya Yogini':       'secrecy.ati_rahasya',
+  'Para Para Rahasya Yogini': 'secrecy.para_para',
 }
 
 const TABS = [
@@ -709,7 +709,7 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
             {sectionName(section, 'yoginiType', script)}
-            {secrecy && uiLang === 'en' && <span className="text-muted ml-1">· {secrecy}</span>}
+            {secrecy && <span className="text-muted ml-1">· {tr(secrecy)}</span>}
           </span>
         </div>
         <div className="flex gap-2">
@@ -746,7 +746,7 @@ function CircuitRows({ circuitNumber, script, uiLang = 'en', onHoverFill = null,
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
           {sectionName(section, 'yoginiType', script)}
-          {secrecy && uiLang === 'en' && <span className="text-muted ml-1">· {secrecy}</span>}
+          {secrecy && <span className="text-muted ml-1">· {tr(secrecy)}</span>}
         </span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
@@ -774,9 +774,7 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Closing Namaskara' : 'namaskāra-navākṣarī ca'}
           </h2>
-          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
-            {script === 'english' ? 'Nine special epithets of Sridevi, followed by the closing Namaskara Navakshari.' : 'Nine special epithets of Śrīdevī, followed by the closing Namaskāra Navākṣarī.'}
-          </p>}
+          <p className="text-cream text-xs leading-relaxed">{tr('desc.closing')}</p>
         </div>
       )
     }
@@ -790,9 +788,7 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Sixteen Nitya Devis' : 'ṣoḍaśa nitya dēvī'}
           </h2>
-          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
-            {script === 'english' ? "The devis representing the 15 lunar phases of the moon's cycle plus Mahanitye." : "The devis representing the 15 lunar phases of the moon's cycle plus Mahānityē."}
-          </p>}
+          <p className="text-cream text-xs leading-relaxed">{tr('desc.inner')}</p>
         </div>
       )
     }
@@ -806,9 +802,7 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Divine · Siddha · Human' : 'divyaugha · siddhaugha · mānavaugha'}
           </h2>
-          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
-            Three classes of spiritual masters representing the divine, perfected and human currents of transmission.
-          </p>}
+          <p className="text-cream text-xs leading-relaxed">{tr('desc.gurava')}</p>
         </div>
       )
     }
@@ -822,9 +816,7 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Six-Limb Nyasa' : 'ṣaḍ-aṅga nyāsa'}
           </h2>
-          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
-            Six limb-deities invoked at the opening of the stotra, each consecrates a part of the body and the subtle body before worship begins.
-          </p>}
+          <p className="text-cream text-xs leading-relaxed">{tr('desc.nyasa')}</p>
         </div>
       )
     }
@@ -838,9 +830,7 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           <h2 className={`${script === 'english' ? '' : 'iast '}text-gold-400 text-sm font-medium leading-snug`}>
             {script === 'english' ? 'Nine Tripura Forms' : 'nava tripurā rūpāṇi'}
           </h2>
-          {uiLang === 'en' && <p className="text-cream text-xs leading-relaxed">
-            {script === 'english' ? 'Nine Tripura forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.' : 'Nine Tripurā forms, one presiding deity for each of the nine circuits, from the outermost bhupura to the bindu.'}
-          </p>}
+          <p className="text-cream text-xs leading-relaxed">{tr('desc.chakreshvari')}</p>
         </div>
       )
     }
@@ -884,10 +874,10 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
             <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
             <span className="text-gold-500">{sectionName(section, 'yoginiType', script)}</span>
           </div>
-          {secrecy && uiLang === 'en' && (
+          {secrecy && (
             <div className="flex gap-2">
               <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.secrecy')}</span>
-              <span className="text-muted">{secrecy}</span>
+              <span className="text-muted">{tr(secrecy)}</span>
             </div>
           )}
           <div className="flex gap-2">
