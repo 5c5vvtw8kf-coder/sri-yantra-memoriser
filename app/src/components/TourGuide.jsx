@@ -365,7 +365,338 @@ const STEPS_TE = [
   },
 ]
 
-const STEPS_BY_LANG = { en: STEPS_EN, hi: STEPS_HI, kn: STEPS_KN, ml: STEPS_ML, ta: STEPS_TA, te: STEPS_TE }
+
+const STEPS_MR = [
+  {
+    title: 'श्री यन्त्र स्मरण सहायकामध्ये स्वागत आहे',
+    body:
+      '<p>हे अ‍ॅप <em>खड्गमाला स्तोत्र</em>ातील सुमारे 180 देवतानामे श्री यन्त्राच्या भौमितिक स्थानिक स्मृतीद्वारे शिकण्यास मदत करते.</p>' +
+      '<p>शब्दांची यादी पाठ करण्याऐवजी, प्रत्येक देवता यन्त्रात <em>कुठे</em> वास करते हे शिकता. स्थानिक स्मृती क्रमिक पाठ सहज करते.</p>',
+  },
+  {
+    title: 'नेव्हिगेशन',
+    body:
+      'डेस्कटॉपवर साइडबार डावीकडे नेहमी दिसतो. मोबाइलवर उघडण्यासाठी <strong>☰</strong> बटण दाबा.<br><br>' +
+      'यात प्रत्येक जप विभाग — न्यास देवताः, गुरू, सर्व नऊ आवरणे — तसेच स्पॉट चेक आणि स्मृती नकाशा साधने सूचीबद्ध आहेत. कोणत्याही आयटमवर टॅप करून ते उघडा.',
+  },
+  {
+    selector: '[data-tour="heading-explore"]',
+    title: 'अन्वेषण आणि पाठ',
+    body:
+      'प्रत्येक विभागात दोन मोड असतात:<br><br>' +
+      '<strong>अन्वेषण</strong> — टॅप केल्यावर नावे प्रकट होतात.<br>' +
+      '<strong>पाठ</strong> — नावे लपलेली असतात; आधी आठवा, मग प्रकट करा आणि चिन्हांकित करा.<br><br>' +
+      'प्रत्येक आवरण बाहेरून आतपर्यंत पूर्ण करा.',
+  },
+  {
+    selector: '[data-tour="nav-bhupura"]',
+    title: 'नऊ आवरणे',
+    body:
+      'प्रत्येक आवरणाचा स्वतःचा विभाग आहे. सर्वात बाह्य भूपुरापासून सुरू करा आणि बिंदूकडे जा. विभाग पूर्ण झाल्यावर प्रगती बिंदू दिसतात.',
+  },
+  {
+    selector: '[data-tour="nav-spotcheck"]',
+    title: 'स्पॉट चेक',
+    body:
+      '<strong>स्पॉट चेक</strong> यन्त्रावर एक यादृच्छिक स्थान निवडतो आणि तेथील देवतेचे नाव विचारतो. हे लवचिक स्मृती निर्माण करते, केवळ क्रमिक पाठ नाही.',
+  },
+  {
+    selector: '[data-tour="nav-memomap"]',
+    title: 'स्मृती नकाशा',
+    body:
+      '<strong>स्मृती नकाशा</strong> संपूर्ण यन्त्रात तुमची प्रगती एका नजरेत दाखवतो — <span class="syt-tour-green">✓ हिरवा</span> पाठासाठी, <span class="syt-tour-amber">~ पिवळा</span> अंशतः, <span class="syt-tour-red">✗ लाल</span> अजून न शिकलेल्यांसाठी.',
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: 'श्री यन्त्र',
+    body:
+      '<strong>श्री यन्त्र</strong> टॅब संपूर्ण आकृती संदर्भ म्हणून दाखवतो — भूपुरापासून बिंदूपर्यंत सर्व नऊ आवरणे.',
+  },
+  {
+    selector: '[data-tour="tour-btn"]',
+    title: 'तुम्ही तयार आहात',
+    body:
+      'हे <strong>✈</strong> बटण कधीही दाबून हा दौरा पुन्हा पाहा.<br><br>' +
+      '<em>स्वागत आणि परिचय</em> पासून सुरुवात करा, मग आवरणे क्रमाने पूर्ण करा. वेळ घ्या — ही साधना आहे, स्पर्धा नाही. 🙏',
+  },
+]
+
+const STEPS_FR = [
+  {
+    title: "Bienvenue dans le Śrī Yantra Memoriser",
+    body:
+      "<p>Cette application vous aide à apprendre le <em>Khadgamalā Stotram</em>, environ 180 noms de divinités, en construisant une mémoire spatiale de la géométrie du Śrī Yantra.</p>" +
+      "<p>Plutôt que de mémoriser une liste de mots, vous apprenez <em>où</em> chaque divinité réside dans le yantra. La mémoire spatiale rend le rappel séquentiel naturel.</p>",
+  },
+  {
+    title: "Navigation",
+    body:
+      "Sur ordinateur, la barre latérale est toujours visible à gauche. Sur mobile, appuyez sur le bouton <strong>☰</strong> pour l'ouvrir.<br><br>" +
+      "Elle répertorie chaque section — Nyāsa Devatāḥ, Gurus, les neuf āvaraṇas jusqu'au bindu — ainsi que les outils Contrôle Rapide et Carte Mémoire. Appuyez sur n'importe quel élément pour l'ouvrir.",
+  },
+  {
+    selector: '[data-tour="heading-explore"]',
+    title: "Explorer et Mémoriser",
+    body:
+      "Chaque section propose deux modes :<br><br>" +
+      "<strong>Explorer</strong> — les noms se révèlent au fur et à mesure.<br>" +
+      "<strong>Mémoriser</strong> — les noms sont cachés ; rappelez-les mentalement avant de révéler, puis marquez chacun mémorisé ou non.<br><br>" +
+      "Parcourez chaque āvaraṇa de l'extérieur vers l'intérieur.",
+  },
+  {
+    selector: '[data-tour="nav-bhupura"]',
+    title: "Les neuf Āvaraṇas",
+    body:
+      "Chaque āvaraṇa est sa propre section. Commencez par le Bhūpura extérieur et progressez vers le bindu. Des points de progression apparaissent à côté des sections complétées.",
+  },
+  {
+    selector: '[data-tour="nav-spotcheck"]',
+    title: "Contrôle Rapide",
+    body:
+      "Le <strong>Contrôle Rapide</strong> choisit une position aléatoire sur le yantra et vous demande de nommer la divinité. Cela construit un rappel flexible, pas seulement la séquence par cœur.",
+  },
+  {
+    selector: '[data-tour="nav-memomap"]',
+    title: "Carte Mémoire",
+    body:
+      "La <strong>Carte Mémoire</strong> montre votre progression sur l'ensemble du yantra en un coup d'œil — <span class=\"syt-tour-green\">✓ vert</span> pour mémorisé, <span class=\"syt-tour-amber\">~ ambre</span> pour partiellement correct, <span class=\"syt-tour-red\">✗ rouge</span> pour pas encore mémorisé.",
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: "Śrī Yantra",
+    body:
+      "L'onglet <strong>Śrī Yantra</strong> montre le diagramme complet en référence — les neuf āvaraṇas du Bhūpura jusqu'au bindu.",
+  },
+  {
+    selector: '[data-tour="tour-btn"]',
+    title: "Vous êtes prêt",
+    body:
+      "Cliquez sur le bouton <strong>✈</strong> ici à tout moment pour revoir cette visite.<br><br>" +
+      "Commencez par <em>Bienvenue et Introduction</em>, puis parcourez les āvaraṇas dans l'ordre. Prenez votre temps — c'est une pratique, pas une course. 🙏",
+  },
+]
+
+const STEPS_ES = [
+  {
+    title: 'Bienvenido al Śrī Yantra Memoriser',
+    body:
+      '<p>Esta aplicación te ayuda a aprender el <em>Khadgamalā Stotram</em>, alrededor de 180 nombres de deidades, construyendo memoria espacial de la geometría del Śrī Yantra.</p>' +
+      '<p>En lugar de memorizar una lista de palabras, aprendes <em>dónde</em> vive cada deidad en el yantra. La memoria espacial hace que el recuerdo secuencial sea natural.</p>',
+  },
+  {
+    title: 'Navegación',
+    body:
+      'En el ordenador, la barra lateral siempre está visible a la izquierda. En el móvil, pulsa el botón <strong>☰</strong> para abrirla.<br><br>' +
+      'Enumera cada sección — Nyāsa Devatāḥ, Gurus, las nueve āvaraṇas hasta el bindu — además de herramientas como Comprobación Rápida y Mapa de Memoria. Pulsa cualquier elemento para abrirlo.',
+  },
+  {
+    selector: '[data-tour="heading-explore"]',
+    title: 'Explorar y Memorizar',
+    body:
+      'Cada sección tiene dos modos:<br><br>' +
+      '<strong>Explorar</strong> — los nombres se revelan al ir avanzando.<br>' +
+      '<strong>Memorizar</strong> — los nombres están ocultos; recuérdalos mentalmente antes de revelarlos, luego marca cada uno.<br><br>' +
+      'Trabaja cada āvaraṇa de afuera hacia adentro.',
+  },
+  {
+    selector: '[data-tour="nav-bhupura"]',
+    title: 'Las nueve Āvaraṇas',
+    body:
+      'Cada āvaraṇa es su propia sección. Comienza con el Bhūpura exterior y avanza hacia el bindu. Los puntos de progreso aparecen junto a las secciones completadas.',
+  },
+  {
+    selector: '[data-tour="nav-spotcheck"]',
+    title: 'Comprobación Rápida',
+    body:
+      'La <strong>Comprobación Rápida</strong> elige una posición aleatoria en el yantra y te pide que nombres la deidad. Esto construye un recuerdo flexible, no solo secuencial.',
+  },
+  {
+    selector: '[data-tour="nav-memomap"]',
+    title: 'Mapa de Memoria',
+    body:
+      'El <strong>Mapa de Memoria</strong> muestra tu progreso en todo el yantra de un vistazo — <span class="syt-tour-green">✓ verde</span> para memorizado, <span class="syt-tour-amber">~ ámbar</span> para parcialmente correcto, <span class="syt-tour-red">✗ rojo</span> para no memorizado aún.',
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: 'Śrī Yantra',
+    body:
+      'La pestaña <strong>Śrī Yantra</strong> muestra el diagrama completo como referencia — las nueve āvaraṇas del Bhūpura al bindu.',
+  },
+  {
+    selector: '[data-tour="tour-btn"]',
+    title: 'Todo listo',
+    body:
+      'Haz clic en el botón <strong>✈</strong> aquí en cualquier momento para volver a ver este recorrido.<br><br>' +
+      'Comienza con <em>Bienvenida e Introducción</em>, luego trabaja los āvaraṇas en orden. Tómate tu tiempo — esto es una práctica, no una carrera. 🙏',
+  },
+]
+
+const STEPS_IT = [
+  {
+    title: "Benvenuto nello Śrī Yantra Memoriser",
+    body:
+      "<p>Questa app ti aiuta a imparare il <em>Khadgamalā Stotram</em>, circa 180 nomi di divinità, costruendo una memoria spaziale della geometria dello Śrī Yantra.</p>" +
+      "<p>Invece di memorizzare un elenco di parole, impari <em>dove</em> vive ogni divinità nel yantra. La memoria spaziale rende il ricordo sequenziale naturale.</p>",
+  },
+  {
+    title: "Navigazione",
+    body:
+      "Su desktop la barra laterale è sempre visibile a sinistra. Su mobile, tocca il pulsante <strong>☰</strong> per aprirla.<br><br>" +
+      "Elenca ogni sezione del canto — Nyāsa Devatāḥ, Guru, tutte le nove āvaraṇas fino al bindu — oltre agli strumenti Controllo Rapido e Mappa della Memoria. Tocca qualsiasi elemento per aprirlo.",
+  },
+  {
+    selector: '[data-tour="heading-explore"]',
+    title: "Esplora e Memorizza",
+    body:
+      "Ogni sezione ha due modalità:<br><br>" +
+      "<strong>Esplora</strong> — i nomi si rivelano man mano che avanza.<br>" +
+      "<strong>Memorizza</strong> — i nomi sono nascosti; ricordali mentalmente prima di rivelare, poi segna ognuno.<br><br>" +
+      "Percorri ogni āvaraṇa dall'esterno verso l'interno.",
+  },
+  {
+    selector: '[data-tour="nav-bhupura"]',
+    title: "Le nove Āvaraṇas",
+    body:
+      "Ogni āvaraṇa è una propria sezione. Inizia con il Bhūpura esterno e procedi verso il bindu. I punti di progresso appaiono accanto alle sezioni completate.",
+  },
+  {
+    selector: '[data-tour="nav-spotcheck"]',
+    title: "Controllo Rapido",
+    body:
+      "Il <strong>Controllo Rapido</strong> sceglie una posizione casuale sul yantra e ti chiede di nominare la divinità. Questo costruisce un ricordo flessibile, non solo sequenziale.",
+  },
+  {
+    selector: '[data-tour="nav-memomap"]',
+    title: "Mappa della Memoria",
+    body:
+      "La <strong>Mappa della Memoria</strong> mostra il tuo progresso sull'intero yantra in un colpo d'occhio — <span class=\"syt-tour-green\">✓ verde</span> per memorizzato, <span class=\"syt-tour-amber\">~ ambra</span> per parzialmente corretto, <span class=\"syt-tour-red\">✗ rosso</span> per non ancora memorizzato.",
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: "Śrī Yantra",
+    body:
+      "La scheda <strong>Śrī Yantra</strong> mostra il diagramma completo come riferimento — tutte e nove le āvaraṇas dal Bhūpura al bindu.",
+  },
+  {
+    selector: '[data-tour="tour-btn"]',
+    title: "Sei pronto",
+    body:
+      "Clicca il pulsante <strong>✈</strong> qui in qualsiasi momento per rivedere questo tour.<br><br>" +
+      "Inizia con <em>Benvenuto e Introduzione</em>, poi percorri le āvaraṇas in ordine. Prenditi il tuo tempo — questa è una pratica, non una gara. 🙏",
+  },
+]
+
+const STEPS_PT = [
+  {
+    title: 'Bem-vindo ao Śrī Yantra Memoriser',
+    body:
+      '<p>Esta aplicação ajuda-o a aprender o <em>Khadgamalā Stotram</em>, cerca de 180 nomes de divindades, construindo memória espacial da geometria do Śrī Yantra.</p>' +
+      '<p>Em vez de memorizar uma lista de palavras, aprende <em>onde</em> cada divindade vive no yantra. A memória espacial torna a recordação sequencial natural.</p>',
+  },
+  {
+    title: 'Navegação',
+    body:
+      'No computador, a barra lateral está sempre visível à esquerda. No telemóvel, toque no botão <strong>☰</strong> para a abrir.<br><br>' +
+      'Lista cada secção — Nyāsa Devatāḥ, Gurus, as nove āvaraṇas até ao bindu — além das ferramentas Verificação Rápida e Mapa de Memória. Toque em qualquer item para abri-lo.',
+  },
+  {
+    selector: '[data-tour="heading-explore"]',
+    title: 'Explorar e Memorizar',
+    body:
+      'Cada secção tem dois modos:<br><br>' +
+      '<strong>Explorar</strong> — os nomes revelam-se à medida que avança.<br>' +
+      '<strong>Memorizar</strong> — os nomes estão escondidos; recorde-os mentalmente antes de revelar, depois assinale cada um.<br><br>' +
+      'Percorra cada āvaraṇa de fora para dentro.',
+  },
+  {
+    selector: '[data-tour="nav-bhupura"]',
+    title: 'As nove Āvaraṇas',
+    body:
+      'Cada āvaraṇa é a sua própria secção. Comece pelo Bhūpura exterior e avance em direção ao bindu. Os pontos de progresso aparecem junto às secções concluídas.',
+  },
+  {
+    selector: '[data-tour="nav-spotcheck"]',
+    title: 'Verificação Rápida',
+    body:
+      'A <strong>Verificação Rápida</strong> escolhe uma posição aleatória no yantra e pede-lhe que nomeie a divindade. Isto constrói uma recordação flexível, não apenas sequencial.',
+  },
+  {
+    selector: '[data-tour="nav-memomap"]',
+    title: 'Mapa de Memória',
+    body:
+      'O <strong>Mapa de Memória</strong> mostra o seu progresso em todo o yantra num relance — <span class="syt-tour-green">✓ verde</span> para memorizado, <span class="syt-tour-amber">~ âmbar</span> para parcialmente correto, <span class="syt-tour-red">✗ vermelho</span> para ainda não memorizado.',
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: 'Śrī Yantra',
+    body:
+      'O separador <strong>Śrī Yantra</strong> mostra o diagrama completo como referência — as nove āvaraṇas do Bhūpura ao bindu.',
+  },
+  {
+    selector: '[data-tour="tour-btn"]',
+    title: 'Está tudo pronto',
+    body:
+      'Clique no botão <strong>✈</strong> aqui em qualquer altura para rever este tour.<br><br>' +
+      'Comece com <em>Boas-vindas e Introdução</em>, depois percorra as āvaraṇas por ordem. Leve o seu tempo — esta é uma prática, não uma corrida. 🙏',
+  },
+]
+
+const STEPS_DE = [
+  {
+    title: 'Willkommen beim Śrī Yantra Memoriser',
+    body:
+      '<p>Diese App hilft dir, den <em>Khadgamalā Stotram</em>, etwa 180 Götternamen, durch den Aufbau eines räumlichen Gedächtnisses der Śrī Yantra-Geometrie zu lernen.</p>' +
+      '<p>Statt einer Wortliste auswendig zu lernen, lernst du, <em>wo</em> jede Gottheit im Yantra wohnt. Räumliches Gedächtnis macht sequenzielles Erinnern natürlich.</p>',
+  },
+  {
+    title: 'Navigation',
+    body:
+      'Auf dem Desktop ist die Seitenleiste links immer sichtbar. Auf dem Handy tippst du auf die <strong>☰</strong>-Schaltfläche, um sie zu öffnen.<br><br>' +
+      'Sie listet jeden Abschnitt auf — Nyāsa Devatāḥ, Gurus, alle neun Āvaraṇas bis zum Bindu — sowie Werkzeuge wie Schnelltest und Gedächtniskarte. Tippe auf einen Eintrag, um ihn zu öffnen.',
+  },
+  {
+    selector: '[data-tour="heading-explore"]',
+    title: 'Erkunden und Einprägen',
+    body:
+      'Jeder Abschnitt hat zwei Modi:<br><br>' +
+      '<strong>Erkunden</strong> — Namen werden beim Durchgehen aufgedeckt.<br>' +
+      '<strong>Einprägen</strong> — Namen sind verborgen; erinnere dich zuerst, dann aufdecken und markieren.<br><br>' +
+      'Arbeite jede Āvaraṇa von außen nach innen durch.',
+  },
+  {
+    selector: '[data-tour="nav-bhupura"]',
+    title: 'Die neun Āvaraṇas',
+    body:
+      'Jede Āvaraṇa ist ein eigener Abschnitt. Beginne mit dem äußersten Bhūpura und arbeite dich zum Bindu vor. Fortschrittsmarkierungen erscheinen neben abgeschlossenen Abschnitten.',
+  },
+  {
+    selector: '[data-tour="nav-spotcheck"]',
+    title: 'Schnelltest',
+    body:
+      'Der <strong>Schnelltest</strong> wählt eine zufällige Position im Yantra aus und fragt dich nach der Gottheit dort. Das baut flexibles Erinnern auf, nicht nur Reihenfolge.',
+  },
+  {
+    selector: '[data-tour="nav-memomap"]',
+    title: 'Gedächtniskarte',
+    body:
+      'Die <strong>Gedächtniskarte</strong> zeigt deinen Fortschritt über das gesamte Yantra auf einen Blick — <span class="syt-tour-green">✓ grün</span> für eingeprägt, <span class="syt-tour-amber">~ amber</span> für teilweise richtig, <span class="syt-tour-red">✗ rot</span> für noch nicht eingeprägt.',
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: 'Śrī Yantra',
+    body:
+      'Der Tab <strong>Śrī Yantra</strong> zeigt das vollständige Diagramm als Referenz — alle neun Āvaraṇas vom Bhūpura bis zum Bindu.',
+  },
+  {
+    selector: '[data-tour="tour-btn"]',
+    title: 'Du bist bereit',
+    body:
+      'Klicke jederzeit auf die <strong>✈</strong>-Schaltfläche hier, um diese Tour erneut anzusehen.<br><br>' +
+      'Beginne mit <em>Willkommen und Einführung</em>, dann arbeite die Āvaraṇas der Reihe nach durch. Lass dir Zeit — das ist eine Übung, kein Wettrennen. 🙏',
+  },
+]
+
+const STEPS_BY_LANG = { en: STEPS_EN, hi: STEPS_HI, kn: STEPS_KN, ml: STEPS_ML, mr: STEPS_MR, ta: STEPS_TA, te: STEPS_TE, fr: STEPS_FR, es: STEPS_ES, it: STEPS_IT, pt: STEPS_PT, de: STEPS_DE }
 
 // ── Language options shown in the first tour step ─────────────────────────────
 const TOUR_LANG_OPTIONS = [
