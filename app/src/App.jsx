@@ -26,12 +26,18 @@ import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHi
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
 
 const LANG_OPTIONS = [
-  { code: 'en', label: 'English',   englishName: null,        beta: false, defaultScript: 'iast'       },
-  { code: 'hi', label: 'हिन्दी',     englishName: 'Hindi',     beta: true,  defaultScript: 'devanagari' },
-  { code: 'kn', label: 'ಕನ್ನಡ',      englishName: 'Kannada',   beta: true,  defaultScript: 'kannada'    },
-  { code: 'ml', label: 'മലയാളം',     englishName: 'Malayalam', beta: true,  defaultScript: 'malayalam'  },
-  { code: 'ta', label: 'தமிழ்',      englishName: 'Tamil',     beta: true,  defaultScript: 'tamil'      },
-  { code: 'te', label: 'తెలుగు',     englishName: 'Telugu',    beta: true,  defaultScript: 'telugu'     },
+  { code: 'en', label: 'English',    englishName: null,         beta: false, defaultScript: 'iast'       },
+  { code: 'de', label: 'Deutsch',    englishName: 'German',     beta: true,  defaultScript: 'iast'       },
+  { code: 'es', label: 'Español',    englishName: 'Spanish',    beta: true,  defaultScript: 'iast'       },
+  { code: 'fr', label: 'Français',   englishName: 'French',     beta: true,  defaultScript: 'iast'       },
+  { code: 'hi', label: 'हिन्दी',      englishName: 'Hindi',      beta: true,  defaultScript: 'devanagari' },
+  { code: 'it', label: 'Italiano',   englishName: 'Italian',    beta: true,  defaultScript: 'iast'       },
+  { code: 'kn', label: 'ಕನ್ನಡ',       englishName: 'Kannada',    beta: true,  defaultScript: 'kannada'    },
+  { code: 'ml', label: 'മലയാളം',      englishName: 'Malayalam',  beta: true,  defaultScript: 'malayalam'  },
+  { code: 'mr', label: 'मराठी',       englishName: 'Marathi',    beta: true,  defaultScript: 'devanagari' },
+  { code: 'pt', label: 'Português',  englishName: 'Portuguese', beta: true,  defaultScript: 'iast'       },
+  { code: 'ta', label: 'தமிழ்',       englishName: 'Tamil',      beta: true,  defaultScript: 'tamil'      },
+  { code: 'te', label: 'తెలుగు',      englishName: 'Telugu',     beta: true,  defaultScript: 'telugu'     },
 ]
 import { Globe, Plane, PenLine } from 'lucide-react'
 
@@ -41,6 +47,7 @@ const circuitSections = sections.filter(s => s.type === 'circuit')
 // Native-numeral helper: digit-by-digit map — browser-independent, works for all Indian scripts
 const NUMERAL_DIGITS = {
   hi: ['०','१','२','३','४','५','६','७','८','९'],
+  mr: ['०','१','२','३','४','५','६','७','८','९'],
   kn: ['೦','೧','೨','೩','೪','೫','೬','೭','೮','೯'],
   ta: ['௦','௧','௨','௩','௪','௫','௬','௭','௮','௯'],
   te: ['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'],
@@ -3985,12 +3992,12 @@ export default function App() {
             const tab = TABS.find(t => t.id === activeTab)
             if (!tab) return ''
             if (tab.trKey) return tr(tab.trKey)
-            if (uiLang === 'hi') return tab.navLabelDev || tab.navLabel
+            if (uiLang === 'hi' || uiLang === 'mr') return tab.navLabelDev || tab.navLabel
             if (uiLang === 'te') return tab.navLabelTe  || tab.navLabel
             if (uiLang === 'ta') return tab.navLabelTa  || tab.navLabel
             if (uiLang === 'kn') return tab.navLabelKn  || tab.navLabel
             if (uiLang === 'ml') return tab.navLabelMl  || tab.navLabel
-            if (uiLang === 'en') return tab.navLabelEn  || tab.navLabel
+            if (uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de') return tab.navLabelEn  || tab.navLabel
             return tab.navLabel
           })()}
         </span>
@@ -4174,12 +4181,12 @@ export default function App() {
                 >
                   <span className="flex-1 min-w-0">
                     {tab.trKey ? tr(tab.trKey)
-                      : uiLang === 'hi' ? (tab.navLabelDev || tab.navLabel)
+                      : uiLang === 'hi' || uiLang === 'mr' ? (tab.navLabelDev || tab.navLabel)
                       : uiLang === 'te' ? (tab.navLabelTe  || tab.navLabel)
                       : uiLang === 'ta' ? (tab.navLabelTa  || tab.navLabel)
                       : uiLang === 'kn' ? (tab.navLabelKn  || tab.navLabel)
                       : uiLang === 'ml' ? (tab.navLabelMl  || tab.navLabel)
-                      : uiLang === 'en' ? (tab.navLabelEn  || tab.navLabel)
+                      : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (tab.navLabelEn  || tab.navLabel)
                       : tab.navLabel}
                   </span>
                   {dot && (
@@ -4765,7 +4772,7 @@ export default function App() {
           >
             <span className="flex items-center gap-1.5 min-w-0">
               <span className="flex-shrink-0 text-base leading-none">←</span>
-              <span className="truncate">{prevTab ? (prevTab.trKey ? tr(prevTab.trKey) : uiLang === 'hi' ? (prevTab.navLabelDev || prevTab.footerLabel) : uiLang === 'te' ? (prevTab.navLabelTe || prevTab.footerLabel) : uiLang === 'ta' ? (prevTab.navLabelTa || prevTab.footerLabel) : uiLang === 'kn' ? (prevTab.navLabelKn || prevTab.footerLabel) : uiLang === 'ml' ? (prevTab.navLabelMl || prevTab.footerLabel) : uiLang === 'en' ? (prevTab.navLabelEn || prevTab.footerLabel) : prevTab.footerLabel) : ''}</span>
+              <span className="truncate">{prevTab ? (prevTab.trKey ? tr(prevTab.trKey) : uiLang === 'hi' || uiLang === 'mr' ? (prevTab.navLabelDev || prevTab.footerLabel) : uiLang === 'te' ? (prevTab.navLabelTe || prevTab.footerLabel) : uiLang === 'ta' ? (prevTab.navLabelTa || prevTab.footerLabel) : uiLang === 'kn' ? (prevTab.navLabelKn || prevTab.footerLabel) : uiLang === 'ml' ? (prevTab.navLabelMl || prevTab.footerLabel) : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (prevTab.navLabelEn || prevTab.footerLabel) : prevTab.footerLabel) : ''}</span>
             </span>
           </button>
           {/* Centre: section title — iPad only via CSS class */}
@@ -4773,12 +4780,12 @@ export default function App() {
             const tab = TABS.find(t => t.id === activeTab)
             if (!tab) return null
             const label = tab.trKey ? tr(tab.trKey)
-              : uiLang === 'hi' ? (tab.navLabelDev || tab.navLabel)
+              : uiLang === 'hi' || uiLang === 'mr' ? (tab.navLabelDev || tab.navLabel)
               : uiLang === 'te' ? (tab.navLabelTe  || tab.navLabel)
               : uiLang === 'ta' ? (tab.navLabelTa  || tab.navLabel)
               : uiLang === 'kn' ? (tab.navLabelKn  || tab.navLabel)
               : uiLang === 'ml' ? (tab.navLabelMl  || tab.navLabel)
-              : uiLang === 'en' ? (tab.navLabelEn  || tab.navLabel)
+              : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (tab.navLabelEn  || tab.navLabel)
               : tab.navLabel
             return (
               <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 ${uiLang === 'en' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>
@@ -4795,7 +4802,7 @@ export default function App() {
               transition-colors overflow-hidden"
           >
             <span className="flex items-center justify-end gap-1.5 min-w-0">
-              <span className="truncate">{nextTab ? (nextTab.trKey ? tr(nextTab.trKey) : uiLang === 'hi' ? (nextTab.navLabelDev || nextTab.footerLabel) : uiLang === 'te' ? (nextTab.navLabelTe || nextTab.footerLabel) : uiLang === 'ta' ? (nextTab.navLabelTa || nextTab.footerLabel) : uiLang === 'kn' ? (nextTab.navLabelKn || nextTab.footerLabel) : uiLang === 'ml' ? (nextTab.navLabelMl || nextTab.footerLabel) : uiLang === 'en' ? (nextTab.navLabelEn || nextTab.footerLabel) : nextTab.footerLabel) : ''}</span>
+              <span className="truncate">{nextTab ? (nextTab.trKey ? tr(nextTab.trKey) : uiLang === 'hi' || uiLang === 'mr' ? (nextTab.navLabelDev || nextTab.footerLabel) : uiLang === 'te' ? (nextTab.navLabelTe || nextTab.footerLabel) : uiLang === 'ta' ? (nextTab.navLabelTa || nextTab.footerLabel) : uiLang === 'kn' ? (nextTab.navLabelKn || nextTab.footerLabel) : uiLang === 'ml' ? (nextTab.navLabelMl || nextTab.footerLabel) : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (nextTab.navLabelEn || nextTab.footerLabel) : nextTab.footerLabel) : ''}</span>
               <span className="flex-shrink-0 text-base leading-none">→</span>
             </span>
           </button>
