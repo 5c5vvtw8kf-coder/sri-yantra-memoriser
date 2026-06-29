@@ -3331,7 +3331,7 @@ export default function App() {
                     : 'bg-surface-800 text-muted hover:text-cream',
                 ].join(' ')}
               >
-                {n === 'whole' ? 'Whole' : n}
+                {n === 'whole' ? tr('spot.whole') : n}
               </button>
             ))}
           </div>
@@ -4030,7 +4030,7 @@ export default function App() {
             </button>
             {showMobileScriptMenu && (
               <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[160px]">
-                <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">Script</p>
+                <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">{tr('ui.script')}</p>
                 {LOCALE_ORDER.map(id => (
                   <button key={id} onClick={() => { setScript(id); setShowMobileScriptMenu(false) }}
                     className={`w-full text-left px-3 py-1.5 text-xs font-mono transition-colors flex items-center justify-between
@@ -4148,7 +4148,7 @@ export default function App() {
                     className={`w-full flex items-center justify-between px-2 pb-0.5 select-none hover:text-white transition-colors ${i === 0 ? 'pt-1' : 'pt-3'}`}
                     {...(TOUR_HEADING_IDS[tab.id] ? { 'data-tour': TOUR_HEADING_IDS[tab.id] } : {})}
                   >
-                    <span className="text-[11px] font-mono text-cream uppercase tracking-[0.12em]">
+                    <span className="flex-1 text-left text-[11px] font-mono text-cream uppercase tracking-[0.05em] leading-tight">
                       {tab.trKey ? tr(tab.trKey) : tab.heading}
                     </span>
                     <span className="text-cream text-[11px]">{isOpen ? '▾' : '▸'}</span>
@@ -4212,7 +4212,7 @@ export default function App() {
             >Aa</button>
           ) : (
           <>
-          <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">Script</p>
+          <p className="text-[11px] font-mono text-cream uppercase tracking-[0.12em] px-2 mb-1.5">{tr('ui.script')}</p>
           <div className="relative">
             <button
               onClick={() => setShowScriptMenu(m => !m)}
@@ -4648,7 +4648,7 @@ export default function App() {
                           className={['px-2.5 py-1 rounded text-xs font-mono transition-colors',
                             (n === 'whole' ? scLimit === null : scLimit === n)
                               ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
-                          {n === 'whole' ? 'Whole' : n}
+                          {n === 'whole' ? tr('spot.whole') : n}
                         </button>
                       ))}
                     </div>
