@@ -374,6 +374,7 @@ export default function C8View({
         tr={tr}
         script={script}
         svaminiSeq={8}
+        atEnd={!memorise && !!selectedId && selectedId === c8Deities[c8Deities.length - 1]?.id}
         yoginiSeq={9}
         memorise={memorise}
         currentSeq={currentSeq}

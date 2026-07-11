@@ -57,6 +57,7 @@ export default function MobileSvaminiButtons({
   results        = {},
   onMarkResult   = () => {},
   onToggleResult = () => {},
+  atEnd          = false,
 }) {
   const [revealedSvamini, setRevealedSvamini] = useState(false)
   const [revealedYogini,  setRevealedYogini]  = useState(false)
@@ -201,7 +202,7 @@ export default function MobileSvaminiButtons({
   // ── Render ──────────────────────────────────────────────────────────────────
 
   const isIndic = !['iast', 'english'].includes(script)
-  const labelColor = memorise ? 'text-muted' : 'text-[#fff8c8]'
+  const labelColor = (!memorise && atEnd) ? 'text-[#fff8c8]' : 'text-muted'
   const labelClass = isIndic
     ? `text-sm ${labelColor} font-medium shrink-0`
     : `text-[11px] uppercase tracking-widest ${labelColor} font-medium shrink-0`

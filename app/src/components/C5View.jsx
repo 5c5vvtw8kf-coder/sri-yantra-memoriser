@@ -409,6 +409,7 @@ export default function C5View({
         tr={tr}
         script={script}
         svaminiSeq={11}
+        atEnd={!memorise && !!selectedId && selectedId === c5Deities[c5Deities.length - 1]?.id}
         yoginiSeq={12}
         memorise={memorise}
         currentSeq={currentSeq}

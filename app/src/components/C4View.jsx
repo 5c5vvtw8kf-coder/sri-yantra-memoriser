@@ -511,6 +511,7 @@ export default function C4View({
         script={script}
         tr={tr}
         svaminiSeq={15}
+        atEnd={!memorise && !!selectedId && selectedId === c4Deities[c4Deities.length - 1]?.id}
         yoginiSeq={16}
         memorise={memorise}
         currentSeq={currentSeq}

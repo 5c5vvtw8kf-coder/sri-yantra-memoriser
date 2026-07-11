@@ -666,6 +666,7 @@ export default function BhupuraView({
         yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
         memorise={memorise}
         currentSeq={currentSeq}
+        atEnd={!memorise && navStep >= BAND_CONFIG[bandStep].list.length && bandStep >= BAND_CONFIG.length - 1}
         results={results}
         onMarkResult={onMarkResult}
         onToggleResult={onToggleResult}

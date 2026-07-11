@@ -297,6 +297,7 @@ export default function C9View({
         tr={tr}
         script={script}
         svaminiSeq={2}
+        atEnd={!memorise && selected}
         yoginiSeq={3}
         memorise={memorise}
         currentSeq={currentSeq}

@@ -548,6 +548,7 @@ export default function C2View({
         script={script}
         tr={tr}
         svaminiSeq={17}
+        atEnd={!memorise && !!selectedId && selectedId === c2Deities[c2Deities.length - 1]?.id}
         yoginiSeq={18}
         memorise={memorise}
         currentSeq={currentSeq}

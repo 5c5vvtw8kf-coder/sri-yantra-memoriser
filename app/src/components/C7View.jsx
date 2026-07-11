@@ -409,6 +409,7 @@ export default function C7View({
         tr={tr}
         script={script}
         svaminiSeq={9}
+        atEnd={!memorise && !!selectedId && selectedId === c7Deities[c7Deities.length - 1]?.id}
         yoginiSeq={10}
         memorise={memorise}
         currentSeq={currentSeq}
