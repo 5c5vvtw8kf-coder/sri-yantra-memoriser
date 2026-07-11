@@ -373,7 +373,7 @@ export default function C3View({
     : (exploreSeq % 8) + 1                    // wraps 8→1 in Explore
   const showArrow = memorise
     ? (currentSeq >= 1 && currentSeq <= 7)    // stop before Svāminī
-    : true                                    // always shown in Explore
+    : exploreSeq < 8                          // stop at Anangamalini — next focus is Svāminī
 
   return (
     <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
