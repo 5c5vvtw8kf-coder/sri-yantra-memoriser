@@ -172,10 +172,10 @@ export default function MobileSvaminiButtons({
       // Explore: toggle
       return revealed
         ? <span className={`${nameClass} text-gold-400`}>{name || '—'}</span>
-        : <span className="text-gold-600/60 italic text-sm">{tr('instr.tap_reveal')}</span>
+        : <span className="text-gold-600/60 text-sm">{tr('instr.tap_reveal')}</span>
     }
     if (isActive && !revealed) {
-      return <span className="text-gold-300 italic text-sm">{tr('instr.tap_reveal')}</span>
+      return <span className="text-gold-300 text-sm">{tr('instr.tap_reveal')}</span>
     }
     if (isActive && revealed) {
       return <span className={`${nameClass} text-gold-200`}>{name || '—'}</span>
@@ -201,9 +201,10 @@ export default function MobileSvaminiButtons({
   // ── Render ──────────────────────────────────────────────────────────────────
 
   const isIndic = !['iast', 'english'].includes(script)
+  const labelColor = memorise ? 'text-muted' : 'text-[#fff8c8]'
   const labelClass = isIndic
-    ? 'text-sm text-muted font-medium shrink-0'
-    : 'text-[11px] uppercase tracking-widest text-muted font-medium shrink-0'
+    ? `text-sm ${labelColor} font-medium shrink-0`
+    : `text-[11px] uppercase tracking-widest ${labelColor} font-medium shrink-0`
 
   return (
     <div className="md:hidden mt-2 flex flex-col gap-1.5 px-0">
