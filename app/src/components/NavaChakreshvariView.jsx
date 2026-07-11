@@ -269,11 +269,14 @@ const TOTAL = 9
 // Always placed at TOOLTIP_ANCHOR (top-left corner) so it never overlaps the active
 // circuit or the bindu.
 
-function Tooltip({ circuitNum, script }) {
+function Tooltip({ circuitNum, script, uiLang = 'en' }) {
   if (!circuitNum) return null
   const deity = deityByCircuit[circuitNum]
   if (!deity) return null
-  const label = `${circuitNum}. ${displayName(deity, script)}`
+  const JA_DIGITS = ['〇','一','二','三','四','五','六','七','八','九']
+  const numStr = uiLang === 'ja' ? (JA_DIGITS[circuitNum] ?? circuitNum) : circuitNum
+  const dot = ['en','fr','es','it','pt','de'].includes(uiLang) ? '. ' : ' '
+  const label = `${numStr}${dot}${displayName(deity, script)}`
   if (!label) return null
 
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
@@ -555,7 +558,7 @@ export default function NavaChakreshvariView({
             style={{ pointerEvents: 'none' }}
             xmlns="http://www.w3.org/2000/svg"
           >
-            <Tooltip circuitNum={tooltipCircuit} script={script} />
+            <Tooltip circuitNum={tooltipCircuit} script={script} uiLang={uiLang} />
           </svg>
         )}
 

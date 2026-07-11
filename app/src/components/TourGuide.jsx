@@ -696,7 +696,72 @@ const STEPS_DE = [
   },
 ]
 
-const STEPS_BY_LANG = { en: STEPS_EN, hi: STEPS_HI, kn: STEPS_KN, ml: STEPS_ML, mr: STEPS_MR, ta: STEPS_TA, te: STEPS_TE, fr: STEPS_FR, es: STEPS_ES, it: STEPS_IT, pt: STEPS_PT, de: STEPS_DE }
+
+// ── Japanese tour steps ───────────────────────────────────────────────────────
+const STEPS_JA = [
+  {
+    title: 'シュリー・ヤントラ記憶アプリへようこそ',
+    body:
+      '<p>このアプリは、シュリー・ヤントラの幾何学的な空間記憶を構築することで、' +
+      '<em>カドガマーラー・ストートラム</em>（約180の神格名）を学ぶためのツールです。</p>' +
+      '<p>単語リストを暗記するのではなく、各神格がヤントラのどこに宿るかを学びます。' +
+      '空間記憶によって、順序通りの想起が自然に身につきます。</p>',
+  },
+  {
+    title: 'ナビゲーション',
+    body:
+      'デスクトップでは、サイドバーが常に左側に表示されます。モバイルでは、<strong>☰</strong>ボタンをタップして開いてください。<br><br>' +
+      '各セクション（ニャーサ・デーヴァターハ、グル、九つのアーヴァラナからビンドゥまで）と' +
+      'スポットチェック・記憶マップが一覧表示されます。任意の項目をタップして開きます。',
+  },
+  {
+    selector: '[data-tour="heading-explore"]',
+    title: '探索と記憶',
+    body:
+      '各セクションには二つのモードがあります：<br><br>' +
+      '<strong>探索</strong> — タップすると名前が表示されます。<br>' +
+      '<strong>記憶</strong> — 名前は非表示です。表示前に思い出し、記憶済みか未記憶かをマークします。<br><br>' +
+      '各アーヴァラナを外側から内側へ順番に進めます。',
+  },
+  {
+    selector: '[data-tour="nav-bhupura"]',
+    title: '九つのアーヴァラナ',
+    body:
+      '各アーヴァラナは独立したセクションです。最外部のブープラから始め、' +
+      'ビンドゥへと進みます。完了したセクションの横に進捗マークが表示されます。',
+  },
+  {
+    selector: '[data-tour="nav-spotcheck"]',
+    title: 'スポットチェック',
+    body:
+      '<strong>スポットチェック</strong>は、ヤントラ上のランダムな位置を選び、' +
+      'その神格の名前を問います。単なる順序の暗記ではなく、柔軟な想起力を養います。',
+  },
+  {
+    selector: '[data-tour="nav-memomap"]',
+    title: '記憶マップ',
+    body:
+      '<strong>記憶マップ</strong>は、ヤントラ全体の進捗を一目で表示します — ' +
+      '<span class=\"syt-tour-green\">✓ 緑</span>は記憶済み、' +
+      '<span class=\"syt-tour-amber\">~ 黄</span>は部分的、' +
+      '<span class=\"syt-tour-red\">✗ 赤</span>は未記憶です。',
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: 'シュリー・ヤントラ',
+    body:
+      '<strong>シュリー・ヤントラ</strong>タブには、ブープラからビンドゥまで' +
+      '九つのアーヴァラナを含む完全な図が表示されます。',
+  },
+  {
+    selector: '[data-tour="tour-btn"]',
+    title: '準備完了',
+    body:
+      'ここの<strong>✈</strong>ボタンをいつでもクリックして、このツアーを再表示できます。<br><br>' +
+      '<em>はじめに</em>から始め、アーヴァラナを順に進めてください。焦らず、これは練習です。🙏',
+  },
+]
+const STEPS_BY_LANG = { en: STEPS_EN, hi: STEPS_HI, kn: STEPS_KN, ml: STEPS_ML, mr: STEPS_MR, ta: STEPS_TA, te: STEPS_TE, fr: STEPS_FR, es: STEPS_ES, it: STEPS_IT, pt: STEPS_PT, de: STEPS_DE, ja: STEPS_JA }
 
 // ── Language options shown in the first tour step ─────────────────────────────
 const TOUR_LANG_OPTIONS = [
@@ -712,6 +777,7 @@ const TOUR_LANG_OPTIONS = [
   { code: 'pt', label: 'Português' },
   { code: 'ta', label: 'தமிழ்'    },
   { code: 'te', label: 'తెలుగు'   },
+  { code: 'ja', label: '日本語'    },
 ]
 
 function getSteps(uiLang) {
@@ -890,7 +956,7 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
 
         {/* Title — use IAST serif font for English; system font for Indic */}
         <h3
-          className={['en','fr','es','it','pt','de'].includes(uiLang) ? 'iast' : ''}
+          className={['en','fr','es','it','pt','de','ja'].includes(uiLang) ? 'iast' : ''}
           style={{
             fontSize: 14, fontWeight: 600, color: '#d4b96a',
             marginBottom: 10, lineHeight: 1.35, paddingRight: 18,

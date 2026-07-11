@@ -38,6 +38,7 @@ const LANG_OPTIONS = [
   { code: 'pt', label: 'Português',  englishName: 'Portuguese', beta: true,  defaultScript: 'iast'       },
   { code: 'ta', label: 'தமிழ்',       englishName: 'Tamil',      beta: true,  defaultScript: 'tamil'      },
   { code: 'te', label: 'తెలుగు',      englishName: 'Telugu',     beta: true,  defaultScript: 'telugu'     },
+  { code: 'ja', label: '日本語',      englishName: 'Japanese',   beta: true,  defaultScript: 'iast'       },
 ]
 import { Globe, Plane, PenLine } from 'lucide-react'
 
@@ -52,11 +53,16 @@ const NUMERAL_DIGITS = {
   ta: ['௦','௧','௨','௩','௪','௫','௬','௭','௮','௯'],
   te: ['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'],
   ml: ['൦','൧','൨','൩','൪','൫','൬','൭','൮','൯'],
+  ja: ['〇','一','二','三','四','五','六','七','八','九'],
 }
 function localNum(n, uiLang) {
   const digits = NUMERAL_DIGITS[uiLang]
   if (!digits) return n
   return String(n).replace(/[0-9]/g, d => digits[+d])
+}
+// Returns '.' for Western scripts, '' for Indic/Japanese where a trailing dot looks wrong
+function numDot(uiLang) {
+  return ['en','fr','es','it','pt','de'].includes(uiLang) ? '.' : ''
 }
 
 
@@ -3460,7 +3466,7 @@ export default function App() {
                     onMouseEnter={() => setInnerHighlightId(d.id)}
                     onMouseLeave={() => setInnerHighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3510,7 +3516,7 @@ export default function App() {
                             onMouseEnter={() => setGuravaHighlightId(d.id)}
                             onMouseLeave={() => setGuravaHighlightId(null)}
                           >
-                            <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(n, uiLang)}.</span>
+                            <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(n, uiLang)}{numDot(uiLang)}</span>
                             <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                               {displayName(d, script)}
                             </span>
@@ -3552,7 +3558,7 @@ export default function App() {
                     onMouseEnter={() => setNyasaHighlightId(d.id)}
                     onMouseLeave={() => setNyasaHighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{localNum(d.sequenceInSection, uiLang)}.</span>
+                    <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{localNum(d.sequenceInSection, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3597,7 +3603,7 @@ export default function App() {
                       onMouseEnter={() => setHighlight(d.id)}
                       onMouseLeave={() => setHighlight(null)}
                     >
-                      <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                      <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                       <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                         {displayName(d, script)}
                       </span>
@@ -3638,7 +3644,7 @@ export default function App() {
                     onMouseEnter={() => setC2HighlightId(d.id)}
                     onMouseLeave={() => setC2HighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3678,7 +3684,7 @@ export default function App() {
                     onMouseEnter={() => setNcHighlightCircuit(d.circuitNumber ?? d.sequenceInSection)}
                     onMouseLeave={() => setNcHighlightCircuit(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3741,7 +3747,7 @@ export default function App() {
                     onMouseEnter={() => setC8HighlightId(d.id)}
                     onMouseLeave={() => setC8HighlightId(null)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -3802,7 +3808,7 @@ export default function App() {
                           onMouseEnter={() => setBhupuraHighlightId(d.id)}
                           onMouseLeave={() => setBhupuraHighlightId(null)}
                         >
-                          <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(d.sequenceInSection, uiLang)}.</span>
+                          <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(d.sequenceInSection, uiLang)}{numDot(uiLang)}</span>
                           <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                             {displayName(d, script)}
                           </span>
@@ -3845,7 +3851,7 @@ export default function App() {
                     onMouseEnter={() => setClosingListHighlight(true)}
                     onMouseLeave={() => setClosingListHighlight(false)}
                   >
-                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}.</span>
+                    <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
                       {displayName(d, script)}
                     </span>
@@ -4148,7 +4154,7 @@ export default function App() {
                     className={`w-full flex items-center justify-between px-2 pb-0.5 select-none hover:text-white transition-colors ${i === 0 ? 'pt-1' : 'pt-3'}`}
                     {...(TOUR_HEADING_IDS[tab.id] ? { 'data-tour': TOUR_HEADING_IDS[tab.id] } : {})}
                   >
-                    <span className="flex-1 text-left text-[11px] font-mono text-cream uppercase tracking-[0.05em] leading-tight">
+                    <span className={`flex-1 text-left text-cream leading-tight tracking-[0.05em] ${uiLang === 'ja' ? 'text-[13px]' : 'text-[11px] font-mono uppercase'}`}>
                       {tab.trKey ? tr(tab.trKey) : tab.heading}
                     </span>
                     <span className="text-cream text-[11px]">{isOpen ? '▾' : '▸'}</span>
@@ -4500,6 +4506,7 @@ export default function App() {
                 onNavigate={handleNavigateToMemorise}
                 listHighlightCircuit={ncHighlightCircuit}
                 tr={tr}
+                uiLang={uiLang}
               />
             )}
             {activeTab === 'closing' && (
@@ -4517,6 +4524,7 @@ export default function App() {
                 flash={closingFlash}
                 onNavigate={handleNavigateToMemorise}
                 listHighlight={closingListHighlight}
+                uiLang={uiLang}
               />
             )}
             {activeTab === 'spotcheck' && (

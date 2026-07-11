@@ -108,8 +108,10 @@ const SCRIPT_DIGITS = {
   kannada:    ['೧','೨','೩','೪','೫','೬','೭','೮','೯'],
   malayalam:  ['൧','൨','൩','൪','൫','൬','൭','൮','൯'],
 }
+const JA_DIGITS = ['一','二','三','四','五','六','七','八','九']
 
-function scriptNum(n, script) {
+function scriptNum(n, script, uiLang = 'en') {
+  if (uiLang === 'ja') return JA_DIGITS[n - 1] ?? n
   return SCRIPT_DIGITS[script]?.[n - 1] ?? n
 }
 
@@ -120,6 +122,7 @@ function scriptNum(n, script) {
 
 export default function ClosingView({
   script = 'iast',
+  uiLang = 'en',
   tr = k => k,
   onDeitySelect = () => {},
   listHighlight = false,
@@ -394,7 +397,7 @@ export default function ClosingView({
                 }}
                 title={n === 10 ? 'namastē namastē namastē namaḥ' : undefined}
               >
-                {n === 10 ? '🙏' : scriptNum(n, script)}
+                {n === 10 ? '🙏' : scriptNum(n, script, uiLang)}
               </button>
             )
           })}
