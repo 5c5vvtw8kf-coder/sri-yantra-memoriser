@@ -182,15 +182,15 @@ function Tooltip({ x, y, label, fill, script, kana }) {
       {kana && (
         <text
           x={tx.toFixed(1)} y={(ty - h / 2 - 2).toFixed(1)}
-          textAnchor="middle" dominantBaseline="middle"
+          textAnchor="middle" dominantBaseline="text-after-edge"
           fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
         >
           {kana}
         </text>
       )}
       <text
-        x={tx.toFixed(1)} y={ty.toFixed(1)}
-        textAnchor="middle" dominantBaseline="middle"
+        x={tx.toFixed(1)} y={(kana ? ty - h / 2 + 2 : ty).toFixed(1)}
+        textAnchor="middle" dominantBaseline={kana ? "hanging" : "middle"}
         fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif"
       >
         {label}
@@ -552,28 +552,3 @@ export default function NyasaView({
               <div className="flex flex-col gap-2 pt-1">
                 <button
                   onClick={onStartMemorise}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-surface-700 hover:bg-surface-600 text-cream transition-colors"
-                >
-                  {tr('misc.try_again')}
-                </button>
-                <button
-                  onClick={() => onNavigate && onNavigate('inner')}
-                  className="w-full py-1.5 rounded-lg text-xs font-medium bg-gold-800/20 hover:bg-gold-700/30 text-gold-400 hover:text-gold-300 border border-gold-800/40 hover:border-gold-700/50 transition-colors"
-                >
-                  {tr('misc.next')}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-      </div>
-
-
-
-      {memorise && <MobileMemoriseInstr tr={tr} />}
-
-      <div className="h-0 md:h-8" />
-    </div>
-  )
-}

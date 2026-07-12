@@ -127,14 +127,14 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
       {kana && (
         <text
           x={tx.toFixed(1)} y={(ty - h / 2 - 2).toFixed(1)}
-          textAnchor="middle" dominantBaseline="middle"
+          textAnchor="middle" dominantBaseline="text-after-edge"
           fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
         >
           {kana}
         </text>
       )}
-      <text x={tx.toFixed(1)} y={ty.toFixed(1)}
-            textAnchor="middle" dominantBaseline="middle"
+      <text x={tx.toFixed(1)} y={(kana ? ty - h / 2 + 2 : ty).toFixed(1)}
+            textAnchor="middle" dominantBaseline={kana ? "hanging" : "middle"}
             fontSize={fontSize} fill={GOLD} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
@@ -413,24 +413,4 @@ export default function C7View({
 
       {memorise && <MobileMemoriseInstr tr={tr} />}
 
-      <MobileSvaminiButtons
-        section={c7Section}
-        svaminiDeity={c7SvaminiDeity}
-        yoginiDeity={c7YoginiDeity}
-        tr={tr}
-        script={script}
-        svaminiSeq={9}
-        atEnd={!memorise && !!selectedId && selectedId === c7Deities[c7Deities.length - 1]?.id}
-        yoginiSeq={10}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
-
-    </div>
-  )
-}
+      <MobileSvami

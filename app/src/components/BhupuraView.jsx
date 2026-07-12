@@ -202,14 +202,14 @@ function Tooltip({ x, y, label, fill, script, kana }) {
       {kana && (
         <text
           x={tx.toFixed(1)} y={(ty - h / 2 - 2).toFixed(1)}
-          textAnchor="middle" dominantBaseline="middle"
+          textAnchor="middle" dominantBaseline="text-after-edge"
           fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
         >
           {kana}
         </text>
       )}
-      <text x={tx.toFixed(1)} y={ty.toFixed(1)}
-        textAnchor="middle" dominantBaseline="middle"
+      <text x={tx.toFixed(1)} y={(kana ? ty - h / 2 + 2 : ty).toFixed(1)}
+        textAnchor="middle" dominantBaseline={kana ? "hanging" : "middle"}
         fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
@@ -665,35 +665,4 @@ export default function BhupuraView({
                 transition: 'color 0.2s, background 0.2s, border-color 0.2s',
               }}
             >
-              {item.active && item.groupLabel ? (
-                <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.3 }}>
-                  <span style={{ fontSize: 13 }}>{item.label}</span>
-                  <span style={{ fontSize: 11, opacity: 0.75 }}>{item.groupLabel}</span>
-                </span>
-              ) : item.label}
-            </button>
-          ))}
-        </div>
-      )}
-
-{memorise && <MobileMemoriseInstr tr={tr} />}
-
-      <MobileSvaminiButtons
-        section={bhupuraSection}
-        script={script}
-        tr={tr}
-        svaminiDeity={bhupuraSvaminiDeity}
-        yoginiDeity={bhupuraYoginiDeity}
-        svaminiSeq={memoGroup === 'all' ? 29 : memoDeities.length + 1}
-        yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        atEnd={!memorise && navStep >= BAND_CONFIG[bandStep].list.length && bandStep >= BAND_CONFIG.length - 1}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-    </div>
-  )
-}
+              {item.active && item.groupLabel

@@ -160,14 +160,14 @@ function Tooltip({ x, y, label, fill, script, below = false, kana }) {
       {kana && (
         <text
           x={tx.toFixed(1)} y={(ty - h / 2 - 2).toFixed(1)}
-          textAnchor="middle" dominantBaseline="middle"
+          textAnchor="middle" dominantBaseline="text-after-edge"
           fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
         >
           {kana}
         </text>
       )}
-      <text x={tx.toFixed(1)} y={ty.toFixed(1)}
-        textAnchor="middle" dominantBaseline="middle"
+      <text x={tx.toFixed(1)} y={(kana ? ty - h / 2 + 2 : ty).toFixed(1)}
+        textAnchor="middle" dominantBaseline={kana ? "hanging" : "middle"}
         fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
@@ -509,24 +509,4 @@ export default function InnerView({
 
       {/* ── Waxing / Waning toggle — mobile Memorise only ── */}
       {memorise && (
-        <div className="flex gap-2 mt-3 md:hidden">
-          <button
-            onClick={() => onSetWaning(true)}
-            className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
-            }`}
-          >{tr('inner.waning')}</button>
-          <button
-            onClick={() => onSetWaning(false)}
-            className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              !waning ? 'bg-gold-700 text-black' : 'bg-surface-700 text-muted hover:text-cream'
-            }`}
-          >{tr('inner.waxing')}</button>
-        </div>
-      )}
-
-      {memorise && <MobileMemoriseInstr tr={tr} />}
-
-    </div>
-  )
-}
+     

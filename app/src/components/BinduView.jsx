@@ -186,14 +186,14 @@ function Tooltip({ x, y, label, fill, script, kana }) {
       {kana && (
         <text
           x={tx.toFixed(1)} y={(ty - h / 2 - 2).toFixed(1)}
-          textAnchor="middle" dominantBaseline="middle"
+          textAnchor="middle" dominantBaseline="text-after-edge"
           fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
         >
           {kana}
         </text>
       )}
-      <text x={tx.toFixed(1)} y={ty.toFixed(1)}
-        textAnchor="middle" dominantBaseline="middle"
+      <text x={tx.toFixed(1)} y={(kana ? ty - h / 2 + 2 : ty).toFixed(1)}
+        textAnchor="middle" dominantBaseline={kana ? "hanging" : "middle"}
         fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
@@ -298,20 +298,4 @@ export default function BinduView({ script = 'iast', onDeitySelect = () => {} })
           <span className="flex items-center gap-1.5">
             <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
                   style={{ background: GOLD }} />
-            Circuit 8 · Circuit 9
-          </span>
-        </div>
-
-        <div className="mt-3 text-center">
-          <p className="iast text-gold-600 text-xs">
-            sarvasiddhiprada cakra · sarvānandamaya cakra
-          </p>
-          <p className="text-muted mt-1" style={{ fontSize: '10px' }}>
-            Positions are approximate — verify against your lineage source
-          </p>
-        </div>
-
-        <div className="h-0 md:h-8" />
-    </div>
-  )
-}
+  

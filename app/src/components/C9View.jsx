@@ -64,14 +64,14 @@ function Tooltip({ x, y, label, script, kana }) {
       {kana && (
         <text
           x={tx.toFixed(1)} y={(ty - h / 2 - 2).toFixed(1)}
-          textAnchor="middle" dominantBaseline="middle"
+          textAnchor="middle" dominantBaseline="text-after-edge"
           fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
         >
           {kana}
         </text>
       )}
-      <text x={tx.toFixed(1)} y={ty.toFixed(1)}
-        textAnchor="middle" dominantBaseline="middle"
+      <text x={tx.toFixed(1)} y={(kana ? ty - h / 2 + 2 : ty).toFixed(1)}
+        textAnchor="middle" dominantBaseline={kana ? "hanging" : "middle"}
         fontSize={fontSize} fill={GOLD} fontFamily="'Gentium Plus', Georgia, serif">
         {label}
       </text>
@@ -298,26 +298,4 @@ export default function C9View({
             </div>
           </div>
         )}
-      </div>
-
-      {memorise && <MobileMemoriseInstr tr={tr} />}
-
-      <MobileSvaminiButtons
-        section={c9Section}
-        svaminiDeity={c9SvaminiDeity}
-        yoginiDeity={c9YoginiDeity}
-        tr={tr}
-        script={script}
-        svaminiSeq={2}
-        atEnd={!memorise && selected}
-        yoginiSeq={3}
-        memorise={memorise}
-        currentSeq={currentSeq}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-    </div>
-  )
-}
+      </div
