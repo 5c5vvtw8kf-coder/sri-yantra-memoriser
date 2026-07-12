@@ -968,4 +968,87 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
         {/* Body — HTML allowed for <strong>, <em>, <br> */}
         <div
           className="syt-tour-body"
-          style={{ f
+          style={{ fontSize: 12.5, color: '#c8bca8', lineHeight: 1.65 }}
+          dangerouslySetInnerHTML={{ __html: step.body }}
+        />
+
+        {/* Language picker — shown on first step only */}
+        {isFirst && onLanguageChange && (
+          <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid #2a1a0a' }}>
+            <p style={{
+              fontSize: 10, color: '#c8600a', fontFamily: 'monospace',
+              textTransform: 'uppercase', letterSpacing: '0.10em', marginBottom: 8,
+            }}>
+              Language
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+              {TOUR_LANG_OPTIONS.map(({ code, label }) => (
+                <button
+                  key={code}
+                  onClick={() => onLanguageChange(code)}
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: 4,
+                    fontSize: 12.5,
+                    cursor: 'pointer',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    lineHeight: 1.3,
+                    border: uiLang === code ? '1px solid #c9a84c' : '1px solid #352415',
+                    background: uiLang === code ? '#2a1c08' : '#0f0a05',
+                    color: uiLang === code ? '#d4b96a' : '#7a6a52',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Navigation buttons */}
+        <div style={{
+          display: 'flex', gap: 8, marginTop: 16,
+          justifyContent: isFirst ? 'flex-end' : 'space-between',
+          alignItems: 'center',
+        }}>
+          {!isFirst && (
+            <button onClick={goPrev} style={btnSecondary}>
+              ← Back
+            </button>
+          )}
+          <button onClick={goNext} style={isLast ? btnPrimary : btnSecondary}>
+            {isLast ? 'Done ✓' : 'Next →'}
+          </button>
+        </div>
+      </div>
+    </>,
+    document.body
+  )
+}
+
+export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en', onLanguageChange } = {}) {
+  const [active, setActive] = useState(false)
+  const cbRef = useRef(onBeforeStart)
+  useEffect(() => { cbRef.current = onBeforeStart })
+
+  const startTour = useCallback(() => {
+    cbRef.current?.()
+    setTimeout(() => setActive(true), 150)
+    localStorage.setItem(TOUR_KEY, '1')
+  }, [])
+
+  const endTour = useCallback(() => setActive(false), [])
+
+  useEffect(() => {
+    if (!localStorage.getItem(TOUR_KEY)) {
+      startTour()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return {
+    startTour,
+    tourElement: active ? <TourOverlay onDone={endTour} script={script} uiLang={uiLang} onLanguageChange={onLanguageChange} /> : null,
+  }
+}

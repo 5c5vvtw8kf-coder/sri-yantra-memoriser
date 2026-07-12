@@ -581,4 +581,10 @@ export default function ClosingView({
             </span>
           </div>
         )}
-        {memorise && <Mob
+        {memorise && <MobileMemoriseInstr tr={tr} />}
+      </div>
+
+      <div className="h-0 md:h-8" />
+    </div>
+  )
+}
