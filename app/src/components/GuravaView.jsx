@@ -429,4 +429,8 @@ export default function GuravaView({
 
       {memorise && <MobileMemoriseInstr tr={tr} />}
 
-      <div cl
+      <div className="h-0 md:h-8" />
+
+    </div>
+  )
+}
