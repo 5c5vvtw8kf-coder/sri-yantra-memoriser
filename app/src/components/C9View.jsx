@@ -13,6 +13,7 @@
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+import FuriganaName from './FuriganaName'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
 import { useDoneDelay } from '../hooks/useDoneDelay'

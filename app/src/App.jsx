@@ -8,6 +8,7 @@ import NyasaView from './components/NyasaView'
 import InnerView from './components/InnerView'
 import GuravaView from './components/GuravaView'
 import BhupuraView from './components/BhupuraView'
+import FuriganaName from './components/FuriganaName'
 import C2View from './components/C2View'
 import C3View from './components/C3View'
 import C4View from './components/C4View'
@@ -671,7 +672,7 @@ function DeityDetail({ deity, script = 'iast', uiLang = 'en' }) {
         {subtitle}
       </p>
       <h2 className={`${isDevPrim ? '' : 'iast'} text-gold-400 text-sm font-medium leading-snug`}>
-        {primary}
+        <FuriganaName deity={deity} script={script} uiLang={uiLang} />
       </h2>
       {script !== 'iast' && scripts.iast && (
         <p className="iast text-gold-600 text-xs">{scripts.iast}</p>
@@ -4289,6 +4290,7 @@ export default function App() {
             )}
             {activeTab === 'nyasa'   && <NyasaView
                                           script={script}
+                                          uiLang={uiLang}
                                           onDeitySelect={handleDeitySelect}
                                           memorise={nyasaMemorise}
                                           currentSeq={nyasaCurrentSeq}
@@ -4304,6 +4306,7 @@ export default function App() {
                                         />}
             {activeTab === 'inner'   && <InnerView
                                           script={script}
+                                          uiLang={uiLang}
                                           tr={tr}
                                           onDeitySelect={handleDeitySelect}
                                           memorise={innerMemorise}
@@ -4321,6 +4324,7 @@ export default function App() {
                                         />}
             {activeTab === 'gurava'  && <GuravaView
                                           script={script}
+                                          uiLang={uiLang}
                                           tr={tr}
                                           onDeitySelect={handleDeitySelect}
                                           memorise={guravaMemorse}
@@ -4336,6 +4340,7 @@ export default function App() {
                                         />}
             {activeTab === 'bhupura' && <BhupuraView
                                           script={script}
+                                          uiLang={uiLang}
                                           tr={tr}
                                           onDeitySelect={handleDeitySelect}
                                           memorise={bhupuraMemorise}
@@ -4512,6 +4517,7 @@ export default function App() {
             {activeTab === 'closing' && (
               <ClosingView
                 script={script}
+                                          uiLang={uiLang}
                 tr={tr}
                 onDeitySelect={handleDeitySelect}
                 memorise={closingMemorise}
@@ -4524,7 +4530,6 @@ export default function App() {
                 flash={closingFlash}
                 onNavigate={handleNavigateToMemorise}
                 listHighlight={closingListHighlight}
-                uiLang={uiLang}
               />
             )}
             {activeTab === 'spotcheck' && (

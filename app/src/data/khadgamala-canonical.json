@@ -282,7 +282,8 @@
         "telugu": "ఓం ఐం హ్రీం శ్రీం ఐం క్లీం సౌః ఓం నమస్త్రిపురసున్దరీ",
         "tamil": "ஓம் ஐம் ஹ்ரீம் ஶ்ரீம் ஐம் க்லீம் ஸௌஃ ஓம் நமஸ்த்ரிபுரஸுந்தரீ",
         "kannada": "ಓಂ ಐಂ ಹ್ರೀಂ ಶ್ರೀಂ ಐಂ ಕ್ಲೀಂ ಸೌಃ ಓಂ ನಮಸ್ತ್ರಿಪುರಸುನ್ದರೀ",
-        "malayalam": "ഓം ഐം ഹ്രീം ശ്രീം ഐം ക്ലീം സൌഃ ഓം നമസ്ത്രിപുരസുംദരീ"
+        "malayalam": "ഓം ഐം ഹ്രീം ശ്രീം ഐം ക്ലീം സൌഃ ഓം നമസ്ത്രിപുരസുംദരീ",
+        "kana": "オーム・アイム・ハㇼーム・スリーム・アイム・クリーム・サウ・オーム・ナマストリプラスンダリー"
       },
       "position": {
         "angleDeg": null,
@@ -308,7 +309,8 @@
         "telugu": "హృదయదేవీ",
         "tamil": "ஹருதயதேவீ",
         "kannada": "ಹೃದಯದೇವೀ",
-        "malayalam": "ഹൃദയദേവീ"
+        "malayalam": "ഹൃദയദേവീ",
+        "kana": "ハリダヤデーヴィー"
       },
       "position": {
         "angleDeg": null,
@@ -350,7 +352,8 @@
         "telugu": "శిరోదేవీ",
         "tamil": "ஶிரோதேவீ",
         "kannada": "ಶಿರೋದೇವೀ",
-        "malayalam": "ശിരോദേവീ"
+        "malayalam": "ശിരോദേവീ",
+        "kana": "シローデーヴィー"
       },
       "position": {
         "angleDeg": null,
@@ -392,7 +395,8 @@
         "telugu": "శిఖాదేవీ",
         "tamil": "ஶிகாதேவீ",
         "kannada": "ಶಿಖಾದೇವೀ",
-        "malayalam": "ശിഖാദേവീ"
+        "malayalam": "ശിഖാദേവീ",
+        "kana": "シカーデーヴィー"
       },
       "position": {
         "angleDeg": null,
@@ -434,7 +438,8 @@
         "telugu": "కవచదేవీ",
         "tamil": "கவசதேவீ",
         "kannada": "ಕವಚದೇವೀ",
-        "malayalam": "കവചദേവീ"
+        "malayalam": "കവചദേവീ",
+        "kana": "カヴァチャデーヴィー"
       },
       "position": {
         "angleDeg": null,
@@ -476,7 +481,8 @@
         "telugu": "నేత్రదేవీ",
         "tamil": "நேத்ரதேவீ",
         "kannada": "ನೇತ್ರದೇವೀ",
-        "malayalam": "നേത്രദേവീ"
+        "malayalam": "നേത്രദേവീ",
+        "kana": "ネートラデーヴィー"
       },
       "position": {
         "angleDeg": null,
@@ -518,7 +524,8 @@
         "telugu": "అస్త్రదేవీ",
         "tamil": "அஸ்த்ரதேவீ",
         "kannada": "ಅಸ್ತ್ರದೇವೀ",
-        "malayalam": "അസ്ത്രദേവീ"
+        "malayalam": "അസ്ത്രദേവീ",
+        "kana": "アストラデーヴィー"
       },
       "position": {
         "angleDeg": null,
@@ -560,7 +567,8 @@
         "telugu": "కామేశ్వరీ",
         "tamil": "காமேஶ்வரீ",
         "kannada": "ಕಾಮೇಶ್ವರೀ",
-        "malayalam": "കാമേശ്വരീ"
+        "malayalam": "കാമേശ്വരീ",
+        "kana": "カーメーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -594,7 +602,8 @@
         "telugu": "భగమాలినీ",
         "tamil": "பகமாலிநீ",
         "kannada": "ಭಗಮಾಲಿನೀ",
-        "malayalam": "ഭഗമാലിനീ"
+        "malayalam": "ഭഗമാലിനീ",
+        "kana": "バガマーリニー"
       },
       "position": {
         "angleDeg": null,
@@ -628,7 +637,8 @@
         "telugu": "నిత్యక్లిన్నే",
         "tamil": "நித்யக்லிந்நே",
         "kannada": "ನಿತ್ಯಕ್ಲಿನ್ನೇ",
-        "malayalam": "നിത്യക്ലിന്നേ"
+        "malayalam": "നിത്യക്ലിന്നേ",
+        "kana": "ニトヤクリンネー"
       },
       "position": {
         "angleDeg": null,
@@ -662,7 +672,8 @@
         "telugu": "భేరుణ్డే",
         "tamil": "பேருண்டே",
         "kannada": "ಭೇರುಣ್ಡೇ",
-        "malayalam": "ഭേരുംഡേ"
+        "malayalam": "ഭേരുംഡേ",
+        "kana": "ベールンデー"
       },
       "position": {
         "angleDeg": null,
@@ -696,7 +707,8 @@
         "telugu": "వహ్నివాసినీ",
         "tamil": "வஹ்நிவாஸிநீ",
         "kannada": "ವಹ್ನಿವಾಸಿನೀ",
-        "malayalam": "വഹ്നിവാസിനീ"
+        "malayalam": "വഹ്നിവാസിനീ",
+        "kana": "ヴァフニヴァーシニー"
       },
       "position": {
         "angleDeg": null,
@@ -730,7 +742,8 @@
         "telugu": "మహావజ్రేశ్వరీ",
         "tamil": "மஹாவஜ்ரேஶ்வரீ",
         "kannada": "ಮಹಾವಜ್ರೇಶ್ವರೀ",
-        "malayalam": "മഹാവജ്രേശ്വരീ"
+        "malayalam": "മഹാവജ്രേശ്വരീ",
+        "kana": "マハーヴァジュレーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -764,7 +777,8 @@
         "telugu": "శివదూతీ",
         "tamil": "ஶிவதூதீ",
         "kannada": "ಶಿವದೂತೀ",
-        "malayalam": "ശിവദൂതീ"
+        "malayalam": "ശിവദൂതീ",
+        "kana": "シヴァドゥーティー"
       },
       "position": {
         "angleDeg": null,
@@ -798,7 +812,8 @@
         "telugu": "త్వరితే",
         "tamil": "த்வரிதே",
         "kannada": "ತ್ವರಿತೇ",
-        "malayalam": "ത്വരിതേ"
+        "malayalam": "ത്വരിതേ",
+        "kana": "トヴァリテー"
       },
       "position": {
         "angleDeg": null,
@@ -832,7 +847,8 @@
         "telugu": "కులసున్దరీ",
         "tamil": "குலஸுந்தரீ",
         "kannada": "ಕುಲಸುನ್ದರೀ",
-        "malayalam": "കുലസുംദരീ"
+        "malayalam": "കുലസുംദരീ",
+        "kana": "クラスンダリー"
       },
       "position": {
         "angleDeg": null,
@@ -866,7 +882,8 @@
         "telugu": "నిత్యే",
         "tamil": "நித்யே",
         "kannada": "ನಿತ್ಯೇ",
-        "malayalam": "നിത്യേ"
+        "malayalam": "നിത്യേ",
+        "kana": "ニトイェー"
       },
       "position": {
         "angleDeg": null,
@@ -900,7 +917,8 @@
         "telugu": "నీలపతాకే",
         "tamil": "நீலபதாகே",
         "kannada": "ನೀಲಪತಾಕೇ",
-        "malayalam": "നീലപതാകേ"
+        "malayalam": "നീലപതാകേ",
+        "kana": "ニーラパターケー"
       },
       "position": {
         "angleDeg": null,
@@ -934,7 +952,8 @@
         "telugu": "విజయే",
         "tamil": "விஜயே",
         "kannada": "ವಿಜಯೇ",
-        "malayalam": "വിജയേ"
+        "malayalam": "വിജയേ",
+        "kana": "ヴィジャイェー"
       },
       "position": {
         "angleDeg": null,
@@ -968,7 +987,8 @@
         "telugu": "సర్వమఙ్గళే",
         "tamil": "ஸர்வமங்களே",
         "kannada": "ಸರ್ವಮಙ್ಗಳೇ",
-        "malayalam": "സർവമംഗളേ"
+        "malayalam": "സർവമംഗളേ",
+        "kana": "サルヴァマンガレー"
       },
       "position": {
         "angleDeg": null,
@@ -1002,7 +1022,8 @@
         "telugu": "జ్వాలామాలినీ",
         "tamil": "ஜ்வாலாமாலிநீ",
         "kannada": "ಜ್ವಾಲಾಮಾಲಿನೀ",
-        "malayalam": "ജ്വാലാമാലിനീ"
+        "malayalam": "ജ്വാലാമാലിനീ",
+        "kana": "ジュヴァーラーマーリニー"
       },
       "position": {
         "angleDeg": null,
@@ -1036,7 +1057,8 @@
         "telugu": "చిత్రే",
         "tamil": "சித்ரே",
         "kannada": "ಚಿತ್ರೇ",
-        "malayalam": "ചിത്രേ"
+        "malayalam": "ചിത്രേ",
+        "kana": "チトレー"
       },
       "position": {
         "angleDeg": null,
@@ -1070,7 +1092,8 @@
         "telugu": "మహానిత్యే",
         "tamil": "மஹாநித்யே",
         "kannada": "ಮಹಾನಿತ್ಯೇ",
-        "malayalam": "മഹാനിത്യേ"
+        "malayalam": "മഹാനിത്യേ",
+        "kana": "マハーニトイェー"
       },
       "position": {
         "angleDeg": null,
@@ -1104,7 +1127,8 @@
         "telugu": "పరమేశ్వర-పరమేశ్వరీ",
         "tamil": "பரமேஶ்வர-பரமேஶ்வரீ",
         "kannada": "ಪರಮೇಶ್ವರ-ಪರಮೇಶ್ವರೀ",
-        "malayalam": "പരമേശ്വര"
+        "malayalam": "പരമേശ്വര",
+        "kana": "パラメーシュヴァラ・パラメーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -1146,7 +1170,8 @@
         "telugu": "మిత్రేశమయీ",
         "tamil": "மித்ரேஶமயீ",
         "kannada": "ಮಿತ್ರೇಶಮಯೀ",
-        "malayalam": "പരമേശ്വരീ"
+        "malayalam": "പരമേശ്വരീ",
+        "kana": "ミトレーシャマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1188,7 +1213,8 @@
         "telugu": "షష్ఠీశమయీ",
         "tamil": "ஷஷ்டீஶமயீ",
         "kannada": "ಷಷ್ಠೀಶಮಯೀ",
-        "malayalam": "മിത്രേശമയീ"
+        "malayalam": "മിത്രേശമയീ",
+        "kana": "シャシュティーシャマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1230,7 +1256,8 @@
         "telugu": "ఉద్దీశమయీ",
         "tamil": "உத்தீஶமயீ",
         "kannada": "ಉದ್ದೀಶಮಯೀ",
-        "malayalam": "ഷഷ്ഠീശമയീ"
+        "malayalam": "ഷഷ്ഠീശമയീ",
+        "kana": "ウッディーシャマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1272,7 +1299,8 @@
         "telugu": "చర్యానాథమయీ",
         "tamil": "சர்யாநாதமயீ",
         "kannada": "ಚರ್ಯಾನಾಥಮಯೀ",
-        "malayalam": "ചര്യാനാഥമയീ"
+        "malayalam": "ചര്യാനാഥമയീ",
+        "kana": "チャルヤーナータマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1314,7 +1342,8 @@
         "telugu": "లోపాముద్రమయీ",
         "tamil": "லோபாமுத்ரமயீ",
         "kannada": "ಲೋಪಾಮುದ್ರಮಯೀ",
-        "malayalam": "ലോപാമുദ്രമയീ"
+        "malayalam": "ലോപാമുദ്രമയീ",
+        "kana": "ローパームドラマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1356,7 +1385,8 @@
         "telugu": "అగస్త్యమయీ",
         "tamil": "அகஸ்த்யமயீ",
         "kannada": "ಅಗಸ್ತ್ಯಮಯೀ",
-        "malayalam": "അഗസ്ത്യമയീ"
+        "malayalam": "അഗസ്ത്യമയീ",
+        "kana": "アガストヤマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1398,7 +1428,8 @@
         "telugu": "కాలతాపనమయీ",
         "tamil": "காலதாபநமயீ",
         "kannada": "ಕಾಲತಾಪನಮಯೀ",
-        "malayalam": "കാലതാപശമയീ"
+        "malayalam": "കാലതാപശമയീ",
+        "kana": "カーラターパナマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1440,7 +1471,8 @@
         "telugu": "ధర్మాచార్యమయీ",
         "tamil": "தர்மாசார்யமயீ",
         "kannada": "ಧರ್ಮಾಚಾರ್ಯಮಯೀ",
-        "malayalam": "ധര്മാചാര്യമയീ"
+        "malayalam": "ധര്മാചാര്യമയീ",
+        "kana": "ダルマーチャールヤマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1482,7 +1514,8 @@
         "telugu": "ముక్తకేశీశ్వరమయీ",
         "tamil": "முக்தகேஶீஶ்வரமயீ",
         "kannada": "ಮುಕ್ತಕೇಶೀಶ್ವರಮಯೀ",
-        "malayalam": "മുക്തകേശീശ്വരമയീ"
+        "malayalam": "മുക്തകേശീശ്വരമയീ",
+        "kana": "ムクタケーシーシュヴァラマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1524,7 +1557,8 @@
         "telugu": "దీపకలానాథమయీ",
         "tamil": "தீபகலாநாதமயீ",
         "kannada": "ದೀಪಕಲಾನಾಥಮಯೀ",
-        "malayalam": "ദീപകലാനാഥമയീ"
+        "malayalam": "ദീപകലാനാഥമയീ",
+        "kana": "ディーパカラーナータマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1566,7 +1600,8 @@
         "telugu": "విష్ణుదేవమయీ",
         "tamil": "விஷ்ணுதேவமயீ",
         "kannada": "ವಿಷ್ಣುದೇವಮಯೀ",
-        "malayalam": "വിഷ്ണുദേവമയീ"
+        "malayalam": "വിഷ്ണുദേവമയീ",
+        "kana": "ヴィシュヌデーヴァマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1608,7 +1643,8 @@
         "telugu": "ప్రభాకరదేవమయీ",
         "tamil": "ப்ரபாகரதேவமயீ",
         "kannada": "ಪ್ರಭಾಕರದೇವಮಯೀ",
-        "malayalam": "പ്രഭാകരദേവമയീ"
+        "malayalam": "പ്രഭാകരദേവമയീ",
+        "kana": "プラバーカラデーヴァマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1650,7 +1686,8 @@
         "telugu": "తేజోదేవమయీ",
         "tamil": "தேஜோதேவமயீ",
         "kannada": "ತೇಜೋದೇವಮಯೀ",
-        "malayalam": "തേജോദേവമയീ"
+        "malayalam": "തേജോദേവമയീ",
+        "kana": "テージョーデーヴァマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1692,7 +1729,8 @@
         "telugu": "మనోజదేవమయీ",
         "tamil": "மநோஜதேவமயீ",
         "kannada": "ಮನೋಜದೇವಮಯೀ",
-        "malayalam": "മനോജദേവമയി"
+        "malayalam": "മനോജദേവമയി",
+        "kana": "マノージャデーヴァマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1734,7 +1772,8 @@
         "telugu": "కల్యాణదేవమయీ",
         "tamil": "கல்யாணதேவமயீ",
         "kannada": "ಕಲ್ಯಾಣದೇವಮಯೀ",
-        "malayalam": "കള്യാണദേവമയീ"
+        "malayalam": "കള്യാണദേവമയീ",
+        "kana": "カルヤーナデーヴァマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1776,7 +1815,8 @@
         "telugu": "వాసుదేవమయీ",
         "tamil": "வாஸுதேவமயீ",
         "kannada": "ವಾಸುದೇವಮಯೀ",
-        "malayalam": "വാസുദേവമയീ"
+        "malayalam": "വാസുദേവമയീ",
+        "kana": "ヴァースデーヴァマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1818,7 +1858,8 @@
         "telugu": "రత్నదేవమయీ",
         "tamil": "ரத்நதேவமயீ",
         "kannada": "ರತ್ನದೇವಮಯೀ",
-        "malayalam": "രത്നദേവമയീ"
+        "malayalam": "രത്നദേവമയീ",
+        "kana": "ラトナデーヴァマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1860,7 +1901,8 @@
         "telugu": "శ్రీరామానన్దమయీ",
         "tamil": "ஶ்ரீராமாநந்தமயீ",
         "kannada": "ಶ್ರೀರಾಮಾನನ್ದಮಯೀ",
-        "malayalam": "ശ്രീരാമാനംദമയീ"
+        "malayalam": "ശ്രീരാമാനംദമയീ",
+        "kana": "スリラーマーナンダマイー"
       },
       "position": {
         "angleDeg": null,
@@ -1902,7 +1944,8 @@
         "telugu": "అణిమాసిద్ధే",
         "tamil": "அணிமாஸித்தே",
         "kannada": "ಅಣಿಮಾಸಿದ್ಧೇ",
-        "malayalam": "അണിമാസിദ്ധേ"
+        "malayalam": "അണിമാസിദ്ധേ",
+        "kana": "アニマーシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -1937,7 +1980,8 @@
         "telugu": "లఘిమాసిద్ధే",
         "tamil": "லகிமாஸித்தே",
         "kannada": "ಲಘಿಮಾಸಿದ್ಧೇ",
-        "malayalam": "ലഘിമാസിദ്ധേ"
+        "malayalam": "ലഘിമാസിദ്ധേ",
+        "kana": "ラギマーシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -1972,7 +2016,8 @@
         "telugu": "గరిమాసిద్ధే",
         "tamil": "கரிமாஸித்தே",
         "kannada": "ಗರಿಮಾಸಿದ್ಧೇ",
-        "malayalam": "ഗരിമാസിദ്ധേ"
+        "malayalam": "ഗരിമാസിദ്ധേ",
+        "kana": "ガリマーシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2007,7 +2052,8 @@
         "telugu": "మహిమాసిద్ధే",
         "tamil": "மஹிமாஸித்தே",
         "kannada": "ಮಹಿಮಾಸಿದ್ಧೇ",
-        "malayalam": "മഹിമാസിദ്ധേ"
+        "malayalam": "മഹിമാസിദ്ധേ",
+        "kana": "マヒマーシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2042,7 +2088,8 @@
         "telugu": "ఈశిత్వసిద్ధే",
         "tamil": "ஈஶித்வஸித்தே",
         "kannada": "ಈಶಿತ್ವಸಿದ್ಧೇ",
-        "malayalam": "ഈശിത്വസിദ്ധേ"
+        "malayalam": "ഈശിത്വസിദ്ധേ",
+        "kana": "イーシトヴァシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2077,7 +2124,8 @@
         "telugu": "వశిత్వసిద్ధే",
         "tamil": "வஶித்வஸித்தே",
         "kannada": "ವಶಿತ್ವಸಿದ್ಧೇ",
-        "malayalam": "വശിത്വസിദ്ധേ"
+        "malayalam": "വശിത്വസിദ്ധേ",
+        "kana": "ヴァシトヴァシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2112,7 +2160,8 @@
         "telugu": "ప్రాకామ్యసిద్ధే",
         "tamil": "ப்ராகாம்யஸித்தே",
         "kannada": "ಪ್ರಾಕಾಮ್ಯಸಿದ್ಧೇ",
-        "malayalam": "പ്രാകാമ്യസിദ്ധേ"
+        "malayalam": "പ്രാകാമ്യസിദ്ധേ",
+        "kana": "プラーカームヤシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2147,7 +2196,8 @@
         "telugu": "భుక్తిసిద్ధే",
         "tamil": "புக்திஸித்தே",
         "kannada": "ಭುಕ್ತಿಸಿದ್ಧೇ",
-        "malayalam": "ഭുക്തിസിദ്ധേ"
+        "malayalam": "ഭുക്തിസിദ്ധേ",
+        "kana": "ブクティシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2182,7 +2232,8 @@
         "telugu": "ఇచ్ఛాసిద్ధే",
         "tamil": "இச்சாஸித்தே",
         "kannada": "ಇಚ್ಛಾಸಿದ್ಧೇ",
-        "malayalam": "ഇച്ഛാസിദ്ധേ"
+        "malayalam": "ഇച്ഛാസിദ്ധേ",
+        "kana": "イッチャーシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2217,7 +2268,8 @@
         "telugu": "ప్రాప్తిసిద్ధే",
         "tamil": "ப்ராப்திஸித்தே",
         "kannada": "ಪ್ರಾಪ್ತಿಸಿದ್ಧೇ",
-        "malayalam": "പ്രാപ്തിസിദ്ധേ"
+        "malayalam": "പ്രാപ്തിസിദ്ധേ",
+        "kana": "プラープティシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2252,7 +2304,8 @@
         "telugu": "సర్వకామసిద్ధే",
         "tamil": "ஸர்வகாமஸித்தே",
         "kannada": "ಸರ್ವಕಾಮಸಿದ್ಧೇ",
-        "malayalam": "സർവകാമസിദ്ധേ"
+        "malayalam": "സർവകാമസിദ്ധേ",
+        "kana": "サルヴァカーマシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -2286,7 +2339,8 @@
         "telugu": "బ్రాహ్మీ",
         "tamil": "ப்ராஹ்மீ",
         "kannada": "ಬ್ರಾಹ್ಮೀ",
-        "malayalam": "ബ്രാഹ്മീ"
+        "malayalam": "ബ്രാഹ്മീ",
+        "kana": "ブラーフミー"
       },
       "position": {
         "angleDeg": null,
@@ -2321,7 +2375,8 @@
         "telugu": "మాహేశ్వరీ",
         "tamil": "மாஹேஶ்வரீ",
         "kannada": "ಮಾಹೇಶ್ವರೀ",
-        "malayalam": "മാഹേശ്വരീ"
+        "malayalam": "മാഹേശ്വരീ",
+        "kana": "マーヘーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -2356,7 +2411,8 @@
         "telugu": "కౌమారీ",
         "tamil": "கௌமாரீ",
         "kannada": "ಕೌಮಾರೀ",
-        "malayalam": "കൌമാരി"
+        "malayalam": "കൌമാരി",
+        "kana": "カウマーリー"
       },
       "position": {
         "angleDeg": null,
@@ -2391,7 +2447,8 @@
         "telugu": "వైష్ణవీ",
         "tamil": "வைஷ்ணவீ",
         "kannada": "ವೈಷ್ಣವೀ",
-        "malayalam": "വൈഷ്ണവീ"
+        "malayalam": "വൈഷ്ണവീ",
+        "kana": "ヴァイシュナヴィー"
       },
       "position": {
         "angleDeg": null,
@@ -2426,7 +2483,8 @@
         "telugu": "వారాహీ",
         "tamil": "வாராஹீ",
         "kannada": "ವಾರಾಹೀ",
-        "malayalam": "വാരാഹീ"
+        "malayalam": "വാരാഹീ",
+        "kana": "ヴァーラーヒー"
       },
       "position": {
         "angleDeg": null,
@@ -2461,7 +2519,8 @@
         "telugu": "మాహేన్ద్రీ",
         "tamil": "மாஹேந்த்ரீ",
         "kannada": "ಮಾಹೇನ್ದ್ರೀ",
-        "malayalam": "മാഹേംദ്രീ"
+        "malayalam": "മാഹേംദ്രീ",
+        "kana": "マーヘーンドリー"
       },
       "position": {
         "angleDeg": null,
@@ -2496,7 +2555,8 @@
         "telugu": "చాముణ్డే",
         "tamil": "சாமுண்டே",
         "kannada": "ಚಾಮುಣ್ಡೇ",
-        "malayalam": "ചാമുംഡേ"
+        "malayalam": "ചാമുംഡേ",
+        "kana": "チャームンデー"
       },
       "position": {
         "angleDeg": null,
@@ -2531,7 +2591,8 @@
         "telugu": "మహాలక్ష్మీ",
         "tamil": "மஹாலக்ஷ்மீ",
         "kannada": "ಮಹಾಲಕ್ಷ್ಮೀ",
-        "malayalam": "മഹാലക്ഷ്മീ"
+        "malayalam": "മഹാലക്ഷ്മീ",
+        "kana": "マハーラクシュミー"
       },
       "position": {
         "angleDeg": null,
@@ -2566,7 +2627,8 @@
         "telugu": "సర్వసఙ్క్షోభిణీ",
         "tamil": "ஸர்வஸங்க்ஷோபிணீ",
         "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಿಣೀ",
-        "malayalam": "സർവസംക്ഷോഭിണീ"
+        "malayalam": "സർവസംക്ഷോഭിണീ",
+        "kana": "サルヴァサンクショービニー"
       },
       "position": {
         "angleDeg": null,
@@ -2601,7 +2663,8 @@
         "telugu": "సర్వవిద్రావిణీ",
         "tamil": "ஸர்வவித்ராவிணீ",
         "kannada": "ಸರ್ವವಿದ್ರಾವಿಣೀ",
-        "malayalam": "സർവവിദ്രാവിണീ"
+        "malayalam": "സർവവിദ്രാവിണീ",
+        "kana": "サルヴァヴィドラーヴィニー"
       },
       "position": {
         "angleDeg": null,
@@ -2636,7 +2699,8 @@
         "telugu": "సర్వాకర్షిణీ",
         "tamil": "ஸர்வாகர்ஷிணீ",
         "kannada": "ಸರ್ವಾಕರ್ಷಿಣೀ",
-        "malayalam": "സർവാകർഷിണീ"
+        "malayalam": "സർവാകർഷിണീ",
+        "kana": "サルヴァーカルシニー"
       },
       "position": {
         "angleDeg": null,
@@ -2671,7 +2735,8 @@
         "telugu": "సర్వవశఙ్కరీ",
         "tamil": "ஸர்வவஶங்கரீ",
         "kannada": "ಸರ್ವವಶಙ್ಕರೀ",
-        "malayalam": "സർവവശംകരീ"
+        "malayalam": "സർവവശംകരീ",
+        "kana": "サルヴァヴァシャンカリー"
       },
       "position": {
         "angleDeg": null,
@@ -2706,7 +2771,8 @@
         "telugu": "సర్వోన్మాదినీ",
         "tamil": "ஸர்வோந்மாதிநீ",
         "kannada": "ಸರ್ವೋನ್ಮಾದಿನೀ",
-        "malayalam": "സർവോന്മാദിനീ"
+        "malayalam": "സർവോന്മാദിനീ",
+        "kana": "サルヴォーンマーディニー"
       },
       "position": {
         "angleDeg": null,
@@ -2741,7 +2807,8 @@
         "telugu": "సర్వమహాఙ్కుశే",
         "tamil": "ஸர்வமஹாங்குஶே",
         "kannada": "ಸರ್ವಮಹಾಙ್ಕುಶೇ",
-        "malayalam": "സർവമഹാംകുശേ"
+        "malayalam": "സർവമഹാംകുശേ",
+        "kana": "サルヴァマハーンクシェー"
       },
       "position": {
         "angleDeg": null,
@@ -2776,7 +2843,8 @@
         "telugu": "సర్వఖేచరీ",
         "tamil": "ஸர்வகேசரீ",
         "kannada": "ಸರ್ವಖೇಚರೀ",
-        "malayalam": "സർവഖേചരീ"
+        "malayalam": "സർവഖേചരീ",
+        "kana": "サルヴァケーチャリー"
       },
       "position": {
         "angleDeg": null,
@@ -2811,7 +2879,8 @@
         "telugu": "సర్వబీజే",
         "tamil": "ஸர்வபீஜே",
         "kannada": "ಸರ್ವಬೀಜೇ",
-        "malayalam": "സർവബീജേ"
+        "malayalam": "സർവബീജേ",
+        "kana": "サルヴァビージェー"
       },
       "position": {
         "angleDeg": null,
@@ -2846,7 +2915,8 @@
         "telugu": "సర్వయోనే",
         "tamil": "ஸர்வயோநே",
         "kannada": "ಸರ್ವಯೋನೇ",
-        "malayalam": "സർവയോനേ"
+        "malayalam": "സർവയോനേ",
+        "kana": "サルヴァヨーネー"
       },
       "position": {
         "angleDeg": null,
@@ -2881,7 +2951,8 @@
         "telugu": "సర్వత్రిఖణ్డే",
         "tamil": "ஸர்வத்ரிகண்டே",
         "kannada": "ಸರ್ವತ್ರಿಖಣ್ಡೇ",
-        "malayalam": "സർവത്രിഖംഡേ"
+        "malayalam": "സർവത്രിഖംഡേ",
+        "kana": "サルヴァトリカンデー"
       },
       "position": {
         "angleDeg": null,
@@ -2916,7 +2987,8 @@
         "telugu": "త్రైలోక్యమోహన చక్రస్వామినీ",
         "tamil": "த்ரைலோக்யமோஹந சக்ரஸ்வாமிநீ",
         "kannada": "ತ್ರೈಲೋಕ್ಯಮೋಹನ ಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "ത്രൈലോക്യമോഹന ചക്രസ്വാമിനീ"
+        "malayalam": "ത്രൈലോക്യമോഹന ചക്രസ്വാമിനീ",
+        "kana": "トライロークヤモーハナ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -2951,7 +3023,8 @@
         "telugu": "ప్రకటయోగినీ",
         "tamil": "ப்ரகடயோகிநீ",
         "kannada": "ಪ್ರಕಟಯೋಗಿನೀ",
-        "malayalam": "പ്രകടയോഗിനീ"
+        "malayalam": "പ്രകടയോഗിനീ",
+        "kana": "プラカタヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -2986,7 +3059,8 @@
         "telugu": "కామాకర్షిణీ",
         "tamil": "காமாகர்ஷிணீ",
         "kannada": "ಕಾಮಾಕರ್ಷಿಣೀ",
-        "malayalam": "കാമാകർഷിണീ"
+        "malayalam": "കാമാകർഷിണീ",
+        "kana": "カーマーカルシニー"
       },
       "position": {
         "angleDeg": 0,
@@ -3021,7 +3095,8 @@
         "telugu": "బుద్ధ్యాకర్షిణీ",
         "tamil": "புத்த்யாகர்ஷிணீ",
         "kannada": "ಬುದ್ಧ್ಯಾಕರ್ಷಿಣೀ",
-        "malayalam": "ബുദ്ധ്യാകർഷിണീ"
+        "malayalam": "ബുദ്ധ്യാകർഷിണീ",
+        "kana": "ブッドフヤーカルシニー"
       },
       "position": {
         "angleDeg": 22.5,
@@ -3056,7 +3131,8 @@
         "telugu": "అహఙ్కారాకర్షిణీ",
         "tamil": "அஹங்காராகர்ஷிணீ",
         "kannada": "ಅಹಙ್ಕಾರಾಕರ್ಷಿಣೀ",
-        "malayalam": "അഹംകാരാകർഷിണീ"
+        "malayalam": "അഹംകാരാകർഷിണീ",
+        "kana": "アハンカーラーカルシニー"
       },
       "position": {
         "angleDeg": 45,
@@ -3091,7 +3167,8 @@
         "telugu": "శబ్దాకర్షిణీ",
         "tamil": "ஶப்தாகர்ஷிணீ",
         "kannada": "ಶಬ್ದಾಕರ್ಷಿಣೀ",
-        "malayalam": "ശബ്ദാകർഷിണീ"
+        "malayalam": "ശബ്ദാകർഷിണീ",
+        "kana": "シャブダーカルシニー"
       },
       "position": {
         "angleDeg": 67.5,
@@ -3126,7 +3203,8 @@
         "telugu": "స్పర్శాకర్షిణీ",
         "tamil": "ஸ்பர்ஶாகர்ஷிணீ",
         "kannada": "ಸ್ಪರ್ಶಾಕರ್ಷಿಣೀ",
-        "malayalam": "സ്പർശാകർഷിണീ"
+        "malayalam": "സ്പർശാകർഷിണീ",
+        "kana": "スパルシャーカルシニー"
       },
       "position": {
         "angleDeg": 90,
@@ -3161,7 +3239,8 @@
         "telugu": "రూపాకర్షిణీ",
         "tamil": "ரூபாகர்ஷிணீ",
         "kannada": "ರೂಪಾಕರ್ಷಿಣೀ",
-        "malayalam": "രൂപാകർഷിണീ"
+        "malayalam": "രൂപാകർഷിണീ",
+        "kana": "ルーパーカルシニー"
       },
       "position": {
         "angleDeg": 112.5,
@@ -3196,7 +3275,8 @@
         "telugu": "రసాకర్షిణీ",
         "tamil": "ரஸாகர்ஷிணீ",
         "kannada": "ರಸಾಕರ್ಷಿಣೀ",
-        "malayalam": "രസാകർഷിണീ"
+        "malayalam": "രസാകർഷിണീ",
+        "kana": "ラサーカルシニー"
       },
       "position": {
         "angleDeg": 135,
@@ -3231,7 +3311,8 @@
         "telugu": "గన్ధాకర్షిణీ",
         "tamil": "கந்தாகர்ஷிணீ",
         "kannada": "ಗನ್ಧಾಕರ್ಷಿಣೀ",
-        "malayalam": "ഗംധാകർഷിണീ"
+        "malayalam": "ഗംധാകർഷിണീ",
+        "kana": "ガンダーカルシニー"
       },
       "position": {
         "angleDeg": 157.5,
@@ -3266,7 +3347,8 @@
         "telugu": "చిత్తాకర్షిణీ",
         "tamil": "சித்தாகர்ஷிணீ",
         "kannada": "ಚಿತ್ತಾಕರ್ಷಿಣೀ",
-        "malayalam": "ചിത്താകർഷിണീ"
+        "malayalam": "ചിത്താകർഷിണീ",
+        "kana": "チッターカルシニー"
       },
       "position": {
         "angleDeg": 180,
@@ -3301,7 +3383,8 @@
         "telugu": "ధైర్యాకర్షిణీ",
         "tamil": "தைர்யாகர்ஷிணீ",
         "kannada": "ಧೈರ್ಯಾಕರ್ಷಿಣೀ",
-        "malayalam": "ധൈര്യാകർഷിണീ"
+        "malayalam": "ധൈര്യാകർഷിണീ",
+        "kana": "ダイルヤーカルシニー"
       },
       "position": {
         "angleDeg": 202.5,
@@ -3336,7 +3419,8 @@
         "telugu": "స్మృత్యాకర్షిణీ",
         "tamil": "ஸ்மருத்யாகர்ஷிணீ",
         "kannada": "ಸ್ಮೃತ್ಯಾಕರ್ಷಿಣೀ",
-        "malayalam": "സ്മൃത്യാകർഷിണീ"
+        "malayalam": "സ്മൃത്യാകർഷിണീ",
+        "kana": "スムリトヤーカルシニー"
       },
       "position": {
         "angleDeg": 225,
@@ -3371,7 +3455,8 @@
         "telugu": "నామాకర్షిణీ",
         "tamil": "நாமாகர்ஷிணீ",
         "kannada": "ನಾಮಾಕರ್ಷಿಣೀ",
-        "malayalam": "നാമാകർഷിണീ"
+        "malayalam": "നാമാകർഷിണീ",
+        "kana": "ナーマーカルシニー"
       },
       "position": {
         "angleDeg": 247.5,
@@ -3406,7 +3491,8 @@
         "telugu": "బీజాకర్షిణీ",
         "tamil": "பீஜாகர்ஷிணீ",
         "kannada": "ಬೀಜಾಕರ್ಷಿಣೀ",
-        "malayalam": "ബീജാകർഷിണീ"
+        "malayalam": "ബീജാകർഷിണീ",
+        "kana": "ビージャーカルシニー"
       },
       "position": {
         "angleDeg": 270,
@@ -3441,7 +3527,8 @@
         "telugu": "ఆత్మాకర్షిణీ",
         "tamil": "ஆத்மாகர்ஷிணீ",
         "kannada": "ಆತ್ಮಾಕರ್ಷಿಣೀ",
-        "malayalam": "ആത്മാകർഷിണീ"
+        "malayalam": "ആത്മാകർഷിണീ",
+        "kana": "アートマーカルシニー"
       },
       "position": {
         "angleDeg": 292.5,
@@ -3476,7 +3563,8 @@
         "telugu": "అమృతాకర్షిణీ",
         "tamil": "அமருதாகர்ஷிணீ",
         "kannada": "ಅಮೃತಾಕರ್ಷಿಣೀ",
-        "malayalam": "അമൃതാകർഷിണീ"
+        "malayalam": "അമൃതാകർഷിണീ",
+        "kana": "アムリターカルシニー"
       },
       "position": {
         "angleDeg": 315,
@@ -3511,7 +3599,8 @@
         "telugu": "శరీరాకర్షిణీ",
         "tamil": "ஶரீராகர்ஷிணீ",
         "kannada": "ಶರೀರಾಕರ್ಷಿಣೀ",
-        "malayalam": "ശരീരാകർഷിണീ"
+        "malayalam": "ശരീരാകർഷിണീ",
+        "kana": "シャリーラーカルシニー"
       },
       "position": {
         "angleDeg": 337.5,
@@ -3546,7 +3635,8 @@
         "telugu": "సర్వాశాపరిపూరక చక్రస్వామినీ",
         "tamil": "ஸர்வாஶாபரிபூரக சக்ரஸ்வாமிநீ",
         "kannada": "ಸರ್ವಾಶಾಪರಿಪೂರಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "സർവാശാപരിപൂരക ചക്രസ്വാമിനീ"
+        "malayalam": "സർവാശാപരിപൂരക ചക്രസ്വാമിനീ",
+        "kana": "サルヴァーシャーパリプーラカ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -3581,7 +3671,8 @@
         "telugu": "గుప్తయోగినీ",
         "tamil": "குப்தயோகிநீ",
         "kannada": "ಗುಪ್ತಯೋಗಿನೀ",
-        "malayalam": "ഗുപ്തയോഗിനീ"
+        "malayalam": "ഗുപ്തയോഗിനീ",
+        "kana": "グプタヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -3616,7 +3707,8 @@
         "telugu": "అనఙ్గకుసుమే",
         "tamil": "அநங்ககுஸுமே",
         "kannada": "ಅನಙ್ಗಕುಸುಮೇ",
-        "malayalam": "അനംഗകുസുമേ"
+        "malayalam": "അനംഗകുസുമേ",
+        "kana": "アナンガクスメー"
       },
       "position": {
         "angleDeg": 0,
@@ -3659,7 +3751,8 @@
         "telugu": "అనఙ్గమేఖలే",
         "tamil": "அநங்கமேகலே",
         "kannada": "ಅನಙ್ಗಮೇಖಲೇ",
-        "malayalam": "അനംഗമേഖലേ"
+        "malayalam": "അനംഗമേഖലേ",
+        "kana": "アナンガメーカレー"
       },
       "position": {
         "angleDeg": 45,
@@ -3702,7 +3795,8 @@
         "telugu": "అనఙ్గమదనే",
         "tamil": "அநங்கமதநே",
         "kannada": "ಅನಙ್ಗಮದನೇ",
-        "malayalam": "അനംഗമദനേ"
+        "malayalam": "അനംഗമദനേ",
+        "kana": "アナンガマダネー"
       },
       "position": {
         "angleDeg": 90,
@@ -3745,7 +3839,8 @@
         "telugu": "అనఙ్గమదనాతురే",
         "tamil": "அநங்கமதநாதுரே",
         "kannada": "ಅನಙ್ಗಮದನಾತುರೇ",
-        "malayalam": "അനംഗമദനാതുരേ"
+        "malayalam": "അനംഗമദനാതുരേ",
+        "kana": "アナンガマダナートゥレー"
       },
       "position": {
         "angleDeg": 135,
@@ -3788,7 +3883,8 @@
         "telugu": "అనఙ్గరేఖే",
         "tamil": "அநங்கரேகே",
         "kannada": "ಅನಙ್ಗರೇಖೇ",
-        "malayalam": "അനംഗരേഖേ"
+        "malayalam": "അനംഗരേഖേ",
+        "kana": "アナンガレーケー"
       },
       "position": {
         "angleDeg": 180,
@@ -3831,7 +3927,8 @@
         "telugu": "అనఙ్గవేగినీ",
         "tamil": "அநங்கவேகிநீ",
         "kannada": "ಅನಙ್ಗವೇಗಿನೀ",
-        "malayalam": "അനംഗവേഗിനീ"
+        "malayalam": "അനംഗവേഗിനീ",
+        "kana": "アナンガヴェーギニー"
       },
       "position": {
         "angleDeg": 225,
@@ -3874,7 +3971,8 @@
         "telugu": "అనఙ్గాఙ్కుశే",
         "tamil": "அநங்காங்குஶே",
         "kannada": "ಅನಙ್ಗಾಙ್ಕುಶೇ",
-        "malayalam": "അനംഗാംകുശേ"
+        "malayalam": "അനംഗാംകുശേ",
+        "kana": "アナンガーンクシェー"
       },
       "position": {
         "angleDeg": 270,
@@ -3917,7 +4015,8 @@
         "telugu": "అనఙ్గమాలినీ",
         "tamil": "அநங்கமாலிநீ",
         "kannada": "ಅನಙ್ಗಮಾಲಿನೀ",
-        "malayalam": "അനംഗമാലിനീ"
+        "malayalam": "അനംഗമാലിനീ",
+        "kana": "アナンガマーリニー"
       },
       "position": {
         "angleDeg": 315,
@@ -3960,7 +4059,8 @@
         "telugu": "సర్వసఙ్క్షోభణచక్రస్వామినీ",
         "tamil": "ஸர்வஸங்க்ஷோபணசக்ரஸ்வாமிநீ",
         "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಣಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "സർവസംക്ഷോഭണചക്രസ്വാമിനീ"
+        "malayalam": "സർവസംക്ഷോഭണചക്രസ്വാമിനീ",
+        "kana": "サルヴァサンクショーバナ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -3995,7 +4095,8 @@
         "telugu": "గుప్తతరయోగినీ",
         "tamil": "குப்ததரயோகிநீ",
         "kannada": "ಗುಪ್ತತರಯೋಗಿನೀ",
-        "malayalam": "ഗുപ്തതരയോഗിനീ"
+        "malayalam": "ഗുപ്തതരയോഗിനീ",
+        "kana": "グプタタラヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -4030,7 +4131,8 @@
         "telugu": "సర్వసఙ్క్షోభిణీ",
         "tamil": "ஸர்வஸங்க்ஷோபிணீ",
         "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಿಣೀ",
-        "malayalam": "സർവസംക്ഷോഭിണീ"
+        "malayalam": "സർവസംക്ഷോഭിണീ",
+        "kana": "サルヴァサンクショービニー"
       },
       "position": {
         "angleDeg": null,
@@ -4065,7 +4167,8 @@
         "telugu": "సర్వవిద్రావినీ",
         "tamil": "ஸர்வவித்ராவிநீ",
         "kannada": "ಸರ್ವವಿದ್ರಾವಿನೀ",
-        "malayalam": "സർവവിദ്രാവിനീ"
+        "malayalam": "സർവവിദ്രാവിനീ",
+        "kana": "サルヴァヴィドラーヴィニー"
       },
       "position": {
         "angleDeg": null,
@@ -4100,7 +4203,8 @@
         "telugu": "సర్వాకర్షిణీ",
         "tamil": "ஸர்வாகர்ஷிணீ",
         "kannada": "ಸರ್ವಾಕರ್ಷಿಣೀ",
-        "malayalam": "സർവാകർഷിണീ"
+        "malayalam": "സർവാകർഷിണീ",
+        "kana": "サルヴァーカルシニー"
       },
       "position": {
         "angleDeg": null,
@@ -4135,7 +4239,8 @@
         "telugu": "సర్వహ్లాదినీ",
         "tamil": "ஸர்வஹ்லாதிநீ",
         "kannada": "ಸರ್ವಹ್ಲಾದಿನೀ",
-        "malayalam": "സർവഹ്ലാദിനീ"
+        "malayalam": "സർവഹ്ലാദിനീ",
+        "kana": "サルヴァフラーディニー"
       },
       "position": {
         "angleDeg": null,
@@ -4170,7 +4275,8 @@
         "telugu": "సర్వసమ్మోహినీ",
         "tamil": "ஸர்வஸம்மோஹிநீ",
         "kannada": "ಸರ್ವಸಮ್ಮೋಹಿನೀ",
-        "malayalam": "സർവസമ്മോഹിനീ"
+        "malayalam": "സർവസമ്മോഹിനീ",
+        "kana": "サルヴァサッモーヒニー"
       },
       "position": {
         "angleDeg": null,
@@ -4205,7 +4311,8 @@
         "telugu": "సర్వస్తమ్భినీ",
         "tamil": "ஸர்வஸ்தம்பிநீ",
         "kannada": "ಸರ್ವಸ್ತಮ್ಭಿನೀ",
-        "malayalam": "സർവസ്തംഭിനീ"
+        "malayalam": "സർവസ്തംഭിനീ",
+        "kana": "サルヴァスタムビニー"
       },
       "position": {
         "angleDeg": null,
@@ -4240,7 +4347,8 @@
         "telugu": "సర్వజృమ్భిణీ",
         "tamil": "ஸர்வஜரும்பிணீ",
         "kannada": "ಸರ್ವಜೃಮ್ಭಿಣೀ",
-        "malayalam": "സർവജൃംഭിണീ"
+        "malayalam": "സർവജൃംഭിണീ",
+        "kana": "サルヴァジュリムビニー"
       },
       "position": {
         "angleDeg": null,
@@ -4275,7 +4383,8 @@
         "telugu": "సర్వవశఙ్కరీ",
         "tamil": "ஸர்வவஶங்கரீ",
         "kannada": "ಸರ್ವವಶಙ್ಕರೀ",
-        "malayalam": "സർവവശംകരീ"
+        "malayalam": "സർവവശംകരീ",
+        "kana": "サルヴァヴァシャンカリー"
       },
       "position": {
         "angleDeg": null,
@@ -4310,7 +4419,8 @@
         "telugu": "సర్వరఞ్జనీ",
         "tamil": "ஸர்வரஞ்ஜநீ",
         "kannada": "ಸರ್ವರಞ್ಜನೀ",
-        "malayalam": "സർവരംജനീ"
+        "malayalam": "സർവരംജനീ",
+        "kana": "サルヴァランジャニー"
       },
       "position": {
         "angleDeg": null,
@@ -4345,7 +4455,8 @@
         "telugu": "సర్వోన్మాదినీ",
         "tamil": "ஸர்வோந்மாதிநீ",
         "kannada": "ಸರ್ವೋನ್ಮಾದಿನೀ",
-        "malayalam": "സർവോന്മാദിനീ"
+        "malayalam": "സർവോന്മാദിനീ",
+        "kana": "サルヴォーンマーディニー"
       },
       "position": {
         "angleDeg": null,
@@ -4380,7 +4491,8 @@
         "telugu": "సర్వార్థసాధికే",
         "tamil": "ஸர்வார்தஸாதிகே",
         "kannada": "ಸರ್ವಾರ್ಥಸಾಧಿಕೇ",
-        "malayalam": "സർവാർഥസാധികേ"
+        "malayalam": "സർവാർഥസാധികേ",
+        "kana": "サルヴァールタサーディケー"
       },
       "position": {
         "angleDeg": null,
@@ -4415,7 +4527,8 @@
         "telugu": "సర్వసమ్పత్తిపూరిణీ",
         "tamil": "ஸர்வஸம்பத்திபூரிணீ",
         "kannada": "ಸರ್ವಸಮ್ಪತ್ತಿಪೂರಿಣೀ",
-        "malayalam": "സർവസംപത്തിപൂരിണീ"
+        "malayalam": "സർവസംപത്തിപൂരിണീ",
+        "kana": "サルヴァサムパッティプーリニー"
       },
       "position": {
         "angleDeg": null,
@@ -4450,7 +4563,8 @@
         "telugu": "సర్వమన్త్రమయీ",
         "tamil": "ஸர்வமந்த்ரமயீ",
         "kannada": "ಸರ್ವಮನ್ತ್ರಮಯೀ",
-        "malayalam": "സർവമംത്രമയീ"
+        "malayalam": "സർവമംത്രമയീ",
+        "kana": "サルヴァマントラマイー"
       },
       "position": {
         "angleDeg": null,
@@ -4485,7 +4599,8 @@
         "telugu": "సర్వద్వన్ద్వక్షయఙ్కరీ",
         "tamil": "ஸர்வத்வந்த்வக்ஷயங்கரீ",
         "kannada": "ಸರ್ವದ್ವನ್ದ್ವಕ್ಷಯಙ್ಕರೀ",
-        "malayalam": "സർവദ്വംദ്വക്ഷയംകരീ"
+        "malayalam": "സർവദ്വംദ്വക്ഷയംകരീ",
+        "kana": "サルヴァドヴァンドヴァクシャヤンカリー"
       },
       "position": {
         "angleDeg": null,
@@ -4520,7 +4635,8 @@
         "telugu": "సర్వసౌభాగ్యదాయక చక్రస్వామినీ",
         "tamil": "ஸர்வஸௌபாக்யதாயக சக்ரஸ்வாமிநீ",
         "kannada": "ಸರ್ವಸೌಭಾಗ್ಯದಾಯಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "സർവസൌഭാഗ്യദായക ചക്രസ്വാമിനീ"
+        "malayalam": "സർവസൌഭാഗ്യദായക ചക്രസ്വാമിനീ",
+        "kana": "サルヴァサウバーグヤダーヤカ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -4555,7 +4671,8 @@
         "telugu": "సమ్ప్రదాయయోగినీ",
         "tamil": "ஸம்ப்ரதாயயோகிநீ",
         "kannada": "ಸಮ್ಪ್ರದಾಯಯೋಗಿನೀ",
-        "malayalam": "സംപ്രദായയോഗിനീ"
+        "malayalam": "സംപ്രദായയോഗിനീ",
+        "kana": "サムプラダーヤヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -4590,7 +4707,8 @@
         "telugu": "సర్వసిద్ధిప్రదే",
         "tamil": "ஸர்வஸித்திப்ரதே",
         "kannada": "ಸರ್ವಸಿದ್ಧಿಪ್ರದೇ",
-        "malayalam": "സർവസിദ്ധിപ്രദേ"
+        "malayalam": "സർവസിദ്ധിപ്രദേ",
+        "kana": "サルヴァシッディプラデー"
       },
       "position": {
         "angleDeg": null,
@@ -4625,7 +4743,8 @@
         "telugu": "సర్వసమ్పత్ప్రదే",
         "tamil": "ஸர்வஸம்பத்ப்ரதே",
         "kannada": "ಸರ್ವಸಮ್ಪತ್ಪ್ರದೇ",
-        "malayalam": "സർവസംപത്പ്രദേ"
+        "malayalam": "സർവസംപത്പ്രദേ",
+        "kana": "サルヴァサムパトプラデー"
       },
       "position": {
         "angleDeg": null,
@@ -4660,7 +4779,8 @@
         "telugu": "సర్వప్రియఙ్కరీ",
         "tamil": "ஸர்வப்ரியங்கரீ",
         "kannada": "ಸರ್ವಪ್ರಿಯಙ್ಕರೀ",
-        "malayalam": "സർവപ്രിയംകരീ"
+        "malayalam": "സർവപ്രിയംകരീ",
+        "kana": "サルヴァプリヤンカリー"
       },
       "position": {
         "angleDeg": null,
@@ -4695,7 +4815,8 @@
         "telugu": "సర్వమఙ్గళకారిణీ",
         "tamil": "ஸர்வமங்களகாரிணீ",
         "kannada": "ಸರ್ವಮಙ್ಗಳಕಾರಿಣೀ",
-        "malayalam": "സർവമംഗളകാരിണീ"
+        "malayalam": "സർവമംഗളകാരിണീ",
+        "kana": "サルヴァマンガラカーリニー"
       },
       "position": {
         "angleDeg": null,
@@ -4730,7 +4851,8 @@
         "telugu": "సర్వకామప్రదే",
         "tamil": "ஸர்வகாமப்ரதே",
         "kannada": "ಸರ್ವಕಾಮಪ್ರದೇ",
-        "malayalam": "സർവകാമപ്രദേ"
+        "malayalam": "സർവകാമപ്രദേ",
+        "kana": "サルヴァカーマプラデー"
       },
       "position": {
         "angleDeg": null,
@@ -4765,7 +4887,8 @@
         "telugu": "సర్వదుఃఖవిమోచనీ",
         "tamil": "ஸர்வதுஃகவிமோசநீ",
         "kannada": "ಸರ್ವದುಃಖವಿಮೋಚನೀ",
-        "malayalam": "സർവദുഃഖവിമോചനീ"
+        "malayalam": "സർവദുഃഖവിമോചനീ",
+        "kana": "サルヴァドゥカヴィモーチャニー"
       },
       "position": {
         "angleDeg": null,
@@ -4800,7 +4923,8 @@
         "telugu": "సర్వమృత్యుప్రశమనీ",
         "tamil": "ஸர்வமருத்யுப்ரஶமநீ",
         "kannada": "ಸರ್ವಮೃತ್ಯುಪ್ರಶಮನೀ",
-        "malayalam": "സർവമൃത്യുപ്രശമനി"
+        "malayalam": "സർവമൃത്യുപ്രശമനി",
+        "kana": "サルヴァムリトユプラシャマニー"
       },
       "position": {
         "angleDeg": null,
@@ -4835,7 +4959,8 @@
         "telugu": "సర్వవిఘ్ననివారిణీ",
         "tamil": "ஸர்வவிக்நநிவாரிணீ",
         "kannada": "ಸರ್ವವಿಘ್ನನಿವಾರಿಣೀ",
-        "malayalam": "സർവവിഘ്നനിവാരിണീ"
+        "malayalam": "സർവവിഘ്നനിവാരിണീ",
+        "kana": "サルヴァヴィグフナニヴァーリニー"
       },
       "position": {
         "angleDeg": null,
@@ -4870,7 +4995,8 @@
         "telugu": "సర్వాఙ్గసున్దరీ",
         "tamil": "ஸர்வாங்கஸுந்தரீ",
         "kannada": "ಸರ್ವಾಙ್ಗಸುನ್ದರೀ",
-        "malayalam": "സർവാംഗസുംദരീ"
+        "malayalam": "സർവാംഗസുംദരീ",
+        "kana": "サルヴァーンガスンダリー"
       },
       "position": {
         "angleDeg": null,
@@ -4905,7 +5031,8 @@
         "telugu": "సర్వసౌభాగ్యదాయినీ",
         "tamil": "ஸர்வஸௌபாக்யதாயிநீ",
         "kannada": "ಸರ್ವಸೌಭಾಗ್ಯದಾಯಿನೀ",
-        "malayalam": "സർവസൌഭാഗ്യദായിനീ"
+        "malayalam": "സർവസൌഭാഗ്യദായിനീ",
+        "kana": "サルヴァサウバーグヤダーイニー"
       },
       "position": {
         "angleDeg": null,
@@ -4940,7 +5067,8 @@
         "telugu": "సర్వార్థసాధక చక్రస్వామినీ",
         "tamil": "ஸர்வார்தஸாதக சக்ரஸ்வாமிநீ",
         "kannada": "ಸರ್ವಾರ್ಥಸಾಧಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "സർവാർഥസാധക ചക്രസ്വാമിനീ"
+        "malayalam": "സർവാർഥസാധക ചക്രസ്വാമിനീ",
+        "kana": "サルヴァールタサーダカ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -4975,7 +5103,8 @@
         "telugu": "కులోత్తీర్ణయోగినీ",
         "tamil": "குலோத்தீர்ணயோகிநீ",
         "kannada": "ಕುಲೋತ್ತೀರ್ಣಯೋಗಿನೀ",
-        "malayalam": "കുലോത്തീർണയോഗിനീ"
+        "malayalam": "കുലോത്തീർണയോഗിനീ",
+        "kana": "クローッティールナヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -5010,7 +5139,8 @@
         "telugu": "సర్వజ్ఞే",
         "tamil": "ஸர்வஜ்ஞே",
         "kannada": "ಸರ್ವಜ್ಞೇ",
-        "malayalam": "സർവജ്ഞേ"
+        "malayalam": "സർവജ്ഞേ",
+        "kana": "サルヴァジュニェー"
       },
       "position": {
         "angleDeg": null,
@@ -5045,7 +5175,8 @@
         "telugu": "సర్వశక్తే",
         "tamil": "ஸர்வஶக்தே",
         "kannada": "ಸರ್ವಶಕ್ತೇ",
-        "malayalam": "സർവശക്തേ"
+        "malayalam": "സർവശക്തേ",
+        "kana": "サルヴァシャクテー"
       },
       "position": {
         "angleDeg": null,
@@ -5080,7 +5211,8 @@
         "telugu": "సర్వైశ్వర్యప్రదాయినీ",
         "tamil": "ஸர்வைஶ்வர்யப்ரதாயிநீ",
         "kannada": "ಸರ್ವೈಶ್ವರ್ಯಪ್ರದಾಯಿನೀ",
-        "malayalam": "സർവൈശ്വർയപ്രദായിനീ"
+        "malayalam": "സർവൈശ്വർയപ്രദായിനീ",
+        "kana": "サルヴァイシュヴァルヤプラダーイニー"
       },
       "position": {
         "angleDeg": null,
@@ -5115,7 +5247,8 @@
         "telugu": "సర్వజ్ఞానమయీ",
         "tamil": "ஸர்வஜ்ஞாநமயீ",
         "kannada": "ಸರ್ವಜ್ಞಾನಮಯೀ",
-        "malayalam": "സർവജ്ഞാനമയീ"
+        "malayalam": "സർവജ്ഞാനമയീ",
+        "kana": "サルヴァジュニャーナマイー"
       },
       "position": {
         "angleDeg": null,
@@ -5150,7 +5283,8 @@
         "telugu": "సర్వవ్యాధివినాశినీ",
         "tamil": "ஸர்வவ்யாதிவிநாஶிநீ",
         "kannada": "ಸರ್ವವ್ಯಾಧಿವಿನಾಶಿನೀ",
-        "malayalam": "സർവവ്യാധിവിനാശിനീ"
+        "malayalam": "സർവവ്യാധിവിനാശിനീ",
+        "kana": "サルヴァヴヤーディヴィナーシニー"
       },
       "position": {
         "angleDeg": null,
@@ -5185,7 +5319,8 @@
         "telugu": "సర్వాధారస్వరూపే",
         "tamil": "ஸர்வாதாரஸ்வரூபே",
         "kannada": "ಸರ್ವಾಧಾರಸ್ವರೂಪೇ",
-        "malayalam": "സർവാധാരസ്വരൂപേ"
+        "malayalam": "സർവാധാരസ്വരൂപേ",
+        "kana": "サルヴァーダーラスヴァルーペー"
       },
       "position": {
         "angleDeg": null,
@@ -5220,7 +5355,8 @@
         "telugu": "సర్వపాపహరే",
         "tamil": "ஸர்வபாபஹரே",
         "kannada": "ಸರ್ವಪಾಪಹರೇ",
-        "malayalam": "സർവപാപഹരേ"
+        "malayalam": "സർവപാപഹരേ",
+        "kana": "サルヴァパーパハレー"
       },
       "position": {
         "angleDeg": null,
@@ -5255,7 +5391,8 @@
         "telugu": "సర్వానన్దమయీ",
         "tamil": "ஸர்வாநந்தமயீ",
         "kannada": "ಸರ್ವಾನನ್ದಮಯೀ",
-        "malayalam": "സർവാനംദമയീ"
+        "malayalam": "സർവാനംദമയീ",
+        "kana": "サルヴァーナンダマイー"
       },
       "position": {
         "angleDeg": null,
@@ -5290,7 +5427,8 @@
         "telugu": "సర్వరక్షాస్వరూపిణీ",
         "tamil": "ஸர்வரக்ஷாஸ்வரூபிணீ",
         "kannada": "ಸರ್ವರಕ್ಷಾಸ್ವರೂಪಿಣೀ",
-        "malayalam": "സർവരക്ഷാസ്വരൂപിണീ"
+        "malayalam": "സർവരക്ഷാസ്വരൂപിണീ",
+        "kana": "サルヴァラクシャースヴァルーピニー"
       },
       "position": {
         "angleDeg": null,
@@ -5325,7 +5463,8 @@
         "telugu": "సర్వేప్సితఫలప్రదే",
         "tamil": "ஸர்வேப்ஸிதபலப்ரதே",
         "kannada": "ಸರ್ವೇಪ್ಸಿತಫಲಪ್ರದೇ",
-        "malayalam": "സർവേപ്സിതഫലപ്രദേ"
+        "malayalam": "സർവേപ്സിതഫലപ്രദേ",
+        "kana": "サルヴェープシタパラプラデー"
       },
       "position": {
         "angleDeg": null,
@@ -5360,7 +5499,8 @@
         "telugu": "సర్వరక్షాకరచక్రస్వామినీ",
         "tamil": "ஸர்வரக்ஷாகரசக்ரஸ்வாமிநீ",
         "kannada": "ಸರ್ವರಕ್ಷಾಕರಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "സർവരക്ഷാകരചക്രസ്വാമിനീ"
+        "malayalam": "സർവരക്ഷാകരചക്രസ്വാമിനീ",
+        "kana": "サルヴァラクシャーカラ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -5395,7 +5535,8 @@
         "telugu": "నిగర్భయోగినీ",
         "tamil": "நிகர்பயோகிநீ",
         "kannada": "ನಿಗರ್ಭಯೋಗಿನೀ",
-        "malayalam": "നിഗർഭയോഗിനീ"
+        "malayalam": "നിഗർഭയോഗിനീ",
+        "kana": "ニガルバヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -5430,7 +5571,8 @@
         "telugu": "వశినీ",
         "tamil": "வஶிநீ",
         "kannada": "ವಶಿನೀ",
-        "malayalam": "വശിനീ"
+        "malayalam": "വശിനീ",
+        "kana": "ヴァシニー"
       },
       "position": {
         "angleDeg": null,
@@ -5473,7 +5615,8 @@
         "telugu": "కామేశ్వరీ",
         "tamil": "காமேஶ்வரீ",
         "kannada": "ಕಾಮೇಶ್ವರೀ",
-        "malayalam": "കാമേശ്വരീ"
+        "malayalam": "കാമേശ്വരീ",
+        "kana": "カーメーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -5516,7 +5659,8 @@
         "telugu": "మోదినీ",
         "tamil": "மோதிநீ",
         "kannada": "ಮೋದಿನೀ",
-        "malayalam": "മോദിനീ"
+        "malayalam": "മോദിനീ",
+        "kana": "モーディニー"
       },
       "position": {
         "angleDeg": null,
@@ -5559,7 +5703,8 @@
         "telugu": "విమలే",
         "tamil": "விமலே",
         "kannada": "ವಿಮಲೇ",
-        "malayalam": "വിമലേ"
+        "malayalam": "വിമലേ",
+        "kana": "ヴィマレー"
       },
       "position": {
         "angleDeg": null,
@@ -5602,7 +5747,8 @@
         "telugu": "అరుణే",
         "tamil": "அருணே",
         "kannada": "ಅರುಣೇ",
-        "malayalam": "അരുണേ"
+        "malayalam": "അരുണേ",
+        "kana": "アルネー"
       },
       "position": {
         "angleDeg": null,
@@ -5645,7 +5791,8 @@
         "telugu": "జయినీ",
         "tamil": "ஜயிநீ",
         "kannada": "ಜಯಿನೀ",
-        "malayalam": "ജയിനീ"
+        "malayalam": "ജയിനീ",
+        "kana": "ジャイニー"
       },
       "position": {
         "angleDeg": null,
@@ -5688,7 +5835,8 @@
         "telugu": "సర్వేశ్వరీ",
         "tamil": "ஸர்வேஶ்வரீ",
         "kannada": "ಸರ್ವೇಶ್ವರೀ",
-        "malayalam": "സർവേശ്വരീ"
+        "malayalam": "സർവേശ്വരീ",
+        "kana": "サルヴェーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -5731,7 +5879,8 @@
         "telugu": "కౌళినీ",
         "tamil": "கௌளிநீ",
         "kannada": "ಕೌಳಿನೀ",
-        "malayalam": "കൌളിനി"
+        "malayalam": "കൌളിനി",
+        "kana": "カウリニー"
       },
       "position": {
         "angleDeg": null,
@@ -5774,7 +5923,8 @@
         "telugu": "సర్వరోగహరచక్రస్వామినీ",
         "tamil": "ஸர்வரோகஹரசக்ரஸ்வாமிநீ",
         "kannada": "ಸರ್ವರೋಗಹರಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "സർവരോഗഹരചക്രസ്വാമിനീ"
+        "malayalam": "സർവരോഗഹരചക്രസ്വാമിനീ",
+        "kana": "サルヴァローガハラ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -5809,7 +5959,8 @@
         "telugu": "రహస్యయోగినీ",
         "tamil": "ரஹஸ்யயோகிநீ",
         "kannada": "ರಹಸ್ಯಯೋಗಿನೀ",
-        "malayalam": "രഹസ്യയോഗിനീ"
+        "malayalam": "രഹസ്യയോഗിനീ",
+        "kana": "ラハスヤヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -5844,7 +5995,8 @@
         "telugu": "బాణినీ",
         "tamil": "பாணிநீ",
         "kannada": "ಬಾಣಿನೀ",
-        "malayalam": "ബാണിനീ"
+        "malayalam": "ബാണിനീ",
+        "kana": "バーニニー"
       },
       "position": {
         "angleDeg": null,
@@ -5879,7 +6031,8 @@
         "telugu": "చాపినీ",
         "tamil": "சாபிநீ",
         "kannada": "ಚಾಪಿನೀ",
-        "malayalam": "ചാപിനീ"
+        "malayalam": "ചാപിനീ",
+        "kana": "チャーピニー"
       },
       "position": {
         "angleDeg": null,
@@ -5914,7 +6067,8 @@
         "telugu": "పాశినీ",
         "tamil": "பாஶிநீ",
         "kannada": "ಪಾಶಿನೀ",
-        "malayalam": "പാശിനീ"
+        "malayalam": "പാശിനീ",
+        "kana": "パーシニー"
       },
       "position": {
         "angleDeg": null,
@@ -5949,7 +6103,8 @@
         "telugu": "అఙ్కుశినీ",
         "tamil": "அங்குஶிநீ",
         "kannada": "ಅಙ್ಕುಶಿನೀ",
-        "malayalam": "അംകുശിനീ"
+        "malayalam": "അംകുശിനീ",
+        "kana": "アンクシニー"
       },
       "position": {
         "angleDeg": null,
@@ -5984,7 +6139,8 @@
         "telugu": "మహాకామేశ్వరీ",
         "tamil": "மஹாகாமேஶ்வரீ",
         "kannada": "ಮಹಾಕಾಮೇಶ್ವರೀ",
-        "malayalam": "മഹാകാമേശ്വരീ"
+        "malayalam": "മഹാകാമേശ്വരീ",
+        "kana": "マハーカーメーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -6019,7 +6175,8 @@
         "telugu": "మహావజ్రేశ్వరీ",
         "tamil": "மஹாவஜ்ரேஶ்வரீ",
         "kannada": "ಮಹಾವಜ್ರೇಶ್ವರೀ",
-        "malayalam": "മഹാവജ്രേശ്വരീ"
+        "malayalam": "മഹാവജ്രേശ്വരീ",
+        "kana": "マハーヴァジュレーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -6054,7 +6211,8 @@
         "telugu": "మహాభగమాలినీ",
         "tamil": "மஹாபகமாலிநீ",
         "kannada": "ಮಹಾಭಗಮಾಲಿನೀ",
-        "malayalam": "മഹാഭഗമാലിനീ"
+        "malayalam": "മഹാഭഗമാലിനീ",
+        "kana": "マハーバガマーリニー"
       },
       "position": {
         "angleDeg": null,
@@ -6089,7 +6247,8 @@
         "telugu": "సర్వసిద్ధిప్రదచక్రస్వామినీ",
         "tamil": "ஸர்வஸித்திப்ரதசக்ரஸ்வாமிநீ",
         "kannada": "ಸರ್ವಸಿದ್ಧಿಪ್ರದಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "സർവസിദ്ധിപ്രദചക്രസ്വാമിനീ"
+        "malayalam": "സർവസിദ്ധിപ്രദചക്രസ്വാമിനീ",
+        "kana": "サルヴァシッディプラダ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -6124,7 +6283,8 @@
         "telugu": "అతిరహస్యయోగినీ",
         "tamil": "அதிரஹஸ்யயோகிநீ",
         "kannada": "ಅತಿರಹಸ್ಯಯೋಗಿನೀ",
-        "malayalam": "അതിരഹസ്യയോഗിനീ"
+        "malayalam": "അതിരഹസ്യയോഗിനീ",
+        "kana": "アティラハスヤヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -6159,7 +6319,8 @@
         "telugu": "శ్రీ శ్రీ మహాభట్టారికే",
         "tamil": "ஶ்ரீ ஶ்ரீ மஹாபட்டாரிகே",
         "kannada": "ಶ್ರೀ ಶ್ರೀ ಮಹಾಭಟ್ಟಾರಿಕೇ",
-        "malayalam": "ശ്രീ ശ്രീ മഹാഭട്ടാരികേ"
+        "malayalam": "ശ്രീ ശ്രീ മഹാഭട്ടാരികേ",
+        "kana": "スリ・スリ・マハーバッターリケー"
       },
       "position": {
         "angleDeg": 0,
@@ -6194,7 +6355,8 @@
         "telugu": "సర్వానన్దమయచక్రస్వామినీ",
         "tamil": "ஸர்வாநந்தமயசக்ரஸ்வாமிநீ",
         "kannada": "ಸರ್ವಾನನ್ದಮಯಚಕ್ರಸ್ವಾಮಿನೀ",
-        "malayalam": "സർവാനംദമയചക്രസ്വാമിനീ"
+        "malayalam": "സർവാനംദമയചക്രസ്വാമിനീ",
+        "kana": "サルヴァーナンダマヤ・チャクラスヴァーミニー"
       },
       "position": {
         "angleDeg": null,
@@ -6229,7 +6391,8 @@
         "telugu": "పరాపరరహస్యయోగినీ",
         "tamil": "பராபரரஹஸ்யயோகிநீ",
         "kannada": "ಪರಾಪರರಹಸ್ಯಯೋಗಿನೀ",
-        "malayalam": "പരാപരരഹസ്യയോഗിനീ"
+        "malayalam": "പരാപരരഹസ്യയോഗിനീ",
+        "kana": "パラーパララハスヤヨーギニー"
       },
       "position": {
         "angleDeg": null,
@@ -6264,7 +6427,8 @@
         "telugu": "త్రిపురే",
         "tamil": "த்ரிபுரே",
         "kannada": "ತ್ರಿಪುರೇ",
-        "malayalam": "ത്രിപുരേ"
+        "malayalam": "ത്രിപുരേ",
+        "kana": "トリプレー"
       },
       "position": {
         "angleDeg": null,
@@ -6299,7 +6463,8 @@
         "telugu": "త్రిపురేశీ",
         "tamil": "த்ரிபுரேஶீ",
         "kannada": "ತ್ರಿಪುರೇಶೀ",
-        "malayalam": "ത്രിപുരേശീ"
+        "malayalam": "ത്രിപുരേശീ",
+        "kana": "トリプレーシー"
       },
       "position": {
         "angleDeg": null,
@@ -6334,7 +6499,8 @@
         "telugu": "త్రిపురసున్దరీ",
         "tamil": "த்ரிபுரஸுந்தரீ",
         "kannada": "ತ್ರಿಪುರಸುನ್ದರೀ",
-        "malayalam": "ത്രിപുരസുംദരീ"
+        "malayalam": "ത്രിപുരസുംദരീ",
+        "kana": "トリプラスンダリー"
       },
       "position": {
         "angleDeg": null,
@@ -6369,7 +6535,8 @@
         "telugu": "త్రిపురవాసినీ",
         "tamil": "த்ரிபுரவாஸிநீ",
         "kannada": "ತ್ರಿಪುರವಾಸಿನೀ",
-        "malayalam": "ത്രിപുരവാസിനീ"
+        "malayalam": "ത്രിപുരവാസിനീ",
+        "kana": "トリプラヴァーシニー"
       },
       "position": {
         "angleDeg": null,
@@ -6404,7 +6571,8 @@
         "telugu": "త్రిపురాశ్రీః",
         "tamil": "த்ரிபுராஶ்ரீஃ",
         "kannada": "ತ್ರಿಪುರಾಶ್ರೀಃ",
-        "malayalam": "ത്രിപുരാശ്രീഃ"
+        "malayalam": "ത്രിപുരാശ്രീഃ",
+        "kana": "トリプラースリ"
       },
       "position": {
         "angleDeg": null,
@@ -6439,7 +6607,8 @@
         "telugu": "త్రిపురమాలినీ",
         "tamil": "த்ரிபுரமாலிநீ",
         "kannada": "ತ್ರಿಪುರಮಾಲಿನೀ",
-        "malayalam": "ത്രിപുരമാലിനീ"
+        "malayalam": "ത്രിപുരമാലിനീ",
+        "kana": "トリプラマーリニー"
       },
       "position": {
         "angleDeg": null,
@@ -6474,7 +6643,8 @@
         "telugu": "త్రిపురసిద్ధే",
         "tamil": "த்ரிபுரஸித்தே",
         "kannada": "ತ್ರಿಪುರಸಿದ್ಧೇ",
-        "malayalam": "ത്രിപുരസിദ്ധേ"
+        "malayalam": "ത്രിപുരസിദ്ധേ",
+        "kana": "トリプラシッデー"
       },
       "position": {
         "angleDeg": null,
@@ -6509,7 +6679,8 @@
         "telugu": "త్రిపురామ్బా",
         "tamil": "த்ரிபுராம்பா",
         "kannada": "ತ್ರಿಪುರಾಮ್ಬಾ",
-        "malayalam": "ത്രിപുരാംബാ"
+        "malayalam": "ത്രിപുരാംബാ",
+        "kana": "トリプラームバー"
       },
       "position": {
         "angleDeg": null,
@@ -6544,7 +6715,8 @@
         "telugu": "మహాత్రిపురసున్దరీ",
         "tamil": "மஹாத்ரிபுரஸுந்தரீ",
         "kannada": "ಮಹಾತ್ರಿಪುರಸುನ್ದರೀ",
-        "malayalam": "മഹാത്രിപുരസുംദരീ"
+        "malayalam": "മഹാത്രിപുരസുംദരീ",
+        "kana": "マハートリプラスンダリー"
       },
       "position": {
         "angleDeg": null,
@@ -6579,7 +6751,8 @@
         "telugu": "మహామహేశ్వరీ",
         "tamil": "மஹாமஹேஶ்வரீ",
         "kannada": "ಮಹಾಮಹೇಶ್ವರೀ",
-        "malayalam": "മഹാമഹേശ്വരീ"
+        "malayalam": "മഹാമഹേശ്വരീ",
+        "kana": "マハーマヘーシュヴァリー"
       },
       "position": {
         "angleDeg": null,
@@ -6613,7 +6786,8 @@
         "telugu": "మహామహారాజ్ఞీ",
         "tamil": "மஹாமஹாராஜ்ஞீ",
         "kannada": "ಮಹಾಮಹಾರಾಜ್ಞೀ",
-        "malayalam": "മഹാമഹാരാജ്ഞീ"
+        "malayalam": "മഹാമഹാരാജ്ഞീ",
+        "kana": "マハーマハーラージュニー"
       },
       "position": {
         "angleDeg": null,
@@ -6647,7 +6821,8 @@
         "telugu": "మహామహాశక్తే",
         "tamil": "மஹாமஹாஶக்தே",
         "kannada": "ಮಹಾಮಹಾಶಕ್ತೇ",
-        "malayalam": "മഹാമഹാശക്തേ"
+        "malayalam": "മഹാമഹാശക്തേ",
+        "kana": "マハーマハーシャクテー"
       },
       "position": {
         "angleDeg": null,
@@ -6681,7 +6856,8 @@
         "telugu": "మహామహాగుప్తే",
         "tamil": "மஹாமஹாகுப்தே",
         "kannada": "ಮಹಾಮಹಾಗುಪ್ತೇ",
-        "malayalam": "മഹാമഹാഗുപ്തേ"
+        "malayalam": "മഹാമഹാഗുപ്തേ",
+        "kana": "マハーマハーグプテー"
       },
       "position": {
         "angleDeg": null,
@@ -6715,7 +6891,8 @@
         "telugu": "మహామహాజ్ఞప్తే",
         "tamil": "மஹாமஹாஜ்ஞப்தே",
         "kannada": "ಮಹಾಮಹಾಜ್ಞಪ್ತೇ",
-        "malayalam": "മഹാമഹാജ്ഞപ്തേ"
+        "malayalam": "മഹാമഹാജ്ഞപ്തേ",
+        "kana": "マハーマハージュニャプテー"
       },
       "position": {
         "angleDeg": null,
@@ -6749,7 +6926,8 @@
         "telugu": "మహామహానన్దే",
         "tamil": "மஹாமஹாநந்தே",
         "kannada": "ಮಹಾಮಹಾನನ್ದೇ",
-        "malayalam": "മഹാമഹാനംദേ"
+        "malayalam": "മഹാമഹാനംദേ",
+        "kana": "マハーマハーナンデー"
       },
       "position": {
         "angleDeg": null,
@@ -6783,7 +6961,8 @@
         "telugu": "మహామహాస్కన్ధే",
         "tamil": "மஹாமஹாஸ்கந்தே",
         "kannada": "ಮಹಾಮಹಾಸ್ಕನ್ಧೇ",
-        "malayalam": "മഹാമഹാസ്കംധേ"
+        "malayalam": "മഹാമഹാസ്കംധേ",
+        "kana": "マハーマハースカンデー"
       },
       "position": {
         "angleDeg": null,
@@ -6817,7 +6996,8 @@
         "telugu": "మహామహాశయే",
         "tamil": "மஹாமஹாஶயே",
         "kannada": "ಮಹಾಮಹಾಶಯೇ",
-        "malayalam": "മഹാമഹാശയേ"
+        "malayalam": "മഹാമഹാശയേ",
+        "kana": "マハーマハーシャイェー"
       },
       "position": {
         "angleDeg": null,
@@ -6851,7 +7031,8 @@
         "telugu": "మహామహా శ్రీచక్రనగరసామ్రాజ్ఞీ",
         "tamil": "மஹாமஹா ஶ்ரீசக்ரநகரஸாம்ராஜ்ஞீ",
         "kannada": "ಮಹಾಮಹಾ ಶ್ರೀಚಕ್ರನಗರಸಾಮ್ರಾಜ್ಞೀ",
-        "malayalam": "മഹാമഹാ ശ്രീചക്രനഗരസാമ്രാജ്ഞീ"
+        "malayalam": "മഹാമഹാ ശ്രീചക്രനഗരസാമ്രാജ്ഞീ",
+        "kana": "マハーマハー・スリチャクラナガラサームラージュニー"
       },
       "position": {
         "angleDeg": null,
@@ -6885,7 +7066,8 @@
         "telugu": "నమస్తే నమస్తే నమస్తే నమః",
         "tamil": "நமஸ்தே நமஸ்தே நமஸ்தே நமஃ",
         "kannada": "ನಮಸ್ತೇ ನಮಸ್ತೇ ನಮಸ್ತೇ ನಮಃ",
-        "malayalam": "നമസ്തേ നമസ്തേ നമസ്തേ നമഃ"
+        "malayalam": "നമസ്തേ നമസ്തേ നമസ്തേ നമഃ",
+        "kana": "ナマステー・ナマステー・ナマステー・ナマ"
       },
       "position": {
         "angleDeg": null,

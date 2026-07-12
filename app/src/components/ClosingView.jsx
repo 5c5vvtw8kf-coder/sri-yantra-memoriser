@@ -32,6 +32,7 @@
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+import FuriganaName from './FuriganaName'
 import SriYantraSVG from './SriYantraSVG'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 import { useDoneDelay } from '../hooks/useDoneDelay'
@@ -471,7 +472,7 @@ export default function ClosingView({
               }}
             >
               <p className="iast" style={{ color: textColor, fontSize: isMobile ? '20px' : '16px', fontWeight: 700 }}>
-                {displayName(d, script)}
+                <FuriganaName deity={d} script={script} uiLang={uiLang} />
               </p>
             </div>
           )
@@ -498,7 +499,7 @@ export default function ClosingView({
               }}
             >
               <p className="iast" style={{ color: isLast ? RED_TEXT : CREAM, fontSize: '20px', fontWeight: 700 }}>
-                {displayName(d, script)}
+                <FuriganaName deity={d} script={script} uiLang={uiLang} />
               </p>
             </div>
           )
@@ -531,7 +532,7 @@ export default function ClosingView({
                 style={{ background: 'rgba(15,8,5,0.95)', border: '0.6px solid rgba(255,248,200,0.6)' }}
               >
                 <p className="iast" style={{ color: CREAM, fontSize: isMobile ? '20px' : '16px', fontWeight: 700 }}>
-                  {displayName(d, script)}
+                  <FuriganaName deity={d} script={script} uiLang={uiLang} />
                 </p>
                 {script !== 'iast' && d.scripts.iast && (
                   <p className="iast mt-0.5" style={{ color: 'rgba(201,168,76,0.55)', fontSize: '13px' }}>

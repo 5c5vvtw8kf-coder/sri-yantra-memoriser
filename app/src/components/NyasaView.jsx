@@ -24,6 +24,7 @@ import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+import FuriganaName from './FuriganaName'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 import { useDoneDelay } from '../hooks/useDoneDelay'
 
@@ -245,6 +246,7 @@ function DeityPanel({ deity, script, onDismiss }) {
 
 export default function NyasaView({
   script       = 'iast',
+  uiLang       = 'en',
   onDeitySelect = () => {},
   highlightId  = null,
   // Memorise mode props
@@ -258,7 +260,6 @@ export default function NyasaView({
   flash            = false,
   onNavigate,
   tr               = k => k,
-  uiLang           = 'en',
 }) {
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)     // { id, x, y }
@@ -510,10 +511,13 @@ export default function NyasaView({
               borderRadius: '6px',
               padding: '6px 18px',
             }}>
-              <span className={script !== 'english' ? 'iast' : ''}
-                    style={{ color: '#c9a84c', fontSize: '16px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
-                {displayName(revealedDeity, script)}
-              </span>
+              <FuriganaName
+                deity={revealedDeity}
+                script={script}
+                uiLang={uiLang}
+                className={script !== 'english' ? 'iast' : ''}
+                style={{ color: '#c9a84c', fontSize: '16px', fontFamily: "'Gentium Plus', Georgia, serif", lineHeight: uiLang === 'ja' ? '2.2' : '1.4' }}
+              />
             </div>
           </div>
         )}

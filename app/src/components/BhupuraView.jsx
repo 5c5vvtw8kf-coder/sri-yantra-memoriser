@@ -21,6 +21,7 @@
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+import FuriganaName from './FuriganaName'
 import SriYantraSVG, { BHUPURA_MARKERS } from './SriYantraSVG'
 import { useDoneDelay } from '../hooks/useDoneDelay'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
@@ -234,6 +235,7 @@ function NavArrow({ from, to, gap = 14, length = 27 }) {
 
 export default function BhupuraView({
   script = 'iast',
+  uiLang = 'en',
   tr = k => k,
   onDeitySelect = () => {},
   highlightId = null,

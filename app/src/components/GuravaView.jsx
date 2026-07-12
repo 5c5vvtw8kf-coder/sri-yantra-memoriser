@@ -13,6 +13,7 @@
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+import FuriganaName from './FuriganaName'
 import { APEX, BASE_L, BASE_R, CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID } from '../korvinGeometry'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
@@ -167,6 +168,7 @@ function Tooltip({ x, label, fill, script }) {
 
 export default function GuravaView({
   script = 'iast',
+  uiLang = 'en',
   tr = k => k,
   onDeitySelect = () => {},
   highlightId = null,

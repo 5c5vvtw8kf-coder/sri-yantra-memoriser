@@ -18,6 +18,7 @@
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
 import { displayName } from '../utils.js'
+import FuriganaName from './FuriganaName'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 import { useDoneDelay } from '../hooks/useDoneDelay'
@@ -169,6 +170,7 @@ function Tooltip({ x, y, label, fill, script, below = false }) {
 
 export default function InnerView({
   script = 'iast',
+  uiLang = 'en',
   tr = k => k,
   onDeitySelect = () => {},
   highlightId = null,
@@ -453,10 +455,13 @@ export default function InnerView({
               borderRadius: '6px',
               padding: '6px 18px',
             }}>
-              <span className={script !== 'english' ? 'iast' : ''}
-                    style={{ color: '#c9a84c', fontSize: script === 'iast' || script === 'english' ? '20px' : '26px', fontFamily: "'Gentium Plus', Georgia, serif" }}>
-                {displayName(revealedRef.current, script)}
-              </span>
+              <FuriganaName
+                deity={revealedRef.current}
+                script={script}
+                uiLang={uiLang}
+                className={script !== 'english' ? 'iast' : ''}
+                style={{ color: '#c9a84c', fontSize: script === 'iast' || script === 'english' ? '20px' : '26px', fontFamily: "'Gentium Plus', Georgia, serif", lineHeight: uiLang === 'ja' ? '2.2' : '1.4' }}
+              />
             </div>
           </div>
         )}
