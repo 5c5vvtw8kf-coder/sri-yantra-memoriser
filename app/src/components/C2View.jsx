@@ -558,14 +558,14 @@ export default function C2View({
         yoginiDeity={c2YoginiDeity}
         script={script}
         tr={tr}
-        svaminiSeq={{17}}
-        atEnd={{!memorise && !!selectedId && selectedId === c2Deities[c2Deities.length - 1]?.id}}
-        yoginiSeq={{18}}
-        memorise={{memorise}}
-        currentSeq={{currentSeq}}
-        results={{results}}
-        onMarkResult={{onMarkResult}}
-        onToggleResult={{onToggleResult}}
+        svaminiSeq={17}
+        atEnd={!memorise && !!selectedId && selectedId === c2Deities[c2Deities.length - 1]?.id}
+        yoginiSeq={18}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
       />
 
       {/* Completion panel */}
