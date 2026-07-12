@@ -168,7 +168,7 @@ function DeityPanel({ deity, script, onDismiss }) {
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 
-function Tooltip({ x, y, label, fill, script }) {
+function Tooltip({ x, y, label, fill, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = (script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48
@@ -179,10 +179,19 @@ function Tooltip({ x, y, label, fill, script }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={fill} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
         fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
@@ -195,6 +204,7 @@ function Tooltip({ x, y, label, fill, script }) {
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function BinduView({ script = 'iast', onDeitySelect = () => {} }) {
+  const isJapanese = script === 'ja' || script === 'kana'
   const [selectedId, setSelectedId] = useState(null)
   const [hoveredDot, setHoveredDot] = useState(null)  // { id, x, y }
 
@@ -265,8 +275,9 @@ export default function BinduView({ script = 'iast', onDeitySelect = () => {} })
             {hoveredDot && !selectedId && (
               <Tooltip
                 x={hoveredDot.x} y={hoveredDot.y}
-                label={displayName(deityById[hoveredDot.id], script)}
+                label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)}
                 fill={GOLD} script={script}
+                kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null}
               />
             )}
 

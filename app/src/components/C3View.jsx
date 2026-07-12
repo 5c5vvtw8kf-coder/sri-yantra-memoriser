@@ -138,7 +138,7 @@ const c3YoginiDeity = deities.find(d => d.sectionId === 'circuit-3' && d.role ==
 // Quadrant of the petal centroid relative to the yantra centre determines
 // which corner zone the tooltip occupies — always clear of the petal ring.
 
-function Tooltip({ x, y, label, script }) {
+function Tooltip({ x, y, label, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = (script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48
@@ -160,10 +160,19 @@ function Tooltip({ x, y, label, script }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text
         x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
@@ -238,6 +247,7 @@ export default function C3View({
   tr               = k => k,
   uiLang           = 'en',
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   const [selectedId,     setSelectedId]     = useState(null)
   const [hoveredDot,     setHoveredDot]     = useState(null)
   const [mobileRevealed, setMobileRevealed] = useState(false)
@@ -538,13 +548,13 @@ export default function C3View({
             {!flash && (() => {
               if (hoveredDot) return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(deityById[hoveredDot.id], script)} script={script} />
+                  label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)} script={script} kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null} />
               )
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C3_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} />
+                return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
               }
               return null
             })()}
@@ -575,13 +585,4 @@ export default function C3View({
       {showCompletion && (
         <CompletionPanel
           results={results}
-          onRestart={onStartMemorise}
-          onNavigate={onNavigate}
-          tr={tr}
-          uiLang={uiLang}
-        />
-      )}
-
-    </div>
-  )
-}
+          onRestart={onStartMemor

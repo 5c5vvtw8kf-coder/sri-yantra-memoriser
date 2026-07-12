@@ -141,7 +141,7 @@ function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter,
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 
-function Tooltip({ x, y, label, fill, script, below = false }) {
+function Tooltip({ x, y, label, fill, script, below = false, kana }) {
   if (!label) return null
   const isIndic  = script !== 'iast' && script !== 'english'
   const fontSize = isIndic ? 30 : script === 'english' ? 26 : 25
@@ -153,10 +153,19 @@ function Tooltip({ x, y, label, fill, script, below = false }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={fill} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
         fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
@@ -186,6 +195,7 @@ export default function InnerView({
   flash = false,
   onNavigate,
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [mobileRevealed, setMobileRevealed] = useState(false)
@@ -424,8 +434,9 @@ export default function InnerView({
               const hdIdx = nityaDeities.findIndex(x => x.id === hoveredDot.id)
               return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(deityById[hoveredDot.id], script)}
+                  label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)}
                   fill={GOLD} script={script}
+                  kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null}
                   below={isBelow(hdIdx)} />
               )
             }
@@ -434,7 +445,7 @@ export default function InnerView({
               const idx = nityaDeities.findIndex(x => x.id === selectedId)
               const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
               if (!pos) return null
-              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} fill={GOLD} script={script} below={isBelow(idx)} />
+              return <Tooltip x={pos[0]} y={pos[1]} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null} below={isBelow(idx)} />
             }
             return null
           })()}

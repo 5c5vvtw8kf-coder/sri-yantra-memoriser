@@ -160,7 +160,7 @@ function DeityDot({
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
 
-function Tooltip({ x, y, label, fill, script }) {
+function Tooltip({ x, y, label, fill, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
@@ -175,10 +175,19 @@ function Tooltip({ x, y, label, fill, script }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={fill} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text
         x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
@@ -261,6 +270,7 @@ export default function NyasaView({
   onNavigate,
   tr               = k => k,
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)     // { id, x, y }
   const [navStep,       setNavStep]       = useState(0)        // 0–4: navigation arrow stage
@@ -422,15 +432,13 @@ export default function NyasaView({
                 ? ASTRA_POSITIONS.map(([x, y], i) => (
                     <Tooltip key={`astra-tt-${i}`}
                       x={x} y={y}
-                      label={displayName(astraDeity, script)}
-                      fill={GOLD} script={script}
+                      label={isJapanese ? displayName(astraDeity, 'iast') : displayName(astraDeity, script)} fill={GOLD} script={script} kana={isJapanese ? astraDeity?.scripts?.kana : null}
                     />
                   ))
                 : (
                     <Tooltip
                       x={hoveredDot.x} y={hoveredDot.y}
-                      label={displayName(deityById[hoveredDot.id], script)}
-                      fill={GOLD} script={script}
+                      label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)} fill={GOLD} script={script} kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null}
                     />
                   )
             }
@@ -443,8 +451,7 @@ export default function NyasaView({
                 return ASTRA_POSITIONS.map(([x, y], i) => (
                   <Tooltip key={`astra-sel-tt-${i}`}
                     x={x} y={y}
-                    label={displayName(d, script)}
-                    fill={GOLD} script={script}
+                    label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null}
                   />
                 ))
               }
@@ -453,8 +460,7 @@ export default function NyasaView({
               return (
                 <Tooltip
                   x={pos[0]} y={pos[1]}
-                  label={displayName(d, script)}
-                  fill={GOLD} script={script}
+                  label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null}
                 />
               )
             }
@@ -571,3 +577,4 @@ export default function NyasaView({
     </div>
   )
 }
+        

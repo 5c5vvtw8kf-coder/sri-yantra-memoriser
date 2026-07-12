@@ -137,7 +137,7 @@ function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter,
 }
 
 
-function Tooltip({ x, label, fill, script }) {
+function Tooltip({ x, label, fill, script, kana }) {
   if (!label) return null
   // Font sizes scaled to match apparent size in other views (GuravaView viewBox is 350
   // wide vs ~465 in InnerView, so SVG font units need to be proportionally smaller)
@@ -151,10 +151,19 @@ function Tooltip({ x, label, fill, script }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={fill} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
         fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
@@ -182,6 +191,7 @@ export default function GuravaView({
   flash = false,
   onNavigate,
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [mobileRevealed, setMobileRevealed] = useState(false)
@@ -368,14 +378,15 @@ export default function GuravaView({
           {!flash && (() => {
             if (hoveredDot) return (
               <Tooltip x={hoveredDot.x}
-                label={displayName(deityById[hoveredDot.id], script)}
-                fill={GOLD} script={script} />
+                label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)}
+                fill={GOLD} script={script}
+                kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null} />
             )
             if (!memorise && selectedId) {
               const d   = deityById[selectedId]
               const pos = d ? getGuruPos(d) : null
               if (!pos) return null
-              return <Tooltip x={pos[0]} label={displayName(d, script)} fill={GOLD} script={script} />
+              return <Tooltip x={pos[0]} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
             }
             return null
           })()}
@@ -418,8 +429,4 @@ export default function GuravaView({
 
       {memorise && <MobileMemoriseInstr tr={tr} />}
 
-      <div className="h-0 md:h-8" />
-
-    </div>
-  )
-}
+      <div cl

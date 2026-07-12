@@ -3469,7 +3469,7 @@ export default function App() {
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                      {displayName(d, script)}
+                      <FuriganaName deity={d} script={script} uiLang={uiLang} />
                     </span>
                   </div>
                 ))}
@@ -3519,7 +3519,7 @@ export default function App() {
                           >
                             <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(n, uiLang)}{numDot(uiLang)}</span>
                             <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                              {displayName(d, script)}
+                              <FuriganaName deity={d} script={script} uiLang={uiLang} />
                             </span>
                           </div>
                         )
@@ -3561,7 +3561,7 @@ export default function App() {
                   >
                     <span className="text-muted font-mono w-4 flex-shrink-0 text-right text-xs">{localNum(d.sequenceInSection, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                      {displayName(d, script)}
+                      <FuriganaName deity={d} script={script} uiLang={uiLang} />
                     </span>
                   </div>
                 ))}
@@ -3606,7 +3606,7 @@ export default function App() {
                     >
                       <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                       <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                        {displayName(d, script)}
+                        <FuriganaName deity={d} script={script} uiLang={uiLang} />
                       </span>
                     </div>
                   ))}
@@ -3647,7 +3647,7 @@ export default function App() {
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                      {displayName(d, script)}
+                      <FuriganaName deity={d} script={script} uiLang={uiLang} />
                     </span>
                   </div>
                 ))}
@@ -3687,7 +3687,7 @@ export default function App() {
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                      {displayName(d, script)}
+                      <FuriganaName deity={d} script={script} uiLang={uiLang} />
                     </span>
                   </div>
                 ))}
@@ -3713,7 +3713,7 @@ export default function App() {
                 onMouseEnter={() => setCircuitFillAll(true)}
                 onMouseLeave={() => setCircuitFillAll(false)}
               >
-                {displayName(c9d, script)}
+                <FuriganaName deity={c9d} script={script} uiLang={uiLang} />
               </p>
             )}
           </div>
@@ -3750,7 +3750,7 @@ export default function App() {
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                      {displayName(d, script)}
+                      <FuriganaName deity={d} script={script} uiLang={uiLang} />
                     </span>
                   </div>
                 ))}
@@ -3811,7 +3811,7 @@ export default function App() {
                         >
                           <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(d.sequenceInSection, uiLang)}{numDot(uiLang)}</span>
                           <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                            {displayName(d, script)}
+                            <FuriganaName deity={d} script={script} uiLang={uiLang} />
                           </span>
                         </div>
                       ))}
@@ -3854,7 +3854,7 @@ export default function App() {
                   >
                     <span className="text-muted font-mono w-5 flex-shrink-0 text-right text-xs">{localNum(i + 1, uiLang)}{numDot(uiLang)}</span>
                     <span className={`${script === 'devanagari' ? 'text-sm ' : ['kannada','malayalam','tamil','telugu'].includes(script) ? 'iast text-xs ' : 'iast text-base '}text-gold-400`}>
-                      {displayName(d, script)}
+                      <FuriganaName deity={d} script={script} uiLang={uiLang} />
                     </span>
                   </div>
                 ))}

@@ -46,7 +46,7 @@ const c9YoginiDeity = deities.find(d => d.sectionId === 'circuit-9' && d.role ==
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 
-function Tooltip({ x, y, label, script }) {
+function Tooltip({ x, y, label, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 33 : script === 'english' ? 32 : 32
   const h        = script === 'devanagari' ? 66 : script === 'english' ? 64 : 64
@@ -57,10 +57,19 @@ function Tooltip({ x, y, label, script }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
         fontSize={fontSize} fill={GOLD} fontFamily="'Gentium Plus', Georgia, serif">
@@ -89,6 +98,7 @@ export default function C9View({
   tr               = k => k,
   uiLang           = 'en',
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   const [selected,       setSelected]       = useState(false)
   const [hovered,        setHovered]        = useState(false)
   const [mobileRevealed, setMobileRevealed] = useState(false)
@@ -250,8 +260,9 @@ export default function C9View({
           {(hovered || selected || (memorise && currentSeq === 1 && (window.innerWidth >= 768 || mobileRevealed))) && !flash && c9Deity && (
             <Tooltip
               x={bx} y={by}
-              label={displayName(c9Deity, script)}
+              label={isJapanese ? displayName(c9Deity, 'iast') : displayName(c9Deity, script)}
               script={script}
+              kana={isJapanese ? c9Deity?.scripts?.kana : null}
             />
           )}
 
@@ -304,9 +315,4 @@ export default function C9View({
         currentSeq={currentSeq}
         results={results}
         onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-    </div>
-  )
-}
+        onToggleResult={onTog

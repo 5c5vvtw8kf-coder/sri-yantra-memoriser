@@ -112,7 +112,7 @@ function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, onClick, on
   )
 }
 
-function Tooltip({ x, y, label, script }) {
+function Tooltip({ x, y, label, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 39 : script === 'english' ? 37 : 36
   const h        = script === 'devanagari' ? 78 : script === 'english' ? 74 : 72
@@ -123,10 +123,19 @@ function Tooltip({ x, y, label, script }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
         fontSize={fontSize} fill={GOLD} fontFamily="'Gentium Plus', Georgia, serif">
@@ -170,6 +179,7 @@ export default function C8View({
   tr               = k => k,
   uiLang           = 'en',
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [mobileRevealed, setMobileRevealed] = useState(false)
@@ -322,14 +332,14 @@ export default function C8View({
             if (hoveredDot) {
               const d = deityById[hoveredDot.id]
               if (!d) return null
-              return <Tooltip x={hoveredDot.x} y={hoveredDot.y} label={displayName(d, script)} script={script} />
+              return <Tooltip x={hoveredDot.x} y={hoveredDot.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
             }
             if (!memorise && selectedId) {
               const idx = c8Deities.findIndex(d => d.id === selectedId)
               const pos = idx >= 0 ? C8_POSITIONS[idx] : null
               if (!pos) return null
               const d = deityById[selectedId]
-              return <Tooltip x={pos[0]} y={pos[1]} label={displayName(d, script)} script={script} />
+              return <Tooltip x={pos[0]} y={pos[1]} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
             }
             return null
           })()}
@@ -380,9 +390,4 @@ export default function C8View({
         memorise={memorise}
         currentSeq={currentSeq}
         results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-    </div>
-  )
-}
+      

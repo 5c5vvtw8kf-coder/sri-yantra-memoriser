@@ -124,6 +124,16 @@ function dotLabel(id, script) {
     ? group.map(g => displayName(g, script)).join(', ')
     : displayName(d, script)
 }
+function dotKana(id) {
+  const d = deityById[id]
+  if (!d) return null
+  const pos = bhupuraPos(d)
+  const key = pos ? `${pos.x},${pos.y}` : null
+  const group = key ? (_posKeyDeities[key] ?? []) : []
+  return group.length > 1
+    ? group.map(g => g.scripts?.kana ?? '').join('、')
+    : (d.scripts?.kana ?? null)
+}
 
 // ── Colours ───────────────────────────────────────────────────────────────────
 
@@ -174,7 +184,7 @@ function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, on
   )
 }
 
-function Tooltip({ x, y, label, fill, script }) {
+function Tooltip({ x, y, label, fill, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = (script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48
@@ -185,10 +195,19 @@ function Tooltip({ x, y, label, fill, script }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={fill} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
         fontSize={fontSize} fill={fill} fontFamily="'Gentium Plus', Georgia, serif">
@@ -252,6 +271,7 @@ export default function BhupuraView({
   flash = false,
   onNavigate,
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   // Desktop state
   const [selectedId,    setSelectedId]    = useState(null)
   const [activeFilter,  setActiveFilter]  = useState('all')
@@ -547,20 +567,20 @@ export default function BhupuraView({
                 const d = deityById[hoveredDot.id]
                 if (!d) return null
                 return <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(d, script)} fill={GOLD} script={script} />
+                  label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
               }
               // Memorise mode — mobile: show tooltip on tap (inside SVG)
               if (memorise && isMobile && mobileRevealed && hoveredDot) {
                 const d = deityById[hoveredDot.id]
                 if (!d) return null
                 return <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(d, script)} fill={GOLD} script={script} />
+                  label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
               }
               // Explore mode
               if (!memorise) {
                 if (hoveredDot) return (
                   <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                    label={dotLabel(hoveredDot.id, script)}
+                    label={isJapanese ? dotLabel(hoveredDot.id, 'iast') : dotLabel(hoveredDot.id, script)} kana={isJapanese ? dotKana(hoveredDot.id) : null}
                     fill={GOLD} script={script} />
                 )
                 const tooltipId = isMobile ? lastTappedId : selectedId
@@ -568,7 +588,7 @@ export default function BhupuraView({
                   const d   = deityById[tooltipId]
                   const pos = d ? bhupuraPos(d) : null
                   if (!pos) return null
-                  return <Tooltip x={pos.x} y={pos.y} label={dotLabel(tooltipId, script)} fill={GOLD} script={script} />
+                  return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? dotLabel(tooltipId, 'iast') : dotLabel(tooltipId, script)} fill={GOLD} script={script} kana={isJapanese ? dotKana(tooltipId) : null} />
                 }
               }
               return null
@@ -668,14 +688,4 @@ export default function BhupuraView({
         yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
         memorise={memorise}
         currentSeq={currentSeq}
-        atEnd={!memorise && navStep >= BAND_CONFIG[bandStep].list.length && bandStep >= BAND_CONFIG.length - 1}
-        results={results}
-        onMarkResult={onMarkResult}
-        onToggleResult={onToggleResult}
-      />
-
-
-      
-    </div>
-  )
-}
+        atEnd={!memorise && navStep >= BAND_CONFIG[bandStep].list.length && bandStep >= BAND_CO

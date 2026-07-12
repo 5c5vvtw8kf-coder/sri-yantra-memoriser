@@ -126,7 +126,7 @@ const c4YoginiDeity = deities.find(d => d.sectionId === 'circuit-4' && d.role ==
 // Left side (seqs 8–11): tooltips go below; larger offset clears the next dot below.
 const C4_TOOLTIP_OFFSET = { 1: 35, 2: 52, 3: 44, 4: 70, 8: 38, 9: 55, 10: 42, 11: 70 }
 
-function Tooltip({ x, y, label, script, seq, isMobile }) {
+function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
   if (!label) return null
   const fontSize = isMobile
     ? (script === 'devanagari' ? 18 : script === 'english' ? 17 : 16)
@@ -146,10 +146,19 @@ function Tooltip({ x, y, label, script, seq, isMobile }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text
         x={tx.toFixed(1)} y={ty.toFixed(1)}
         textAnchor="middle" dominantBaseline="middle"
@@ -224,6 +233,7 @@ export default function C4View({
   tr               = k => k,
   uiLang           = 'en',
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [mobileRevealed, setMobileRevealed] = useState(false)
@@ -485,7 +495,7 @@ export default function C4View({
                 const hd = deityById[hoveredDot.id]
                 return (
                   <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                    label={displayName(hd, script)} script={script}
+                    label={isJapanese ? displayName(hd, 'iast') : displayName(hd, script)} script={script} kana={isJapanese ? hd?.scripts?.kana : null}
                     seq={hd?.sequenceInSection} isMobile={isMobileView} />
                 )
               }
@@ -493,7 +503,7 @@ export default function C4View({
                 const d   = deityById[selectedId]
                 const pos = d ? C4_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script}
+                return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null}
                          seq={d.sequenceInSection} isMobile={isMobileView} />
               }
               return null
@@ -526,12 +536,4 @@ export default function C4View({
         <CompletionPanel
           results={results}
           onRestart={onStartMemorise}
-          onNavigate={onNavigate}
-          tr={tr}
-          uiLang={uiLang}
-        />
-      )}
-
-    </div>
-  )
-}
+          onNavigate

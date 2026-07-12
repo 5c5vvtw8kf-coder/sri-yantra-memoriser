@@ -102,7 +102,7 @@ const c7YoginiDeity = deities.find(d => d.sectionId === 'circuit-7' && d.role ==
 
 const C7_TOOLTIP_OFFSET = { 1: 18, 2: 24, 5: 20, 6: 18, 7: 24 }
 
-function Tooltip({ x, y, label, script, seq, isMobile }) {
+function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
   if (!label) return null
   const fontSize = isMobile
     ? (script === 'devanagari' ? 9 : script === 'english' ? 9 : 8)
@@ -121,9 +121,18 @@ function Tooltip({ x, y, label, script, seq, isMobile }) {
   const ty   = y > CY ? y - h / 2 - yOff : y + h / 2 + yOff
   return (
     <g pointerEvents="none">
-      <rect x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-            width={w.toFixed(1)} height={h} rx={3}
+      <rect x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+            width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
             fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6} />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          textAnchor="middle" dominantBaseline="middle"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text x={tx.toFixed(1)} y={ty.toFixed(1)}
             textAnchor="middle" dominantBaseline="middle"
             fontSize={fontSize} fill={GOLD} fontFamily="'Gentium Plus', Georgia, serif">
@@ -188,6 +197,7 @@ export default function C7View({
   tr               = k => k,
   uiLang           = 'en',
 }) {
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
   const [selectedId,    setSelectedId]    = useState(null)
   const [hoveredDot,    setHoveredDot]    = useState(null)
   const [mobileRevealed, setMobileRevealed] = useState(false)
@@ -385,14 +395,14 @@ export default function C7View({
             {!flash && (() => {
               if (hoveredDot) return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={displayName(deityById[hoveredDot.id], script)} script={script}
+                  label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)} script={script} kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null}
                   seq={deityById[hoveredDot.id]?.sequenceInSection} isMobile={isMobileView} />
               )
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C7_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={displayName(d, script)} script={script} seq={d.sequenceInSection} isMobile={isMobileView} />
+                return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null} seq={d.sequenceInSection} isMobile={isMobileView} />
               }
               return null
             })()}
@@ -419,8 +429,4 @@ export default function C7View({
         onToggleResult={onToggleResult}
       />
 
-      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
-
-    </div>
-  )
-}
+      {showCompletion && <CompletionPa
