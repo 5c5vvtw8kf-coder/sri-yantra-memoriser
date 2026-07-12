@@ -12,25 +12,28 @@ import { displayName } from '../utils.js'
 export default function FuriganaName({ deity, script, uiLang, className = '', style }) {
   if (!deity) return null
 
-  const name = displayName(deity, script)
   const kana = deity.scripts?.kana
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
 
-  if (uiLang !== 'ja' || !kana) {
-    return <span className={className} style={style}>{name}</span>
+  if (isJapanese && kana) {
+    // Always use IAST as the base text with kana as ruby annotation
+    const iastName = displayName(deity, 'iast')
+    return (
+      <ruby className={className} style={style}>
+        {iastName}
+        <rt style={{
+          fontSize: '0.6em',
+          letterSpacing: '0.08em',
+          color: 'rgba(201,168,76,0.75)',
+          fontFamily: 'sans-serif',
+          fontStyle: 'normal',
+        }}>
+          {kana}
+        </rt>
+      </ruby>
+    )
   }
 
-  return (
-    <ruby className={className} style={style}>
-      {name}
-      <rt style={{
-        fontSize: '0.6em',
-        letterSpacing: '0.08em',
-        color: 'rgba(201,168,76,0.75)',
-        fontFamily: 'sans-serif',
-        fontStyle: 'normal',
-      }}>
-        {kana}
-      </rt>
-    </ruby>
-  )
+  const name = displayName(deity, script)
+  return <span className={className} style={style}>{name}</span>
 }
