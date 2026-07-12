@@ -124,15 +124,15 @@ function dotLabel(id, script) {
     ? group.map(g => displayName(g, script)).join(', ')
     : displayName(d, script)
 }
+
 function dotKana(id) {
   const d = deityById[id]
   if (!d) return null
   const pos = bhupuraPos(d)
   const key = pos ? `${pos.x},${pos.y}` : null
   const group = key ? (_posKeyDeities[key] ?? []) : []
-  return group.length > 1
-    ? group.map(g => g.scripts?.kana ?? '').join('、')
-    : (d.scripts?.kana ?? null)
+  if (group.length > 1) return group.map(g => g.scripts?.kana ?? '').join('、')
+  return d.scripts?.kana ?? null
 }
 
 // ── Colours ───────────────────────────────────────────────────────────────────
@@ -567,28 +567,28 @@ export default function BhupuraView({
                 const d = deityById[hoveredDot.id]
                 if (!d) return null
                 return <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
+                  label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} kana={isJapanese ? d?.scripts?.kana : null} fill={GOLD} script={script} />
               }
               // Memorise mode — mobile: show tooltip on tap (inside SVG)
               if (memorise && isMobile && mobileRevealed && hoveredDot) {
                 const d = deityById[hoveredDot.id]
                 if (!d) return null
                 return <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
+                  label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} kana={isJapanese ? d?.scripts?.kana : null} fill={GOLD} script={script} />
               }
               // Explore mode
               if (!memorise) {
                 if (hoveredDot) return (
                   <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                    label={isJapanese ? dotLabel(hoveredDot.id, 'iast') : dotLabel(hoveredDot.id, script)} kana={isJapanese ? dotKana(hoveredDot.id) : null}
-                    fill={GOLD} script={script} />
+                    label={isJapanese ? dotLabel(hoveredDot.id, 'iast') : dotLabel(hoveredDot.id, script)}
+                    kana={isJapanese ? dotKana(hoveredDot.id) : null} fill={GOLD} script={script} />
                 )
                 const tooltipId = isMobile ? lastTappedId : selectedId
                 if (tooltipId) {
                   const d   = deityById[tooltipId]
                   const pos = d ? bhupuraPos(d) : null
                   if (!pos) return null
-                  return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? dotLabel(tooltipId, 'iast') : dotLabel(tooltipId, script)} fill={GOLD} script={script} kana={isJapanese ? dotKana(tooltipId) : null} />
+                  return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? dotLabel(tooltipId, 'iast') : dotLabel(tooltipId, script)} kana={isJapanese ? dotKana(tooltipId) : null} fill={GOLD} script={script} />
                 }
               }
               return null
@@ -688,4 +688,12 @@ export default function BhupuraView({
         yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
         memorise={memorise}
         currentSeq={currentSeq}
-        atEnd={!memorise && navStep >= BAND_CONFIG[bandStep].list.length && bandStep >= BAND_CO
+        atEnd={!memorise && navStep >= BAND_CONFIG[bandStep].list.length && bandStep >= BAND_CONFIG.length - 1}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+    </div>
+  )
+}

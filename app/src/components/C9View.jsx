@@ -261,8 +261,8 @@ export default function C9View({
             <Tooltip
               x={bx} y={by}
               label={isJapanese ? displayName(c9Deity, 'iast') : displayName(c9Deity, script)}
-              script={script}
               kana={isJapanese ? c9Deity?.scripts?.kana : null}
+              script={script}
             />
           )}
 
@@ -315,4 +315,9 @@ export default function C9View({
         currentSeq={currentSeq}
         results={results}
         onMarkResult={onMarkResult}
-        onToggleResult={onTog
+        onToggleResult={onToggleResult}
+      />
+
+    </div>
+  )
+}

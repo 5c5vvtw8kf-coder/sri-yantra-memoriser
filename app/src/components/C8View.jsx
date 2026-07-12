@@ -332,14 +332,14 @@ export default function C8View({
             if (hoveredDot) {
               const d = deityById[hoveredDot.id]
               if (!d) return null
-              return <Tooltip x={hoveredDot.x} y={hoveredDot.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
+              return <Tooltip x={hoveredDot.x} y={hoveredDot.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} kana={isJapanese ? d?.scripts?.kana : null} script={script} />
             }
             if (!memorise && selectedId) {
               const idx = c8Deities.findIndex(d => d.id === selectedId)
               const pos = idx >= 0 ? C8_POSITIONS[idx] : null
               if (!pos) return null
               const d = deityById[selectedId]
-              return <Tooltip x={pos[0]} y={pos[1]} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null} />
+              return <Tooltip x={pos[0]} y={pos[1]} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} kana={isJapanese ? d?.scripts?.kana : null} script={script} />
             }
             return null
           })()}
@@ -390,4 +390,10 @@ export default function C8View({
         memorise={memorise}
         currentSeq={currentSeq}
         results={results}
-      
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+    </div>
+  )
+}

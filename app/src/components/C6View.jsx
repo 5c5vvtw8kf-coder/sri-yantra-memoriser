@@ -395,14 +395,14 @@ export default function C6View({
             {!flash && (() => {
               if (hoveredDot) return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                  label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)} script={script} kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null}
+                  label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)} kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null} script={script}
                   seq={deityById[hoveredDot.id]?.sequenceInSection} isMobile={isMobileView} />
               )
               if (!memorise && selectedId) {
                 const d   = deityById[selectedId]
                 const pos = d ? C6_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null} seq={d.sequenceInSection} isMobile={isMobileView} />
+                return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} kana={isJapanese ? d?.scripts?.kana : null} script={script} seq={d.sequenceInSection} isMobile={isMobileView} />
               }
               return null
             })()}
@@ -429,4 +429,8 @@ export default function C6View({
         onToggleResult={onToggleResult}
       />
 
-      {showCompletion && <CompletionPa
+      {showCompletion && <CompletionPanel results={results} onRestart={onStartMemorise} onNavigate={onNavigate} />}
+
+    </div>
+  )
+}

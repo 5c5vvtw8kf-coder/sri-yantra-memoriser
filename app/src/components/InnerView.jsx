@@ -435,8 +435,7 @@ export default function InnerView({
               return (
                 <Tooltip x={hoveredDot.x} y={hoveredDot.y}
                   label={isJapanese ? displayName(deityById[hoveredDot.id], 'iast') : displayName(deityById[hoveredDot.id], script)}
-                  fill={GOLD} script={script}
-                  kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null}
+                  kana={isJapanese ? deityById[hoveredDot.id]?.scripts?.kana : null} fill={GOLD} script={script}
                   below={isBelow(hdIdx)} />
               )
             }
@@ -445,7 +444,7 @@ export default function InnerView({
               const idx = nityaDeities.findIndex(x => x.id === selectedId)
               const pos = idx >= 0 ? NITYA_POSITIONS[idx] : null
               if (!pos) return null
-              return <Tooltip x={pos[0]} y={pos[1]} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} fill={GOLD} script={script} kana={isJapanese ? d?.scripts?.kana : null} below={isBelow(idx)} />
+              return <Tooltip x={pos[0]} y={pos[1]} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} kana={isJapanese ? d?.scripts?.kana : null} fill={GOLD} script={script} below={isBelow(idx)} />
             }
             return null
           })()}
@@ -531,4 +530,3 @@ export default function InnerView({
     </div>
   )
 }
-   

@@ -147,7 +147,7 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
     <g pointerEvents="none">
       <rect
         x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
-        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
+              width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6}
       />
       {kana && (
@@ -495,7 +495,7 @@ export default function C4View({
                 const hd = deityById[hoveredDot.id]
                 return (
                   <Tooltip x={hoveredDot.x} y={hoveredDot.y}
-                    label={isJapanese ? displayName(hd, 'iast') : displayName(hd, script)} script={script} kana={isJapanese ? hd?.scripts?.kana : null}
+                    label={isJapanese ? displayName(hd, 'iast') : displayName(hd, script)} kana={isJapanese ? hd?.scripts?.kana : null} script={script}
                     seq={hd?.sequenceInSection} isMobile={isMobileView} />
                 )
               }
@@ -503,7 +503,7 @@ export default function C4View({
                 const d   = deityById[selectedId]
                 const pos = d ? C4_DOT_POSITIONS[d.sequenceInSection] : null
                 if (!pos) return null
-                return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} script={script} kana={isJapanese ? d?.scripts?.kana : null}
+                return <Tooltip x={pos.x} y={pos.y} label={isJapanese ? displayName(d, 'iast') : displayName(d, script)} kana={isJapanese ? d?.scripts?.kana : null} script={script}
                          seq={d.sequenceInSection} isMobile={isMobileView} />
               }
               return null
@@ -536,4 +536,12 @@ export default function C4View({
         <CompletionPanel
           results={results}
           onRestart={onStartMemorise}
-          onNavigate
+          onNavigate={onNavigate}
+          tr={tr}
+          uiLang={uiLang}
+        />
+      )}
+
+    </div>
+  )
+}
