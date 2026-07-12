@@ -327,7 +327,7 @@ export default function InnerView({
                   return (
                     <text x={x} fontSize="20" fill={GOLD} opacity="0.7"
                           fontFamily="'Gentium Plus', Georgia, serif"
-                          fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
+                          fontStyle={!isJapanese && (script === 'iast' || script === 'english') ? 'italic' : 'normal'}
                           textAnchor="start">
                       <tspan x={x} y={y0}>{parts[0]}</tspan>
                       {parts[1] && <tspan x={x} dy="18">{parts[1]}</tspan>}
@@ -363,7 +363,7 @@ export default function InnerView({
                   return (
                     <text x={x} fontSize="20" fill={GOLD} opacity="0.7"
                           fontFamily="'Gentium Plus', Georgia, serif"
-                          fontStyle={script === 'iast' || script === 'english' ? 'italic' : 'normal'}
+                          fontStyle={!isJapanese && (script === 'iast' || script === 'english') ? 'italic' : 'normal'}
                           textAnchor="end">
                       <tspan x={x} y={y0}>{parts[0]}</tspan>
                       {parts[1] && <tspan x={x} dy="18">{parts[1]}</tspan>}

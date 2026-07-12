@@ -77,6 +77,9 @@
   }
 }
 
+/* ── Japanese — never italicise (no true italic glyphs in CJK fonts) ──────── */
+.lang-ja * { font-style: normal !important; }
+
 /* ── Site tour (TourGuide.jsx) body content ──────────────────────────────── */
 .syt-tour-body p + p   { margin-top: 8px; }
 .syt-tour-body em      { color: #d4b96a; font-style: normal; }

@@ -3943,7 +3943,7 @@ export default function App() {
   }[activeTab] ?? null
 
   return (
-    <div className="h-[100dvh] flex flex-col bg-surface-950 text-cream overflow-hidden">
+    <div className={`h-[100dvh] flex flex-col bg-surface-950 text-cream overflow-hidden${uiLang === 'ja' ? ' lang-ja' : ''}`}>
 
       {/* ── Portrait lock overlay — tablet only (md+ in portrait) ────────── */}
       <div id="portrait-lock-overlay"
