@@ -413,4 +413,34 @@ export default function C5View({
 
       {memorise && <MobileMemoriseInstr tr={tr} />}
 
-      <MobileSvamin
+      <MobileSvaminiButtons
+        section={c5Section}
+        svaminiDeity={c5SvaminiDeity}
+        yoginiDeity={c5YoginiDeity}
+        script={script}
+        tr={tr}
+        svaminiSeq={11}
+        atEnd={!memorise && !!selectedId && selectedId === c5Deities[c5Deities.length - 1]?.id}
+        yoginiSeq={12}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+          tr={tr}
+          uiLang={uiLang}
+        />
+      )}
+
+      <div className="h-0 md:h-8" />
+    </div>
+  )
+}

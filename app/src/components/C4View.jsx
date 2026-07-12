@@ -521,4 +521,28 @@ export default function C4View({
         yoginiDeity={c4YoginiDeity}
         script={script}
         tr={tr}
-        svaminiSeq
+        svaminiSeq={15}
+        atEnd={!memorise && !!selectedId && selectedId === c4Deities[c4Deities.length - 1]?.id}
+        yoginiSeq={16}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+          tr={tr}
+          uiLang={uiLang}
+        />
+      )}
+
+      <div className="h-0 md:h-8" />
+    </div>
+  )
+}

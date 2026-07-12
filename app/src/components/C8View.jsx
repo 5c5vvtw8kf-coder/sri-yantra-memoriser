@@ -375,3 +375,23 @@ export default function C8View({
           </div>
         )}
       </div>
+      {memorise && <MobileMemoriseInstr tr={tr} />}
+
+      <MobileSvaminiButtons
+        section={c8Section}
+        svaminiDeity={c8SvaminiDeity}
+        yoginiDeity={c8YoginiDeity}
+        tr={tr}
+        script={script}
+        svaminiSeq={8}
+        atEnd={!memorise && !!selectedId && selectedId === c8Deities[c8Deities.length - 1]?.id}
+        yoginiSeq={9}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+    </div>
+  )
+}

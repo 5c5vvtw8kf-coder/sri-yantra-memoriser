@@ -298,4 +298,26 @@ export default function C9View({
             </div>
           </div>
         )}
-      </div
+      </div>
+
+      {memorise && <MobileMemoriseInstr tr={tr} />}
+
+      <MobileSvaminiButtons
+        section={c9Section}
+        svaminiDeity={c9SvaminiDeity}
+        yoginiDeity={c9YoginiDeity}
+        tr={tr}
+        script={script}
+        svaminiSeq={2}
+        atEnd={!memorise && selected}
+        yoginiSeq={3}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+    </div>
+  )
+}

@@ -558,4 +558,28 @@ export default function C2View({
         yoginiDeity={c2YoginiDeity}
         script={script}
         tr={tr}
-        svaminiSe
+        svaminiSeq={{17}}
+        atEnd={{!memorise && !!selectedId && selectedId === c2Deities[c2Deities.length - 1]?.id}}
+        yoginiSeq={{18}}
+        memorise={{memorise}}
+        currentSeq={{currentSeq}}
+        results={{results}}
+        onMarkResult={{onMarkResult}}
+        onToggleResult={{onToggleResult}}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+          tr={tr}
+          uiLang={uiLang}
+        />
+      )}
+
+      <div className="h-0 md:h-8" />
+    </div>
+  )
+}

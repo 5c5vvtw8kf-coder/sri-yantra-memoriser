@@ -413,4 +413,34 @@ export default function C7View({
 
       {memorise && <MobileMemoriseInstr tr={tr} />}
 
-      <MobileSvami
+      <MobileSvaminiButtons
+        section={c7Section}
+        svaminiDeity={c7SvaminiDeity}
+        yoginiDeity={c7YoginiDeity}
+        script={script}
+        tr={tr}
+        svaminiSeq={9}
+        atEnd={!memorise && !!selectedId && selectedId === c7Deities[c7Deities.length - 1]?.id}
+        yoginiSeq={10}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+          tr={tr}
+          uiLang={uiLang}
+        />
+      )}
+
+      <div className="h-0 md:h-8" />
+    </div>
+  )
+}

@@ -569,4 +569,30 @@ export default function C3View({
         section={c3Section}
         svaminiDeity={c3SvaminiDeity}
         yoginiDeity={c3YoginiDeity}
-        script={scr
+        script={script}
+        tr={tr}
+        svaminiSeq={9}
+        atEnd={!memorise && !!selectedId && selectedId === c3Deities[c3Deities.length - 1]?.id}
+        yoginiSeq={10}
+        memorise={memorise}
+        currentSeq={currentSeq}
+        results={results}
+        onMarkResult={onMarkResult}
+        onToggleResult={onToggleResult}
+      />
+
+      {/* Completion panel */}
+      {showCompletion && (
+        <CompletionPanel
+          results={results}
+          onRestart={onStartMemorise}
+          onNavigate={onNavigate}
+          tr={tr}
+          uiLang={uiLang}
+        />
+      )}
+
+      <div className="h-0 md:h-8" />
+    </div>
+  )
+}
