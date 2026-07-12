@@ -126,7 +126,7 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
             fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6} />
       {kana && (
         <text
-          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          x={tx.toFixed(1)} y={(ty - h / 2 - 2).toFixed(1)}
           textAnchor="middle" dominantBaseline="middle"
           fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
         >

@@ -590,16 +590,4 @@ export default function NavaChakreshvariView({
             </div>
           </div>
         )}
-      </div>
-
-      {!memorise && exploreStep <= 9 && (
-        <p className="md:hidden text-center text-xs mt-3 text-muted">
-          {tr('nc.proceed')}
-        </p>
-      )}
-      {memorise && <MobileMemoriseInstr tr={tr} />}
-
-      <div className="h-0 md:h-8" />
-    </div>
-  )
-}
+      </d

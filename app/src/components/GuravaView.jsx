@@ -157,7 +157,7 @@ function Tooltip({ x, label, fill, script, kana }) {
       />
       {kana && (
         <text
-          x={tx.toFixed(1)} y={(ty - h / 2 - 9).toFixed(1)}
+          x={tx.toFixed(1)} y={(ty - h / 2 - 2).toFixed(1)}
           textAnchor="middle" dominantBaseline="middle"
           fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
         >
