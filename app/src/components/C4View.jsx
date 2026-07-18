@@ -142,7 +142,7 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
     ? Math.min(Math.max(x, 135 + w / 2), 385 - w / 2)
     : Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
   const yOff = isMobile ? ((seq != null && seq in C4_TOOLTIP_OFFSET) ? C4_TOOLTIP_OFFSET[seq] : 14) : 18
-  const ty   = y > CY ? y - h / 2 - yOff : y + h / 2 + yOff
+  const ty   = y > CY ? y - h / 2 - yOff : y + h / 2 + yOff + (kana ? 18 : 0)
   return (
     <g pointerEvents="none">
       <rect

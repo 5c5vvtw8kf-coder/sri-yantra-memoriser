@@ -168,8 +168,9 @@ function Tooltip({ x, y, label, fill, script, kana }) {
   const w        = Math.max(60, label.length * charW + 18)
 
   const tx = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
-  const ty = y - h / 2 - 14 < 4
-    ? y + h / 2 + 14
+  const isBelow = y - h / 2 - 14 < 4
+  const ty = isBelow
+    ? y + h / 2 + 14 + (kana ? 18 : 0)
     : y - h / 2 - 14
 
   return (
