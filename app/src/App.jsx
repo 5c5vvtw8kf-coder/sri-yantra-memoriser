@@ -716,7 +716,7 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
             {sectionName(section, 'yoginiType', script)}
-            {secrecy && <span className="text-muted ml-1">· {tr(secrecy)}</span>}
+            {secrecy && <span className="text-muted block mt-0.5">{tr(secrecy)}</span>}
           </span>
         </div>
         <div className="flex gap-2">
@@ -753,7 +753,7 @@ function CircuitRows({ circuitNumber, script, uiLang = 'en', onHoverFill = null,
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
           {sectionName(section, 'yoginiType', script)}
-          {secrecy && <span className="text-muted ml-1">· {tr(secrecy)}</span>}
+          {secrecy && <span className="text-muted block mt-0.5">{tr(secrecy)}</span>}
         </span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
