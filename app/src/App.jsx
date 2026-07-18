@@ -253,6 +253,25 @@ const SECTION_SCRIPTS = {
 }
 
 
+// Kana for section-level names — derived from deity JSON data at module load
+const SECTION_KANA = (() => {
+  const cakDeities = deities.filter(d => d.sectionId === 'chakreshvari')
+  const map = {}
+  for (let c = 1; c <= 9; c++) {
+    const sv = deities.find(d => d.sectionId === `circuit-${c}` && d.role === 'chakraSvamini')
+    const yo = deities.find(d => d.sectionId === `circuit-${c}` && d.role === 'yoginiType')
+    const ck = cakDeities.find(d => d.sequenceInSection === c)
+    const svKana = sv?.scripts?.kana ?? null
+    map[c] = {
+      chakraSvamini: svKana,
+      yoginiType:    yo?.scripts?.kana ?? null,
+      chakreshvari:  ck?.scripts?.kana ?? null,
+      avarana:       svKana ? svKana.replace(/・チャクラスヴァーミニー$/, '・チャクラ') : null,
+    }
+  }
+  return map
+})()
+
 const YOGINI_SECRECY = {
   'Prakata Yogini':           'secrecy.prakata',
   'Gupta Yogini':             'secrecy.gupta',
@@ -705,23 +724,38 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
         {sectionName(section, 'avarana', script)}
       </h2>
       {script === 'iast' && (
-        <p className="text-cream text-xs">{section.avarana}</p>
+        <p className="text-cream text-xs">
+          {uiLang === 'ja' ? (SECTION_KANA[section.circuitNumber]?.avarana ?? section.avarana) : section.avarana}
+        </p>
       )}
       <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakra_svamini')}</span>
-          <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
+          <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
+            {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.chakraSvamini && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].chakraSvamini}</span>
+            )}
+            {sectionName(section, 'chakraSvamini', script)}
+          </span>
         </div>
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
+            {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.yoginiType && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].yoginiType}</span>
+            )}
             {sectionName(section, 'yoginiType', script)}
             {secrecy && <span className="text-muted block mt-0.5">{tr(secrecy)}</span>}
           </span>
         </div>
         <div className="flex gap-2">
           <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakreshvari')}</span>
-          <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
+          <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
+            {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.chakreshvari && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].chakreshvari}</span>
+            )}
+            {sectionName(section, 'chakreshvari', script)}
+          </span>
         </div>
       </div>
       {onNavigate && targetTab && (
@@ -747,18 +781,31 @@ function CircuitRows({ circuitNumber, script, uiLang = 'en', onHoverFill = null,
     <div className="border-t border-surface-700 px-4 pb-4 pt-3 space-y-1.5 text-xs">
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakra_svamini')}</span>
-        <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>{sectionName(section, 'chakraSvamini', script)}</span>
+        <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
+          {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.chakraSvamini && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].chakraSvamini}</span>
+          )}
+          {sectionName(section, 'chakraSvamini', script)}
+        </span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
+          {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.yoginiType && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].yoginiType}</span>
+          )}
           {sectionName(section, 'yoginiType', script)}
           {secrecy && <span className="text-muted block mt-0.5">{tr(secrecy)}</span>}
         </span>
       </div>
       <div className="flex gap-2 rounded px-1 -mx-1 hover:bg-surface-700 transition-colors" {...fillProps}>
         <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakreshvari')}</span>
-        <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>{sectionName(section, 'chakreshvari', script)}</span>
+        <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
+          {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.chakreshvari && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].chakreshvari}</span>
+          )}
+          {sectionName(section, 'chakreshvari', script)}
+        </span>
       </div>
     </div>
   )
@@ -869,17 +916,29 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
         {sectionName(section, 'avarana', script)}
       </h2>
       {script === 'iast' && (
-        <p className="text-cream text-xs">{section.avarana}</p>
+        <p className="text-cream text-xs">
+          {uiLang === 'ja' ? (SECTION_KANA[circuitNumber]?.avarana ?? section.avarana) : section.avarana}
+        </p>
       )}
       {showRows && (
         <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
           <div className="flex gap-2">
             <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakra_svamini')}</span>
-            <span className="text-gold-500">{sectionName(section, 'chakraSvamini', script)}</span>
+            <span className="text-gold-500">
+              {uiLang === 'ja' && SECTION_KANA[circuitNumber]?.chakraSvamini && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[circuitNumber].chakraSvamini}</span>
+              )}
+              {sectionName(section, 'chakraSvamini', script)}
+            </span>
           </div>
           <div className="flex gap-2">
             <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.yogini')}</span>
-            <span className="text-gold-500">{sectionName(section, 'yoginiType', script)}</span>
+            <span className="text-gold-500">
+              {uiLang === 'ja' && SECTION_KANA[circuitNumber]?.yoginiType && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[circuitNumber].yoginiType}</span>
+              )}
+              {sectionName(section, 'yoginiType', script)}
+            </span>
           </div>
           {secrecy && (
             <div className="flex gap-2">
@@ -889,7 +948,12 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           )}
           <div className="flex gap-2">
             <span className="text-muted w-24 flex-shrink-0 pt-px">{tr('deity.chakreshvari')}</span>
-            <span className="text-gold-500">{sectionName(section, 'chakreshvari', script)}</span>
+            <span className="text-gold-500">
+              {uiLang === 'ja' && SECTION_KANA[circuitNumber]?.chakreshvari && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[circuitNumber].chakreshvari}</span>
+              )}
+              {sectionName(section, 'chakreshvari', script)}
+            </span>
           </div>
         </div>
       )}
