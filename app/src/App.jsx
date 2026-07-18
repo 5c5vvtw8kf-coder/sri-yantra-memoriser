@@ -4476,6 +4476,7 @@ export default function App() {
                 fillAll={circuitFillAll}
                 done={c8Memorise && c8CurrentSeq > 9}
                 tr={tr}
+                uiLang={uiLang}
               />
             )}
             {activeTab === 'c9' && (
@@ -4494,6 +4495,7 @@ export default function App() {
                 fillAll={circuitFillAll}
                 done={c9Memorise && c9CurrentSeq > 3}
                 tr={tr}
+                uiLang={uiLang}
               />
             )}
             {activeTab === 'chakreshvari' && (
