@@ -274,9 +274,13 @@ function Tooltip({ circuitNum, script, uiLang = 'en' }) {
   const deity = deityByCircuit[circuitNum]
   if (!deity) return null
   const JA_DIGITS = ['〇','一','二','三','四','五','六','七','八','九']
-  const numStr = uiLang === 'ja' ? (JA_DIGITS[circuitNum] ?? circuitNum) : circuitNum
+  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
+  const numStr = isJapanese ? (JA_DIGITS[circuitNum] ?? circuitNum) : circuitNum
   const dot = ['en','fr','es','it','pt','de'].includes(uiLang) ? '. ' : ' '
-  const label = `${numStr}${dot}${displayName(deity, script)}`
+  const kana  = isJapanese ? deity?.scripts?.kana : null
+  const label = isJapanese
+    ? `${numStr}${dot}${displayName(deity, 'iast')}`
+    : `${numStr}${dot}${displayName(deity, script)}`
   if (!label) return null
 
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
@@ -291,13 +295,22 @@ function Tooltip({ circuitNum, script, uiLang = 'en' }) {
   return (
     <g pointerEvents="none">
       <rect
-        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
-        width={w.toFixed(1)} height={h} rx={3}
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2 - (kana ? 18 : 0)).toFixed(1)}
+        width={w.toFixed(1)} height={h + (kana ? 18 : 0)} rx={3}
         fill="rgba(15,8,5,0.93)" stroke={GOLD} strokeWidth={0.6}
       />
+      {kana && (
+        <text
+          x={tx.toFixed(1)} y={(ty - fontSize / 2 - 4).toFixed(1)}
+          textAnchor="middle" dominantBaseline="text-after-edge"
+          fontSize={13} fill="rgba(201,168,76,0.75)" fontFamily="sans-serif"
+        >
+          {kana}
+        </text>
+      )}
       <text
-        x={tx.toFixed(1)} y={ty.toFixed(1)}
-        textAnchor="middle" dominantBaseline="middle"
+        x={tx.toFixed(1)} y={(kana ? ty - fontSize / 2 : ty).toFixed(1)}
+        textAnchor="middle" dominantBaseline={kana ? "hanging" : "middle"}
         fontSize={fontSize} fill={GOLD} fontFamily="'Gentium Plus', Georgia, serif"
       >
         {label}

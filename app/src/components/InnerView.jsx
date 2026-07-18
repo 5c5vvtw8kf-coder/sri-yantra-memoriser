@@ -323,14 +323,14 @@ export default function InnerView({
                   const label = tr('inner.dir_waxing')
                   const parts = label.split(' · ')
                   const x = (ax1 + 16).toFixed(1)
-                  const y0 = (ay1 + 22).toFixed(1)
+                  const y0 = (ay1 + 4).toFixed(1)
                   return (
                     <text x={x} fontSize="20" fill={GOLD} opacity="0.7"
                           fontFamily="'Gentium Plus', Georgia, serif"
                           fontStyle={!isJapanese && (script === 'iast' || script === 'english') ? 'italic' : 'normal'}
                           textAnchor="start">
                       <tspan x={x} y={y0}>{parts[0]}</tspan>
-                      {parts[1] && <tspan x={x} dy="18">{parts[1]}</tspan>}
+                      {parts[1] && <tspan x={x} dy="26" dx={isJapanese ? "22" : "0"}>{parts[1]}</tspan>}
                     </text>
                   )
                 })()}
@@ -359,14 +359,14 @@ export default function InnerView({
                   const label = tr('inner.dir_waning')
                   const parts = label.split(' · ')
                   const x = (ax1 - 16).toFixed(1)
-                  const y0 = (ay1 + 22).toFixed(1)
+                  const y0 = (ay1 + 4).toFixed(1)
                   return (
                     <text x={x} fontSize="20" fill={GOLD} opacity="0.7"
                           fontFamily="'Gentium Plus', Georgia, serif"
                           fontStyle={!isJapanese && (script === 'iast' || script === 'english') ? 'italic' : 'normal'}
                           textAnchor="end">
                       <tspan x={x} y={y0}>{parts[0]}</tspan>
-                      {parts[1] && <tspan x={x} dy="18">{parts[1]}</tspan>}
+                      {parts[1] && <tspan x={x} dy="26">{parts[1]}</tspan>}
                     </text>
                   )
                 })()}

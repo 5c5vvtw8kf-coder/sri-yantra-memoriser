@@ -169,10 +169,10 @@ function Tooltip({ x, y, label, script, kana }) {
   const dx = x - CX
   const dy = y - CY
   let zx, zy
-  if      (dx >= 0 && dy <= 0) { zx = 405; zy = 90  }  // top-right
+  if      (dx >= 0 && dy <= 0) { zx = 405; zy = 90 + (kana ? 18 : 0) }  // top-right
   else if (dx >= 0 && dy >  0) { zx = 405; zy = 450 }  // bottom-right
   else if (dx <  0 && dy >  0) { zx = 115; zy = 450 }  // bottom-left
-  else                          { zx = 115; zy = 90  }  // top-left
+  else                          { zx = 115; zy = 90 + (kana ? 18 : 0) }  // top-left
 
   const tx = Math.min(Math.max(zx, hw + 49), 471 - hw)
   const ty = Math.min(Math.max(zy, hh + 57), 485 - hh - 2)
