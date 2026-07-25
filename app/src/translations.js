@@ -426,6 +426,10 @@ const en = {
   'heading.explore': 'EXPLORE AND MEMORISE',
   'heading.spot': 'SPOT CHECK AND MEMORY MAP',
   'heading.resources': 'RESOURCES',
+  'btn.lang_picker':   'Language',
+  'nav.script_expand': 'Script settings — expand panel',
+  'nav.info_close':    'Close info panel',
+  'nav.info_open':     'Open info panel',
 }
 
 // ── Hindi / Devanagari ────────────────────────────────────────────────────────
@@ -605,6 +609,10 @@ const hi = {
   'heading.explore': 'अन्वेषण और स्मरण',
   'heading.spot': 'स्पॉट चेक और स्मृति मानचित्र',
   'heading.resources': 'संसाधन',
+  'btn.lang_picker':   'भाषा',
+  'nav.script_expand': 'लिपि सेटिंग — पैनल फैलाएं',
+  'nav.info_close':    'जानकारी पैनल बंद करें',
+  'nav.info_open':     'जानकारी पैनल खोलें',
 }
 
 // ── Telugu ────────────────────────────────────────────────────────────────────
@@ -784,6 +792,10 @@ const te = {
   'heading.explore': 'అన్వేషణ మరియు స్మరణ',
   'heading.spot': 'స్పాట్ చెక్ మరియు మెమరీ మ్యాప్',
   'heading.resources': 'వనరులు',
+  'btn.lang_picker':   'భాష',
+  'nav.script_expand': 'లిపి అమరికలు — పేనల్ విస్తరించు',
+  'nav.info_close':    'సమాచార పేనల్ మూసివేయి',
+  'nav.info_open':     'సమాచార పేనల్ తెరువు',
 }
 
 // ── Tamil ─────────────────────────────────────────────────────────────────────
@@ -963,6 +975,10 @@ const ta = {
   'heading.explore': 'ஆராய்வு மற்றும் மனனம்',
   'heading.spot': 'ஸ்பாட் செக் மற்றும் நினைவக வரைபடம்',
   'heading.resources': 'வளங்கள்',
+  'btn.lang_picker':   'மொழி',
+  'nav.script_expand': 'எழுத்துரு அமைப்புகள் — பேனலை விரி',
+  'nav.info_close':    'தகவல் பேனலை மூடு',
+  'nav.info_open':     'தகவல் பேனலைத் திற',
 }
 
 // ── Kannada ───────────────────────────────────────────────────────────────────
@@ -1142,6 +1158,10 @@ const kn = {
   'heading.explore': 'ಅನ್ವೇಷಣೆ ಮತ್ತು ಸ್ಮರಣೆ',
   'heading.spot': 'ಸ್ಪಾಟ್ ಚೆಕ್ ಮತ್ತು ಮೆಮೊರಿ ಮ್ಯಾಪ್',
   'heading.resources': 'ಸಂಪನ್ಮೂಲಗಳು',
+  'btn.lang_picker':   'ಭಾಷೆ',
+  'nav.script_expand': 'ಲಿಪಿ ಸೆಟ್ಟಿಂಗ್ — ಪ್ಯಾನಲ್ ವಿಸ್ತರಿಸು',
+  'nav.info_close':    'ಮಾಹಿತಿ ಪ್ಯಾನಲ್ ಮುಚ್ಚು',
+  'nav.info_open':     'ಮಾಹಿತಿ ಪ್ಯಾನಲ್ ತೆರೆ',
 }
 
 // ── Malayalam ─────────────────────────────────────────────────────────────────
@@ -1321,6 +1341,10 @@ const ml = {
   'heading.explore': 'പര്യവേക്ഷണം & ഓർമ്മ',
   'heading.spot': 'സ്പോട്ട് ചെക്ക് & മെമ്മറി മാപ്പ്',
   'heading.resources': 'വിഭവങ്ങൾ',
+  'btn.lang_picker':   'ഭാഷ',
+  'nav.script_expand': 'ലിപി ക്രമീകരണം — പാനൽ വിപുലീകരിക്കുക',
+  'nav.info_close':    'ഇൻഫോ പാനൽ അടയ്ക്കുക',
+  'nav.info_open':     'ഇൻഫോ പാനൽ തുറക്കുക',
 }
 
 
@@ -1501,6 +1525,10 @@ const mr = {
   'heading.explore': 'अन्वेषण आणि स्मरण',
   'heading.spot': 'स्पॉट चेक आणि स्मृती नकाशा',
   'heading.resources': 'संसाधने',
+  'btn.lang_picker':   'भाषा',
+  'nav.script_expand': 'लिपी सेटिंग — पॅनल विस्तृत करा',
+  'nav.info_close':    'माहिती पॅनल बंद करा',
+  'nav.info_open':     'माहिती पॅनल उघडा',
 }
 
 // ── French ────────────────────────────────────────────────────────────────────
@@ -1680,6 +1708,10 @@ const fr = {
   'heading.explore': 'EXPLORER ET MÉMORISER',
   'heading.spot': 'VÉRIFICATION PONCTUELLE ET CARTE MÉMOIRE',
   'heading.resources': 'RESSOURCES',
+  'btn.lang_picker':   'Langue',
+  'nav.script_expand': "Paramètres de script — déployer le panneau",
+  'nav.info_close':    "Fermer le panneau d'info",
+  'nav.info_open':     "Ouvrir le panneau d'info",
 }
 
 // ── Spanish ───────────────────────────────────────────────────────────────────
@@ -1859,6 +1891,10 @@ const es = {
   'heading.explore': 'EXPLORAR Y MEMORIZAR',
   'heading.spot': 'VERIFICACIÓN PUNTUAL Y MAPA DE MEMORIA',
   'heading.resources': 'RECURSOS',
+  'btn.lang_picker':   'Idioma',
+  'nav.script_expand': 'Configuración de escritura — expandir panel',
+  'nav.info_close':    'Cerrar panel de información',
+  'nav.info_open':     'Abrir panel de información',
 }
 
 // ── Italian ───────────────────────────────────────────────────────────────────
@@ -2038,6 +2074,10 @@ const it = {
   'heading.explore': 'ESPLORA E MEMORIZZA',
   'heading.spot': 'VERIFICA PUNTUALE E MAPPA DELLA MEMORIA',
   'heading.resources': 'RISORSE',
+  'btn.lang_picker':   'Lingua',
+  'nav.script_expand': 'Impostazioni scrittura — espandi pannello',
+  'nav.info_close':    'Chiudi pannello info',
+  'nav.info_open':     'Apri pannello info',
 }
 
 
@@ -2218,6 +2258,10 @@ const pt = {
   'heading.explore': 'EXPLORAR E MEMORIZAR',
   'heading.spot': 'VERIFICAÇÃO PONTUAL E MAPA DE MEMÓRIA',
   'heading.resources': 'RECURSOS',
+  'btn.lang_picker':   'Idioma',
+  'nav.script_expand': 'Configurações de escrita — expandir painel',
+  'nav.info_close':    'Fechar painel de informações',
+  'nav.info_open':     'Abrir painel de informações',
 }
 
 // ── German ────────────────────────────────────────────────────────────────────
@@ -2397,6 +2441,10 @@ const de = {
   'heading.explore': 'ERKUNDEN UND EINPRÄGEN',
   'heading.spot': 'STICHPROBE UND GEDÄCHTNISKARTE',
   'heading.resources': 'RESSOURCEN',
+  'btn.lang_picker':   'Sprache',
+  'nav.script_expand': 'Schrift-Einstellungen — Panel erweitern',
+  'nav.info_close':    'Info-Panel schließen',
+  'nav.info_open':     'Info-Panel öffnen',
 }
 
 // ── String table registry ─────────────────────────────────────────────────────
@@ -2579,6 +2627,10 @@ const ja = {
   'heading.explore': '探索と記憶',
   'heading.spot': 'スポットチェックと記憶マップ',
   'heading.resources': 'リソース',
+  'btn.lang_picker':   '言語',
+  'nav.script_expand': 'スクリプト設定 — パネルを展開',
+  'nav.info_close':    '情報パネルを閉じる',
+  'nav.info_open':     '情報パネルを開く',
 }
 // ── Russian ───────────────────────────────────────────────────────────────────
 // AI-generated — needs native speaker review.
@@ -2757,6 +2809,10 @@ const ru = {
   'heading.explore': 'ИССЛЕДОВАНИЕ И ЗАПОМИНАНИЕ',
   'heading.spot': 'ПРОВЕРКА И КАРТА ПАМЯТИ',
   'heading.resources': 'РЕСУРСЫ',
+  'btn.lang_picker':   'Язык',
+  'nav.script_expand': 'Настройки шрифта — развернуть панель',
+  'nav.info_close':    'Закрыть информационную панель',
+  'nav.info_open':     'Открыть информационную панель',
 }
 
 // ── Nepali ────────────────────────────────────────────────────────────────────
@@ -2936,6 +2992,10 @@ const ne = {
   'heading.explore': 'अन्वेषण र स्मरण',
   'heading.spot': 'स्पट चेक र स्मृति नक्सा',
   'heading.resources': 'स्रोतहरू',
+  'btn.lang_picker':   'भाषा',
+  'nav.script_expand': 'लिपि सेटिङ — प्यानल विस्तार',
+  'nav.info_close':    'जानकारी प्यानल बन्द गर्नुहोस्',
+  'nav.info_open':     'जानकारी प्यानल खोल्नुहोस्',
 }
 
 // ── Bengali ───────────────────────────────────────────────────────────────────
@@ -3115,6 +3175,10 @@ const bn = {
   'heading.explore': 'অন্বেষণ ও স্মরণ',
   'heading.spot': 'স্পট চেক ও স্মৃতি মানচিত্র',
   'heading.resources': 'সম্পদসমূহ',
+  'btn.lang_picker':   'ভাষা',
+  'nav.script_expand': 'লিপি সেটিংস — প্যানেল প্রসারিত করুন',
+  'nav.info_close':    'তথ্য প্যানেল বন্ধ করুন',
+  'nav.info_open':     'তথ্য প্যানেল খুলুন',
 }
 
 const UI_STRINGS = { en, hi, te, ta, kn, ml, mr, fr, es, it, pt, de, ja, ru, ne, bn }

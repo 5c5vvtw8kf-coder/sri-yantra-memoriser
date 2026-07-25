@@ -4253,7 +4253,7 @@ export default function App() {
           <div className="relative">
             <button
               onClick={() => { setShowLangMenu(m => !m); setShowMobileScriptMenu(false) }}
-              title="UI Language"
+              title={tr('btn.lang_picker')}
               className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
             >
               <Globe size={13} />
@@ -4281,7 +4281,7 @@ export default function App() {
           <div className="relative">
             <button
               onClick={() => { setShowMobileScriptMenu(m => !m); setShowLangMenu(false) }}
-              title="Script"
+              title={tr('ui.script')}
               className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
             >
               <PenLine size={13} />
@@ -4466,7 +4466,7 @@ export default function App() {
             <button
               onClick={() => setNavCollapsed(false)}
               className="w-full flex items-center justify-center py-1.5 text-muted hover:text-gold-400 transition-colors rounded text-xs font-mono"
-              title="Script settings — expand panel"
+              title={tr('nav.script_expand')}
             >Aa</button>
           ) : (
           <>
@@ -5088,7 +5088,7 @@ export default function App() {
         <button
           className="hidden md:flex items-center justify-center w-5 flex-shrink-0 bg-surface-900 border-l border-surface-800 text-muted hover:text-cream hover:bg-surface-800 transition-colors"
           onClick={() => setRightPanelOpen(o => !o)}
-          title={rightPanelOpen ? 'Close info panel' : 'Open info panel'}
+          title={rightPanelOpen ? tr('nav.info_close') : tr('nav.info_open')}
           style={{ fontSize: 10 }}
         >{rightPanelOpen ? '›' : '‹'}</button>
       )}
