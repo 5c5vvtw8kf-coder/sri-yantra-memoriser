@@ -20,7 +20,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import triangleData from '../data/triangle-regions.json'
 import SriYantraSVG from './SriYantraSVG'
@@ -110,11 +110,11 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
   const h = isMobile
     ? ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 18 : script === 'english' ? 18 : 17)
     : ((script === 'devanagari' || script === 'bengali' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
-  const charW = isMobile
     ? (script === 'devanagari' ? 7.5 : script === 'telugu' ? 8.5 : script === 'tamil' ? 9 : script === 'kannada' ? 8 : script === 'malayalam' ? 9 : script === 'english' ? 5.8 : 5.5)
     : (script === 'devanagari' ? 18 : script === 'bengali' ? 14 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5)
-  const vLen = script === 'bengali' ? label.replace(/\u09CD/g, '').length : label.length
-  const w  = isMobile ? Math.max(32, vLen * charW + 8) : Math.max(60, vLen * charW + 18)
+  const w = isMobile
+    ? measureTooltipWidth(label, fontSize, 8, 32)
+    : measureTooltipWidth(label, fontSize, 18, 60)
   const tx = isMobile
     ? Math.min(Math.max(x, 198 + w / 2), 322 - w / 2)
     : Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)

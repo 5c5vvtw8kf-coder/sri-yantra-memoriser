@@ -21,7 +21,7 @@ import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG, { C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_PTS, BHUPURA_INNER_PTS } from './SriYantraSVG'
 import triangleData from '../data/triangle-regions.json'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Stroke-cover overlay data ─────────────────────────────────────────────────
@@ -285,9 +285,7 @@ function Tooltip({ circuitNum, script, uiLang = 'en' }) {
 
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 14 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const vLen = script === 'bengali' ? label.replace(/\u09CD/g, '').length : label.length
-  const w        = Math.max(60, vLen * charW + 18)
+  const w = measureTooltipWidth(label, fontSize, 18, 60)
 
   // Centred horizontally on the bindu (SVG_CX = 260); y fixed at top-left area
   const tx = SVG_CX

@@ -23,7 +23,7 @@
 import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 import { useDoneDelay } from '../hooks/useDoneDelay'
@@ -164,9 +164,7 @@ function Tooltip({ x, y, label, fill, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 14 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const vLen = script === 'bengali' ? label.replace(/\u09CD/g, '').length : label.length
-  const w        = Math.max(60, vLen * charW + 18)
+  const w = measureTooltipWidth(label, fontSize, 18, 60)
 
   const tx = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
   const isBelow = y - h / 2 - 14 < 4
