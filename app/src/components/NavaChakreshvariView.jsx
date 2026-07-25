@@ -273,9 +273,14 @@ function Tooltip({ circuitNum, script, uiLang = 'en' }) {
   if (!circuitNum) return null
   const deity = deityByCircuit[circuitNum]
   if (!deity) return null
-  const JA_DIGITS = ['〇','一','二','三','四','五','六','七','八','九']
-  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
-  const numStr = isJapanese ? (JA_DIGITS[circuitNum] ?? circuitNum) : circuitNum
+  const JA_DIGITS  = ['〇','一','二','三','四','五','六','七','八','九']
+  const BN_DIGITS  = ['০','১','২','৩','৪','৫','৬','৭','৮','৯']
+  const DEV_DIGITS = ['०','१','२','३','४','५','६','७','८','९']
+  const isJapanese = uiLang === 'ja' || script === 'kana'
+  const numStr = isJapanese           ? (JA_DIGITS[circuitNum]  ?? circuitNum)
+    : script === 'bengali'            ? (BN_DIGITS[circuitNum]  ?? circuitNum)
+    : script === 'devanagari'         ? (DEV_DIGITS[circuitNum] ?? circuitNum)
+    : circuitNum
   const dot = ['en','fr','es','it','pt','de'].includes(uiLang) ? '. ' : ' '
   const kana  = isJapanese ? deity?.scripts?.kana : null
   const label = isJapanese
