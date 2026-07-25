@@ -40,6 +40,9 @@ const LANG_OPTIONS = [
   { code: 'ta', label: 'தமிழ்',       englishName: 'Tamil',      beta: true,  defaultScript: 'tamil'      },
   { code: 'te', label: 'తెలుగు',      englishName: 'Telugu',     beta: true,  defaultScript: 'telugu'     },
   { code: 'ja', label: '日本語',      englishName: 'Japanese',   beta: true,  defaultScript: 'iast'       },
+  { code: 'ru', label: 'Русский',    englishName: 'Russian',    beta: true,  defaultScript: 'iast'       },
+  { code: 'ne', label: 'नेपाली',    englishName: 'Nepali',     beta: true,  defaultScript: 'devanagari' },
+  { code: 'bn', label: 'বাংলা',     englishName: 'Bengali',    beta: true,  defaultScript: 'iast'       },
 ]
 import { Globe, Plane, PenLine } from 'lucide-react'
 
@@ -55,6 +58,8 @@ const NUMERAL_DIGITS = {
   te: ['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'],
   ml: ['൦','൧','൨','൩','൪','൫','൬','൭','൮','൯'],
   ja: ['〇','一','二','三','四','五','六','七','八','九'],
+  ne: ['०','१','२','३','४','५','६','७','८','९'],
+  bn: ['০','১','২','৩','৪','৫','৬','৭','৮','৯'],
 }
 function localNum(n, uiLang) {
   const digits = NUMERAL_DIGITS[uiLang]
@@ -63,7 +68,7 @@ function localNum(n, uiLang) {
 }
 // Returns '.' for Western scripts, '' for Indic/Japanese where a trailing dot looks wrong
 function numDot(uiLang) {
-  return ['en','fr','es','it','pt','de'].includes(uiLang) ? '.' : ''
+  return ['en','fr','es','it','pt','de','ru'].includes(uiLang) ? '.' : ''
 }
 
 
@@ -2320,53 +2325,53 @@ const SECTION_IAST_LABELS = {
 // desc[lang]  = local-language description; falls back to desc.en
 const AVARANA_GEOM = {
   bhupura: {
-    name: { iast: 'bhūpura',            hi: 'भूपुर',         mr: 'भूपुर',         kn: 'ಭೂಪುರ',       ml: 'ഭൂപുര',        ta: 'பூபுர',         te: 'భూపుర'        },
-    desc: { en: 'outer square',         de: 'äußeres Quadrat',        es: 'cuadrado exterior',     fr: 'carré extérieur',       it: 'quadrato esterno',   pt: 'quadrado externo',
-            hi: 'बाह्य वर्ग',            mr: 'बाह्य वर्ग',      kn: 'ಹೊರ ಚೌಕ',     ml: 'പുറം ചതുരം',   ta: 'வெளி சதுரம்',  te: 'బాహ్య చతురస్రం', ja: '外側の四角'       },
+    name: { iast: 'bhūpura',            hi: 'भूपुर',         mr: 'भूपुर',         ne: 'भूपुर',         bn: 'ভূপুর',         kn: 'ಭೂಪುರ',       ml: 'ഭൂപുര',        ta: 'பூபுர',         te: 'భూపుర'        },
+    desc: { en: 'outer square',         de: 'äußeres Quadrat',        es: 'cuadrado exterior',     fr: 'carré extérieur',       it: 'quadrato esterno',   pt: 'quadrado externo',   ru: 'внешний квадрат',
+            bn: 'বাইরের চতুর্ভুজ',      hi: 'बाह्य वर्ग',      mr: 'बाह्य वर्ग',    kn: 'ಹೊರ ಚೌಕ',     ml: 'പുറം ചതുരം',   ta: 'வெளி சதுரம்',  te: 'బాహ్య చతురస్రం', ja: '外側の四角'       },
   },
   c2: {
-    name: { iast: 'ṣoḍaśadalapadma', hi: 'षोडश दल पद्म',  mr: 'षोडश दल पद्म',  kn: 'ಷೋಡಶ ದಳ ಪದ್ಮ', ml: 'ഷോഡശ ദള പദ്മ', ta: 'ஷோடச தள பத்ம',  te: 'షోడశ దళ పద్మ' },
-    desc: { en: '16 petalled lotus',    de: '16-blättriger Lotus',    es: 'loto de 16 pétalos',    fr: 'lotus à 16 pétales',    it: 'loto a 16 petali',   pt: 'lótus de 16 pétalas',
-            hi: '१६ दल कमल',            mr: '१६ दल कमल',       kn: '೧೬ ದಳದ ತಾವರೆ', ml: '൧൬ ഇതൾ താമര',  ta: '௧௬ இதழ் தாமரை', te: '౧౬ రేకుల కమలం',  ja: '十六弁の蓮'       },
+    name: { iast: 'ṣoḍaśadalapadma', hi: 'षोडश दल पद्म',  mr: 'षोडश दल पद्म',  ne: 'षोडश दल पद्म',  bn: 'ষোডশদলপদ্ম',   kn: 'ಷೋಡಶ ದಳ ಪದ್ಮ', ml: 'ഷോഡശ ദള പദ്മ', ta: 'ஷோடச தள பத்ம',  te: 'షోడశ దళ పద్మ' },
+    desc: { en: '16 petalled lotus',    de: '16-blättriger Lotus',    es: 'loto de 16 pétalos',    fr: 'lotus à 16 pétales',    it: 'loto a 16 petali',   pt: 'lótus de 16 pétalas',   ru: '16-лепестковый лотос',
+            bn: '১৬ পাপড়ির পদ্ম',      hi: '१६ दल कमल',       mr: '१६ दल कमल',     kn: '೧೬ ದಳದ ತಾವರೆ', ml: '൧൬ ഇതൾ താമര',  ta: '௧௬ இதழ் தாமரை', te: '౧౬ రేకుల కమలం',  ja: '十六弁の蓮'       },
   },
   c3: {
-    name: { iast: 'aṣṭadalapadma',   hi: 'अष्ट दल पद्म',  mr: 'अष्ट दल पद्म',  kn: 'ಅಷ್ಟ ದಳ ಪದ್ಮ', ml: 'അഷ്ട ദള പദ്മ', ta: 'அஷ்ட தள பத்ம',  te: 'అష్ట దళ పద్మ'  },
-    desc: { en: '8 petalled lotus',     de: '8-blättriger Lotus',     es: 'loto de 8 pétalos',     fr: 'lotus à 8 pétales',     it: 'loto a 8 petali',    pt: 'lótus de 8 pétalas',
-            hi: '८ दल कमल',             mr: '८ दल कमल',        kn: '೮ ದಳದ ತಾವರೆ',  ml: '൮ ഇതൾ താമര',   ta: '௮ இதழ் தாமரை',   te: '౮ రేకుల కమలం',   ja: '八弁の蓮'         },
+    name: { iast: 'aṣṭadalapadma',   hi: 'अष्ट दल पद्म',  mr: 'अष्ट दल पद्म',  ne: 'अष्ट दल पद्म',  bn: 'অষ্টদলপদ্ম',    kn: 'ಅಷ್ಟ ದಳ ಪದ್ಮ', ml: 'അഷ്ട ദള പദ്മ', ta: 'அஷ்ட தள பத்ம',  te: 'అష్ట దళ పద్మ'  },
+    desc: { en: '8 petalled lotus',     de: '8-blättriger Lotus',     es: 'loto de 8 pétalos',     fr: 'lotus à 8 pétales',     it: 'loto a 8 petali',    pt: 'lótus de 8 pétalas',    ru: '8-лепестковый лотос',
+            bn: '৮ পাপড়ির পদ্ম',       hi: '८ दल कमल',        mr: '८ दल कमल',      kn: '೮ ದಳದ ತಾವರೆ',  ml: '൮ ഇതൾ താമര',   ta: '௮ இதழ் தாமரை',   te: '౮ రేకుల కమలం',   ja: '八弁の蓮'         },
   },
   c4: {
-    name: { iast: 'caturdaśa',          hi: 'चतुर्दश',        mr: 'चतुर्दश',        kn: 'ಚತುರ್ದಶ',     ml: 'ചതുർദശ',       ta: 'சதுர்தச',        te: 'చతుర్దశ'       },
-    desc: { en: '14 triangles',         de: '14 Dreiecke',            es: '14 triángulos',         fr: '14 triangles',          it: '14 triangoli',       pt: '14 triângulos',
-            hi: '१४ त्रिकोण',           mr: '१४ त्रिकोण',      kn: '೧೪ ತ್ರಿಕೋಣಗಳು', ml: '൧൪ ത്രികോണങ്ങൾ', ta: '௧௪ முக்கோணங்கள்', te: '౧౪ త్రికోణాలు',  ja: '十四の三角形'     },
+    name: { iast: 'caturdaśa',          hi: 'चतुर्दश',        mr: 'चतुर्दश',        ne: 'चतुर्दश',        bn: 'চতুর্দশ',        kn: 'ಚತುರ್ದಶ',     ml: 'ചതുർദശ',       ta: 'சதுர்தச',        te: 'చతుర్దశ'       },
+    desc: { en: '14 triangles',         de: '14 Dreiecke',            es: '14 triángulos',         fr: '14 triangles',          it: '14 triangoli',       pt: '14 triângulos',      ru: '14 треугольников',
+            bn: '১৪টি ত্রিভুজ',         hi: '१४ त्रिकोण',      mr: '१४ त्रिकोण',    kn: '೧೪ ತ್ರಿಕೋಣಗಳು', ml: '൧൪ ത്രികോണങ്ങൾ', ta: '௧௪ முக்கோணங்கள்', te: '౧౪ త్రికోణాలు',  ja: '十四の三角形'     },
   },
   c5: {
-    name: { iast: 'bahirdaśa',          hi: 'बहिर्दश',        mr: 'बहिर्दश',        kn: 'ಬಹಿರ್ದಶ',     ml: 'ബഹിർദശ',       ta: 'பஹிர்தச',        te: 'బహిర్దశ'       },
-    desc: { en: 'outer 10 triangles',   de: '10 äußere Dreiecke',     es: '10 triángulos exteriores', fr: '10 triangles extérieurs', it: '10 triangoli esterni', pt: '10 triângulos externos',
-            hi: 'बाह्य १० त्रिकोण',     mr: 'बाह्य १० त्रिकोण', kn: 'ಹೊರ ೧೦ ತ್ರಿಕೋಣಗಳು', ml: 'പുറം ൧൦ ത്രികോണങ്ങൾ', ta: 'வெளி ௧௦ முக்கோணங்கள்', te: 'బాహ్య ౧౦ త్రికోణాలు', ja: '外側の十の三角形'  },
+    name: { iast: 'bahirdaśa',          hi: 'बहिर्दश',        mr: 'बहिर्दश',        ne: 'बहिर्दश',        bn: 'বহির্দশ',        kn: 'ಬಹಿರ್ದಶ',     ml: 'ബഹിർദശ',       ta: 'பஹிர்தச',        te: 'బహిర్దశ'       },
+    desc: { en: 'outer 10 triangles',   de: '10 äußere Dreiecke',     es: '10 triángulos exteriores', fr: '10 triangles extérieurs', it: '10 triangoli esterni', pt: '10 triângulos externos', ru: '10 внешних треугольников',
+            bn: 'বাইরের ১০টি ত্রিভুজ',  hi: 'बाह्य १० त्रिकोण', mr: 'बाह्य १० त्रिकोण', kn: 'ಹೊರ ೧೦ ತ್ರಿಕೋಣಗಳು', ml: 'പുറം ൧൦ ത്രികോണങ്ങൾ', ta: 'வெளி ௧௦ முக்கோணங்கள்', te: 'బాహ్య ౧౦ త్రికోణాలు', ja: '外側の十の三角形'  },
   },
   c6: {
-    name: { iast: 'antardaśa',          hi: 'अन्तर्दश',       mr: 'अन्तर्दश',       kn: 'ಅಂತರ್ದಶ',     ml: 'അന്തർദശ',       ta: 'அந்தர்தச',       te: 'అంతర్దశ'       },
-    desc: { en: 'inner 10 triangles',   de: '10 innere Dreiecke',     es: '10 triángulos interiores', fr: '10 triangles intérieurs', it: '10 triangoli interni', pt: '10 triângulos internos',
-            hi: 'आंतरिक १० त्रिकोण',   mr: 'आंतरिक १० त्रिकोण', kn: 'ಒಳ ೧೦ ತ್ರಿಕೋಣಗಳು', ml: 'അകം ൧൦ ത്രികോണങ്ങൾ', ta: 'உள் ௧௦ முக்கோணங்கள்', te: 'అంతర ౧౦ త్రికోణాలు', ja: '内側の十の三角形'  },
+    name: { iast: 'antardaśa',          hi: 'अन्तर्दश',       mr: 'अन्तर्दश',       ne: 'अन्तर्दश',       bn: 'অন্তর্দশ',       kn: 'ಅಂತರ್ದಶ',     ml: 'അന്തർദശ',       ta: 'அந்தர்தச',       te: 'అంతర్దశ'       },
+    desc: { en: 'inner 10 triangles',   de: '10 innere Dreiecke',     es: '10 triángulos interiores', fr: '10 triangles intérieurs', it: '10 triangoli interni', pt: '10 triângulos internos', ru: '10 внутренних треугольников',
+            bn: 'ভেতরের ১০টি ত্রিভুজ', hi: 'आंतरिक १० त्रिकोण', mr: 'आंतरिक १० त्रिकोण', kn: 'ಒಳ ೧೦ ತ್ರಿಕೋಣಗಳು', ml: 'അകം ൧൦ ത്രികോണങ്ങൾ', ta: 'உள் ௧௦ முக்கோணங்கள்', te: 'అంతర ౧౦ త్రికోణాలు', ja: '内側の十の三角形'  },
   },
   c7: {
-    name: { iast: 'aṣṭakoṇa',          hi: 'अष्टकोण',        mr: 'अष्टकोण',        kn: 'ಅಷ್ಟಕೋಣ',     ml: 'അഷ്ടകോണ',      ta: 'அஷ்டகோண',       te: 'అష్టకోణ'       },
-    desc: { en: '8 triangles',          de: '8 Dreiecke',             es: '8 triángulos',          fr: '8 triangles',           it: '8 triangoli',        pt: '8 triângulos',
-            hi: '८ त्रिकोण',            mr: '८ त्रिकोण',       kn: '೮ ತ್ರಿಕೋಣಗಳು',  ml: '൮ ത്രികോണങ്ങൾ',  ta: '௮ முக்கோணங்கள்',  te: '౮ త్రికోణాలు',   ja: '八の三角形'       },
+    name: { iast: 'aṣṭakoṇa',          hi: 'अष्टकोण',        mr: 'अष्टकोण',        ne: 'अष्टकोण',        bn: 'অষ্টকোণ',        kn: 'ಅಷ್ಟಕೋಣ',     ml: 'അഷ്ടകോണ',      ta: 'அஷ்டகோண',       te: 'అష్టకోణ'       },
+    desc: { en: '8 triangles',          de: '8 Dreiecke',             es: '8 triángulos',          fr: '8 triangles',           it: '8 triangoli',        pt: '8 triângulos',       ru: '8 треугольников',
+            bn: '৮টি ত্রিভুজ',          hi: '८ त्रिकोण',       mr: '८ त्रिकोण',      kn: '೮ ತ್ರಿಕೋಣಗಳು',  ml: '൮ ത്രികോണങ്ങൾ',  ta: '௮ முக்கோணங்கள்',  te: '౮ త్రికోణాలు',   ja: '八の三角形'       },
   },
   c8: {
-    name: { iast: 'trikoṇa',           hi: 'त्रिकोण',         mr: 'त्रिकोण',         kn: 'ತ್ರಿಕೋಣ',      ml: 'ത്രികോണ',      ta: 'த்ரிகோண',        te: 'త్రికోణ'        },
-    desc: { en: 'triangle',             de: 'Dreieck',                es: 'triángulo',             fr: 'triangle',              it: 'triangolo',          pt: 'triângulo',
-            hi: 'त्रिभुज',              mr: 'त्रिभुज',          kn: 'ತ್ರಿಭುಜ',         ml: 'ത്രിഭുജം',       ta: 'முக்கோணம்',      te: 'త్రిభుజం',       ja: '三角形'           },
+    name: { iast: 'trikoṇa',           hi: 'त्रिकोण',         mr: 'त्रिकोण',         ne: 'त्रिकोण',         bn: 'ত্রিকোণ',         kn: 'ತ್ರಿಕೋಣ',      ml: 'ത്രികോണ',      ta: 'த்ரிகோண',        te: 'త్రికోణ'        },
+    desc: { en: 'triangle',             de: 'Dreieck',                es: 'triángulo',             fr: 'triangle',              it: 'triangolo',          pt: 'triângulo',          ru: 'треугольник',
+            bn: 'ত্রিভুজ',              hi: 'त्रिभुज',          mr: 'त्रिभुज',          kn: 'ತ್ರಿಭುಜ',         ml: 'ത്രിഭുജം',       ta: 'முக்கோணம்',      te: 'త్రిభుజం',       ja: '三角形'           },
   },
   c9: {
-    name: { iast: 'bindu',             hi: 'बिंदु',           mr: 'बिंदु',           kn: 'ಬಿಂದು',         ml: 'ബിന്ദു',        ta: 'பிந்து',          te: 'బిందువు'       },
-    desc: { en: 'dot',                  de: 'Punkt',                  es: 'punto',                 fr: 'point',                 it: 'punto',              pt: 'ponto',
-            hi: 'केन्द्र बिंदु',        mr: 'केंद्र बिंदु',     kn: 'ಕೇಂದ್ರ ಬಿಂದು',  ml: 'കേന്ദ്ര ബിന്ദു',  ta: 'மையப் புள்ளி',  te: 'కేంద్ర బిందువు',  ja: '点'              },
+    name: { iast: 'bindu',             hi: 'बिंदु',           mr: 'बिंदु',           ne: 'बिन्दु',          bn: 'বিন্দু',          kn: 'ಬಿಂದು',         ml: 'ബിന്ദു',        ta: 'பிந்து',          te: 'బిందువు'       },
+    desc: { en: 'dot',                  de: 'Punkt',                  es: 'punto',                 fr: 'point',                 it: 'punto',              pt: 'ponto',              ru: 'точка',
+            bn: 'বিন্দু',               hi: 'केन्द्र बिंदु',   mr: 'केंद्र बिंदु',   kn: 'ಕೇಂದ್ರ ಬಿಂದು',  ml: 'കേന്ദ്ര ബിന്ദു',  ta: 'மையப் புள்ளி',  te: 'కేంద్ర బిందువు',  ja: '点'              },
   },
 }
-const INDIC_LANGS    = new Set(['hi','mr','kn','ml','ta','te'])
-const DEVANAGARI_LANGS = new Set(['hi','mr'])
+const INDIC_LANGS    = new Set(['hi','mr','ne','bn','kn','ml','ta','te'])
+const DEVANAGARI_LANGS = new Set(['hi','mr','ne'])
 // Returns {name, desc} for the given tab and UI language
 // Devanagari languages get the script name only (desc = null — no parenthetical)
 function geomParts(tab, lang) {
@@ -4131,12 +4136,12 @@ export default function App() {
               const tab = TABS.find(t => t.id === activeTab)
               if (!tab) return ''
               if (tab.trKey) return tr(tab.trKey)
-              if (uiLang === 'hi' || uiLang === 'mr') return tab.navLabelDev || tab.navLabel
+              if (uiLang === 'hi' || uiLang === 'mr' || uiLang === 'ne') return tab.navLabelDev || tab.navLabel
               if (uiLang === 'te') return tab.navLabelTe  || tab.navLabel
               if (uiLang === 'ta') return tab.navLabelTa  || tab.navLabel
               if (uiLang === 'kn') return tab.navLabelKn  || tab.navLabel
               if (uiLang === 'ml') return tab.navLabelMl  || tab.navLabel
-              if (uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de') return tab.navLabelEn  || tab.navLabel
+              if (uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' || uiLang === 'ru') return tab.navLabelEn  || tab.navLabel
               return tab.navLabel
             })()}
           </span>
