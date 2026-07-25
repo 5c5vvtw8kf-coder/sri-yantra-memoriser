@@ -164,8 +164,9 @@ function Tooltip({ x, y, label, fill, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 11 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const w        = Math.max(60, label.length * charW + 18)
+  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 13 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
+  const vLen = script === 'bengali' ? label.replace(/[\u09CD\u09BC]/g, '').length : label.length
+  const w        = Math.max(60, vLen * charW + 18)
 
   const tx = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
   const isBelow = y - h / 2 - 14 < 4

@@ -138,7 +138,8 @@ function AnswerSVGLabel({ label, script }) {
   const fontSize = script === 'devanagari' ? 16 : script === 'english' ? 15 : 14
   const h        = script === 'devanagari' ? 30 : 28
   const charW    = script === 'devanagari' ? 12 : script === 'bengali' ? 9 : script === 'telugu' ? 14 : script === 'tamil' ? 15 : script === 'english' ? 10 : 9
-  const w        = Math.max(80, label.length * charW + 24)
+  const vLen = script === 'bengali' ? label.replace(/[\u09CD\u09BC]/g, '').length : label.length
+  const w        = Math.max(80, vLen * charW + 24)
   const tx = 260   // centred on yantra horizontal axis
   const ty = 90    // inside the top bhupura band
   return (

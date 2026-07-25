@@ -120,7 +120,8 @@ function Tooltip({ x, y, label, script }) {
   const h        = (script === 'devanagari' || script === 'bengali') ? 52 : script === 'english' ? 50 : 48
   const charW    = script === 'devanagari' ? 14 : script === 'bengali' ? 8 : script === 'telugu' ? 16
                  : script === 'tamil' ? 17 : script === 'english' ? 11.5 : 10.5
-  const w  = Math.max(60, label.length * charW + 18)
+  const vLen = script === 'bengali' ? label.replace(/[\u09CD\u09BC]/g, '').length : label.length
+  const w  = Math.max(60, vLen * charW + 18)
   const tx = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
   const ty = y - h / 2 - 14
   return (
