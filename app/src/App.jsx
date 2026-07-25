@@ -4265,32 +4265,41 @@ export default function App() {
               <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
                 <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">Language</p>
                 {LANG_OPTIONS.map(opt => (
-                  <button key={opt.code} onClick={() => {
-                    if (opt.code === 'en' && uiLang === 'en' && usEnglish) setUsEnglish(false)
-                    handleLangChange(opt.code)
-                  }}
-                    className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
-                      ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
-                  >
-                    <span className="flex items-center gap-1.5">
-                      {opt.code === 'en' && uiLang === 'en' && usEnglish ? 'American English' : opt.label}
-                      {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
-                      {opt.beta && <span className="text-[9px] text-amber-500 font-mono">β</span>}
-                      {opt.code === 'en' && uiLang === 'en' && (
-                        <span
-                          onClick={e => { e.stopPropagation(); setUsEnglish(u => !u) }}
-                          className={`ml-1 flex items-center gap-0.5 text-[9px] font-mono px-1 py-0.5 rounded border cursor-pointer transition-colors
-                            ${usEnglish ? 'border-gold-500 text-gold-300 bg-gold-900/30' : 'border-surface-600 text-muted hover:border-surface-500'}`}
-                        >
-                          <span className={`w-2 h-2 border rounded-sm flex items-center justify-center ${usEnglish ? 'border-gold-400 bg-gold-500' : 'border-surface-500'}`}>
-                            {usEnglish && <span className="text-surface-900 text-[7px] leading-none">✓</span>}
-                          </span>
-                          US
+                  opt.code === 'en' ? (
+                    <div key="en" className="flex items-center">
+                      <button
+                        onClick={() => { if (uiLang === 'en' && usEnglish) setUsEnglish(false); handleLangChange('en') }}
+                        className={`flex-1 text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between ${uiLang === 'en' ? 'text-cream' : 'text-muted'}`}
+                      >
+                        <span className="flex items-center gap-1.5">
+                          {uiLang === 'en' && usEnglish ? 'American English' : opt.label}
+                          {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
                         </span>
-                      )}
-                    </span>
-                    {uiLang === opt.code && <span className="text-gold-400">✓</span>}
-                  </button>
+                        {uiLang === 'en' && <span className="text-gold-400">✓</span>}
+                      </button>
+                      <button type="button" onClick={() => setUsEnglish(u => !u)}
+                        className={`mr-2 flex items-center gap-0.5 text-[9px] font-mono px-1 py-0.5 rounded border cursor-pointer transition-colors
+                          ${usEnglish ? 'border-gold-500 text-gold-300 bg-gold-900/30' : 'border-surface-600 text-muted hover:border-surface-500'}`}
+                      >
+                        <span className={`w-2 h-2 border rounded-sm flex items-center justify-center ${usEnglish ? 'border-gold-400 bg-gold-500' : 'border-surface-500'}`}>
+                          {usEnglish && <span className="text-surface-900 text-[7px] leading-none">✓</span>}
+                        </span>
+                        US
+                      </button>
+                    </div>
+                  ) : (
+                    <button key={opt.code} onClick={() => handleLangChange(opt.code)}
+                      className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
+                        ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
+                    >
+                      <span className="flex items-center gap-1.5">
+                        {opt.label}
+                        {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
+                        {opt.beta && <span className="text-[9px] text-amber-500 font-mono">β</span>}
+                      </span>
+                      {uiLang === opt.code && <span className="text-gold-400">✓</span>}
+                    </button>
+                  )
                 ))}
                 <p className="px-3 pt-1 pb-0.5 text-[9px] text-muted border-t border-surface-700 mt-1">β = AI translation, needs review</p>
               </div>
@@ -4361,32 +4370,41 @@ export default function App() {
                   {showSidebarLangMenu && (
                     <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
                       {LANG_OPTIONS.map(opt => (
-                        <button key={opt.code} onClick={() => {
-                          if (opt.code === 'en' && uiLang === 'en' && usEnglish) setUsEnglish(false)
-                          handleLangChange(opt.code)
-                        }}
-                          className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
-                            ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
-                        >
-                          <span className="flex items-center gap-1.5">
-                            {opt.code === 'en' && uiLang === 'en' && usEnglish ? 'American English' : opt.label}
-                            {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
-                            {opt.beta && <span className="text-[9px] text-amber-500 font-mono">β</span>}
-                            {opt.code === 'en' && uiLang === 'en' && (
-                              <span
-                                onClick={e => { e.stopPropagation(); setUsEnglish(u => !u) }}
-                                className={`ml-1 flex items-center gap-0.5 text-[9px] font-mono px-1 py-0.5 rounded border cursor-pointer transition-colors
-                                  ${usEnglish ? 'border-gold-500 text-gold-300 bg-gold-900/30' : 'border-surface-600 text-muted hover:border-surface-500'}`}
-                              >
-                                <span className={`w-2 h-2 border rounded-sm flex items-center justify-center ${usEnglish ? 'border-gold-400 bg-gold-500' : 'border-surface-500'}`}>
-                                  {usEnglish && <span className="text-surface-900 text-[7px] leading-none">✓</span>}
-                                </span>
-                                US
+                        opt.code === 'en' ? (
+                          <div key="en" className="flex items-center">
+                            <button
+                              onClick={() => { if (uiLang === 'en' && usEnglish) setUsEnglish(false); handleLangChange('en') }}
+                              className={`flex-1 text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between ${uiLang === 'en' ? 'text-cream' : 'text-muted'}`}
+                            >
+                              <span className="flex items-center gap-1.5">
+                                {uiLang === 'en' && usEnglish ? 'American English' : opt.label}
+                                {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
                               </span>
-                            )}
-                          </span>
-                          {uiLang === opt.code && <span className="text-gold-400">✓</span>}
-                        </button>
+                              {uiLang === 'en' && <span className="text-gold-400">✓</span>}
+                            </button>
+                            <button type="button" onClick={() => setUsEnglish(u => !u)}
+                              className={`mr-2 flex items-center gap-0.5 text-[9px] font-mono px-1 py-0.5 rounded border cursor-pointer transition-colors
+                                ${usEnglish ? 'border-gold-500 text-gold-300 bg-gold-900/30' : 'border-surface-600 text-muted hover:border-surface-500'}`}
+                            >
+                              <span className={`w-2 h-2 border rounded-sm flex items-center justify-center ${usEnglish ? 'border-gold-400 bg-gold-500' : 'border-surface-500'}`}>
+                                {usEnglish && <span className="text-surface-900 text-[7px] leading-none">✓</span>}
+                              </span>
+                              US
+                            </button>
+                          </div>
+                        ) : (
+                          <button key={opt.code} onClick={() => handleLangChange(opt.code)}
+                            className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
+                              ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
+                          >
+                            <span className="flex items-center gap-1.5">
+                              {opt.label}
+                              {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
+                              {opt.beta && <span className="text-[9px] text-amber-500 font-mono">β</span>}
+                            </span>
+                            {uiLang === opt.code && <span className="text-gold-400">✓</span>}
+                          </button>
+                        )
                       ))}
                       <p className="px-3 pt-1 pb-0.5 text-[9px] text-muted border-t border-surface-700 mt-1">β = AI translation, needs review</p>
                     </div>
