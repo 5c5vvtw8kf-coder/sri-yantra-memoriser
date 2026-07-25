@@ -112,7 +112,7 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
     : ((script === 'devanagari' || script === 'bengali' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
   const charW = isMobile
     ? (script === 'devanagari' ? 9.5 : script === 'telugu' ? 11 : script === 'tamil' ? 11 : script === 'kannada' ? 10.5 : script === 'malayalam' ? 11 : script === 'english' ? 7.0 : 6.8)
-    : (script === 'devanagari' ? 18 : script === 'bengali' ? 18.5 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5)
+    : (script === 'devanagari' ? 18 : script === 'bengali' ? 15 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5)
   const w  = isMobile ? Math.max(38, label.length * charW + 10) : Math.max(60, label.length * charW + 18)
   const tx = isMobile
     ? Math.min(Math.max(x, 178 + w / 2), 342 - w / 2)

@@ -3188,7 +3188,29 @@ const bn = {
   'nav.info_open':     'তথ্য প্যানেল খুলুন',
 }
 
-const UI_STRINGS = { en, hi, te, ta, kn, ml, mr, fr, es, it, pt, de, ja, ru, ne, bn }
+// ── American English (US) ─────────────────────────────────────────────────────
+// Inherits all strings from en; only overrides British spellings.
+const en_us = {
+  ...en,
+  'mode.memorise':         'Memorize',
+  'instr.click_correct':   'click = memorized',
+  'instr.dblclick_wrong':  'dbl-click = not memorized',
+  'instr.tap_again_correct': 'tap again = memorized',
+  'instr.dbltap_wrong':    'dbl-tap = not memorized',
+  'score.not_memorised':   'Not memorized',
+  'map.memorised':         '✓ Memorized',
+  'map.partial':           '~ Partially memorized',
+  'map.not_memorised':     '✗ Not memorized',
+  'toggle.colours':        'Colors',
+  'misc.all_memorised':    'All memorized — well done!',
+  'misc.memorised':        'memorized',
+  'map.leg_mem':           'memorized',
+  'map.leg_not':           'not memorized',
+  'inner.dir_waxing':      'Counterclockwise · waxing moon',
+  'heading.explore':       'EXPLORE AND MEMORIZE',
+}
+
+const UI_STRINGS = { en, 'en-us': en_us, hi, te, ta, kn, ml, mr, fr, es, it, pt, de, ja, ru, ne, bn }
 
 // ── Public translation function ───────────────────────────────────────────────
 

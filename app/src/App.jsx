@@ -2486,6 +2486,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
   const [script,   setScript]   = useState('iast') // script key for deity name display
   const [uiLang,   setUiLang]   = useState('en')   // UI language
+  const [usEnglish, setUsEnglish] = useState(false) // American English spelling variant
   const handleLangChange = (lang) => {
     setUiLang(lang)
     const opt = LANG_OPTIONS.find(o => o.code === lang)
@@ -2513,7 +2514,7 @@ export default function App() {
     return () => { clearTimeout(t); document.removeEventListener('touchstart', close) }
   }, [showLangMenu, showMobileScriptMenu])
 
-  const tr = key => translate(uiLang !== 'en' ? uiLang : script, key)  // UI string helper — uses uiLang when set, else script (for IAST overrides)
+  const tr = key => translate(uiLang !== 'en' ? uiLang : (usEnglish ? 'en-us' : script), key)  // uses uiLang when set, en-us if US variant, else script (for IAST overrides)
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
@@ -4267,9 +4268,21 @@ export default function App() {
                       ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
                   >
                     <span className="flex items-center gap-1.5">
-                      {opt.label}
+                      {opt.code === 'en' && uiLang === 'en' && usEnglish ? 'American English' : opt.label}
                       {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
                       {opt.beta && <span className="text-[9px] text-amber-500 font-mono">β</span>}
+                      {opt.code === 'en' && uiLang === 'en' && (
+                        <span
+                          onClick={e => { e.stopPropagation(); setUsEnglish(u => !u) }}
+                          className={`ml-1 flex items-center gap-0.5 text-[9px] font-mono px-1 py-0.5 rounded border cursor-pointer transition-colors
+                            ${usEnglish ? 'border-gold-500 text-gold-300 bg-gold-900/30' : 'border-surface-600 text-muted hover:border-surface-500'}`}
+                        >
+                          <span className={`w-2 h-2 border rounded-sm flex items-center justify-center ${usEnglish ? 'border-gold-400 bg-gold-500' : 'border-surface-500'}`}>
+                            {usEnglish && <span className="text-surface-900 text-[7px] leading-none">✓</span>}
+                          </span>
+                          US
+                        </span>
+                      )}
                     </span>
                     {uiLang === opt.code && <span className="text-gold-400">✓</span>}
                   </button>
@@ -4348,9 +4361,21 @@ export default function App() {
                             ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
                         >
                           <span className="flex items-center gap-1.5">
-                            {opt.label}
+                            {opt.code === 'en' && uiLang === 'en' && usEnglish ? 'American English' : opt.label}
                             {opt.englishName && <span className="text-[11px] opacity-60">({opt.englishName})</span>}
                             {opt.beta && <span className="text-[9px] text-amber-500 font-mono">β</span>}
+                            {opt.code === 'en' && uiLang === 'en' && (
+                              <span
+                                onClick={e => { e.stopPropagation(); setUsEnglish(u => !u) }}
+                                className={`ml-1 flex items-center gap-0.5 text-[9px] font-mono px-1 py-0.5 rounded border cursor-pointer transition-colors
+                                  ${usEnglish ? 'border-gold-500 text-gold-300 bg-gold-900/30' : 'border-surface-600 text-muted hover:border-surface-500'}`}
+                              >
+                                <span className={`w-2 h-2 border rounded-sm flex items-center justify-center ${usEnglish ? 'border-gold-400 bg-gold-500' : 'border-surface-500'}`}>
+                                  {usEnglish && <span className="text-surface-900 text-[7px] leading-none">✓</span>}
+                                </span>
+                                US
+                              </span>
+                            )}
                           </span>
                           {uiLang === opt.code && <span className="text-gold-400">✓</span>}
                         </button>
