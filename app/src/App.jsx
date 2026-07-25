@@ -2325,12 +2325,12 @@ const AVARANA_GEOM = {
             hi: 'बाह्य वर्ग',            mr: 'बाह्य वर्ग',      kn: 'ಹೊರ ಚೌಕ',     ml: 'പുറം ചതുരം',   ta: 'வெளி சதுரம்',  te: 'బాహ్య చతురస్రం', ja: '外側の四角'       },
   },
   c2: {
-    name: { iast: 'ṣoḍaśa dala padma', hi: 'षोडश दल पद्म',  mr: 'षोडश दल पद्म',  kn: 'ಷೋಡಶ ದಳ ಪದ್ಮ', ml: 'ഷോഡശ ദള പദ്മ', ta: 'ஷோடச தள பத்ம',  te: 'షోడశ దళ పద్మ' },
+    name: { iast: 'ṣoḍaśadalapadma', hi: 'षोडश दल पद्म',  mr: 'षोडश दल पद्म',  kn: 'ಷೋಡಶ ದಳ ಪದ್ಮ', ml: 'ഷോഡശ ദള പദ്മ', ta: 'ஷோடச தள பத்ம',  te: 'షోడశ దళ పద్మ' },
     desc: { en: '16 petalled lotus',    de: '16-blättriger Lotus',    es: 'loto de 16 pétalos',    fr: 'lotus à 16 pétales',    it: 'loto a 16 petali',   pt: 'lótus de 16 pétalas',
             hi: '१६ दल कमल',            mr: '१६ दल कमल',       kn: '೧೬ ದಳದ ತಾವರೆ', ml: '൧൬ ഇതൾ താമര',  ta: '௧௬ இதழ் தாமரை', te: '౧౬ రేకుల కమలం',  ja: '十六弁の蓮'       },
   },
   c3: {
-    name: { iast: 'aṣṭa dala padma',   hi: 'अष्ट दल पद्म',  mr: 'अष्ट दल पद्म',  kn: 'ಅಷ್ಟ ದಳ ಪದ್ಮ', ml: 'അഷ്ട ദള പദ്മ', ta: 'அஷ்ட தள பத்ம',  te: 'అష్ట దళ పద్మ'  },
+    name: { iast: 'aṣṭadalapadma',   hi: 'अष्ट दल पद्म',  mr: 'अष्ट दल पद्म',  kn: 'ಅಷ್ಟ ದಳ ಪದ್ಮ', ml: 'അഷ്ട ദള പദ്മ', ta: 'அஷ்ட தள பத்ம',  te: 'అష్ట దళ పద్మ'  },
     desc: { en: '8 petalled lotus',     de: '8-blättriger Lotus',     es: 'loto de 8 pétalos',     fr: 'lotus à 8 pétales',     it: 'loto a 8 petali',    pt: 'lótus de 8 pétalas',
             hi: '८ दल कमल',             mr: '८ दल कमल',        kn: '೮ ದಳದ ತಾವರೆ',  ml: '൮ ഇതൾ താമര',   ta: '௮ இதழ் தாமரை',   te: '౮ రేకుల కమలం',   ja: '八弁の蓮'         },
   },
