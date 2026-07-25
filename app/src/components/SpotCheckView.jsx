@@ -263,10 +263,10 @@ function buildQueue(filterId, subFilterId) {
 
 function Tooltip({ x, y, label, script, clearance = 22 }) {
   if (!label) return null
-  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 13 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
+  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 14 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const vLen = script === 'bengali' ? label.replace(/[\u09CD\u09BC]/g, '').length : label.length
+  const vLen = script === 'bengali' ? label.replace(/\u09CD/g, '').length : label.length
   const w = Math.max(60, vLen * charW + 18)
   const tx = Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
   // Keep tooltip above/below element by `clearance` SVG units from the element centre,

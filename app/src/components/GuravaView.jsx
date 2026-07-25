@@ -144,7 +144,7 @@ function Tooltip({ x, label, fill, script, kana }) {
   const fontSize = script === 'devanagari' ? 20 : script === 'english' ? 19 : 18
   const h        = script === 'devanagari' ? 40 : 38
   const charW    = script === 'devanagari' ? 13.5 : script === 'bengali' ? 10 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11 : 10.5
-  const vLen = script === 'bengali' ? label.replace(/[\u09CD\u09BC]/g, '').length : label.length
+  const vLen = script === 'bengali' ? label.replace(/\u09CD/g, '').length : label.length
   const w        = Math.max(50, vLen * charW + 14)
   const tx       = Math.min(Math.max(x, 5 + w / 2), 345 - w / 2)
   // Always pin above the top (divya) row so tooltip never covers dots

@@ -285,8 +285,8 @@ function Tooltip({ circuitNum, script, uiLang = 'en' }) {
 
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 13 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const vLen = script === 'bengali' ? label.replace(/[\u09CD\u09BC]/g, '').length : label.length
+  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 14 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
+  const vLen = script === 'bengali' ? label.replace(/\u09CD/g, '').length : label.length
   const w        = Math.max(60, vLen * charW + 18)
 
   // Centred horizontally on the bindu (SVG_CX = 260); y fixed at top-left area
