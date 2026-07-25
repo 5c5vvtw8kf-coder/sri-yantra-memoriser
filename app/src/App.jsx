@@ -2314,6 +2314,19 @@ const SECTION_IAST_LABELS = {
   closing:     'Śrīdevī Viśeṣaṇāni',
 }
 
+// Geometric descriptor for each of the 9 āvaraṇas
+const AVARANA_GEOM = {
+  bhupura: 'Bhupura',
+  c2:      'Shodashi Dala Padma',
+  c3:      'Ashta Dala Padma',
+  c4:      'Chaturdasha',
+  c5:      'Bahirdasha',
+  c6:      'Antaradasha',
+  c7:      'Ashtakona',
+  c8:      'Trikona',
+  c9:      'Bindu',
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
   const [script,   setScript]   = useState('iast') // script key for deity name display
@@ -4039,7 +4052,7 @@ export default function App() {
 
 
       {/* ── Mobile top bar (portrait only) ──────────────────────────────── */}
-      <div className="flex md:hidden flex-shrink-0 h-11 items-center px-3 gap-2 bg-surface-950 border-b border-surface-800 z-30">
+      <div className="flex md:hidden flex-shrink-0 min-h-[2.75rem] items-center px-3 gap-2 bg-surface-950 border-b border-surface-800 z-30" style={{ paddingTop: '0.375rem', paddingBottom: '0.375rem' }}>
         <button
           onClick={() => setMobileNavOpen(o => !o)}
           className="w-8 h-8 flex items-center justify-center text-muted hover:text-cream transition-colors"
@@ -4048,20 +4061,25 @@ export default function App() {
         >
           ☰
         </button>
-        <span className={`flex-1 text-sm font-medium truncate ${uiLang === 'en' ? 'iast' : ''} text-gold-400`}>
-          {(() => {
-            const tab = TABS.find(t => t.id === activeTab)
-            if (!tab) return ''
-            if (tab.trKey) return tr(tab.trKey)
-            if (uiLang === 'hi' || uiLang === 'mr') return tab.navLabelDev || tab.navLabel
-            if (uiLang === 'te') return tab.navLabelTe  || tab.navLabel
-            if (uiLang === 'ta') return tab.navLabelTa  || tab.navLabel
-            if (uiLang === 'kn') return tab.navLabelKn  || tab.navLabel
-            if (uiLang === 'ml') return tab.navLabelMl  || tab.navLabel
-            if (uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de') return tab.navLabelEn  || tab.navLabel
-            return tab.navLabel
-          })()}
-        </span>
+        <div className={`flex-1 min-w-0 flex flex-col justify-center ${uiLang === 'en' ? 'iast' : ''}`}>
+          <span className="text-sm font-medium truncate text-gold-400">
+            {(() => {
+              const tab = TABS.find(t => t.id === activeTab)
+              if (!tab) return ''
+              if (tab.trKey) return tr(tab.trKey)
+              if (uiLang === 'hi' || uiLang === 'mr') return tab.navLabelDev || tab.navLabel
+              if (uiLang === 'te') return tab.navLabelTe  || tab.navLabel
+              if (uiLang === 'ta') return tab.navLabelTa  || tab.navLabel
+              if (uiLang === 'kn') return tab.navLabelKn  || tab.navLabel
+              if (uiLang === 'ml') return tab.navLabelMl  || tab.navLabel
+              if (uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de') return tab.navLabelEn  || tab.navLabel
+              return tab.navLabel
+            })()}
+          </span>
+          {AVARANA_GEOM[activeTab] && (
+            <span className="iast text-[11px] text-muted truncate leading-none mt-0.5">{AVARANA_GEOM[activeTab]}</span>
+          )}
+        </div>
         <div ref={mobileDropdownRef} className="flex items-center gap-1.5 flex-shrink-0">
           <div className="relative">
             <button
@@ -4857,8 +4875,11 @@ export default function App() {
               : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (tab.navLabelEn  || tab.navLabel)
               : tab.navLabel
             return (
-              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 ${uiLang === 'en' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>
+              <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 items-center gap-2 ${uiLang === 'en' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>
                 {label}
+                {AVARANA_GEOM[activeTab] && (
+                  <span className="iast text-xs text-muted font-normal tracking-normal">{AVARANA_GEOM[activeTab]}</span>
+                )}
               </span>
             )
           })()}
