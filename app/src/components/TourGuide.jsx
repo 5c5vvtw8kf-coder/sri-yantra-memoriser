@@ -1014,7 +1014,7 @@ const btnPrimary = {
 }
 
 // ── Overlay + popover component ───────────────────────────────────────────────
-function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange }) {
+function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange, usEnglish = false, onUsEnglishChange }) {
   const STEPS = getSteps(uiLang)
   const [stepIndex, setStepIndex] = useState(0)
   const [rect, setRect]   = useState(null)
@@ -1187,7 +1187,10 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
               {TOUR_LANG_OPTIONS.map(({ code, label }) => (
                 <button
                   key={code}
-                  onClick={() => onLanguageChange(code)}
+                  onClick={() => {
+                    if (code === 'en' && uiLang === 'en' && usEnglish && onUsEnglishChange) onUsEnglishChange(false)
+                    onLanguageChange(code)
+                  }}
                   style={{
                     padding: '4px 10px',
                     borderRadius: 4,
@@ -1199,9 +1202,34 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
                     background: uiLang === code ? '#2a1c08' : '#0f0a05',
                     color: uiLang === code ? '#d4b96a' : '#7a6a52',
                     transition: 'all 0.15s',
+                    display: 'flex', alignItems: 'center', gap: 5,
                   }}
                 >
-                  {label}
+                  {code === 'en' && uiLang === 'en' && usEnglish ? 'American English' : label}
+                  {code === 'en' && uiLang === 'en' && onUsEnglishChange && (
+                    <span
+                      onClick={e => { e.stopPropagation(); onUsEnglishChange(u => !u) }}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 3,
+                        fontSize: 9, fontFamily: 'monospace',
+                        padding: '2px 5px', borderRadius: 3, cursor: 'pointer',
+                        border: usEnglish ? '1px solid #c9a84c' : '1px solid #4a3a2a',
+                        background: usEnglish ? 'rgba(201,168,76,0.15)' : 'transparent',
+                        color: usEnglish ? '#d4b96a' : '#5a4a3a',
+                      }}
+                    >
+                      <span style={{
+                        width: 8, height: 8, borderRadius: 2, display: 'inline-flex',
+                        alignItems: 'center', justifyContent: 'center',
+                        border: usEnglish ? '1px solid #c9a84c' : '1px solid #4a3a2a',
+                        background: usEnglish ? '#c9a84c' : 'transparent',
+                        color: '#0f0a05', fontSize: 7, lineHeight: 1,
+                      }}>
+                        {usEnglish && '✓'}
+                      </span>
+                      US
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -1229,7 +1257,7 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
   )
 }
 
-export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en', onLanguageChange } = {}) {
+export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en', onLanguageChange, usEnglish = false, onUsEnglishChange } = {}) {
   const [active, setActive] = useState(false)
   const cbRef = useRef(onBeforeStart)
   useEffect(() => { cbRef.current = onBeforeStart })
@@ -1251,6 +1279,6 @@ export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en', onLangu
 
   return {
     startTour,
-    tourElement: active ? <TourOverlay onDone={endTour} script={script} uiLang={uiLang} onLanguageChange={onLanguageChange} /> : null,
+    tourElement: active ? <TourOverlay onDone={endTour} script={script} uiLang={uiLang} onLanguageChange={onLanguageChange} usEnglish={usEnglish} onUsEnglishChange={onUsEnglishChange} /> : null,
   }
 }

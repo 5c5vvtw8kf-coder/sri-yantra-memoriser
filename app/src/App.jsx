@@ -2531,6 +2531,8 @@ export default function App() {
     script,
     uiLang,
     onLanguageChange: handleLangChange,
+    usEnglish,
+    onUsEnglishChange: setUsEnglish,
   })
 
   // ── Yantra-tab state ───────────────────────────────────────────────────────
@@ -4263,7 +4265,10 @@ export default function App() {
               <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
                 <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">Language</p>
                 {LANG_OPTIONS.map(opt => (
-                  <button key={opt.code} onClick={() => handleLangChange(opt.code)}
+                  <button key={opt.code} onClick={() => {
+                    if (opt.code === 'en' && uiLang === 'en' && usEnglish) setUsEnglish(false)
+                    handleLangChange(opt.code)
+                  }}
                     className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
                       ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
                   >
@@ -4356,7 +4361,10 @@ export default function App() {
                   {showSidebarLangMenu && (
                     <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
                       {LANG_OPTIONS.map(opt => (
-                        <button key={opt.code} onClick={() => handleLangChange(opt.code)}
+                        <button key={opt.code} onClick={() => {
+                          if (opt.code === 'en' && uiLang === 'en' && usEnglish) setUsEnglish(false)
+                          handleLangChange(opt.code)
+                        }}
                           className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
                             ${uiLang === opt.code ? 'text-cream' : 'text-muted'}`}
                         >
