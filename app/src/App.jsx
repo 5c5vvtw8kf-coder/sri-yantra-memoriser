@@ -412,12 +412,14 @@ const TABS = [
     navLabelDev: 'श्री यन्त्र',
     navLabelTe:  'శ్రీ యన్త్ర',               navLabelTa: 'ஶ்ரீ யந்த்ர',
     navLabelKn:  'ಶ್ರೀ ಯಂತ್ರ',               navLabelMl: 'ശ്രീ യന്ത്ര',
+    navLabelBn:  'শ্রী যন্ত্র',               navLabelJa: 'シュリー・ヤントラ',
     footerLabel: 'Śrī Yantra' },
   { id: 'browser',      englishOnly: true,
     navLabel:    'śrī devī khaḍgamālā stōtram', navLabelEn: 'Sri Devi Khadgamala Stotram',
     navLabelDev: 'श्री देवी खड्गमाला स्तोत्रम्',
     navLabelTe:  'శ్రీ దేవీ ఖడ్గమాలా స్తోత్రమ్', navLabelTa: 'ஶ்ரீ தேவீ கட்கமாலா ஸ்தோத்ரம்',
     navLabelKn:  'ಶ್ರೀ ದೇವೀ ಖಡ್ಗಮಾಲಾ ಸ್ತೋತ್ರಮ್', navLabelMl: 'ശ്രീ ദേവീ ഖഡ്ഗമാലാ സ്തോത്രം',
+    navLabelBn:  'শ্রী দেবী খড়গমালা স্তোত্রম্', navLabelJa: 'シュリー・デーヴィー・カドゥガマーラー',
     footerLabel: 'Khadgamala Stotram' },
   { id: 'references',   englishOnly: true, trKey: 'tab.references', navLabel: 'References',   navLabelEn: 'References',   navLabelDev: 'References',   footerLabel: 'References'   },
 ]
@@ -4230,6 +4232,8 @@ export default function App() {
               if (uiLang === 'ta') return tab.navLabelTa  || tab.navLabel
               if (uiLang === 'kn') return tab.navLabelKn  || tab.navLabel
               if (uiLang === 'ml') return tab.navLabelMl  || tab.navLabel
+              if (uiLang === 'bn') return tab.navLabelBn  || tab.navLabel
+              if (uiLang === 'ja') return tab.navLabelJa  || tab.navLabel
               if (uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' || uiLang === 'ru') return tab.navLabelEn  || tab.navLabel
               return tab.navLabel
             })()}
@@ -4448,12 +4452,14 @@ export default function App() {
                 >
                   <span className="flex-1 min-w-0">
                     {tab.trKey ? tr(tab.trKey)
-                      : uiLang === 'hi' || uiLang === 'mr' ? (tab.navLabelDev || tab.navLabel)
+                      : uiLang === 'hi' || uiLang === 'mr' || uiLang === 'ne' ? (tab.navLabelDev || tab.navLabel)
                       : uiLang === 'te' ? (tab.navLabelTe  || tab.navLabel)
                       : uiLang === 'ta' ? (tab.navLabelTa  || tab.navLabel)
                       : uiLang === 'kn' ? (tab.navLabelKn  || tab.navLabel)
                       : uiLang === 'ml' ? (tab.navLabelMl  || tab.navLabel)
-                      : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (tab.navLabelEn  || tab.navLabel)
+                      : uiLang === 'bn' ? (tab.navLabelBn  || tab.navLabel)
+                      : uiLang === 'ja' ? (tab.navLabelJa  || tab.navLabel)
+                      : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' || uiLang === 'ru' ? (tab.navLabelEn  || tab.navLabel)
                       : tab.navLabel}
                   </span>
                   {dot && (
@@ -5055,12 +5061,14 @@ export default function App() {
             const tab = TABS.find(t => t.id === activeTab)
             if (!tab) return null
             const label = tab.trKey ? tr(tab.trKey)
-              : uiLang === 'hi' || uiLang === 'mr' ? (tab.navLabelDev || tab.navLabel)
+              : uiLang === 'hi' || uiLang === 'mr' || uiLang === 'ne' ? (tab.navLabelDev || tab.navLabel)
               : uiLang === 'te' ? (tab.navLabelTe  || tab.navLabel)
               : uiLang === 'ta' ? (tab.navLabelTa  || tab.navLabel)
               : uiLang === 'kn' ? (tab.navLabelKn  || tab.navLabel)
               : uiLang === 'ml' ? (tab.navLabelMl  || tab.navLabel)
-              : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (tab.navLabelEn  || tab.navLabel)
+              : uiLang === 'bn' ? (tab.navLabelBn  || tab.navLabel)
+              : uiLang === 'ja' ? (tab.navLabelJa  || tab.navLabel)
+              : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' || uiLang === 'ru' ? (tab.navLabelEn  || tab.navLabel)
               : tab.navLabel
             return (
               <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 items-center gap-2 ${uiLang === 'en' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>
