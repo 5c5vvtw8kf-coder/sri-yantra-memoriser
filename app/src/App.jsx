@@ -28,21 +28,21 @@ import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './transla
 
 const LANG_OPTIONS = [
   { code: 'en', label: 'English',    englishName: null,         beta: false, defaultScript: 'iast'       },
+  { code: 'bn', label: 'বাংলা',     englishName: 'Bengali',    beta: true,  defaultScript: 'iast'       },
   { code: 'de', label: 'Deutsch',    englishName: 'German',     beta: true,  defaultScript: 'iast'       },
   { code: 'es', label: 'Español',    englishName: 'Spanish',    beta: true,  defaultScript: 'iast'       },
   { code: 'fr', label: 'Français',   englishName: 'French',     beta: true,  defaultScript: 'iast'       },
   { code: 'hi', label: 'हिन्दी',      englishName: 'Hindi',      beta: true,  defaultScript: 'devanagari' },
   { code: 'it', label: 'Italiano',   englishName: 'Italian',    beta: true,  defaultScript: 'iast'       },
+  { code: 'ja', label: '日本語',      englishName: 'Japanese',   beta: true,  defaultScript: 'iast'       },
   { code: 'kn', label: 'ಕನ್ನಡ',       englishName: 'Kannada',    beta: true,  defaultScript: 'kannada'    },
   { code: 'ml', label: 'മലയാളം',      englishName: 'Malayalam',  beta: true,  defaultScript: 'malayalam'  },
   { code: 'mr', label: 'मराठी',       englishName: 'Marathi',    beta: true,  defaultScript: 'devanagari' },
+  { code: 'ne', label: 'नेपाली',    englishName: 'Nepali',     beta: true,  defaultScript: 'devanagari' },
   { code: 'pt', label: 'Português',  englishName: 'Portuguese', beta: true,  defaultScript: 'iast'       },
+  { code: 'ru', label: 'Русский',    englishName: 'Russian',    beta: true,  defaultScript: 'iast'       },
   { code: 'ta', label: 'தமிழ்',       englishName: 'Tamil',      beta: true,  defaultScript: 'tamil'      },
   { code: 'te', label: 'తెలుగు',      englishName: 'Telugu',     beta: true,  defaultScript: 'telugu'     },
-  { code: 'ja', label: '日本語',      englishName: 'Japanese',   beta: true,  defaultScript: 'iast'       },
-  { code: 'ru', label: 'Русский',    englishName: 'Russian',    beta: true,  defaultScript: 'iast'       },
-  { code: 'ne', label: 'नेपाली',    englishName: 'Nepali',     beta: true,  defaultScript: 'devanagari' },
-  { code: 'bn', label: 'বাংলা',     englishName: 'Bengali',    beta: true,  defaultScript: 'iast'       },
 ]
 import { Globe, Plane, PenLine } from 'lucide-react'
 
@@ -276,6 +276,32 @@ const SECTION_KANA = (() => {
   }
   return map
 })()
+
+// Russian (Cyrillic) section metadata — mirrors the shape of SECTION_KANA
+const SECTION_RU = {
+  1: { avarana: 'Трайлокья-Мохана-Чакра',          chakraSvamini: 'Трайлокья-Мохана-Чакра-Свамини',          yoginiType: 'Праката Йогини',              chakreshvari: 'Трипура'               },
+  2: { avarana: 'Сарва-Аша-Парипурака-Чакра',       chakraSvamini: 'Сарваша-Парипурака-Чакра-Свамини',        yoginiType: 'Гупта Йогини',                chakreshvari: 'Трипурешвари'          },
+  3: { avarana: 'Сарва-Санкшобхана-Чакра',          chakraSvamini: 'Сарва-Санкшобхана-Чакра-Свамини',         yoginiType: 'Гупта-Тара Йогини',           chakreshvari: 'Трипура Сундари'       },
+  4: { avarana: 'Сарва-Саубхагьядайака-Чакра',      chakraSvamini: 'Сарва-Саубхагьядайака-Чакра-Свамини',     yoginiType: 'Сампрадайя Йогини',           chakreshvari: 'Трипура Васини'        },
+  5: { avarana: 'Сарва-Артха-Садхака-Чакра',        chakraSvamini: 'Сарвартха-Садхака-Чакра-Свамини',         yoginiType: 'Кулоттирна Йогини',           chakreshvari: 'Трипура Шри'           },
+  6: { avarana: 'Сарва-Ракшакара-Чакра',            chakraSvamini: 'Сарва-Ракшакара-Чакра-Свамини',           yoginiType: 'Нигарбха Йогини',             chakreshvari: 'Трипура Малини'        },
+  7: { avarana: 'Сарва-Рогахара-Чакра',             chakraSvamini: 'Сарва-Рогахара-Чакра-Свамини',            yoginiType: 'Рахасья Йогини',              chakreshvari: 'Трипура Сиддхе'        },
+  8: { avarana: 'Сарва-Сиддхипрада-Чакра',          chakraSvamini: 'Сарва-Сиддхипрада-Чакра-Свамини',         yoginiType: 'Ати-Рахасья Йогини',          chakreshvari: 'Трипурамба'            },
+  9: { avarana: 'Сарва-Анандамайя-Чакра',           chakraSvamini: 'Сарва-Анандамайя-Чакра-Свамини',          yoginiType: 'Пара-Пара-Рахасья Йогини',    chakreshvari: 'Маха-Трипура-Сундари'  },
+}
+
+// Bengali script section metadata
+const SECTION_BN = {
+  1: { avarana: 'ত্রৈলোক্য মোহন চক্র',          chakraSvamini: 'ত্রৈলোক্য মোহন চক্র স্বামিনী',          yoginiType: 'প্রকট যোগিনী',            chakreshvari: 'ত্রিপুরা'                    },
+  2: { avarana: 'সর্বাশা পরিপূরক চক্র',          chakraSvamini: 'সর্বাশা পরিপূরক চক্র স্বামিনী',          yoginiType: 'গুপ্ত যোগিনী',            chakreshvari: 'ত্রিপুরেশী'                   },
+  3: { avarana: 'সর্ব সংক্ষোভণ চক্র',            chakraSvamini: 'সর্ব সংক্ষোভণ চক্র স্বামিনী',            yoginiType: 'গুপ্ততর যোগিনী',          chakreshvari: 'ত্রিপুরা সুন্দরী'            },
+  4: { avarana: 'সর্ব সৌভাগ্যদায়ক চক্র',         chakraSvamini: 'সর্ব সৌভাগ্যদায়ক চক্র স্বামিনী',         yoginiType: 'সম্প্রদায় যোগিনী',         chakreshvari: 'ত্রিপুরা বাসিনী'             },
+  5: { avarana: 'সর্বার্থ সাধক চক্র',             chakraSvamini: 'সর্বার্থ সাধক চক্র স্বামিনী',             yoginiType: 'কুলোত্তীর্ণ যোগিনী',       chakreshvari: 'ত্রিপুরা শ্রী'               },
+  6: { avarana: 'সর্ব রক্ষাকর চক্র',              chakraSvamini: 'সর্ব রক্ষাকর চক্র স্বামিনী',              yoginiType: 'নিগর্ভ যোগিনী',           chakreshvari: 'ত্রিপুরা মালিনী'             },
+  7: { avarana: 'সর্ব রোগহর চক্র',               chakraSvamini: 'সর্ব রোগহর চক্র স্বামিনী',               yoginiType: 'রহস্য যোগিনী',            chakreshvari: 'ত্রিপুরা সিদ্ধে'             },
+  8: { avarana: 'সর্ব সিদ্ধিপ্রদ চক্র',            chakraSvamini: 'সর্ব সিদ্ধিপ্রদ চক্র স্বামিনী',            yoginiType: 'অতি রহস্য যোগিনী',         chakreshvari: 'ত্রিপুরাম্বা'                },
+  9: { avarana: 'সর্ব আনন্দময় চক্র',              chakraSvamini: 'সর্ব আনন্দময় চক্র স্বামিনী',              yoginiType: 'পর পর রহস্য যোগিনী',       chakreshvari: 'মহা ত্রিপুরা সুন্দরী'        },
+}
 
 const YOGINI_SECRECY = {
   'Prakata Yogini':           'secrecy.prakata',
@@ -730,7 +756,10 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
       </h2>
       {script === 'iast' && (
         <p className="text-cream text-xs">
-          {uiLang === 'ja' ? (SECTION_KANA[section.circuitNumber]?.avarana ?? section.avarana) : section.avarana}
+          {uiLang === 'ja' ? (SECTION_KANA[section.circuitNumber]?.avarana ?? section.avarana)
+           : uiLang === 'ru' ? (SECTION_RU[section.circuitNumber]?.avarana ?? section.avarana)
+           : uiLang === 'bn' ? (SECTION_BN[section.circuitNumber]?.avarana ?? section.avarana)
+           : section.avarana}
         </p>
       )}
       <div className="pt-3 border-t border-surface-700 space-y-1.5 text-xs">
@@ -739,6 +768,12 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
             {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.chakraSvamini && (
               <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].chakraSvamini}</span>
+            )}
+            {uiLang === 'ru' && SECTION_RU[section.circuitNumber]?.chakraSvamini && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[section.circuitNumber].chakraSvamini}</span>
+            )}
+            {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.chakraSvamini && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].chakraSvamini}</span>
             )}
             {sectionName(section, 'chakraSvamini', script)}
           </span>
@@ -749,6 +784,12 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
             {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.yoginiType && (
               <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].yoginiType}</span>
             )}
+            {uiLang === 'ru' && SECTION_RU[section.circuitNumber]?.yoginiType && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[section.circuitNumber].yoginiType}</span>
+            )}
+            {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.yoginiType && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].yoginiType}</span>
+            )}
             {sectionName(section, 'yoginiType', script)}
             {secrecy && <span className="text-muted block mt-0.5">{tr(secrecy)}</span>}
           </span>
@@ -758,6 +799,12 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
           <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
             {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.chakreshvari && (
               <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].chakreshvari}</span>
+            )}
+            {uiLang === 'ru' && SECTION_RU[section.circuitNumber]?.chakreshvari && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[section.circuitNumber].chakreshvari}</span>
+            )}
+            {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.chakreshvari && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].chakreshvari}</span>
             )}
             {sectionName(section, 'chakreshvari', script)}
           </span>
@@ -790,6 +837,12 @@ function CircuitRows({ circuitNumber, script, uiLang = 'en', onHoverFill = null,
           {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.chakraSvamini && (
             <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].chakraSvamini}</span>
           )}
+          {uiLang === 'ru' && SECTION_RU[section.circuitNumber]?.chakraSvamini && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[section.circuitNumber].chakraSvamini}</span>
+          )}
+          {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.chakraSvamini && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].chakraSvamini}</span>
+          )}
           {sectionName(section, 'chakraSvamini', script)}
         </span>
       </div>
@@ -798,6 +851,12 @@ function CircuitRows({ circuitNumber, script, uiLang = 'en', onHoverFill = null,
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
           {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.yoginiType && (
             <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].yoginiType}</span>
+          )}
+          {uiLang === 'ru' && SECTION_RU[section.circuitNumber]?.yoginiType && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[section.circuitNumber].yoginiType}</span>
+          )}
+          {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.yoginiType && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].yoginiType}</span>
           )}
           {sectionName(section, 'yoginiType', script)}
           {secrecy && <span className="text-muted block mt-0.5">{tr(secrecy)}</span>}
@@ -808,6 +867,12 @@ function CircuitRows({ circuitNumber, script, uiLang = 'en', onHoverFill = null,
         <span className={`${script !== 'devanagari' ? 'iast ' : ''}${['kannada','malayalam','tamil','telugu'].includes(script) ? 'text-xs leading-snug break-words min-w-0' : 'text-sm'} text-gold-500`}>
           {uiLang === 'ja' && SECTION_KANA[section.circuitNumber]?.chakreshvari && (
             <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[section.circuitNumber].chakreshvari}</span>
+          )}
+          {uiLang === 'ru' && SECTION_RU[section.circuitNumber]?.chakreshvari && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[section.circuitNumber].chakreshvari}</span>
+          )}
+          {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.chakreshvari && (
+            <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].chakreshvari}</span>
           )}
           {sectionName(section, 'chakreshvari', script)}
         </span>
@@ -922,7 +987,10 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
       </h2>
       {script === 'iast' && (
         <p className="text-cream text-xs">
-          {uiLang === 'ja' ? (SECTION_KANA[circuitNumber]?.avarana ?? section.avarana) : section.avarana}
+          {uiLang === 'ja' ? (SECTION_KANA[circuitNumber]?.avarana ?? section.avarana)
+           : uiLang === 'ru' ? (SECTION_RU[circuitNumber]?.avarana ?? section.avarana)
+           : uiLang === 'bn' ? (SECTION_BN[circuitNumber]?.avarana ?? section.avarana)
+           : section.avarana}
         </p>
       )}
       {showRows && (
@@ -933,6 +1001,12 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
               {uiLang === 'ja' && SECTION_KANA[circuitNumber]?.chakraSvamini && (
                 <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[circuitNumber].chakraSvamini}</span>
               )}
+              {uiLang === 'ru' && SECTION_RU[circuitNumber]?.chakraSvamini && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[circuitNumber].chakraSvamini}</span>
+              )}
+              {uiLang === 'bn' && SECTION_BN[circuitNumber]?.chakraSvamini && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[circuitNumber].chakraSvamini}</span>
+              )}
               {sectionName(section, 'chakraSvamini', script)}
             </span>
           </div>
@@ -941,6 +1015,12 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
             <span className="text-gold-500">
               {uiLang === 'ja' && SECTION_KANA[circuitNumber]?.yoginiType && (
                 <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[circuitNumber].yoginiType}</span>
+              )}
+              {uiLang === 'ru' && SECTION_RU[circuitNumber]?.yoginiType && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[circuitNumber].yoginiType}</span>
+              )}
+              {uiLang === 'bn' && SECTION_BN[circuitNumber]?.yoginiType && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[circuitNumber].yoginiType}</span>
               )}
               {sectionName(section, 'yoginiType', script)}
             </span>
@@ -956,6 +1036,12 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
             <span className="text-gold-500">
               {uiLang === 'ja' && SECTION_KANA[circuitNumber]?.chakreshvari && (
                 <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_KANA[circuitNumber].chakreshvari}</span>
+              )}
+              {uiLang === 'ru' && SECTION_RU[circuitNumber]?.chakreshvari && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_RU[circuitNumber].chakreshvari}</span>
+              )}
+              {uiLang === 'bn' && SECTION_BN[circuitNumber]?.chakreshvari && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[circuitNumber].chakreshvari}</span>
               )}
               {sectionName(section, 'chakreshvari', script)}
             </span>
