@@ -28,7 +28,7 @@ import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './transla
 
 const LANG_OPTIONS = [
   { code: 'en', label: 'English',    englishName: null,         beta: false, defaultScript: 'iast'       },
-  { code: 'bn', label: 'বাংলা',     englishName: 'Bengali',    beta: true,  defaultScript: 'iast'       },
+  { code: 'bn', label: 'বাংলা',     englishName: 'Bengali',    beta: true,  defaultScript: 'bengali'    },
   { code: 'de', label: 'Deutsch',    englishName: 'German',     beta: true,  defaultScript: 'iast'       },
   { code: 'es', label: 'Español',    englishName: 'Spanish',    beta: true,  defaultScript: 'iast'       },
   { code: 'fr', label: 'Français',   englishName: 'French',     beta: true,  defaultScript: 'iast'       },

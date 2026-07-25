@@ -109,10 +109,10 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
     : (script === 'devanagari' ? 26 : script === 'english' ? 25 : 24)
   const h = isMobile
     ? ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 28 : script === 'english' ? 28 : 26)
-    : ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
+    : ((script === 'devanagari' || script === 'bengali' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
   const charW = isMobile
-    ? (script === 'devanagari' ? 11.0 : script === 'telugu' ? 13 : script === 'tamil' ? 14 : script === 'kannada' ? 12.5 : script === 'malayalam' ? 13.5 : script === 'english' ? 9.0 : 8.0)
-    : (script === 'devanagari' ? 18 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5)
+    ? (script === 'devanagari' ? 11.0 : script === 'bengali' ? 11.0 : script === 'telugu' ? 13 : script === 'tamil' ? 14 : script === 'kannada' ? 12.5 : script === 'malayalam' ? 13.5 : script === 'english' ? 9.0 : 8.0)
+    : (script === 'devanagari' ? 18 : script === 'bengali' ? 18.5 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5)
   const w  = isMobile ? Math.max(48, label.length * charW + 13) : Math.max(60, label.length * charW + 18)
   const tx = isMobile
     ? Math.min(Math.max(x, 153 + w / 2), 367 - w / 2)

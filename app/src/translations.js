@@ -81,6 +81,13 @@ export const LOCALE_CONFIG = {
     script:     'english',
     uiLang:     'en',
   },
+  bengali: {
+    label:       'বাংলা',
+    englishName: 'Bengali',
+    shortLabel:  'বাং',
+    script:      'bengali',
+    uiLang:      'bn',
+  },
 
   // ── New full-language locales ──────────────────────────────────────────────
   // Uncomment and add data as each is implemented.
@@ -153,7 +160,7 @@ export const LOCALE_CONFIG = {
 
 /** Returns the list of scripts in display order for the picker. */
 export const LOCALE_ORDER = [
-  'iast', 'devanagari', 'kannada', 'malayalam', 'tamil', 'telugu', 'english',
+  'iast', 'devanagari', 'bengali', 'kannada', 'malayalam', 'tamil', 'telugu', 'english',
   'mr', 'fr', 'es', 'it', 'pt', 'de', 'ja',
   // 'ne', 'si', 'id',
 ]
