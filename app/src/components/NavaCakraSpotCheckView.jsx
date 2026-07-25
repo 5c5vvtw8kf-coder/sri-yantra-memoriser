@@ -142,7 +142,7 @@ function computeFills(activeCircuit, flashState) {
 function AnswerSVGLabel({ label, script, flash }) {
   const fontSize = script === 'devanagari' ? 22 : script === 'english' ? 20 : 18
   const h        = script === 'devanagari' ? 38 : 36
-  const charW    = script === 'devanagari' ? 15 : script === 'bengali' ? 15 : script === 'telugu' ? 17 : script === 'tamil' ? 18 : script === 'english' ? 13 : 11
+  const charW    = script === 'devanagari' ? 15 : script === 'bengali' ? 11 : script === 'telugu' ? 17 : script === 'tamil' ? 18 : script === 'english' ? 13 : 11
   const w        = Math.max(100, label.length * charW + 28)
   const tx       = 260
   const ty       = 92
@@ -165,7 +165,7 @@ function AnswerSVGLabel({ label, script, flash }) {
 function AnswerSVGLabel2({ line1, line2, script, flash }) {
   const fontSize  = script === 'devanagari' ? 22 : script === 'english' ? 20 : 18
   const lineH     = script === 'devanagari' ? 36 : 34
-  const charW     = script === 'devanagari' ? 15 : script === 'bengali' ? 15 : script === 'telugu' ? 17 : script === 'tamil' ? 18 : script === 'english' ? 13 : 11
+  const charW     = script === 'devanagari' ? 15 : script === 'bengali' ? 11 : script === 'telugu' ? 17 : script === 'tamil' ? 18 : script === 'english' ? 13 : 11
   const totalH    = lineH * 2 - 6
   const w         = Math.max(100, Math.max(line1.length, line2.length) * charW + 28)
   const tx        = 260
