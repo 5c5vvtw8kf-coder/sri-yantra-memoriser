@@ -2316,15 +2316,15 @@ const SECTION_IAST_LABELS = {
 
 // Geometric descriptor for each of the 9 āvaraṇas
 const AVARANA_GEOM = {
-  bhupura: 'Bhupura',
-  c2:      'Shodashi Dala Padma',
-  c3:      'Ashta Dala Padma',
-  c4:      'Chaturdasha',
-  c5:      'Bahirdasha',
-  c6:      'Antaradasha',
-  c7:      'Ashtakona',
-  c8:      'Trikona',
-  c9:      'Bindu',
+  bhupura: 'Bhupura (outer square)',
+  c2:      'Shodashi Dala Padma (16 petalled lotus)',
+  c3:      'Ashta Dala Padma (8 petalled lotus)',
+  c4:      'Chaturdasha (14 triangles)',
+  c5:      'Bahirdasha (outer 10 triangles)',
+  c6:      'Antaradasha (inner 10 triangles)',
+  c7:      'Ashtakona (8 triangles)',
+  c8:      'Trikona (triangle)',
+  c9:      'Bindu (dot)',
 }
 
 export default function App() {
