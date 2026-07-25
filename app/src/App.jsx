@@ -2314,18 +2314,146 @@ const SECTION_IAST_LABELS = {
   closing:     'Śrīdevī Viśeṣaṇāni',
 }
 
-// Geometric descriptor for each of the 9 āvaraṇas
+// Geometric descriptor for each of the 9 āvaraṇas, per UI language (en = fallback)
 const AVARANA_GEOM = {
-  bhupura: 'Bhupura (outer square)',
-  c2:      'Shodashi Dala Padma (16 petalled lotus)',
-  c3:      'Ashta Dala Padma (8 petalled lotus)',
-  c4:      'Chaturdasha (14 triangles)',
-  c5:      'Bahirdasha (outer 10 triangles)',
-  c6:      'Antaradasha (inner 10 triangles)',
-  c7:      'Ashtakona (8 triangles)',
-  c8:      'Trikona (triangle)',
-  c9:      'Bindu (dot)',
+  bhupura: {
+    en: 'Bhupura (outer square)',
+    de: 'Bhupura (äußeres Quadrat)',
+    es: 'Bhupura (cuadrado exterior)',
+    fr: 'Bhupura (carré extérieur)',
+    it: 'Bhupura (quadrato esterno)',
+    pt: 'Bhupura (quadrado externo)',
+    hi: 'भूपुर (बाह्य वर्ग)',
+    mr: 'भूपुर (बाह्य वर्ग)',
+    kn: 'ಭೂಪುರ (ಹೊರ ಚೌಕ)',
+    ml: 'ഭൂപുര (പുറം ചതുരം)',
+    ta: 'பூபுர (வெளி சதுரம்)',
+    te: 'భూపుర (బాహ్య చతురస్రం)',
+    ja: 'Bhupura (外側の四角)',
+  },
+  c2: {
+    en: 'Shodashi Dala Padma (16 petalled lotus)',
+    de: 'Shodashi Dala Padma (16-blättriger Lotus)',
+    es: 'Shodashi Dala Padma (loto de 16 pétalos)',
+    fr: 'Shodashi Dala Padma (lotus à 16 pétales)',
+    it: 'Shodashi Dala Padma (loto a 16 petali)',
+    pt: 'Shodashi Dala Padma (lótus de 16 pétalas)',
+    hi: 'षोडश दल पद्म (१६ दल कमल)',
+    mr: 'षोडश दल पद्म (१६ दल कमल)',
+    kn: 'ಷೋಡಶ ದಳ ಪದ್ಮ (೧೬ ದಳದ ತಾವರೆ)',
+    ml: 'ഷോഡശ ദള പദ്മ (൧൬ ഇതൾ താമര)',
+    ta: 'ஷோடச தள பத்ம (௧௬ இதழ் தாமரை)',
+    te: 'షోడశ దళ పద్మ (౧౬ రేకుల కమలం)',
+    ja: 'Shodashi Dala Padma (十六弁の蓮)',
+  },
+  c3: {
+    en: 'Ashta Dala Padma (8 petalled lotus)',
+    de: 'Ashta Dala Padma (8-blättriger Lotus)',
+    es: 'Ashta Dala Padma (loto de 8 pétalos)',
+    fr: 'Ashta Dala Padma (lotus à 8 pétales)',
+    it: 'Ashta Dala Padma (loto a 8 petali)',
+    pt: 'Ashta Dala Padma (lótus de 8 pétalas)',
+    hi: 'अष्ट दल पद्म (८ दल कमल)',
+    mr: 'अष्ट दल पद्म (८ दल कमल)',
+    kn: 'ಅಷ್ಟ ದಳ ಪದ್ಮ (೮ ದಳದ ತಾವರೆ)',
+    ml: 'അഷ്ട ദള പദ്മ (൮ ഇതൾ താമര)',
+    ta: 'அஷ்ட தள பத்ம (௮ இதழ் தாமரை)',
+    te: 'అష్ట దళ పద్మ (౮ రేకుల కమలం)',
+    ja: 'Ashta Dala Padma (八弁の蓮)',
+  },
+  c4: {
+    en: 'Chaturdasha (14 triangles)',
+    de: 'Chaturdasha (14 Dreiecke)',
+    es: 'Chaturdasha (14 triángulos)',
+    fr: 'Chaturdasha (14 triangles)',
+    it: 'Chaturdasha (14 triangoli)',
+    pt: 'Chaturdasha (14 triângulos)',
+    hi: 'चतुर्दश (१४ त्रिकोण)',
+    mr: 'चतुर्दश (१४ त्रिकोण)',
+    kn: 'ಚತುರ್ದಶ (೧೪ ತ್ರಿಕೋಣಗಳು)',
+    ml: 'ചതുർദശ (൧൪ ത്രികോണങ്ങൾ)',
+    ta: 'சதுர்தச (௧௪ முக்கோணங்கள்)',
+    te: 'చతుర్దశ (౧౪ త్రికోణాలు)',
+    ja: 'Chaturdasha (十四の三角形)',
+  },
+  c5: {
+    en: 'Bahirdasha (outer 10 triangles)',
+    de: 'Bahirdasha (10 äußere Dreiecke)',
+    es: 'Bahirdasha (10 triángulos exteriores)',
+    fr: 'Bahirdasha (10 triangles extérieurs)',
+    it: 'Bahirdasha (10 triangoli esterni)',
+    pt: 'Bahirdasha (10 triângulos externos)',
+    hi: 'बहिर्दश (बाह्य १० त्रिकोण)',
+    mr: 'बहिर्दश (बाह्य १० त्रिकोण)',
+    kn: 'ಬಹಿರ್ದಶ (ಹೊರ ೧೦ ತ್ರಿಕೋಣಗಳು)',
+    ml: 'ബഹിർദശ (പുറം ൧൦ ത്രികോണങ്ങൾ)',
+    ta: 'பஹிர்தச (வெளி ௧௦ முக்கோணங்கள்)',
+    te: 'బహిర్దశ (బాహ్య ౧౦ త్రికోణాలు)',
+    ja: 'Bahirdasha (外側の十の三角形)',
+  },
+  c6: {
+    en: 'Antaradasha (inner 10 triangles)',
+    de: 'Antaradasha (10 innere Dreiecke)',
+    es: 'Antaradasha (10 triángulos interiores)',
+    fr: 'Antaradasha (10 triangles intérieurs)',
+    it: 'Antaradasha (10 triangoli interni)',
+    pt: 'Antaradasha (10 triângulos internos)',
+    hi: 'अन्तर्दश (आंतरिक १० त्रिकोण)',
+    mr: 'अन्तर्दश (आंतरिक १० त्रिकोण)',
+    kn: 'ಅಂತರ್ದಶ (ಒಳ ೧೦ ತ್ರಿಕೋಣಗಳು)',
+    ml: 'അന്തർദശ (അകം ൧൦ ത്രികോണങ്ങൾ)',
+    ta: 'அந்தர்தச (உள் ௧௦ முக்கோணங்கள்)',
+    te: 'అంతర్దశ (అంతర ౧౦ త్రికోణాలు)',
+    ja: 'Antaradasha (内側の十の三角形)',
+  },
+  c7: {
+    en: 'Ashtakona (8 triangles)',
+    de: 'Ashtakona (8 Dreiecke)',
+    es: 'Ashtakona (8 triángulos)',
+    fr: 'Ashtakona (8 triangles)',
+    it: 'Ashtakona (8 triangoli)',
+    pt: 'Ashtakona (8 triângulos)',
+    hi: 'अष्टकोण (८ त्रिकोण)',
+    mr: 'अष्टकोण (८ त्रिकोण)',
+    kn: 'ಅಷ್ಟಕೋಣ (೮ ತ್ರಿಕೋಣಗಳು)',
+    ml: 'അഷ്ടകോണ (൮ ത്രികോണങ്ങൾ)',
+    ta: 'அஷ்டகோண (௮ முக்கோணங்கள்)',
+    te: 'అష్టకోణ (౮ త్రికోణాలు)',
+    ja: 'Ashtakona (八の三角形)',
+  },
+  c8: {
+    en: 'Trikona (triangle)',
+    de: 'Trikona (Dreieck)',
+    es: 'Trikona (triángulo)',
+    fr: 'Trikona (triangle)',
+    it: 'Trikona (triangolo)',
+    pt: 'Trikona (triângulo)',
+    hi: 'त्रिकोण (त्रिभुज)',
+    mr: 'त्रिकोण (त्रिभुज)',
+    kn: 'ತ್ರಿಕೋಣ (ತ್ರಿಭುಜ)',
+    ml: 'ത്രികോണ (ത്രിഭുജം)',
+    ta: 'த்ரிகோண (முக்கோணம்)',
+    te: 'త్రికోణ (త్రిభుజం)',
+    ja: 'Trikona (三角形)',
+  },
+  c9: {
+    en: 'Bindu (dot)',
+    de: 'Bindu (Punkt)',
+    es: 'Bindu (punto)',
+    fr: 'Bindu (point)',
+    it: 'Bindu (punto)',
+    pt: 'Bindu (ponto)',
+    hi: 'बिंदु (केन्द्र बिंदु)',
+    mr: 'बिंदु (केंद्र बिंदु)',
+    kn: 'ಬಿಂದು (ಕೇಂದ್ರ ಬಿಂದು)',
+    ml: 'ബിന്ദു (കേന്ദ്ര ബിന്ദു)',
+    ta: 'பிந்து (மையப் புள்ளி)',
+    te: 'బిందువు (కేంద్ర బిందువు)',
+    ja: 'Bindu (点)',
+  },
 }
+// Helper: resolve geometric label for current tab + language
+const geomLabel = (tab, lang) => { const g = AVARANA_GEOM[tab]; return g ? (g[lang] ?? g.en) : null }
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
@@ -4076,8 +4204,8 @@ export default function App() {
               return tab.navLabel
             })()}
           </span>
-          {AVARANA_GEOM[activeTab] && (
-            <span className="iast text-[11px] text-muted truncate leading-none mt-0.5">{AVARANA_GEOM[activeTab]}</span>
+          {geomLabel(activeTab, uiLang) && (
+            <span className="iast text-[11px] text-muted truncate leading-none mt-0.5">{geomLabel(activeTab, uiLang)}</span>
           )}
         </div>
         <div ref={mobileDropdownRef} className="flex items-center gap-1.5 flex-shrink-0">
@@ -4877,8 +5005,8 @@ export default function App() {
             return (
               <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 items-center gap-2 ${uiLang === 'en' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>
                 {label}
-                {AVARANA_GEOM[activeTab] && (
-                  <span className="iast text-xs text-muted font-normal tracking-normal">{AVARANA_GEOM[activeTab]}</span>
+                {geomLabel(activeTab, uiLang) && (
+                  <span className="iast text-xs text-muted font-normal tracking-normal">{geomLabel(activeTab, uiLang)}</span>
                 )}
               </span>
             )
