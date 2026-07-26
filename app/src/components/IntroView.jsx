@@ -396,7 +396,13 @@ export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour 
         style={{ opacity: 0.07 }}
         aria-hidden="true"
       >
-        <div style={{ width: '160%', position: 'absolute', top: '40px', left: '50%', transform: 'translateX(-50%)' }}>
+        {/* Sized to ~108% of the full-width container (not the narrower text
+            column) — the default viewBox already frames the bhupura gates
+            with a small margin, so anything much past ~115% starts
+            clipping them again. Widened from the old 160%-of-narrow-column
+            sizing so the west/east gates land in the page margins instead
+            of being clipped by overflow-x-hidden. */}
+        <div style={{ width: '108%', position: 'absolute', top: '40px', left: '50%', transform: 'translateX(-50%)' }}>
           <SriYantraSVG
             showTriangles={true}
             showLabels={false}
@@ -406,7 +412,7 @@ export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour 
       </div>
 
       {/* ── Content ────────────────────────────────────────────────────────── */}
-      <div className="relative max-w-xl md:max-w-none mx-auto px-6 py-10 space-y-8">
+      <div className="relative max-w-xl md:max-w-2xl mx-auto px-6 py-10 space-y-8">
 
         {/* Opening invocation */}
         <div className="text-center space-y-2 pb-6 border-b border-surface-800">
