@@ -286,12 +286,30 @@ Users can create their own lines, cross-circuit groups, or any arbitrary selecti
 - **Fun first:** If a session stops being enjoyable, stop. This project should feel like practice, not work.
 - **Revenue:** Not the primary driver, but if the app is genuinely useful, a simple App Store release or Gumroad page is not out of the question later.
 
+## Deploy / Git Workflow
+
+**Branches:** `dev` (working) → `main` (production, deployed by Vercel). `master` and `dev-clean` are legacy/vestigial — do not push to them. Confirm the Vercel production branch via the Vercel connector before assuming `main` is live; the project has drifted before.
+
+**The rule that matters: never force-push `dev` or `main`.** A force-push is what let two disconnected sessions each overwrite the other's work without ever finding out, which is exactly what happened on 2026-07-26 (dev and main diverged silently after two separate sessions each bundle-pushed their own snapshot). If a push is rejected as non-fast-forward, that is git correctly telling you two histories disagree — stop and reconcile (merge, don't force), don't push through it.
+
+**Three canonical scripts (run from Chris's machine, which holds the GitHub credentials — this repo's sandbox/Cowork sessions do not):**
+- `push-to-dev.ps1` — fetches origin, pushes current branch to `dev`. No force.
+- `publish-to-main.ps1` — fast-forwards `main` to `origin/dev`. No force. Fails loudly if `main` has diverged from `dev` rather than overwriting either side.
+- `apply-sandbox-handoff.ps1` — applies a Cowork session's handoff bundle (fixed filename `sandbox-handoff.bundle`, always overwritten, never accumulated) onto local `dev` as a fast-forward only.
+
+**If you're a Claude session working in this repo:** do not invent a new one-off `push_*.ps1` / `.bundle` pair for this session's changes — that pattern produced ~107 stray files (390MB) that were deleted on 2026-07-26. Use the three scripts above. If a merge conflict needs resolving between `dev` and `main`, resolve it explicitly and get it built and verified before handoff — don't paper over it with `--force`.
+
+**Known infrastructure risk:** this repo's `.git` directory lives inside a continuously OneDrive-synced folder (the Cowork workspace folder). Git + live cloud sync is a known-bad combination — OneDrive can partially sync or lock internal git files mid-operation (this caused a stuck `.git/index.lock` and made `npm run build` / `git bundle create` unreliably slow inside the Cowork sandbox on 2026-07-26; both had to be run against a plain local copy instead). If git operations in this folder start hanging, timing out, or throwing permission errors, this is why — it is not a sign the repo is corrupt. Worth considering at some point: excluding `.git` from OneDrive sync, or relocating the working repo outside the synced folder entirely.
+
 ## Files in This Folder
 
 | File | Purpose |
 |------|---------|
 | `Sri Yantra.jpg` | Reference image of the Sri Yantra for visual design |
 | `CLAUDE.md` | This file — project brief and working context |
+| `push-to-dev.ps1` | Push current branch to `dev` (no force) |
+| `publish-to-main.ps1` | Fast-forward `main` to `origin/dev` (no force) |
+| `apply-sandbox-handoff.ps1` | Apply a Cowork session's handoff bundle onto local `dev` |
 
 ## Session Startup Checklist
 

@@ -1,12 +1,26 @@
-$repo   = "https://github.com/5c5vvtw8kf-coder/sri-yantra-memoriser.git"
-$bundle = "$PSScriptRoot\push-canvas.bundle"
-$gitDir = $PSScriptRoot
+<#
+  push-to-dev.ps1
 
-git -C $gitDir fetch $bundle refs/heads/dev-clean:refs/heads/dev-clean
+  Run this from your own machine after committing local changes.
+  Pushes your current branch straight to origin/dev.
+
+  Deliberately does NOT use --force. If this fails with a
+  non-fast-forward error, dev has moved on since you last pulled —
+  run `git pull --rebase origin dev` and resolve before retrying.
+  Never bypass that with --force; that's exactly how dev and main
+  diverged silently in the past.
+#>
+
+$ErrorActionPreference = "Stop"
+$repoRoot = $PSScriptRoot
+
+git -C $repoRoot fetch origin
 if ($LASTEXITCODE -ne 0) { Write-Error "fetch failed"; exit 1 }
 
-git -C $gitDir push $repo refs/heads/dev-clean:refs/heads/dev --force
-if ($LASTEXITCODE -ne 0) { Write-Error "push to dev failed"; exit 1 }
+git -C $repoRoot push origin HEAD:dev
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Push to dev rejected (likely non-fast-forward). Pull/rebase onto origin/dev and resolve before retrying. Do not force-push."
+    exit 1
+}
 
 Write-Host "Pushed to dev." -ForegroundColor Green
-Write-Host "Verify at https://app-one-sigma-31.vercel.app then run .\push-to-main.ps1 to promote." -ForegroundColor Yellow
