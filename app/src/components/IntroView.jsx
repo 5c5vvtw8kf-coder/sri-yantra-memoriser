@@ -396,13 +396,15 @@ export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour 
         style={{ opacity: 0.07 }}
         aria-hidden="true"
       >
-        {/* Sized to ~108% of the full-width container (not the narrower text
-            column) — the default viewBox already frames the bhupura gates
-            with a small margin, so anything much past ~115% starts
-            clipping them again. Widened from the old 160%-of-narrow-column
-            sizing so the west/east gates land in the page margins instead
-            of being clipped by overflow-x-hidden. */}
-        <div style={{ width: '108%', position: 'absolute', top: '40px', left: '50%', transform: 'translateX(-50%)' }}>
+        {/* Sized relative to the full-width container (not the narrower text
+            column). The default viewBox frames the bhupura gates with a
+            built-in ~13% margin on each side, so at 100% width the gates
+            already sit just inside the SVG's own edge. Scaling the SVG
+            down to ~70% of the container — rather than blowing it up past
+            100% — is what actually buys the left/right margin: the gates
+            end up at roughly 70%*0.87 ≈ 61% of the container's half-width
+            from centre, leaving a clear ~20% margin on each side. */}
+        <div style={{ width: '70%', position: 'absolute', top: '40px', left: '50%', transform: 'translateX(-50%)' }}>
           <SriYantraSVG
             showTriangles={true}
             showLabels={false}
