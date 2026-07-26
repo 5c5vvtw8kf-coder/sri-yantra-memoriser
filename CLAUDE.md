@@ -290,6 +290,8 @@ Users can create their own lines, cross-circuit groups, or any arbitrary selecti
 
 **Branches:** `dev` (working) → `main` (production, deployed by Vercel). `master` and `dev-clean` are legacy/vestigial — do not push to them. Confirm the Vercel production branch via the Vercel connector before assuming `main` is live; the project has drifted before.
 
+**Pushing to `main` does not make it live — this is deliberate.** Vercel builds every push to `main` as a deployment but does not auto-promote it to production; Chris promotes manually via the Vercel dashboard (Deployments → the commit → Promote to Production) when he's ready. Confirmed 2026-07-26: this is intentional gating, not a misconfigured auto-deploy setting — don't "fix" it or suggest enabling auto-promote without asking first.
+
 **The rule that matters: never force-push `dev` or `main`.** A force-push is what let two disconnected sessions each overwrite the other's work without ever finding out, which is exactly what happened on 2026-07-26 (dev and main diverged silently after two separate sessions each bundle-pushed their own snapshot). If a push is rejected as non-fast-forward, that is git correctly telling you two histories disagree — stop and reconcile (merge, don't force), don't push through it.
 
 **Three canonical scripts (run from Chris's machine, which holds the GitHub credentials — this repo's sandbox/Cowork sessions do not):**
