@@ -21,7 +21,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 
 // ── Static data ───────────────────────────────────────────────────────────────
 
@@ -136,9 +136,8 @@ function buildQueue() {
 
 function AnswerSVGLabel({ label, script }) {
   const fontSize = script === 'devanagari' ? 16 : script === 'english' ? 15 : 14
-  const h        = script === 'devanagari' ? 30 : 28
-  const charW    = script === 'devanagari' ? 12 : script === 'bengali' ? 12 : script === 'telugu' ? 14 : script === 'tamil' ? 15 : script === 'english' ? 10 : 9
-  const w        = Math.max(80, label.length * charW + 24)
+  const h        = (script === 'devanagari' || script === 'gujarati') ? 30 : 28
+  const w = measureTooltipWidth(label, fontSize, 24, 80)
   const tx = 260   // centred on yantra horizontal axis
   const ty = 90    // inside the top bhupura band
   return (

@@ -2,6 +2,36 @@
  * utils.js — shared display helpers used across all view components.
  */
 
+// ── Tooltip width measurement ─────────────────────────────────────────────────
+//
+// Uses the Canvas 2D API to measure actual text advance width at the same
+// font-family and font-size as the SVG tooltip.  This eliminates per-script
+// charW constants and handles variable-width scripts (Bengali, Tamil, etc.)
+// exactly without heuristics.
+//
+// SVG font-size is expressed in user units.  Canvas measureText() at the same
+// nominal size returns the same unit value, so the result can be used directly
+// as an SVG width attribute.
+//
+let _ttCanvas = null
+
+export function measureTooltipWidth(label, fontSize, padding = 18, minWidth = 60, kana = null) {
+  try {
+    if (!_ttCanvas) _ttCanvas = document.createElement('canvas').getContext('2d')
+    _ttCanvas.font = `${fontSize}px 'Gentium Plus', Georgia, serif`
+    let w = Math.ceil(_ttCanvas.measureText(label).width)
+    if (kana) {
+      // Kana furigana renders at fontSize=13 sans-serif — measure it too
+      _ttCanvas.font = `13px sans-serif`
+      w = Math.max(w, Math.ceil(_ttCanvas.measureText(kana).width))
+    }
+    return Math.max(minWidth, w + padding)
+  } catch {
+    // Fallback for non-browser environments (tests, SSR)
+    return Math.max(minWidth, Math.round(label.length * fontSize * 0.65) + padding)
+  }
+}
+
 // ── Memo result persistence ───────────────────────────────────────────────────
 //
 // Two parallel stores per section key:

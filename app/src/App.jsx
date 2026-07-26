@@ -32,6 +32,7 @@ const LANG_OPTIONS = [
   { code: 'de', label: 'Deutsch',    englishName: 'German',     beta: true,  defaultScript: 'iast'       },
   { code: 'es', label: 'Español',    englishName: 'Spanish',    beta: true,  defaultScript: 'iast'       },
   { code: 'fr', label: 'Français',   englishName: 'French',     beta: true,  defaultScript: 'iast'       },
+  { code: 'gu', label: 'ગુજરાતી',    englishName: 'Gujarati',   beta: true,  defaultScript: 'gujarati'   },
   { code: 'hi', label: 'हिन्दी',      englishName: 'Hindi',      beta: true,  defaultScript: 'devanagari' },
   { code: 'it', label: 'Italiano',   englishName: 'Italian',    beta: true,  defaultScript: 'iast'       },
   { code: 'ja', label: '日本語',      englishName: 'Japanese',   beta: true,  defaultScript: 'iast'       },
@@ -53,6 +54,7 @@ const circuitSections = sections.filter(s => s.type === 'circuit')
 const NUMERAL_DIGITS = {
   hi: ['०','१','२','३','४','५','६','७','८','९'],
   mr: ['०','१','२','३','४','५','६','७','८','९'],
+  gu: ['૦','૧','૨','૩','૪','૫','૬','૭','૮','૯'],
   kn: ['೦','೧','೨','೩','೪','೫','೬','೭','೮','೯'],
   ta: ['௦','௧','௨','௩','௪','௫','௬','௭','௮','௯'],
   te: ['౦','౧','౨','౩','౪','౫','౬','౭','౮','౯'],
@@ -77,18 +79,21 @@ function numDot(uiLang) {
 const SECTION_SCRIPTS = {
   1: {
     chakraSvamini: {
+      gujarati:  'ત્રૈલોક્યમોહન ચક્રસ્વામિની',
       kannada:   'ತ್ರೈಲೋಕ್ಯಮೋಹನ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'ത്രൈലോക്യമോഹന ചക്രസ്വാമിനീ',
       tamil:     'த்ரைலோக்யமோஹந சக்ரஸ்வாமினீ',
       telugu:    'త్రైలోక్యమోహన చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'પ્રકટ-યોગિની',
       kannada:   'ಪ್ರಕಟಯೋಗಿನೀ',
       malayalam: 'പ്രകടയോഗിനീ',
       tamil:     'ப்ரகடயோகினீ',
       telugu:    'ప్రకటయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'ત્રિપુરે',
       kannada:   'ತ್ರಿಪುರೇ',
       malayalam: 'ത്രിപുരേ',
       tamil:     'த்ரிபுரே',
@@ -97,18 +102,21 @@ const SECTION_SCRIPTS = {
   },
   2: {
     chakraSvamini: {
+      gujarati:  'સર્વાશાપરિપૂરક ચક્રસ્વામિની',
       kannada:   'ಸರ್ವಾಶಾಪರಿಪೂರಕ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'സർവാശാപരിപൂരക ചക്രസ്വാമിനീ',
       tamil:     'ஸர்வாஶாபரிபூரக சக்ரஸ்வாமினீ',
       telugu:    'సర్వాశాపరిపూరక చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'ગુપ્ત-યોગિની',
       kannada:   'ಗುಪ್ತಯೋಗಿನೀ',
       malayalam: 'ഗുപ്തയോഗിനീ',
       tamil:     'குப்தயோகினீ',
       telugu:    'గుప్తయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'ત્રિપુરેશી',
       kannada:   'ತ್ರಿಪುರೇಶೀ',
       malayalam: 'ത്രിപുരേശീ',
       tamil:     'த்ரிபுரேஶீ',
@@ -117,18 +125,21 @@ const SECTION_SCRIPTS = {
   },
   3: {
     chakraSvamini: {
+      gujarati:  'સર્વસંક્ષોભણ ચક્રસ્વામિની',
       kannada:   'ಸರ್ವಸಂಕ್ಷೋಭಣ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'സർവസങ്ക്ഷോഭണ ചക്രസ്വാമിനീ',
       tamil:     'ஸர்வஸங்க்ஷோபண சக்ரஸ்வாமினீ',
       telugu:    'సర్వసంక్షోభణ చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'ગુપ્તતર-યોગિની',
       kannada:   'ಗುಪ್ತತರಯೋಗಿನೀ',
       malayalam: 'ഗുപ്തതരയോഗിനീ',
       tamil:     'குப்ததரயோகினீ',
       telugu:    'గుప్తతరయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'ત્રિપુરસુંદરી',
       kannada:   'ತ್ರಿಪುರಸುಂದರೀ',
       malayalam: 'ത്രിപുരസുന്ദരീ',
       tamil:     'த்ரிபுரஸுந்தரீ',
@@ -137,18 +148,21 @@ const SECTION_SCRIPTS = {
   },
   4: {
     chakraSvamini: {
+      gujarati:  'સર્વસૌભાગ્યદાયક ચક્રસ્વામિની',
       kannada:   'ಸರ್ವಸೌಭಾಗ್ಯದಾಯಕ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'സർവസൗഭാഗ്യദായക ചക്രസ്വാമിനീ',
       tamil:     'ஸர்வஸௌபாக்யதாயக சக்ரஸ்வாமினீ',
       telugu:    'సర్వసౌభాగ్యదాయక చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'સમ્પ્રદાય-યોગિની',
       kannada:   'ಸಂಪ್ರದಾಯಯೋಗಿನೀ',
       malayalam: 'സമ്പ്രദായയോഗിനീ',
       tamil:     'ஸம்ப்ரதாயயோகினீ',
       telugu:    'సంప్రదాయయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'ત્રિપુરવાસિની',
       kannada:   'ತ್ರಿಪುರವಾಸಿನೀ',
       malayalam: 'ത്രിപുരവാസിനീ',
       tamil:     'த்ரிபுரவாஸினீ',
@@ -157,18 +171,21 @@ const SECTION_SCRIPTS = {
   },
   5: {
     chakraSvamini: {
+      gujarati:  'સર્વાર્થસાધક ચક્રસ્વામિની',
       kannada:   'ಸರ್ವಾರ್ಥಸಾಧಕ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'സർവാർഥസാധക ചക്രസ്വാമിനീ',
       tamil:     'ஸர்வார்தஸாதக சக்ரஸ்வாமினீ',
       telugu:    'సర్వార్థసాధక చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'કુલોત્તીર્ણ-યોગિની',
       kannada:   'ಕುಲೋತ್ತೀರ್ಣಯೋಗಿನೀ',
       malayalam: 'കുലോത്തീർണ്ണയോഗിനീ',
       tamil:     'குலோத்தீர்ணயோகினீ',
       telugu:    'కులోత్తీర్ణయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'ત્રિપુરાશ્રીઃ',
       kannada:   'ತ್ರಿಪುರಾಶ್ರೀಃ',
       malayalam: 'ത്രിപുരാശ്രീഃ',
       tamil:     'த்ரிபுராஶ்ரீஃ',
@@ -177,18 +194,21 @@ const SECTION_SCRIPTS = {
   },
   6: {
     chakraSvamini: {
+      gujarati:  'સર્વરક્ષાકર ચક્રસ્વામિની',
       kannada:   'ಸರ್ವರಕ್ಷಾಕರ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'സർവരക്ഷാകര ചക്രസ്വാമിനീ',
       tamil:     'ஸர்வரக்ஷாகர சக்ரஸ்வாமினீ',
       telugu:    'సర్వరక్షాకర చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'નિગર્ભ-યોગિની',
       kannada:   'ನಿಗರ್ಭಯೋಗಿನೀ',
       malayalam: 'നിഗർഭയോഗിനീ',
       tamil:     'நிகர்பயோகினீ',
       telugu:    'నిగర్భయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'ત્રિપુરમાલિની',
       kannada:   'ತ್ರಿಪುರಮಾಲಿನೀ',
       malayalam: 'ത്രിപുരമാലിനീ',
       tamil:     'த்ரிபுரமாலினீ',
@@ -197,18 +217,21 @@ const SECTION_SCRIPTS = {
   },
   7: {
     chakraSvamini: {
+      gujarati:  'સર્વરોગહર ચક્રસ્વામિની',
       kannada:   'ಸರ್ವರೋಗಹರ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'സർവരോഗഹര ചക്രസ്വാമിനീ',
       tamil:     'ஸர்வரோகஹர சக்ரஸ்வாமினீ',
       telugu:    'సర్వరోగహర చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'રહસ્ય-યોગિની',
       kannada:   'ರಹಸ್ಯಯೋಗಿನೀ',
       malayalam: 'രഹസ്യയോഗിനീ',
       tamil:     'ரஹஸ்யயோகினீ',
       telugu:    'రహస్యయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'ત્રિપુરસિદ્ધે',
       kannada:   'ತ್ರಿಪುರಸಿದ್ಧೇ',
       malayalam: 'ത്രിപുരസിദ്ധേ',
       tamil:     'த்ரிபுரஸித்தே',
@@ -217,18 +240,21 @@ const SECTION_SCRIPTS = {
   },
   8: {
     chakraSvamini: {
+      gujarati:  'સર્વસિદ્ધિપ્રદ ચક્રસ્વામિની',
       kannada:   'ಸರ್ವಸಿದ್ಧಿಪ್ರದ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'സർവസിദ്ധിപ്രദ ചക്രസ്വാമിനീ',
       tamil:     'ஸர்வஸித்திப்ரத சக்ரஸ்வாமினீ',
       telugu:    'సర్వసిద్ధిప్రద చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'અતિ-રહસ્ય-યોગિની',
       kannada:   'ಅತಿರಹಸ್ಯಯೋಗಿನೀ',
       malayalam: 'അതിരഹസ്യയോഗിനീ',
       tamil:     'அதிரஹஸ்யயோகினீ',
       telugu:    'అతిరహస్యయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'ત્રિપુરાંબા',
       kannada:   'ತ್ರಿಪುರಾಂಬಾ',
       malayalam: 'ത്രിപുരാംബാ',
       tamil:     'த்ரிபுராம்பா',
@@ -237,18 +263,21 @@ const SECTION_SCRIPTS = {
   },
   9: {
     chakraSvamini: {
+      gujarati:  'સર્વાનંદ-મય ચક્રસ્વામિની',
       kannada:   'ಸರ್ವಾನಂದಮಯ ಚಕ್ರಸ್ವಾಮಿನೀ',
       malayalam: 'സർവാനന്ദമയ ചക്രസ്വാമിനീ',
       tamil:     'ஸர்வானந்தமய சக்ரஸ்வாமினீ',
       telugu:    'సర్వానందమయ చక్రస్వామినీ',
     },
     yoginiType: {
+      gujarati:  'પરા-પર-રહસ્ય-યોગિની',
       kannada:   'ಪರಾಪರರಹಸ್ಯಯೋಗಿನೀ',
       malayalam: 'പരാപരരഹസ്യയോഗിനീ',
       tamil:     'பராபரரஹஸ்யயோகினீ',
       telugu:    'పరాపరరహస్యయోగినీ',
     },
     chakreshvari: {
+      gujarati:  'મહા-ત્રિપુરસુંદરી',
       kannada:   'ಮಹಾತ್ರಿಪುರಸುಂದರೀ',
       malayalam: 'മഹാത്രിപുരസുന്ദരീ',
       tamil:     'மஹாத்ரிபுரஸுந்தரீ',
@@ -303,6 +332,19 @@ const SECTION_BN = {
   9: { avarana: 'সর্ব আনন্দময় চক্র',              chakraSvamini: 'সর্ব আনন্দময় চক্র স্বামিনী',              yoginiType: 'পর পর রহস্য যোগিনী',       chakreshvari: 'মহা ত্রিপুরা সুন্দরী'        },
 }
 
+// Gujarati script section metadata
+const SECTION_GU = {
+  1: { avarana: 'ત્રૈલોક્યમોહન ચક્ર',         chakraSvamini: 'ત્રૈલોક્યમોહન ચક્રસ્વામિની',         yoginiType: 'પ્રકટ-યોગિની',            chakreshvari: 'ત્રિપુરે'             },
+  2: { avarana: 'સર્વાશાપરિપૂરક ચક્ર',         chakraSvamini: 'સર્વાશાપરિપૂરક ચક્રસ્વામિની',         yoginiType: 'ગુપ્ત-યોગિની',            chakreshvari: 'ત્રિપુરેશી'            },
+  3: { avarana: 'સર્વસંક્ષોભણ ચક્ર',           chakraSvamini: 'સર્વસંક્ષોભણ ચક્રસ્વામિની',           yoginiType: 'ગુપ્તતર-યોગિની',          chakreshvari: 'ત્રિપુરસુંદરી'        },
+  4: { avarana: 'સર્વસૌભાગ્યદાયક ચક્ર',        chakraSvamini: 'સર્વસૌભાગ્યદાયક ચક્રસ્વામિની',        yoginiType: 'સમ્પ્રદાય-યોગિની',        chakreshvari: 'ત્રિપુરવાસિની'        },
+  5: { avarana: 'સર્વાર્થસાધક ચક્ર',            chakraSvamini: 'સર્વાર્થસાધક ચક્રસ્વામિની',            yoginiType: 'કુલોત્તીર્ણ-યોગિની',     chakreshvari: 'ત્રિપુરાશ્રીઃ'         },
+  6: { avarana: 'સર્વરક્ષાકર ચક્ર',             chakraSvamini: 'સર્વરક્ષાકર ચક્રસ્વામિની',             yoginiType: 'નિગર્ભ-યોગિની',           chakreshvari: 'ત્રિપુરમાલિની'        },
+  7: { avarana: 'સર્વરોગહર ચક્ર',              chakraSvamini: 'સર્વરોગહર ચક્રસ્વામિની',              yoginiType: 'રહસ્ય-યોગિની',            chakreshvari: 'ત્રિપુરસિદ્ધે'        },
+  8: { avarana: 'સર્વસિદ્ધિપ્રદ ચક્ર',           chakraSvamini: 'સર્વસિદ્ધિપ્રદ ચક્રસ્વામિની',           yoginiType: 'અતિ-રહસ્ય-યોગિની',       chakreshvari: 'ત્રિપુરાંબા'          },
+  9: { avarana: 'સર્વાનંદ-મય ચક્ર',             chakraSvamini: 'સર્વાનંદ-મય ચક્રસ્વામિની',             yoginiType: 'પરા-પર-રહસ્ય-યોગિની',    chakreshvari: 'મહા-ત્રિપુરસુંદરી'    },
+}
+
 const YOGINI_SECRECY = {
   'Prakata Yogini':           'secrecy.prakata',
   'Gupta Yogini':             'secrecy.gupta',
@@ -320,85 +362,85 @@ const TABS = [
   { id: 'h-explore-memorise', heading: 'EXPLORE AND MEMORISE', trKey: 'heading.explore' },
   { id: 'nyasa', trKey: 'nav.nyasa',
     navLabel:    'nyāsāṅga-devatāḥ',         navLabelEn: 'Nyāsa Deities',
-    navLabelDev: 'न्यासांगदेवताः',
+    navLabelDev: 'न्यासांगदेवताः',            navLabelGu: 'ન્યાસાંગદેવતાઃ',
     navLabelTe:  'న్యాసాంగదేవతాః',           navLabelTa: 'ந்யாஸாங்கதேவதாஃ',
     navLabelKn:  'ನ್ಯಾಸಾಂಗದೇವತಾಃ',           navLabelMl: 'ന്യാസാംഗദേവതാഃ',
     footerLabel: 'Nyāsa Deities' },
   { id: 'inner', trKey: 'nav.inner',
     navLabel:    'tithi-nitya-devatāḥ',       navLabelEn: 'Tithi Nitya Deities',
-    navLabelDev: 'तिथिनित्यदेवताः',
+    navLabelDev: 'तिथिनित्यदेवताः',            navLabelGu: 'તિથિનિત્યદેવતાઃ',
     navLabelTe:  'తిథినిత్యదేవతాః',           navLabelTa: 'திதிநித்யதேவதாஃ',
     navLabelKn:  'ತಿಥಿನಿತ್ಯದೇವತಾಃ',           navLabelMl: 'തിഥിനിത്യദേവതാഃ',
     footerLabel: 'Tithi Nitya' },
   { id: 'gurava', trKey: 'nav.gurava',
     navLabel:    'guravaḥ',                   navLabelEn: 'Gurus',
-    navLabelDev: 'गुरवः',
+    navLabelDev: 'गुरवः',                     navLabelGu: 'ગુરવઃ',
     navLabelTe:  'గురవః',                     navLabelTa: 'குரவஃ',
     navLabelKn:  'ಗುರವಃ',                     navLabelMl: 'ഗുരവഃ',
     footerLabel: 'Guravaḥ' },
   { id: 'bhupura', trKey: 'av.1',
     navLabel:    '1. cakra-prathamāvaraṇa-devatāḥ', navLabelEn: '1st Enclosure Deities',
-    navLabelDev: '१. चक्रप्रथमावरणदेवताः',
+    navLabelDev: '१. चक्रप्रथमावरणदेवताः',    navLabelGu: '૧. ચક્રપ્રથમાવરણદેવતાઃ',
     navLabelTe:  '౧. చక్రప్రథమావరణదేవతాః',   navLabelTa: '௧. சக்ரப்ரதமாவரணதேவதாஃ',
     navLabelKn:  '೧. ಚಕ್ರಪ್ರಥಮಾವರಣದೇವತಾಃ',   navLabelMl: '൧. ചക്രപ്രഥമാവരണദേവതാഃ',
     footerLabel: '1st Āvaraṇa' },
   { id: 'c2', trKey: 'av.2',
     navLabel:    '2. cakra-dvitīyāvaraṇa-devatāḥ',  navLabelEn: '2nd Enclosure Deities',
-    navLabelDev: '२. चक्रद्वितीयावरणदेवताः',
+    navLabelDev: '२. चक्रद्वितीयावरणदेवताः',   navLabelGu: '૨. ચક્રદ્વિતીયાવરણદેવતાઃ',
     navLabelTe:  '౨. చక్రద్వితీయావరణదేవతాః',  navLabelTa: '௨. சக்ரத்விதீயாவரணதேவதாஃ',
     navLabelKn:  '೨. ಚಕ್ರದ್ವಿತೀಯಾವರಣದೇವತಾಃ',  navLabelMl: '൨. ചക്രദ്വിതീയാവരണദേവതാഃ',
     footerLabel: '2nd Āvaraṇa' },
   { id: 'c3', trKey: 'av.3',
     navLabel:    '3. cakra-tṛtīyāvaraṇa-devatāḥ',   navLabelEn: '3rd Enclosure Deities',
-    navLabelDev: '३. चक्रतृतीयावरणदेवताः',
+    navLabelDev: '३. चक्रतृतीयावरणदेवताः',    navLabelGu: '૩. ચક્રતૃતીયાવરણદેવતાઃ',
     navLabelTe:  '౩. చక్రతృతీయావరణదేవతాః',   navLabelTa: '௩. சக்ரத்ருதீயாவரணதேவதாஃ',
     navLabelKn:  '೩. ಚಕ್ರತೃತೀಯಾವರಣದೇವತಾಃ',   navLabelMl: '൩. ചക്രതൃതീയാവരണദേവതാഃ',
     footerLabel: '3rd Āvaraṇa' },
   { id: 'c4', trKey: 'av.4',
     navLabel:    '4. cakra-caturthāvaraṇa-devatāḥ',  navLabelEn: '4th Enclosure Deities',
-    navLabelDev: '४. चक्रचतुर्थावरणदेवताः',
+    navLabelDev: '४. चक्रचतुर्थावरणदेवताः',   navLabelGu: '૪. ચક્રચતુર્થાવરણદેવતાઃ',
     navLabelTe:  '౪. చక్రచతుర్థావరణదేవతాః',   navLabelTa: '௪. சக்ரசதுர்தாவரணதேவதாஃ',
     navLabelKn:  '೪. ಚಕ್ರಚತುರ್ಥಾವರಣದೇವತಾಃ',   navLabelMl: '൪. ചക്രചതുർഥാവരണദേവതാഃ',
     footerLabel: '4th Āvaraṇa' },
   { id: 'c5', trKey: 'av.5',
     navLabel:    '5. cakra-pañcamāvaraṇa-devatāḥ',   navLabelEn: '5th Enclosure Deities',
-    navLabelDev: '५. चक्रपञ्चमावरणदेवताः',
+    navLabelDev: '५. चक्रपञ्चमावरणदेवताः',    navLabelGu: '૫. ચક્રપઞ્ચમાવરણદેવતાઃ',
     navLabelTe:  '౫. చక్రపంచమావరణదేవతాః',    navLabelTa: '௫. சக்ரபஞ்சமாவரணதேவதாஃ',
     navLabelKn:  '೫. ಚಕ್ರಪಂಚಮಾವರಣದೇವತಾಃ',    navLabelMl: '൫. ചക്രപഞ്ചമാവരണദേവതാഃ',
     footerLabel: '5th Āvaraṇa' },
   { id: 'c6', trKey: 'av.6',
     navLabel:    '6. cakra-ṣaṣṭhāvaraṇa-devatāḥ',   navLabelEn: '6th Enclosure Deities',
-    navLabelDev: '६. चक्रषष्ठावरणदेवताः',
+    navLabelDev: '६. चक्रषष्ठावरणदेवताः',     navLabelGu: '૬. ચક્રષષ્ઠાવરણદેવતાઃ',
     navLabelTe:  '౬. చక్రషష్ఠావరణదేవతాః',    navLabelTa: '௬. சக்ரஷஷ்டாவரணதேவதாஃ',
     navLabelKn:  '೬. ಚಕ್ರಷಷ್ಠಾವರಣದೇವತಾಃ',    navLabelMl: '൬. ചക്രഷഷ്ഠാവരണദേവതാഃ',
     footerLabel: '6th Āvaraṇa' },
   { id: 'c7', trKey: 'av.7',
     navLabel:    '7. cakra-saptamāvaraṇa-devatāḥ',   navLabelEn: '7th Enclosure Deities',
-    navLabelDev: '७. चक्रसप्तमावरणदेवताः',
+    navLabelDev: '७. चक्रसप्तमावरणदेवताः',    navLabelGu: '૭. ચક્રસપ્તમાવરણદેવતાઃ',
     navLabelTe:  '౭. చక్రసప్తమావరణదేవతాః',   navLabelTa: '௭. சக்ரஸப்தமாவரணதேவதாஃ',
     navLabelKn:  '೭. ಚಕ್ರಸಪ್ತಮಾವರಣದೇವತಾಃ',   navLabelMl: '൭. ചക്രസപ്തമാവരണദേവതാഃ',
     footerLabel: '7th Āvaraṇa' },
   { id: 'c8', trKey: 'av.8',
     navLabel:    '8. cakra-aṣṭamāvaraṇa-devatāḥ',    navLabelEn: '8th Enclosure Deities',
-    navLabelDev: '८. चक्राष्टमावरणदेवताः',
+    navLabelDev: '८. चक्राष्टमावरणदेवताः',    navLabelGu: '૮. ચક્રાષ્ટમાવરણદેવતાઃ',
     navLabelTe:  '౮. చక్రాష్టమావరణదేవతాః',   navLabelTa: '௮. சக்ராஷ்டமாவரணதேவதாஃ',
     navLabelKn:  '೮. ಚಕ್ರಾಷ್ಟಮಾವರಣದೇವತಾಃ',   navLabelMl: '൮. ചക്രാഷ്ടമാവരണദേവതാഃ',
     footerLabel: '8th Āvaraṇa' },
   { id: 'c9', trKey: 'av.9',
     navLabel:    '9. cakra-navamāvaraṇa-devatāḥ',    navLabelEn: '9th Enclosure Deity',
-    navLabelDev: '९. चक्रनवमावरणदेवताः',
+    navLabelDev: '९. चक्रनवमावरणदेवताः',      navLabelGu: '૯. ચક્રનવમાવરણદેવતાઃ',
     navLabelTe:  '౯. చక్రనవమావరణదేవతాః',    navLabelTa: '௯. சக்ரநவமாவரணதேவதாஃ',
     navLabelKn:  '೯. ಚಕ್ರನವಮಾವರಣದೇವತಾಃ',    navLabelMl: '൯. ചക്രനവമാവരണദേവതാഃ',
     footerLabel: '9th Āvaraṇa' },
   { id: 'chakreshvari', trKey: 'nav.nc',
     navLabel:    'navacakrēśvarī nāmāni',     navLabelEn: 'Names of the Nine Chakras',
-    navLabelDev: 'नवचक्रेश्वरी नामानि',
+    navLabelDev: 'नवचक्रेश्वरी नामानि',        navLabelGu: 'નવચક્રેશ્વરી નામાનિ',
     navLabelTe:  'నవచక్రేశ్వరీ నామాని',       navLabelTa: 'நவசக்ரேஶ்வரீ நாமானி',
     navLabelKn:  'ನವಚಕ್ರೇಶ್ವರೀ ನಾಮಾನಿ',       navLabelMl: 'നവചക്രേശ്വരീ നാമാനി',
     footerLabel: 'Nava Chakreshvarī' },
   { id: 'closing', trKey: 'nav.closing',
     navLabel:    'śrīdevī-viśēṣaṇāni',        navLabelEn: 'Śrīdevī Epithets and Namaskāra',
-    navLabelDev: 'श्रीदेवी विशेषणानि',
+    navLabelDev: 'श्रीदेवी विशेषणानि',         navLabelGu: 'શ્રીદેવી વિશેષણાનિ',
     navLabelTe:  'శ్రీదేవీ విశేషణాని',         navLabelTa: 'ஶ்ரீதேவீ விஶேஷணானி',
     navLabelKn:  'ಶ್ರೀದೇವೀ ವಿಶೇಷಣಾನಿ',         navLabelMl: 'ശ്രീദേവീ വിശേഷണാനി',
     footerLabel: 'Śrīdevī Epithets' },
@@ -412,12 +454,14 @@ const TABS = [
     navLabelDev: 'श्री यन्त्र',
     navLabelTe:  'శ్రీ యన్త్ర',               navLabelTa: 'ஶ்ரீ யந்த்ர',
     navLabelKn:  'ಶ್ರೀ ಯಂತ್ರ',               navLabelMl: 'ശ്രീ യന്ത്ര',
+    navLabelBn:  'শ্রী যন্ত্র',               navLabelGu: 'શ્રી યન્ત્ર',               navLabelJa: 'シュリー・ヤントラ',
     footerLabel: 'Śrī Yantra' },
   { id: 'browser',      englishOnly: true,
     navLabel:    'śrī devī khaḍgamālā stōtram', navLabelEn: 'Sri Devi Khadgamala Stotram',
     navLabelDev: 'श्री देवी खड्गमाला स्तोत्रम्',
     navLabelTe:  'శ్రీ దేవీ ఖడ్గమాలా స్తోత్రమ్', navLabelTa: 'ஶ்ரீ தேவீ கட்கமாலா ஸ்தோத்ரம்',
     navLabelKn:  'ಶ್ರೀ ದೇವೀ ಖಡ್ಗಮಾಲಾ ಸ್ತೋತ್ರಮ್', navLabelMl: 'ശ്രീ ദേവീ ഖഡ്ഗമാലാ സ്തോത്രം',
+    navLabelBn:  'শ্রী দেবী খড়গমালা স্তোত্রম্', navLabelGu: 'શ્રી દેવી ખડ્ગમાલા સ્તોત્રમ્', navLabelJa: 'シュリー・デーヴィー・カドゥガマーラー',
     footerLabel: 'Khadgamala Stotram' },
   { id: 'references',   englishOnly: true, trKey: 'tab.references', navLabel: 'References',   navLabelEn: 'References',   navLabelDev: 'References',   footerLabel: 'References'   },
 ]
@@ -759,6 +803,7 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
           {uiLang === 'ja' ? (SECTION_KANA[section.circuitNumber]?.avarana ?? section.avarana)
            : uiLang === 'ru' ? (SECTION_RU[section.circuitNumber]?.avarana ?? section.avarana)
            : uiLang === 'bn' ? (SECTION_BN[section.circuitNumber]?.avarana ?? section.avarana)
+           : uiLang === 'gu' ? (SECTION_GU[section.circuitNumber]?.avarana ?? section.avarana)
            : section.avarana}
         </p>
       )}
@@ -775,6 +820,9 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
             {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.chakraSvamini && (
               <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].chakraSvamini}</span>
             )}
+            {uiLang === 'gu' && SECTION_GU[section.circuitNumber]?.chakraSvamini && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_GU[section.circuitNumber].chakraSvamini}</span>
+            )}
             {sectionName(section, 'chakraSvamini', script)}
           </span>
         </div>
@@ -789,6 +837,9 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
             )}
             {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.yoginiType && (
               <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].yoginiType}</span>
+            )}
+            {uiLang === 'gu' && SECTION_GU[section.circuitNumber]?.yoginiType && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_GU[section.circuitNumber].yoginiType}</span>
             )}
             {sectionName(section, 'yoginiType', script)}
             {secrecy && <span className="text-muted block mt-0.5">{tr(secrecy)}</span>}
@@ -805,6 +856,9 @@ function CircuitDetail({ circuitNumber, script = 'iast', uiLang = 'en', onNaviga
             )}
             {uiLang === 'bn' && SECTION_BN[section.circuitNumber]?.chakreshvari && (
               <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[section.circuitNumber].chakreshvari}</span>
+            )}
+            {uiLang === 'gu' && SECTION_GU[section.circuitNumber]?.chakreshvari && (
+              <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_GU[section.circuitNumber].chakreshvari}</span>
             )}
             {sectionName(section, 'chakreshvari', script)}
           </span>
@@ -990,6 +1044,7 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
           {uiLang === 'ja' ? (SECTION_KANA[circuitNumber]?.avarana ?? section.avarana)
            : uiLang === 'ru' ? (SECTION_RU[circuitNumber]?.avarana ?? section.avarana)
            : uiLang === 'bn' ? (SECTION_BN[circuitNumber]?.avarana ?? section.avarana)
+           : uiLang === 'gu' ? (SECTION_GU[circuitNumber]?.avarana ?? section.avarana)
            : section.avarana}
         </p>
       )}
@@ -1007,6 +1062,9 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
               {uiLang === 'bn' && SECTION_BN[circuitNumber]?.chakraSvamini && (
                 <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[circuitNumber].chakraSvamini}</span>
               )}
+              {uiLang === 'gu' && SECTION_GU[circuitNumber]?.chakraSvamini && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_GU[circuitNumber].chakraSvamini}</span>
+              )}
               {sectionName(section, 'chakraSvamini', script)}
             </span>
           </div>
@@ -1021,6 +1079,9 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
               )}
               {uiLang === 'bn' && SECTION_BN[circuitNumber]?.yoginiType && (
                 <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[circuitNumber].yoginiType}</span>
+              )}
+              {uiLang === 'gu' && SECTION_GU[circuitNumber]?.yoginiType && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_GU[circuitNumber].yoginiType}</span>
               )}
               {sectionName(section, 'yoginiType', script)}
             </span>
@@ -1042,6 +1103,9 @@ function SectionInfo({ tabId, script = 'iast', uiLang = 'en', showRows = true, t
               )}
               {uiLang === 'bn' && SECTION_BN[circuitNumber]?.chakreshvari && (
                 <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_BN[circuitNumber].chakreshvari}</span>
+              )}
+              {uiLang === 'gu' && SECTION_GU[circuitNumber]?.chakreshvari && (
+                <span className="block font-sans" style={{ fontSize: '11px', opacity: 0.72, lineHeight: 1.2, marginBottom: '1px' }}>{SECTION_GU[circuitNumber].chakreshvari}</span>
               )}
               {sectionName(section, 'chakreshvari', script)}
             </span>
@@ -2411,52 +2475,52 @@ const SECTION_IAST_LABELS = {
 // desc[lang]  = local-language description; falls back to desc.en
 const AVARANA_GEOM = {
   bhupura: {
-    name: { iast: 'bhūpura',            hi: 'भूपुर',         mr: 'भूपुर',         ne: 'भूपुर',         bn: 'ভূপুর',         kn: 'ಭೂಪುರ',       ml: 'ഭൂപുര',        ta: 'பூபுர',         te: 'భూపుర'        },
+    name: { iast: 'bhūpura',            hi: 'भूपुर',         mr: 'भूपुर',         ne: 'भूपुर',         bn: 'ভূপুর',         gu: 'ભૂપુર',        kn: 'ಭೂಪುರ',       ml: 'ഭൂപുര',        ta: 'பூபுர',         te: 'భూపుర'        },
     desc: { en: 'outer square',         de: 'äußeres Quadrat',        es: 'cuadrado exterior',     fr: 'carré extérieur',       it: 'quadrato esterno',   pt: 'quadrado externo',   ru: 'внешний квадрат',
-            bn: 'বাইরের চতুর্ভুজ',      hi: 'बाह्य वर्ग',      mr: 'बाह्य वर्ग',    kn: 'ಹೊರ ಚೌಕ',     ml: 'പുറം ചതുരം',   ta: 'வெளி சதுரம்',  te: 'బాహ్య చతురస్రం', ja: '外側の四角'       },
+            bn: 'বাইরের চতুর্ভুজ',      gu: 'બાહ્ય વર્ગ',    hi: 'बाह्य वर्ग',      mr: 'बाह्य वर्ग',    kn: 'ಹೊರ ಚೌಕ',     ml: 'പുറം ചതുരം',   ta: 'வெளி சதுரம்',  te: 'బాహ్య చతురస్రం', ja: '外側の四角'       },
   },
   c2: {
-    name: { iast: 'ṣoḍaśadalapadma', hi: 'षोडश दल पद्म',  mr: 'षोडश दल पद्म',  ne: 'षोडश दल पद्म',  bn: 'ষোডশদলপদ্ম',   kn: 'ಷೋಡಶ ದಳ ಪದ್ಮ', ml: 'ഷോഡശ ദള പദ്മ', ta: 'ஷோடச தள பத்ம',  te: 'షోడశ దళ పద్మ' },
+    name: { iast: 'ṣoḍaśadalapadma', hi: 'षोडश दल पद्म',  mr: 'षोडश दल पद्म',  ne: 'षोडश दल पद्म',  bn: 'ষোডশদলপদ্ম',   gu: 'ષોડશ દલ પદ્મ', kn: 'ಷೋಡಶ ದಳ ಪದ್ಮ', ml: 'ഷോഡശ ദള പദ്മ', ta: 'ஷோடச தள பத்ம',  te: 'షోడశ దళ పద్మ' },
     desc: { en: '16 petalled lotus',    de: '16-blättriger Lotus',    es: 'loto de 16 pétalos',    fr: 'lotus à 16 pétales',    it: 'loto a 16 petali',   pt: 'lótus de 16 pétalas',   ru: '16-лепестковый лотос',
-            bn: '১৬ পাপড়ির পদ্ম',      hi: '१६ दल कमल',       mr: '१६ दल कमल',     kn: '೧೬ ದಳದ ತಾವರೆ', ml: '൧൬ ഇതൾ താമര',  ta: '௧௬ இதழ் தாமரை', te: '౧౬ రేకుల కమలం',  ja: '十六弁の蓮'       },
+            bn: '১৬ পাপড়ির পদ্ম',      gu: '૧૬ દલ કમલ',    hi: '१६ दल कमल',       mr: '१६ दल कमल',     kn: '೧೬ ದಳದ ತಾವರೆ', ml: '൧൬ ഇതൾ താമര',  ta: '௧௬ இதழ் தாமரை', te: '౧౬ రేకుల కమలం',  ja: '十六弁の蓮'       },
   },
   c3: {
-    name: { iast: 'aṣṭadalapadma',   hi: 'अष्ट दल पद्म',  mr: 'अष्ट दल पद्म',  ne: 'अष्ट दल पद्म',  bn: 'অষ্টদলপদ্ম',    kn: 'ಅಷ್ಟ ದಳ ಪದ್ಮ', ml: 'അഷ്ട ദള പദ്മ', ta: 'அஷ்ட தள பத்ம',  te: 'అష్ట దళ పద్మ'  },
+    name: { iast: 'aṣṭadalapadma',   hi: 'अष्ट दल पद्म',  mr: 'अष्ट दल पद्म',  ne: 'अष्ट दल पद्म',  bn: 'অষ্টদলপদ্ম',    gu: 'અષ્ટ દલ પદ્મ', kn: 'ಅಷ್ಟ ದಳ ಪದ್ಮ', ml: 'അഷ്ട ദള പദ്മ', ta: 'அஷ்ட தள பத்ம',  te: 'అష్ట దళ పద్మ'  },
     desc: { en: '8 petalled lotus',     de: '8-blättriger Lotus',     es: 'loto de 8 pétalos',     fr: 'lotus à 8 pétales',     it: 'loto a 8 petali',    pt: 'lótus de 8 pétalas',    ru: '8-лепестковый лотос',
-            bn: '৮ পাপড়ির পদ্ম',       hi: '८ दल कमल',        mr: '८ दल कमल',      kn: '೮ ದಳದ ತಾವರೆ',  ml: '൮ ഇതൾ താമര',   ta: '௮ இதழ் தாமரை',   te: '౮ రేకుల కమలం',   ja: '八弁の蓮'         },
+            bn: '৮ পাপড়ির পদ্ম',       gu: '૮ દલ કમલ',     hi: '८ दल कमल',        mr: '८ दल कमल',      kn: '೮ ದಳದ ತಾವರೆ',  ml: '൮ ഇതൾ താമര',   ta: '௮ இதழ் தாமரை',   te: '౮ రేకుల కమలం',   ja: '八弁の蓮'         },
   },
   c4: {
-    name: { iast: 'caturdaśa',          hi: 'चतुर्दश',        mr: 'चतुर्दश',        ne: 'चतुर्दश',        bn: 'চতুর্দশ',        kn: 'ಚತುರ್ದಶ',     ml: 'ചതുർദശ',       ta: 'சதுர்தச',        te: 'చతుర్దశ'       },
+    name: { iast: 'caturdaśa',          hi: 'चतुर्दश',        mr: 'चतुर्दश',        ne: 'चतुर्दश',        bn: 'চতুর্দশ',        gu: 'ચતુર્દશ',      kn: 'ಚತುರ್ದಶ',     ml: 'ചതുർദശ',       ta: 'சதுர்தச',        te: 'చతుర్దశ'       },
     desc: { en: '14 triangles',         de: '14 Dreiecke',            es: '14 triángulos',         fr: '14 triangles',          it: '14 triangoli',       pt: '14 triângulos',      ru: '14 треугольников',
-            bn: '১৪টি ত্রিভুজ',         hi: '१४ त्रिकोण',      mr: '१४ त्रिकोण',    kn: '೧೪ ತ್ರಿಕೋಣಗಳು', ml: '൧൪ ത്രികോണങ്ങൾ', ta: '௧௪ முக்கோணங்கள்', te: '౧౪ త్రికోణాలు',  ja: '十四の三角形'     },
+            bn: '১৪টি ত্রিভুজ',         gu: '૧૪ ત્રિકોણ',   hi: '१४ त्रिकोण',      mr: '१४ त्रिकोण',    kn: '೧೪ ತ್ರಿಕೋಣಗಳು', ml: '൧൪ ത്രികോണങ്ങൾ', ta: '௧௪ முக்கோணங்கள்', te: '౧౪ త్రికోణాలు',  ja: '十四の三角形'     },
   },
   c5: {
-    name: { iast: 'bahirdaśa',          hi: 'बहिर्दश',        mr: 'बहिर्दश',        ne: 'बहिर्दश',        bn: 'বহির্দশ',        kn: 'ಬಹಿರ್ದಶ',     ml: 'ബഹിർദശ',       ta: 'பஹிர்தச',        te: 'బహిర్దశ'       },
+    name: { iast: 'bahirdaśa',          hi: 'बहिर्दश',        mr: 'बहिर्दश',        ne: 'बहिर्दश',        bn: 'বহির্দশ',        gu: 'બહિર્દશ',      kn: 'ಬಹಿರ್ದಶ',     ml: 'ബഹിർദശ',       ta: 'பஹிர்தச',        te: 'బహిర్దశ'       },
     desc: { en: 'outer 10 triangles',   de: '10 äußere Dreiecke',     es: '10 triángulos exteriores', fr: '10 triangles extérieurs', it: '10 triangoli esterni', pt: '10 triângulos externos', ru: '10 внешних треугольников',
-            bn: 'বাইরের ১০টি ত্রিভুজ',  hi: 'बाह्य १० त्रिकोण', mr: 'बाह्य १० त्रिकोण', kn: 'ಹೊರ ೧೦ ತ್ರಿಕೋಣಗಳು', ml: 'പുറം ൧൦ ത്രികോണങ്ങൾ', ta: 'வெளி ௧௦ முக்கோணங்கள்', te: 'బాహ్య ౧౦ త్రికోణాలు', ja: '外側の十の三角形'  },
+            bn: 'বাইরের ১০টি ত্রিভুজ',  gu: 'બાહ્ય ૧૦ ત્રિકોણ', hi: 'बाह्य १० त्रिकोण', mr: 'बाह्य १० त्रिकोण', kn: 'ಹೊರ ೧೦ ತ್ರಿಕೋಣಗಳು', ml: 'പുറം ൧൦ ത്രികോണങ്ങൾ', ta: 'வெளி ௧௦ முக்கோணங்கள்', te: 'బాహ్య ౧౦ త్రికోణాలు', ja: '外側の十の三角形'  },
   },
   c6: {
-    name: { iast: 'antardaśa',          hi: 'अन्तर्दश',       mr: 'अन्तर्दश',       ne: 'अन्तर्दश',       bn: 'অন্তর্দশ',       kn: 'ಅಂತರ್ದಶ',     ml: 'അന്തർദശ',       ta: 'அந்தர்தச',       te: 'అంతర్దశ'       },
+    name: { iast: 'antardaśa',          hi: 'अन्तर्दश',       mr: 'अन्तर्दश',       ne: 'अन्तर्दश',       bn: 'অন্তর্দশ',       gu: 'અન્તર્દશ',     kn: 'ಅಂತರ್ದಶ',     ml: 'അന്തർദശ',       ta: 'அந்தர்தச',       te: 'అంతర్దశ'       },
     desc: { en: 'inner 10 triangles',   de: '10 innere Dreiecke',     es: '10 triángulos interiores', fr: '10 triangles intérieurs', it: '10 triangoli interni', pt: '10 triângulos internos', ru: '10 внутренних треугольников',
-            bn: 'ভেতরের ১০টি ত্রিভুজ', hi: 'आंतरिक १० त्रिकोण', mr: 'आंतरिक १० त्रिकोण', kn: 'ಒಳ ೧೦ ತ್ರಿಕೋಣಗಳು', ml: 'അകം ൧൦ ത്രികോണങ്ങൾ', ta: 'உள் ௧௦ முக்கோணங்கள்', te: 'అంతర ౧౦ త్రికోణాలు', ja: '内側の十の三角形'  },
+            bn: 'ভেতরের ১০টি ত্রিভুজ', gu: 'આંતરિક ૧૦ ત્રિકોણ', hi: 'आंतरिक १० त्रिकोण', mr: 'आंतरिक १० त्रिकोण', kn: 'ಒಳ ೧೦ ತ್ರಿಕೋಣಗಳು', ml: 'അകം ൧൦ ത്രികോണങ്ങൾ', ta: 'உள் ௧௦ முக்கோணங்கள்', te: 'అంతర ౧౦ త్రికోణాలు', ja: '内側の十の三角形'  },
   },
   c7: {
-    name: { iast: 'aṣṭakoṇa',          hi: 'अष्टकोण',        mr: 'अष्टकोण',        ne: 'अष्टकोण',        bn: 'অষ্টকোণ',        kn: 'ಅಷ್ಟಕೋಣ',     ml: 'അഷ്ടകോണ',      ta: 'அஷ்டகோண',       te: 'అష్టకోణ'       },
+    name: { iast: 'aṣṭakoṇa',          hi: 'अष्टकोण',        mr: 'अष्टकोण',        ne: 'अष्टकोण',        bn: 'অষ্টকোণ',        gu: 'અષ્ટકોણ',      kn: 'ಅಷ್ಟಕೋಣ',     ml: 'അഷ്ടകോണ',      ta: 'அஷ்டகோண',       te: 'అష్టకోణ'       },
     desc: { en: '8 triangles',          de: '8 Dreiecke',             es: '8 triángulos',          fr: '8 triangles',           it: '8 triangoli',        pt: '8 triângulos',       ru: '8 треугольников',
-            bn: '৮টি ত্রিভুজ',          hi: '८ त्रिकोण',       mr: '८ त्रिकोण',      kn: '೮ ತ್ರಿಕೋಣಗಳು',  ml: '൮ ത്രികോണങ്ങൾ',  ta: '௮ முக்கோணங்கள்',  te: '౮ త్రికోణాలు',   ja: '八の三角形'       },
+            bn: '৮টি ত্রিভুজ',          gu: '૮ ત્રિકોણ',     hi: '८ त्रिकोण',       mr: '८ त्रिकोण',      kn: '೮ ತ್ರಿಕೋಣಗಳು',  ml: '൮ ത്രികോണങ്ങൾ',  ta: '௮ முக்கோணங்கள்',  te: '౮ త్రికోణాలు',   ja: '八の三角形'       },
   },
   c8: {
-    name: { iast: 'trikoṇa',           hi: 'त्रिकोण',         mr: 'त्रिकोण',         ne: 'त्रिकोण',         bn: 'ত্রিকোণ',         kn: 'ತ್ರಿಕೋಣ',      ml: 'ത്രികോണ',      ta: 'த்ரிகோண',        te: 'త్రికోణ'        },
+    name: { iast: 'trikoṇa',           hi: 'त्रिकोण',         mr: 'त्रिकोण',         ne: 'त्रिकोण',         bn: 'ত্রিকোণ',         gu: 'ત્રિકોણ',       kn: 'ತ್ರಿಕೋಣ',      ml: 'ത്രികോണ',      ta: 'த்ரிகோண',        te: 'త్రికోణ'        },
     desc: { en: 'triangle',             de: 'Dreieck',                es: 'triángulo',             fr: 'triangle',              it: 'triangolo',          pt: 'triângulo',          ru: 'треугольник',
-            bn: 'ত্রিভুজ',              hi: 'त्रिभुज',          mr: 'त्रिभुज',          kn: 'ತ್ರಿಭುಜ',         ml: 'ത്രിഭുജം',       ta: 'முக்கோணம்',      te: 'త్రిభుజం',       ja: '三角形'           },
+            bn: 'ত্রিভুজ',              gu: 'ત્રિભુજ',       hi: 'त्रिभुज',          mr: 'त्रिभुज',          kn: 'ತ್ರಿಭುಜ',         ml: 'ത്രിഭുജം',       ta: 'முக்கோணம்',      te: 'త్రిభుజం',       ja: '三角形'           },
   },
   c9: {
-    name: { iast: 'bindu',             hi: 'बिंदु',           mr: 'बिंदु',           ne: 'बिन्दु',          bn: 'বিন্দু',          kn: 'ಬಿಂದು',         ml: 'ബിന്ദു',        ta: 'பிந்து',          te: 'బిందువు'       },
+    name: { iast: 'bindu',             hi: 'बिंदु',           mr: 'बिंदु',           ne: 'बिन्दु',          bn: 'বিন্দু',          gu: 'બિંદુ',          kn: 'ಬಿಂದು',         ml: 'ബിന്ദു',        ta: 'பிந்து',          te: 'బిందువు'       },
     desc: { en: 'dot',                  de: 'Punkt',                  es: 'punto',                 fr: 'point',                 it: 'punto',              pt: 'ponto',              ru: 'точка',
-            bn: 'বিন্দু',               hi: 'केन्द्र बिंदु',   mr: 'केंद्र बिंदु',   kn: 'ಕೇಂದ್ರ ಬಿಂದು',  ml: 'കേന്ദ്ര ബിന്ദു',  ta: 'மையப் புள்ளி',  te: 'కేంద్ర బిందువు',  ja: '点'              },
+            bn: 'বিন্দু',               gu: 'કેન્દ્ર બિંદુ',  hi: 'केन्द्र बिंदु',   mr: 'केंद्र बिंदु',   kn: 'ಕೇಂದ್ರ ಬಿಂದು',  ml: 'കേന്ദ്ര ബിന്ദു',  ta: 'மையப் புள்ளி',  te: 'కేంద్ర బిందువు',  ja: '点'              },
   },
 }
-const INDIC_LANGS    = new Set(['hi','mr','ne','bn','kn','ml','ta','te'])
+const INDIC_LANGS    = new Set(['hi','mr','ne','bn','gu','kn','ml','ta','te'])
 const DEVANAGARI_LANGS = new Set(['hi','mr','ne'])
 // Returns {name, desc} for the given tab and UI language
 // Devanagari languages get the script name only (desc = null — no parenthetical)
@@ -2486,6 +2550,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('intro')
   const [script,   setScript]   = useState('iast') // script key for deity name display
   const [uiLang,   setUiLang]   = useState('en')   // UI language
+  const [usEnglish, setUsEnglish] = useState(false) // American English spelling variant
   const handleLangChange = (lang) => {
     setUiLang(lang)
     const opt = LANG_OPTIONS.find(o => o.code === lang)
@@ -2513,7 +2578,20 @@ export default function App() {
     return () => { clearTimeout(t); document.removeEventListener('touchstart', close) }
   }, [showLangMenu, showMobileScriptMenu])
 
-  const tr = key => translate(uiLang !== 'en' ? uiLang : script, key)  // UI string helper — uses uiLang when set, else script (for IAST overrides)
+  // Close sidebar language dropdown on outside click
+  const sidebarLangRef = useRef(null)
+  useEffect(() => {
+    if (!showSidebarLangMenu) return
+    const close = (e) => {
+      if (sidebarLangRef.current && !sidebarLangRef.current.contains(e.target)) {
+        setShowSidebarLangMenu(false)
+      }
+    }
+    const t = setTimeout(() => document.addEventListener('mousedown', close), 50)
+    return () => { clearTimeout(t); document.removeEventListener('mousedown', close) }
+  }, [showSidebarLangMenu])
+
+  const tr = key => translate(uiLang !== 'en' ? uiLang : (usEnglish ? 'en-us' : script), key)  // uses uiLang when set, en-us if US variant, else script (for IAST overrides)
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
@@ -2530,6 +2608,8 @@ export default function App() {
     script,
     uiLang,
     onLanguageChange: handleLangChange,
+    usEnglish,
+    onUsEnglishChange: setUsEnglish,
   })
 
   // ── Yantra-tab state ───────────────────────────────────────────────────────
@@ -4227,6 +4307,9 @@ export default function App() {
               if (uiLang === 'ta') return tab.navLabelTa  || tab.navLabel
               if (uiLang === 'kn') return tab.navLabelKn  || tab.navLabel
               if (uiLang === 'ml') return tab.navLabelMl  || tab.navLabel
+              if (uiLang === 'bn') return tab.navLabelBn  || tab.navLabel
+              if (uiLang === 'gu') return tab.navLabelGu  || tab.navLabel
+              if (uiLang === 'ja') return tab.navLabelJa  || tab.navLabel
               if (uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' || uiLang === 'ru') return tab.navLabelEn  || tab.navLabel
               return tab.navLabel
             })()}
@@ -4261,6 +4344,16 @@ export default function App() {
             {showLangMenu && (
               <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
                 <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">Language</p>
+                {uiLang === 'en' && (
+                  <label className="flex items-center gap-2 pl-5 pr-3 py-1 cursor-pointer hover:bg-surface-700 border-b border-surface-700"
+                    onClick={() => { setUsEnglish(v => !v); setShowLangMenu(false) }}>
+                    <span className={`w-2.5 h-2.5 rounded-sm border flex-shrink-0 flex items-center justify-center
+                      ${usEnglish ? 'bg-amber-500 border-amber-500' : 'border-cream/40 bg-transparent'}`}>
+                      {usEnglish && <span className="text-[7px] text-black font-bold leading-none">✓</span>}
+                    </span>
+                    <span className={`text-[11px] ${usEnglish ? 'text-gold-300' : 'text-muted'}`}>American English</span>
+                  </label>
+                )}
                 {LANG_OPTIONS.map(opt => (
                   <button key={opt.code} onClick={() => handleLangChange(opt.code)}
                     className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
@@ -4330,7 +4423,7 @@ export default function App() {
             <div className="flex items-center gap-1 flex-shrink-0 mt-0.5">
               {!navCollapsed && (<>
                 {/* Language picker */}
-                <div className="relative group/lang">
+                <div ref={sidebarLangRef} className="relative group/lang">
                   <button
                     onClick={() => setShowSidebarLangMenu(m => !m)}
                     className="w-5 h-5 rounded-full border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors flex items-center justify-center"
@@ -4342,6 +4435,16 @@ export default function App() {
                   </div>
                   {showSidebarLangMenu && (
                     <div className="absolute left-0 top-6 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[210px]">
+                      {uiLang === 'en' && (
+                        <label className={`flex items-center gap-2 pl-5 pr-3 py-1 cursor-pointer hover:bg-surface-700 border-b border-surface-700`}
+                          onClick={() => { setUsEnglish(v => !v); setShowSidebarLangMenu(false) }}>
+                          <span className={`w-2.5 h-2.5 rounded-sm border flex-shrink-0 flex items-center justify-center
+                            ${usEnglish ? 'bg-amber-500 border-amber-500' : 'border-cream/40 bg-transparent'}`}>
+                            {usEnglish && <span className="text-[7px] text-black font-bold leading-none">✓</span>}
+                          </span>
+                          <span className={`text-[11px] ${usEnglish ? 'text-gold-300' : 'text-muted'}`}>American English</span>
+                        </label>
+                      )}
                       {LANG_OPTIONS.map(opt => (
                         <button key={opt.code} onClick={() => handleLangChange(opt.code)}
                           className={`w-full text-left px-3 py-1.5 text-xs hover:bg-surface-700 flex items-center justify-between
@@ -4429,12 +4532,15 @@ export default function App() {
                 >
                   <span className="flex-1 min-w-0">
                     {tab.trKey ? tr(tab.trKey)
-                      : uiLang === 'hi' || uiLang === 'mr' ? (tab.navLabelDev || tab.navLabel)
+                      : uiLang === 'hi' || uiLang === 'mr' || uiLang === 'ne' ? (tab.navLabelDev || tab.navLabel)
                       : uiLang === 'te' ? (tab.navLabelTe  || tab.navLabel)
                       : uiLang === 'ta' ? (tab.navLabelTa  || tab.navLabel)
                       : uiLang === 'kn' ? (tab.navLabelKn  || tab.navLabel)
                       : uiLang === 'ml' ? (tab.navLabelMl  || tab.navLabel)
-                      : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (tab.navLabelEn  || tab.navLabel)
+                      : uiLang === 'bn' ? (tab.navLabelBn  || tab.navLabel)
+                      : uiLang === 'gu' ? (tab.navLabelGu  || tab.navLabel)
+                      : uiLang === 'ja' ? (tab.navLabelJa  || tab.navLabel)
+                      : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' || uiLang === 'ru' ? (tab.navLabelEn  || tab.navLabel)
                       : tab.navLabel}
                   </span>
                   {dot && (
@@ -4930,7 +5036,7 @@ export default function App() {
               )
             })()}
             {activeTab === 'browser'      && <CircuitBrowser script="devanagari" />}
-            {activeTab === 'intro'        && <IntroView script={script} uiLang={uiLang} onStartTour={startTour} />}
+            {activeTab === 'intro'        && <IntroView script={script} uiLang={usEnglish && uiLang === 'en' ? 'en-us' : uiLang} onStartTour={startTour} />}
             {activeTab === 'references'   && <ReferencesView />}
 
             {/* iPad-only: collapse hint shown below diagram when sidebar is open on explore tabs */}
@@ -5036,12 +5142,15 @@ export default function App() {
             const tab = TABS.find(t => t.id === activeTab)
             if (!tab) return null
             const label = tab.trKey ? tr(tab.trKey)
-              : uiLang === 'hi' || uiLang === 'mr' ? (tab.navLabelDev || tab.navLabel)
+              : uiLang === 'hi' || uiLang === 'mr' || uiLang === 'ne' ? (tab.navLabelDev || tab.navLabel)
               : uiLang === 'te' ? (tab.navLabelTe  || tab.navLabel)
               : uiLang === 'ta' ? (tab.navLabelTa  || tab.navLabel)
               : uiLang === 'kn' ? (tab.navLabelKn  || tab.navLabel)
               : uiLang === 'ml' ? (tab.navLabelMl  || tab.navLabel)
-              : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' ? (tab.navLabelEn  || tab.navLabel)
+              : uiLang === 'bn' ? (tab.navLabelBn  || tab.navLabel)
+              : uiLang === 'gu' ? (tab.navLabelGu  || tab.navLabel)
+              : uiLang === 'ja' ? (tab.navLabelJa  || tab.navLabel)
+              : uiLang === 'en' || uiLang === 'fr' || uiLang === 'es' || uiLang === 'it' || uiLang === 'pt' || uiLang === 'de' || uiLang === 'ru' ? (tab.navLabelEn  || tab.navLabel)
               : tab.navLabel
             return (
               <span className={`hidden md:flex ipad-nav-title flex-shrink-0 px-3 text-center select-none text-sm text-gold-400 items-center gap-2 ${uiLang === 'en' ? 'font-bold' : 'font-medium iast'} tracking-wide`}>

@@ -31,7 +31,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import SriYantraSVG from './SriYantraSVG'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
@@ -104,6 +104,8 @@ const LIST_RED_FILLS = { ...ALL_RED_FILLS, 'c9': '#5a0f0f' }
 
 const SCRIPT_DIGITS = {
   devanagari: ['१','२','३','४','५','६','७','८','९'],
+  bengali:    ['১','২','৩','৪','৫','৬','৭','৮','৯'],
+  gujarati:   ['૧','૨','૩','૪','૫','૬','૭','૮','૯'],
   telugu:     ['౧','౨','౩','౪','౫','౬','౭','౮','౯'],
   tamil:      ['௧','௨','௩','௪','௫','௬','௭','௮','௯'],
   kannada:    ['೧','೨','೩','೪','೫','೬','೭','೮','೯'],

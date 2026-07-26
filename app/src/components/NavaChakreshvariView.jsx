@@ -21,7 +21,7 @@ import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG, { C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_PTS, BHUPURA_INNER_PTS } from './SriYantraSVG'
 import triangleData from '../data/triangle-regions.json'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 
 // ── Stroke-cover overlay data ─────────────────────────────────────────────────
@@ -273,9 +273,16 @@ function Tooltip({ circuitNum, script, uiLang = 'en' }) {
   if (!circuitNum) return null
   const deity = deityByCircuit[circuitNum]
   if (!deity) return null
-  const JA_DIGITS = ['〇','一','二','三','四','五','六','七','八','九']
-  const isJapanese = uiLang === 'ja' || script === 'ja' || script === 'kana'
-  const numStr = isJapanese ? (JA_DIGITS[circuitNum] ?? circuitNum) : circuitNum
+  const JA_DIGITS  = ['〇','一','二','三','四','五','六','七','八','九']
+  const BN_DIGITS  = ['০','১','২','৩','৪','৫','৬','৭','৮','৯']
+  const DEV_DIGITS = ['०','१','२','३','४','५','६','७','८','९']
+  const GU_DIGITS  = ['૦','૧','૨','૩','૪','૫','૬','૭','૮','૯']
+  const isJapanese = uiLang === 'ja' || script === 'kana'
+  const numStr = isJapanese           ? (JA_DIGITS[circuitNum]  ?? circuitNum)
+    : script === 'bengali'            ? (BN_DIGITS[circuitNum]  ?? circuitNum)
+    : script === 'gujarati'           ? (GU_DIGITS[circuitNum]  ?? circuitNum)
+    : script === 'devanagari'         ? (DEV_DIGITS[circuitNum] ?? circuitNum)
+    : circuitNum
   const dot = ['en','fr','es','it','pt','de'].includes(uiLang) ? '. ' : ' '
   const kana  = isJapanese ? deity?.scripts?.kana : null
   const label = isJapanese
@@ -283,10 +290,9 @@ function Tooltip({ circuitNum, script, uiLang = 'en' }) {
     : `${numStr}${dot}${displayName(deity, script)}`
   if (!label) return null
 
-  const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 18.5 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const w        = Math.max(60, label.length * charW + 18)
+  const fontSize = (script === 'devanagari' || script === 'gujarati') ? 26 : script === 'english' ? 25 : 24
+  const h        = (script === 'devanagari' || script === 'gujarati') ? 52 : script === 'english' ? 50 : 48
+  const w = measureTooltipWidth(label, fontSize, 18, 60, kana)
 
   // Centred horizontally on the bindu (SVG_CX = 260); y fixed at top-left area
   const tx = SVG_CX

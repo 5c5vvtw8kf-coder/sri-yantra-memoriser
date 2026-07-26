@@ -960,7 +960,48 @@ const STEPS_BN = [
   },
 ]
 
-const STEPS_BY_LANG = { en: STEPS_EN, hi: STEPS_HI, kn: STEPS_KN, ml: STEPS_ML, mr: STEPS_MR, ta: STEPS_TA, te: STEPS_TE, fr: STEPS_FR, es: STEPS_ES, it: STEPS_IT, pt: STEPS_PT, de: STEPS_DE, ja: STEPS_JA, ru: STEPS_RU, ne: STEPS_NE, bn: STEPS_BN }
+const STEPS_GU = [
+  {
+    title: 'શ્રી યન્ત્ર સ્મૃતિસાધનમાં સ્વાગતમ',
+    body: '<p>આ App ‘ખડ્ગમાલા સ્તોત્ર’ ના આશરે 180 દેવી નામો શ્રી યન્ત્રની સ્થાનિક સ્મૃતિ દ્વારા યાદ કરવા મદદ કરે છે.</p><p>યાદી ઘૂંટવાને બદલે, દરેક દેવી યન્ત્રમાં ‘ક્યાં’ છે તે જાણો. સ્થાનિક સ્મૃતિ ક્રમિક સમરણને બનાવે છે.</p>',
+  },
+  {
+    title: 'નેવિગેશન',
+    body: 'ડેસ્કટોપ પર સાઇડબાર ડાબી તરફ સતત દેખાય છે. મોબાઇલ પર <strong>☰</strong> ટેપ કરી ખોલો.<br><br>તેમાં દરેક ભાગ — ન્યાસાંગ દેવતા, ગુરુઓ, નવ આવરણો — તેમજ સ્પોટ ચેક અને મેમોરી મેપ સૂચિબદ્ધ છે.',
+  },
+  {
+    selector: '[data-tour="heading-explore"]',
+    title: 'અન્વેષણ અને કણ્ઠસ્થ',
+    body: 'દરેક ભાગમાં બે રીતો છે:<br><br><strong>અન્વેષણ</strong> — ટેપ કરતાં નામો ઉઘડે છે.<br><strong>કણ્ઠસ્થ</strong> — નામો છુપાયેલા રહે છે; પહેલા યાદ કરો, પછી ઉઘાડો અને ચિહ્નિત કરો.<br><br>દરેક આવરણ બાહરથી અંદરતરફ પૂરો કરો.',
+  },
+  {
+    selector: '[data-tour="nav-bhupura"]',
+    title: 'નવ આવરણો',
+    body: 'દરેક આવરણનો પોતાનો ભાગ છે. સૌથી બહારના ભૂપુરથી શરૂ કરી બિંદુ સુધી આગળ વધો. ભાગ સંપૂર્ણ થતાં પ્રગતિનો ડોટ દેખાય છે.',
+  },
+  {
+    selector: '[data-tour="nav-spotcheck"]',
+    title: 'સ્પોટ ચેક',
+    body: '<strong>સ્પોટ ચેક</strong> યન્ત્રમાં યાદૃચ્છ સ્થળ બતાવે છે — તે સ્થળની દેવીનું નામ યાદ કરો. નમનીય સ્મૃતિ કેળવે છે.',
+  },
+  {
+    selector: '[data-tour="nav-memomap"]',
+    title: 'મેમોરી મેપ',
+    body: '<strong>મેમોરી મેપ</strong> સંપૂર્ણ યન્ત્રમાં તમારી પ્રગતિ એક નજરે બતાવે છે — <span class="syt-tour-green">✓ લીલો</span> કણ્ઠસ્થ માટે, <span class="syt-tour-amber">~ પીળો</span> આંશિક માટે, <span class="syt-tour-red">✗ લાલો</span> હજુ નથી શીખ્યેલ માટે.',
+  },
+  {
+    selector: '[data-tour="nav-yantra"]',
+    title: 'શ્રી યન્ત્ર',
+    body: '<strong>શ્રી યન્ત્ર</strong> ટેબ સંપૂર્ણ ચિત્ર સંદર્ભ તરીકે દેખાડે છે — ભૂપુર થી બિંદુ સુધી તમામ નવ આવરણો.',
+  },
+  {
+    selector: '[data-tour="tour-btn"]',
+    title: 'તમે તૈયાર છો',
+    body: 'આ <strong>✈</strong> બટન કોઈ પણ સમયે ક્લિક કરી આ દોરો ફરી જોવો.<br><br>તમે ‘સ્વાગત અને પરિચય’ થી શરૂ કરો, પછી આવરણો ક્રમમાં પૂરા કરો. સમય લો — આ સાધના છે, સ્પર્ધા નથી. 🙏',
+  }
+]
+
+const STEPS_BY_LANG = { en: STEPS_EN, hi: STEPS_HI, kn: STEPS_KN, ml: STEPS_ML, mr: STEPS_MR, ta: STEPS_TA, te: STEPS_TE, fr: STEPS_FR, es: STEPS_ES, it: STEPS_IT, pt: STEPS_PT, de: STEPS_DE, ja: STEPS_JA, ru: STEPS_RU, ne: STEPS_NE, bn: STEPS_BN, gu: STEPS_GU }
 
 // ── Language options shown in the first tour step ─────────────────────────────
 const TOUR_LANG_OPTIONS = [
@@ -969,6 +1010,7 @@ const TOUR_LANG_OPTIONS = [
   { code: 'de', label: 'Deutsch'   },
   { code: 'es', label: 'Español'   },
   { code: 'fr', label: 'Français'  },
+  { code: 'gu', label: 'ગુજરાતી' },
   { code: 'hi', label: 'हिन्दी'    },
   { code: 'it', label: 'Italiano'  },
   { code: 'ja', label: '日本語'    },
@@ -1014,7 +1056,7 @@ const btnPrimary = {
 }
 
 // ── Overlay + popover component ───────────────────────────────────────────────
-function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange }) {
+function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange, usEnglish = false, onUsEnglishChange }) {
   const STEPS = getSteps(uiLang)
   const [stepIndex, setStepIndex] = useState(0)
   const [rect, setRect]   = useState(null)
@@ -1187,7 +1229,10 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
               {TOUR_LANG_OPTIONS.map(({ code, label }) => (
                 <button
                   key={code}
-                  onClick={() => onLanguageChange(code)}
+                  onClick={() => {
+                    if (code === 'en' && uiLang === 'en' && usEnglish && onUsEnglishChange) onUsEnglishChange(false)
+                    onLanguageChange(code)
+                  }}
                   style={{
                     padding: '4px 10px',
                     borderRadius: 4,
@@ -1199,9 +1244,34 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
                     background: uiLang === code ? '#2a1c08' : '#0f0a05',
                     color: uiLang === code ? '#d4b96a' : '#7a6a52',
                     transition: 'all 0.15s',
+                    display: 'flex', alignItems: 'center', gap: 5,
                   }}
                 >
-                  {label}
+                  {code === 'en' && uiLang === 'en' && usEnglish ? 'American English' : label}
+                  {code === 'en' && uiLang === 'en' && onUsEnglishChange && (
+                    <span
+                      onClick={e => { e.stopPropagation(); onUsEnglishChange(u => !u) }}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 3,
+                        fontSize: 9, fontFamily: 'monospace',
+                        padding: '2px 5px', borderRadius: 3, cursor: 'pointer',
+                        border: usEnglish ? '1px solid #c9a84c' : '1px solid #4a3a2a',
+                        background: usEnglish ? 'rgba(201,168,76,0.15)' : 'transparent',
+                        color: usEnglish ? '#d4b96a' : '#5a4a3a',
+                      }}
+                    >
+                      <span style={{
+                        width: 8, height: 8, borderRadius: 2, display: 'inline-flex',
+                        alignItems: 'center', justifyContent: 'center',
+                        border: usEnglish ? '1px solid #c9a84c' : '1px solid #4a3a2a',
+                        background: usEnglish ? '#c9a84c' : 'transparent',
+                        color: '#0f0a05', fontSize: 7, lineHeight: 1,
+                      }}>
+                        {usEnglish && '✓'}
+                      </span>
+                      US
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -1229,7 +1299,7 @@ function TourOverlay({ onDone, script = 'iast', uiLang = 'en', onLanguageChange 
   )
 }
 
-export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en', onLanguageChange } = {}) {
+export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en', onLanguageChange, usEnglish = false, onUsEnglishChange } = {}) {
   const [active, setActive] = useState(false)
   const cbRef = useRef(onBeforeStart)
   useEffect(() => { cbRef.current = onBeforeStart })
@@ -1251,6 +1321,6 @@ export function useTour({ onBeforeStart, script = 'iast', uiLang = 'en', onLangu
 
   return {
     startTour,
-    tourElement: active ? <TourOverlay onDone={endTour} script={script} uiLang={uiLang} onLanguageChange={onLanguageChange} /> : null,
+    tourElement: active ? <TourOverlay onDone={endTour} script={script} uiLang={uiLang} onLanguageChange={onLanguageChange} usEnglish={usEnglish} onUsEnglishChange={onUsEnglishChange} /> : null,
   }
 }

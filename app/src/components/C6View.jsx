@@ -20,7 +20,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import triangleData from '../data/triangle-regions.json'
 import SriYantraSVG from './SriYantraSVG'
@@ -108,12 +108,11 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
     ? (script === 'devanagari' ? 11 : script === 'english' ? 11 : 10)
     : (script === 'devanagari' ? 26 : script === 'english' ? 25 : 24)
   const h = isMobile
-    ? ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 22 : script === 'english' ? 22 : 21)
-    : ((script === 'devanagari' || script === 'bengali' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
-  const charW = isMobile
-    ? (script === 'devanagari' ? 9.5 : script === 'telugu' ? 11 : script === 'tamil' ? 11 : script === 'kannada' ? 10.5 : script === 'malayalam' ? 11 : script === 'english' ? 7.0 : 6.8)
-    : (script === 'devanagari' ? 18 : script === 'bengali' ? 18.5 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5)
-  const w  = isMobile ? Math.max(38, label.length * charW + 10) : Math.max(60, label.length * charW + 18)
+    ? ((script === 'devanagari' || script === 'bengali' || script === 'gujarati' || script === 'kannada' || script === 'malayalam') ? 22 : script === 'english' ? 22 : 21)
+    : ((script === 'devanagari' || script === 'bengali' || script === 'gujarati' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
+  const w = isMobile
+    ? measureTooltipWidth(label, fontSize, 10, 38, kana)
+    : measureTooltipWidth(label, fontSize, 18, 60, kana)
   const tx = isMobile
     ? Math.min(Math.max(x, 178 + w / 2), 342 - w / 2)
     : Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)

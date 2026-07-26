@@ -284,7 +284,8 @@
         "kannada": "ಓಂ ಐಂ ಹ್ರೀಂ ಶ್ರೀಂ ಐಂ ಕ್ಲೀಂ ಸೌಃ ಓಂ ನಮಸ್ತ್ರಿಪುರಸುನ್ದರೀ",
         "malayalam": "ഓം ഐം ഹ്രീം ശ്രീം ഐം ക്ലീം സൌഃ ഓം നമസ്ത്രിപുരസുംദരീ",
         "kana": "オーム・アイム・ハㇼーム・スリーム・アイム・クリーム・サウ・オーム・ナマストリプラスンダリー",
-        "bengali": "ওং ঐং হ্রীং শ্রীং ঐং ক্লীং সৌঃ ওং নমস্ত্রিপুরসুংদরী"
+        "bengali": "ওং ঐং হ্রীং শ্রীং ঐং ক্লীং সৌঃ ওং নমস্ত্রিপুরসুংদরী",
+        "gujarati": "ઓં ઐં હ્રીં શ્રીં ઐં ક્લીં સૌઃ ઓં નમસ્ત્રિપુરસુન્દરી"
       },
       "position": {
         "angleDeg": null,
@@ -312,7 +313,8 @@
         "kannada": "ಹೃದಯದೇವೀ",
         "malayalam": "ഹൃദയദേവീ",
         "kana": "ハリダヤデーヴィー",
-        "bengali": "হৃদযদেবী"
+        "bengali": "হৃদযদেবী",
+        "gujarati": "હૃદયદેવી"
       },
       "position": {
         "angleDeg": null,
@@ -356,7 +358,8 @@
         "kannada": "ಶಿರೋದೇವೀ",
         "malayalam": "ശിരോദേവീ",
         "kana": "シローデーヴィー",
-        "bengali": "শিরোদেবী"
+        "bengali": "শিরোদেবী",
+        "gujarati": "શિરોદેવી"
       },
       "position": {
         "angleDeg": null,
@@ -400,7 +403,8 @@
         "kannada": "ಶಿಖಾದೇವೀ",
         "malayalam": "ശിഖാദേവീ",
         "kana": "シカーデーヴィー",
-        "bengali": "শিখাদেবী"
+        "bengali": "শিখাদেবী",
+        "gujarati": "શિખાદેવી"
       },
       "position": {
         "angleDeg": null,
@@ -444,7 +448,8 @@
         "kannada": "ಕವಚದೇವೀ",
         "malayalam": "കവചദേവീ",
         "kana": "カヴァチャデーヴィー",
-        "bengali": "কবচদেবী"
+        "bengali": "কবচদেবী",
+        "gujarati": "કવચદેવી"
       },
       "position": {
         "angleDeg": null,
@@ -488,7 +493,8 @@
         "kannada": "ನೇತ್ರದೇವೀ",
         "malayalam": "നേത്രദേവീ",
         "kana": "ネートラデーヴィー",
-        "bengali": "নেত্রদেবী"
+        "bengali": "নেত্রদেবী",
+        "gujarati": "નેત્રદેવી"
       },
       "position": {
         "angleDeg": null,
@@ -532,7 +538,8 @@
         "kannada": "ಅಸ್ತ್ರದೇವೀ",
         "malayalam": "അസ്ത്രദേവീ",
         "kana": "アストラデーヴィー",
-        "bengali": "অস্ত্রদেবী"
+        "bengali": "অস্ত্রদেবী",
+        "gujarati": "અસ્ત્રદેવી"
       },
       "position": {
         "angleDeg": null,
@@ -576,7 +583,8 @@
         "kannada": "ಕಾಮೇಶ್ವರೀ",
         "malayalam": "കാമേശ്വരീ",
         "kana": "カーメーシュヴァリー",
-        "bengali": "কামেশ্বরী"
+        "bengali": "কামেশ্বরী",
+        "gujarati": "કામેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -612,7 +620,8 @@
         "kannada": "ಭಗಮಾಲಿನೀ",
         "malayalam": "ഭഗമാലിനീ",
         "kana": "バガマーリニー",
-        "bengali": "ভগমালিনী"
+        "bengali": "ভগমালিনী",
+        "gujarati": "ભગમાલિની"
       },
       "position": {
         "angleDeg": null,
@@ -648,7 +657,8 @@
         "kannada": "ನಿತ್ಯಕ್ಲಿನ್ನೇ",
         "malayalam": "നിത്യക്ലിന്നേ",
         "kana": "ニトヤクリンネー",
-        "bengali": "নিত্যক্লিন্নে"
+        "bengali": "নিত্যক্লিন্নে",
+        "gujarati": "નિત્યક્લિન્ને"
       },
       "position": {
         "angleDeg": null,
@@ -684,7 +694,8 @@
         "kannada": "ಭೇರುಣ್ಡೇ",
         "malayalam": "ഭേരുംഡേ",
         "kana": "ベールンデー",
-        "bengali": "ভেরুংডে"
+        "bengali": "ভেরুংডে",
+        "gujarati": "ભેરુણ્ડે"
       },
       "position": {
         "angleDeg": null,
@@ -720,7 +731,8 @@
         "kannada": "ವಹ್ನಿವಾಸಿನೀ",
         "malayalam": "വഹ്നിവാസിനീ",
         "kana": "ヴァフニヴァーシニー",
-        "bengali": "বহ্নিবাসিনী"
+        "bengali": "বহ্নিবাসিনী",
+        "gujarati": "વહ્નિવાસિની"
       },
       "position": {
         "angleDeg": null,
@@ -756,7 +768,8 @@
         "kannada": "ಮಹಾವಜ್ರೇಶ್ವರೀ",
         "malayalam": "മഹാവജ്രേശ്വരീ",
         "kana": "マハーヴァジュレーシュヴァリー",
-        "bengali": "মহাবজ্রেশ্বরী"
+        "bengali": "মহাবজ্রেশ্বরী",
+        "gujarati": "મહાવજ્રેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -792,7 +805,8 @@
         "kannada": "ಶಿವದೂತೀ",
         "malayalam": "ശിവദൂതീ",
         "kana": "シヴァドゥーティー",
-        "bengali": "শিবদূতী"
+        "bengali": "শিবদূতী",
+        "gujarati": "શિવદૂતી"
       },
       "position": {
         "angleDeg": null,
@@ -828,7 +842,8 @@
         "kannada": "ತ್ವರಿತೇ",
         "malayalam": "ത്വരിതേ",
         "kana": "トヴァリテー",
-        "bengali": "ত্বরিতে"
+        "bengali": "ত্বরিতে",
+        "gujarati": "ત્વરિતે"
       },
       "position": {
         "angleDeg": null,
@@ -864,7 +879,8 @@
         "kannada": "ಕುಲಸುನ್ದರೀ",
         "malayalam": "കുലസുംദരീ",
         "kana": "クラスンダリー",
-        "bengali": "কুলসুংদরী"
+        "bengali": "কুলসুংদরী",
+        "gujarati": "કુલસુન્દરી"
       },
       "position": {
         "angleDeg": null,
@@ -900,7 +916,8 @@
         "kannada": "ನಿತ್ಯೇ",
         "malayalam": "നിത്യേ",
         "kana": "ニトイェー",
-        "bengali": "নিত্যে"
+        "bengali": "নিত্যে",
+        "gujarati": "નિત્યે"
       },
       "position": {
         "angleDeg": null,
@@ -936,7 +953,8 @@
         "kannada": "ನೀಲಪತಾಕೇ",
         "malayalam": "നീലപതാകേ",
         "kana": "ニーラパターケー",
-        "bengali": "নীলপতাকে"
+        "bengali": "নীলপতাকে",
+        "gujarati": "નીલપતાકે"
       },
       "position": {
         "angleDeg": null,
@@ -972,7 +990,8 @@
         "kannada": "ವಿಜಯೇ",
         "malayalam": "വിജയേ",
         "kana": "ヴィジャイェー",
-        "bengali": "বিজয়ে"
+        "bengali": "বিজয়ে",
+        "gujarati": "વિજયે"
       },
       "position": {
         "angleDeg": null,
@@ -1008,7 +1027,8 @@
         "kannada": "ಸರ್ವಮಙ್ಗಳೇ",
         "malayalam": "സർവമംഗളേ",
         "kana": "サルヴァマンガレー",
-        "bengali": "সর্বমংগলে"
+        "bengali": "সর্বমংগলে",
+        "gujarati": "સર્વમઙ્ગળે"
       },
       "position": {
         "angleDeg": null,
@@ -1044,7 +1064,8 @@
         "kannada": "ಜ್ವಾಲಾಮಾಲಿನೀ",
         "malayalam": "ജ്വാലാമാലിനീ",
         "kana": "ジュヴァーラーマーリニー",
-        "bengali": "জ্বালামালিনী"
+        "bengali": "জ্বালামালিনী",
+        "gujarati": "જ્વાલામાલિની"
       },
       "position": {
         "angleDeg": null,
@@ -1080,7 +1101,8 @@
         "kannada": "ಚಿತ್ರೇ",
         "malayalam": "ചിത്രേ",
         "kana": "チトレー",
-        "bengali": "চিত্রে"
+        "bengali": "চিত্রে",
+        "gujarati": "ચિત્રે"
       },
       "position": {
         "angleDeg": null,
@@ -1116,7 +1138,8 @@
         "kannada": "ಮಹಾನಿತ್ಯೇ",
         "malayalam": "മഹാനിത്യേ",
         "kana": "マハーニトイェー",
-        "bengali": "মহানিত্যে"
+        "bengali": "মহানিত্যে",
+        "gujarati": "મહાનિત્યે"
       },
       "position": {
         "angleDeg": null,
@@ -1152,7 +1175,8 @@
         "kannada": "ಪರಮೇಶ್ವರ-ಪರಮೇಶ್ವರೀ",
         "malayalam": "പരമേശ്വര",
         "kana": "パラメーシュヴァラ・パラメーシュヴァリー",
-        "bengali": "পরমেশ্বর-পরমেশ্বরী"
+        "bengali": "পরমেশ্বর-পরমেশ্বরী",
+        "gujarati": "પરમેશ્વર-પરમેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -1196,7 +1220,8 @@
         "kannada": "ಮಿತ್ರೇಶಮಯೀ",
         "malayalam": "പരമേശ്വരീ",
         "kana": "ミトレーシャマイー",
-        "bengali": "মিত্রেশময়ী"
+        "bengali": "মিত্রেশময়ী",
+        "gujarati": "મિત્રેશમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1240,7 +1265,8 @@
         "kannada": "ಷಷ್ಠೀಶಮಯೀ",
         "malayalam": "മിത്രേശമയീ",
         "kana": "シャシュティーシャマイー",
-        "bengali": "ষষ্ঠীশময়ী"
+        "bengali": "ষষ্ঠীশময়ী",
+        "gujarati": "ષષ્ઠીશમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1284,7 +1310,8 @@
         "kannada": "ಉದ್ದೀಶಮಯೀ",
         "malayalam": "ഷഷ്ഠീശമയീ",
         "kana": "ウッディーシャマイー",
-        "bengali": "উদ্দীশময়ী"
+        "bengali": "উদ্দীশময়ী",
+        "gujarati": "ઉદ્દીશમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1328,7 +1355,8 @@
         "kannada": "ಚರ್ಯಾನಾಥಮಯೀ",
         "malayalam": "ചര്യാനാഥമയീ",
         "kana": "チャルヤーナータマイー",
-        "bengali": "চর্য়ানাথময়ী"
+        "bengali": "চর্য়ানাথময়ী",
+        "gujarati": "ચર્યાનાથમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1372,7 +1400,8 @@
         "kannada": "ಲೋಪಾಮುದ್ರಮಯೀ",
         "malayalam": "ലോപാമുദ്രമയീ",
         "kana": "ローパームドラマイー",
-        "bengali": "লোপামুদ্রময়ী"
+        "bengali": "লোপামুদ্রময়ী",
+        "gujarati": "લોપામુદ્રમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1416,7 +1445,8 @@
         "kannada": "ಅಗಸ್ತ್ಯಮಯೀ",
         "malayalam": "അഗസ്ത്യമയീ",
         "kana": "アガストヤマイー",
-        "bengali": "অগস্ত্যময়ী"
+        "bengali": "অগস্ত্যময়ী",
+        "gujarati": "અગસ્ત્યમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1460,7 +1490,8 @@
         "kannada": "ಕಾಲತಾಪನಮಯೀ",
         "malayalam": "കാലതാപശമയീ",
         "kana": "カーラターパナマイー",
-        "bengali": "কালতাপশময়ী"
+        "bengali": "কালতাপশময়ী",
+        "gujarati": "કાલતાપનમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1504,7 +1535,8 @@
         "kannada": "ಧರ್ಮಾಚಾರ್ಯಮಯೀ",
         "malayalam": "ധര്മാചാര്യമയീ",
         "kana": "ダルマーチャールヤマイー",
-        "bengali": "ধর্মাচার্যময়ী"
+        "bengali": "ধর্মাচার্যময়ী",
+        "gujarati": "ધર્માચાર્યમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1548,7 +1580,8 @@
         "kannada": "ಮುಕ್ತಕೇಶೀಶ್ವರಮಯೀ",
         "malayalam": "മുക്തകേശീശ്വരമയീ",
         "kana": "ムクタケーシーシュヴァラマイー",
-        "bengali": "মুক্তকেশীশ্বরময়ী"
+        "bengali": "মুক্তকেশীশ্বরময়ী",
+        "gujarati": "મુક્તકેશીશ્વરમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1592,7 +1625,8 @@
         "kannada": "ದೀಪಕಲಾನಾಥಮಯೀ",
         "malayalam": "ദീപകലാനാഥമയീ",
         "kana": "ディーパカラーナータマイー",
-        "bengali": "দীপকলানাথময়ী"
+        "bengali": "দীপকলানাথময়ী",
+        "gujarati": "દીપકલાનાથમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1636,7 +1670,8 @@
         "kannada": "ವಿಷ್ಣುದೇವಮಯೀ",
         "malayalam": "വിഷ്ണുദേവമയീ",
         "kana": "ヴィシュヌデーヴァマイー",
-        "bengali": "বিষ্ণুদেবময়ী"
+        "bengali": "বিষ্ণুদেবময়ী",
+        "gujarati": "વિષ્ણુદેવમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1680,7 +1715,8 @@
         "kannada": "ಪ್ರಭಾಕರದೇವಮಯೀ",
         "malayalam": "പ്രഭാകരദേവമയീ",
         "kana": "プラバーカラデーヴァマイー",
-        "bengali": "প্রভাকরদেবময়ী"
+        "bengali": "প্রভাকরদেবময়ী",
+        "gujarati": "પ્રભાકરદેવમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1724,7 +1760,8 @@
         "kannada": "ತೇಜೋದೇವಮಯೀ",
         "malayalam": "തേജോദേവമയീ",
         "kana": "テージョーデーヴァマイー",
-        "bengali": "তেজোদেবময়ী"
+        "bengali": "তেজোদেবময়ী",
+        "gujarati": "તેજોદેવમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1768,7 +1805,8 @@
         "kannada": "ಮನೋಜದೇವಮಯೀ",
         "malayalam": "മനോജദേവമയി",
         "kana": "マノージャデーヴァマイー",
-        "bengali": "মনোজদেবময়ী"
+        "bengali": "মনোজদেবময়ী",
+        "gujarati": "મનોજદેવમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1812,7 +1850,8 @@
         "kannada": "ಕಲ್ಯಾಣದೇವಮಯೀ",
         "malayalam": "കള്യാണദേവമയീ",
         "kana": "カルヤーナデーヴァマイー",
-        "bengali": "কল্য়াণদেবময়ী"
+        "bengali": "কল্য়াণদেবময়ী",
+        "gujarati": "કલ્યાણદેવમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1856,7 +1895,8 @@
         "kannada": "ವಾಸುದೇವಮಯೀ",
         "malayalam": "വാസുദേവമയീ",
         "kana": "ヴァースデーヴァマイー",
-        "bengali": "বাসুদেবময়ী"
+        "bengali": "বাসুদেবময়ী",
+        "gujarati": "વાસુદેવમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1900,7 +1940,8 @@
         "kannada": "ರತ್ನದೇವಮಯೀ",
         "malayalam": "രത്നദേവമയീ",
         "kana": "ラトナデーヴァマイー",
-        "bengali": "রত্নদেবময়ী"
+        "bengali": "রত্নদেবময়ী",
+        "gujarati": "રત્નદેવમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1944,7 +1985,8 @@
         "kannada": "ಶ್ರೀರಾಮಾನನ್ದಮಯೀ",
         "malayalam": "ശ്രീരാമാനംദമയീ",
         "kana": "スリラーマーナンダマイー",
-        "bengali": "শ্রীরামানংদময়ী"
+        "bengali": "শ্রীরামানংদময়ী",
+        "gujarati": "શ્રીરામાનન્દમયી"
       },
       "position": {
         "angleDeg": null,
@@ -1988,7 +2030,8 @@
         "kannada": "ಅಣಿಮಾಸಿದ್ಧೇ",
         "malayalam": "അണിമാസിദ്ധേ",
         "kana": "アニマーシッデー",
-        "bengali": "অণিমাসিদ্ধে"
+        "bengali": "অণিমাসিদ্ধে",
+        "gujarati": "અણિમાસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2025,7 +2068,8 @@
         "kannada": "ಲಘಿಮಾಸಿದ್ಧೇ",
         "malayalam": "ലഘിമാസിദ്ധേ",
         "kana": "ラギマーシッデー",
-        "bengali": "লঘিমাসিদ্ধে"
+        "bengali": "লঘিমাসিদ্ধে",
+        "gujarati": "લઘિમાસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2062,7 +2106,8 @@
         "kannada": "ಗರಿಮಾಸಿದ್ಧೇ",
         "malayalam": "ഗരിമാസിദ്ധേ",
         "kana": "ガリマーシッデー",
-        "bengali": "গরিমাসিদ্ধে"
+        "bengali": "গরিমাসিদ্ধে",
+        "gujarati": "ગરિમાસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2099,7 +2144,8 @@
         "kannada": "ಮಹಿಮಾಸಿದ್ಧೇ",
         "malayalam": "മഹിമാസിദ്ധേ",
         "kana": "マヒマーシッデー",
-        "bengali": "মহিমাসিদ্ধে"
+        "bengali": "মহিমাসিদ্ধে",
+        "gujarati": "મહિમાસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2136,7 +2182,8 @@
         "kannada": "ಈಶಿತ್ವಸಿದ್ಧೇ",
         "malayalam": "ഈശിത്വസിദ്ധേ",
         "kana": "イーシトヴァシッデー",
-        "bengali": "ঈশিত্বসিদ্ধে"
+        "bengali": "ঈশিত্বসিদ্ধে",
+        "gujarati": "ઈશિત્વસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2173,7 +2220,8 @@
         "kannada": "ವಶಿತ್ವಸಿದ್ಧೇ",
         "malayalam": "വശിത്വസിദ്ധേ",
         "kana": "ヴァシトヴァシッデー",
-        "bengali": "বশিত্বসিদ্ধে"
+        "bengali": "বশিত্বসিদ্ধে",
+        "gujarati": "વશિત્વસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2210,7 +2258,8 @@
         "kannada": "ಪ್ರಾಕಾಮ್ಯಸಿದ್ಧೇ",
         "malayalam": "പ്രാകാമ്യസിദ്ധേ",
         "kana": "プラーカームヤシッデー",
-        "bengali": "প্রাকাম্যসিদ্ধে"
+        "bengali": "প্রাকাম্যসিদ্ধে",
+        "gujarati": "પ્રાકામ્યસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2247,7 +2296,8 @@
         "kannada": "ಭುಕ್ತಿಸಿದ್ಧೇ",
         "malayalam": "ഭുക്തിസിദ്ധേ",
         "kana": "ブクティシッデー",
-        "bengali": "ভুক্তিসিদ্ধে"
+        "bengali": "ভুক্তিসিদ্ধে",
+        "gujarati": "ભુક્તિસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2284,7 +2334,8 @@
         "kannada": "ಇಚ್ಛಾಸಿದ್ಧೇ",
         "malayalam": "ഇച്ഛാസിദ്ധേ",
         "kana": "イッチャーシッデー",
-        "bengali": "ইচ্ছাসিদ্ধে"
+        "bengali": "ইচ্ছাসিদ্ধে",
+        "gujarati": "ઇચ્છાસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2321,7 +2372,8 @@
         "kannada": "ಪ್ರಾಪ್ತಿಸಿದ್ಧೇ",
         "malayalam": "പ്രാപ്തിസിദ്ധേ",
         "kana": "プラープティシッデー",
-        "bengali": "প্রাপ্তিসিদ্ধে"
+        "bengali": "প্রাপ্তিসিদ্ধে",
+        "gujarati": "પ્રાપ્તિસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2358,7 +2410,8 @@
         "kannada": "ಸರ್ವಕಾಮಸಿದ್ಧೇ",
         "malayalam": "സർവകാമസിദ്ധേ",
         "kana": "サルヴァカーマシッデー",
-        "bengali": "সর্বকামসিদ্ধে"
+        "bengali": "সর্বকামসিদ্ধে",
+        "gujarati": "સર્વકામસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -2394,7 +2447,8 @@
         "kannada": "ಬ್ರಾಹ್ಮೀ",
         "malayalam": "ബ്രാഹ്മീ",
         "kana": "ブラーフミー",
-        "bengali": "ব্রাহ্মী"
+        "bengali": "ব্রাহ্মী",
+        "gujarati": "બ્રાહ્મી"
       },
       "position": {
         "angleDeg": null,
@@ -2431,7 +2485,8 @@
         "kannada": "ಮಾಹೇಶ್ವರೀ",
         "malayalam": "മാഹേശ്വരീ",
         "kana": "マーヘーシュヴァリー",
-        "bengali": "মাহেশ্বরী"
+        "bengali": "মাহেশ্বরী",
+        "gujarati": "માહેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -2468,7 +2523,8 @@
         "kannada": "ಕೌಮಾರೀ",
         "malayalam": "കൌമാരി",
         "kana": "カウマーリー",
-        "bengali": "কৌমারি"
+        "bengali": "কৌমারি",
+        "gujarati": "કૌમારી"
       },
       "position": {
         "angleDeg": null,
@@ -2505,7 +2561,8 @@
         "kannada": "ವೈಷ್ಣವೀ",
         "malayalam": "വൈഷ്ണവീ",
         "kana": "ヴァイシュナヴィー",
-        "bengali": "বৈষ্ণবী"
+        "bengali": "বৈষ্ণবী",
+        "gujarati": "વૈષ્ણવી"
       },
       "position": {
         "angleDeg": null,
@@ -2542,7 +2599,8 @@
         "kannada": "ವಾರಾಹೀ",
         "malayalam": "വാരാഹീ",
         "kana": "ヴァーラーヒー",
-        "bengali": "বারাহী"
+        "bengali": "বারাহী",
+        "gujarati": "વારાહી"
       },
       "position": {
         "angleDeg": null,
@@ -2579,7 +2637,8 @@
         "kannada": "ಮಾಹೇನ್ದ್ರೀ",
         "malayalam": "മാഹേംദ്രീ",
         "kana": "マーヘーンドリー",
-        "bengali": "মাহেংদ্রী"
+        "bengali": "মাহেংদ্রী",
+        "gujarati": "માહેન્દ્રી"
       },
       "position": {
         "angleDeg": null,
@@ -2616,7 +2675,8 @@
         "kannada": "ಚಾಮುಣ್ಡೇ",
         "malayalam": "ചാമുംഡേ",
         "kana": "チャームンデー",
-        "bengali": "চামুংডে"
+        "bengali": "চামুংডে",
+        "gujarati": "ચામુણ્ડે"
       },
       "position": {
         "angleDeg": null,
@@ -2653,7 +2713,8 @@
         "kannada": "ಮಹಾಲಕ್ಷ್ಮೀ",
         "malayalam": "മഹാലക്ഷ്മീ",
         "kana": "マハーラクシュミー",
-        "bengali": "মহালক্ষ্মী"
+        "bengali": "মহালক্ষ্মী",
+        "gujarati": "મહાલક્ષ્મી"
       },
       "position": {
         "angleDeg": null,
@@ -2690,7 +2751,8 @@
         "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಿಣೀ",
         "malayalam": "സർവസംക്ഷോഭിണീ",
         "kana": "サルヴァサンクショービニー",
-        "bengali": "সর্বসংক্ষোভিণী"
+        "bengali": "সর্বসংক্ষোভিণী",
+        "gujarati": "સર્વસઙ્ક્ષોભિણી"
       },
       "position": {
         "angleDeg": null,
@@ -2727,7 +2789,8 @@
         "kannada": "ಸರ್ವವಿದ್ರಾವಿಣೀ",
         "malayalam": "സർവവിദ്രാവിണീ",
         "kana": "サルヴァヴィドラーヴィニー",
-        "bengali": "সর্ববিদ্রাবিণী"
+        "bengali": "সর্ববিদ্রাবিণী",
+        "gujarati": "સર્વવિદ્રાવિણી"
       },
       "position": {
         "angleDeg": null,
@@ -2764,7 +2827,8 @@
         "kannada": "ಸರ್ವಾಕರ್ಷಿಣೀ",
         "malayalam": "സർവാകർഷിണീ",
         "kana": "サルヴァーカルシニー",
-        "bengali": "সর্বাকর্ষিণী"
+        "bengali": "সর্বাকর্ষিণী",
+        "gujarati": "સર્વાકર્ષિણી"
       },
       "position": {
         "angleDeg": null,
@@ -2801,7 +2865,8 @@
         "kannada": "ಸರ್ವವಶಙ್ಕರೀ",
         "malayalam": "സർവവശംകരീ",
         "kana": "サルヴァヴァシャンカリー",
-        "bengali": "সর্ববশংকরী"
+        "bengali": "সর্ববশংকরী",
+        "gujarati": "સર્વવશઙ્કરી"
       },
       "position": {
         "angleDeg": null,
@@ -2838,7 +2903,8 @@
         "kannada": "ಸರ್ವೋನ್ಮಾದಿನೀ",
         "malayalam": "സർവോന്മാദിനീ",
         "kana": "サルヴォーンマーディニー",
-        "bengali": "সর্বোন্মাদিনী"
+        "bengali": "সর্বোন্মাদিনী",
+        "gujarati": "સર્વોન્માદિની"
       },
       "position": {
         "angleDeg": null,
@@ -2875,7 +2941,8 @@
         "kannada": "ಸರ್ವಮಹಾಙ್ಕುಶೇ",
         "malayalam": "സർവമഹാംകുശേ",
         "kana": "サルヴァマハーンクシェー",
-        "bengali": "সর্বমহাংকুশে"
+        "bengali": "সর্বমহাংকুশে",
+        "gujarati": "સર્વમહાઙ્કુશે"
       },
       "position": {
         "angleDeg": null,
@@ -2912,7 +2979,8 @@
         "kannada": "ಸರ್ವಖೇಚರೀ",
         "malayalam": "സർവഖേചരീ",
         "kana": "サルヴァケーチャリー",
-        "bengali": "সর্বখেচরী"
+        "bengali": "সর্বখেচরী",
+        "gujarati": "સર્વખેચરી"
       },
       "position": {
         "angleDeg": null,
@@ -2949,7 +3017,8 @@
         "kannada": "ಸರ್ವಬೀಜೇ",
         "malayalam": "സർവബീജേ",
         "kana": "サルヴァビージェー",
-        "bengali": "সর্ববীজে"
+        "bengali": "সর্ববীজে",
+        "gujarati": "સર્વબીજે"
       },
       "position": {
         "angleDeg": null,
@@ -2986,7 +3055,8 @@
         "kannada": "ಸರ್ವಯೋನೇ",
         "malayalam": "സർവയോനേ",
         "kana": "サルヴァヨーネー",
-        "bengali": "সর্বয়োনে"
+        "bengali": "সর্বয়োনে",
+        "gujarati": "સર્વયોને"
       },
       "position": {
         "angleDeg": null,
@@ -3023,7 +3093,8 @@
         "kannada": "ಸರ್ವತ್ರಿಖಣ್ಡೇ",
         "malayalam": "സർവത്രിഖംഡേ",
         "kana": "サルヴァトリカンデー",
-        "bengali": "সর্বত্রিখংডে"
+        "bengali": "সর্বত্রিখংডে",
+        "gujarati": "સર્વત્રિખણ્ડે"
       },
       "position": {
         "angleDeg": null,
@@ -3060,7 +3131,8 @@
         "kannada": "ತ್ರೈಲೋಕ್ಯಮೋಹನ ಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "ത്രൈലോക്യമോഹന ചക്രസ്വാമിനീ",
         "kana": "トライロークヤモーハナ・チャクラスヴァーミニー",
-        "bengali": "ত্রৈলোক্যমোহন চক্রস্বামিনী"
+        "bengali": "ত্রৈলোক্যমোহন চক্রস্বামিনী",
+        "gujarati": "ત્રૈલોક્યમોહન ચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -3097,7 +3169,8 @@
         "kannada": "ಪ್ರಕಟಯೋಗಿನೀ",
         "malayalam": "പ്രകടയോഗിനീ",
         "kana": "プラカタヨーギニー",
-        "bengali": "প্রকটয়োগিনী"
+        "bengali": "প্রকটয়োগিনী",
+        "gujarati": "પ્રકટયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -3134,7 +3207,8 @@
         "kannada": "ಕಾಮಾಕರ್ಷಿಣೀ",
         "malayalam": "കാമാകർഷിണീ",
         "kana": "カーマーカルシニー",
-        "bengali": "কামাকর্ষিণী"
+        "bengali": "কামাকর্ষিণী",
+        "gujarati": "કામાકર્ષિણી"
       },
       "position": {
         "angleDeg": 0,
@@ -3171,7 +3245,8 @@
         "kannada": "ಬುದ್ಧ್ಯಾಕರ್ಷಿಣೀ",
         "malayalam": "ബുദ്ധ്യാകർഷിണീ",
         "kana": "ブッドフヤーカルシニー",
-        "bengali": "বুদ্ধ্যাকর্ষিণী"
+        "bengali": "বুদ্ধ্যাকর্ষিণী",
+        "gujarati": "બુદ્ધ્યાકર્ષિણી"
       },
       "position": {
         "angleDeg": 22.5,
@@ -3208,7 +3283,8 @@
         "kannada": "ಅಹಙ್ಕಾರಾಕರ್ಷಿಣೀ",
         "malayalam": "അഹംകാരാകർഷിണീ",
         "kana": "アハンカーラーカルシニー",
-        "bengali": "অহংকারাকর্ষিণী"
+        "bengali": "অহংকারাকর্ষিণী",
+        "gujarati": "અહઙ્કારાકર્ષિણી"
       },
       "position": {
         "angleDeg": 45,
@@ -3245,7 +3321,8 @@
         "kannada": "ಶಬ್ದಾಕರ್ಷಿಣೀ",
         "malayalam": "ശബ്ദാകർഷിണീ",
         "kana": "シャブダーカルシニー",
-        "bengali": "শব্দাকর্ষিণী"
+        "bengali": "শব্দাকর্ষিণী",
+        "gujarati": "શબ્દાકર્ષિણી"
       },
       "position": {
         "angleDeg": 67.5,
@@ -3282,7 +3359,8 @@
         "kannada": "ಸ್ಪರ್ಶಾಕರ್ಷಿಣೀ",
         "malayalam": "സ്പർശാകർഷിണീ",
         "kana": "スパルシャーカルシニー",
-        "bengali": "স্পর্শাকর্ষিণী"
+        "bengali": "স্পর্শাকর্ষিণী",
+        "gujarati": "સ્પર્શાકર્ષિણી"
       },
       "position": {
         "angleDeg": 90,
@@ -3319,7 +3397,8 @@
         "kannada": "ರೂಪಾಕರ್ಷಿಣೀ",
         "malayalam": "രൂപാകർഷിണീ",
         "kana": "ルーパーカルシニー",
-        "bengali": "রূপাকর্ষিণী"
+        "bengali": "রূপাকর্ষিণী",
+        "gujarati": "રૂપાકર્ષિણી"
       },
       "position": {
         "angleDeg": 112.5,
@@ -3356,7 +3435,8 @@
         "kannada": "ರಸಾಕರ್ಷಿಣೀ",
         "malayalam": "രസാകർഷിണീ",
         "kana": "ラサーカルシニー",
-        "bengali": "রসাকর্ষিণী"
+        "bengali": "রসাকর্ষিণী",
+        "gujarati": "રસાકર્ષિણી"
       },
       "position": {
         "angleDeg": 135,
@@ -3393,7 +3473,8 @@
         "kannada": "ಗನ್ಧಾಕರ್ಷಿಣೀ",
         "malayalam": "ഗംധാകർഷിണീ",
         "kana": "ガンダーカルシニー",
-        "bengali": "গংধাকর্ষিণী"
+        "bengali": "গংধাকর্ষিণী",
+        "gujarati": "ગન્ધાકર્ષિણી"
       },
       "position": {
         "angleDeg": 157.5,
@@ -3430,7 +3511,8 @@
         "kannada": "ಚಿತ್ತಾಕರ್ಷಿಣೀ",
         "malayalam": "ചിത്താകർഷിണീ",
         "kana": "チッターカルシニー",
-        "bengali": "চিত্তাকর্ষিণী"
+        "bengali": "চিত্তাকর্ষিণী",
+        "gujarati": "ચિત્તાકર્ષિણી"
       },
       "position": {
         "angleDeg": 180,
@@ -3467,7 +3549,8 @@
         "kannada": "ಧೈರ್ಯಾಕರ್ಷಿಣೀ",
         "malayalam": "ധൈര്യാകർഷിണീ",
         "kana": "ダイルヤーカルシニー",
-        "bengali": "ধৈর্য়াকর্ষিণী"
+        "bengali": "ধৈর্য়াকর্ষিণী",
+        "gujarati": "ધૈર્યાકર્ષિણી"
       },
       "position": {
         "angleDeg": 202.5,
@@ -3504,7 +3587,8 @@
         "kannada": "ಸ್ಮೃತ್ಯಾಕರ್ಷಿಣೀ",
         "malayalam": "സ്മൃത്യാകർഷിണീ",
         "kana": "スムリトヤーカルシニー",
-        "bengali": "স্মৃত্য়াকর্ষিণী"
+        "bengali": "স্মৃত্য়াকর্ষিণী",
+        "gujarati": "સ્મૃત્યાકર્ષિણી"
       },
       "position": {
         "angleDeg": 225,
@@ -3541,7 +3625,8 @@
         "kannada": "ನಾಮಾಕರ್ಷಿಣೀ",
         "malayalam": "നാമാകർഷിണീ",
         "kana": "ナーマーカルシニー",
-        "bengali": "নামাকর্ষিণী"
+        "bengali": "নামাকর্ষিণী",
+        "gujarati": "નામાકર્ષિણી"
       },
       "position": {
         "angleDeg": 247.5,
@@ -3578,7 +3663,8 @@
         "kannada": "ಬೀಜಾಕರ್ಷಿಣೀ",
         "malayalam": "ബീജാകർഷിണീ",
         "kana": "ビージャーカルシニー",
-        "bengali": "বীজাকর্ষিণী"
+        "bengali": "বীজাকর্ষিণী",
+        "gujarati": "બીજાકર્ષિણી"
       },
       "position": {
         "angleDeg": 270,
@@ -3615,7 +3701,8 @@
         "kannada": "ಆತ್ಮಾಕರ್ಷಿಣೀ",
         "malayalam": "ആത്മാകർഷിണീ",
         "kana": "アートマーカルシニー",
-        "bengali": "আত্মাকর্ষিণী"
+        "bengali": "আত্মাকর্ষিণী",
+        "gujarati": "આત્માકર્ષિણી"
       },
       "position": {
         "angleDeg": 292.5,
@@ -3652,7 +3739,8 @@
         "kannada": "ಅಮೃತಾಕರ್ಷಿಣೀ",
         "malayalam": "അമൃതാകർഷിണീ",
         "kana": "アムリターカルシニー",
-        "bengali": "অমৃতাকর্ষিণী"
+        "bengali": "অমৃতাকর্ষিণী",
+        "gujarati": "અમૃતાકર્ષિણી"
       },
       "position": {
         "angleDeg": 315,
@@ -3689,7 +3777,8 @@
         "kannada": "ಶರೀರಾಕರ್ಷಿಣೀ",
         "malayalam": "ശരീരാകർഷിണീ",
         "kana": "シャリーラーカルシニー",
-        "bengali": "শরীরাকর্ষিণী"
+        "bengali": "শরীরাকর্ষিণী",
+        "gujarati": "શરીરાકર્ષિણી"
       },
       "position": {
         "angleDeg": 337.5,
@@ -3726,7 +3815,8 @@
         "kannada": "ಸರ್ವಾಶಾಪರಿಪೂರಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "സർവാശാപരിപൂരക ചക്രസ്വാമിനീ",
         "kana": "サルヴァーシャーパリプーラカ・チャクラスヴァーミニー",
-        "bengali": "সর্বাশাপরিপূরক চক্রস্বামিনী"
+        "bengali": "সর্বাশাপরিপূরক চক্রস্বামিনী",
+        "gujarati": "સર્વાશાપરિપૂરક ચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -3763,7 +3853,8 @@
         "kannada": "ಗುಪ್ತಯೋಗಿನೀ",
         "malayalam": "ഗുപ്തയോഗിനീ",
         "kana": "グプタヨーギニー",
-        "bengali": "গুপ্তয়োগিনী"
+        "bengali": "গুপ্তয়োগিনী",
+        "gujarati": "ગુપ્તયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -3800,7 +3891,8 @@
         "kannada": "ಅನಙ್ಗಕುಸುಮೇ",
         "malayalam": "അനംഗകുസുമേ",
         "kana": "アナンガクスメー",
-        "bengali": "অনংগকুসুমে"
+        "bengali": "অনংগকুসুমে",
+        "gujarati": "અનઙ્ગકુસુમે"
       },
       "position": {
         "angleDeg": 0,
@@ -3845,7 +3937,8 @@
         "kannada": "ಅನಙ್ಗಮೇಖಲೇ",
         "malayalam": "അനംഗമേഖലേ",
         "kana": "アナンガメーカレー",
-        "bengali": "অনংগমেখলে"
+        "bengali": "অনংগমেখলে",
+        "gujarati": "અનઙ્ગમેખલે"
       },
       "position": {
         "angleDeg": 45,
@@ -3890,7 +3983,8 @@
         "kannada": "ಅನಙ್ಗಮದನೇ",
         "malayalam": "അനംഗമദനേ",
         "kana": "アナンガマダネー",
-        "bengali": "অনংগমদনে"
+        "bengali": "অনংগমদনে",
+        "gujarati": "અનઙ્ગમદને"
       },
       "position": {
         "angleDeg": 90,
@@ -3935,7 +4029,8 @@
         "kannada": "ಅನಙ್ಗಮದನಾತುರೇ",
         "malayalam": "അനംഗമദനാതുരേ",
         "kana": "アナンガマダナートゥレー",
-        "bengali": "অনংগমদনাতুরে"
+        "bengali": "অনংগমদনাতুরে",
+        "gujarati": "અનઙ્ગમદનાતુરે"
       },
       "position": {
         "angleDeg": 135,
@@ -3980,7 +4075,8 @@
         "kannada": "ಅನಙ್ಗರೇಖೇ",
         "malayalam": "അനംഗരേഖേ",
         "kana": "アナンガレーケー",
-        "bengali": "অনংগরেখে"
+        "bengali": "অনংগরেখে",
+        "gujarati": "અનઙ્ગરેખે"
       },
       "position": {
         "angleDeg": 180,
@@ -4025,7 +4121,8 @@
         "kannada": "ಅನಙ್ಗವೇಗಿನೀ",
         "malayalam": "അനംഗവേഗിനീ",
         "kana": "アナンガヴェーギニー",
-        "bengali": "অনংগবেগিনী"
+        "bengali": "অনংগবেগিনী",
+        "gujarati": "અનઙ્ગવેગિની"
       },
       "position": {
         "angleDeg": 225,
@@ -4070,7 +4167,8 @@
         "kannada": "ಅನಙ್ಗಾಙ್ಕುಶೇ",
         "malayalam": "അനംഗാംകുശേ",
         "kana": "アナンガーンクシェー",
-        "bengali": "অনংগাংকুশে"
+        "bengali": "অনংগাংকুশে",
+        "gujarati": "અનઙ્ગાઙ્કુશે"
       },
       "position": {
         "angleDeg": 270,
@@ -4115,7 +4213,8 @@
         "kannada": "ಅನಙ್ಗಮಾಲಿನೀ",
         "malayalam": "അനംഗമാലിനീ",
         "kana": "アナンガマーリニー",
-        "bengali": "অনংগমালিনী"
+        "bengali": "অনংগমালিনী",
+        "gujarati": "અનઙ્ગમાલિની"
       },
       "position": {
         "angleDeg": 315,
@@ -4160,7 +4259,8 @@
         "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಣಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "സർവസംക്ഷോഭണചക്രസ്വാമിനീ",
         "kana": "サルヴァサンクショーバナ・チャクラスヴァーミニー",
-        "bengali": "সর্বসংক্ষোভণচক্রস্বামিনী"
+        "bengali": "সর্বসংক্ষোভণচক্রস্বামিনী",
+        "gujarati": "સર્વસઙ્ક્ષોભણચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -4197,7 +4297,8 @@
         "kannada": "ಗುಪ್ತತರಯೋಗಿನೀ",
         "malayalam": "ഗുപ്തതരയോഗിനീ",
         "kana": "グプタタラヨーギニー",
-        "bengali": "গুপ্ততরয়োগিনী"
+        "bengali": "গুপ্ততরয়োগিনী",
+        "gujarati": "ગુપ્તતરયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -4234,7 +4335,8 @@
         "kannada": "ಸರ್ವಸಙ್ಕ್ಷೋಭಿಣೀ",
         "malayalam": "സർവസംക്ഷോഭിണീ",
         "kana": "サルヴァサンクショービニー",
-        "bengali": "সর্বসংক্ষোভিণী"
+        "bengali": "সর্বসংক্ষোভিণী",
+        "gujarati": "સર્વસઙ્ક્ષોભિણી"
       },
       "position": {
         "angleDeg": null,
@@ -4271,7 +4373,8 @@
         "kannada": "ಸರ್ವವಿದ್ರಾವಿನೀ",
         "malayalam": "സർവവിദ്രാവിനീ",
         "kana": "サルヴァヴィドラーヴィニー",
-        "bengali": "সর্ববিদ্রাবিনী"
+        "bengali": "সর্ববিদ্রাবিনী",
+        "gujarati": "સર્વવિદ્રાવિની"
       },
       "position": {
         "angleDeg": null,
@@ -4308,7 +4411,8 @@
         "kannada": "ಸರ್ವಾಕರ್ಷಿಣೀ",
         "malayalam": "സർവാകർഷിണീ",
         "kana": "サルヴァーカルシニー",
-        "bengali": "সর্বাকর্ষিণী"
+        "bengali": "সর্বাকর্ষিণী",
+        "gujarati": "સર્વાકર્ષિણી"
       },
       "position": {
         "angleDeg": null,
@@ -4345,7 +4449,8 @@
         "kannada": "ಸರ್ವಹ್ಲಾದಿನೀ",
         "malayalam": "സർവഹ്ലാദിനീ",
         "kana": "サルヴァフラーディニー",
-        "bengali": "সর্বহ্লাদিনী"
+        "bengali": "সর্বহ্লাদিনী",
+        "gujarati": "સર્વહ્લાદિની"
       },
       "position": {
         "angleDeg": null,
@@ -4382,7 +4487,8 @@
         "kannada": "ಸರ್ವಸಮ್ಮೋಹಿನೀ",
         "malayalam": "സർവസമ്മോഹിനീ",
         "kana": "サルヴァサッモーヒニー",
-        "bengali": "সর্বসম্মোহিনী"
+        "bengali": "সর্বসম্মোহিনী",
+        "gujarati": "સર્વસમ્મોહિની"
       },
       "position": {
         "angleDeg": null,
@@ -4419,7 +4525,8 @@
         "kannada": "ಸರ್ವಸ್ತಮ್ಭಿನೀ",
         "malayalam": "സർവസ്തംഭിനീ",
         "kana": "サルヴァスタムビニー",
-        "bengali": "সর্বস্তংভিনী"
+        "bengali": "সর্বস্তংভিনী",
+        "gujarati": "સર્વસ્તમ્ભિની"
       },
       "position": {
         "angleDeg": null,
@@ -4456,7 +4563,8 @@
         "kannada": "ಸರ್ವಜೃಮ್ಭಿಣೀ",
         "malayalam": "സർവജൃംഭിണീ",
         "kana": "サルヴァジュリムビニー",
-        "bengali": "সর্বজৃংভিণী"
+        "bengali": "সর্বজৃংভিণী",
+        "gujarati": "સર્વજૃમ્ભિણી"
       },
       "position": {
         "angleDeg": null,
@@ -4493,7 +4601,8 @@
         "kannada": "ಸರ್ವವಶಙ್ಕರೀ",
         "malayalam": "സർവവശംകരീ",
         "kana": "サルヴァヴァシャンカリー",
-        "bengali": "সর্ববশংকরী"
+        "bengali": "সর্ববশংকরী",
+        "gujarati": "સર્વવશઙ્કરી"
       },
       "position": {
         "angleDeg": null,
@@ -4530,7 +4639,8 @@
         "kannada": "ಸರ್ವರಞ್ಜನೀ",
         "malayalam": "സർവരംജനീ",
         "kana": "サルヴァランジャニー",
-        "bengali": "সর্বরংজনী"
+        "bengali": "সর্বরংজনী",
+        "gujarati": "સર્વરઞ્જની"
       },
       "position": {
         "angleDeg": null,
@@ -4567,7 +4677,8 @@
         "kannada": "ಸರ್ವೋನ್ಮಾದಿನೀ",
         "malayalam": "സർവോന്മാദിനീ",
         "kana": "サルヴォーンマーディニー",
-        "bengali": "সর্বোন্মাদিনী"
+        "bengali": "সর্বোন্মাদিনী",
+        "gujarati": "સર્વોન્માદિની"
       },
       "position": {
         "angleDeg": null,
@@ -4604,7 +4715,8 @@
         "kannada": "ಸರ್ವಾರ್ಥಸಾಧಿಕೇ",
         "malayalam": "സർവാർഥസാധികേ",
         "kana": "サルヴァールタサーディケー",
-        "bengali": "সর্বার্থসাধিকে"
+        "bengali": "সর্বার্থসাধিকে",
+        "gujarati": "સર્વાર્થસાધિકે"
       },
       "position": {
         "angleDeg": null,
@@ -4641,7 +4753,8 @@
         "kannada": "ಸರ್ವಸಮ್ಪತ್ತಿಪೂರಿಣೀ",
         "malayalam": "സർവസംപത്തിപൂരിണീ",
         "kana": "サルヴァサムパッティプーリニー",
-        "bengali": "সর্বসংপত্তিপূরিণী"
+        "bengali": "সর্বসংপত্তিপূরিণী",
+        "gujarati": "સર્વસમ્પત્તિપૂરિણી"
       },
       "position": {
         "angleDeg": null,
@@ -4678,7 +4791,8 @@
         "kannada": "ಸರ್ವಮನ್ತ್ರಮಯೀ",
         "malayalam": "സർവമംത്രമയീ",
         "kana": "サルヴァマントラマイー",
-        "bengali": "সর্বমংত্রময়ী"
+        "bengali": "সর্বমংত্রময়ী",
+        "gujarati": "સર્વમન્ત્રમયી"
       },
       "position": {
         "angleDeg": null,
@@ -4715,7 +4829,8 @@
         "kannada": "ಸರ್ವದ್ವನ್ದ್ವಕ್ಷಯಙ್ಕರೀ",
         "malayalam": "സർവദ്വംദ്വക്ഷയംകരീ",
         "kana": "サルヴァドヴァンドヴァクシャヤンカリー",
-        "bengali": "সর্বদ্বংদ্বক্ষয়ংকরী"
+        "bengali": "সর্বদ্বংদ্বক্ষয়ংকরী",
+        "gujarati": "સર્વદ્વન્દ્વક્ષયઙ્કરી"
       },
       "position": {
         "angleDeg": null,
@@ -4752,7 +4867,8 @@
         "kannada": "ಸರ್ವಸೌಭಾಗ್ಯದಾಯಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "സർവസൌഭാഗ്യദായക ചക്രസ്വാമിനീ",
         "kana": "サルヴァサウバーグヤダーヤカ・チャクラスヴァーミニー",
-        "bengali": "সর্বসৌভাগ্যদাযক চক্রস্বামিনী"
+        "bengali": "সর্বসৌভাগ্যদাযক চক্রস্বামিনী",
+        "gujarati": "સર્વસૌભાગ્યદાયક ચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -4789,7 +4905,8 @@
         "kannada": "ಸಮ್ಪ್ರದಾಯಯೋಗಿನೀ",
         "malayalam": "സംപ്രദായയോഗിനീ",
         "kana": "サムプラダーヤヨーギニー",
-        "bengali": "সংপ্রদাযয়োগিনী"
+        "bengali": "সংপ্রদাযয়োগিনী",
+        "gujarati": "સમ્પ્રદાયયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -4826,7 +4943,8 @@
         "kannada": "ಸರ್ವಸಿದ್ಧಿಪ್ರದೇ",
         "malayalam": "സർവസിദ്ധിപ്രദേ",
         "kana": "サルヴァシッディプラデー",
-        "bengali": "সর্বসিদ্ধিপ্রদে"
+        "bengali": "সর্বসিদ্ধিপ্রদে",
+        "gujarati": "સર્વસિદ્ધિપ્રદે"
       },
       "position": {
         "angleDeg": null,
@@ -4863,7 +4981,8 @@
         "kannada": "ಸರ್ವಸಮ್ಪತ್ಪ್ರದೇ",
         "malayalam": "സർവസംപത്പ്രദേ",
         "kana": "サルヴァサムパトプラデー",
-        "bengali": "সর্বসংপত্প্রদে"
+        "bengali": "সর্বসংপত্প্রদে",
+        "gujarati": "સર્વસમ્પત્પ્રદે"
       },
       "position": {
         "angleDeg": null,
@@ -4900,7 +5019,8 @@
         "kannada": "ಸರ್ವಪ್ರಿಯಙ್ಕರೀ",
         "malayalam": "സർവപ്രിയംകരീ",
         "kana": "サルヴァプリヤンカリー",
-        "bengali": "সর্বপ্রিয়ংকরী"
+        "bengali": "সর্বপ্রিয়ংকরী",
+        "gujarati": "સર્વપ્રિયઙ્કરી"
       },
       "position": {
         "angleDeg": null,
@@ -4937,7 +5057,8 @@
         "kannada": "ಸರ್ವಮಙ್ಗಳಕಾರಿಣೀ",
         "malayalam": "സർവമംഗളകാരിണീ",
         "kana": "サルヴァマンガラカーリニー",
-        "bengali": "সর্বমংগলকারিণী"
+        "bengali": "সর্বমংগলকারিণী",
+        "gujarati": "સર્વમઙ્ગળકારિણી"
       },
       "position": {
         "angleDeg": null,
@@ -4974,7 +5095,8 @@
         "kannada": "ಸರ್ವಕಾಮಪ್ರದೇ",
         "malayalam": "സർവകാമപ്രദേ",
         "kana": "サルヴァカーマプラデー",
-        "bengali": "সর্বকামপ্রদে"
+        "bengali": "সর্বকামপ্রদে",
+        "gujarati": "સર્વકામપ્રદે"
       },
       "position": {
         "angleDeg": null,
@@ -5011,7 +5133,8 @@
         "kannada": "ಸರ್ವದುಃಖವಿಮೋಚನೀ",
         "malayalam": "സർവദുഃഖവിമോചനീ",
         "kana": "サルヴァドゥカヴィモーチャニー",
-        "bengali": "সর্বদুঃখবিমোচনী"
+        "bengali": "সর্বদুঃখবিমোচনী",
+        "gujarati": "સર્વદુઃખવિમોચની"
       },
       "position": {
         "angleDeg": null,
@@ -5048,7 +5171,8 @@
         "kannada": "ಸರ್ವಮೃತ್ಯುಪ್ರಶಮನೀ",
         "malayalam": "സർവമൃത്യുപ്രശമനി",
         "kana": "サルヴァムリトユプラシャマニー",
-        "bengali": "সর্বমৃত্য়ুপ্রশমনি"
+        "bengali": "সর্বমৃত্য়ুপ্রশমনি",
+        "gujarati": "સર્વમૃત્યુપ્રશમની"
       },
       "position": {
         "angleDeg": null,
@@ -5085,7 +5209,8 @@
         "kannada": "ಸರ್ವವಿಘ್ನನಿವಾರಿಣೀ",
         "malayalam": "സർവവിഘ്നനിവാരിണീ",
         "kana": "サルヴァヴィグフナニヴァーリニー",
-        "bengali": "সর্ববিঘ্ননিবারিণী"
+        "bengali": "সর্ববিঘ্ননিবারিণী",
+        "gujarati": "સર્વવિઘ્નનિવારિણી"
       },
       "position": {
         "angleDeg": null,
@@ -5122,7 +5247,8 @@
         "kannada": "ಸರ್ವಾಙ್ಗಸುನ್ದರೀ",
         "malayalam": "സർവാംഗസുംദരീ",
         "kana": "サルヴァーンガスンダリー",
-        "bengali": "সর্বাংগসুংদরী"
+        "bengali": "সর্বাংগসুংদরী",
+        "gujarati": "સર્વાઙ્ગસુન્દરી"
       },
       "position": {
         "angleDeg": null,
@@ -5159,7 +5285,8 @@
         "kannada": "ಸರ್ವಸೌಭಾಗ್ಯದಾಯಿನೀ",
         "malayalam": "സർവസൌഭാഗ്യദായിനീ",
         "kana": "サルヴァサウバーグヤダーイニー",
-        "bengali": "সর্বসৌভাগ্যদায়িনী"
+        "bengali": "সর্বসৌভাগ্যদায়িনী",
+        "gujarati": "સર્વસૌભાગ્યદાયિની"
       },
       "position": {
         "angleDeg": null,
@@ -5196,7 +5323,8 @@
         "kannada": "ಸರ್ವಾರ್ಥಸಾಧಕ ಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "സർവാർഥസാധക ചക്രസ്വാമിനീ",
         "kana": "サルヴァールタサーダカ・チャクラスヴァーミニー",
-        "bengali": "সর্বার্থসাধক চক্রস্বামিনী"
+        "bengali": "সর্বার্থসাধক চক্রস্বামিনী",
+        "gujarati": "સર્વાર્થસાધક ચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -5233,7 +5361,8 @@
         "kannada": "ಕುಲೋತ್ತೀರ್ಣಯೋಗಿನೀ",
         "malayalam": "കുലോത്തീർണയോഗിനീ",
         "kana": "クローッティールナヨーギニー",
-        "bengali": "কুলোত্তীর্ণয়োগিনী"
+        "bengali": "কুলোত্তীর্ণয়োগিনী",
+        "gujarati": "કુલોત્તીર્ણયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -5270,7 +5399,8 @@
         "kannada": "ಸರ್ವಜ್ಞೇ",
         "malayalam": "സർവജ്ഞേ",
         "kana": "サルヴァジュニェー",
-        "bengali": "সর্বজ্ঞে"
+        "bengali": "সর্বজ্ঞে",
+        "gujarati": "સર્વજ્ઞે"
       },
       "position": {
         "angleDeg": null,
@@ -5307,7 +5437,8 @@
         "kannada": "ಸರ್ವಶಕ್ತೇ",
         "malayalam": "സർവശക്തേ",
         "kana": "サルヴァシャクテー",
-        "bengali": "সর্বশক্তে"
+        "bengali": "সর্বশক্তে",
+        "gujarati": "સર્વશક્તે"
       },
       "position": {
         "angleDeg": null,
@@ -5344,7 +5475,8 @@
         "kannada": "ಸರ್ವೈಶ್ವರ್ಯಪ್ರದಾಯಿನೀ",
         "malayalam": "സർവൈശ്വർയപ്രദായിനീ",
         "kana": "サルヴァイシュヴァルヤプラダーイニー",
-        "bengali": "সর্বৈশ্বর্যপ্রদায়িনী"
+        "bengali": "সর্বৈশ্বর্যপ্রদায়িনী",
+        "gujarati": "સર્વૈશ્વર્યપ્રદાયિની"
       },
       "position": {
         "angleDeg": null,
@@ -5381,7 +5513,8 @@
         "kannada": "ಸರ್ವಜ್ಞಾನಮಯೀ",
         "malayalam": "സർവജ്ഞാനമയീ",
         "kana": "サルヴァジュニャーナマイー",
-        "bengali": "সর্বজ্ঞানময়ী"
+        "bengali": "সর্বজ্ঞানময়ী",
+        "gujarati": "સર્વજ્ઞાનમયી"
       },
       "position": {
         "angleDeg": null,
@@ -5418,7 +5551,8 @@
         "kannada": "ಸರ್ವವ್ಯಾಧಿವಿನಾಶಿನೀ",
         "malayalam": "സർവവ്യാധിവിനാശിനീ",
         "kana": "サルヴァヴヤーディヴィナーシニー",
-        "bengali": "সর্বব্য়াধিবিনাশিনী"
+        "bengali": "সর্বব্য়াধিবিনাশিনী",
+        "gujarati": "સર્વવ્યાધિવિનાશિની"
       },
       "position": {
         "angleDeg": null,
@@ -5455,7 +5589,8 @@
         "kannada": "ಸರ್ವಾಧಾರಸ್ವರೂಪೇ",
         "malayalam": "സർവാധാരസ്വരൂപേ",
         "kana": "サルヴァーダーラスヴァルーペー",
-        "bengali": "সর্বাধারস্বরূপে"
+        "bengali": "সর্বাধারস্বরূপে",
+        "gujarati": "સર્વાધારસ્વરૂપે"
       },
       "position": {
         "angleDeg": null,
@@ -5492,7 +5627,8 @@
         "kannada": "ಸರ್ವಪಾಪಹರೇ",
         "malayalam": "സർവപാപഹരേ",
         "kana": "サルヴァパーパハレー",
-        "bengali": "সর্বপাপহরে"
+        "bengali": "সর্বপাপহরে",
+        "gujarati": "સર્વપાપહરે"
       },
       "position": {
         "angleDeg": null,
@@ -5529,7 +5665,8 @@
         "kannada": "ಸರ್ವಾನನ್ದಮಯೀ",
         "malayalam": "സർവാനംദമയീ",
         "kana": "サルヴァーナンダマイー",
-        "bengali": "সর্বানংদময়ী"
+        "bengali": "সর্বানংদময়ী",
+        "gujarati": "સર્વાનન્દમયી"
       },
       "position": {
         "angleDeg": null,
@@ -5566,7 +5703,8 @@
         "kannada": "ಸರ್ವರಕ್ಷಾಸ್ವರೂಪಿಣೀ",
         "malayalam": "സർവരക്ഷാസ്വരൂപിണീ",
         "kana": "サルヴァラクシャースヴァルーピニー",
-        "bengali": "সর্বরক্ষাস্বরূপিণী"
+        "bengali": "সর্বরক্ষাস্বরূপিণী",
+        "gujarati": "સર્વરક્ષાસ્વરૂપિણી"
       },
       "position": {
         "angleDeg": null,
@@ -5603,7 +5741,8 @@
         "kannada": "ಸರ್ವೇಪ್ಸಿತಫಲಪ್ರದೇ",
         "malayalam": "സർവേപ്സിതഫലപ്രദേ",
         "kana": "サルヴェープシタパラプラデー",
-        "bengali": "সর্বেপ্সিতফলপ্রদে"
+        "bengali": "সর্বেপ্সিতফলপ্রদে",
+        "gujarati": "સર્વેપ્સિતફલપ્રદે"
       },
       "position": {
         "angleDeg": null,
@@ -5640,7 +5779,8 @@
         "kannada": "ಸರ್ವರಕ್ಷಾಕರಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "സർവരക്ഷാകരചക്രസ്വാമിനീ",
         "kana": "サルヴァラクシャーカラ・チャクラスヴァーミニー",
-        "bengali": "সর্বরক্ষাকরচক্রস্বামিনী"
+        "bengali": "সর্বরক্ষাকরচক্রস্বামিনী",
+        "gujarati": "સર્વરક્ષાકરચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -5677,7 +5817,8 @@
         "kannada": "ನಿಗರ್ಭಯೋಗಿನೀ",
         "malayalam": "നിഗർഭയോഗിനീ",
         "kana": "ニガルバヨーギニー",
-        "bengali": "নিগর্ভয়োগিনী"
+        "bengali": "নিগর্ভয়োগিনী",
+        "gujarati": "નિગર્ભયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -5714,7 +5855,8 @@
         "kannada": "ವಶಿನೀ",
         "malayalam": "വശിനീ",
         "kana": "ヴァシニー",
-        "bengali": "বশিনী"
+        "bengali": "বশিনী",
+        "gujarati": "વશિની"
       },
       "position": {
         "angleDeg": null,
@@ -5759,7 +5901,8 @@
         "kannada": "ಕಾಮೇಶ್ವರೀ",
         "malayalam": "കാമേശ്വരീ",
         "kana": "カーメーシュヴァリー",
-        "bengali": "কামেশ্বরী"
+        "bengali": "কামেশ্বরী",
+        "gujarati": "કામેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -5804,7 +5947,8 @@
         "kannada": "ಮೋದಿನೀ",
         "malayalam": "മോദിനീ",
         "kana": "モーディニー",
-        "bengali": "মোদিনী"
+        "bengali": "মোদিনী",
+        "gujarati": "મોદિની"
       },
       "position": {
         "angleDeg": null,
@@ -5849,7 +5993,8 @@
         "kannada": "ವಿಮಲೇ",
         "malayalam": "വിമലേ",
         "kana": "ヴィマレー",
-        "bengali": "বিমলে"
+        "bengali": "বিমলে",
+        "gujarati": "વિમલે"
       },
       "position": {
         "angleDeg": null,
@@ -5894,7 +6039,8 @@
         "kannada": "ಅರುಣೇ",
         "malayalam": "അരുണേ",
         "kana": "アルネー",
-        "bengali": "অরুণে"
+        "bengali": "অরুণে",
+        "gujarati": "અરુણે"
       },
       "position": {
         "angleDeg": null,
@@ -5939,7 +6085,8 @@
         "kannada": "ಜಯಿನೀ",
         "malayalam": "ജയിനീ",
         "kana": "ジャイニー",
-        "bengali": "জয়িনী"
+        "bengali": "জয়িনী",
+        "gujarati": "જયિની"
       },
       "position": {
         "angleDeg": null,
@@ -5984,7 +6131,8 @@
         "kannada": "ಸರ್ವೇಶ್ವರೀ",
         "malayalam": "സർവേശ്വരീ",
         "kana": "サルヴェーシュヴァリー",
-        "bengali": "সর্বেশ্বরী"
+        "bengali": "সর্বেশ্বরী",
+        "gujarati": "સર્વેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -6029,7 +6177,8 @@
         "kannada": "ಕೌಳಿನೀ",
         "malayalam": "കൌളിനി",
         "kana": "カウリニー",
-        "bengali": "কৌলিনি"
+        "bengali": "কৌলিনি",
+        "gujarati": "કૌળિની"
       },
       "position": {
         "angleDeg": null,
@@ -6074,7 +6223,8 @@
         "kannada": "ಸರ್ವರೋಗಹರಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "സർവരോഗഹരചക്രസ്വാമിനീ",
         "kana": "サルヴァローガハラ・チャクラスヴァーミニー",
-        "bengali": "সর্বরোগহরচক্রস্বামিনী"
+        "bengali": "সর্বরোগহরচক্রস্বামিনী",
+        "gujarati": "સર્વરોગહરચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -6111,7 +6261,8 @@
         "kannada": "ರಹಸ್ಯಯೋಗಿನೀ",
         "malayalam": "രഹസ്യയോഗിനീ",
         "kana": "ラハスヤヨーギニー",
-        "bengali": "রহস্যয়োগিনী"
+        "bengali": "রহস্যয়োগিনী",
+        "gujarati": "રહસ્યયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -6148,7 +6299,8 @@
         "kannada": "ಬಾಣಿನೀ",
         "malayalam": "ബാണിനീ",
         "kana": "バーニニー",
-        "bengali": "বাণিনী"
+        "bengali": "বাণিনী",
+        "gujarati": "બાણિની"
       },
       "position": {
         "angleDeg": null,
@@ -6185,7 +6337,8 @@
         "kannada": "ಚಾಪಿನೀ",
         "malayalam": "ചാപിനീ",
         "kana": "チャーピニー",
-        "bengali": "চাপিনী"
+        "bengali": "চাপিনী",
+        "gujarati": "ચાપિની"
       },
       "position": {
         "angleDeg": null,
@@ -6222,7 +6375,8 @@
         "kannada": "ಪಾಶಿನೀ",
         "malayalam": "പാശിനീ",
         "kana": "パーシニー",
-        "bengali": "পাশিনী"
+        "bengali": "পাশিনী",
+        "gujarati": "પાશિની"
       },
       "position": {
         "angleDeg": null,
@@ -6259,7 +6413,8 @@
         "kannada": "ಅಙ್ಕುಶಿನೀ",
         "malayalam": "അംകുശിനീ",
         "kana": "アンクシニー",
-        "bengali": "অংকুশিনী"
+        "bengali": "অংকুশিনী",
+        "gujarati": "અઙ્કુશિની"
       },
       "position": {
         "angleDeg": null,
@@ -6296,7 +6451,8 @@
         "kannada": "ಮಹಾಕಾಮೇಶ್ವರೀ",
         "malayalam": "മഹാകാമേശ്വരീ",
         "kana": "マハーカーメーシュヴァリー",
-        "bengali": "মহাকামেশ্বরী"
+        "bengali": "মহাকামেশ্বরী",
+        "gujarati": "મહાકામેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -6333,7 +6489,8 @@
         "kannada": "ಮಹಾವಜ್ರೇಶ್ವರೀ",
         "malayalam": "മഹാവജ്രേശ്വരീ",
         "kana": "マハーヴァジュレーシュヴァリー",
-        "bengali": "মহাবজ্রেশ্বরী"
+        "bengali": "মহাবজ্রেশ্বরী",
+        "gujarati": "મહાવજ્રેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -6370,7 +6527,8 @@
         "kannada": "ಮಹಾಭಗಮಾಲಿನೀ",
         "malayalam": "മഹാഭഗമാലിനീ",
         "kana": "マハーバガマーリニー",
-        "bengali": "মহাভগমালিনী"
+        "bengali": "মহাভগমালিনী",
+        "gujarati": "મહાભગમાલિની"
       },
       "position": {
         "angleDeg": null,
@@ -6407,7 +6565,8 @@
         "kannada": "ಸರ್ವಸಿದ್ಧಿಪ್ರದಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "സർവസിദ്ധിപ്രദചക്രസ്വാമിനീ",
         "kana": "サルヴァシッディプラダ・チャクラスヴァーミニー",
-        "bengali": "সর্বসিদ্ধিপ্রদচক্রস্বামিনী"
+        "bengali": "সর্বসিদ্ধিপ্রদচক্রস্বামিনী",
+        "gujarati": "સર્વસિદ્ધિપ્રદચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -6444,7 +6603,8 @@
         "kannada": "ಅತಿರಹಸ್ಯಯೋಗಿನೀ",
         "malayalam": "അതിരഹസ്യയോഗിനീ",
         "kana": "アティラハスヤヨーギニー",
-        "bengali": "অতিরহস্যয়োগিনী"
+        "bengali": "অতিরহস্যয়োগিনী",
+        "gujarati": "અતિરહસ્યયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -6481,7 +6641,8 @@
         "kannada": "ಶ್ರೀ ಶ್ರೀ ಮಹಾಭಟ್ಟಾರಿಕೇ",
         "malayalam": "ശ്രീ ശ്രീ മഹാഭട്ടാരികേ",
         "kana": "スリ・スリ・マハーバッターリケー",
-        "bengali": "শ্রী শ্রী মহাভট্টারিকে"
+        "bengali": "শ্রী শ্রী মহাভট্টারিকে",
+        "gujarati": "શ્રી શ્રી મહાભટ્ટારિકે"
       },
       "position": {
         "angleDeg": 0,
@@ -6518,7 +6679,8 @@
         "kannada": "ಸರ್ವಾನನ್ದಮಯಚಕ್ರಸ್ವಾಮಿನೀ",
         "malayalam": "സർവാനംദമയചക്രസ്വാമിനീ",
         "kana": "サルヴァーナンダマヤ・チャクラスヴァーミニー",
-        "bengali": "সর্বানংদমযচক্রস্বামিনী"
+        "bengali": "সর্বানংদমযচক্রস্বামিনী",
+        "gujarati": "સર્વાનન્દમયચક્રસ્વામિની"
       },
       "position": {
         "angleDeg": null,
@@ -6555,7 +6717,8 @@
         "kannada": "ಪರಾಪರರಹಸ್ಯಯೋಗಿನೀ",
         "malayalam": "പരാപരരഹസ്യയോഗിനീ",
         "kana": "パラーパララハスヤヨーギニー",
-        "bengali": "পরাপররহস্যয়োগিনী"
+        "bengali": "পরাপররহস্যয়োগিনী",
+        "gujarati": "પરાપરરહસ્યયોગિની"
       },
       "position": {
         "angleDeg": null,
@@ -6592,7 +6755,8 @@
         "kannada": "ತ್ರಿಪುರೇ",
         "malayalam": "ത്രിപുരേ",
         "kana": "トリプレー",
-        "bengali": "ত্রিপুরে"
+        "bengali": "ত্রিপুরে",
+        "gujarati": "ત્રિપુરે"
       },
       "position": {
         "angleDeg": null,
@@ -6629,7 +6793,8 @@
         "kannada": "ತ್ರಿಪುರೇಶೀ",
         "malayalam": "ത്രിപുരേശീ",
         "kana": "トリプレーシー",
-        "bengali": "ত্রিপুরেশী"
+        "bengali": "ত্রিপুরেশী",
+        "gujarati": "ત્રિપુરેશી"
       },
       "position": {
         "angleDeg": null,
@@ -6666,7 +6831,8 @@
         "kannada": "ತ್ರಿಪುರಸುನ್ದರೀ",
         "malayalam": "ത്രിപുരസുംദരീ",
         "kana": "トリプラスンダリー",
-        "bengali": "ত্রিপুরসুংদরী"
+        "bengali": "ত্রিপুরসুংদরী",
+        "gujarati": "ત્રિપુરસુન્દરી"
       },
       "position": {
         "angleDeg": null,
@@ -6703,7 +6869,8 @@
         "kannada": "ತ್ರಿಪುರವಾಸಿನೀ",
         "malayalam": "ത്രിപുരവാസിനീ",
         "kana": "トリプラヴァーシニー",
-        "bengali": "ত্রিপুরবাসিনী"
+        "bengali": "ত্রিপুরবাসিনী",
+        "gujarati": "ત્રિપુરવાસિની"
       },
       "position": {
         "angleDeg": null,
@@ -6740,7 +6907,8 @@
         "kannada": "ತ್ರಿಪುರಾಶ್ರೀಃ",
         "malayalam": "ത്രിപുരാശ്രീഃ",
         "kana": "トリプラースリ",
-        "bengali": "ত্রিপুরাশ্রীঃ"
+        "bengali": "ত্রিপুরাশ্রীঃ",
+        "gujarati": "ત્રિપુરાશ્રીઃ"
       },
       "position": {
         "angleDeg": null,
@@ -6777,7 +6945,8 @@
         "kannada": "ತ್ರಿಪುರಮಾಲಿನೀ",
         "malayalam": "ത്രിപുരമാലിനീ",
         "kana": "トリプラマーリニー",
-        "bengali": "ত্রিপুরমালিনী"
+        "bengali": "ত্রিপুরমালিনী",
+        "gujarati": "ત્રિપુરમાલિની"
       },
       "position": {
         "angleDeg": null,
@@ -6814,7 +6983,8 @@
         "kannada": "ತ್ರಿಪುರಸಿದ್ಧೇ",
         "malayalam": "ത്രിപുരസിദ്ധേ",
         "kana": "トリプラシッデー",
-        "bengali": "ত্রিপুরসিদ্ধে"
+        "bengali": "ত্রিপুরসিদ্ধে",
+        "gujarati": "ત્રિપુરસિદ્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -6851,7 +7021,8 @@
         "kannada": "ತ್ರಿಪುರಾಮ್ಬಾ",
         "malayalam": "ത്രിപുരാംബാ",
         "kana": "トリプラームバー",
-        "bengali": "ত্রিপুরাংবা"
+        "bengali": "ত্রিপুরাংবা",
+        "gujarati": "ત્રિપુરામ્બા"
       },
       "position": {
         "angleDeg": null,
@@ -6888,7 +7059,8 @@
         "kannada": "ಮಹಾತ್ರಿಪುರಸುನ್ದರೀ",
         "malayalam": "മഹാത്രിപുരസുംദരീ",
         "kana": "マハートリプラスンダリー",
-        "bengali": "মহাত্রিপুরসুংদরী"
+        "bengali": "মহাত্রিপুরসুংদরী",
+        "gujarati": "મહાત્રિપુરસુન્દરી"
       },
       "position": {
         "angleDeg": null,
@@ -6925,7 +7097,8 @@
         "kannada": "ಮಹಾಮಹೇಶ್ವರೀ",
         "malayalam": "മഹാമഹേശ്വരീ",
         "kana": "マハーマヘーシュヴァリー",
-        "bengali": "মহামহেশ্বরী"
+        "bengali": "মহামহেশ্বরী",
+        "gujarati": "મહામહેશ્વરી"
       },
       "position": {
         "angleDeg": null,
@@ -6961,7 +7134,8 @@
         "kannada": "ಮಹಾಮಹಾರಾಜ್ಞೀ",
         "malayalam": "മഹാമഹാരാജ്ഞീ",
         "kana": "マハーマハーラージュニー",
-        "bengali": "মহামহারাজ্ঞী"
+        "bengali": "মহামহারাজ্ঞী",
+        "gujarati": "મહામહારાજ્ઞી"
       },
       "position": {
         "angleDeg": null,
@@ -6997,7 +7171,8 @@
         "kannada": "ಮಹಾಮಹಾಶಕ್ತೇ",
         "malayalam": "മഹാമഹാശക്തേ",
         "kana": "マハーマハーシャクテー",
-        "bengali": "মহামহাশক্তে"
+        "bengali": "মহামহাশক্তে",
+        "gujarati": "મહામહાશક્તે"
       },
       "position": {
         "angleDeg": null,
@@ -7033,7 +7208,8 @@
         "kannada": "ಮಹಾಮಹಾಗುಪ್ತೇ",
         "malayalam": "മഹാമഹാഗുപ്തേ",
         "kana": "マハーマハーグプテー",
-        "bengali": "মহামহাগুপ্তে"
+        "bengali": "মহামহাগুপ্তে",
+        "gujarati": "મહામહાગુપ્તે"
       },
       "position": {
         "angleDeg": null,
@@ -7069,7 +7245,8 @@
         "kannada": "ಮಹಾಮಹಾಜ್ಞಪ್ತೇ",
         "malayalam": "മഹാമഹാജ്ഞപ്തേ",
         "kana": "マハーマハージュニャプテー",
-        "bengali": "মহামহাজ্ঞপ্তে"
+        "bengali": "মহামহাজ্ঞপ্তে",
+        "gujarati": "મહામહાજ્ઞપ્તે"
       },
       "position": {
         "angleDeg": null,
@@ -7105,7 +7282,8 @@
         "kannada": "ಮಹಾಮಹಾನನ್ದೇ",
         "malayalam": "മഹാമഹാനംദേ",
         "kana": "マハーマハーナンデー",
-        "bengali": "মহামহানংদে"
+        "bengali": "মহামহানংদে",
+        "gujarati": "મહામહાનન્દે"
       },
       "position": {
         "angleDeg": null,
@@ -7141,7 +7319,8 @@
         "kannada": "ಮಹಾಮಹಾಸ್ಕನ್ಧೇ",
         "malayalam": "മഹാമഹാസ്കംധേ",
         "kana": "マハーマハースカンデー",
-        "bengali": "মহামহাস্কংধে"
+        "bengali": "মহামহাস্কংধে",
+        "gujarati": "મહામહાસ્કન્ધે"
       },
       "position": {
         "angleDeg": null,
@@ -7177,7 +7356,8 @@
         "kannada": "ಮಹಾಮಹಾಶಯೇ",
         "malayalam": "മഹാമഹാശയേ",
         "kana": "マハーマハーシャイェー",
-        "bengali": "মহামহাশয়ে"
+        "bengali": "মহামহাশয়ে",
+        "gujarati": "મહામહાશયે"
       },
       "position": {
         "angleDeg": null,
@@ -7213,7 +7393,8 @@
         "kannada": "ಮಹಾಮಹಾ ಶ್ರೀಚಕ್ರನಗರಸಾಮ್ರಾಜ್ಞೀ",
         "malayalam": "മഹാമഹാ ശ്രീചക്രനഗരസാമ്രാജ്ഞീ",
         "kana": "マハーマハー・スリチャクラナガラサームラージュニー",
-        "bengali": "মহামহা শ্রীচক্রনগরসাম্রাজ্ঞী"
+        "bengali": "মহামহা শ্রীচক্রনগরসাম্রাজ্ঞী",
+        "gujarati": "મહામહા શ્રીચક્રનગરસામ્રાજ્ઞી"
       },
       "position": {
         "angleDeg": null,
@@ -7249,7 +7430,8 @@
         "kannada": "ನಮಸ್ತೇ ನಮಸ್ತೇ ನಮಸ್ತೇ ನಮಃ",
         "malayalam": "നമസ്തേ നമസ്തേ നമസ്തേ നമഃ",
         "kana": "ナマステー・ナマステー・ナマステー・ナマ",
-        "bengali": "নমস্তে নমস্তে নমস্তে নমঃ"
+        "bengali": "নমস্তে নমস্তে নমস্তে নমঃ",
+        "gujarati": "નમસ્તે નમસ્તે નમસ્તે નમઃ"
       },
       "position": {
         "angleDeg": null,

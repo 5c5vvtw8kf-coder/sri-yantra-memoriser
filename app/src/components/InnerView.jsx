@@ -17,7 +17,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
@@ -146,8 +146,7 @@ function Tooltip({ x, y, label, fill, script, below = false, kana }) {
   const isIndic  = script !== 'iast' && script !== 'english'
   const fontSize = isIndic ? 30 : script === 'english' ? 26 : 25
   const h        = isIndic ? 58 : script === 'english' ? 52 : 50
-  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 18.5 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'english' ? 14.5 : 13.5
-  const w        = Math.max(60, label.length * charW + 18)
+  const w = measureTooltipWidth(label, fontSize, 18, 60, kana)
   const tx       = Math.min(Math.max(x, 25 + w / 2), 490 - w / 2)
   const ty       = below ? y + h / 2 + 12 + (kana ? 18 : 0) : y - h / 2 - 12
   return (

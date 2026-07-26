@@ -21,7 +21,7 @@
 
 import { useState } from 'react'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 
 // ── Coordinate system (same as InnerView) ────────────────────────────────────
 
@@ -171,9 +171,8 @@ function DeityPanel({ deity, script, onDismiss }) {
 function Tooltip({ x, y, label, fill, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = (script === 'devanagari' || script === 'bengali' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 18 : script === 'bengali' ? 18.5 : script === 'telugu' ? 21 : script === 'tamil' ? 22 : script === 'kannada' ? 20 : script === 'malayalam' ? 23 : script === 'english' ? 14.5 : 13.5
-  const w        = Math.max(60, label.length * charW + 18)
+  const h        = (script === 'devanagari' || script === 'bengali' || script === 'gujarati' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48
+  const w = measureTooltipWidth(label, fontSize, 18, 60, kana)
   const tx       = Math.min(Math.max(x, w / 2 + 4), 500 - w / 2 - 4)
   const ty       = y - h / 2 - 12
   return (

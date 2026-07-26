@@ -36,6 +36,27 @@ const CONTENT = {
     tour_link: 'Take the guided tour',
     tour_post: ' for a quick introduction to all the features.',
   },
+  'en-us': {
+    mantra: 'Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ',
+    salut:  'Namastripurasundari',
+    fontClass: 'iast',
+    welcome1: 'Namaskaram and welcome to the Śrī Yantra Memoriser, a tool for learning and internalizing the Khadgamala Stotram through the sacred geometry of the Śrī Yantra.',
+    welcome2: 'This is a memorization and internalization tool, not a guide to the philosophy or theology of the Śrī Yantra or the Khadgamala Stotram. Many other excellent resources exist for that.',
+    welcome2_en: 'This is a memorization and internalization tool, not a guide to the philosophy or theology of the Śrī Yantra or the Khadgamala Stotram. Many excellent resources exist for that, some are listed in the References page of the Resources section.',
+    h_yantra: 'The Śrī Yantra',
+    yantra: 'The Śrī Yantra (also called the Śrī Cakra) is one of the most revered sacred geometric mandalas in Hindu, especially within the Śrī Vidyā school, and Buddhist tantric traditions. Nine interlocking triangles, four pointing upward and five pointing downward, radiate from a central point, the Bindu, surrounded by lotus petals and an outer square enclosure with four gates. Together they form nine enclosures or \'veils\' (āvaraṇas), progressing from the outermost expression of manifest reality inward to the point of pure awareness.',
+    h_stotram: 'The Khadgamala Stotram',
+    stotram: 'The Khadgamala or \'Garland of Swords\' Stotram, invokes by name the deities residing in each of the nine āvaraṇas, moving from the outermost Bhūpura inward, with increasing secrecy, to the Bindu. The nine āvaraṇas contain 102 deity names. The full stotram also includes the Nyāsa Devatāḥ, the Tithi Nitya Devatāḥ, the Divyaugha, Siddaugha and Mānavaugha gurus, the Nava (nine) Cakreśvarī, and closing epithets, around 160 names in total, varying slightly by lineage. Chanting the complete stotram with the Śrī Yantra clearly in mind is considered equivalent to a full Śrī Cakra pūjā.',
+    h_how: 'How this app works',
+    how1: 'Most approaches to memorizing the Khadgamala Stotram rely on rote sequential repetition. This app offers a different approach as an aid. The foundation is spatial memory, learning not just the order of the names, but where each deity lives within the geometry of the Śrī Yantra. When the geometry is genuinely internalized, the sequential chant follows naturally.',
+    how2: 'Work through the Explore and Memorize section level by level. Explore mode is there to review the content and Memorize mode to recall the focus object in your mind before hovering over it to reveal the deity and recording whether it is memorized or not, by clicking or double-clicking respectively. Then further test your recall with the random Spot Check feature. The Memory Map exists to map out your strengths and weaknesses and where to focus further efforts.',
+    how3_pre:  'Before you begin, it is worth listening to a full chanting of the Khadgamala Stotram to familiarize yourself with the sound and rhythm of the names. You may find that ',
+    how3_link: 'this recording',
+    how3_post: ' is a good starting point. We hope you enjoy this app and find it useful.',
+    tour_pre:  'New to the app? ',
+    tour_link: 'Take the guided tour',
+    tour_post: ' for a quick introduction to all the features.',
+  },
   hi: {
     mantra: 'ॐ ऐं ह्रीं श्रीं ऐं क्लीं सौः',
     salut:  'नमस्त्रिपुरसुन्दरि',
@@ -155,6 +176,26 @@ const CONTENT = {
     tour_pre:  'अ‍ॅपमध्ये नवीन आहात? ',
     tour_link: 'मार्गदर्शित भ्रमण करा',
     tour_post: ' — सर्व वैशिष्ट्यांचा त्वरित परिचय.',
+  },
+  gu: {
+    mantra: 'ૐ ઐં હ્રીં શ્રીં ઐં ક્લીં સૌઃ',
+    salut:  'નમસ્ત્રિપુરસુન્દરી',
+    fontClass: '',
+    welcome1: 'નમસ્કારં, શ્રી યન્ત્ર સ્મરણ-સહાયકમાં આપનું સ્વાગત છે — શ્રી યન્ત્રની પવિત્ર ભૂમિતિ દ્વારા ખડ્ગમાળા સ્તોત્ર શીખવા અને આત્મસાત કરવાનું એક સાધન.',
+    welcome2: 'આ એક સ્મરણ અને આત્મસાતકરણ સાધન છે — શ્રી યન્ત્ર અથવા ખડ્ગમાળા સ્તોત્રના તત્ત્વજ્ઞાન અથવા ધર્મશાસ્ત્ર માટેનું માર્ગદર્શન નથી. તે માટે અન્ય અનેક ઉત્કૃષ્ટ સ્ત્રોત ઉપલબ્ધ છે.',
+    h_yantra: 'શ્રી યન્ત્ર',
+    yantra: 'શ્રી યન્ત્ર (જેને શ્રી ચક્ર પણ કહેવાય છે) હિન્દુ, ખાસ કરીને શ્રી વિદ્યા સંપ્રદાયમાં, અને બૌદ્ધ તાંત્રિક પરંપરાઓમાં અત્યંત પૂજનીય પવિત્ર ભૂમિતિ-મંડળ છે. નવ અન્તરસંકળાયેલા ત્રિભુજ — ચાર ઊર્ધ્વમુખ અને પાંચ અધોમુખ — એક કેન્દ્ર બિંદુથી પ્રસરે છે, કમળ-દળ અને ચાર દ્વારોસહિત બાહ્ય ચોરસ ઘેરાથી વીંટળાયેલા. મળીને તે નવ આવરણ રચે છે — સૌથી બહારની વ્યક્ત વાસ્તવિકતાથી શુદ્ધ ચેતનાના બિંદુ સુધી.',
+    h_stotram: 'ખડ્ગમાળા સ્તોત્ર',
+    stotram: "ખડ્ગમાળા સ્તોત્ર, અર્થાત્ ‘તલવારોની માળા’, નવ આવરણોમાં નિવાસ કરતી દેવતાઓને નામ સહિત આવાહન કરે છે — સૌથી બહારના ભૂપુરથી આરંભીને, વધતી ગુપ્તતા સાથ, બિંદુ સુધી. નવ આવરણોમાં ૧૦૨ દેવતા-નામ છે. સંપૂર્ણ સ્તોત્રમાં ન્યાસ દેવતાઃ, તિથિનિત્ય દેવતાઃ, દિવ્યોઘ, સિદ્ધોઘ અને માનવોઘ ગુરુ, નવ ચક્રેશ્વરી, અને સમાપન વિશેષણો પણ સમાવિષ્ટ છે — કુલ આશરે ૧૬૦ નામ, પરંપરા પ્રમાણે કંઇક જુદી. શ્રી યન્ત્રને મનમાં સ્પષ્ટ રાખીને સંપૂર્ણ સ્તોત્રનો જપ કરવો શ્રી ચક્ર પૂજાને સમતુલ્ય માનવમાં આવે છે.",
+    h_how: 'આ એપ કેવી રીતે કાર્ય કરે છે',
+    how1: 'ખડ્ગમાળા સ્તોત્ર કંઠસ્થ કરવાના મોટા ભાગના ઉપાયો ક્રમિક પુનરાવર્તન પર આધારિત છે. આ એપ સ્થાનિક સ્મૃતિ પર આધારિત અલગ દ્રષ્ટિકોણ આપે છે — માત્ર નામોનો ક્રમ નહી, પરંતુ શ્રી યન્ત્રની ભૂમિતિમાં પ્રત્યેક દેવતા ક્યાં વસે છે તે પણ શીખવાનું છે. જ્યારે ભૂમિતિ સાચી રીતે આત્મસાત થાય છે, ક્રમિક પાઠ સ્વાભાવિક રીતે આવે છે.',
+    how2: 'અન્વેષણ અને કંઠસ્થ વિભાગમાં સ્તર-દર-સ્તર કાર્ય કરો. અન્વેષણ મોડ સામગ્રી સમીક્ષા માટે છે અને કંઠસ્થ મોડમાં દેવતાનું નામ મનમાં યાદ કરો અને પછી પ્રકટ કરો — સાચું હોય તો ક્લિક, ખોટું હોય તો ડબલ-ક્લિક. સ્પૉટ ચેક યાદ્રચ્છિક પુનરાવર્તન આપે છે. સ્મૃતિ નકશો આપની શક્તિ અને દુર્બળાઇઓ દર્શાવે છે.',
+    how3_pre:  'આરંભ કરતાં પહેલાં, નામોની ધ્વનિ અને લય પરિચિત કરવા ખડ્ગમાળા સ્તોત્રનો સંપૂર્ણ પાઠ સાંભળવો ઉપયોગી છે. ',
+    how3_link: 'આ રેકૉર્ડિંગ',
+    how3_post: ' એક સારો પ્રારંભબિંદુ હોઇ શકે છે. આપને આ એપ ઉપયોગી અને આનંદદાયક લાગે તેવી આશા છે.',
+    tour_pre:  'એપમાં નવા છો? ',
+    tour_link: 'માર્ગદર્શિત પ્રવાસ કરો',
+    tour_post: ' — બધી સુવિધાઓનો ઝડપી પરિચય.',
   },
   fr: {
     mantra: 'Oṃ Aiṃ Hrīṃ Śrīṃ Aiṃ Klīṃ Sauḥ',
@@ -340,8 +381,8 @@ const CONTENT = {
 
 export default function IntroView({ script = 'iast', uiLang = 'en', onStartTour }) {
   const c = CONTENT[uiLang] ?? CONTENT.en
-  const isLatinScript = ['en','fr','es','it','pt','de','ja','ru'].includes(uiLang)
-  const isEnglish = uiLang === 'en'
+  const isLatinScript = ['en','en-us','fr','es','it','pt','de','ja','ru'].includes(uiLang)
+  const isEnglish = uiLang === 'en' || uiLang === 'en-us'
 
   // For Sanskrit inline spans: use iast class when rendering IAST/English UI
   const skt = isLatinScript ? 'iast' : ''

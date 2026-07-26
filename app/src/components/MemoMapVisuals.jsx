@@ -26,7 +26,7 @@ import {
   APEX, BASE_L, BASE_R, CENTROID, BINDU,
   CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID,
 } from '../korvinGeometry'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 
 const { deities, sections } = data
 

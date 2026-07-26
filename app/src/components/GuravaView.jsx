@@ -12,7 +12,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import { APEX, BASE_L, BASE_R, CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID } from '../korvinGeometry'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
@@ -142,9 +142,8 @@ function Tooltip({ x, label, fill, script, kana }) {
   // Font sizes scaled to match apparent size in other views (GuravaView viewBox is 350
   // wide vs ~465 in InnerView, so SVG font units need to be proportionally smaller)
   const fontSize = script === 'devanagari' ? 20 : script === 'english' ? 19 : 18
-  const h        = script === 'devanagari' ? 40 : 38
-  const charW    = script === 'devanagari' ? 13.5 : script === 'bengali' ? 13.5 : script === 'telugu' ? 16 : script === 'tamil' ? 17 : script === 'english' ? 11 : 10.5
-  const w        = Math.max(50, label.length * charW + 14)
+  const h        = (script === 'devanagari' || script === 'gujarati') ? 40 : 38
+  const w = measureTooltipWidth(label, fontSize, 14, 50, kana)
   const tx       = Math.min(Math.max(x, 5 + w / 2), 345 - w / 2)
   // Always pin above the top (divya) row so tooltip never covers dots
   const ty       = GURU_Y.divya - h / 2 - 10

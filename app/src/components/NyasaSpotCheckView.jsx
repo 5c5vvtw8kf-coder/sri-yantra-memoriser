@@ -23,7 +23,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/khadgamala-canonical.json'
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 
 // ── Coordinate constants (must match SriYantraSVG.jsx) ───────────────────────
 
@@ -115,9 +115,8 @@ function dotsForSeq(seq) {
 function Tooltip({ x, y, label, script }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
-  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const charW    = script === 'devanagari' ? 14 : script === 'bengali' ? 14 : script === 'english' ? 11.5 : 10.5
-  const w        = Math.max(60, label.length * charW + 18)
+  const h        = (script === 'devanagari' || script === 'gujarati') ? 52 : script === 'english' ? 50 : 48
+  const w = measureTooltipWidth(label, fontSize, 18, 60)
   const tx       = Math.min(Math.max(x, w / 2 + 4), 496 - w / 2)
   const ty       = y - h / 2 - 14 < 4 ? y + h / 2 + 14 : y - h / 2 - 14
   return (

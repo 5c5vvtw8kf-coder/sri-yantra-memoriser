@@ -1,4 +1,4 @@
-import { displayName } from '../utils.js'
+import { displayName, measureTooltipWidth } from '../utils.js'
 
 /**
  * FuriganaName — renders a deity name with katakana furigana (ruby text)
