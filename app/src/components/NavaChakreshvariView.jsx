@@ -290,7 +290,7 @@ function Tooltip({ circuitNum, script, uiLang = 'en' }) {
 
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
-  const w = measureTooltipWidth(label, fontSize, 18, 60)
+  const w = measureTooltipWidth(label, fontSize, 18, 60, kana)
 
   // Centred horizontally on the bindu (SVG_CX = 260); y fixed at top-left area
   const tx = SVG_CX

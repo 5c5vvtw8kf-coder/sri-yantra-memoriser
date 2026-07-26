@@ -15,11 +15,17 @@
 //
 let _ttCanvas = null
 
-export function measureTooltipWidth(label, fontSize, padding = 18, minWidth = 60) {
+export function measureTooltipWidth(label, fontSize, padding = 18, minWidth = 60, kana = null) {
   try {
     if (!_ttCanvas) _ttCanvas = document.createElement('canvas').getContext('2d')
     _ttCanvas.font = `${fontSize}px 'Gentium Plus', Georgia, serif`
-    return Math.max(minWidth, Math.ceil(_ttCanvas.measureText(label).width) + padding)
+    let w = Math.ceil(_ttCanvas.measureText(label).width)
+    if (kana) {
+      // Kana furigana renders at fontSize=13 sans-serif — measure it too
+      _ttCanvas.font = `13px sans-serif`
+      w = Math.max(w, Math.ceil(_ttCanvas.measureText(kana).width))
+    }
+    return Math.max(minWidth, w + padding)
   } catch {
     // Fallback for non-browser environments (tests, SSR)
     return Math.max(minWidth, Math.round(label.length * fontSize * 0.65) + padding)

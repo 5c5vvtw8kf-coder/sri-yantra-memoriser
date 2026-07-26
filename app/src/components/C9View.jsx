@@ -50,7 +50,7 @@ function Tooltip({ x, y, label, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 33 : script === 'english' ? 32 : 32
   const h        = script === 'devanagari' ? 66 : script === 'english' ? 64 : 64
-  const w = measureTooltipWidth(label, fontSize, 18, 80)
+  const w = measureTooltipWidth(label, fontSize, 18, 80, kana)
   const tx       = Math.min(Math.max(x, w / 2 - 26), 526 - w / 2)
   const ty       = y - h / 2 - 44
   return (

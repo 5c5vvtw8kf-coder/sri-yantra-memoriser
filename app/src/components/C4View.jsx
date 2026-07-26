@@ -135,8 +135,8 @@ function Tooltip({ x, y, label, script, seq, isMobile, kana }) {
     ? ((script === 'devanagari' || script === 'kannada' || script === 'malayalam') ? 36 : script === 'english' ? 34 : 32)
     : ((script === 'devanagari' || script === 'bengali' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48)
   const w = isMobile
-    ? measureTooltipWidth(label, fontSize, 14, 50)
-    : measureTooltipWidth(label, fontSize, 18, 60)
+    ? measureTooltipWidth(label, fontSize, 14, 50, kana)
+    : measureTooltipWidth(label, fontSize, 18, 60, kana)
   const tx = isMobile
     ? Math.min(Math.max(x, 135 + w / 2), 385 - w / 2)
     : Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)

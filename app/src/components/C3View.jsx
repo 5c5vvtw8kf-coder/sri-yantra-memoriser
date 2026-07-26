@@ -142,7 +142,7 @@ function Tooltip({ x, y, label, script, kana }) {
   if (!label) return null
   const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
   const h        = (script === 'devanagari' || script === 'bengali' || script === 'kannada' || script === 'malayalam') ? 52 : script === 'english' ? 50 : 48
-  const w = measureTooltipWidth(label, fontSize, 18, 60)
+  const w = measureTooltipWidth(label, fontSize, 18, 60, kana)
   const hw = w / 2, hh = h / 2
 
   const dx = x - CX

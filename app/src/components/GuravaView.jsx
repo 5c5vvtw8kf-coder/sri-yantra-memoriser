@@ -143,7 +143,7 @@ function Tooltip({ x, label, fill, script, kana }) {
   // wide vs ~465 in InnerView, so SVG font units need to be proportionally smaller)
   const fontSize = script === 'devanagari' ? 20 : script === 'english' ? 19 : 18
   const h        = script === 'devanagari' ? 40 : 38
-  const w = measureTooltipWidth(label, fontSize, 14, 50)
+  const w = measureTooltipWidth(label, fontSize, 14, 50, kana)
   const tx       = Math.min(Math.max(x, 5 + w / 2), 345 - w / 2)
   // Always pin above the top (divya) row so tooltip never covers dots
   const ty       = GURU_Y.divya - h / 2 - 10

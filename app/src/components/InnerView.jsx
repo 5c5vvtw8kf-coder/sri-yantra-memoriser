@@ -146,7 +146,7 @@ function Tooltip({ x, y, label, fill, script, below = false, kana }) {
   const isIndic  = script !== 'iast' && script !== 'english'
   const fontSize = isIndic ? 30 : script === 'english' ? 26 : 25
   const h        = isIndic ? 58 : script === 'english' ? 52 : 50
-  const w = measureTooltipWidth(label, fontSize, 18, 60)
+  const w = measureTooltipWidth(label, fontSize, 18, 60, kana)
   const tx       = Math.min(Math.max(x, 25 + w / 2), 490 - w / 2)
   const ty       = below ? y + h / 2 + 12 + (kana ? 18 : 0) : y - h / 2 - 12
   return (
