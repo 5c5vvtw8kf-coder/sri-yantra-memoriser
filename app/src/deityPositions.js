@@ -42,11 +42,32 @@ function outwardNormal(a, b, centroid) {
   return [nx, ny]
 }
 
-// ── C1: BHUPURA_MARKERS — sequenceInSection 1–28 ─────────────────────────────
+// ── C1: BHUPURA_MARKERS — sequenceInSection 1–29 ─────────────────────────────
+//
+// Siddhi Shaktis (seq 1–11) do NOT map directly to marker n. garimāsiddhē
+// (seq 3) shares laghimāsiddhē's physical dot (n=11, same coords as n=2),
+// and everything from mahimāsiddhē (seq 4) onward shifts back one slot to
+// fill the gap (seq 4→n3 ... seq 11→n10). Ashta Matrikas/Mudra Shaktis
+// (seq 12–29) are unaffected — n = seq directly.
+// Mirrors BhupuraView.jsx's siddhiDotN() — keep both in sync if this changes.
 
-const bhupuraBySeq = Object.fromEntries(
+const markerByN = Object.fromEntries(
   BHUPURA_MARKERS.map(m => [m.n, { x: m.x, y: m.y }])
 )
+
+function siddhiDotN(seq) {
+  if (seq <= 2) return seq
+  if (seq === 3) return 11
+  return seq - 1
+}
+
+const bhupuraBySeq = {}
+for (let seq = 1; seq <= 11; seq++) {
+  bhupuraBySeq[seq] = markerByN[siddhiDotN(seq)]
+}
+for (let seq = 12; seq <= 29; seq++) {
+  bhupuraBySeq[seq] = markerByN[seq]
+}
 
 // ── C2: C2_PETALS centroids — petal number maps to sequenceInSection directly ─
 
