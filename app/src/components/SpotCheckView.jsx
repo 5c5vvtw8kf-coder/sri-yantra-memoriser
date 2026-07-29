@@ -35,6 +35,32 @@ import ChakreshvariSpotCheckView from './ChakreshvariSpotCheckView'
 const { deities } = data
 const deityById = Object.fromEntries(deities.map(d => [d.id, d]))
 
+// Co-location map (C1 only): dots sharing the same physical bhūpura position —
+// e.g. laghimāsiddhē (seq 2) and garimāsiddhē (seq 3) share one dot. Mirrors
+// BhupuraView.jsx's _posKeyDeities so Spot Check's label matches Explore/Memorise.
+const _posKeyDeities = {}
+deities.filter(d => d.sectionId === 'circuit-1' && d.role === 'deity').forEach(d => {
+  const pos = getPosition(d.id)
+  if (!pos) return
+  const key = `${pos.x},${pos.y}`
+  if (!_posKeyDeities[key]) _posKeyDeities[key] = []
+  _posKeyDeities[key].push(d)
+})
+
+// Returns the display label for a deity — concatenates names when co-located
+// deities share a dot (same treatment as BhupuraView.jsx's dotLabel()).
+function spotLabel(deity, script) {
+  if (!deity) return ''
+  const pos = getPosition(deity.id)
+  const key = pos ? `${pos.x},${pos.y}` : null
+  const group = key ? (_posKeyDeities[key] ?? []) : []
+  if (group.length > 1) {
+    const sorted = [...group].sort((a, b) => a.sequenceInSection - b.sequenceInSection)
+    return sorted.map(g => displayName(g, script)).join(', ')
+  }
+  return displayName(deity, script)
+}
+
 // Only circuit deities with yantra positions (102 total, C1-C7)
 const positionedDeities = deities.filter(d =>
   DEITY_POSITIONS[d.id] != null &&
@@ -586,7 +612,7 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
     if (onRegisterSkip) onRegisterSkip(handleSkip)
   }, [handleSkip, onRegisterSkip])
 
-  const name   = current ? displayName(current, script) : ''
+  const name   = current ? spotLabel(current, script) : ''
   const dotFill = flash === 'correct' ? ACTIVE_RED : flash === 'wrong' ? ACTIVE_GOLD : 'rgba(255,248,200,0.95)'
 
   // Delegate to dedicated visual components for special-mode filters
