@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sri Yantra — candidate Line Drill lines</title>
+<style>
+  html, body { margin:0; padding:0; background:#0f0805; height:100%; font-family: sans-serif; }
+  .wrap { display:flex; height:100vh; }
+  svg { display:block; height:100vh; flex: 0 0 auto; width: 65vw; }
+  .panel { flex: 1; overflow-y:auto; padding:16px 18px; color:#d8cba0; box-sizing:border-box; }
+  .panel h2 { color:#c9a84c; font-size:15px; margin:0 0 10px; }
+  .btnrow { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  button.linebtn {
+    font-family: sans-serif; font-size:12px; padding:5px 9px; border-radius:4px; cursor:pointer;
+    border:1px solid #4a3d20; background:#1a120a; color:#c9a84c;
+  }
+  button.linebtn.active { background:#c9a84c; color:#0f0805; font-weight:bold; }
+  button.util { background:#2a2010; color:#8a7a5a; }
+  button.util.active { background:#8a7a5a; color:#0f0805; }
+  #label { font-size:13px; color:#f0e6c0; margin-bottom:8px; }
+  #candidates { font-size:12px; line-height:1.7; }
+  #candidates .tag { display:inline-block; background:#1e1608; border:1px solid #4a3d20; border-radius:3px;
+    padding:1px 6px; margin:2px 3px 2px 0; }
+  #candidates .tag.near { color:#8a7a5a; border-style:dashed; }
+  .swatch { display:inline-block; width:14px; height:3px; margin-right:6px; vertical-align:middle; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<svg id="yantra" viewBox="45 55 430 430" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Sri Yantra — candidate Line Drill lines L1-L21, toggleable</title>
+<rect x="45" y="55" width="430" height="430" fill="#0f0805"/>
+<circle cx="260" cy="270" r="110" fill="none" stroke="#4a3d20" stroke-width="1" opacity="0.4"/>
+<circle cx="260" cy="270" r="143.24" fill="none" stroke="#4a3d20" stroke-width="1" opacity="0.4"/>
+<path d="M 217.905,168.373 C 217.905,152.118 256.211,149.733 260.000,146.699 C 263.789,149.733 302.095,152.118 302.095,168.373 A 110 110 0 0 0 217.905,168.373 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 302.095,168.373 C 313.590,156.879 342.362,182.280 347.187,182.813 C 347.720,187.638 373.121,216.410 361.627,227.905 A 110 110 0 0 0 302.095,168.373 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 361.627,227.905 C 377.882,227.905 380.267,266.211 383.301,270.000 C 380.267,273.789 377.882,312.095 361.627,312.095 A 110 110 0 0 0 361.627,227.905 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 361.627,312.095 C 373.121,323.590 347.720,352.362 347.187,357.187 C 342.362,357.720 313.590,383.121 302.095,371.627 A 110 110 0 0 0 361.627,312.095 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 302.095,371.627 C 302.095,387.882 263.789,390.267 260.000,393.301 C 256.211,390.267 217.905,387.882 217.905,371.627 A 110 110 0 0 0 302.095,371.627 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 217.905,371.627 C 206.410,383.121 177.638,357.720 172.813,357.187 C 172.280,352.362 146.879,323.590 158.373,312.095 A 110 110 0 0 0 217.905,371.627 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 158.373,312.095 C 142.118,312.095 139.733,273.789 136.699,270.000 C 139.733,266.211 142.118,227.905 158.373,227.905 A 110 110 0 0 0 158.373,312.095 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 158.373,227.905 C 146.879,216.410 172.280,187.638 172.813,182.813 C 177.638,182.280 206.410,156.879 217.905,168.373 A 110 110 0 0 0 158.373,227.905 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 235.945,149.068 C 235.945,132.337 258.316,129.883 260.000,126.760 C 261.684,129.883 284.055,132.337 284.055,149.068 A 123.301 123.301 0 0 0 235.945,149.068 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 284.055,149.068 C 290.458,133.611 312.065,139.905 314.816,137.663 C 315.176,141.193 334.905,152.021 328.502,167.479 A 123.301 123.301 0 0 0 284.055,149.068 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 328.502,167.479 C 340.333,155.648 357.887,169.732 361.286,168.714 C 360.268,172.113 374.352,189.667 362.521,201.498 A 123.301 123.301 0 0 0 328.502,167.479 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 362.521,201.498 C 377.979,195.095 388.807,214.824 392.337,215.184 C 390.095,217.935 396.389,239.542 380.932,245.945 A 123.301 123.301 0 0 0 362.521,201.498 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 380.932,245.945 C 397.663,245.945 400.117,268.316 403.240,270.000 C 400.117,271.684 397.663,294.055 380.932,294.055 A 123.301 123.301 0 0 0 380.932,245.945 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 380.932,294.055 C 396.389,300.458 390.095,322.065 392.337,324.816 C 388.807,325.176 377.979,344.905 362.521,338.502 A 123.301 123.301 0 0 0 380.932,294.055 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 362.521,338.502 C 374.352,350.333 360.268,367.887 361.286,371.286 C 357.887,370.268 340.333,384.352 328.502,372.521 A 123.301 123.301 0 0 0 362.521,338.502 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 328.502,372.521 C 334.905,387.979 315.176,398.807 314.816,402.337 C 312.065,400.095 290.458,406.389 284.055,390.932 A 123.301 123.301 0 0 0 328.502,372.521 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 284.055,390.932 C 284.055,407.663 261.684,410.117 260.000,413.240 C 258.316,410.117 235.945,407.663 235.945,390.932 A 123.301 123.301 0 0 0 284.055,390.932 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 235.945,390.932 C 229.542,406.389 207.935,400.095 205.184,402.337 C 204.824,398.807 185.095,387.979 191.498,372.521 A 123.301 123.301 0 0 0 235.945,390.932 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 191.498,372.521 C 179.667,384.352 162.113,370.268 158.714,371.286 C 159.732,367.887 145.648,350.333 157.479,338.502 A 123.301 123.301 0 0 0 191.498,372.521 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 157.479,338.502 C 142.021,344.905 131.193,325.176 127.663,324.816 C 129.905,322.065 123.611,300.458 139.068,294.055 A 123.301 123.301 0 0 0 157.479,338.502 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 139.068,294.055 C 122.337,294.055 119.883,271.684 116.760,270.000 C 119.883,268.316 122.337,245.945 139.068,245.945 A 123.301 123.301 0 0 0 139.068,294.055 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 139.068,245.945 C 123.611,239.542 129.905,217.935 127.663,215.184 C 131.193,214.824 142.021,195.095 157.479,201.498 A 123.301 123.301 0 0 0 139.068,245.945 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 157.479,201.498 C 145.648,189.667 159.732,172.113 158.714,168.714 C 162.113,169.732 179.667,155.648 191.498,167.479 A 123.301 123.301 0 0 0 157.479,201.498 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 191.498,167.479 C 185.095,152.021 204.824,141.193 205.184,137.663 C 207.935,139.905 229.542,133.611 235.945,149.068 A 123.301 123.301 0 0 0 191.498,167.479 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<polygon points="101.36,111.36 225.98,111.36 225.98,91.88 172.74,91.88 172.74,63.67 347.26,63.67 347.26,91.88 294.01,91.88 294.01,111.37 418.64,111.36 418.64,235.98 438.12,235.98 438.12,182.74 466.33,182.74 466.33,357.26 438.12,357.26 438.12,304.01 418.63,304.01 418.64,428.64 294.02,428.64 294.02,448.12 347.26,448.12 347.26,476.33 172.74,476.33 172.74,448.12 225.99,448.12 225.99,428.63 101.36,428.64 101.36,304.02 81.88,304.02 81.88,357.26 53.67,357.26 53.67,182.74 81.88,182.74 81.88,235.99 101.37,235.99" fill="none" stroke="#6b5a2e" stroke-width="1.2" opacity="0.5"/>
+<polygon points="260.0,160.0 154.0,299.5 366.0,299.5" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,182.9 186.9,326.8 333.1,326.8" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,213.4 224.3,283.3 295.7,283.3" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,236.8 212.0,350.4 308.0,350.4" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,380.0 155.1,236.8 364.9,236.8" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,350.4 187.9,213.4 332.1,213.4" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,326.8 225.5,250.6 294.5,250.6" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,299.5 234.8,263.2 285.2,263.2" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,283.3 202.9,182.9 317.1,182.9" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+
+<!-- C8 Trikoṇa (8th āvaraṇa) dots (always visible) -->
+<g fill="#c9a84c" opacity="0.85">
+<circle cx="250.5" cy="278.0" r="2"/><circle cx="269.5" cy="278.0" r="2"/><circle cx="265.0" cy="257.6" r="2"/><circle cx="255.0" cy="257.6" r="2"/>
+<circle cx="260.0" cy="283.3" r="2"/><circle cx="271.4" cy="263.2" r="2"/><circle cx="248.6" cy="263.2" r="2"/>
+</g>
+
+<!-- C1 bhupura dots (always visible) -->
+<g fill="#c9a84c" opacity="0.85">
+<circle cx="295.0" cy="430.0" r="2.4"/><circle cx="100.0" cy="306.0" r="2.4"/><circle cx="225.0" cy="110.0" r="2.4"/><circle cx="420.0" cy="235.0" r="2.4"/>
+<circle cx="101.0" cy="429.0" r="2.4"/><circle cx="101.0" cy="111.0" r="2.4"/><circle cx="419.0" cy="111.0" r="2.4"/><circle cx="419.0" cy="429.0" r="2.4"/>
+<circle cx="377.3" cy="429.0" r="2.4"/><circle cx="132.2" cy="111.0" r="2.4"/>
+<circle cx="229.0" cy="426.0" r="2.4"/><circle cx="103.0" cy="238.0" r="2.4"/><circle cx="292.0" cy="114.0" r="2.4"/><circle cx="416.0" cy="302.0" r="2.4"/>
+<circle cx="105.0" cy="425.0" r="2.4"/><circle cx="105.0" cy="115.0" r="2.4"/><circle cx="415.0" cy="115.0" r="2.4"/><circle cx="415.0" cy="425.0" r="2.4"/>
+<circle cx="288.0" cy="423.0" r="2.4"/><circle cx="107.0" cy="298.0" r="2.4"/><circle cx="232.0" cy="117.0" r="2.4"/><circle cx="413.0" cy="242.0" r="2.4"/>
+<circle cx="109.0" cy="421.0" r="2.4"/><circle cx="109.0" cy="119.0" r="2.4"/><circle cx="411.0" cy="119.0" r="2.4"/><circle cx="411.0" cy="421.0" r="2.4"/>
+<circle cx="338.0" cy="422.0" r="2.4"/><circle cx="148.9" cy="118.0" r="2.4"/>
+</g>
+<circle cx="260" cy="270" r="4" fill="#ffffff"/>
+
+<!-- Toggleable line groups -->
+<g id="line-L1" class="line-group"><line x1="76.2" y1="86.2" x2="443.8" y2="453.8" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L2" class="line-group"><line x1="76.2" y1="453.8" x2="443.8" y2="86.2" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L3" class="line-group"><line x1="260.0" y1="10.0" x2="260.0" y2="530.0" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L4" class="line-group"><line x1="0.0" y1="270.0" x2="520.0" y2="270.0" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L5" class="line-group"><line x1="648.6" y1="783.6" x2="-65.6" y2="69.4" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L6" class="line-group"><line x1="-229.3" y1="682.3" x2="436.3" y2="-78.3" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L7" class="line-group"><line x1="-328.8" y1="-82.6" x2="609.9" y2="311.6" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="420.0" cy="235.0" r="4" fill="none" stroke="#c9a84c" stroke-width="1.4"/></g>
+<g id="line-L8" class="line-group"><line x1="-128.6" y1="-243.6" x2="585.6" y2="470.6" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L9" class="line-group"><line x1="773.6" y1="-118.6" x2="59.4" y2="595.6" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L10" class="line-group"><line x1="414.5" y1="-370.8" x2="128.0" y2="762.8" stroke="#9b8ee0" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L11" class="line-group"><line x1="-159.0" y1="-26.5" x2="677.0" y2="567.7" stroke="#e0c88e" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="136.9" cy="219.0" r="4" fill="none" stroke="#e0c88e" stroke-width="1.4"/><circle cx="383.1" cy="321.0" r="4" fill="none" stroke="#e0c88e" stroke-width="1.4"/></g>
+<g id="line-L12" class="line-group"><line x1="-357.1" y1="103.3" x2="834.4" y2="631.7" stroke="#8ee0b8" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+<g id="line-L13" class="line-group"><line x1="88.1" y1="905.7" x2="452.0" y2="-332.9" stroke="#8eb8e0" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="311.0" cy="146.9" r="4" fill="none" stroke="#8eb8e0" stroke-width="1.4"/></g>
+<g id="line-L14" class="line-group"><line x1="0.5" y1="-221.9" x2="570.1" y2="864.9" stroke="#e0958e" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="232.6" cy="220.9" r="4" fill="none" stroke="#e0958e" stroke-width="1.4"/><circle cx="240.9" cy="241.2" r="4" fill="none" stroke="#e0958e" stroke-width="1.4"/></g>
+<g id="line-L15" class="line-group"><line x1="262.2" y1="-350.7" x2="386.8" y2="919.6" stroke="#b8e08e" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="311.0" cy="146.9" r="4" fill="none" stroke="#b8e08e" stroke-width="1.4"/></g>
+<g id="line-L16" class="line-group"><line x1="-325.0" y1="27.6" x2="845.0" y2="512.4" stroke="#e08ec8" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="136.9" cy="219.0" r="4" fill="none" stroke="#e08ec8" stroke-width="1.4"/><circle cx="383.1" cy="321.0" r="4" fill="none" stroke="#e08ec8" stroke-width="1.4"/></g>
+<g id="line-L17" class="line-group"><line x1="-239.7" y1="-109.9" x2="753.9" y2="757.9" stroke="#8edde0" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="136.9" cy="219.0" r="4" fill="none" stroke="#8edde0" stroke-width="1.4"/></g>
+<g id="line-L18" class="line-group"><line x1="739.5" y1="-142.9" x2="-227.8" y2="657.2" stroke="#b88ee0" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="354.2" cy="175.8" r="4" fill="none" stroke="#b88ee0" stroke-width="1.4"/><circle cx="157.5" cy="338.5" r="4" fill="none" stroke="#b88ee0" stroke-width="1.4"/></g>
+<g id="line-L19" class="line-group"><line x1="839.8" y1="15.7" x2="-206.1" y2="481.4" stroke="#e0a88e" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="383.1" cy="219.0" r="4" fill="none" stroke="#e0a88e" stroke-width="1.4"/><circle cx="243.3" cy="281.1" r="4" fill="none" stroke="#e0a88e" stroke-width="1.4"/></g>
+<g id="line-L20" class="line-group"><line x1="456.0" y1="-204.5" x2="18.0" y2="855.2" stroke="#c8e05e" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="209.0" cy="393.1" r="4" fill="none" stroke="#c8e05e" stroke-width="1.4"/></g>
+<g id="line-L21" class="line-group"><line x1="744.6" y1="424.8" x2="-218.2" y2="96.0" stroke="#5ec8e0" stroke-width="1.5" stroke-dasharray="4,3"/></g>
+
+</svg>
+
+<div class="panel">
+  <h2>Line Drill — line-by-line viewer</h2>
+  <div class="btnrow" id="lineButtons"></div>
+  <div class="btnrow">
+    <button class="linebtn util" id="btnAll">Show all</button>
+    <button class="linebtn util" id="btnNone">Hide all</button>
+    <button class="linebtn util" id="btnOrphans">Orphans</button>
+    <button class="linebtn util" id="btnAllOrphans">All + Orphans</button>
+  </div>
+  <div id="label"></div>
+  <div id="candidates"></div>
+</div>
+</div>
+
+<script>
+const LINE_LABELS = {
+  L1: 'Diagonal ↖ (BR→TL corners) — committed',
+  L2: 'Diagonal ↗ (BL→TR corners) — committed',
+  L3: 'Vertical — committed',
+  L4: 'Horizontal — committed',
+  L5: 'aṇimāsiddhē ↔ sarvasaṅkṣōbhiṇī(C1) — committed',
+  L6: 'laghimāsiddhē/garimāsiddhē ↔ sarvavidrāviṇī(C1) — committed',
+  L7: 'sarvakāmasiddhē ↔ sarvatrikhaṇḍē (+ īśitvasiddhē) — committed',
+  L8: 'mahimāsiddhē ↔ sarvākarṣiṇī(C1) — committed',
+  L9: 'īśitvasiddhē ↔ sarvavaśaṅkarī(C1) — committed',
+  L10: 'kaumārī ↔ bāṇinī (through aṅkuśinī)',
+  L11: 'mahābhagamālinī ↔ cāpinī (+ śrī śrī mahābhaṭṭārikē) — committed',
+  L12: 'garimāsiddhē/laghimāsiddhē ↔ prāptisiddhē',
+  L13: 'brāhmī ↔ gandhākarṣiṇī — proposal',
+  L14: 'sarvamṛtyupraśamanī ↔ sarvayōnē — committed',
+  L15: 'gandhākarṣiṇī ↔ sarvayōnē — committed',
+  L16: 'nāmākarṣiṇī ↔ śabdākarṣiṇī — committed',
+  L17: 'nāmākarṣiṇī ↔ prāptisiddhē — committed',
+  L18: 'rasākarṣiṇī ↔ ātmākarṣiṇī — committed',
+  L19: 'rūpākarṣiṇī ↔ bāṇinī (through kauḻinī) — committed',
+  L20: 'pāśinī ↔ śarīrākarṣiṇī — committed',
+  L21: 'mahāvajrēśvarī ↔ aṅkuśinī — committed',
+}
+const CANDIDATES = {"L1": ["prākāmyasiddhē", "māhēndrī", "sarvamahāṅkuśē", "smṛtyākarṣiṇī", "anaṅgamālinī", "sarvōnmādinī", "sarvavighnanivāriṇī", "jayinī", "śrī śrī mahābhaṭṭārikē", "cāpinī", "kāmēśvarī", "sarvaśaktē", "sarvapriyaṅkarī", "sarvākarṣiṇī", "anaṅgavēginī", "ahaṅkārākarṣiṇī", "sarvabījē", "mahālakṣmī", "icchāsiddhē"], "L2": ["bhuktisiddhē", "cāmuṇḍē", "sarvakhēcarī", "rasākarṣiṇī", "sarvastambhinī", "sarvamaṅgaḻakāriṇī", "vimalē", "śrī śrī mahābhaṭṭārikē", "kauḻinī", "sarvēpsitaphalapradē", "sarvāṅgasundarī", "sarvamantramayī", "anaṅgāṅkuśē", "amṛtākarṣiṇī", "sarvōnmādinī(C1)", "vārāhī", "vaśitvasiddhē"], "L3": ["cittākarṣiṇī", "anaṅgakusumē", "sarvavaśaṅkarī", "sarvaduḥkhavimōcanī", "sarvādhārasvarūpē", "aruṇē", "śrī śrī mahābhaṭṭārikē", "mahākāmēśvarī", "vaśinī", "sarvajñē", "sarvasiddhipradē", "sarvasaṅkṣōbhiṇī", "anaṅgamadanē", "kāmākarṣiṇī"], "L4": ["bījākarṣiṇī", "anaṅgamadanāturē", "sarvasampattipūriṇī", "sarvāṅgasundarī", "sarvarakṣāsvarūpiṇī", "sarvēśvarī", "śrī śrī mahābhaṭṭārikē", "mōdinī", "sarvaiśvaryapradāyinī", "sarvapriyaṅkarī", "sarvahlādinī", "anaṅgamēkhalē", "sparśākarṣiṇī"], "L5": ["māhēśvarī", "bījākarṣiṇī", "anaṅgamadanāturē", "sarvasampattipūriṇī", "sarvamantramayī", "sarvadvandvakṣayaṅkarī", "anaṅgamadanē", "kāmākarṣiṇī", "sarvasaṅkṣōbhiṇī(C1)", "aṇimāsiddhē"], "L6": ["cittākarṣiṇī", "anaṅgakusumē", "sarvarañjanī", "sarvārthasādhikē", "anaṅgamadanāturē", "bījākarṣiṇī", "sarvavidrāviṇī(C1)", "laghimāsiddhē", "garimāsiddhē"], "L7": ["sarvakāmasiddhē", "sarvatrikhaṇḍē", "dhairyākarṣiṇī", "anaṅgakusumē", "sarvavaśaṅkarī", "sarvajṛmbhiṇī", "anaṅgarēkhē", "rūpākarṣiṇī", "īśitvasiddhē"], "L8": ["mahimāsiddhē", "sarvākarṣiṇī(C1)", "cittākarṣiṇī", "anaṅgakusumē", "sarvajṛmbhiṇī", "sarvastambhinī", "sarvasammōhinī", "anaṅgamēkhalē", "sparśākarṣiṇī", "vaiṣṇavī"], "L9": ["īśitvasiddhē", "sarvavaśaṅkarī(C1)", "sparśākarṣiṇī", "anaṅgamēkhalē", "sarvahlādinī", "sarvākarṣiṇī", "sarvavidrāvinī", "anaṅgamadanē", "kāmākarṣiṇī", "brāhmī"], "L10": ["kaumārī", "cittākarṣiṇī", "anaṅgakusumē", "sarvavaśaṅkarī", "sarvaduḥkhavimōcanī", "sarvādhārasvarūpē", "aṅkuśinī", "bāṇinī", "sarvēpsitaphalapradē", "sarvasaubhāgyadāyinī", "sarvadvandvakṣayaṅkarī", "anaṅgamadanē", "aruṇē", "śarīrākarṣiṇī"], "L11": ["smṛtyākarṣiṇī", "anaṅgamālinī", "sarvōnmādinī", "sarvavighnanivāriṇī", "mahābhagamālinī", "śrī śrī mahābhaṭṭārikē", "sarvajñānamayī", "sarvānandamayī", "cāpinī", "kāmēśvarī", "sarvaśaktē", "sarvapriyaṅkarī", "anaṅgavēginī", "ahaṅkārākarṣiṇī"], "L12": ["laghimāsiddhē", "garimāsiddhē", "ātmākarṣiṇī", "anaṅgāṅkuśē", "sarvasaṅkṣōbhiṇī", "anaṅgamadanē", "buddhyākarṣiṇī", "prāptisiddhē"],"L13": ["gandhākarṣiṇī", "sarvajṛmbhiṇī", "sarvakāmapradē", "sarvavyādhivināśinī", "mōdinī", "sarvajñē", "sarvasiddhipradē", "sarvasaṅkṣōbhiṇī", "anaṅgamadanē", "kāmākarṣiṇī", "brāhmī"], "L14": ["dhairyākarṣiṇī", "anaṅgamālinī", "sarvarañjanī", "sarvamṛtyupraśamanī", "sarvapāpaharē", "jayinī", "śrī śrī mahābhaṭṭārikē", "vaśinī", "sarvaśaktē", "sarvasampatpradē", "sarvavidrāvinī", "anaṅgavēginī", "buddhyākarṣiṇī", "sarvayōnē"], "L15": ["gandhākarṣiṇī", "anaṅgarēkhē", "sarvajṛmbhiṇī", "sarvastambhinī", "sarvahlādinī", "anaṅgavēginī", "ahaṅkārākarṣiṇī", "sarvayōnē"],"L16": ["nāmākarṣiṇī", "sarvārthasādhikē", "sarvavighnanivāriṇī", "sarvānandamayī", "sarvēśvarī", "śrī śrī mahābhaṭṭārikē", "kāmēśvarī", "sarvaiśvaryapradāyinī", "sarvapriyaṅkarī", "sarvahlādinī", "śabdākarṣiṇī"], "L17": ["nāmākarṣiṇī", "anaṅgamadanāturē", "sarvārthasādhikē", "sarvāṅgasundarī", "sarvasaubhāgyadāyinī", "sarvasiddhipradē", "sarvavidrāvinī", "anaṅgavēginī", "buddhyākarṣiṇī", "prāptisiddhē"], "L18": ["rasākarṣiṇī", "anaṅgarēkhē", "sarvastambhinī", "sarvakāmapradē", "sarvavyādhivināśinī", "aruṇē", "aṅkuśinī", "mahābhagamālinī", "sarvēśvarī", "sarvarakṣāsvarūpiṇī", "sarvāṅgasundarī", "sarvamantramayī", "anaṅgāṅkuśē", "ātmākarṣiṇī"], "L19": ["rūpākarṣiṇī", "sarvasammōhinī", "sarvamaṅgaḻakāriṇī", "sarvajñānamayī", "mōdinī", "bāṇinī", "kauḻinī", "sarvāṅgasundarī", "anaṅgāṅkuśē", "ātmākarṣiṇī"], "L20": ["gandhākarṣiṇī", "sarvajṛmbhiṇī", "sarvakāmapradē", "sarvavyādhivināśinī", "pāśinī", "śrī śrī mahābhaṭṭārikē", "vaśinī", "sarvasaubhāgyadāyinī", "sarvadvandvakṣayaṅkarī", "śarīrākarṣiṇī"], "L21": ["nāmākarṣiṇī", "anaṅgamālinī", "sarvārthasādhikē", "sarvavighnanivāriṇī", "sarvānandamayī", "jayinī", "aṅkuśinī", "mahāvajrēśvarī", "mōdinī", "sarvaiśvaryapradāyinī", "sarvapriyaṅkarī", "sarvahlādinī", "anaṅgamēkhalē", "śabdākarṣiṇī"]}
+
+// Hardcoded orphan list — deities with NO candidate line at all.
+// This tool has no access to the full per-deity dataset (only CANDIDATES, keyed by
+// line, is embedded here), so this list must be manually kept in sync with the
+// ground truth in Line-Drill-Deity-Checklist.md ("Final stranded-deity list" section)
+// whenever a line's confirmed candidates change. Updated 2026-08-02 (L21 eyesight-confirmed):
+// mahāvajrēśvarī was re-stranded by the L19 re-anchor (see prior note, preserved in
+// git history / the checklist) and was the sole remaining orphan. L21
+// (mahāvajrēśvarī ↔ aṅkuśinī, expanded on eyesight-confirmation to a 14-deity line)
+// rescues it — genuinely resolved, not just pending. The orphan list is empty: every
+// in-scope deity has at least one confirmed candidate line. Zero orphans remain.
+const ORPHANS = []
+
+const lineButtons = document.getElementById('lineButtons')
+Object.keys(LINE_LABELS).forEach(id => {
+  const b = document.createElement('button')
+  b.className = 'linebtn'
+  b.textContent = id + ' (' + (CANDIDATES[id] || []).length + ')'
+  b.onclick = () => showOnly(id)
+  b.id = 'btn-' + id
+  lineButtons.appendChild(b)
+})
+
+function clearActive() {
+  document.querySelectorAll('.linebtn').forEach(b => b.classList.remove('active'))
+}
+
+function showOnly(id) {
+  document.querySelectorAll('.line-group').forEach(g => {
+    g.style.display = (g.id === 'line-' + id) ? '' : 'none'
+  })
+  clearActive()
+  document.getElementById('btn-' + id).classList.add('active')
+  const cands = CANDIDATES[id] || []
+  document.getElementById('label').textContent = id + ' — ' + LINE_LABELS[id] + ' — ' + cands.length + ' deities'
+  document.getElementById('candidates').innerHTML = cands
+    .map(c => `<span class="tag${c.endsWith('~') ? ' near' : ''}">${c.replace(/~$/,'').replace(/\s*\(C\d+\)\s*$/,'')}${c.endsWith('~') ? ' (near)' : ''}</span>`)
+    .join(' ')
+}
+
+function showAll() {
+  document.querySelectorAll('.line-group').forEach(g => g.style.display = '')
+  clearActive()
+  document.getElementById('btnAll').classList.add('active')
+  document.getElementById('label').textContent = 'All lines shown'
+  document.getElementById('candidates').innerHTML = ''
+}
+
+function showNone() {
+  document.querySelectorAll('.line-group').forEach(g => g.style.display = 'none')
+  clearActive()
+  document.getElementById('btnNone').classList.add('active')
+  document.getElementById('label').textContent = 'Base yantra only — no lines'
+  document.getElementById('candidates').innerHTML = ''
+}
+
+function showOrphans() {
+  document.querySelectorAll('.line-group').forEach(g => g.style.display = 'none')
+  clearActive()
+  document.getElementById('btnOrphans').classList.add('active')
+  document.getElementById('label').textContent = 'Orphans — ' + ORPHANS.length + ' deities with no candidate line'
+  document.getElementById('candidates').innerHTML = ORPHANS
+    .map(c => `<span class="tag">${c}</span>`)
+    .join(' ')
+}
+
+function showAllWithOrphans() {
+  document.querySelectorAll('.line-group').forEach(g => g.style.display = '')
+  clearActive()
+  document.getElementById('btnAllOrphans').classList.add('active')
+  document.getElementById('label').textContent = 'All lines shown — Orphans — ' + ORPHANS.length + ' deities with no candidate line'
+  document.getElementById('candidates').innerHTML = ORPHANS
+    .map(c => `<span class="tag">${c}</span>`)
+    .join(' ')
+}
+
+document.getElementById('btnAll').onclick = showAll
+document.getElementById('btnNone').onclick = showNone
+document.getElementById('btnOrphans').onclick = showOrphans
+document.getElementById('btnAllOrphans').onclick = showAllWithOrphans
+
+// Start on L1 for the line-by-line pass
+showOnly('L1')
+</script>
+</body>
+</html>

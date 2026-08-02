@@ -22,6 +22,7 @@ import ClosingView from './components/ClosingView'
 import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
+import LineDrillView from './components/LineDrillView'
 import data from './data/khadgamala-canonical.json'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
@@ -447,6 +448,7 @@ const TABS = [
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP', trKey: 'heading.spot' },
   { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
   { id: 'memomap',      trKey: 'tab.memomap',   navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
+  { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drill',   navLabelEn: 'Line Drill',   navLabelDev: 'Line Drill',   footerLabel: 'Line Drill'   },
   { id: 'activity-log', trKey: 'tab.actlog',    navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
   { id: 'h-references', heading: 'RESOURCES', trKey: 'heading.resources' },
   { id: 'yantra',
@@ -3471,7 +3473,7 @@ export default function App() {
 
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {
-    if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
+    if (['yantra', 'intro', 'memomap', 'references', 'linedrill'].includes(activeTab)) return null
     if (activeTab === 'bhupura' && bhupuraMemorise) {
       const bhupuraDotCount = bhupuraMemoGroup === 'all' ? 29
         : bhupuraMemoGroup === 'siddhiShakti' ? 11
@@ -5080,6 +5082,11 @@ export default function App() {
               <ActivityLogView tr={tr} script={script} />
             </div>
           )}
+          {activeTab === 'linedrill' && (
+            <div className="flex-1 min-h-0 w-full flex flex-col">
+              <LineDrillView script={script} />
+            </div>
+          )}
         </div>
 
         {/* ── Desktop/iPad memorise instructions (hidden on mobile — mobile has its own strip) */}
@@ -5106,7 +5113,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
-        <div className={`${['spotcheck', 'activity-log', 'memomap'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
+        <div className={`${['spotcheck', 'activity-log', 'memomap', 'linedrill'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}
