@@ -449,8 +449,8 @@ const TABS = [
     footerLabel: 'Śrīdevī Epithets' },
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP', trKey: 'heading.spot' },
   { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
+  { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drills',  navLabelEn: 'Line Drills',  navLabelDev: 'Line Drills',  footerLabel: 'Line Drills'  },
   { id: 'memomap',      trKey: 'tab.memomap',   navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
-  { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drill',   navLabelEn: 'Line Drill',   navLabelDev: 'Line Drill',   footerLabel: 'Line Drill'   },
   { id: 'activity-log', trKey: 'tab.actlog',    navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
   { id: 'h-references', heading: 'RESOURCES', trKey: 'heading.resources' },
   { id: 'yantra',
@@ -5216,6 +5216,26 @@ export default function App() {
             {activeTab === 'browser'      && <CircuitBrowser script="devanagari" />}
             {activeTab === 'intro'        && <IntroView script={script} uiLang={usEnglish && uiLang === 'en' ? 'en-us' : uiLang} onStartTour={startTour} />}
             {activeTab === 'references'   && <ReferencesView />}
+            {activeTab === 'linedrill'    && (
+              <LineDrillView
+                script={script}
+                lineId={ldLineId}
+                phase={ldPhase}
+                currentIndex={ldIndex}
+                results={ldResults}
+                stops={ldStops}
+                revealed={ldRevealed}
+                onActiveTap={ldHandleActiveTap}
+                onPastTap={ldHandlePastTap}
+                SriYantraSVG={SriYantraSVG}
+              />
+            )}
+            {/* Mobile Line Drill controls — mirrors right panel, hidden on desktop */}
+            {activeTab === 'linedrill' && (
+              <div className="md:hidden">
+                {renderLineDrillControls()}
+              </div>
+            )}
 
             {/* iPad-only: collapse hint shown below diagram when sidebar is open on explore tabs */}
             {!navCollapsed && EXPLORE_TAB_IDS.includes(activeTab) && (
@@ -5256,26 +5276,6 @@ export default function App() {
           {activeTab === 'activity-log' && (
             <div className="flex-1 min-h-0 w-full flex flex-col">
               <ActivityLogView tr={tr} script={script} />
-            </div>
-          )}
-          {activeTab === 'linedrill' && (
-            <div className="flex-1 min-h-0 w-full flex flex-col">
-              <LineDrillView
-                script={script}
-                lineId={ldLineId}
-                phase={ldPhase}
-                currentIndex={ldIndex}
-                results={ldResults}
-                stops={ldStops}
-                revealed={ldRevealed}
-                onActiveTap={ldHandleActiveTap}
-                onPastTap={ldHandlePastTap}
-                SriYantraSVG={SriYantraSVG}
-              />
-              {/* Mobile Line Drill controls — mirrors right panel, hidden on desktop */}
-              <div className="md:hidden">
-                {renderLineDrillControls()}
-              </div>
             </div>
           )}
         </div>
