@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { displayName, measureTooltipWidth } from '../utils.js'
 
 /**
@@ -37,6 +37,11 @@ const SC_BG_DIM     = 'rgba(138,117,96,0.35)'   // not yet reached
 const SC_ACTIVE     = 'rgba(255,248,200,0.90)'  // current stop
 const SC_RESULT_RED  = 'rgba(248,113,113,0.55)' // answered correct
 const SC_RESULT_GOLD = 'rgba(201,168,76,0.80)'  // answered wrong
+
+// Focus highlight — same red used elsewhere for hover/selected (BhupuraView,
+// C2View etc.), not to be confused with SC_RESULT_RED's softer "correct" tone.
+const FOCUS_RED_DOT    = '#c0392b'
+const FOCUS_RED_REGION = 'rgba(200,70,70,0.85)'
 
 const VIEWBOX = '45 55 430 430'
 const CY = 270
@@ -137,6 +142,17 @@ export default function LineDrillView({
 }) {
   const lineShowing = phase === 'preview' && previewStage === 'line'
   const [hoveredIndex, setHoveredIndex] = useState(null)
+  // Mobile/iPad have no hover — tapping the focus deity sets this immediately
+  // (before the tap-vs-double-tap debounce resolves into a result), so touch
+  // gets the same instant red highlight desktop hover gives.
+  const [tapFocusIndex, setTapFocusIndex] = useState(null)
+
+  useEffect(() => {
+    if (revealed) setTapFocusIndex(null)
+  }, [revealed])
+
+  const isFocusHighlighted = i =>
+    phase === 'drill' && i === currentIndex && (hoveredIndex === i || tapFocusIndex === i)
 
   // Region-based fills (C2/C3 petals, C4-C7 triangles, C9 bindu)
   const regionFills = { ...BASE_REGION_FILLS }
@@ -144,7 +160,7 @@ export default function LineDrillView({
   stops.forEach((s, i) => {
     if (!s.regionId) return
     regionToIndex[s.regionId] = i
-    const color = regionColor(i, phase, previewStage, currentIndex, results)
+    const color = isFocusHighlighted(i) ? FOCUS_RED_REGION : regionColor(i, phase, previewStage, currentIndex, results)
     if (color) regionFills[s.regionId] = color
   })
 
@@ -191,10 +207,10 @@ export default function LineDrillView({
             {/* Point-based stops (C1 markers, C8 triangle's 7 shared-shape deities) */}
             {!lineShowing && stops.map((s, i) => {
               if (s.regionId || !s.pos) return null
-              const fill = dotColor(i, phase, previewStage, currentIndex, results)
-              if (!fill) return null
               const isActive = phase === 'drill' && i === currentIndex
               const isPast   = phase === 'drill' && i < currentIndex
+              const fill = isFocusHighlighted(i) ? FOCUS_RED_DOT : dotColor(i, phase, previewStage, currentIndex, results)
+              if (!fill) return null
               return (
                 <circle
                   key={s.id}
@@ -208,7 +224,7 @@ export default function LineDrillView({
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => {
-                    if (isActive) onActiveTap(i)
+                    if (isActive) { setTapFocusIndex(i); onActiveTap(i) }
                     else if (isPast) onPastTap(i)
                   }}
                 />
@@ -232,7 +248,10 @@ export default function LineDrillView({
                   style={{ cursor: 'pointer', pointerEvents: 'all' }}
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
-                  onClick={() => handleRegionClick(s.regionId)}
+                  onClick={() => {
+                    if (i === currentIndex && phase === 'drill') setTapFocusIndex(i)
+                    handleRegionClick(s.regionId)
+                  }}
                 />
               )
             })}
