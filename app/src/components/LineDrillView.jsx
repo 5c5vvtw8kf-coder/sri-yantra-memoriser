@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { displayName, measureTooltipWidth } from '../utils.js'
+
 /**
  * LineDrillView.jsx — Line Drill alpha (diagram only)
  *
@@ -36,8 +39,45 @@ const SC_RESULT_RED  = 'rgba(248,113,113,0.55)' // answered correct
 const SC_RESULT_GOLD = 'rgba(201,168,76,0.80)'  // answered wrong
 
 const VIEWBOX = '45 55 430 430'
+const CY = 270
 
 const pad = n => String(n).padStart(2, '0')
+
+// Desktop hover tooltip — ported from SpotCheckView's Tooltip so both modes match
+function Tooltip({ x, y, label, script, clearance = 22 }) {
+  if (!label) return null
+  const fontSize = script === 'devanagari' ? 26 : script === 'english' ? 25 : 24
+  const h        = script === 'devanagari' ? 52 : script === 'english' ? 50 : 48
+  const w = measureTooltipWidth(label, fontSize, 18, 60)
+  const tx = Math.min(Math.max(x, w / 2 + 49), 471 - w / 2)
+  const rawTy = y > CY ? y - h / 2 - clearance : y + h / 2 + clearance
+  const ty = Math.min(Math.max(rawTy, 55 + h / 2 + 4), 485 - h / 2 - 4)
+  return (
+    <g pointerEvents="none">
+      <rect
+        x={(tx - w / 2).toFixed(1)} y={(ty - h / 2).toFixed(1)}
+        width={w.toFixed(1)} height={h} rx={3}
+        fill="rgba(15,8,5,0.93)" stroke="#c9a84c" strokeWidth={0.6}
+      />
+      <text
+        x={tx.toFixed(1)} y={ty.toFixed(1)}
+        textAnchor="middle" dominantBaseline="middle"
+        fontSize={fontSize} fill="#c9a84c" fontFamily="'Gentium Plus', Georgia, serif"
+      >
+        {label}
+      </text>
+    </g>
+  )
+}
+
+function tooltipClearance(sectionId) {
+  if (sectionId === 'circuit-1') return 22
+  if (sectionId === 'circuit-2') return 75
+  if (sectionId === 'circuit-3') return 62
+  if (sectionId === 'circuit-7') return 52
+  if (sectionId === 'circuit-8') return 22
+  return 65 // C4, C5, C6
+}
 
 // Static baseline — every fillable region starts "not yet reached".
 // C8's own triangle stays a plain backdrop (the 7 C8 deities are drawn as
@@ -96,6 +136,7 @@ export default function LineDrillView({
   SriYantraSVG,
 }) {
   const lineShowing = phase === 'preview' && previewStage === 'line'
+  const [hoveredIndex, setHoveredIndex] = useState(null)
 
   // Region-based fills (C2/C3 petals, C4-C7 triangles, C9 bindu)
   const regionFills = { ...BASE_REGION_FILLS }
@@ -164,6 +205,8 @@ export default function LineDrillView({
                   stroke="#0f0805"
                   strokeWidth="0.6"
                   style={{ cursor: (isActive || isPast) ? 'pointer' : 'default' }}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => {
                     if (isActive) onActiveTap(i)
                     else if (isPast) onPastTap(i)
@@ -171,6 +214,39 @@ export default function LineDrillView({
                 />
               )
             })}
+
+            {/* Transparent hover targets for region-based stops (petals/triangles/bindu) —
+                desktop-only tooltip; the region fill itself already handles clicks. */}
+            {!lineShowing && stops.map((s, i) => {
+              if (!s.regionId || !s.pos) return null
+              const hasColor = regionColor(i, phase, previewStage, currentIndex, results)
+              if (!hasColor) return null
+              return (
+                <circle
+                  key={`hit-${s.id}`}
+                  cx={s.pos.x}
+                  cy={s.pos.y}
+                  r={16}
+                  fill="transparent"
+                  stroke="none"
+                  style={{ cursor: 'pointer', pointerEvents: 'all' }}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  onClick={() => handleRegionClick(s.regionId)}
+                />
+              )
+            })}
+
+            {/* Desktop hover tooltip */}
+            {!lineShowing && hoveredIndex != null && stops[hoveredIndex] && (
+              <Tooltip
+                x={stops[hoveredIndex].pos.x}
+                y={stops[hoveredIndex].pos.y}
+                label={displayName(stops[hoveredIndex].deity, script)}
+                script={script}
+                clearance={tooltipClearance(stops[hoveredIndex].deity?.sectionId)}
+              />
+            )}
           </svg>
         </div>
       </div>
