@@ -23,7 +23,7 @@ Line names (see `line-drill-candidate-lines.html`; grey = committed to scope, co
 - **L15** ✅ committed — gandhākarṣiṇī(C2) ↔ sarvayōnē(C1), extended full width (eyesight-confirmed 2026-08-02, 8 deities: gandhākarṣiṇī, anaṅgarēkhē, sarvajṛmbhiṇī, sarvastambhinī, sarvahlādinī, anaṅgavēginī, ahaṅkārākarṣiṇī, sarvayōnē)
 - **L16** ✅ committed — nāmākarṣiṇī(C2) ↔ śabdākarṣiṇī(C2), extended full width (eyesight-confirmed 2026-08-02, 11 deities: nāmākarṣiṇī, sarvārthasādhikē, sarvavighnanivāriṇī, sarvānandamayī, sarvēśvarī, śrī śrī mahābhaṭṭārikē, kāmēśvarī, sarvaiśvaryapradāyinī, sarvapriyaṅkarī, sarvahlādinī, śabdākarṣiṇī) — drops mahābhagamālinī and cāpinī, which were unconfirmed guesses
 - **L17** ✅ committed — nāmākarṣiṇī(C2) ↔ prāptisiddhē(C1), extended full width (eyesight-confirmed 2026-08-02, 10 deities: nāmākarṣiṇī, anaṅgamadanāturē, sarvārthasādhikē, sarvāṅgasundarī, sarvasaubhāgyadāyinī, sarvasiddhipradē, sarvavidrāvinī, anaṅgavēginī, buddhyākarṣiṇī, prāptisiddhē)
-- **L18** ✅ committed — rasākarṣiṇī(C2) ↔ ātmākarṣiṇī(C2), extended full width (eyesight-confirmed 2026-08-02, 14 deities: rasākarṣiṇī, anaṅgarēkhē, sarvastambhinī, sarvakāmapradē, sarvavyādhivināśinī, aruṇē, aṅkuśinī, mahābhagamālinī, sarvēśvarī, sarvarakṣāsvarūpiṇī, sarvāṅgasundarī, sarvamantramayī, anaṅgāṅkuśē, ātmākarṣiṇī) — ātmākarṣiṇī's anchor was re-pointed 2026-08-02 to the base-left corner of its real petal boundary (157.5, 338.5); confirms sarvastambhinī and anaṅgarēkhē as exact and adds ten further deities to the line
+- **L18** ✅ committed — rasākarṣiṇī(C2) ↔ anaṅgāṅkuśē(C3), extended full width (eyesight-confirmed 2026-08-02, expanded to 14 deities; ātmākarṣiṇī removed 2026-08-08 at Chris's request, 13 deities: rasākarṣiṇī, anaṅgarēkhē, sarvastambhinī, sarvakāmapradē, sarvavyādhivināśinī, aruṇē, aṅkuśinī, mahābhagamālinī, sarvēśvarī, sarvarakṣāsvarūpiṇī, sarvāṅgasundarī, sarvamantramayī, anaṅgāṅkuśē) — ātmākarṣiṇī's anchor was re-pointed 2026-08-02 to the base-left corner of its real petal boundary (157.5, 338.5); confirms sarvastambhinī and anaṅgarēkhē as exact and adds ten further deities to the line. ātmākarṣiṇī retains L19 (and L12), so it is not stranded by this removal.
 - **L19** ✅ committed — rūpākarṣiṇī(C2) ↔ bāṇinī(C8), through kauḻinī(C7), extended full width (eyesight-confirmed 2026-08-02, 10 deities: rūpākarṣiṇī, sarvasammōhinī, sarvamaṅgaḻakāriṇī, sarvajñānamayī, mōdinī, bāṇinī, kauḻinī, sarvāṅgasundarī, anaṅgāṅkuśē, ātmākarṣiṇī) — retains all three original anchors (rūpākarṣiṇī, bāṇinī, kauḻinī) and expands from 3 to 10 confirmed stops; ātmākarṣiṇī is also confirmed on L18
 - **L20** ✅ committed — gandhākarṣiṇī ↔ śarīrākarṣiṇī, through pāśinī (eyesight-confirmed 2026-08-02, 10 deities: gandhākarṣiṇī, sarvajṛmbhiṇī, sarvakāmapradē, sarvavyādhivināśinī, pāśinī, śrī śrī mahābhaṭṭārikē, vaśinī, sarvasaubhāgyadāyinī, sarvadvandvakṣayaṅkarī, śarīrākarṣiṇī) — retains both original anchors (pāśinī, śarīrākarṣiṇī) and expands from 2 to 10 confirmed stops
 - **L21** ✅ committed — mahāvajrēśvarī ↔ aṅkuśinī, extended full width (eyesight-confirmed 2026-08-02, 14 deities: nāmākarṣiṇī, anaṅgamālinī, sarvārthasādhikē, sarvavighnanivāriṇī, sarvānandamayī, jayinī, aṅkuśinī, mahāvajrēśvarī, mōdinī, sarvaiśvaryapradāyinī, sarvapriyaṅkarī, sarvahlādinī, anaṅgamēkhalē, śabdākarṣiṇī) — retains both original anchors (mahāvajrēśvarī, aṅkuśinī) and expands from 2 to 14 confirmed stops; the line runs close to the yantra's centre, picking up deities on both extended ends
@@ -101,7 +101,7 @@ All C4–C7 rows below are now computed via each circuit's real `DEITY_ORDER` ar
 | [x] | 11 | smṛtyākarṣiṇī | L1, L11 |
 | [x] | 12 | nāmākarṣiṇī | L16, L17, L21 |
 | [x] | 13 | bījākarṣiṇī | L4, L5, L6 |
-| [x] | 14 | ātmākarṣiṇī | L12, L18, L19 |
+| [x] | 14 | ātmākarṣiṇī | L12, L19 |
 | [x] | 15 | amṛtākarṣiṇī | L2 |
 | [x] | 16 | śarīrākarṣiṇī | L10, L20 |
 
@@ -126,7 +126,7 @@ All C4–C7 rows below are now computed via each circuit's real `DEITY_ORDER` ar
 |---|-----|------|--------------------|
 | [x] | 1 | sarvasaṅkṣōbhiṇī | L3, L12, L13 |
 | [x] | 2 | sarvavidrāvinī | L9, L14, L17 |
-| [x] | 3 | sarvākarṣiṇī | L1, L9 |
+| [x] | 3 | sarvākarṣiṇī | L1, L9, L11, L15 |
 | [x] | 4 | sarvahlādinī | L4, L9, L15, L16, L21 |
 | [x] | 5 | sarvasammōhinī | L8, L19 |
 | [x] | 6 | sarvastambhinī | L2, L8, L15, L18 |
