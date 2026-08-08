@@ -113,7 +113,7 @@ All C4–C7 rows below are now computed via each circuit's real `DEITY_ORDER` ar
 | [x] | 2 | anaṅgamēkhalē | L4, L8, L9, L21 |
 | [x] | 3 | anaṅgamadanē | L3, L5, L9, L10, L12, L13 |
 | [x] | 4 | anaṅgamadanāturē | L4, L5, L6, L17 |
-| [x] | 5 | anaṅgarēkhē | L7, L18, L15 |
+| [x] | 5 | anaṅgarēkhē | L2, L7, L18, L15 |
 | [x] | 6 | anaṅgavēginī | L1, L11, L14, L15, L17 |
 | [x] | 7 | anaṅgāṅkuśē | L2, L12, L18, L19 |
 | [x] | 8 | anaṅgamālinī | L1, L11, L14, L21 |
