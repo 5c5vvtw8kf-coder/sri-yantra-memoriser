@@ -159,7 +159,7 @@ export default function LineDrillView({
                   key={s.id}
                   cx={s.pos.x}
                   cy={s.pos.y}
-                  r={isActive ? 5.5 : 4.5}
+                  r={isActive ? 4 : 3.2}
                   fill={fill}
                   stroke="#0f0805"
                   strokeWidth="0.6"
