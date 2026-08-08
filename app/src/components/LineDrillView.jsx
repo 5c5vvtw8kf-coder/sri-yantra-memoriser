@@ -113,14 +113,16 @@ function regionColor(i, phase, previewStage, currentIndex, results) {
   return null
 }
 
-// C1/C8 point dots — Memorise-mode palette
+// C1/C8 point dots — Memorise-mode palette, but the "current" cream fill
+// matches SC_ACTIVE exactly so dots read as the same cream as the petal/
+// triangle regions, not a slightly different solid hex.
 function dotColor(i, phase, previewStage, currentIndex, results) {
-  if (phase === 'preview') return previewStage === 'fills' ? CREAM : null
+  if (phase === 'preview') return previewStage === 'fills' ? SC_ACTIVE : null
   if (phase === 'drill' || phase === 'done') {
     if (i < currentIndex || results[i]) {
       return results[i] === 'wrong' ? TERRACOTTA : (results[i] === 'correct' ? RED : DIM_GOLD)
     }
-    if (i === currentIndex) return CREAM
+    if (i === currentIndex) return SC_ACTIVE
     return DIM_GOLD
   }
   return null
@@ -250,7 +252,7 @@ export default function LineDrillView({
                   cy={s.pos.y}
                   r={isActive ? 4 : 3.2}
                   fill={fill}
-                  stroke="#0f0805"
+                  stroke={GOLD}
                   strokeWidth="0.6"
                   style={{ cursor: (isActive || isPast) ? 'pointer' : 'default' }}
                   onMouseEnter={() => setHoveredIndex(i)}
