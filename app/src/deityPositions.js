@@ -12,7 +12,7 @@
  *   C5  (10) — triangle-regions.json + C5_DEITY_ORDER
  *   C6  (10) — triangle-regions.json + C6_DEITY_ORDER
  *   C7  ( 8) — triangle-regions.json + C7_DEITY_ORDER
- *   C8  ( 7) — derived from DFT4 triangle geometry
+ *   C8  ( 7) — derived from the true central/primary triangle (korvinGeometry.js)
  *   C9  ( 1) — bindu (260, 270)
  *
  * chakraSvamini, yoginiType, and all non-circuit sections have no entry —
@@ -22,6 +22,7 @@
 import { BHUPURA_MARKERS, C2_PETALS, C3_PETALS } from './components/SriYantraSVG'
 import triangleData from './data/triangle-regions.json'
 import data from './data/khadgamala-canonical.json'
+import { KORVIN_CENTRAL_RAW } from './korvinGeometry'
 
 const { deities } = data
 
@@ -117,13 +118,16 @@ const c5BySeq = buildSeqMap(C5_DEITY_ORDER, buildCircuitCentroidMap(5))
 const c6BySeq = buildSeqMap(C6_DEITY_ORDER, buildCircuitCentroidMap(6))
 const c7BySeq = buildSeqMap(C7_DEITY_ORDER, buildCircuitCentroidMap(7))
 
-// ── C8: 7 positions derived from DFT4 triangle ───────────────────────────────
+// ── C8: 7 positions derived from the true central (primary) triangle ─────────
 //
-// DFT4 triangle (Korvin construction = SVG coordinate space):
-//   Apex (bottom vertex) = [260.000, 299.512]
-//   Base-left  corner    = [234.780, 263.193]
-//   Base-right corner    = [285.220, 263.193]
-//   Centroid             = [260.000, 275.299]
+// FIXED 2026-08-08: this used to anchor to DFT4 directly, which is one ring
+// further from the bindu than the real primary triangle — visibly wrong once
+// Line Drill started showing multiple C8 dots at once. C8View.jsx's own
+// Explore/Memorise rendering already used the correct shape (apex = DFT5's
+// apex, base = DFT4's base line — the actual Korvin-construction definition
+// of the primary downward triangle); this now imports that same geometry
+// (raw, un-zoomed) from korvinGeometry.js instead of hardcoding DFT4, so the
+// two can't drift apart again.
 //
 // Chant order:
 //   1 Bāṇinī         — left edge, offset outward
@@ -133,30 +137,36 @@ const c7BySeq = buildSeqMap(C7_DEITY_ORDER, buildCircuitCentroidMap(7))
 //   5 Mahākāmēśvarī  — apex vertex
 //   6 Mahāvajrēśvarī — base-right vertex
 //   7 Mahābhagamālinī — base-left vertex
+//
+// Formulas mirror C8View.jsx's exactly (same lerp points/fractions, same
+// outward-normal construction); only the offset constant differs, scaled
+// down by korvinGeometry's SCALE (8) since C8View's 45 is a screen-space
+// (zoomed) distance and this file works in raw/un-zoomed coordinates.
 
-const DFT4_APEX   = [260.000, 299.512]
-const DFT4_BASE_L = [234.780, 263.193]
-const DFT4_BASE_R = [285.220, 263.193]
-const DFT4_CTR    = [260.000, 275.299]
-const OFFSET      = 8   // units outward from edge, scaled to match DFT4 size
+const [CT_APEX, CT_BASE_L, CT_BASE_R] = KORVIN_CENTRAL_RAW
+const CT_CTR = [
+  (CT_APEX[0] + CT_BASE_L[0] + CT_BASE_R[0]) / 3,
+  (CT_APEX[1] + CT_BASE_L[1] + CT_BASE_R[1]) / 3,
+]
+const OFFSET = 45 / 8   // C8View's screen-space offset (45), converted to raw units
 
-const nLeft  = outwardNormal(DFT4_APEX,   DFT4_BASE_L, DFT4_CTR)
-const nRight = outwardNormal(DFT4_BASE_R, DFT4_APEX,   DFT4_CTR)
-const nTop   = outwardNormal(DFT4_BASE_L, DFT4_BASE_R, DFT4_CTR)
+const nLeft  = outwardNormal(CT_APEX,   CT_BASE_L, CT_CTR)
+const nRight = outwardNormal(CT_BASE_R, CT_APEX,   CT_CTR)
+const nTop   = outwardNormal(CT_BASE_L, CT_BASE_R, CT_CTR)
 
-const banini  = lerp2(DFT4_APEX, DFT4_BASE_L, 0.55)
-const chapini = lerp2(DFT4_BASE_R, DFT4_APEX, 0.55)
-const pasini  = lerp2(DFT4_BASE_L, DFT4_BASE_R, 0.72)
-const ankush  = lerp2(DFT4_BASE_L, DFT4_BASE_R, 0.28)
+const banini  = lerp2(CT_BASE_L, CT_APEX, 0.6)
+const chapini = lerp2(CT_BASE_R, CT_APEX, 0.6)
+const pasini  = lerp2(CT_BASE_L, CT_BASE_R, 0.72)
+const ankush  = lerp2(CT_BASE_L, CT_BASE_R, 0.28)
 
 const C8_POSITIONS = [
   { x: banini[0]  + nLeft[0]  * OFFSET, y: banini[1]  + nLeft[1]  * OFFSET  }, // 1 Bāṇinī
   { x: chapini[0] + nRight[0] * OFFSET, y: chapini[1] + nRight[1] * OFFSET  }, // 2 Chāpinī
   { x: pasini[0]  + nTop[0]   * OFFSET, y: pasini[1]  + nTop[1]   * OFFSET  }, // 3 Pāśinī
   { x: ankush[0]  + nTop[0]   * OFFSET, y: ankush[1]  + nTop[1]   * OFFSET  }, // 4 Aṅkuśinī
-  { x: DFT4_APEX[0],   y: DFT4_APEX[1]   },                                     // 5 Mahākāmēśvarī
-  { x: DFT4_BASE_R[0], y: DFT4_BASE_R[1] },                                     // 6 Mahāvajrēśvarī
-  { x: DFT4_BASE_L[0], y: DFT4_BASE_L[1] },                                     // 7 Mahābhagamālinī
+  { x: CT_APEX[0],   y: CT_APEX[1]   },                                        // 5 Mahākāmēśvarī
+  { x: CT_BASE_R[0], y: CT_BASE_R[1] },                                        // 6 Mahāvajrēśvarī
+  { x: CT_BASE_L[0], y: CT_BASE_L[1] },                                        // 7 Mahābhagamālinī
 ]
 
 const c8BySeq = Object.fromEntries(C8_POSITIONS.map((pos, idx) => [idx + 1, pos]))

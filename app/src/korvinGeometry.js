@@ -122,4 +122,12 @@ const GURU_TRAPEZOID = (() => {
   }
 })()
 
+// Raw (pre-toScreen, un-zoomed) central-triangle geometry — apex/baseL/baseR
+// in the same coordinate space as SriYantraSVG / deityPositions.js (CX=260,
+// CY=270), for consumers that need the real triangle rather than C8View's
+// enlarged screen-space version. Direction-only vectors (e.g. outward
+// normals) are identical in both spaces since toScreen is a uniform scale;
+// only distances need dividing by SCALE (8) to convert screen -> raw.
+export const KORVIN_CENTRAL_RAW = KORVIN_CENTRAL
+
 export { APEX, BASE_L, BASE_R, CENTROID, BINDU, CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID }
