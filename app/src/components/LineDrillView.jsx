@@ -281,7 +281,7 @@ export default function LineDrillView({
       </div>
 
       {/* Mobile-only name-reveal strip — desktop uses the right panel instead */}
-      <div className="mt-2 min-h-[2.5rem] flex items-center justify-center text-center px-2 md:hidden">
+      <div className="mt-2 min-h-[2.5rem] flex flex-col items-center justify-center text-center px-2 md:hidden">
         {phase === 'preview' && (
           <p className="text-xs text-muted font-mono">Use the controls below to start, pick, or shuffle a line.</p>
         )}
@@ -295,6 +295,13 @@ export default function LineDrillView({
         })()}
         {phase === 'drill' && !revealed && (
           <p className="text-xs text-muted font-mono absolute">tap to reveal</p>
+        )}
+        {phase === 'drill' && (
+          <div className="flex flex-col items-center gap-0.5 pt-1 pb-0.5"
+               style={{ fontSize: '11px', fontFamily: "'Inter', system-ui, sans-serif", color: 'rgba(201,168,76,0.55)', letterSpacing: '0.02em' }}>
+            <span>tap to reveal · <span style={{ color: '#f87171' }}>tap again = memorised</span></span>
+            <span><span style={{ color: '#c9a84c' }}>dbl-tap = not memorised</span> · <span style={{ color: '#c9a84c' }}>dbl-tap past = toggle</span></span>
+          </div>
         )}
       </div>
     </div>

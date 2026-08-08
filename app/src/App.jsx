@@ -3453,7 +3453,11 @@ export default function App() {
         </p>
 
         {ldPhase === 'preview' && (
-          <p className="text-xs text-muted font-mono">Start Drill to recite this line in order, or pick / shuffle a different one.</p>
+          <p className="text-xs text-muted font-mono">
+            {isTouchDevice
+              ? 'Select a line above or Shuffle for a random selection then tap the deities to explore or tap Start Drill to step through the line sequence one by one and record whether memorised or not memorised.'
+              : 'Select a line above or Shuffle for a random selection then hover over the deities to explore or click Start Drill to step through the line sequence one by one and record whether memorised or not memorised.'}
+          </p>
         )}
 
         {ldPhase === 'drill' && (() => {
@@ -3658,7 +3662,9 @@ export default function App() {
       <span><span className="text-gold-400">{tr('instr.dbltap_wrong')}</span> · <span className="text-gold-400">{tr('instr.dbltap_toggle')}</span></span>
     </span>
   )
-  const footerInstruction = !EXPLORE_TABS.has(activeTab) ? null
+  const footerInstruction = activeTab === 'linedrill'
+    ? (ldPhase === 'drill' ? (isTouchDevice ? memoInstrTouch : memoInstr) : null)
+    : !EXPLORE_TABS.has(activeTab) ? null
     : isInMemoriseMode
       ? activeTab === 'chakreshvari'
         ? <span className="text-center flex flex-col gap-0.5" style={INSTR_STYLE}>
@@ -5118,9 +5124,9 @@ export default function App() {
               />
             )}
 
-            {/* Collapse hint below Spot Check yantra — iPad/desktop only, when nav is expanded */}
+            {/* Collapse hint below Spot Check yantra — iPad only, when nav is expanded */}
             {activeTab === 'spotcheck' && !navCollapsed && (
-              <div className="hidden md:block flex-shrink-0 px-4 pb-2 pt-1">
+              <div className="ipad-collapse-hint hidden md:hidden flex-shrink-0 px-4 pb-2 pt-1">
                 <button
                   onClick={() => setNavCollapsed(true)}
                   className="w-full py-1.5 rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-600 transition-colors text-xs text-center font-mono"
