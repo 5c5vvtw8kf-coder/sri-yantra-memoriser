@@ -3447,11 +3447,6 @@ export default function App() {
           ))}
         </div>
 
-        <p className="text-muted font-mono" style={{ fontSize: '11px' }}>
-          {ldLineId} — {lineDrillData.LINE_LABELS[ldLineId]} — {ldStops.length} {tr('linedrill.deities')}
-          {ldPhase === 'drill' && ` — ${tr('linedrill.stop')} ${Math.min(ldIndex + 1, ldStops.length)} ${tr('linedrill.of')} ${ldStops.length}`}
-        </p>
-
         {ldPhase === 'preview' && (
           <p className="text-xs text-muted font-mono">
             {isTouchDevice ? tr('linedrill.instr_preview_touch') : tr('linedrill.instr_preview_desktop')}
