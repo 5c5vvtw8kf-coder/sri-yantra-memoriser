@@ -24,6 +24,8 @@ import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import LineDrillView from './components/LineDrillView'
 import data from './data/khadgamala-canonical.json'
+import lineDrillData from './data/lineDrillLines.json'
+import { getPosition } from './deityPositions.js'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
 
@@ -3281,6 +3283,179 @@ export default function App() {
   const swipeStartX    = useRef(null)
   const swipeStartY    = useRef(null)
 
+  // ── Line Drill: line selection + sequential drill state ────────────────────
+  const LD_LINE_IDS = Object.keys(lineDrillData.LINES)
+  const [ldLineId,   setLdLineId]   = useState(LD_LINE_IDS[0])
+  const [ldPhase,    setLdPhase]    = useState('preview') // 'preview' | 'drill' | 'done'
+  const [ldIndex,    setLdIndex]    = useState(0)
+  const [ldRevealed, setLdRevealed] = useState(false)
+  const [ldResults,  setLdResults]  = useState({})
+  const ldTapRef       = useRef({ index: null, time: 0 })
+  const ldPastTapRef   = useRef({ index: null, time: 0 })
+  const ldClickTimer   = useRef(null)
+  const ldAdvanceTimer = useRef(null)
+
+  const ldDeityById = data.deities.length ? Object.fromEntries(data.deities.map(d => [d.id, d])) : {}
+  const ldStops = (lineDrillData.LINES[ldLineId] || []).map(id => ({
+    id, deity: ldDeityById[id], pos: getPosition(id),
+  }))
+
+  function ldPickLine(id) {
+    if (ldAdvanceTimer.current) { clearTimeout(ldAdvanceTimer.current); ldAdvanceTimer.current = null }
+    setLdLineId(id)
+    setLdPhase('preview')
+    setLdIndex(0)
+    setLdRevealed(false)
+    setLdResults({})
+  }
+
+  function ldShuffle() {
+    let next = ldLineId
+    if (LD_LINE_IDS.length > 1) {
+      while (next === ldLineId) next = LD_LINE_IDS[Math.floor(Math.random() * LD_LINE_IDS.length)]
+    }
+    ldPickLine(next)
+  }
+
+  function ldStartDrill() {
+    setLdPhase('drill')
+    setLdIndex(0)
+    setLdRevealed(false)
+    setLdResults({})
+  }
+
+  function ldMarkResult(index, result) {
+    setLdResults(r => ({ ...r, [index]: result }))
+    setLdRevealed(true)
+    if (ldAdvanceTimer.current) clearTimeout(ldAdvanceTimer.current)
+    const total = ldStops.length
+    ldAdvanceTimer.current = setTimeout(() => {
+      setLdRevealed(false)
+      setLdIndex(i => {
+        const nextI = i + 1
+        if (nextI >= total) { setLdPhase('done'); return i }
+        return nextI
+      })
+    }, 550)
+  }
+
+  function ldHandleActiveTap(index) {
+    const now = Date.now()
+    const isDouble = ldTapRef.current.index === index && (now - ldTapRef.current.time) < 300
+    ldTapRef.current = { index, time: now }
+    if (isDouble) {
+      if (ldClickTimer.current) { clearTimeout(ldClickTimer.current); ldClickTimer.current = null }
+      ldMarkResult(index, 'wrong')
+    } else {
+      if (ldClickTimer.current) return
+      ldClickTimer.current = setTimeout(() => {
+        ldClickTimer.current = null
+        ldMarkResult(index, 'correct')
+      }, 280)
+    }
+  }
+
+  function ldHandlePastTap(index) {
+    const now = Date.now()
+    const isDouble = ldPastTapRef.current.index === index && (now - ldPastTapRef.current.time) < 300
+    ldPastTapRef.current = { index, time: now }
+    if (isDouble) {
+      setLdResults(r => ({ ...r, [index]: r[index] === 'correct' ? 'wrong' : 'correct' }))
+    }
+  }
+
+  function ldRestartSameLine() {
+    setLdPhase('drill')
+    setLdIndex(0)
+    setLdRevealed(false)
+    setLdResults({})
+  }
+
+  const ldCorrectCount = Object.values(ldResults).filter(v => v === 'correct').length
+
+  function renderLineDrillControls() {
+    return (
+      <div className="px-4 py-3 space-y-3">
+        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">Line Drill</p>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={ldShuffle}
+            className="px-2.5 py-1 rounded text-xs font-mono bg-surface-800 text-gold-400 border border-surface-700 hover:border-gold-600"
+          >
+            Shuffle
+          </button>
+          {ldPhase === 'preview' && (
+            <button
+              onClick={ldStartDrill}
+              className="px-2.5 py-1 rounded text-xs font-mono bg-gold-400 text-surface-900 font-bold"
+            >
+              Start Drill
+            </button>
+          )}
+          {ldPhase !== 'preview' && (
+            <button
+              onClick={() => ldPickLine(ldLineId)}
+              className="px-2.5 py-1 rounded text-xs font-mono bg-surface-800 text-muted hover:text-cream border border-surface-700"
+            >
+              Back to preview
+            </button>
+          )}
+        </div>
+
+        <div className="flex flex-wrap gap-1">
+          {LD_LINE_IDS.map(id => (
+            <button
+              key={id}
+              onClick={() => ldPickLine(id)}
+              className={[
+                'px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                id === ldLineId ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream',
+              ].join(' ')}
+            >
+              {id} ({lineDrillData.LINES[id].length})
+            </button>
+          ))}
+        </div>
+
+        <p className="text-muted font-mono" style={{ fontSize: '11px' }}>
+          {ldLineId} — {lineDrillData.LINE_LABELS[ldLineId]} — {ldStops.length} deities
+          {ldPhase === 'drill' && ` — stop ${Math.min(ldIndex + 1, ldStops.length)} of ${ldStops.length}`}
+        </p>
+
+        {ldPhase === 'preview' && (
+          <p className="text-xs text-muted font-mono">Start Drill to recite this line in order, or pick / shuffle a different one.</p>
+        )}
+
+        {ldPhase === 'drill' && (() => {
+          const stripDeity = ldStops[ldIndex]?.deity
+          return (
+            <p className="text-sm font-serif" style={{ color: ldRevealed ? '#fff8c8' : 'transparent', fontFamily: "'Gentium Plus', Georgia, serif", minHeight: '1.5rem' }}>
+              {stripDeity ? `${displayName(stripDeity, script)} — ${displayName(stripDeity, 'devanagari')}` : ''}
+            </p>
+          )
+        })()}
+        {ldPhase === 'drill' && !ldRevealed && (
+          <p className="text-xs text-muted font-mono">tap the current dot to reveal</p>
+        )}
+
+        {ldPhase === 'done' && (
+          <div className="text-sm font-mono space-y-2">
+            <span className="text-red-400">{ldCorrectCount}/{ldStops.length} correct</span>
+            <div className="flex gap-2">
+              <button onClick={ldRestartSameLine} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
+                Redrill
+              </button>
+              <button onClick={ldShuffle} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
+                Shuffle next
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
   // ── Nav progress dots ──────────────────────────────────────────────────────
   const tabDotMap = {
     yantra:       null,
@@ -3473,7 +3648,8 @@ export default function App() {
 
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {
-    if (['yantra', 'intro', 'memomap', 'references', 'linedrill'].includes(activeTab)) return null
+    if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
+    if (activeTab === 'linedrill') return renderLineDrillControls()
     if (activeTab === 'bhupura' && bhupuraMemorise) {
       const bhupuraDotCount = bhupuraMemoGroup === 'all' ? 29
         : bhupuraMemoGroup === 'siddhiShakti' ? 11
@@ -5084,7 +5260,22 @@ export default function App() {
           )}
           {activeTab === 'linedrill' && (
             <div className="flex-1 min-h-0 w-full flex flex-col">
-              <LineDrillView script={script} />
+              <LineDrillView
+                script={script}
+                lineId={ldLineId}
+                phase={ldPhase}
+                currentIndex={ldIndex}
+                results={ldResults}
+                stops={ldStops}
+                revealed={ldRevealed}
+                onActiveTap={ldHandleActiveTap}
+                onPastTap={ldHandlePastTap}
+                SriYantraSVG={SriYantraSVG}
+              />
+              {/* Mobile Line Drill controls — mirrors right panel, hidden on desktop */}
+              <div className="md:hidden">
+                {renderLineDrillControls()}
+              </div>
             </div>
           )}
         </div>
