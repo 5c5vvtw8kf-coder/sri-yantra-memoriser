@@ -145,8 +145,8 @@ const BG          = '#0f0805'
 const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
 
 // Dot sizing — normal: all 28 visible without major overlap; focus: active/selected dot
-const DOT_R_NORMAL = 5
-const DOT_R_FOCUS  = 9
+const DOT_R_NORMAL = 3.2
+const DOT_R_FOCUS  = 4
 
 const GROUP_COLOUR = {
   siddhiShakti: RED,
