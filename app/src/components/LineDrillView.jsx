@@ -15,11 +15,11 @@
  * SriYantraSVG's filledRegions, same mechanism SpotCheckView uses), dots
  * only for C1/C8 where several deities can share one physical shape.
  *
- * Colour states (same as Memorise mode):
- *   DIM_GOLD  = not yet reached
- *   CREAM     = current stop (drill) / all stops (preview fills stage)
- *   RED       = answered correct
- *   TERRACOTTA = answered wrong
+ * Colour states:
+ *   Petal/triangle/bindu fills use SpotCheckView's exact palette (SC_* below)
+ *   so Line Drill's shapes look identical to Spot Check's.
+ *   C1/C8 dots (several deities sharing one physical shape) keep the
+ *   Memorise-mode DIM_GOLD/CREAM/RED/TERRACOTTA palette.
  */
 
 const CREAM      = '#fff8c8'
@@ -29,6 +29,12 @@ const DIM_GOLD   = 'rgba(201,168,76,0.35)'
 const GOLD       = '#c9a84c'
 const BG         = '#0f0805'
 
+// SpotCheckView's exact fill colours (see computeFills() in SpotCheckView.jsx)
+const SC_BG_DIM     = 'rgba(138,117,96,0.35)'   // not yet reached
+const SC_ACTIVE     = 'rgba(255,248,200,0.90)'  // current stop
+const SC_RESULT_RED  = 'rgba(248,113,113,0.55)' // answered correct
+const SC_RESULT_GOLD = 'rgba(201,168,76,0.80)'  // answered wrong
+
 const VIEWBOX = '45 55 430 430'
 
 const pad = n => String(n).padStart(2, '0')
@@ -37,19 +43,33 @@ const pad = n => String(n).padStart(2, '0')
 // C8's own triangle stays a plain backdrop (the 7 C8 deities are drawn as
 // individual dots on top of it, since they share one physical triangle).
 const BASE_REGION_FILLS = {
-  ...Object.fromEntries(Array.from({ length: 16 }, (_, i) => [`petal-c2-${pad(i + 1)}`, DIM_GOLD])),
-  ...Object.fromEntries(Array.from({ length:  8 }, (_, i) => [`petal-c3-${pad(i + 1)}`, DIM_GOLD])),
-  ...Object.fromEntries(Array.from({ length: 14 }, (_, i) => [`tri-c4-${pad(i + 1)}`, DIM_GOLD])),
-  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c5-${pad(i + 1)}`, DIM_GOLD])),
-  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c6-${pad(i + 1)}`, DIM_GOLD])),
-  ...Object.fromEntries(Array.from({ length:  8 }, (_, i) => [`tri-c7-${pad(i + 1)}`, DIM_GOLD])),
-  'tri-c8-01':    DIM_GOLD,
+  ...Object.fromEntries(Array.from({ length: 16 }, (_, i) => [`petal-c2-${pad(i + 1)}`, SC_BG_DIM])),
+  ...Object.fromEntries(Array.from({ length:  8 }, (_, i) => [`petal-c3-${pad(i + 1)}`, SC_BG_DIM])),
+  ...Object.fromEntries(Array.from({ length: 14 }, (_, i) => [`tri-c4-${pad(i + 1)}`, SC_BG_DIM])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c5-${pad(i + 1)}`, SC_BG_DIM])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c6-${pad(i + 1)}`, SC_BG_DIM])),
+  ...Object.fromEntries(Array.from({ length:  8 }, (_, i) => [`tri-c7-${pad(i + 1)}`, SC_BG_DIM])),
+  'tri-c8-01':    SC_BG_DIM,
   'tri-c8-bg-01': BG,
   'tri-c8-bg-02': BG,
-  'c9':           BG,
+  'c9':           '#000000',
 }
 
-function stopColor(i, phase, previewStage, currentIndex, results) {
+// Petal/triangle/bindu region fills — Spot Check's palette
+function regionColor(i, phase, previewStage, currentIndex, results) {
+  if (phase === 'preview') return previewStage === 'fills' ? SC_ACTIVE : null
+  if (phase === 'drill' || phase === 'done') {
+    if (i < currentIndex || results[i]) {
+      return results[i] === 'wrong' ? SC_RESULT_GOLD : (results[i] === 'correct' ? SC_RESULT_RED : SC_BG_DIM)
+    }
+    if (i === currentIndex) return SC_ACTIVE
+    return SC_BG_DIM
+  }
+  return null
+}
+
+// C1/C8 point dots — Memorise-mode palette
+function dotColor(i, phase, previewStage, currentIndex, results) {
   if (phase === 'preview') return previewStage === 'fills' ? CREAM : null
   if (phase === 'drill' || phase === 'done') {
     if (i < currentIndex || results[i]) {
@@ -83,7 +103,7 @@ export default function LineDrillView({
   stops.forEach((s, i) => {
     if (!s.regionId) return
     regionToIndex[s.regionId] = i
-    const color = stopColor(i, phase, previewStage, currentIndex, results)
+    const color = regionColor(i, phase, previewStage, currentIndex, results)
     if (color) regionFills[s.regionId] = color
   })
 
@@ -130,7 +150,7 @@ export default function LineDrillView({
             {/* Point-based stops (C1 markers, C8 triangle's 7 shared-shape deities) */}
             {!lineShowing && stops.map((s, i) => {
               if (s.regionId || !s.pos) return null
-              const fill = stopColor(i, phase, previewStage, currentIndex, results)
+              const fill = dotColor(i, phase, previewStage, currentIndex, results)
               if (!fill) return null
               const isActive = phase === 'drill' && i === currentIndex
               const isPast   = phase === 'drill' && i < currentIndex
