@@ -3405,21 +3405,21 @@ export default function App() {
   function renderLineDrillControls() {
     return (
       <div className="px-4 py-3 space-y-3">
-        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">Line Drill</p>
+        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('linedrill.heading')}</p>
 
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={ldShuffle}
             className="px-2.5 py-1 rounded text-xs font-mono bg-surface-800 text-gold-400 border border-surface-700 hover:border-gold-600"
           >
-            Shuffle
+            {tr('linedrill.shuffle')}
           </button>
           {ldPhase === 'preview' && (
             <button
               onClick={ldStartDrill}
               className="px-2.5 py-1 rounded text-xs font-mono bg-gold-400 text-surface-900 font-bold"
             >
-              Start Drill
+              {tr('linedrill.start_drill')}
             </button>
           )}
           {ldPhase !== 'preview' && (
@@ -3427,7 +3427,7 @@ export default function App() {
               onClick={() => ldPickLine(ldLineId)}
               className="px-2.5 py-1 rounded text-xs font-mono bg-surface-800 text-muted hover:text-cream border border-surface-700"
             >
-              Back to preview
+              {tr('linedrill.back_to_preview')}
             </button>
           )}
         </div>
@@ -3448,15 +3448,13 @@ export default function App() {
         </div>
 
         <p className="text-muted font-mono" style={{ fontSize: '11px' }}>
-          {ldLineId} — {lineDrillData.LINE_LABELS[ldLineId]} — {ldStops.length} deities
-          {ldPhase === 'drill' && ` — stop ${Math.min(ldIndex + 1, ldStops.length)} of ${ldStops.length}`}
+          {ldLineId} — {lineDrillData.LINE_LABELS[ldLineId]} — {ldStops.length} {tr('linedrill.deities')}
+          {ldPhase === 'drill' && ` — ${tr('linedrill.stop')} ${Math.min(ldIndex + 1, ldStops.length)} ${tr('linedrill.of')} ${ldStops.length}`}
         </p>
 
         {ldPhase === 'preview' && (
           <p className="text-xs text-muted font-mono">
-            {isTouchDevice
-              ? 'Select a line above or Shuffle for a random selection then tap the deities to explore or tap Start Drill to step through the line sequence one by one and record whether memorised or not memorised.'
-              : 'Select a line above or Shuffle for a random selection then hover over the deities to explore or click Start Drill to step through the line sequence one by one and record whether memorised or not memorised.'}
+            {isTouchDevice ? tr('linedrill.instr_preview_touch') : tr('linedrill.instr_preview_desktop')}
           </p>
         )}
 
@@ -3469,18 +3467,18 @@ export default function App() {
           )
         })()}
         {ldPhase === 'drill' && !ldRevealed && (
-          <p className="text-xs text-muted font-mono">tap the current dot to reveal</p>
+          <p className="text-xs text-muted font-mono">{tr('linedrill.tap_current_reveal')}</p>
         )}
 
         {ldPhase === 'done' && (
           <div className="text-sm font-mono space-y-2">
-            <span className="text-red-400">{ldCorrectCount}/{ldStops.length} correct</span>
+            <span className="text-red-400">{ldCorrectCount}/{ldStops.length} {tr('misc.memorised')}</span>
             <div className="flex gap-2">
               <button onClick={ldRestartSameLine} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
-                Redrill
+                {tr('linedrill.redrill')}
               </button>
               <button onClick={ldShuffle} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
-                Shuffle next
+                {tr('linedrill.shuffle_next')}
               </button>
             </div>
           </div>
@@ -5265,6 +5263,7 @@ export default function App() {
                 onActiveTap={ldHandleActiveTap}
                 onPastTap={ldHandlePastTap}
                 SriYantraSVG={SriYantraSVG}
+                tr={tr}
               />
             )}
             {/* Mobile Line Drill controls — mirrors right panel, hidden on desktop */}
