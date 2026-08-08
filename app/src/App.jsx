@@ -25,7 +25,7 @@ import ActivityLogView from './components/ActivityLogView'
 import LineDrillView from './components/LineDrillView'
 import data from './data/khadgamala-canonical.json'
 import lineDrillData from './data/lineDrillLines.json'
-import { getPosition } from './deityPositions.js'
+import { getPosition, C4_DEITY_ORDER, C5_DEITY_ORDER, C6_DEITY_ORDER, C7_DEITY_ORDER } from './deityPositions.js'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
 
@@ -3287,26 +3287,55 @@ export default function App() {
   const LD_LINE_IDS = Object.keys(lineDrillData.LINES)
   const [ldLineId,   setLdLineId]   = useState(LD_LINE_IDS[0])
   const [ldPhase,    setLdPhase]    = useState('preview') // 'preview' | 'drill' | 'done'
+  const [ldPreviewStage, setLdPreviewStage] = useState('line') // 'line' | 'fills' — only used during 'preview'
   const [ldIndex,    setLdIndex]    = useState(0)
   const [ldRevealed, setLdRevealed] = useState(false)
   const [ldResults,  setLdResults]  = useState({})
-  const ldTapRef       = useRef({ index: null, time: 0 })
-  const ldPastTapRef   = useRef({ index: null, time: 0 })
-  const ldClickTimer   = useRef(null)
-  const ldAdvanceTimer = useRef(null)
+  const ldTapRef        = useRef({ index: null, time: 0 })
+  const ldPastTapRef    = useRef({ index: null, time: 0 })
+  const ldClickTimer    = useRef(null)
+  const ldAdvanceTimer  = useRef(null)
+  const ldPreviewTimer  = useRef(null)
+
+  // Kick off the initial 2s "straight line first" reveal for the default line on mount
+  useEffect(() => {
+    ldPreviewTimer.current = setTimeout(() => setLdPreviewStage('fills'), 2000)
+    return () => { if (ldPreviewTimer.current) clearTimeout(ldPreviewTimer.current) }
+  }, []) // eslint-disable-line
+
+  function ldGetRegionId(deity) {
+    if (!deity) return null
+    const { sectionId, sequenceInSection: seq } = deity
+    const pad = n => String(n).padStart(2, '0')
+    if (sectionId === 'circuit-2') return `petal-c2-${pad(seq)}`
+    if (sectionId === 'circuit-3') return `petal-c3-${pad(seq)}`
+    if (sectionId === 'circuit-4') return `tri-c4-${pad(C4_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-5') return `tri-c5-${pad(C5_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-6') return `tri-c6-${pad(C6_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-7') return `tri-c7-${pad(C7_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-9') return 'c9'
+    // circuit-1 and circuit-8: multiple deities can share one region shape, so these
+    // stay point/dot-based (via getPosition) to keep simultaneous stops distinguishable
+    return null
+  }
 
   const ldDeityById = data.deities.length ? Object.fromEntries(data.deities.map(d => [d.id, d])) : {}
-  const ldStops = (lineDrillData.LINES[ldLineId] || []).map(id => ({
-    id, deity: ldDeityById[id], pos: getPosition(id),
-  }))
+  const ldStops = (lineDrillData.LINES[ldLineId] || []).map(id => {
+    const deity = ldDeityById[id]
+    return { id, deity, pos: getPosition(id), regionId: ldGetRegionId(deity) }
+  })
+  const ldGeometry = lineDrillData.LINE_GEOMETRY[ldLineId]
 
   function ldPickLine(id) {
     if (ldAdvanceTimer.current) { clearTimeout(ldAdvanceTimer.current); ldAdvanceTimer.current = null }
+    if (ldPreviewTimer.current) { clearTimeout(ldPreviewTimer.current); ldPreviewTimer.current = null }
     setLdLineId(id)
     setLdPhase('preview')
+    setLdPreviewStage('line')
     setLdIndex(0)
     setLdRevealed(false)
     setLdResults({})
+    ldPreviewTimer.current = setTimeout(() => setLdPreviewStage('fills'), 2000)
   }
 
   function ldShuffle() {
@@ -5221,9 +5250,11 @@ export default function App() {
                 script={script}
                 lineId={ldLineId}
                 phase={ldPhase}
+                previewStage={ldPreviewStage}
                 currentIndex={ldIndex}
                 results={ldResults}
                 stops={ldStops}
+                geometry={ldGeometry}
                 revealed={ldRevealed}
                 onActiveTap={ldHandleActiveTap}
                 onPastTap={ldHandlePastTap}

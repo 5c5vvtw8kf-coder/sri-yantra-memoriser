@@ -101,10 +101,10 @@ function buildCircuitCentroidMap(circuit) {
 }
 
 // chantSeq - 1 → geometric deitySeq (copied from the individual CxView components)
-const C4_DEITY_ORDER = [8, 7, 6, 5, 4, 3, 2, 1, 14, 13, 12, 11, 10, 9]
-const C5_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
-const C6_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
-const C7_DEITY_ORDER = [5, 4, 3, 2, 1, 8, 7, 6]
+export const C4_DEITY_ORDER = [8, 7, 6, 5, 4, 3, 2, 1, 14, 13, 12, 11, 10, 9]
+export const C5_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
+export const C6_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
+export const C7_DEITY_ORDER = [5, 4, 3, 2, 1, 8, 7, 6]
 
 function buildSeqMap(deityOrder, centroidMap) {
   return Object.fromEntries(

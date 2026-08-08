@@ -9,9 +9,15 @@
  * Sized and positioned identically to SpotCheckView's diagram: fixed
  * viewBox, square via padding-bottom 100%, no per-viewport switching.
  *
+ * Preview reveal: the line's true straight geometry (edge-to-edge, same as
+ * the design tool) shows alone for ~2s, then fades back as every stop on
+ * the line fills in cream — real petal/triangle shapes for C2-C7/C9 (via
+ * SriYantraSVG's filledRegions, same mechanism SpotCheckView uses), dots
+ * only for C1/C8 where several deities can share one physical shape.
+ *
  * Colour states (same as Memorise mode):
  *   DIM_GOLD  = not yet reached
- *   CREAM     = current stop (drill) / all stops (preview)
+ *   CREAM     = current stop (drill) / all stops (preview fills stage)
  *   RED       = answered correct
  *   TERRACOTTA = answered wrong
  */
@@ -21,25 +27,72 @@ const RED        = '#c0392b'
 const TERRACOTTA = '#8b4513'
 const DIM_GOLD   = 'rgba(201,168,76,0.35)'
 const GOLD       = '#c9a84c'
+const BG         = '#0f0805'
 
 const VIEWBOX = '45 55 430 430'
+
+const pad = n => String(n).padStart(2, '0')
+
+// Static baseline — every fillable region starts "not yet reached".
+// C8's own triangle stays a plain backdrop (the 7 C8 deities are drawn as
+// individual dots on top of it, since they share one physical triangle).
+const BASE_REGION_FILLS = {
+  ...Object.fromEntries(Array.from({ length: 16 }, (_, i) => [`petal-c2-${pad(i + 1)}`, DIM_GOLD])),
+  ...Object.fromEntries(Array.from({ length:  8 }, (_, i) => [`petal-c3-${pad(i + 1)}`, DIM_GOLD])),
+  ...Object.fromEntries(Array.from({ length: 14 }, (_, i) => [`tri-c4-${pad(i + 1)}`, DIM_GOLD])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c5-${pad(i + 1)}`, DIM_GOLD])),
+  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`tri-c6-${pad(i + 1)}`, DIM_GOLD])),
+  ...Object.fromEntries(Array.from({ length:  8 }, (_, i) => [`tri-c7-${pad(i + 1)}`, DIM_GOLD])),
+  'tri-c8-01':    DIM_GOLD,
+  'tri-c8-bg-01': BG,
+  'tri-c8-bg-02': BG,
+  'c9':           BG,
+}
+
+function stopColor(i, phase, previewStage, currentIndex, results) {
+  if (phase === 'preview') return previewStage === 'fills' ? CREAM : null
+  if (phase === 'drill' || phase === 'done') {
+    if (i < currentIndex || results[i]) {
+      return results[i] === 'wrong' ? TERRACOTTA : (results[i] === 'correct' ? RED : DIM_GOLD)
+    }
+    if (i === currentIndex) return CREAM
+    return DIM_GOLD
+  }
+  return null
+}
 
 export default function LineDrillView({
   script = 'iast',
   lineId,
   phase,
+  previewStage,
   currentIndex,
   results,
   stops,
+  geometry,
   revealed,
   onActiveTap,
   onPastTap,
   SriYantraSVG,
 }) {
-  const strokePoints = stops
-    .filter(s => s.pos)
-    .map(s => `${s.pos.x},${s.pos.y}`)
-    .join(' ')
+  const lineShowing = phase === 'preview' && previewStage === 'line'
+
+  // Region-based fills (C2/C3 petals, C4-C7 triangles, C9 bindu)
+  const regionFills = { ...BASE_REGION_FILLS }
+  const regionToIndex = {}
+  stops.forEach((s, i) => {
+    if (!s.regionId) return
+    regionToIndex[s.regionId] = i
+    const color = stopColor(i, phase, previewStage, currentIndex, results)
+    if (color) regionFills[s.regionId] = color
+  })
+
+  function handleRegionClick(regionId) {
+    const i = regionToIndex[regionId]
+    if (i === undefined) return
+    if (i === currentIndex && phase === 'drill') onActiveTap(i)
+    else if (i < currentIndex && phase === 'drill') onPastTap(i)
+  }
 
   return (
     <div className="w-full px-4 pt-3 pb-2">
@@ -48,7 +101,13 @@ export default function LineDrillView({
         style={{ paddingBottom: '100%', WebkitTouchCallout: 'none', userSelect: 'none' }}
       >
         <div className="absolute inset-0">
-          <SriYantraSVG className="w-full h-full" viewBox={VIEWBOX} showTriangles={true} />
+          <SriYantraSVG
+            className="w-full h-full"
+            viewBox={VIEWBOX}
+            showTriangles={true}
+            filledRegions={regionFills}
+            onRegionClick={handleRegionClick}
+          />
 
           <svg
             viewBox={VIEWBOX}
@@ -57,24 +116,22 @@ export default function LineDrillView({
             style={{ background: 'transparent' }}
             aria-label={`Line Drill — ${lineId}`}
           >
-            {strokePoints && (
-              <polyline points={strokePoints} fill="none" stroke={GOLD} strokeWidth="0.8" strokeOpacity="0.55" style={{ pointerEvents: 'none' }} />
+            {/* True straight line — prominent for the first 2s, then a faint reference */}
+            {geometry && (
+              <line
+                x1={geometry.x1} y1={geometry.y1} x2={geometry.x2} y2={geometry.y2}
+                stroke={GOLD}
+                strokeWidth={lineShowing ? 1.4 : 0.8}
+                strokeOpacity={lineShowing ? 0.9 : 0.4}
+                style={{ pointerEvents: 'none', transition: 'stroke-opacity 500ms ease, stroke-width 500ms ease' }}
+              />
             )}
 
-            {stops.map((s, i) => {
-              if (!s.pos) return null
-              let fill = DIM_GOLD
-              let r = 4.5
-              if (phase === 'preview') {
-                fill = CREAM
-              } else if (phase === 'drill' || phase === 'done') {
-                if (i < currentIndex || results[i]) {
-                  fill = results[i] === 'wrong' ? TERRACOTTA : (results[i] === 'correct' ? RED : DIM_GOLD)
-                } else if (i === currentIndex) {
-                  fill = CREAM
-                  r = 5.5
-                }
-              }
+            {/* Point-based stops (C1 markers, C8 triangle's 7 shared-shape deities) */}
+            {!lineShowing && stops.map((s, i) => {
+              if (s.regionId || !s.pos) return null
+              const fill = stopColor(i, phase, previewStage, currentIndex, results)
+              if (!fill) return null
               const isActive = phase === 'drill' && i === currentIndex
               const isPast   = phase === 'drill' && i < currentIndex
               return (
@@ -82,7 +139,7 @@ export default function LineDrillView({
                   key={s.id}
                   cx={s.pos.x}
                   cy={s.pos.y}
-                  r={r}
+                  r={isActive ? 5.5 : 4.5}
                   fill={fill}
                   stroke="#0f0805"
                   strokeWidth="0.6"
