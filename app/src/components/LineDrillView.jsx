@@ -207,6 +207,35 @@ export default function LineDrillView({
               />
             )}
 
+            {/* Transparent hover targets for region-based stops (petals/triangles/bindu) —
+                desktop-only tooltip; the region fill itself already handles clicks.
+                Rendered BEFORE the point-based dots below: the bindu's hit-circle
+                (r=16) is large enough to blanket the tiny C8 triangle next to it,
+                so C8's dots must paint on top to win the hit-test, not the other
+                way round. */}
+            {!lineShowing && stops.map((s, i) => {
+              if (!s.regionId || !s.pos) return null
+              const hasColor = regionColor(i, phase, previewStage, currentIndex, results)
+              if (!hasColor) return null
+              return (
+                <circle
+                  key={`hit-${s.id}`}
+                  cx={s.pos.x}
+                  cy={s.pos.y}
+                  r={16}
+                  fill="transparent"
+                  stroke="none"
+                  style={{ cursor: 'pointer', pointerEvents: 'all' }}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  onClick={() => {
+                    setTapFocusIndex(i)
+                    handleRegionClick(s.regionId)
+                  }}
+                />
+              )
+            })}
+
             {/* Point-based stops (C1 markers, C8 triangle's 7 shared-shape deities) */}
             {!lineShowing && stops.map((s, i) => {
               if (s.regionId || !s.pos) return null
@@ -230,31 +259,6 @@ export default function LineDrillView({
                     setTapFocusIndex(i)
                     if (isActive) onActiveTap(i)
                     else if (isPast) onPastTap(i)
-                  }}
-                />
-              )
-            })}
-
-            {/* Transparent hover targets for region-based stops (petals/triangles/bindu) —
-                desktop-only tooltip; the region fill itself already handles clicks. */}
-            {!lineShowing && stops.map((s, i) => {
-              if (!s.regionId || !s.pos) return null
-              const hasColor = regionColor(i, phase, previewStage, currentIndex, results)
-              if (!hasColor) return null
-              return (
-                <circle
-                  key={`hit-${s.id}`}
-                  cx={s.pos.x}
-                  cy={s.pos.y}
-                  r={16}
-                  fill="transparent"
-                  stroke="none"
-                  style={{ cursor: 'pointer', pointerEvents: 'all' }}
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  onClick={() => {
-                    setTapFocusIndex(i)
-                    handleRegionClick(s.regionId)
                   }}
                 />
               )
