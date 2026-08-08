@@ -148,11 +148,14 @@ export default function LineDrillView({
   const [tapFocusIndex, setTapFocusIndex] = useState(null)
 
   useEffect(() => {
-    if (revealed) setTapFocusIndex(null)
-  }, [revealed])
+    setTapFocusIndex(null)
+  }, [revealed, currentIndex])
 
-  const isFocusHighlighted = i =>
-    phase === 'drill' && i === currentIndex && (hoveredIndex === i || tapFocusIndex === i)
+  // Any visible stop turns red on hover (desktop) or tap (mobile/iPad) —
+  // matches the hover/selected convention used on the other view pages
+  // (BhupuraView, C2View etc.), regardless of whether it's the current
+  // quiz target or a past stop.
+  const isFocusHighlighted = i => hoveredIndex === i || tapFocusIndex === i
 
   // Region-based fills (C2/C3 petals, C4-C7 triangles, C9 bindu)
   const regionFills = { ...BASE_REGION_FILLS }
@@ -224,7 +227,8 @@ export default function LineDrillView({
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => {
-                    if (isActive) { setTapFocusIndex(i); onActiveTap(i) }
+                    setTapFocusIndex(i)
+                    if (isActive) onActiveTap(i)
                     else if (isPast) onPastTap(i)
                   }}
                 />
@@ -249,7 +253,7 @@ export default function LineDrillView({
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => {
-                    if (i === currentIndex && phase === 'drill') setTapFocusIndex(i)
+                    setTapFocusIndex(i)
                     handleRegionClick(s.regionId)
                   }}
                 />
