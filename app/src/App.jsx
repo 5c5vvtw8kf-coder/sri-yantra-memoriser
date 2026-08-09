@@ -23,8 +23,10 @@ import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import LineDrillView from './components/LineDrillView'
+import SegmentDrillView from './components/SegmentDrillView'
 import data from './data/activeDeities'
 import lineDrillData from './data/lineDrillLines.json'
+import segmentDrillData from './data/segmentDrillLines.json'
 import { getPosition, C4_DEITY_ORDER, C5_DEITY_ORDER, C6_DEITY_ORDER, C7_DEITY_ORDER } from './deityPositions.js'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
@@ -449,6 +451,7 @@ const TABS = [
     footerLabel: 'Śrīdevī Epithets' },
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP', trKey: 'heading.spot' },
   { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
+  { id: 'segmentdrill', trKey: 'tab.segmentdrill', navLabel: 'Segment Drills', navLabelEn: 'Segment Drills', navLabelDev: 'Segment Drills', footerLabel: 'Segment Drills' },
   { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drills',  navLabelEn: 'Line Drills',  navLabelDev: 'Line Drills',  footerLabel: 'Line Drills'  },
   { id: 'memomap',      trKey: 'tab.memomap',   navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
   { id: 'activity-log', trKey: 'tab.actlog',    navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
@@ -3303,6 +3306,214 @@ export default function App() {
     return () => { if (ldPreviewTimer.current) clearTimeout(ldPreviewTimer.current) }
   }, []) // eslint-disable-line
 
+  // ── Segment Drill: segment selection + sequential drill state ──────────────
+  // Mirrors Line Drill's state shape exactly (see above) — a "segment" is a
+  // wedge (one aṣṭadalapadma petal) instead of a straight line, but the
+  // preview/drill/done phase machine, tap semantics, and result tracking are
+  // identical.
+  const SD_SEGMENT_IDS = Object.keys(segmentDrillData.SEGMENTS)
+  const [sdSegmentId, setSdSegmentId] = useState(SD_SEGMENT_IDS[0])
+  const [sdPhase,     setSdPhase]     = useState('preview') // 'preview' | 'drill' | 'done'
+  const [sdPreviewStage, setSdPreviewStage] = useState('line') // 'line' | 'fills' — only used during 'preview'
+  const [sdIndex,     setSdIndex]     = useState(0)
+  const [sdRevealed,  setSdRevealed]  = useState(false)
+  const [sdResults,   setSdResults]   = useState({})
+  const sdTapRef        = useRef({ index: null, time: 0 })
+  const sdPastTapRef    = useRef({ index: null, time: 0 })
+  const sdClickTimer    = useRef(null)
+  const sdAdvanceTimer  = useRef(null)
+  const sdPreviewTimer  = useRef(null)
+
+  // Kick off the initial 2s "true wedge first" reveal for the default segment on mount
+  useEffect(() => {
+    sdPreviewTimer.current = setTimeout(() => setSdPreviewStage('fills'), 2000)
+    return () => { if (sdPreviewTimer.current) clearTimeout(sdPreviewTimer.current) }
+  }, []) // eslint-disable-line
+
+  function sdGetRegionId(deity) {
+    if (!deity) return null
+    const { sectionId, sequenceInSection: seq } = deity
+    const pad = n => String(n).padStart(2, '0')
+    if (sectionId === 'circuit-2') return `petal-c2-${pad(seq)}`
+    if (sectionId === 'circuit-3') return `petal-c3-${pad(seq)}`
+    if (sectionId === 'circuit-4') return `tri-c4-${pad(C4_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-5') return `tri-c5-${pad(C5_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-6') return `tri-c6-${pad(C6_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-7') return `tri-c7-${pad(C7_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-9') return 'c9'
+    // circuit-1 and circuit-8: multiple deities can share one region shape, so these
+    // stay point/dot-based (via getPosition) to keep simultaneous stops distinguishable
+    return null
+  }
+
+  const sdDeityById = data.deities.length ? Object.fromEntries(data.deities.map(d => [d.id, d])) : {}
+  // A segment's fixed ID list (segmentDrillLines.json) is built from Chris's own
+  // confirmed candidates, so it shouldn't normally reference an excluded optional
+  // deity — but filter defensively anyway, same guard as Line Drill.
+  const sdStops = (segmentDrillData.SEGMENTS[sdSegmentId] || [])
+    .filter(id => sdDeityById[id])
+    .map(id => {
+      const deity = sdDeityById[id]
+      return { id, deity, pos: getPosition(id), regionId: sdGetRegionId(deity) }
+    })
+  const sdGeometry = segmentDrillData.SEGMENT_GEOMETRY[sdSegmentId]
+
+  function sdPickSegment(id) {
+    if (sdAdvanceTimer.current) { clearTimeout(sdAdvanceTimer.current); sdAdvanceTimer.current = null }
+    if (sdPreviewTimer.current) { clearTimeout(sdPreviewTimer.current); sdPreviewTimer.current = null }
+    setSdSegmentId(id)
+    setSdPhase('preview')
+    setSdPreviewStage('line')
+    setSdIndex(0)
+    setSdRevealed(false)
+    setSdResults({})
+    sdPreviewTimer.current = setTimeout(() => setSdPreviewStage('fills'), 2000)
+  }
+
+  function sdShuffle() {
+    let next = sdSegmentId
+    if (SD_SEGMENT_IDS.length > 1) {
+      while (next === sdSegmentId) next = SD_SEGMENT_IDS[Math.floor(Math.random() * SD_SEGMENT_IDS.length)]
+    }
+    sdPickSegment(next)
+  }
+
+  function sdStartDrill() {
+    setSdPhase('drill')
+    setSdIndex(0)
+    setSdRevealed(false)
+    setSdResults({})
+  }
+
+  function sdMarkResult(index, result) {
+    setSdResults(r => ({ ...r, [index]: result }))
+    setSdRevealed(true)
+    if (sdAdvanceTimer.current) clearTimeout(sdAdvanceTimer.current)
+    const total = sdStops.length
+    sdAdvanceTimer.current = setTimeout(() => {
+      setSdRevealed(false)
+      setSdIndex(i => {
+        const nextI = i + 1
+        if (nextI >= total) { setSdPhase('done'); return i }
+        return nextI
+      })
+    }, 550)
+  }
+
+  function sdHandleActiveTap(index) {
+    const now = Date.now()
+    const isDouble = sdTapRef.current.index === index && (now - sdTapRef.current.time) < 300
+    sdTapRef.current = { index, time: now }
+    if (isDouble) {
+      if (sdClickTimer.current) { clearTimeout(sdClickTimer.current); sdClickTimer.current = null }
+      sdMarkResult(index, 'wrong')
+    } else {
+      if (sdClickTimer.current) return
+      sdClickTimer.current = setTimeout(() => {
+        sdClickTimer.current = null
+        sdMarkResult(index, 'correct')
+      }, 280)
+    }
+  }
+
+  function sdHandlePastTap(index) {
+    const now = Date.now()
+    const isDouble = sdPastTapRef.current.index === index && (now - sdPastTapRef.current.time) < 300
+    sdPastTapRef.current = { index, time: now }
+    if (isDouble) {
+      setSdResults(r => ({ ...r, [index]: r[index] === 'correct' ? 'wrong' : 'correct' }))
+    }
+  }
+
+  function sdRestartSameSegment() {
+    setSdPhase('drill')
+    setSdIndex(0)
+    setSdRevealed(false)
+    setSdResults({})
+  }
+
+  const sdCorrectCount = Object.values(sdResults).filter(v => v === 'correct').length
+
+  function renderSegmentDrillControls() {
+    return (
+      <div className="px-4 py-3 space-y-3">
+        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('segmentdrill.heading')}</p>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={sdShuffle}
+            className="px-2.5 py-1 rounded text-xs font-mono bg-surface-800 text-gold-400 border border-surface-700 hover:border-gold-600"
+          >
+            {tr('segmentdrill.shuffle')}
+          </button>
+          {sdPhase === 'preview' && (
+            <button
+              onClick={sdStartDrill}
+              className="px-2.5 py-1 rounded text-xs font-mono bg-gold-400 text-surface-900 font-bold"
+            >
+              {tr('segmentdrill.start_drill')}
+            </button>
+          )}
+          {sdPhase !== 'preview' && (
+            <button
+              onClick={() => sdPickSegment(sdSegmentId)}
+              className="px-2.5 py-1 rounded text-xs font-mono bg-surface-800 text-muted hover:text-cream border border-surface-700"
+            >
+              {tr('segmentdrill.back_to_preview')}
+            </button>
+          )}
+        </div>
+
+        <div className="flex flex-wrap gap-1">
+          {SD_SEGMENT_IDS.map(id => (
+            <button
+              key={id}
+              onClick={() => sdPickSegment(id)}
+              className={[
+                'px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                id === sdSegmentId ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream',
+              ].join(' ')}
+            >
+              {id} ({segmentDrillData.SEGMENTS[id].filter(did => sdDeityById[did]).length})
+            </button>
+          ))}
+        </div>
+
+        {sdPhase === 'preview' && (
+          <p className="text-xs text-muted font-mono">
+            {isTouchDevice ? tr('segmentdrill.instr_preview_touch') : tr('segmentdrill.instr_preview_desktop')}
+          </p>
+        )}
+
+        {sdPhase === 'drill' && (() => {
+          const stripDeity = sdStops[sdIndex]?.deity
+          return (
+            <p className="text-sm font-serif" style={{ color: sdRevealed ? '#fff8c8' : 'transparent', fontFamily: "'Gentium Plus', Georgia, serif", minHeight: '1.5rem' }}>
+              {stripDeity ? `${displayName(stripDeity, script)} — ${displayName(stripDeity, 'devanagari')}` : ''}
+            </p>
+          )
+        })()}
+        {sdPhase === 'drill' && !sdRevealed && (
+          <p className="text-xs text-muted font-mono">{tr('segmentdrill.tap_current_reveal')}</p>
+        )}
+
+        {sdPhase === 'done' && (
+          <div className="text-sm font-mono space-y-2">
+            <span className="text-red-400">{sdCorrectCount}/{sdStops.length} {tr('misc.memorised')}</span>
+            <div className="flex gap-2">
+              <button onClick={sdRestartSameSegment} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
+                {tr('segmentdrill.redrill')}
+              </button>
+              <button onClick={sdShuffle} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
+                {tr('segmentdrill.shuffle_next')}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
   function ldGetRegionId(deity) {
     if (!deity) return null
     const { sectionId, sequenceInSection: seq } = deity
@@ -3662,6 +3873,8 @@ export default function App() {
   )
   const footerInstruction = activeTab === 'linedrill'
     ? (ldPhase === 'drill' ? (isTouchDevice ? memoInstrTouch : memoInstr) : null)
+    : activeTab === 'segmentdrill'
+    ? (sdPhase === 'drill' ? (isTouchDevice ? memoInstrTouch : memoInstr) : null)
     : !EXPLORE_TABS.has(activeTab) ? null
     : isInMemoriseMode
       ? activeTab === 'chakreshvari'
@@ -3683,6 +3896,7 @@ export default function App() {
   const rightPanel = (() => {
     if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
     if (activeTab === 'linedrill') return renderLineDrillControls()
+    if (activeTab === 'segmentdrill') return renderSegmentDrillControls()
     if (activeTab === 'bhupura' && bhupuraMemorise) {
       const bhupuraDotCount = bhupuraMemoGroup === 'all' ? BHUPURA_C1_TOTAL
         : bhupuraMemoGroup === 'siddhiShakti' ? BHUPURA_SIDDHI_TOTAL
@@ -5272,6 +5486,29 @@ export default function App() {
                 {renderLineDrillControls()}
               </div>
             )}
+            {activeTab === 'segmentdrill' && (
+              <SegmentDrillView
+                script={script}
+                segmentId={sdSegmentId}
+                phase={sdPhase}
+                previewStage={sdPreviewStage}
+                currentIndex={sdIndex}
+                results={sdResults}
+                stops={sdStops}
+                geometry={sdGeometry}
+                revealed={sdRevealed}
+                onActiveTap={sdHandleActiveTap}
+                onPastTap={sdHandlePastTap}
+                SriYantraSVG={SriYantraSVG}
+                tr={tr}
+              />
+            )}
+            {/* Mobile Segment Drill controls — mirrors right panel, hidden on desktop */}
+            {activeTab === 'segmentdrill' && (
+              <div className="md:hidden">
+                {renderSegmentDrillControls()}
+              </div>
+            )}
 
             {/* iPad-only: collapse hint shown below diagram when sidebar is open on explore tabs */}
             {!navCollapsed && EXPLORE_TAB_IDS.includes(activeTab) && (
@@ -5340,7 +5577,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
-        <div className={`${['spotcheck', 'activity-log', 'memomap', 'linedrill'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
+        <div className={`${['spotcheck', 'activity-log', 'memomap', 'linedrill', 'segmentdrill'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}

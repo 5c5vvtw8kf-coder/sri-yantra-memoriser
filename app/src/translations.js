@@ -283,6 +283,24 @@ const en = {
   'linedrill.shuffle_next':          'Shuffle next',
   'linedrill.use_controls_below':    'Use the controls below to start, pick, or shuffle a line.',
 
+  // ── Segment Drill ─────────────────────────────────────────────────────────
+  // AI-generated (English only for now) — Segment Drill mirrors Line Drill's
+  // wording with "line" swapped for "segment"; other locales fall back to
+  // this block until translated.
+  'segmentdrill.heading':               'Segment Drill',
+  'segmentdrill.shuffle':               'Shuffle',
+  'segmentdrill.start_drill':           'Start Drill',
+  'segmentdrill.back_to_preview':       'Back to preview',
+  'segmentdrill.deities':               'deities',
+  'segmentdrill.stop':                  'stop',
+  'segmentdrill.of':                    'of',
+  'segmentdrill.instr_preview_desktop': 'Select a segment above or Shuffle for a random selection then hover over the deities to explore. Click Start Drill to step through the segment sequence one by one and record whether memorised or not memorised.',
+  'segmentdrill.instr_preview_touch':   'Select a segment above or Shuffle for a random selection then tap the deities to explore. Tap Start Drill to step through the segment sequence one by one and record whether memorised or not memorised.',
+  'segmentdrill.tap_current_reveal':    'tap the current dot to reveal',
+  'segmentdrill.redrill':               'Redrill',
+  'segmentdrill.shuffle_next':          'Shuffle next',
+  'segmentdrill.use_controls_below':    'Use the controls below to start, pick, or shuffle a segment.',
+
   // ── Score / right panel ────────────────────────────────────────────────────
   'score.round':         'Round',
   'score.session':       'Session',
@@ -372,6 +390,7 @@ const en = {
   // ── Tab labels (non-Sanskrit only) ────────────────────────────────────────
   'tab.intro':       'Introduction',
   'tab.spotcheck':   'Spot Check',
+  'tab.segmentdrill': 'Segment Drills',
   'tab.linedrill':   'Line Drills',
   'tab.memomap':     'Memory Map',
   'tab.actlog':      'Activity Log',

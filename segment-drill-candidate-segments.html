@@ -211,10 +211,26 @@ const CANDIDATES = {
   // governs C4-C7, while C1 markers seem to need a tighter cutoff than 30°. Not re-deriving
   // a new universal formula; treating each segment's eyesight-check as ground truth.
   S3: ["aṇimāsiddhē(C1)", "brāhmī(C1)", "sarvasaṅkṣōbhiṇī(C1)", "buddhyākarṣiṇī(C2)", "śarīrākarṣiṇī(C2)", "kāmākarṣiṇī(C2)", "anaṅgamadanē(C3)", "sarvasaṅkṣōbhiṇī(C4)", "sarvavidrāvinī(C4)", "sarvadvandvakṣayaṅkarī(C4)", "sarvasiddhipradē(C5)", "sarvasaubhāgyadāyinī(C5)", "sarvasampatpradē(C5)", "sarvajñē(C6)", "vaśinī(C7)", "mahākāmēśvarī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
-  S4: ["laghimāsiddhē(C1)", "garimāsiddhē(C1)", "māhēśvarī(C1)", "sarvavidrāviṇī(C1)", "nāmākarṣiṇī(C2)", "bījākarṣiṇī(C2)", "ātmākarṣiṇī(C2)", "anaṅgamadanāturē(C3)", "sarvārthasādhikē(C4)", "sarvasampattipūriṇī(C4)", "sarvavighnanivāriṇī(C5)", "sarvāṅgasundarī(C5)", "sarvānandamayī(C6)", "sarvarakṣāsvarūpiṇī(C6)", "sarvēśvarī(C7)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  // CONFIRMED by Chris — 2026-08-09. garimāsiddhē dropped: it co-locates exactly with
+  // laghimāsiddhē (same bhūpura dot), and Chris's lineage excludes it — consistent with the
+  // app's new optional-deity toggle (default off). Since garimā only ever co-locates here,
+  // no other segment is affected.
+  S4: ["laghimāsiddhē(C1)", "māhēśvarī(C1)", "sarvavidrāviṇī(C1)", "nāmākarṣiṇī(C2)", "bījākarṣiṇī(C2)", "ātmākarṣiṇī(C2)", "anaṅgamadanāturē(C3)", "sarvārthasādhikē(C4)", "sarvasampattipūriṇī(C4)", "sarvavighnanivāriṇī(C5)", "sarvāṅgasundarī(C5)", "sarvānandamayī(C6)", "sarvarakṣāsvarūpiṇī(C6)", "sarvēśvarī(C7)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  // CONFIRMED by Chris — 2026-08-09.
   S5: ["bhuktisiddhē(C1)", "cāmuṇḍē(C1)", "sarvakhēcarī(C1)", "rūpākarṣiṇī(C2)", "rasākarṣiṇī(C2)", "gandhākarṣiṇī(C2)", "anaṅgarēkhē(C3)", "sarvajṛmbhiṇī(C4)", "sarvasammōhinī(C4)", "sarvastambhinī(C4)", "sarvakāmapradē(C5)", "sarvamaṅgaḻakāriṇī(C5)", "sarvavyādhivināśinī(C6)", "sarvajñānamayī(C6)", "vimalē(C7)", "pāśinī(C8)", "mahāvajrēśvarī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
-  S6: ["icchāsiddhē(C1)", "mahālakṣmī(C1)", "sarvabījē(C1)", "prāptisiddhē(C1)", "sarvayōnē(C1)", "buddhyākarṣiṇī(C2)", "ahaṅkārākarṣiṇī(C2)", "śabdākarṣiṇī(C2)", "anaṅgavēginī(C3)", "sarvavidrāvinī(C4)", "sarvahlādinī(C4)", "sarvākarṣiṇī(C4)", "sarvasampatpradē(C5)", "sarvapriyaṅkarī(C5)", "sarvaśaktē(C6)", "sarvaiśvaryapradāyinī(C6)", "kāmēśvarī(C7)", "cāpinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
-  S7: ["vaśitvasiddhē(C1)", "vārāhī(C1)", "sarvōnmādinī(C1)", "ātmākarṣiṇī(C2)", "amṛtākarṣiṇī(C2)", "śarīrākarṣiṇī(C2)", "anaṅgāṅkuśē(C3)", "sarvadvandvakṣayaṅkarī(C4)", "sarvasampattipūriṇī(C4)", "sarvamantramayī(C4)", "sarvasaubhāgyadāyinī(C5)", "sarvāṅgasundarī(C5)", "sarvēpsitaphalapradē(C6)", "sarvarakṣāsvarūpiṇī(C6)", "kauḻinī(C7)", "bāṇinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  // CONFIRMED by Chris — 2026-08-09. Added vaśinī(C7) alongside kāmēśvarī(C7) — note this
+  // one is a bigger jump than the other corrections: vaśinī's true angle is 180° (S3's own
+  // spine), 45° from S6's centre (135°), well past the ±30° rule that held for everything
+  // else. Not flagging as an error, just noting it's a deliberate chant-pairing/pedagogical
+  // call (vaśinī immediately precedes kāmēśvarī in the C7 Vāgdēvī sequence) rather than a
+  // geometric one — worth remembering if this pattern needs generalising later.
+  S6: ["icchāsiddhē(C1)", "mahālakṣmī(C1)", "sarvabījē(C1)", "prāptisiddhē(C1)", "sarvayōnē(C1)", "buddhyākarṣiṇī(C2)", "ahaṅkārākarṣiṇī(C2)", "śabdākarṣiṇī(C2)", "anaṅgavēginī(C3)", "sarvavidrāvinī(C4)", "sarvahlādinī(C4)", "sarvākarṣiṇī(C4)", "sarvasampatpradē(C5)", "sarvapriyaṅkarī(C5)", "sarvaśaktē(C6)", "sarvaiśvaryapradāyinī(C6)", "vaśinī(C7)", "kāmēśvarī(C7)", "cāpinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  // CONFIRMED by Chris — 2026-08-09. Added vaśinī(C7) next to kauḻinī(C7) — same
+  // chant-pairing pattern as S6 (vaśinī also 45° from this segment's centre), now seen
+  // twice, so it does look like a deliberate rule: pair vaśinī with whichever C7 Vāgdēvī
+  // leads into it, not just a one-off.
+  S7: ["vaśitvasiddhē(C1)", "vārāhī(C1)", "sarvōnmādinī(C1)", "ātmākarṣiṇī(C2)", "amṛtākarṣiṇī(C2)", "śarīrākarṣiṇī(C2)", "anaṅgāṅkuśē(C3)", "sarvadvandvakṣayaṅkarī(C4)", "sarvasampattipūriṇī(C4)", "sarvamantramayī(C4)", "sarvasaubhāgyadāyinī(C5)", "sarvāṅgasundarī(C5)", "sarvēpsitaphalapradē(C6)", "sarvarakṣāsvarūpiṇī(C6)", "kauḻinī(C7)", "vaśinī(C7)", "bāṇinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  // CONFIRMED by Chris — 2026-08-09. All 8 segments now confirmed.
   S8: ["prākāmyasiddhē(C1)", "māhēndrī(C1)", "sarvamahāṅkuśē(C1)", "sarvakāmasiddhē(C1)", "sarvatrikhaṇḍē(C1)", "dhairyākarṣiṇī(C2)", "smṛtyākarṣiṇī(C2)", "nāmākarṣiṇī(C2)", "anaṅgamālinī(C3)", "sarvarañjanī(C4)", "sarvārthasādhikē(C4)", "sarvōnmādinī(C4)", "sarvamṛtyupraśamanī(C5)", "sarvavighnanivāriṇī(C5)", "sarvapāpaharē(C6)", "sarvānandamayī(C6)", "jayinī(C7)", "aṅkuśinī(C8)", "mahābhagamālinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
 }
 
