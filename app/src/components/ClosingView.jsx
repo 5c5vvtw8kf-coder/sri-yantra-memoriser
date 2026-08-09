@@ -30,7 +30,7 @@
  */
 
 import { useState, useRef, useEffect } from 'react'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import SriYantraSVG from './SriYantraSVG'

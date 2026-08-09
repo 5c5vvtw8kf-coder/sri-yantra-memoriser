@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 
 const { sections, deities } = data
 

@@ -21,7 +21,7 @@
  */
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
 import { getPosition, DEITY_POSITIONS } from '../deityPositions.js'
 import SriYantraSVG from './SriYantraSVG'

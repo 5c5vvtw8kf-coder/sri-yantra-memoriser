@@ -22,7 +22,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG from './SriYantraSVG'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'

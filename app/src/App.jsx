@@ -7,7 +7,7 @@ import SriYantraSVG from './components/SriYantraSVG'
 import NyasaView from './components/NyasaView'
 import InnerView from './components/InnerView'
 import GuravaView from './components/GuravaView'
-import BhupuraView from './components/BhupuraView'
+import BhupuraView, { C1_TOTAL as BHUPURA_C1_TOTAL, SIDDHI_TOTAL as BHUPURA_SIDDHI_TOTAL } from './components/BhupuraView'
 import FuriganaName from './components/FuriganaName'
 import C2View from './components/C2View'
 import C3View from './components/C3View'
@@ -23,7 +23,7 @@ import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import LineDrillView from './components/LineDrillView'
-import data from './data/khadgamala-canonical.json'
+import data from './data/activeDeities'
 import lineDrillData from './data/lineDrillLines.json'
 import { getPosition, C4_DEITY_ORDER, C5_DEITY_ORDER, C6_DEITY_ORDER, C7_DEITY_ORDER } from './deityPositions.js'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
@@ -3320,10 +3320,15 @@ export default function App() {
   }
 
   const ldDeityById = data.deities.length ? Object.fromEntries(data.deities.map(d => [d.id, d])) : {}
-  const ldStops = (lineDrillData.LINES[ldLineId] || []).map(id => {
-    const deity = ldDeityById[id]
-    return { id, deity, pos: getPosition(id), regionId: ldGetRegionId(deity) }
-  })
+  // A line's fixed ID list (lineDrillLines.json) can include an optional deity
+  // (e.g. garimāsiddhē on L6/L9) that isn't in the currently active set — skip
+  // that stop rather than rendering a blank one.
+  const ldStops = (lineDrillData.LINES[ldLineId] || [])
+    .filter(id => ldDeityById[id])
+    .map(id => {
+      const deity = ldDeityById[id]
+      return { id, deity, pos: getPosition(id), regionId: ldGetRegionId(deity) }
+    })
   const ldGeometry = lineDrillData.LINE_GEOMETRY[ldLineId]
 
   function ldPickLine(id) {
@@ -3442,7 +3447,7 @@ export default function App() {
                 id === ldLineId ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream',
               ].join(' ')}
             >
-              {id} ({lineDrillData.LINES[id].length})
+              {id} ({lineDrillData.LINES[id].filter(did => ldDeityById[did]).length})
             </button>
           ))}
         </div>
@@ -3679,8 +3684,8 @@ export default function App() {
     if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
     if (activeTab === 'linedrill') return renderLineDrillControls()
     if (activeTab === 'bhupura' && bhupuraMemorise) {
-      const bhupuraDotCount = bhupuraMemoGroup === 'all' ? 29
-        : bhupuraMemoGroup === 'siddhiShakti' ? 11
+      const bhupuraDotCount = bhupuraMemoGroup === 'all' ? BHUPURA_C1_TOTAL
+        : bhupuraMemoGroup === 'siddhiShakti' ? BHUPURA_SIDDHI_TOTAL
         : bhupuraMemoGroup === 'ashtaMatrika' ? 8
         : 10 // mudraShakti
       return (

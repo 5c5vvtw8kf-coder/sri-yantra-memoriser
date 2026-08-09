@@ -4,6 +4,8 @@
  * References and source materials for the Śrī Yantra Memoriser.
  */
 
+import { useState } from 'react'
+import { getIncludeOptionalDeities, setIncludeOptionalDeities } from '../utils.js'
 
 function SectionHeading({ children }) {
   return (
@@ -35,11 +37,54 @@ function ResourceCard({ title, subtitle, description, url, urlLabel }) {
   )
 }
 
+// Lineage toggle — deities where practice genuinely varies between lineages
+// (currently just garimāsiddhē) can be switched on/off here. Off by default.
+// The setting is read once at module-load by data/activeDeities.js, so
+// flipping it reloads the page to apply everywhere.
+
+function LineageToggle() {
+  const [includeOptional, setState] = useState(getIncludeOptionalDeities())
+
+  function handleChange(e) {
+    const next = e.target.checked
+    setState(next)
+    setIncludeOptionalDeities(next)
+    window.location.reload()
+  }
+
+  return (
+    <div className="border border-surface-700 rounded-lg p-4 space-y-2">
+      <label className="flex items-start gap-3 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={includeOptional}
+          onChange={handleChange}
+          className="mt-0.5 accent-gold-400"
+        />
+        <span>
+          <span className="iast text-cream text-sm">Include garimāsiddhē</span>
+          <p className="text-muted text-xs mt-0.5 leading-relaxed">
+            Some lineages omit garimāsiddhē from the Khaḍgamālā (it shares its bhūpura dot
+            with laghimāsiddhē). Off by default — switch on if your lineage includes it.
+            Changing this reloads the app.
+          </p>
+        </span>
+      </label>
+    </div>
+  )
+}
+
 // Main component
 
 export default function ReferencesView() {
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-6 space-y-10">
+
+      {/* ── Settings ─────────────────────────────────────────────────────────── */}
+      <section>
+        <SectionHeading>Settings</SectionHeading>
+        <LineageToggle />
+      </section>
 
       {/* ── Recordings ───────────────────────────────────────────────────────── */}
       <section>

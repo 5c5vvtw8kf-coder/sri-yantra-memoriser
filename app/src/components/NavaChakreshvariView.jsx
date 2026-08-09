@@ -20,7 +20,7 @@
 import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG, { C2_PETALS, C3_PETALS, BHUPURA_OUTER_PTS, BHUPURA_MAIN_PTS, BHUPURA_INNER_PTS } from './SriYantraSVG'
 import triangleData from '../data/triangle-regions.json'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 

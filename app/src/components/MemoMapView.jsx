@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 import { saveMemoStorage, loadMemoHistory, displayName } from '../utils.js'
 import MemoMapVisuals from './MemoMapVisuals'
 

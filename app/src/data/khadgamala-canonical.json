@@ -3,7 +3,7 @@
     "version": "1.1",
     "source": "vignanam.org — IAST transliteration, corrected against Chris Hughes lineage",
     "transliteration": "IAST",
-    "notes": "v1.1: Parameshvara-Parameshvari combined; Uddiishamayi added; Kaalataapaana corrected; Garima Siddhe removed; translation and note fields added."
+    "notes": "v1.1: Parameshvara-Parameshvari combined; Uddiishamayi added; Kaalataapaana corrected; translation and note fields added. v1.2: Garima Siddhe kept as a full canonical entry but flagged optional:true (off by default, toggleable in settings) rather than removed — v1.1's note claiming removal was stale/incorrect."
   },
   "sections": [
     {
@@ -2094,6 +2094,8 @@
       "sequenceInSection": 3,
       "role": "deity",
       "group": "siddhiShakti",
+      "optional": true,
+      "optionalNote": "Excluded by some lineages (shares laghimāsiddhē's bhupura dot). Off by default; can be switched on in settings.",
       "scripts": {
         "iast": "garimāsiddhē",
         "devanagari": "गरिमासिद्धे",

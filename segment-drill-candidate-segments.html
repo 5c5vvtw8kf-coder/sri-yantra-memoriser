@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sri Yantra — candidate Segment Drill segments</title>
+<style>
+  html, body { margin:0; padding:0; background:#0f0805; height:100%; font-family: sans-serif; }
+  .wrap { display:flex; height:100vh; }
+  svg { display:block; height:100vh; flex: 0 0 auto; width: 65vw; }
+  .panel { flex: 1; overflow-y:auto; padding:16px 18px; color:#d8cba0; box-sizing:border-box; }
+  .panel h2 { color:#c9a84c; font-size:15px; margin:0 0 6px; }
+  .panel p.sub { font-size:12px; color:#8a7a5a; margin:0 0 14px; line-height:1.5; }
+  .btnrow { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  button.linebtn {
+    font-family: sans-serif; font-size:12px; padding:5px 9px; border-radius:4px; cursor:pointer;
+    border:1px solid #4a3d20; background:#1a120a; color:#c9a84c;
+  }
+  button.linebtn.active { background:#c9a84c; color:#0f0805; font-weight:bold; }
+  button.util { background:#2a2010; color:#8a7a5a; }
+  button.util.active { background:#8a7a5a; color:#0f0805; }
+  #label { font-size:13px; color:#f0e6c0; margin-bottom:8px; }
+  #candidates { font-size:12px; line-height:1.7; }
+  #candidates .tag { display:inline-block; background:#1e1608; border:1px solid #4a3d20; border-radius:3px;
+    padding:1px 6px; margin:2px 3px 2px 0; }
+  #candidates .tag.near { color:#8a7a5a; border-style:dashed; }
+  #candidates .tag.bindu { border-style:dotted; }
+  .swatch { display:inline-block; width:14px; height:3px; margin-right:6px; vertical-align:middle; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<svg id="yantra" viewBox="45 55 430 430" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Sri Yantra — candidate Segment Drill segments S1-S8, toggleable</title>
+<rect x="45" y="55" width="430" height="430" fill="#0f0805"/>
+<circle cx="260" cy="270" r="110" fill="none" stroke="#4a3d20" stroke-width="1" opacity="0.4"/>
+<circle cx="260" cy="270" r="143.24" fill="none" stroke="#4a3d20" stroke-width="1" opacity="0.4"/>
+<path d="M 217.905,168.373 C 217.905,152.118 256.211,149.733 260.000,146.699 C 263.789,149.733 302.095,152.118 302.095,168.373 A 110 110 0 0 0 217.905,168.373 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 302.095,168.373 C 313.590,156.879 342.362,182.280 347.187,182.813 C 347.720,187.638 373.121,216.410 361.627,227.905 A 110 110 0 0 0 302.095,168.373 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 361.627,227.905 C 377.882,227.905 380.267,266.211 383.301,270.000 C 380.267,273.789 377.882,312.095 361.627,312.095 A 110 110 0 0 0 361.627,227.905 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 361.627,312.095 C 373.121,323.590 347.720,352.362 347.187,357.187 C 342.362,357.720 313.590,383.121 302.095,371.627 A 110 110 0 0 0 361.627,312.095 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 302.095,371.627 C 302.095,387.882 263.789,390.267 260.000,393.301 C 256.211,390.267 217.905,387.882 217.905,371.627 A 110 110 0 0 0 302.095,371.627 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 217.905,371.627 C 206.410,383.121 177.638,357.720 172.813,357.187 C 172.280,352.362 146.879,323.590 158.373,312.095 A 110 110 0 0 0 217.905,371.627 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 158.373,312.095 C 142.118,312.095 139.733,273.789 136.699,270.000 C 139.733,266.211 142.118,227.905 158.373,227.905 A 110 110 0 0 0 158.373,312.095 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 158.373,227.905 C 146.879,216.410 172.280,187.638 172.813,182.813 C 177.638,182.280 206.410,156.879 217.905,168.373 A 110 110 0 0 0 158.373,227.905 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 235.945,149.068 C 235.945,132.337 258.316,129.883 260.000,126.760 C 261.684,129.883 284.055,132.337 284.055,149.068 A 123.301 123.301 0 0 0 235.945,149.068 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 284.055,149.068 C 290.458,133.611 312.065,139.905 314.816,137.663 C 315.176,141.193 334.905,152.021 328.502,167.479 A 123.301 123.301 0 0 0 284.055,149.068 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 328.502,167.479 C 340.333,155.648 357.887,169.732 361.286,168.714 C 360.268,172.113 374.352,189.667 362.521,201.498 A 123.301 123.301 0 0 0 328.502,167.479 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 362.521,201.498 C 377.979,195.095 388.807,214.824 392.337,215.184 C 390.095,217.935 396.389,239.542 380.932,245.945 A 123.301 123.301 0 0 0 362.521,201.498 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 380.932,245.945 C 397.663,245.945 400.117,268.316 403.240,270.000 C 400.117,271.684 397.663,294.055 380.932,294.055 A 123.301 123.301 0 0 0 380.932,245.945 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 380.932,294.055 C 396.389,300.458 390.095,322.065 392.337,324.816 C 388.807,325.176 377.979,344.905 362.521,338.502 A 123.301 123.301 0 0 0 380.932,294.055 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 362.521,338.502 C 374.352,350.333 360.268,367.887 361.286,371.286 C 357.887,370.268 340.333,384.352 328.502,372.521 A 123.301 123.301 0 0 0 362.521,338.502 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 328.502,372.521 C 334.905,387.979 315.176,398.807 314.816,402.337 C 312.065,400.095 290.458,406.389 284.055,390.932 A 123.301 123.301 0 0 0 328.502,372.521 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 284.055,390.932 C 284.055,407.663 261.684,410.117 260.000,413.240 C 258.316,410.117 235.945,407.663 235.945,390.932 A 123.301 123.301 0 0 0 284.055,390.932 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 235.945,390.932 C 229.542,406.389 207.935,400.095 205.184,402.337 C 204.824,398.807 185.095,387.979 191.498,372.521 A 123.301 123.301 0 0 0 235.945,390.932 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 191.498,372.521 C 179.667,384.352 162.113,370.268 158.714,371.286 C 159.732,367.887 145.648,350.333 157.479,338.502 A 123.301 123.301 0 0 0 191.498,372.521 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 157.479,338.502 C 142.021,344.905 131.193,325.176 127.663,324.816 C 129.905,322.065 123.611,300.458 139.068,294.055 A 123.301 123.301 0 0 0 157.479,338.502 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 139.068,294.055 C 122.337,294.055 119.883,271.684 116.760,270.000 C 119.883,268.316 122.337,245.945 139.068,245.945 A 123.301 123.301 0 0 0 139.068,294.055 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 139.068,245.945 C 123.611,239.542 129.905,217.935 127.663,215.184 C 131.193,214.824 142.021,195.095 157.479,201.498 A 123.301 123.301 0 0 0 139.068,245.945 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 157.479,201.498 C 145.648,189.667 159.732,172.113 158.714,168.714 C 162.113,169.732 179.667,155.648 191.498,167.479 A 123.301 123.301 0 0 0 157.479,201.498 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 191.498,167.479 C 185.095,152.021 204.824,141.193 205.184,137.663 C 207.935,139.905 229.542,133.611 235.945,149.068 A 123.301 123.301 0 0 0 191.498,167.479 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<polygon points="101.36,111.36 225.98,111.36 225.98,91.88 172.74,91.88 172.74,63.67 347.26,63.67 347.26,91.88 294.01,91.88 294.01,111.37 418.64,111.36 418.64,235.98 438.12,235.98 438.12,182.74 466.33,182.74 466.33,357.26 438.12,357.26 438.12,304.01 418.63,304.01 418.64,428.64 294.02,428.64 294.02,448.12 347.26,448.12 347.26,476.33 172.74,476.33 172.74,448.12 225.99,448.12 225.99,428.63 101.36,428.64 101.36,304.02 81.88,304.02 81.88,357.26 53.67,357.26 53.67,182.74 81.88,182.74 81.88,235.99 101.37,235.99" fill="none" stroke="#6b5a2e" stroke-width="1.2" opacity="0.5"/>
+<polygon points="260.0,160.0 154.0,299.5 366.0,299.5" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,182.9 186.9,326.8 333.1,326.8" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,213.4 224.3,283.3 295.7,283.3" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,236.8 212.0,350.4 308.0,350.4" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,380.0 155.1,236.8 364.9,236.8" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,350.4 187.9,213.4 332.1,213.4" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,326.8 225.5,250.6 294.5,250.6" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,299.5 234.8,263.2 285.2,263.2" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+<polygon points="260.0,283.3 202.9,182.9 317.1,182.9" fill="none" stroke="#6b5a2e" stroke-width="0.8" opacity="0.4"/>
+
+<!-- C8 Trikoṇa (8th āvaraṇa) dots (always visible) -->
+<g fill="#c9a84c" opacity="0.85">
+<circle cx="250.5" cy="278.0" r="2"/><circle cx="269.5" cy="278.0" r="2"/><circle cx="265.0" cy="257.6" r="2"/><circle cx="255.0" cy="257.6" r="2"/>
+<circle cx="260.0" cy="283.3" r="2"/><circle cx="271.4" cy="263.2" r="2"/><circle cx="248.6" cy="263.2" r="2"/>
+</g>
+
+<!-- C1 bhupura dots (always visible) -->
+<g fill="#c9a84c" opacity="0.85">
+<circle cx="295.0" cy="430.0" r="2.4"/><circle cx="100.0" cy="306.0" r="2.4"/><circle cx="225.0" cy="110.0" r="2.4"/><circle cx="420.0" cy="235.0" r="2.4"/>
+<circle cx="101.0" cy="429.0" r="2.4"/><circle cx="101.0" cy="111.0" r="2.4"/><circle cx="419.0" cy="111.0" r="2.4"/><circle cx="419.0" cy="429.0" r="2.4"/>
+<circle cx="377.3" cy="429.0" r="2.4"/><circle cx="132.2" cy="111.0" r="2.4"/>
+<circle cx="229.0" cy="426.0" r="2.4"/><circle cx="103.0" cy="238.0" r="2.4"/><circle cx="292.0" cy="114.0" r="2.4"/><circle cx="416.0" cy="302.0" r="2.4"/>
+<circle cx="105.0" cy="425.0" r="2.4"/><circle cx="105.0" cy="115.0" r="2.4"/><circle cx="415.0" cy="115.0" r="2.4"/><circle cx="415.0" cy="425.0" r="2.4"/>
+<circle cx="288.0" cy="423.0" r="2.4"/><circle cx="107.0" cy="298.0" r="2.4"/><circle cx="232.0" cy="117.0" r="2.4"/><circle cx="413.0" cy="242.0" r="2.4"/>
+<circle cx="109.0" cy="421.0" r="2.4"/><circle cx="109.0" cy="119.0" r="2.4"/><circle cx="411.0" cy="119.0" r="2.4"/><circle cx="411.0" cy="421.0" r="2.4"/>
+<circle cx="338.0" cy="422.0" r="2.4"/><circle cx="148.9" cy="118.0" r="2.4"/>
+</g>
+<circle cx="260" cy="270" r="4" fill="#ffffff"/>
+
+<!-- C3 petal-boundary markers (where each segment's outer end lands — always visible, faint) -->
+<g fill="none" stroke="#e0c88e" stroke-width="1" opacity="0.5">
+<circle cx="217.905" cy="168.373" r="3"/><circle cx="302.095" cy="168.373" r="3"/>
+<circle cx="361.627" cy="227.905" r="3"/><circle cx="361.627" cy="312.095" r="3"/>
+<circle cx="302.095" cy="371.627" r="3"/><circle cx="217.905" cy="371.627" r="3"/>
+<circle cx="158.373" cy="312.095" r="3"/><circle cx="158.373" cy="227.905" r="3"/>
+</g>
+
+<!-- Toggleable segment groups — each is a full WEDGE for one aṣṭadalapadma petal:
+     a translucent pie-slice fill (r=250, just past the bhupura) plus its two flanking
+     boundary rays from the bindu (260,270), extended to r=500 as in Line Drill.
+     The DRAWN wedge retains the true ±22.5° petal boundary (the actual edge of the C3
+     petal, same geometry as the petal shape itself) — this is what the drill will look
+     like on screen. The CANDIDATE LIST, however, uses the wider ±30° rule confirmed
+     against Chris's S1 eyesight-check: a deity qualifies if it's within 30° of the
+     segment's centre angle, which is 7.5° past the drawn boundary on each side. So the
+     list will legitimately include a few deities (mostly C4/C5 triangles) that sit just
+     outside the drawn lines — that's intentional overlap, not an error; their triangle
+     physically straddles the boundary even though the wedge itself does not.
+     Ordered by the 3rd āvaraṇa's own chant sequence (S1=anaṅgakusumē, S2=anaṅgamēkhalē,
+     S3=anaṅgamadanē, S4=anaṅgamadanāturē, S5=anaṅgarēkhē, S6=anaṅgavēginī,
+     S7=anaṅgāṅkuśē, S8=anaṅgamālinī), not physical clockwise angle order. -->
+<g id="seg-S1" class="line-group">
+  <path d="M260,270 L164.33,39.03 A250,250 0 0,1 355.67,39.03 Z" fill="#c9a84c" fill-opacity="0.10"/>
+  <line x1="260.0" y1="270.0" x2="68.7"  y2="-191.9" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="260.0" y1="270.0" x2="451.3" y2="-191.9" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4,3"/>
+</g>
+<g id="seg-S2" class="line-group">
+  <path d="M260,270 L490.97,174.33 A250,250 0 0,1 490.97,365.67 Z" fill="#e0c88e" fill-opacity="0.10"/>
+  <line x1="260.0" y1="270.0" x2="721.9" y2="78.7"   stroke="#e0c88e" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="260.0" y1="270.0" x2="721.9" y2="461.3"  stroke="#e0c88e" stroke-width="1.5" stroke-dasharray="4,3"/>
+</g>
+<g id="seg-S3" class="line-group">
+  <path d="M260,270 L355.67,500.97 A250,250 0 0,1 164.33,500.97 Z" fill="#9b8ee0" fill-opacity="0.10"/>
+  <line x1="260.0" y1="270.0" x2="451.3" y2="731.9"  stroke="#9b8ee0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="260.0" y1="270.0" x2="68.7"  y2="731.9"  stroke="#9b8ee0" stroke-width="1.5" stroke-dasharray="4,3"/>
+</g>
+<g id="seg-S4" class="line-group">
+  <path d="M260,270 L29.03,365.67 A250,250 0 0,1 29.03,174.33 Z" fill="#8ee0b8" fill-opacity="0.10"/>
+  <line x1="260.0" y1="270.0" x2="-201.9" y2="461.3" stroke="#8ee0b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="260.0" y1="270.0" x2="-201.9" y2="78.7"  stroke="#8ee0b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+</g>
+<g id="seg-S5" class="line-group">
+  <path d="M260,270 L355.67,39.03 A250,250 0 0,1 490.97,174.33 Z" fill="#8eb8e0" fill-opacity="0.10"/>
+  <line x1="260.0" y1="270.0" x2="451.3" y2="-191.9" stroke="#8eb8e0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="260.0" y1="270.0" x2="721.9" y2="78.7"   stroke="#8eb8e0" stroke-width="1.5" stroke-dasharray="4,3"/>
+</g>
+<g id="seg-S6" class="line-group">
+  <path d="M260,270 L490.97,365.67 A250,250 0 0,1 355.67,500.97 Z" fill="#e0958e" fill-opacity="0.10"/>
+  <line x1="260.0" y1="270.0" x2="721.9" y2="461.3"  stroke="#e0958e" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="260.0" y1="270.0" x2="451.3" y2="731.9"  stroke="#e0958e" stroke-width="1.5" stroke-dasharray="4,3"/>
+</g>
+<g id="seg-S7" class="line-group">
+  <path d="M260,270 L164.33,500.97 A250,250 0 0,1 29.03,365.67 Z" fill="#b8e08e" fill-opacity="0.10"/>
+  <line x1="260.0" y1="270.0" x2="68.7"   y2="731.9" stroke="#b8e08e" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="260.0" y1="270.0" x2="-201.9" y2="461.3" stroke="#b8e08e" stroke-width="1.5" stroke-dasharray="4,3"/>
+</g>
+<g id="seg-S8" class="line-group">
+  <path d="M260,270 L29.03,174.33 A250,250 0 0,1 164.33,39.03 Z" fill="#e08ec8" fill-opacity="0.10"/>
+  <line x1="260.0" y1="270.0" x2="-201.9" y2="78.7"  stroke="#e08ec8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="260.0" y1="270.0" x2="68.7"   y2="-191.9" stroke="#e08ec8" stroke-width="1.5" stroke-dasharray="4,3"/>
+</g>
+
+</svg>
+
+<div class="panel">
+  <h2>Segment Drill — segment-by-segment viewer</h2>
+  <p class="sub">Each of the 8 segments is a <b>wedge</b> centred on one aṣṭadalapadma
+    (Circuit 3, 8-petal lotus) petal. The drawn wedge — the shaded pie-slice and its two
+    boundary rays — keeps the petal's true edge, ±22.5°, the same geometry as the petal
+    shape itself. The <b>candidate list</b> is deliberately wider than the drawn wedge: a
+    deity qualifies at ±30° from the centre angle, confirmed exact against Chris's own
+    eyesight-check of S1. That extra 7.5° beyond the drawn line is what pulls in the
+    immediately-neighbouring C4/C5 triangle on each side — its shape physically straddles
+    the boundary even though the wedge line doesn't move — and it's why the same deity can
+    legitimately appear in two adjacent segments' lists (e.g. gandhākarṣiṇī in both S1 and
+    S5). The Bindu (śrī śrī mahābhaṭṭārikē) is always included last, in every segment, since
+    every ray starts there. Segments are ordered S1→S8 by the 3rd āvaraṇa's own chant
+    sequence (anaṅgakusumē, anaṅgamēkhalē, anaṅgamadanē, anaṅgamadanāturē, anaṅgarēkhē,
+    anaṅgavēginī, anaṅgāṅkuśē, anaṅgamālinī), not physical clockwise position. Within each
+    segment, deities are listed <b>outside → inside</b> (bhūpura first, Bindu last). S1 is
+    confirmed; S2–S8 await your check.</p>
+  <div class="btnrow" id="lineButtons"></div>
+  <div class="btnrow">
+    <button class="linebtn util" id="btnAll">Show all</button>
+    <button class="linebtn util" id="btnNone">Hide all</button>
+  </div>
+  <div id="label"></div>
+  <div id="candidates"></div>
+</div>
+</div>
+
+<script>
+const SEGMENT_LABELS = {
+  S1: 'anaṅgakusumē(C3-1) petal — wedge 337.5°–22.5°',
+  S2: 'anaṅgamēkhalē(C3-2) petal — wedge 67.5°–112.5°',
+  S3: 'anaṅgamadanē(C3-3) petal — wedge 157.5°–202.5°',
+  S4: 'anaṅgamadanāturē(C3-4) petal — wedge 247.5°–292.5°',
+  S5: 'anaṅgarēkhē(C3-5) petal — wedge 22.5°–67.5°',
+  S6: 'anaṅgavēginī(C3-6) petal — wedge 112.5°–157.5°',
+  S7: 'anaṅgāṅkuśē(C3-7) petal — wedge 202.5°–247.5°',
+  S8: 'anaṅgamālinī(C3-8) petal — wedge 292.5°–337.5°',
+}
+
+// Script-generated candidates: every deity (all 9 circuits) within ±30° of this segment's
+// centre angle, listed OUTSIDE → INSIDE (bhūpura first, Bindu last). Real x/y positions
+// from deityPositions.js's own logic, reimplemented against the actual canonical data +
+// triangle-regions.json. This ±30° rule was reverse-engineered from and exactly reproduces
+// Chris's confirmed S1 list (18/18 match, including which C4/C5/C6/C7 neighbours are in vs
+// out) — see the CONFIRMED note below. S2–S8 apply the same rule and await confirmation.
+const CANDIDATES = {
+  // CONFIRMED by Chris (verbatim order) — 2026-08-09.
+  S1: ["mahimāsiddhē(C1)", "kaumārī(C1)", "sarvākarṣiṇī(C1)", "cittākarṣiṇī(C2)", "dhairyākarṣiṇī(C2)", "gandhākarṣiṇī(C2)", "anaṅgakusumē(C3)", "sarvavaśaṅkarī(C4)", "sarvarañjanī(C4)", "sarvajṛmbhiṇī(C4)", "sarvaduḥkhavimōcanī(C5)", "sarvamṛtyupraśamanī(C5)", "sarvakāmapradē(C5)", "sarvādhārasvarūpē(C6)", "aruṇē(C7)", "aṅkuśinī(C8)", "pāśinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  // CONFIRMED by Chris — 2026-08-09.
+  S2: ["īśitvasiddhē(C1)", "vaiṣṇavī(C1)", "sarvavaśaṅkarī(C1)", "śabdākarṣiṇī(C2)", "rūpākarṣiṇī(C2)", "sparśākarṣiṇī(C2)", "anaṅgamēkhalē(C3)", "sarvasammōhinī(C4)", "sarvahlādinī(C4)", "sarvamaṅgaḻakāriṇī(C5)", "sarvapriyaṅkarī(C5)", "sarvajñānamayī(C6)", "sarvaiśvaryapradāyinī(C6)", "mōdinī(C7)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  // CONFIRMED by Chris — 2026-08-09. Removed sarvayōnē(C1) (27° from centre, my flat
+  // ±30° rule wrongly included a point-marker that far out); added sarvasaubhāgyadāyinī(C5)
+  // and sarvasampatpradē(C5) (31° from centre, but their C5 triangle's own edge — not
+  // centroid — reaches well inside the wedge, so a flat degree cutoff undercounted them).
+  // Confirms the flat-angle rule is only an approximation — real polygon-edge overlap
+  // governs C4-C7, while C1 markers seem to need a tighter cutoff than 30°. Not re-deriving
+  // a new universal formula; treating each segment's eyesight-check as ground truth.
+  S3: ["aṇimāsiddhē(C1)", "brāhmī(C1)", "sarvasaṅkṣōbhiṇī(C1)", "buddhyākarṣiṇī(C2)", "śarīrākarṣiṇī(C2)", "kāmākarṣiṇī(C2)", "anaṅgamadanē(C3)", "sarvasaṅkṣōbhiṇī(C4)", "sarvavidrāvinī(C4)", "sarvadvandvakṣayaṅkarī(C4)", "sarvasiddhipradē(C5)", "sarvasaubhāgyadāyinī(C5)", "sarvasampatpradē(C5)", "sarvajñē(C6)", "vaśinī(C7)", "mahākāmēśvarī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  S4: ["laghimāsiddhē(C1)", "garimāsiddhē(C1)", "māhēśvarī(C1)", "sarvavidrāviṇī(C1)", "nāmākarṣiṇī(C2)", "bījākarṣiṇī(C2)", "ātmākarṣiṇī(C2)", "anaṅgamadanāturē(C3)", "sarvārthasādhikē(C4)", "sarvasampattipūriṇī(C4)", "sarvavighnanivāriṇī(C5)", "sarvāṅgasundarī(C5)", "sarvānandamayī(C6)", "sarvarakṣāsvarūpiṇī(C6)", "sarvēśvarī(C7)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  S5: ["bhuktisiddhē(C1)", "cāmuṇḍē(C1)", "sarvakhēcarī(C1)", "rūpākarṣiṇī(C2)", "rasākarṣiṇī(C2)", "gandhākarṣiṇī(C2)", "anaṅgarēkhē(C3)", "sarvajṛmbhiṇī(C4)", "sarvasammōhinī(C4)", "sarvastambhinī(C4)", "sarvakāmapradē(C5)", "sarvamaṅgaḻakāriṇī(C5)", "sarvavyādhivināśinī(C6)", "sarvajñānamayī(C6)", "vimalē(C7)", "pāśinī(C8)", "mahāvajrēśvarī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  S6: ["icchāsiddhē(C1)", "mahālakṣmī(C1)", "sarvabījē(C1)", "prāptisiddhē(C1)", "sarvayōnē(C1)", "buddhyākarṣiṇī(C2)", "ahaṅkārākarṣiṇī(C2)", "śabdākarṣiṇī(C2)", "anaṅgavēginī(C3)", "sarvavidrāvinī(C4)", "sarvahlādinī(C4)", "sarvākarṣiṇī(C4)", "sarvasampatpradē(C5)", "sarvapriyaṅkarī(C5)", "sarvaśaktē(C6)", "sarvaiśvaryapradāyinī(C6)", "kāmēśvarī(C7)", "cāpinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  S7: ["vaśitvasiddhē(C1)", "vārāhī(C1)", "sarvōnmādinī(C1)", "ātmākarṣiṇī(C2)", "amṛtākarṣiṇī(C2)", "śarīrākarṣiṇī(C2)", "anaṅgāṅkuśē(C3)", "sarvadvandvakṣayaṅkarī(C4)", "sarvasampattipūriṇī(C4)", "sarvamantramayī(C4)", "sarvasaubhāgyadāyinī(C5)", "sarvāṅgasundarī(C5)", "sarvēpsitaphalapradē(C6)", "sarvarakṣāsvarūpiṇī(C6)", "kauḻinī(C7)", "bāṇinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+  S8: ["prākāmyasiddhē(C1)", "māhēndrī(C1)", "sarvamahāṅkuśē(C1)", "sarvakāmasiddhē(C1)", "sarvatrikhaṇḍē(C1)", "dhairyākarṣiṇī(C2)", "smṛtyākarṣiṇī(C2)", "nāmākarṣiṇī(C2)", "anaṅgamālinī(C3)", "sarvarañjanī(C4)", "sarvārthasādhikē(C4)", "sarvōnmādinī(C4)", "sarvamṛtyupraśamanī(C5)", "sarvavighnanivāriṇī(C5)", "sarvapāpaharē(C6)", "sarvānandamayī(C6)", "jayinī(C7)", "aṅkuśinī(C8)", "mahābhagamālinī(C8)", "śrī śrī mahābhaṭṭārikē(C9)"],
+}
+
+const lineButtons = document.getElementById('lineButtons')
+Object.keys(SEGMENT_LABELS).forEach(id => {
+  const b = document.createElement('button')
+  b.className = 'linebtn'
+  b.textContent = id + ' (' + (CANDIDATES[id] || []).length + ')'
+  b.onclick = () => showOnly(id)
+  b.id = 'btn-' + id
+  lineButtons.appendChild(b)
+})
+
+function clearActive() {
+  document.querySelectorAll('.linebtn').forEach(b => b.classList.remove('active'))
+}
+
+function showOnly(id) {
+  document.querySelectorAll('.line-group').forEach(g => {
+    g.style.display = (g.id === 'seg-' + id) ? '' : 'none'
+  })
+  clearActive()
+  document.getElementById('btn-' + id).classList.add('active')
+  const cands = CANDIDATES[id] || []
+  document.getElementById('label').textContent = id + ' — ' + SEGMENT_LABELS[id] + ' — ' + cands.length + ' deities'
+  document.getElementById('candidates').innerHTML = cands
+    .map(c => {
+      const isBindu = c.includes('(C9)')
+      const isNear = c.endsWith('~')
+      const clean = c.replace(/~$/, '')
+      return `<span class="tag${isNear ? ' near' : ''}${isBindu ? ' bindu' : ''}">${clean}${isNear ? ' (near)' : ''}</span>`
+    })
+    .join(' ')
+}
+
+function showAll() {
+  document.querySelectorAll('.line-group').forEach(g => g.style.display = '')
+  clearActive()
+  document.getElementById('btnAll').classList.add('active')
+  document.getElementById('label').textContent = 'All 8 segments shown'
+  document.getElementById('candidates').innerHTML = ''
+}
+
+function showNone() {
+  document.querySelectorAll('.line-group').forEach(g => g.style.display = 'none')
+  clearActive()
+  document.getElementById('btnNone').classList.add('active')
+  document.getElementById('label').textContent = 'Base yantra only — no segments'
+  document.getElementById('candidates').innerHTML = ''
+}
+
+document.getElementById('btnAll').onclick = showAll
+document.getElementById('btnNone').onclick = showNone
+
+// Start on S1 for the segment-by-segment pass
+showOnly('S1')
+</script>
+</body>
+</html>

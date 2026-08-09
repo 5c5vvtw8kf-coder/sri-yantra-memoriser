@@ -21,7 +21,7 @@
 
 import { BHUPURA_MARKERS, C2_PETALS, C3_PETALS } from './components/SriYantraSVG'
 import triangleData from './data/triangle-regions.json'
-import data from './data/khadgamala-canonical.json'
+import data from './data/activeDeities'
 import { KORVIN_CENTRAL_RAW } from './korvinGeometry'
 
 const { deities } = data

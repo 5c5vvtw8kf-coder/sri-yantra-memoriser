@@ -19,7 +19,7 @@
  */
 
 import { useState, useRef, useEffect } from 'react'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
 import FuriganaName from './FuriganaName'
 import SriYantraSVG, { BHUPURA_MARKERS } from './SriYantraSVG'
@@ -99,8 +99,12 @@ const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti').sort((a
 const matrikaDeities = c1Deities.filter(d => d.group === 'ashtaMatrika').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 
-const C1_TOTAL     = c1Deities.length  // 29 — dot-phase deities only (includes garimāsiddhē)
-const BHUPURA_TOTAL = 31               // 29 deities + Chakra Svāminī (30) + Yoginī (31)
+// 29 with garimāsiddhē included, 28 with it excluded (see data/activeDeities.js) — computed
+// from the actual filtered array rather than hardcoded, so the toggle doesn't need this file
+// touched again.
+export const C1_TOTAL = c1Deities.length       // dot-phase deities only
+export const SIDDHI_TOTAL = siddhiDeities.length // 11 with garimā, 10 without
+const BHUPURA_TOTAL = C1_TOTAL + 2             // + Chakra Svāminī + Yoginī
 
 // Co-location map: group deities by physical (x,y) position so that dots sharing
 // the same coordinates (e.g. laghimāsiddhē n=2 and garimāsiddhē n=11) are merged.
@@ -683,8 +687,8 @@ export default function BhupuraView({
         tr={tr}
         svaminiDeity={bhupuraSvaminiDeity}
         yoginiDeity={bhupuraYoginiDeity}
-        svaminiSeq={memoGroup === 'all' ? 29 : memoDeities.length + 1}
-        yoginiSeq={memoGroup === 'all' ? 30 : memoDeities.length + 2}
+        svaminiSeq={memoGroup === 'all' ? C1_TOTAL : memoDeities.length + 1}
+        yoginiSeq={memoGroup === 'all' ? C1_TOTAL + 1 : memoDeities.length + 2}
         memorise={memorise}
         currentSeq={currentSeq}
         atEnd={!memorise && navStep >= BAND_CONFIG[bandStep].list.length && bandStep >= BAND_CONFIG.length - 1}

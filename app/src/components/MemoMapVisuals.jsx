@@ -21,7 +21,7 @@
 
 import { useState } from 'react'
 import SriYantraSVG from './SriYantraSVG'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 import {
   APEX, BASE_L, BASE_R, CENTROID, BINDU,
   CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID,

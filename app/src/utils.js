@@ -145,6 +145,27 @@ export function recordHistoryEntry(key, seq, result) {
   } catch {}
 }
 
+// ── Lineage settings ─────────────────────────────────────────────────────────
+//
+// Some deities (e.g. garimāsiddhē) are excluded by some lineages and included
+// by others — see khadgamala-canonical.json's `optional: true` flag. This
+// setting controls whether optional deities are shown, and is read once at
+// module-load time by data/activeDeities.js (which every view imports data
+// through instead of the raw canonical JSON). Because it's read at import
+// time rather than kept in React state, toggling it requires a page reload
+// to take effect everywhere — see setIncludeOptionalDeities's caller in
+// ReferencesView.jsx.
+
+const INCLUDE_OPTIONAL_KEY = 'sy-include-optional-deities'
+
+export function getIncludeOptionalDeities() {
+  try { return localStorage.getItem(INCLUDE_OPTIONAL_KEY) === 'true' } catch { return false }
+}
+
+export function setIncludeOptionalDeities(value) {
+  try { localStorage.setItem(INCLUDE_OPTIONAL_KEY, value ? 'true' : 'false') } catch {}
+}
+
 /**
  * Returns the display name for a deity in the requested script,
  * falling back to IAST if the requested script is unavailable.

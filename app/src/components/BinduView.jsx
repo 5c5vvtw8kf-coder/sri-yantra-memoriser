@@ -20,7 +20,7 @@
  */
 
 import { useState } from 'react'
-import data from '../data/khadgamala-canonical.json'
+import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
 
 // ── Coordinate system (same as InnerView) ────────────────────────────────────
