@@ -187,22 +187,22 @@ export default function SegmentDrillView({
               <>
                 <path
                   d={geometry.fillPath}
-                  fill={GOLD}
-                  fillOpacity={wedgeShowing ? 0.14 : 0.07}
+                  fill={CREAM}
+                  fillOpacity={wedgeShowing ? 0.28 : 0.07}
                   style={{ pointerEvents: 'none', transition: 'fill-opacity 500ms ease' }}
                 />
                 <line
                   x1={CX} y1={CY} x2={geometry.loX} y2={geometry.loY}
-                  stroke={GOLD}
-                  strokeWidth={wedgeShowing ? 1.4 : 0.8}
-                  strokeOpacity={wedgeShowing ? 0.9 : 0.4}
+                  stroke={wedgeShowing ? CREAM : GOLD}
+                  strokeWidth={wedgeShowing ? 2.2 : 0.8}
+                  strokeOpacity={wedgeShowing ? 1 : 0.4}
                   style={{ pointerEvents: 'none', transition: 'stroke-opacity 500ms ease, stroke-width 500ms ease' }}
                 />
                 <line
                   x1={CX} y1={CY} x2={geometry.hiX} y2={geometry.hiY}
-                  stroke={GOLD}
-                  strokeWidth={wedgeShowing ? 1.4 : 0.8}
-                  strokeOpacity={wedgeShowing ? 0.9 : 0.4}
+                  stroke={wedgeShowing ? CREAM : GOLD}
+                  strokeWidth={wedgeShowing ? 2.2 : 0.8}
+                  strokeOpacity={wedgeShowing ? 1 : 0.4}
                   style={{ pointerEvents: 'none', transition: 'stroke-opacity 500ms ease, stroke-width 500ms ease' }}
                 />
               </>

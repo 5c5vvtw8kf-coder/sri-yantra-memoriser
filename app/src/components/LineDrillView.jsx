@@ -203,9 +203,9 @@ export default function LineDrillView({
             {geometry && (
               <line
                 x1={geometry.x1} y1={geometry.y1} x2={geometry.x2} y2={geometry.y2}
-                stroke={GOLD}
-                strokeWidth={lineShowing ? 1.4 : 0.8}
-                strokeOpacity={lineShowing ? 0.9 : 0.4}
+                stroke={lineShowing ? CREAM : GOLD}
+                strokeWidth={lineShowing ? 2.2 : 0.8}
+                strokeOpacity={lineShowing ? 1 : 0.4}
                 style={{ pointerEvents: 'none', transition: 'stroke-opacity 500ms ease, stroke-width 500ms ease' }}
               />
             )}
