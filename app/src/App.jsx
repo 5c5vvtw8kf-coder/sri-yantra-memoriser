@@ -3688,7 +3688,7 @@ export default function App() {
                   id === tdTriangleId ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream',
                 ].join(' ')}
               >
-                {id} ({triangleDrillData.TRIANGLES[id].filter(did => tdDeityById[did]).length})
+                {triangleDrillData.DISPLAY_NAMES[id] || id} ({triangleDrillData.TRIANGLES[id].filter(did => tdDeityById[did]).length})
               </button>
             ))}
           </div>
@@ -3706,7 +3706,7 @@ export default function App() {
                   id === tdTriangleId ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream',
                 ].join(' ')}
               >
-                {id} ({triangleDrillData.TRIANGLES[id].filter(did => tdDeityById[did]).length})
+                {triangleDrillData.DISPLAY_NAMES[id] || id} ({triangleDrillData.TRIANGLES[id].filter(did => tdDeityById[did]).length})
               </button>
             ))}
           </div>
@@ -5750,6 +5750,7 @@ export default function App() {
               <TriangleDrillView
                 script={script}
                 triangleId={tdTriangleId}
+                triangleLabel={triangleDrillData.DISPLAY_NAMES[tdTriangleId] || tdTriangleId}
                 phase={tdPhase}
                 previewStage={tdPreviewStage}
                 currentIndex={tdIndex}

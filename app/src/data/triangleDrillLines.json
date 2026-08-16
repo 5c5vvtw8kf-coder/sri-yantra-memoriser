@@ -1,4 +1,15 @@
 {
+  "DISPLAY_NAMES": {
+    "Shiva1": "Śiva 1",
+    "Shiva2": "Śiva 2",
+    "Shiva3": "Śiva 3",
+    "Shiva4": "Śiva 4",
+    "Shakti1": "Śakti 1",
+    "Shakti2": "Śakti 2",
+    "Shakti3": "Śakti 3",
+    "Shakti4": "Śakti 4",
+    "Shakti5": "Śakti 5"
+  },
   "TRIANGLE_LABELS": {
     "Shiva1": "Upward triangle 1 (outermost Śiva)",
     "Shiva2": "Upward triangle 2",

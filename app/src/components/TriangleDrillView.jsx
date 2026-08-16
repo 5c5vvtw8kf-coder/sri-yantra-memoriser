@@ -120,6 +120,7 @@ function dotColor(i, phase, previewStage, currentIndex, results) {
 export default function TriangleDrillView({
   script = 'iast',
   triangleId,
+  triangleLabel,
   phase,
   previewStage,
   currentIndex,
@@ -179,17 +180,17 @@ export default function TriangleDrillView({
             xmlns="http://www.w3.org/2000/svg"
             className="absolute inset-0 w-full h-full"
             style={{ background: 'transparent' }}
-            aria-label={`Triangle Drill — ${triangleId}`}
+            aria-label={`Triangle Drill — ${triangleLabel || triangleId}`}
           >
             {/* True primary-triangle geometry — prominent for the first 2s, then a faint reference */}
             {geometry && (
               <polygon
                 points={geometry.points}
-                fill={GOLD}
-                fillOpacity={triShowing ? 0.14 : 0.07}
-                stroke={GOLD}
-                strokeWidth={triShowing ? 1.4 : 0.8}
-                strokeOpacity={triShowing ? 0.9 : 0.4}
+                fill={CREAM}
+                fillOpacity={triShowing ? 0.28 : 0.07}
+                stroke={triShowing ? CREAM : GOLD}
+                strokeWidth={triShowing ? 2.2 : 0.8}
+                strokeOpacity={triShowing ? 1 : 0.4}
                 style={{ pointerEvents: 'none', transition: 'fill-opacity 500ms ease, stroke-opacity 500ms ease, stroke-width 500ms ease' }}
               />
             )}
