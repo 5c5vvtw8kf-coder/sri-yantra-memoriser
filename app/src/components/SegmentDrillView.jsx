@@ -130,6 +130,7 @@ export default function SegmentDrillView({
   revealed,
   onActiveTap,
   onPastTap,
+  onPastRightClick,
   SriYantraSVG,
   tr = k => k,
 }) {
@@ -158,6 +159,15 @@ export default function SegmentDrillView({
     if (i === undefined) return
     if (i === currentIndex && phase === 'drill') onActiveTap(i)
     else if (i < currentIndex && phase === 'drill') onPastTap(i)
+  }
+
+  // Desktop right-click on a past stop toggles it immediately — see
+  // TriangleDrillView's handleRegionRightClick comment for why this is separate
+  // from onPastTap's double-invocation (mobile double-tap) logic.
+  function handleRegionRightClick(regionId) {
+    const i = regionToIndex[regionId]
+    if (i === undefined) return
+    if (i < currentIndex && phase === 'drill' && onPastRightClick) onPastRightClick(i)
   }
 
   return (
@@ -229,6 +239,7 @@ export default function SegmentDrillView({
                     setTapFocusIndex(i)
                     handleRegionClick(s.regionId)
                   }}
+                  onContextMenu={e => { e.preventDefault(); handleRegionRightClick(s.regionId) }}
                 />
               )
             })}
@@ -256,6 +267,10 @@ export default function SegmentDrillView({
                     setTapFocusIndex(i)
                     if (isActive) onActiveTap(i)
                     else if (isPast) onPastTap(i)
+                  }}
+                  onContextMenu={e => {
+                    e.preventDefault()
+                    if (isPast && onPastRightClick) onPastRightClick(i)
                   }}
                 />
               )

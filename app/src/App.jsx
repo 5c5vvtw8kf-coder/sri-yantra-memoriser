@@ -3465,8 +3465,27 @@ export default function App() {
     const isDouble = sdPastTapRef.current.index === index && (now - sdPastTapRef.current.time) < 300
     sdPastTapRef.current = { index, time: now }
     if (isDouble) {
-      setSdResults(r => ({ ...r, [index]: r[index] === 'correct' ? 'wrong' : 'correct' }))
+      sdToggleResult(index)
     }
+  }
+
+  // Desktop right-click — see tdHandleRightClick's comment for why this is separate
+  // from sdHandlePastTap's mobile double-tap logic.
+  function sdHandleRightClick(index) {
+    sdToggleResult(index)
+  }
+
+  function sdToggleResult(index) {
+    setSdResults(r => {
+      if (!r[index]) return r
+      const next = r[index] === 'correct' ? 'wrong' : 'correct'
+      const stop = sdStops[index]
+      if (stop?.deity) {
+        const memoKey = sectionIdToMemoKey(stop.deity.sectionId)
+        if (memoKey) recordHistoryEntry(memoKey, stop.deity.sequenceInSection, next, 'drill')
+      }
+      return { ...r, [index]: next }
+    })
   }
 
   function sdRestartSameSegment() {
@@ -3660,8 +3679,30 @@ export default function App() {
     const isDouble = tdPastTapRef.current.index === index && (now - tdPastTapRef.current.time) < 300
     tdPastTapRef.current = { index, time: now }
     if (isDouble) {
-      setTdResults(r => ({ ...r, [index]: r[index] === 'correct' ? 'wrong' : 'correct' }))
+      tdToggleResult(index)
     }
+  }
+
+  // Desktop right-click on a past stop toggles it immediately (no double-invocation
+  // needed, unlike tdHandlePastTap above which exists for mobile's double-tap gesture
+  // on the same onClick handler). Mirrors SpotCheckView's handleRightClick. Was
+  // previously missing entirely — right-clicking a past Triangle/Segment/Line Drill
+  // stop just opened the browser's context menu and did nothing.
+  function tdHandleRightClick(index) {
+    tdToggleResult(index)
+  }
+
+  function tdToggleResult(index) {
+    setTdResults(r => {
+      if (!r[index]) return r
+      const next = r[index] === 'correct' ? 'wrong' : 'correct'
+      const stop = tdStops[index]
+      if (stop?.deity) {
+        const memoKey = sectionIdToMemoKey(stop.deity.sectionId)
+        if (memoKey) recordHistoryEntry(memoKey, stop.deity.sequenceInSection, next, 'drill')
+      }
+      return { ...r, [index]: next }
+    })
   }
 
   function tdRestartSameTriangle() {
@@ -3876,8 +3917,27 @@ export default function App() {
     const isDouble = ldPastTapRef.current.index === index && (now - ldPastTapRef.current.time) < 300
     ldPastTapRef.current = { index, time: now }
     if (isDouble) {
-      setLdResults(r => ({ ...r, [index]: r[index] === 'correct' ? 'wrong' : 'correct' }))
+      ldToggleResult(index)
     }
+  }
+
+  // Desktop right-click — see tdHandleRightClick's comment for why this is separate
+  // from ldHandlePastTap's mobile double-tap logic.
+  function ldHandleRightClick(index) {
+    ldToggleResult(index)
+  }
+
+  function ldToggleResult(index) {
+    setLdResults(r => {
+      if (!r[index]) return r
+      const next = r[index] === 'correct' ? 'wrong' : 'correct'
+      const stop = ldStops[index]
+      if (stop?.deity) {
+        const memoKey = sectionIdToMemoKey(stop.deity.sectionId)
+        if (memoKey) recordHistoryEntry(memoKey, stop.deity.sequenceInSection, next, 'drill')
+      }
+      return { ...r, [index]: next }
+    })
   }
 
   function ldRestartSameLine() {
@@ -5756,6 +5816,7 @@ export default function App() {
                 revealed={ldRevealed}
                 onActiveTap={ldHandleActiveTap}
                 onPastTap={ldHandlePastTap}
+                onPastRightClick={ldHandleRightClick}
                 SriYantraSVG={SriYantraSVG}
                 tr={tr}
               />
@@ -5779,6 +5840,7 @@ export default function App() {
                 revealed={sdRevealed}
                 onActiveTap={sdHandleActiveTap}
                 onPastTap={sdHandlePastTap}
+                onPastRightClick={sdHandleRightClick}
                 SriYantraSVG={SriYantraSVG}
                 tr={tr}
               />
@@ -5803,6 +5865,7 @@ export default function App() {
                 revealed={tdRevealed}
                 onActiveTap={tdHandleActiveTap}
                 onPastTap={tdHandlePastTap}
+                onPastRightClick={tdHandleRightClick}
                 SriYantraSVG={SriYantraSVG}
                 tr={tr}
               />
