@@ -23,7 +23,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import data from '../data/activeDeities'
-import { displayName, measureTooltipWidth } from '../utils.js'
+import { displayName, measureTooltipWidth, recordHistoryEntry, sectionIdToMemoKeyAndSeq } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID } from '../korvinGeometry'
 
 // ── Geometry (matches GuravaView exactly) ─────────────────────────────────────
@@ -202,6 +202,14 @@ export default function GuravahSpotCheckView({
   const markResult = useCallback((id, outcome) => {
     if (!id || flash) return
     setResults(r => ({ ...r, [id]: outcome }))
+    const d = deityById[id]
+    if (d) {
+      // Guru lineages share one combined 'gurava' store — sequenceInSection
+      // alone would collide across divya/siddha/manava, so this needs the
+      // offset-aware helper rather than the plain sectionIdToMemoKey lookup.
+      const { key, seq } = sectionIdToMemoKeyAndSeq(d.sectionId, d.sequenceInSection)
+      if (key) recordHistoryEntry(key, seq, outcome, 'drill')
+    }
     setFlash(outcome)
     flashTimer.current = setTimeout(() => {
       setFlash(null)

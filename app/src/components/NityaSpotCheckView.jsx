@@ -16,7 +16,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import data from '../data/activeDeities'
-import { displayName, measureTooltipWidth } from '../utils.js'
+import { displayName, measureTooltipWidth, recordHistoryEntry, sectionIdToMemoKey } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
 
 // ── Geometry (matches InnerView exactly) ──────────────────────────────────────
@@ -185,6 +185,11 @@ export default function NityaSpotCheckView({
   const markResult = useCallback((id, outcome) => {
     if (!id || flash) return
     setResults(r => ({ ...r, [id]: outcome }))
+    const d = deityById[id]
+    if (d) {
+      const memoKey = sectionIdToMemoKey(d.sectionId)
+      if (memoKey) recordHistoryEntry(memoKey, d.sequenceInSection, outcome, 'drill')
+    }
     setFlash(outcome)
     flashTimer.current = setTimeout(() => {
       setFlash(null)

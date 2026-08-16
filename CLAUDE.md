@@ -18,11 +18,11 @@ Three development stages, each building on the previous:
 1. **Maintenance mode:** Already has the stotra largely memorised. Needs a clean revision tool and interactive reference to keep knowledge sharp without printed sheets.
 2. **Knowledge decay recovery:** A structured way to re-learn if the chant fades after a period without practice.
 
-**Stage 2 — Western practitioners:**
-People who have found the Khadgamala Stotram without a teacher or community, typically with no access to accessible learning tools. This group is motivated, will pay for a quality product, and is poorly served by existing resources (which assume Indian cultural context, Devanagari literacy, or access to a living teacher). This is the primary commercial target for Phase 1 commercialisation.
+**Stage 2 — Global practitioners without a teacher or community:**
+People who have found the Khadgamala Stotram without a teacher or community, typically with no access to accessible learning tools — regardless of which language or script they read in. (**Revised 2026-08-16:** originally framed as "Western practitioners," on the assumption the gap was Devanagari literacy or Indian cultural context. Now that the app carries many Indic-language translations alongside IAST/Devanagari, that's no longer the right dividing line — the actual gap is *access to a teacher or living community*, which cuts across language and geography.) This group is motivated, will pay for a quality product, and is poorly served by existing resources, most of which assume the learner already has access to a living teacher. This is the primary commercial target for Phase 1 commercialisation.
 
-**Stage 3 — Indian practitioners globally:**
-A large potential market but crowded with free content, recordings, and teachers. Commercialisation for this segment is a separate stage or project, to be considered only after Stage 2 is proven. Do not optimise for this group prematurely — it risks diluting the focus on what makes the app distinctive for Westerners.
+**Stage 3 — Practitioners already embedded in a living tradition:**
+Practitioners with access to an existing teacher, guru, or sampradaya community — wherever they are. A large potential market but crowded with free content, recordings, and teachers who already serve this group directly. Commercialisation for this segment is a separate stage or project, to be considered only after Stage 2 is proven. Do not optimise for this group prematurely — it risks diluting the focus on what makes the app distinctive for practitioners learning without a teacher. (**Revised 2026-08-16, confirmed by Chris:** the stage boundary itself stays — this is a terminology fix, not a merge of Stage 2 and Stage 3. The dividing line is "has a teacher/community" vs. "doesn't," not language or nationality.)
 
 ## The Subject Matter
 
@@ -342,7 +342,7 @@ At the start of each session, Claude should:
 | App name | *Sri Yantra Memoriser — for the Khadgamala Stotram*. Sri Yantra leads; Khadgamala Stotram is the subtitle. |
 | App focus | The Sri Yantra spatial geometry is the unique differentiator. Keep it central. Do not let the app drift into a generic Khadgamala flashcard tool. |
 | Preamble sections (Prarthana, Dhyanam) | Include eventually for completeness, but only after the core spatial learning modes (Spot Check, Line Drill) are stable. They are text/sequence-based and require no yantra geometry work. |
-| Commercialisation sequence | Stage 1: build for Chris. Stage 2: Western practitioners (primary commercial target — motivated, underserved, will pay). Stage 3: Indian practitioners globally (separate stage; do not optimise for this group prematurely). |
+| Commercialisation sequence | Stage 1: build for Chris. Stage 2: global practitioners without a teacher/community (primary commercial target — motivated, underserved, will pay). Stage 3: practitioners already embedded in a living tradition/community (separate stage; do not optimise for this group prematurely). Revised 2026-08-16: dividing line is teacher/community access, not language or nationality — see Target Users section. |
 | Colour system | CREAM = current focus (both modes). GOLD = past visited (Explore) / structural yantra. RED = correct (Memorise only). TERRACOTTA (#8b4513) = wrong (Memorise only). DIM_GOLD = not yet reached. See UI/UX Standards section. |
 | Mobile tap behaviour | Single tap = reveal + mark correct. Double-tap = mark wrong. No two-step reveal-then-mark flow. Strip is tap-to-reveal, never auto-reveals. Desktop unchanged (single click = correct, double click = wrong). |
 | Sequence/direction indicators | Arrows (green/red/gold) being phased out. Replace with numbered labels and text badges. Auto-animation (planned) will handle sequence direction in Explore. |

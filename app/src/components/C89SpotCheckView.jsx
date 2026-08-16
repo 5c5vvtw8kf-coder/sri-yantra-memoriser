@@ -20,7 +20,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import data from '../data/activeDeities'
-import { displayName, measureTooltipWidth } from '../utils.js'
+import { displayName, measureTooltipWidth, recordHistoryEntry, sectionIdToMemoKey } from '../utils.js'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
 
 // ── Geometry (matches C8View) ─────────────────────────────────────────────────
@@ -221,6 +221,8 @@ export default function C89SpotCheckView({
   const advance = useCallback((result) => {
     if (!current || done) return
     setResults(prev => ({ ...prev, [current.id]: result }))
+    const memoKey = sectionIdToMemoKey(current.sectionId)
+    if (memoKey) recordHistoryEntry(memoKey, current.sequenceInSection, result, 'drill')
     setFlash(result)
     setTimeout(() => {
       setFlash(null)

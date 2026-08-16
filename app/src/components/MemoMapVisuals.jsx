@@ -26,7 +26,7 @@ import {
   APEX, BASE_L, BASE_R, CENTROID, BINDU,
   CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID,
 } from '../korvinGeometry'
-import { displayName, measureTooltipWidth } from '../utils.js'
+import { displayName, measureTooltipWidth, CIRCUIT_STORE, SVAMINI_YOGINI_SEQS } from '../utils.js'
 
 const { deities, sections } = data
 
@@ -146,25 +146,9 @@ for (let i = 1; i <= 8;  i++) ALL_YANTRA_DIM[`tri-c7-${String(i).padStart(2, '0'
 
 // -- Svamini / Yogini seq numbers per circuit (in the memorise-mode store) ----
 // These are the seq values used by handleCxMarkResult for the two extra items
-// that follow the deity sequence in each circuit's memorise round.
-
-const CIRCUIT_STORE = {
-  'circuit-1': 'bhupura', 'circuit-2': 'c2', 'circuit-3': 'c3',
-  'circuit-4': 'c4',      'circuit-5': 'c5', 'circuit-6': 'c6',
-  'circuit-7': 'c7',      'circuit-8': 'c8', 'circuit-9': 'c9',
-}
-
-const SVAMINI_YOGINI_SEQS = {
-  'circuit-1': { svamini: 29, yogini: 30 },
-  'circuit-2': { svamini: 17, yogini: 18 },
-  'circuit-3': { svamini: 9,  yogini: 10 },
-  'circuit-4': { svamini: 15, yogini: 16 },
-  'circuit-5': { svamini: 11, yogini: 12 },
-  'circuit-6': { svamini: 11, yogini: 12 },
-  'circuit-7': { svamini: 9,  yogini: 10 },
-  'circuit-8': { svamini: 8,  yogini: 9  },
-  'circuit-9': { svamini: 2,  yogini: 3  },
-}
+// that follow the deity sequence in each circuit's memorise round. Moved to
+// utils.js (2026-08-16) so NavaCakraSpotCheckView can write to the same slots
+// instead of duplicating these numbers a third time — imported above.
 
 function getSvaminiYoginiStatus(sectionId, allHistory) {
   const sySeqs = SVAMINI_YOGINI_SEQS[sectionId]

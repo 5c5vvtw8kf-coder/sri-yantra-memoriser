@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import data from '../data/activeDeities'
-import { saveMemoStorage, loadMemoHistory, displayName } from '../utils.js'
+import { saveMemoStorage, loadMemoHistory, displayName, filterHistoryByMode } from '../utils.js'
 import MemoMapVisuals from './MemoMapVisuals'
+
+// Persisted separately from the lineage/results overlay — this is a display
+// preference, not practice data, so it isn't part of the memo-* / memo-history-*
+// stores that get synced (see PERSISTENCE-AND-SYNC-DESIGN.md Part B).
+const INCLUDE_DRILLS_KEY = 'memo-map-include-drills'
 
 const { deities, sections } = data
 
@@ -175,13 +180,31 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
   const [view,          setView]          = useState('maps')   // 'maps' | 'list'
   const [sectionFilter, setSectionFilter] = useState('all')
   const [statusFilter,  setStatusFilter]  = useState('all')
+  // Confirmed default 2026-08-16: off — Memory Map shows sequential Memorise-mode
+  // evidence only, unless the user opts in to also counting Spot Check / Segment /
+  // Line / Triangle Drill results. See PERSISTENCE-AND-SYNC-DESIGN.md Part A.
+  const [includeDrills, setIncludeDrills] = useState(() => {
+    try { return localStorage.getItem(INCLUDE_DRILLS_KEY) === 'true' } catch { return false }
+  })
+  const handleToggleIncludeDrills = () => {
+    setIncludeDrills(prev => {
+      const next = !prev
+      try { localStorage.setItem(INCLUDE_DRILLS_KEY, String(next)) } catch {}
+      return next
+    })
+  }
 
   const SECTION_COL_LABEL = buildSectionColLabel(tr)
   const FILTER_OPTIONS    = buildFilterOptions(tr, script)
 
-  const allHistory = Object.fromEntries(
+  const rawHistory = Object.fromEntries(
     HISTORY_STORES.map(k => [k, loadMemoHistory(k)])
   )
+  // Pre-filtered to plain 'correct'/'wrong' strings per the includeDrills toggle —
+  // both this file's own statusFromHistory() and MemoMapVisuals' identical copy
+  // read allHistory expecting exactly that shape, so filtering once here means
+  // neither needs to know entries can carry a mode tag at all.
+  const allHistory = filterHistoryByMode(rawHistory, includeDrills)
 
   const rows = ALL_STATIC_ROWS.map(row => ({
     ...row,
@@ -299,6 +322,11 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
             </div>
           </div>
 
+          <label className="flex items-center gap-1.5 text-[11px] font-mono text-muted cursor-pointer select-none">
+            <input type="checkbox" checked={includeDrills} onChange={handleToggleIncludeDrills} className="accent-gold-600" />
+            {tr('map.include_drills')}
+          </label>
+
           {view === 'list' && (
             <div className="space-y-0.5 text-[11px] font-mono">
               <div className="flex items-center gap-2"><span className="text-green-400 w-3 flex-shrink-0">✓</span><span className="text-muted w-5 flex-shrink-0">{memorisedCount}</span><span className="text-muted">{tr('map.correct_last3')}</span></div>
@@ -394,6 +422,11 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
             <div className="h-full bg-red-400   transition-all duration-300"  style={{ width: `${notMemoisedPct}%` }} />
           </div>
         </div>
+
+        <label className="flex items-center gap-1.5 text-[11px] font-mono text-muted cursor-pointer select-none">
+          <input type="checkbox" checked={includeDrills} onChange={handleToggleIncludeDrills} className="accent-gold-600" />
+          {tr('map.include_drills')}
+        </label>
 
         {/* Filters -- list mode only */}
         {view === 'list' && <div className="flex gap-2">

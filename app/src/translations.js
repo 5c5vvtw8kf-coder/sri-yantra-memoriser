@@ -340,6 +340,7 @@ const en = {
   'map.not_attempted':   '— Not attempted',
   'map.no_entries':      'No entries match',
   'map.clear_confirm':   'Clear all memo results and history? This cannot be undone.',
+  'map.include_drills':  'Include drills',
   'map.correct_last3':   'correct on last 3 attempts',
   'map.correct_partial': 'correct on < last 3 attempts',
   'map.none_correct':    'none of last 3 correct',
@@ -595,6 +596,7 @@ const gu = {
   'map.not_attempted':   '— પ્રયાસ નહીં',
   'map.no_entries':      'કોઈ મળ્યું નહીં',
   'map.clear_confirm':   'બધા પરિણામ ભૂંસો? આ પૂર્વવત્ ન થઈ શકે.',
+  'map.include_drills':  'ડ્રિલ્સ શામેલ કરો', // AI-generated — needs native speaker review.
   'map.correct_last3':   'છેલ્લા 3 પ્રયાસમાં સાચું',
   'map.correct_partial': 'છેલ્લા 3 થી ઓછા પ્રયાસ સાચા',
   'map.none_correct':    'છેલ્લા 3 માં કોઈ સાચું નહીં',
@@ -830,6 +832,7 @@ const hi = {
   'map.not_attempted':   '— प्रयास नहीं',
   'map.no_entries':      'कोई मिलान नहीं',
   'map.clear_confirm':   'सभी परिणाम मिटाएं? यह पूर्ववत नहीं किया जा सकता।',
+  'map.include_drills':  'ड्रिल शामिल करें', // AI-generated — needs native speaker review.
   'map.correct_last3':   'अंतिम 3 प्रयासों में सही',
   'map.correct_partial': 'अंतिम 3 से कम प्रयासों में सही',
   'map.none_correct':    'अंतिम 3 में कोई सही नहीं',
@@ -1065,6 +1068,7 @@ const te = {
   'map.not_attempted':   '— ప్రయత్నించలేదు',
   'map.no_entries':      'సరిపోయే నమోదులు లేవు',
   'map.clear_confirm':   'అన్ని ఫలితాలు తొలగించాలా? ఇది రద్దు చేయడం సాధ్యం కాదు.',
+  'map.include_drills':  'డ్రిల్స్ చేర్చు', // AI-generated — needs native speaker review.
   'map.correct_last3':   'చివరి 3 ప్రయత్నాలలో సరైనవి',
   'map.correct_partial': 'చివరి 3 కంటే తక్కువ ప్రయత్నాలలో సరైనవి',
   'map.none_correct':    'చివరి 3 ప్రయత్నాలలో ఏదీ సరైనవి కాదు',
@@ -1300,6 +1304,7 @@ const ta = {
   'map.not_attempted':   '— முயற்சிக்கவில்லை',
   'map.no_entries':      'பொருந்தும் பதிவுகள் இல்லை',
   'map.clear_confirm':   'அனைத்து முடிவுகளையும் அழிக்கவா? இதை மீளவியலாது.',
+  'map.include_drills':  'பயிற்சிகளைச் சேர்க்க', // AI-generated — needs native speaker review.
   'map.correct_last3':   'கடைசி 3 முயற்சிகளில் சரியானவை',
   'map.correct_partial': 'கடைசி 3க்கும் குறைவான முயற்சிகளில் சரியானவை',
   'map.none_correct':    'கடைசி 3 முயற்சிகளில் எதுவும் சரியில்லை',
@@ -1535,6 +1540,7 @@ const kn = {
   'map.not_attempted':   '— ಪ್ರಯತ್ನಿಸಿಲ್ಲ',
   'map.no_entries':      'ಹೊಂದಾಣಿಕೆ ನಮೂದುಗಳಿಲ್ಲ',
   'map.clear_confirm':   'ಎಲ್ಲ ಫಲಿತಾಂಶಗಳನ್ನು ತೆರವು ಮಾಡಬೇಕೇ? ಇದನ್ನು ರದ್ದು ಮಾಡಲಾಗದು.',
+  'map.include_drills':  'ಡ್ರಿಲ್‌ಗಳನ್ನು ಸೇರಿಸಿ', // AI-generated — needs native speaker review.
   'map.correct_last3':   'ಕೊನೆಯ 3 ಪ್ರಯತ್ನಗಳಲ್ಲಿ ಸರಿಯಾದವು',
   'map.correct_partial': 'ಕೊನೆಯ 3ಕ್ಕಿಂತ ಕಡಿಮೆ ಪ್ರಯತ್ನಗಳಲ್ಲಿ ಸರಿಯಾದವು',
   'map.none_correct':    'ಕೊನೆಯ 3 ಪ್ರಯತ್ನಗಳಲ್ಲಿ ಯಾವುದೂ ಸರಿಯಿಲ್ಲ',
@@ -1770,6 +1776,7 @@ const ml = {
   'map.not_attempted':   '— ശ്രമിച്ചിട്ടില്ല',
   'map.no_entries':      'യോജിക്കുന്ന ഒരു ഇനവുമില്ല',
   'map.clear_confirm':   'എല്ലാ ഫലങ്ങളും മായ്ക്കണോ? ഇത് പഴയ അവസ്ഥയിലേക്ക് കൊണ്ടുവരാൻ കഴിയില്ല.',
+  'map.include_drills':  'ഡ്രില്ലുകൾ ഉൾപ്പെടുത്തുക', // AI-generated — needs native speaker review.
   'map.correct_last3':   'അവസാന 3 ശ്രമങ്ങളിൽ ശരിയായവ',
   'map.correct_partial': 'അവസാന 3-ൽ കുറഞ്ഞ ശ്രമങ്ങളിൽ ശരിയായവ',
   'map.none_correct':    'അവസാന 3 ശ്രമങ്ങളിൽ ഒന്നും ശരിയില്ല',
@@ -2006,6 +2013,7 @@ const mr = {
   'map.not_attempted':   '— प्रयत्न नाही',
   'map.no_entries':      'जुळणाऱ्या नोंदी नाहीत',
   'map.clear_confirm':   'सर्व निकाल हटवायचे? हे पूर्ववत करता येणार नाही.',
+  'map.include_drills':  'ड्रिल समाविष्ट करा', // AI-generated — needs native speaker review.
   'map.correct_last3':   'शेवटच्या ३ प्रयत्नांत बरोबर',
   'map.correct_partial': 'शेवटच्या ३ पेक्षा कमी प्रयत्नांत बरोबर',
   'map.none_correct':    'शेवटच्या ३ मध्ये एकही बरोबर नाही',
@@ -2241,6 +2249,7 @@ const fr = {
   'map.not_attempted':   '— Pas tenté',
   'map.no_entries':      'Aucune entrée correspondante',
   'map.clear_confirm':   'Effacer tous les résultats ? Cette action est irréversible.',
+  'map.include_drills':  'Inclure les exercices', // AI-generated — needs native speaker review.
   'map.correct_last3':   'correct lors des 3 derniers essais',
   'map.correct_partial': 'correct sur moins de 3 essais',
   'map.none_correct':    'aucun des 3 derniers essais correct',
@@ -2476,6 +2485,7 @@ const es = {
   'map.not_attempted':   '— No intentado',
   'map.no_entries':      'Ninguna entrada coincide',
   'map.clear_confirm':   '¿Borrar todos los resultados? Esta acción no se puede deshacer.',
+  'map.include_drills':  'Incluir ejercicios', // AI-generated — needs native speaker review.
   'map.correct_last3':   'correcto en los últimos 3 intentos',
   'map.correct_partial': 'correcto en menos de 3 intentos',
   'map.none_correct':    'ninguno de los últimos 3 correcto',
@@ -2711,6 +2721,7 @@ const it = {
   'map.not_attempted':   '— Non tentato',
   'map.no_entries':      'Nessuna voce corrispondente',
   'map.clear_confirm':   'Cancellare tutti i risultati? Questa azione è irreversibile.',
+  'map.include_drills':  'Includi esercizi', // AI-generated — needs native speaker review.
   'map.correct_last3':   'corretto negli ultimi 3 tentativi',
   'map.correct_partial': 'corretto in meno di 3 tentativi',
   'map.none_correct':    'nessuno degli ultimi 3 corretto',
@@ -2947,6 +2958,7 @@ const pt = {
   'map.not_attempted':   '— Não tentado',
   'map.no_entries':      'Nenhuma entrada corresponde',
   'map.clear_confirm':   'Apagar todos os resultados? Esta ação não pode ser desfeita.',
+  'map.include_drills':  'Incluir exercícios', // AI-generated — needs native speaker review.
   'map.correct_last3':   'correto nas últimas 3 tentativas',
   'map.correct_partial': 'correto em menos de 3 tentativas',
   'map.none_correct':    'nenhuma das últimas 3 tentativas correta',
@@ -3182,6 +3194,7 @@ const de = {
   'map.not_attempted':   '— Nicht versucht',
   'map.no_entries':      'Keine passenden Einträge',
   'map.clear_confirm':   'Alle Ergebnisse löschen? Diese Aktion kann nicht rückgängig gemacht werden.',
+  'map.include_drills':  'Übungen einbeziehen', // AI-generated — needs native speaker review.
   'map.correct_last3':   'in den letzten 3 Versuchen richtig',
   'map.correct_partial': 'in weniger als 3 Versuchen richtig',
   'map.none_correct':    'keiner der letzten 3 Versuche richtig',
@@ -3420,6 +3433,7 @@ const ja = {
   'map.not_attempted':   '— 未挑戦',
   'map.no_entries':      '該当なし',
   'map.clear_confirm':   'すべての結果をクリアしますか？この操作は元に戻せません。',
+  'map.include_drills':  'ドリルを含める', // AI-generated — needs native speaker review.
   'map.correct_last3':   '直近3回で正解',
   'map.correct_partial': '3回未満で正解',
   'map.none_correct':    '直近3回はすべて不正解',
@@ -3654,6 +3668,7 @@ const ru = {
   'map.not_attempted':   '— Не пробовалось',
   'map.no_entries':      'Нет совпадений',
   'map.clear_confirm':   'Удалить все результаты? Это невозможно отменить.',
+  'map.include_drills':  'Включить тренировки', // AI-generated — needs native speaker review.
   'map.correct_last3':   'верно в последних 3 попытках',
   'map.correct_partial': 'верно менее чем в 3 попытках',
   'map.none_correct':    'ни одной верной из последних 3',
@@ -3889,6 +3904,7 @@ const ne = {
   'map.not_attempted':   '— प्रयास गरिएन',
   'map.no_entries':      'कुनै मिलान फेला परेन',
   'map.clear_confirm':   'सबै परिणाम मेट्ने? यो पूर्ववत गर्न सकिँदैन।',
+  'map.include_drills':  'ड्रिलहरू समावेश गर्नुहोस्', // AI-generated — needs native speaker review.
   'map.correct_last3':   'अन्तिम ३ प्रयासमा सही',
   'map.correct_partial': 'अन्तिम ३ भन्दा कम प्रयासमा सही',
   'map.none_correct':    'अन्तिम ३ मा कुनै सही छैन',
@@ -4124,6 +4140,7 @@ const bn = {
   'map.not_attempted':   '— চেষ্টা করা হয়নি',
   'map.no_entries':      'কোনো মিল নেই',
   'map.clear_confirm':   'সব ফলাফল মুছবেন? এটি পূর্বাবস্থায় ফেরানো যাবে না।',
+  'map.include_drills':  'ড্রিল অন্তর্ভুক্ত করুন', // AI-generated — needs native speaker review.
   'map.correct_last3':   'শেষ ৩ প্রচেষ্টায় সঠিক',
   'map.correct_partial': 'শেষ ৩-এর কম প্রচেষ্টায় সঠিক',
   'map.none_correct':    'শেষ ৩-এ কোনোটি সঠিক নয়',

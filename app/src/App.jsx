@@ -30,7 +30,7 @@ import lineDrillData from './data/lineDrillLines.json'
 import segmentDrillData from './data/segmentDrillLines.json'
 import triangleDrillData from './data/triangleDrillLines.json'
 import { getPosition, C4_DEITY_ORDER, C5_DEITY_ORDER, C6_DEITY_ORDER, C7_DEITY_ORDER } from './deityPositions.js'
-import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
+import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry, sectionIdToMemoKey } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
 
 const LANG_OPTIONS = [
@@ -3414,15 +3414,31 @@ export default function App() {
   }
 
   function sdMarkResult(index, result) {
-    setSdResults(r => ({ ...r, [index]: result }))
+    // Computed synchronously (not via the setSdResults updater) so the round-complete
+    // branch below can read the just-marked answer without racing React's state update.
+    const newResults = { ...sdResults, [index]: result }
+    setSdResults(newResults)
     setSdRevealed(true)
+    // Link into Memory Map / Activity Log: each deity in a Segment Drill round may
+    // belong to a different circuit, so route the result to *that* deity's own
+    // memo-history store, tagged 'drill' (see PERSISTENCE-AND-SYNC-DESIGN.md Part A).
+    const sdStop = sdStops[index]
+    if (sdStop?.deity) {
+      const memoKey = sectionIdToMemoKey(sdStop.deity.sectionId)
+      if (memoKey) recordHistoryEntry(memoKey, sdStop.deity.sequenceInSection, result, 'drill')
+    }
     if (sdAdvanceTimer.current) clearTimeout(sdAdvanceTimer.current)
     const total = sdStops.length
     sdAdvanceTimer.current = setTimeout(() => {
       setSdRevealed(false)
       setSdIndex(i => {
         const nextI = i + 1
-        if (nextI >= total) { setSdPhase('done'); return i }
+        if (nextI >= total) {
+          setSdPhase('done')
+          const correctCount = Object.values(newResults).filter(v => v === 'correct').length
+          saveSessionLog({ ts: Date.now(), section: 'segmentdrill', correct: correctCount, total })
+          return i
+        }
         return nextI
       })
     }, 550)
@@ -3598,15 +3614,26 @@ export default function App() {
   }
 
   function tdMarkResult(index, result) {
-    setTdResults(r => ({ ...r, [index]: result }))
+    const newResults = { ...tdResults, [index]: result }
+    setTdResults(newResults)
     setTdRevealed(true)
+    const tdStop = tdStops[index]
+    if (tdStop?.deity) {
+      const memoKey = sectionIdToMemoKey(tdStop.deity.sectionId)
+      if (memoKey) recordHistoryEntry(memoKey, tdStop.deity.sequenceInSection, result, 'drill')
+    }
     if (tdAdvanceTimer.current) clearTimeout(tdAdvanceTimer.current)
     const total = tdStops.length
     tdAdvanceTimer.current = setTimeout(() => {
       setTdRevealed(false)
       setTdIndex(i => {
         const nextI = i + 1
-        if (nextI >= total) { setTdPhase('done'); return i }
+        if (nextI >= total) {
+          setTdPhase('done')
+          const correctCount = Object.values(newResults).filter(v => v === 'correct').length
+          saveSessionLog({ ts: Date.now(), section: 'triangledrill', correct: correctCount, total })
+          return i
+        }
         return nextI
       })
     }, 550)
@@ -3803,15 +3830,26 @@ export default function App() {
   }
 
   function ldMarkResult(index, result) {
-    setLdResults(r => ({ ...r, [index]: result }))
+    const newResults = { ...ldResults, [index]: result }
+    setLdResults(newResults)
     setLdRevealed(true)
+    const ldStop = ldStops[index]
+    if (ldStop?.deity) {
+      const memoKey = sectionIdToMemoKey(ldStop.deity.sectionId)
+      if (memoKey) recordHistoryEntry(memoKey, ldStop.deity.sequenceInSection, result, 'drill')
+    }
     if (ldAdvanceTimer.current) clearTimeout(ldAdvanceTimer.current)
     const total = ldStops.length
     ldAdvanceTimer.current = setTimeout(() => {
       setLdRevealed(false)
       setLdIndex(i => {
         const nextI = i + 1
-        if (nextI >= total) { setLdPhase('done'); return i }
+        if (nextI >= total) {
+          setLdPhase('done')
+          const correctCount = Object.values(newResults).filter(v => v === 'correct').length
+          saveSessionLog({ ts: Date.now(), section: 'linedrill', correct: correctCount, total })
+          return i
+        }
         return nextI
       })
     }, 550)

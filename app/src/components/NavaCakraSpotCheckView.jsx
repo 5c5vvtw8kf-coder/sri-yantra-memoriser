@@ -20,6 +20,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/activeDeities'
+import { recordHistoryEntry, svaminiYoginiToMemoKeyAndSeq } from '../utils.js'
 
 // ── Static data ───────────────────────────────────────────────────────────────
 
@@ -306,9 +307,21 @@ export default function NavaCakraSpotCheckView({
   const advance = useCallback((result) => {
     if (!current || done) return
     setResults(prev => ({ ...prev, [current]: result }))
+    // Link into Memory Map: Svāminī/Yoginī quiz items aren't deity records —
+    // they're the two extra slots each circuit's own Memorise round appends
+    // after its deity list (see svaminiYoginiToMemoKeyAndSeq in utils.js).
+    // 'both' items answer for both at once, so record the same result to both.
+    if (parsed) {
+      const circuitSectionId = `circuit-${parsed.circuitNumber}`
+      const types = parsed.type === 'both' ? ['svamini', 'yogini'] : [parsed.type]
+      types.forEach(type => {
+        const { key, seq } = svaminiYoginiToMemoKeyAndSeq(circuitSectionId, type)
+        if (key) recordHistoryEntry(key, seq, result, 'drill')
+      })
+    }
     setFlash(result)
     scheduleAdvance()
-  }, [current, done, scheduleAdvance])
+  }, [current, done, scheduleAdvance, parsed])
 
   const handleClick = useCallback(() => {
     if (done || flash) return

@@ -21,7 +21,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/activeDeities'
-import { displayName, measureTooltipWidth } from '../utils.js'
+import { displayName, measureTooltipWidth, recordHistoryEntry, sectionIdToMemoKey } from '../utils.js'
 
 // ── Static data ───────────────────────────────────────────────────────────────
 
@@ -242,6 +242,8 @@ export default function ChakreshvariSpotCheckView({
   const advance = useCallback((result) => {
     if (!current || done) return
     setResults(prev => ({ ...prev, [current.id]: result }))
+    const memoKey = sectionIdToMemoKey(current.sectionId)
+    if (memoKey) recordHistoryEntry(memoKey, current.sequenceInSection, result, 'drill')
     setFlash(result)
     scheduleAdvance()
   }, [current, done, scheduleAdvance])

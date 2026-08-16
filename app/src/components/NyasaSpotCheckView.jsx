@@ -23,7 +23,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/activeDeities'
-import { displayName, measureTooltipWidth } from '../utils.js'
+import { displayName, measureTooltipWidth, recordHistoryEntry, sectionIdToMemoKey } from '../utils.js'
 
 // ── Coordinate constants (must match SriYantraSVG.jsx) ───────────────────────
 
@@ -226,6 +226,8 @@ export default function NyasaSpotCheckView({
     if (!current || done) return
     setRevealedId(null)
     setResults(prev => ({ ...prev, [current.id]: result }))
+    const memoKey = sectionIdToMemoKey(current.sectionId)
+    if (memoKey) recordHistoryEntry(memoKey, current.sequenceInSection, result, 'drill')
     setFlash(result)
     setTimeout(() => {
       setFlash(null)

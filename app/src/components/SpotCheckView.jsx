@@ -22,7 +22,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import data from '../data/activeDeities'
-import { displayName, measureTooltipWidth } from '../utils.js'
+import { displayName, measureTooltipWidth, recordHistoryEntry, sectionIdToMemoKey } from '../utils.js'
 import { getPosition, DEITY_POSITIONS } from '../deityPositions.js'
 import SriYantraSVG from './SriYantraSVG'
 import C89SpotCheckView from './C89SpotCheckView'
@@ -527,6 +527,12 @@ export default function SpotCheckView({ script = 'iast', filter = 'all', subFilt
   const advance = useCallback((result) => {
     if (!current || done) return
     setResults(prev => ({ ...prev, [current.id]: result }))
+    // Link into Memory Map / Activity Log — routed to the deity's own home
+    // circuit's memo-history store, tagged 'drill' (see
+    // PERSISTENCE-AND-SYNC-DESIGN.md Part A). Spot Check questions can come
+    // from any circuit/section, unlike a circuit's own sequential Memorise mode.
+    const memoKey = sectionIdToMemoKey(current.sectionId)
+    if (memoKey) recordHistoryEntry(memoKey, current.sequenceInSection, result, 'drill')
     setFlash(result)
     setTimeout(() => {
       setFlash(null)
