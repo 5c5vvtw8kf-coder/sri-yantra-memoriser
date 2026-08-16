@@ -154,6 +154,27 @@ export default function TriangleDrillView({
     if (color) regionFills[s.regionId] = color
   })
 
+  // Caps a region-based stop's invisible hover/click hit-circle so it can never
+  // overlap a neighbouring stop's own hit-circle. Default radius is 16, but some
+  // inner-circuit triangles interlock tightly near the bindu (a C6/C7 pair can sit
+  // as little as ~11 units apart, centroid to centroid) — at the default radius
+  // their hit-circles overlapped, so hovering one stop could steal the tooltip/
+  // highlight for its neighbour, and only approaching from the non-overlapping
+  // side would hit the intended one. Shrinking dynamically per-pair fixes the
+  // crowded cases while leaving well-spaced stops at the original, easier-to-hit
+  // radius.
+  function hitRadiusFor(index) {
+    const s = stops[index]
+    if (!s?.pos) return 16
+    let r = 16
+    stops.forEach((other, j) => {
+      if (j === index || !other.pos) return
+      const d = Math.hypot(other.pos.x - s.pos.x, other.pos.y - s.pos.y)
+      r = Math.min(r, d / 2 - 1)
+    })
+    return Math.max(r, 4)
+  }
+
   function handleRegionClick(regionId) {
     const i = regionToIndex[regionId]
     if (i === undefined) return
@@ -217,7 +238,7 @@ export default function TriangleDrillView({
                   key={`hit-${s.id}`}
                   cx={s.pos.x}
                   cy={s.pos.y}
-                  r={16}
+                  r={hitRadiusFor(i)}
                   fill="transparent"
                   stroke="none"
                   style={{ cursor: 'pointer', pointerEvents: 'all' }}

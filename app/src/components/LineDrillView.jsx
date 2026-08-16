@@ -171,6 +171,22 @@ export default function LineDrillView({
     if (color) regionFills[s.regionId] = color
   })
 
+  // See TriangleDrillView's hitRadiusFor comment: caps a region-based stop's
+  // invisible hover/click hit-circle so it can never overlap a neighbouring
+  // stop's own hit-circle (some inner-circuit triangles sit as little as ~11
+  // units apart, well inside the default 16-unit radius).
+  function hitRadiusFor(index) {
+    const s = stops[index]
+    if (!s?.pos) return 16
+    let r = 16
+    stops.forEach((other, j) => {
+      if (j === index || !other.pos) return
+      const d = Math.hypot(other.pos.x - s.pos.x, other.pos.y - s.pos.y)
+      r = Math.min(r, d / 2 - 1)
+    })
+    return Math.max(r, 4)
+  }
+
   function handleRegionClick(regionId) {
     const i = regionToIndex[regionId]
     if (i === undefined) return
@@ -235,7 +251,7 @@ export default function LineDrillView({
                   key={`hit-${s.id}`}
                   cx={s.pos.x}
                   cy={s.pos.y}
-                  r={16}
+                  r={hitRadiusFor(i)}
                   fill="transparent"
                   stroke="none"
                   style={{ cursor: 'pointer', pointerEvents: 'all' }}
