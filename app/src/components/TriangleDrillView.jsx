@@ -216,15 +216,19 @@ export default function TriangleDrillView({
             style={{ background: 'transparent' }}
             aria-label={`Triangle Drill — ${triangleLabel || triangleId}`}
           >
-            {/* True primary-triangle geometry — prominent for the first 2s, then a faint reference */}
+            {/* True primary-triangle geometry — prominent for the first 2s, then a
+                thin cream outline (same 1.0 stroke-width as the yantra's own gold
+                DFT/UFT triangle lines in SriYantraSVG) so the focus triangle stays
+                distinguishable from the other 8 gold triangles for the rest of the
+                round, rather than fading into the background grid. */}
             {geometry && (
               <polygon
                 points={geometry.points}
                 fill={CREAM}
                 fillOpacity={triShowing ? 0.28 : 0.07}
-                stroke={triShowing ? CREAM : GOLD}
-                strokeWidth={triShowing ? 2.2 : 0.8}
-                strokeOpacity={triShowing ? 1 : 0.4}
+                stroke={CREAM}
+                strokeWidth={triShowing ? 2.2 : 1.0}
+                strokeOpacity={triShowing ? 1 : 0.9}
                 style={{ pointerEvents: 'none', transition: 'fill-opacity 500ms ease, stroke-opacity 500ms ease, stroke-width 500ms ease' }}
               />
             )}
