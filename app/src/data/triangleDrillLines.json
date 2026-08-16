@@ -1,0 +1,138 @@
+{
+  "TRIANGLE_LABELS": {
+    "Shiva1": "Upward triangle 1 (outermost Śiva)",
+    "Shiva2": "Upward triangle 2",
+    "Shiva3": "Upward triangle 3 (innermost Śiva)",
+    "Shiva4": "Upward triangle 4",
+    "Shakti1": "Downward triangle 1 (outermost Śakti)",
+    "Shakti2": "Downward triangle 2",
+    "Shakti3": "Downward triangle 3 (innermost Śakti, apex touches bindu ring)",
+    "Shakti4": "Downward triangle 4",
+    "Shakti5": "Downward triangle 5"
+  },
+  "TRIANGLE_GEOMETRY": {
+    "Shiva1": {
+      "points": "260,160 154.021,299.47 365.979,299.47"
+    },
+    "Shiva2": {
+      "points": "260,182.872 186.892,326.795 333.108,326.795"
+    },
+    "Shiva3": {
+      "points": "260,236.76 210.849,350.38 309.151,350.38"
+    },
+    "Shiva4": {
+      "points": "260,213.4 224.257,283.301 295.743,283.301"
+    },
+    "Shakti1": {
+      "points": "260,380 155.14,236.76 364.86,236.76"
+    },
+    "Shakti2": {
+      "points": "260,350.385 187.866,213.4 332.134,213.4"
+    },
+    "Shakti3": {
+      "points": "260,283.301 202.888,182.872 317.112,182.872"
+    },
+    "Shakti4": {
+      "points": "260,326.795 226.379,250.569 293.621,250.569"
+    },
+    "Shakti5": {
+      "points": "260,299.512 234.78,263.193 285.22,263.193"
+    }
+  },
+  "UPWARD_IDS": [
+    "Shiva1",
+    "Shiva2",
+    "Shiva3",
+    "Shiva4"
+  ],
+  "DOWNWARD_IDS": [
+    "Shakti1",
+    "Shakti2",
+    "Shakti3",
+    "Shakti4",
+    "Shakti5"
+  ],
+  "TRIANGLES": {
+    "Shiva1": [
+      "c4-012",
+      "c5-009",
+      "c6-010",
+      "c6-002",
+      "c5-003",
+      "c4-004",
+      "c4-008"
+    ],
+    "Shiva2": [
+      "c4-013",
+      "c5-010",
+      "c5-002",
+      "c4-003",
+      "c5-003",
+      "c5-006",
+      "c5-009"
+    ],
+    "Shiva3": [
+      "c4-014",
+      "c4-002",
+      "c5-002",
+      "c7-002",
+      "c7-005",
+      "c7-008",
+      "c6-002",
+      "c6-010",
+      "c5-010"
+    ],
+    "Shiva4": [
+      "c6-009",
+      "c7-008",
+      "c7-002",
+      "c6-003",
+      "c6-006"
+    ],
+    "Shakti1": [
+      "c4-011",
+      "c5-008",
+      "c6-007",
+      "c6-005",
+      "c5-004",
+      "c4-005",
+      "c4-001"
+    ],
+    "Shakti2": [
+      "c4-010",
+      "c5-007",
+      "c5-005",
+      "c4-006",
+      "c5-004",
+      "c5-001",
+      "c5-008"
+    ],
+    "Shakti3": [
+      "c4-009",
+      "c4-007",
+      "c5-005",
+      "c6-005",
+      "c7-004",
+      "c8-006",
+      "c8-005",
+      "c8-007",
+      "c7-006",
+      "c6-007",
+      "c5-007"
+    ],
+    "Shakti4": [
+      "c6-008",
+      "c7-006",
+      "c7-004",
+      "c6-004",
+      "c6-001"
+    ],
+    "Shakti5": [
+      "c7-007",
+      "c8-007",
+      "c8-006",
+      "c7-003",
+      "c7-001"
+    ]
+  }
+}

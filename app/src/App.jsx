@@ -24,9 +24,11 @@ import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import LineDrillView from './components/LineDrillView'
 import SegmentDrillView from './components/SegmentDrillView'
+import TriangleDrillView from './components/TriangleDrillView'
 import data from './data/activeDeities'
 import lineDrillData from './data/lineDrillLines.json'
 import segmentDrillData from './data/segmentDrillLines.json'
+import triangleDrillData from './data/triangleDrillLines.json'
 import { getPosition, C4_DEITY_ORDER, C5_DEITY_ORDER, C6_DEITY_ORDER, C7_DEITY_ORDER } from './deityPositions.js'
 import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
@@ -451,6 +453,7 @@ const TABS = [
     footerLabel: 'Śrīdevī Epithets' },
   { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP', trKey: 'heading.spot' },
   { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
+  { id: 'triangledrill', trKey: 'tab.triangledrill', navLabel: 'Triangle Drills', navLabelEn: 'Triangle Drills', navLabelDev: 'Triangle Drills', footerLabel: 'Triangle Drills' },
   { id: 'segmentdrill', trKey: 'tab.segmentdrill', navLabel: 'Segment Drills', navLabelEn: 'Segment Drills', navLabelDev: 'Segment Drills', footerLabel: 'Segment Drills' },
   { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drills',  navLabelEn: 'Line Drills',  navLabelDev: 'Line Drills',  footerLabel: 'Line Drills'  },
   { id: 'memomap',      trKey: 'tab.memomap',   navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
@@ -3330,6 +3333,31 @@ export default function App() {
     return () => { if (sdPreviewTimer.current) clearTimeout(sdPreviewTimer.current) }
   }, []) // eslint-disable-line
 
+  // ── Triangle Drill: triangle selection + sequential drill state ────────────
+  // Mirrors Segment Drill's state shape exactly (see above) — a "triangle" here
+  // is one of the 9 primary (foundational) mūla triangles instead of a C3 petal
+  // wedge, but the preview/drill/done phase machine and tap semantics are
+  // identical. The "true geometry" reveal is the primary triangle's own 3 edges
+  // (a single closed polygon) rather than a wedge fill + two boundary rays.
+  const TD_TRIANGLE_IDS = Object.keys(triangleDrillData.TRIANGLES)
+  const [tdTriangleId, setTdTriangleId] = useState(TD_TRIANGLE_IDS[0])
+  const [tdPhase,        setTdPhase]        = useState('preview') // 'preview' | 'drill' | 'done'
+  const [tdPreviewStage, setTdPreviewStage] = useState('line') // 'line' | 'fills' — only used during 'preview'
+  const [tdIndex,        setTdIndex]        = useState(0)
+  const [tdRevealed,     setTdRevealed]     = useState(false)
+  const [tdResults,      setTdResults]      = useState({})
+  const tdTapRef        = useRef({ index: null, time: 0 })
+  const tdPastTapRef    = useRef({ index: null, time: 0 })
+  const tdClickTimer    = useRef(null)
+  const tdAdvanceTimer  = useRef(null)
+  const tdPreviewTimer  = useRef(null)
+
+  // Kick off the initial 2s "true triangle first" reveal for the default triangle on mount
+  useEffect(() => {
+    tdPreviewTimer.current = setTimeout(() => setTdPreviewStage('fills'), 2000)
+    return () => { if (tdPreviewTimer.current) clearTimeout(tdPreviewTimer.current) }
+  }, []) // eslint-disable-line
+
   function sdGetRegionId(deity) {
     if (!deity) return null
     const { sectionId, sequenceInSection: seq } = deity
@@ -3506,6 +3534,211 @@ export default function App() {
               </button>
               <button onClick={sdShuffle} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
                 {tr('segmentdrill.shuffle_next')}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  function tdGetRegionId(deity) {
+    if (!deity) return null
+    const { sectionId, sequenceInSection: seq } = deity
+    const pad = n => String(n).padStart(2, '0')
+    if (sectionId === 'circuit-2') return `petal-c2-${pad(seq)}`
+    if (sectionId === 'circuit-3') return `petal-c3-${pad(seq)}`
+    if (sectionId === 'circuit-4') return `tri-c4-${pad(C4_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-5') return `tri-c5-${pad(C5_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-6') return `tri-c6-${pad(C6_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-7') return `tri-c7-${pad(C7_DEITY_ORDER[seq - 1])}`
+    if (sectionId === 'circuit-9') return 'c9'
+    // circuit-1 and circuit-8: multiple deities can share one region shape, so these
+    // stay point/dot-based (via getPosition) to keep simultaneous stops distinguishable
+    return null
+  }
+
+  const tdDeityById = data.deities.length ? Object.fromEntries(data.deities.map(d => [d.id, d])) : {}
+  // A triangle's fixed ID list (triangleDrillLines.json) is built from Chris's own
+  // confirmed candidates, so it shouldn't normally reference an excluded optional
+  // deity — but filter defensively anyway, same guard as Line/Segment Drill.
+  const tdStops = (triangleDrillData.TRIANGLES[tdTriangleId] || [])
+    .filter(id => tdDeityById[id])
+    .map(id => {
+      const deity = tdDeityById[id]
+      return { id, deity, pos: getPosition(id), regionId: tdGetRegionId(deity) }
+    })
+  const tdGeometry = triangleDrillData.TRIANGLE_GEOMETRY[tdTriangleId]
+
+  function tdPickTriangle(id) {
+    if (tdAdvanceTimer.current) { clearTimeout(tdAdvanceTimer.current); tdAdvanceTimer.current = null }
+    if (tdPreviewTimer.current) { clearTimeout(tdPreviewTimer.current); tdPreviewTimer.current = null }
+    setTdTriangleId(id)
+    setTdPhase('preview')
+    setTdPreviewStage('line')
+    setTdIndex(0)
+    setTdRevealed(false)
+    setTdResults({})
+    tdPreviewTimer.current = setTimeout(() => setTdPreviewStage('fills'), 2000)
+  }
+
+  function tdShuffle() {
+    let next = tdTriangleId
+    if (TD_TRIANGLE_IDS.length > 1) {
+      while (next === tdTriangleId) next = TD_TRIANGLE_IDS[Math.floor(Math.random() * TD_TRIANGLE_IDS.length)]
+    }
+    tdPickTriangle(next)
+  }
+
+  function tdStartDrill() {
+    setTdPhase('drill')
+    setTdIndex(0)
+    setTdRevealed(false)
+    setTdResults({})
+  }
+
+  function tdMarkResult(index, result) {
+    setTdResults(r => ({ ...r, [index]: result }))
+    setTdRevealed(true)
+    if (tdAdvanceTimer.current) clearTimeout(tdAdvanceTimer.current)
+    const total = tdStops.length
+    tdAdvanceTimer.current = setTimeout(() => {
+      setTdRevealed(false)
+      setTdIndex(i => {
+        const nextI = i + 1
+        if (nextI >= total) { setTdPhase('done'); return i }
+        return nextI
+      })
+    }, 550)
+  }
+
+  function tdHandleActiveTap(index) {
+    const now = Date.now()
+    const isDouble = tdTapRef.current.index === index && (now - tdTapRef.current.time) < 300
+    tdTapRef.current = { index, time: now }
+    if (isDouble) {
+      if (tdClickTimer.current) { clearTimeout(tdClickTimer.current); tdClickTimer.current = null }
+      tdMarkResult(index, 'wrong')
+    } else {
+      if (tdClickTimer.current) return
+      tdClickTimer.current = setTimeout(() => {
+        tdClickTimer.current = null
+        tdMarkResult(index, 'correct')
+      }, 280)
+    }
+  }
+
+  function tdHandlePastTap(index) {
+    const now = Date.now()
+    const isDouble = tdPastTapRef.current.index === index && (now - tdPastTapRef.current.time) < 300
+    tdPastTapRef.current = { index, time: now }
+    if (isDouble) {
+      setTdResults(r => ({ ...r, [index]: r[index] === 'correct' ? 'wrong' : 'correct' }))
+    }
+  }
+
+  function tdRestartSameTriangle() {
+    setTdPhase('drill')
+    setTdIndex(0)
+    setTdRevealed(false)
+    setTdResults({})
+  }
+
+  const tdCorrectCount = Object.values(tdResults).filter(v => v === 'correct').length
+
+  function renderTriangleDrillControls() {
+    return (
+      <div className="px-4 py-3 space-y-3">
+        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('triangledrill.heading')}</p>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={tdShuffle}
+            className="px-2.5 py-1 rounded text-xs font-mono bg-surface-800 text-gold-400 border border-surface-700 hover:border-gold-600"
+          >
+            {tr('triangledrill.shuffle')}
+          </button>
+          {tdPhase === 'preview' && (
+            <button
+              onClick={tdStartDrill}
+              className="px-2.5 py-1 rounded text-xs font-mono bg-gold-400 text-surface-900 font-bold"
+            >
+              {tr('triangledrill.start_drill')}
+            </button>
+          )}
+          {tdPhase !== 'preview' && (
+            <button
+              onClick={() => tdPickTriangle(tdTriangleId)}
+              className="px-2.5 py-1 rounded text-xs font-mono bg-surface-800 text-muted hover:text-cream border border-surface-700"
+            >
+              {tr('triangledrill.back_to_preview')}
+            </button>
+          )}
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-xs text-muted font-mono">{tr('triangledrill.upward')}</p>
+          <div className="flex flex-wrap gap-1">
+            {triangleDrillData.UPWARD_IDS.map(id => (
+              <button
+                key={id}
+                onClick={() => tdPickTriangle(id)}
+                className={[
+                  'px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                  id === tdTriangleId ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream',
+                ].join(' ')}
+              >
+                {id} ({triangleDrillData.TRIANGLES[id].filter(did => tdDeityById[did]).length})
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-xs text-muted font-mono">{tr('triangledrill.downward')}</p>
+          <div className="flex flex-wrap gap-1">
+            {triangleDrillData.DOWNWARD_IDS.map(id => (
+              <button
+                key={id}
+                onClick={() => tdPickTriangle(id)}
+                className={[
+                  'px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                  id === tdTriangleId ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream',
+                ].join(' ')}
+              >
+                {id} ({triangleDrillData.TRIANGLES[id].filter(did => tdDeityById[did]).length})
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {tdPhase === 'preview' && (
+          <p className="text-xs text-muted font-mono">
+            {isTouchDevice ? tr('triangledrill.instr_preview_touch') : tr('triangledrill.instr_preview_desktop')}
+          </p>
+        )}
+
+        {tdPhase === 'drill' && (() => {
+          const stripDeity = tdStops[tdIndex]?.deity
+          return (
+            <p className="text-sm font-serif" style={{ color: tdRevealed ? '#fff8c8' : 'transparent', fontFamily: "'Gentium Plus', Georgia, serif", minHeight: '1.5rem' }}>
+              {stripDeity ? `${displayName(stripDeity, script)} — ${displayName(stripDeity, 'devanagari')}` : ''}
+            </p>
+          )
+        })()}
+        {tdPhase === 'drill' && !tdRevealed && (
+          <p className="text-xs text-muted font-mono">{tr('triangledrill.tap_current_reveal')}</p>
+        )}
+
+        {tdPhase === 'done' && (
+          <div className="text-sm font-mono space-y-2">
+            <span className="text-red-400">{tdCorrectCount}/{tdStops.length} {tr('misc.memorised')}</span>
+            <div className="flex gap-2">
+              <button onClick={tdRestartSameTriangle} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
+                {tr('triangledrill.redrill')}
+              </button>
+              <button onClick={tdShuffle} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
+                {tr('triangledrill.shuffle_next')}
               </button>
             </div>
           </div>
@@ -3716,6 +3949,7 @@ export default function App() {
     chakreshvari: getTabDot(ncResults,       ncPrevResults),
     closing:      getTabDot(closingResults,  closingPrevResults),
     spotcheck:    null,
+    triangledrill: null,
     browser:      null,
   }
 
@@ -3875,6 +4109,8 @@ export default function App() {
     ? (ldPhase === 'drill' ? (isTouchDevice ? memoInstrTouch : memoInstr) : null)
     : activeTab === 'segmentdrill'
     ? (sdPhase === 'drill' ? (isTouchDevice ? memoInstrTouch : memoInstr) : null)
+    : activeTab === 'triangledrill'
+    ? (tdPhase === 'drill' ? (isTouchDevice ? memoInstrTouch : memoInstr) : null)
     : !EXPLORE_TABS.has(activeTab) ? null
     : isInMemoriseMode
       ? activeTab === 'chakreshvari'
@@ -3897,6 +4133,7 @@ export default function App() {
     if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
     if (activeTab === 'linedrill') return renderLineDrillControls()
     if (activeTab === 'segmentdrill') return renderSegmentDrillControls()
+    if (activeTab === 'triangledrill') return renderTriangleDrillControls()
     if (activeTab === 'bhupura' && bhupuraMemorise) {
       const bhupuraDotCount = bhupuraMemoGroup === 'all' ? BHUPURA_C1_TOTAL
         : bhupuraMemoGroup === 'siddhiShakti' ? BHUPURA_SIDDHI_TOTAL
@@ -5509,6 +5746,29 @@ export default function App() {
                 {renderSegmentDrillControls()}
               </div>
             )}
+            {activeTab === 'triangledrill' && (
+              <TriangleDrillView
+                script={script}
+                triangleId={tdTriangleId}
+                phase={tdPhase}
+                previewStage={tdPreviewStage}
+                currentIndex={tdIndex}
+                results={tdResults}
+                stops={tdStops}
+                geometry={tdGeometry}
+                revealed={tdRevealed}
+                onActiveTap={tdHandleActiveTap}
+                onPastTap={tdHandlePastTap}
+                SriYantraSVG={SriYantraSVG}
+                tr={tr}
+              />
+            )}
+            {/* Mobile Triangle Drill controls — mirrors right panel, hidden on desktop */}
+            {activeTab === 'triangledrill' && (
+              <div className="md:hidden">
+                {renderTriangleDrillControls()}
+              </div>
+            )}
 
             {/* iPad-only: collapse hint shown below diagram when sidebar is open on explore tabs */}
             {!navCollapsed && EXPLORE_TAB_IDS.includes(activeTab) && (
@@ -5577,7 +5837,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
-        <div className={`${['spotcheck', 'activity-log', 'memomap', 'linedrill', 'segmentdrill'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
+        <div className={`${['spotcheck', 'activity-log', 'memomap', 'linedrill', 'segmentdrill', 'triangledrill'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}

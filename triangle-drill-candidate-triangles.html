@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sri Yantra — candidate Triangle Drill triangles</title>
+<style>
+  html, body { margin:0; padding:0; background:#0f0805; height:100%; font-family: sans-serif; }
+  .wrap { display:flex; height:100vh; }
+  svg { display:block; height:100vh; flex: 0 0 auto; width: 65vw; }
+  .panel { flex: 1; overflow-y:auto; padding:16px 18px; color:#d8cba0; box-sizing:border-box; }
+  .panel h2 { color:#c9a84c; font-size:15px; margin:0 0 6px; }
+  .panel p.sub { font-size:12px; color:#8a7a5a; margin:0 0 14px; line-height:1.5; }
+  .btnrow { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  button.linebtn {
+    font-family: sans-serif; font-size:12px; padding:5px 9px; border-radius:4px; cursor:pointer;
+    border:1px solid #4a3d20; background:#1a120a; color:#c9a84c;
+  }
+  button.linebtn.active { background:#c9a84c; color:#0f0805; font-weight:bold; }
+  button.util { background:#2a2010; color:#8a7a5a; }
+  button.util.active { background:#8a7a5a; color:#0f0805; }
+  button.upward { border-color:#5a4a2a; }
+  button.downward { border-color:#2a4a5a; }
+  #label { font-size:13px; color:#f0e6c0; margin-bottom:8px; }
+  #candidates { font-size:12px; line-height:1.7; }
+  #candidates .tag { display:inline-block; background:#1e1608; border:1px solid #4a3d20; border-radius:3px;
+    padding:1px 6px; margin:2px 3px 2px 0; }
+  #candidates .tag.own { border-style:solid; border-color:#c9a84c; }
+  .swatch { display:inline-block; width:14px; height:3px; margin-right:6px; vertical-align:middle; }
+  .legend { font-size:11px; color:#8a7a5a; margin-top:16px; padding-top:10px; border-top:1px solid #2a2010; }
+  .legend div { margin-bottom:3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<svg id="yantra" viewBox="45 55 430 430" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Sri Yantra — candidate Triangle Drill triangles Shiva1-4 / Shakti1-5, toggleable</title>
+<rect x="45" y="55" width="430" height="430" fill="#0f0805"/>
+<circle cx="260" cy="270" r="110" fill="none" stroke="#4a3d20" stroke-width="1" opacity="0.4"/>
+<circle cx="260" cy="270" r="143.24" fill="none" stroke="#4a3d20" stroke-width="1" opacity="0.4"/>
+<path d="M 217.905,168.373 C 217.905,152.118 256.211,149.733 260.000,146.699 C 263.789,149.733 302.095,152.118 302.095,168.373 A 110 110 0 0 0 217.905,168.373 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 302.095,168.373 C 313.590,156.879 342.362,182.280 347.187,182.813 C 347.720,187.638 373.121,216.410 361.627,227.905 A 110 110 0 0 0 302.095,168.373 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 361.627,227.905 C 377.882,227.905 380.267,266.211 383.301,270.000 C 380.267,273.789 377.882,312.095 361.627,312.095 A 110 110 0 0 0 361.627,227.905 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 361.627,312.095 C 373.121,323.590 347.720,352.362 347.187,357.187 C 342.362,357.720 313.590,383.121 302.095,371.627 A 110 110 0 0 0 361.627,312.095 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 302.095,371.627 C 302.095,387.882 263.789,390.267 260.000,393.301 C 256.211,390.267 217.905,387.882 217.905,371.627 A 110 110 0 0 0 302.095,371.627 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 217.905,371.627 C 206.410,383.121 177.638,357.720 172.813,357.187 C 172.280,352.362 146.879,323.590 158.373,312.095 A 110 110 0 0 0 217.905,371.627 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 158.373,312.095 C 142.118,312.095 139.733,273.789 136.699,270.000 C 139.733,266.211 142.118,227.905 158.373,227.905 A 110 110 0 0 0 158.373,312.095 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 158.373,227.905 C 146.879,216.410 172.280,187.638 172.813,182.813 C 177.638,182.280 206.410,156.879 217.905,168.373 A 110 110 0 0 0 158.373,227.905 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 235.945,149.068 C 235.945,132.337 258.316,129.883 260.000,126.760 C 261.684,129.883 284.055,132.337 284.055,149.068 A 123.301 123.301 0 0 0 235.945,149.068 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 284.055,149.068 C 290.458,133.611 312.065,139.905 314.816,137.663 C 315.176,141.193 334.905,152.021 328.502,167.479 A 123.301 123.301 0 0 0 284.055,149.068 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 328.502,167.479 C 340.333,155.648 357.887,169.732 361.286,168.714 C 360.268,172.113 374.352,189.667 362.521,201.498 A 123.301 123.301 0 0 0 328.502,167.479 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 362.521,201.498 C 377.979,195.095 388.807,214.824 392.337,215.184 C 390.095,217.935 396.389,239.542 380.932,245.945 A 123.301 123.301 0 0 0 362.521,201.498 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 380.932,245.945 C 397.663,245.945 400.117,268.316 403.240,270.000 C 400.117,271.684 397.663,294.055 380.932,294.055 A 123.301 123.301 0 0 0 380.932,245.945 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 380.932,294.055 C 396.389,300.458 390.095,322.065 392.337,324.816 C 388.807,325.176 377.979,344.905 362.521,338.502 A 123.301 123.301 0 0 0 380.932,294.055 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 362.521,338.502 C 374.352,350.333 360.268,367.887 361.286,371.286 C 357.887,370.268 340.333,384.352 328.502,372.521 A 123.301 123.301 0 0 0 362.521,338.502 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 328.502,372.521 C 334.905,387.979 315.176,398.807 314.816,402.337 C 312.065,400.095 290.458,406.389 284.055,390.932 A 123.301 123.301 0 0 0 328.502,372.521 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 284.055,390.932 C 284.055,407.663 261.684,410.117 260.000,413.240 C 258.316,410.117 235.945,407.663 235.945,390.932 A 123.301 123.301 0 0 0 284.055,390.932 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 235.945,390.932 C 229.542,406.389 207.935,400.095 205.184,402.337 C 204.824,398.807 185.095,387.979 191.498,372.521 A 123.301 123.301 0 0 0 235.945,390.932 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 191.498,372.521 C 179.667,384.352 162.113,370.268 158.714,371.286 C 159.732,367.887 145.648,350.333 157.479,338.502 A 123.301 123.301 0 0 0 191.498,372.521 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 157.479,338.502 C 142.021,344.905 131.193,325.176 127.663,324.816 C 129.905,322.065 123.611,300.458 139.068,294.055 A 123.301 123.301 0 0 0 157.479,338.502 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 139.068,294.055 C 122.337,294.055 119.883,271.684 116.760,270.000 C 119.883,268.316 122.337,245.945 139.068,245.945 A 123.301 123.301 0 0 0 139.068,294.055 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 139.068,245.945 C 123.611,239.542 129.905,217.935 127.663,215.184 C 131.193,214.824 142.021,195.095 157.479,201.498 A 123.301 123.301 0 0 0 139.068,245.945 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 157.479,201.498 C 145.648,189.667 159.732,172.113 158.714,168.714 C 162.113,169.732 179.667,155.648 191.498,167.479 A 123.301 123.301 0 0 0 157.479,201.498 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<path d="M 191.498,167.479 C 185.095,152.021 204.824,141.193 205.184,137.663 C 207.935,139.905 229.542,133.611 235.945,149.068 A 123.301 123.301 0 0 0 191.498,167.479 Z" fill="rgba(201,168,76,0.05)" stroke="#7a6534" stroke-width="0.8" opacity="0.8"/>
+<polygon points="101.36,111.36 225.98,111.36 225.98,91.88 172.74,91.88 172.74,63.67 347.26,63.67 347.26,91.88 294.01,91.88 294.01,111.37 418.64,111.36 418.64,235.98 438.12,235.98 438.12,182.74 466.33,182.74 466.33,357.26 438.12,357.26 438.12,304.01 418.63,304.01 418.64,428.64 294.02,428.64 294.02,448.12 347.26,448.12 347.26,476.33 172.74,476.33 172.74,448.12 225.99,448.12 225.99,428.63 101.36,428.64 101.36,304.02 81.88,304.02 81.88,357.26 53.67,357.26 53.67,182.74 81.88,182.74 81.88,235.99 101.37,235.99" fill="none" stroke="#6b5a2e" stroke-width="1.2" opacity="0.5"/>
+
+<!-- 43 deity sub-triangles (C4-C8), faint outlines always visible -->
+<g id="subtriangles" fill="none" stroke="#5a4a28" stroke-width="0.6" opacity="0.55">
+<polygon points="260.000,160.000 242.620,182.872 260.000,182.872 277.380,182.872"/>
+<polygon points="277.380,182.872 300.105,212.778 317.112,182.872"/>
+<polygon points="300.577,213.400 318.328,236.760 319.833,236.760 332.134,213.400"/>
+<polygon points="319.217,237.930 342.028,267.949 364.860,236.760 319.833,236.760"/>
+<polygon points="319.228,299.470 365.979,299.470 342.028,267.949 319.115,299.248"/>
+<polygon points="319.228,299.470 318.953,299.470 298.949,326.795 333.108,326.795"/>
+<polygon points="281.684,350.380 309.151,350.380 298.949,326.796"/>
+<polygon points="259.997,350.380 238.316,350.380 260.000,380.000 281.684,350.380 260.003,350.380"/>
+<polygon points="221.051,326.796 210.849,350.380 238.316,350.380"/>
+<polygon points="201.047,299.470 200.772,299.470 186.892,326.795 221.051,326.795"/>
+<polygon points="177.972,267.949 154.021,299.470 200.772,299.470 200.885,299.248"/>
+<polygon points="177.972,267.949 200.783,237.930 200.167,236.760 155.140,236.760"/>
+<polygon points="201.672,236.760 219.423,213.400 187.866,213.400 200.167,236.760"/>
+<polygon points="219.895,212.778 242.620,182.872 202.888,182.872"/>
+<polygon points="260.000,182.872 244.493,213.400 260.000,213.400 275.507,213.400"/>
+<polygon points="275.507,213.400 286.946,235.918 299.751,213.400"/>
+<polygon points="319.217,237.930 318.328,236.760 287.373,236.760 303.311,268.136"/>
+<polygon points="287.128,299.470 318.953,299.470 319.115,299.248 303.311,268.136 295.537,282.899 295.743,283.301 295.325,283.301 286.985,299.140"/>
+<polygon points="287.128,299.470 286.811,299.470 272.422,326.795 298.948,326.795"/>
+<polygon points="260.000,326.795 247.578,326.795 259.997,350.380 272.422,326.795"/>
+<polygon points="233.189,299.470 232.872,299.470 221.052,326.795 247.578,326.795"/>
+<polygon points="201.047,299.470 232.872,299.470 233.015,299.140 224.675,283.301 224.257,283.301 224.463,282.899 216.689,268.136 200.885,299.248"/>
+<polygon points="201.672,236.760 200.783,237.930 216.689,268.136 232.627,236.760"/>
+<polygon points="233.054,235.918 244.493,213.400 220.249,213.400"/>
+<polygon points="260.000,213.400 248.055,236.760 260.000,236.760 271.945,236.760"/>
+<polygon points="271.945,236.760 278.820,250.206 286.467,236.760"/>
+<polygon points="279.006,250.569 286.853,265.914 293.621,250.569"/>
+<polygon points="280.133,283.301 295.325,283.301 295.537,282.899 286.853,265.914 279.663,282.214"/>
+<polygon points="272.052,299.470 286.811,299.470 286.985,299.140 280.133,283.301 279.184,283.301"/>
+<polygon points="259.971,299.470 247.948,299.470 260.000,326.795 272.052,299.470 260.029,299.470 260.000,299.512"/>
+<polygon points="233.189,299.470 247.948,299.470 240.816,283.301 239.867,283.301 233.015,299.140"/>
+<polygon points="233.147,265.914 224.463,282.899 224.675,283.301 239.867,283.301 240.337,282.214"/>
+<polygon points="233.147,265.914 240.994,250.569 226.379,250.569"/>
+<polygon points="241.180,250.206 248.055,236.760 233.533,236.760"/>
+<polygon points="260.000,236.760 254.026,250.569 265.974,250.569"/>
+<polygon points="265.974,250.569 271.435,263.193 278.614,250.569"/>
+<polygon points="271.435,263.193 276.726,275.425 285.220,263.193 271.435,263.193"/>
+<polygon points="271.257,283.301 279.184,283.301 279.663,282.214 276.726,275.425"/>
+<polygon points="259.971,299.470 260.029,299.470 271.257,283.301 260.000,283.301 248.743,283.301"/>
+<polygon points="240.816,283.301 248.743,283.301 243.274,275.425 240.337,282.214"/>
+<polygon points="243.274,275.425 248.565,263.193 234.780,263.193"/>
+<polygon points="248.565,263.193 254.026,250.569 241.386,250.569 248.565,263.193"/>
+<polygon points="260.000,299.512 234.780,263.193 285.220,263.193"/>
+<polygon points="260.000,283.301 271.257,283.301 276.726,275.425 271.435,263.193"/>
+<polygon points="248.743,283.301 260.000,283.301 248.565,263.193 243.274,275.425"/>
+</g>
+
+<!-- 9 primary (foundational) triangles — faint outline always visible under the toggled highlight -->
+<polygon points="260,160 154.021,299.47 365.979,299.47"       fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+<polygon points="260,182.872 186.892,326.795 333.108,326.795" fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+<polygon points="260,213.4 224.257,283.301 295.743,283.301"   fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+<polygon points="260,236.76 210.849,350.38 309.151,350.38"    fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+<polygon points="260,380 155.14,236.76 364.86,236.76"         fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+<polygon points="260,350.385 187.866,213.4 332.134,213.4"     fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+<polygon points="260,326.795 226.379,250.569 293.621,250.569" fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+<polygon points="260,299.512 234.78,263.193 285.22,263.193"   fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+<polygon points="260,283.301 202.888,182.872 317.112,182.872" fill="none" stroke="#7a6534" stroke-width="0.6" opacity="0.35"/>
+
+<!-- C8 Trikoṇa (8th āvaraṇa) dots (always visible) -->
+<g fill="#c9a84c" opacity="0.85">
+<circle cx="250.5" cy="278.0" r="2"/><circle cx="269.5" cy="278.0" r="2"/><circle cx="265.0" cy="257.6" r="2"/><circle cx="255.0" cy="257.6" r="2"/>
+<circle cx="260.0" cy="283.3" r="2"/><circle cx="271.4" cy="263.2" r="2"/><circle cx="248.6" cy="263.2" r="2"/>
+</g>
+
+<!-- C1 bhupura dots (always visible) -->
+<g fill="#c9a84c" opacity="0.85">
+<circle cx="295.0" cy="430.0" r="2.4"/><circle cx="100.0" cy="306.0" r="2.4"/><circle cx="225.0" cy="110.0" r="2.4"/><circle cx="420.0" cy="235.0" r="2.4"/>
+<circle cx="101.0" cy="429.0" r="2.4"/><circle cx="101.0" cy="111.0" r="2.4"/><circle cx="419.0" cy="111.0" r="2.4"/><circle cx="419.0" cy="429.0" r="2.4"/>
+<circle cx="377.3" cy="429.0" r="2.4"/><circle cx="132.2" cy="111.0" r="2.4"/>
+<circle cx="229.0" cy="426.0" r="2.4"/><circle cx="103.0" cy="238.0" r="2.4"/><circle cx="292.0" cy="114.0" r="2.4"/><circle cx="416.0" cy="302.0" r="2.4"/>
+<circle cx="105.0" cy="425.0" r="2.4"/><circle cx="105.0" cy="115.0" r="2.4"/><circle cx="415.0" cy="115.0" r="2.4"/><circle cx="415.0" cy="425.0" r="2.4"/>
+<circle cx="288.0" cy="423.0" r="2.4"/><circle cx="107.0" cy="298.0" r="2.4"/><circle cx="232.0" cy="117.0" r="2.4"/><circle cx="413.0" cy="242.0" r="2.4"/>
+<circle cx="109.0" cy="421.0" r="2.4"/><circle cx="109.0" cy="119.0" r="2.4"/><circle cx="411.0" cy="119.0" r="2.4"/><circle cx="411.0" cy="421.0" r="2.4"/>
+<circle cx="338.0" cy="422.0" r="2.4"/><circle cx="148.9" cy="118.0" r="2.4"/>
+</g>
+<circle cx="260" cy="270" r="4" fill="#ffffff"/>
+
+<!-- C3 petal-boundary markers (always visible, faint) -->
+<g fill="none" stroke="#e0c88e" stroke-width="1" opacity="0.5">
+<circle cx="217.905" cy="168.373" r="3"/><circle cx="302.095" cy="168.373" r="3"/>
+<circle cx="361.627" cy="227.905" r="3"/><circle cx="361.627" cy="312.095" r="3"/>
+<circle cx="302.095" cy="371.627" r="3"/><circle cx="217.905" cy="371.627" r="3"/>
+<circle cx="158.373" cy="312.095" r="3"/><circle cx="158.373" cy="227.905" r="3"/>
+</g>
+
+<!-- Toggleable PRIMARY (foundational) triangle groups.
+     4 upward-facing (Shiva, "Shiva" triangles) + 5 downward-facing (Shakti, "Shakti" triangles) —
+     the 9 triangles whose interlocking creates the 43 small deity triangles of Circuits 4-8.
+     Each group is a translucent fill of the full primary triangle plus a brighter outline.
+     Note: Shakti5 IS Circuit 8's own triangle — its 7 deities (Bāṇinī...Mahābhagamālinī) sit
+     directly on/around its edges rather than in a further sub-triangle. -->
+<g id="tri-Shiva1" class="line-group">
+  <polygon points="260,160 154.021,299.47 365.979,299.47" fill="#c9a84c" fill-opacity="0.13" stroke="#c9a84c" stroke-width="2"/>
+</g>
+<g id="tri-Shiva2" class="line-group">
+  <polygon points="260,182.872 186.892,326.795 333.108,326.795" fill="#e0c88e" fill-opacity="0.13" stroke="#e0c88e" stroke-width="2"/>
+</g>
+<g id="tri-Shiva3" class="line-group">
+  <polygon points="260,236.76 210.849,350.38 309.151,350.38" fill="#b08968" fill-opacity="0.13" stroke="#b08968" stroke-width="2"/>
+</g>
+<g id="tri-Shiva4" class="line-group">
+  <polygon points="260,213.4 224.257,283.301 295.743,283.301" fill="#d4a373" fill-opacity="0.13" stroke="#d4a373" stroke-width="2"/>
+</g>
+<g id="tri-Shakti1" class="line-group">
+  <polygon points="260,380 155.14,236.76 364.86,236.76" fill="#9b8ee0" fill-opacity="0.13" stroke="#9b8ee0" stroke-width="2"/>
+</g>
+<g id="tri-Shakti2" class="line-group">
+  <polygon points="260,350.385 187.866,213.4 332.134,213.4" fill="#8ee0b8" fill-opacity="0.13" stroke="#8ee0b8" stroke-width="2"/>
+</g>
+<g id="tri-Shakti3" class="line-group">
+  <polygon points="260,283.301 202.888,182.872 317.112,182.872" fill="#b8e08e" fill-opacity="0.13" stroke="#b8e08e" stroke-width="2"/>
+</g>
+<g id="tri-Shakti4" class="line-group">
+  <polygon points="260,326.795 226.379,250.569 293.621,250.569" fill="#8eb8e0" fill-opacity="0.13" stroke="#8eb8e0" stroke-width="2"/>
+</g>
+<g id="tri-Shakti5" class="line-group">
+  <polygon points="260,299.512 234.78,263.193 285.22,263.193" fill="#e0958e" fill-opacity="0.22" stroke="#e0958e" stroke-width="2"/>
+</g>
+
+</svg>
+
+<div class="panel">
+  <h2>Triangle Drill — candidate viewer (exploratory)</h2>
+  <p class="sub">New idea, not yet built: highlight one of the <b>9 foundational (mūla) triangles</b>
+    that construct the Śrī Yantra — 4 upward-facing "Śiva" triangles (Shiva1-4) and 5 downward-facing
+    "Śakti" triangles (Shakti1-5) — then test recall of the deities whose small triangle sits inside it.
+    These are the actual construction triangles: their mutual intersections are what create the 43
+    small triangles across Circuits 4-8 (14+10+10+8+1). Exact vertex coordinates are pulled straight
+    from <code>SriYantraSVG.jsx</code>'s own Korvin-construction geometry, so this matches the real
+    app exactly.</p>
+  <p class="sub"><b>All 9 candidate lists below are confirmed by Chris</b> (verbatim order). They
+    started as a first-pass geometric cut — the same "script proposes, Chris confirms" approach
+    used for Segment Drill — then were replaced triangle-by-triangle with his own lists. Because
+    the 9 primary triangles genuinely <b>overlap</b> each other (that overlap is what creates the
+    43 small triangles in the first place, unlike Segment Drill's non-overlapping 45° wedges), the
+    same deity legitimately shows up in more than one triangle's list — sometimes in several.
+    That's expected, not a bug.</p>
+  <div class="btnrow" id="upwardButtons"></div>
+  <div class="btnrow" id="downwardButtons"></div>
+  <div class="btnrow">
+    <button class="linebtn util" id="btnAll">Show all 9</button>
+    <button class="linebtn util" id="btnNone">Hide all</button>
+  </div>
+  <div id="label"></div>
+  <div id="candidates"></div>
+  <div class="legend">
+    <div><b>Shiva</b> = upward-facing (Śiva) triangle · <b>Shakti</b> = downward-facing (Śakti) triangle</div>
+    <div>Ordered outside → inside (bhūpura-adjacent first).</div>
+    <div>All 9 primary triangles sit entirely within Circuits 4-8 — none reach into the bhūpura or lotus petals (C1-C3), since every primary-triangle vertex lies exactly on the C3/C4 boundary circle (r=110).</div>
+  </div>
+</div>
+</div>
+
+<script>
+const TRIANGLE_LABELS = {
+  Shiva1: 'Upward triangle 1 (outermost Śiva)',
+  Shiva2: 'Upward triangle 2',
+  Shiva3: 'Upward triangle 3 (innermost Śiva)',
+  Shiva4: 'Upward triangle 4',
+  Shakti1: 'Downward triangle 1 (outermost Śakti)',
+  Shakti2: 'Downward triangle 2',
+  Shakti3: 'Downward triangle 3 (innermost Śakti, apex touches bindu ring)',
+  Shakti4: 'Downward triangle 4',
+  Shakti5: 'Downward triangle 5 — IS Circuit 8 itself',
+}
+
+// All 9 lists below are CONFIRMED by Chris — 2026-08-16 (verbatim order, as he typed them).
+// They started as a script-generated first pass (edge-of-sub-triangle lies along one of the
+// primary triangle's own 3 edges, AND sits on the inside of that edge — same side as the
+// opposite vertex), then were replaced triangle-by-triangle with Chris's own confirmed lists,
+// which do not always match what the geometric rule alone would predict. Structure: 4
+// upward-facing Shiva triangles (Shiva1-4), 5 downward-facing Shakti triangles (Shakti1-5) —
+// the standard textbook convention. Note Shakti5's confirmed list (5 deities: sarvēśvarī,
+// mahābhagamālinī, mahāvajrēśvarī, mōdinī, vaśinī) is smaller than earlier assumed — it is NOT
+// simply "Circuit 8's own 7 deities plus neighbours"; that earlier special-casing has been
+// dropped in favour of Chris's literal confirmation.
+const CANDIDATES = {
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shiva1: ["sarvasampattipūriṇī(C4)", "sarvāṅgasundarī(C5)", "sarvēpsitaphalapradē(C6)", "sarvaśaktē(C6)", "sarvapriyaṅkarī(C5)", "sarvahlādinī(C4)", "sarvavaśaṅkarī(C4)"],
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shiva2: ["sarvamantramayī(C4)", "sarvasaubhāgyadāyinī(C5)", "sarvasampatpradē(C5)", "sarvākarṣiṇī(C4)", "sarvapriyaṅkarī(C5)", "sarvaduḥkhavimōcanī(C5)", "sarvāṅgasundarī(C5)"],
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shiva3: ["sarvadvandvakṣayaṅkarī(C4)", "sarvavidrāvinī(C4)", "sarvasampatpradē(C5)", "kāmēśvarī(C7)", "aruṇē(C7)", "kauḻinī(C7)", "sarvaśaktē(C6)", "sarvēpsitaphalapradē(C6)", "sarvasaubhāgyadāyinī(C5)"],
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shiva4: ["sarvarakṣāsvarūpiṇī(C6)", "kauḻinī(C7)", "kāmēśvarī(C7)", "sarvaiśvaryapradāyinī(C6)", "sarvādhārasvarūpē(C6)"],
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shakti1: ["sarvārthasādhikē(C4)", "sarvavighnanivāriṇī(C5)", "sarvapāpaharē(C6)", "sarvavyādhivināśinī(C6)", "sarvamaṅgaḻakāriṇī(C5)", "sarvasammōhinī(C4)", "sarvasaṅkṣōbhiṇī(C4)"],
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shakti2: ["sarvōnmādinī(C4)", "sarvamṛtyupraśamanī(C5)", "sarvakāmapradē(C5)", "sarvastambhinī(C4)", "sarvamaṅgaḻakāriṇī(C5)", "sarvasiddhipradē(C5)", "sarvavighnanivāriṇī(C5)"],
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shakti3: ["sarvarañjanī(C4)", "sarvajṛmbhiṇī(C4)", "sarvakāmapradē(C5)", "sarvavyādhivināśinī(C6)", "vimalē(C7)", "mahāvajrēśvarī(C8)", "mahākāmēśvarī(C8)", "mahābhagamālinī(C8)", "jayinī(C7)", "sarvapāpaharē(C6)", "sarvamṛtyupraśamanī(C5)"],
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shakti4: ["sarvānandamayī(C6)", "jayinī(C7)", "vimalē(C7)", "sarvajñānamayī(C6)", "sarvajñē(C6)"],
+  // CONFIRMED by Chris — 2026-08-16 (verbatim order).
+  Shakti5: ["sarvēśvarī(C7)", "mahābhagamālinī(C8)", "mahāvajrēśvarī(C8)", "mōdinī(C7)", "vaśinī(C7)"],
+}
+
+const upwardIds = ['Shiva1','Shiva2','Shiva3','Shiva4']
+const downwardIds = ['Shakti1','Shakti2','Shakti3','Shakti4','Shakti5']
+const CONFIRMED = new Set(['Shiva1', 'Shiva2', 'Shiva3', 'Shiva4', 'Shakti1', 'Shakti2', 'Shakti3', 'Shakti4', 'Shakti5'])
+
+function makeButtons(container, ids, cls) {
+  ids.forEach(id => {
+    const b = document.createElement('button')
+    b.className = 'linebtn ' + cls
+    const mark = CONFIRMED.has(id) ? ' ✓' : ''
+    b.textContent = id + ' (' + (CANDIDATES[id] || []).length + ')' + mark
+    b.onclick = () => showOnly(id)
+    b.id = 'btn-' + id
+    container.appendChild(b)
+  })
+}
+makeButtons(document.getElementById('upwardButtons'), upwardIds, 'upward')
+makeButtons(document.getElementById('downwardButtons'), downwardIds, 'downward')
+
+function clearActive() {
+  document.querySelectorAll('.linebtn').forEach(b => b.classList.remove('active'))
+}
+
+function showOnly(id) {
+  document.querySelectorAll('.line-group').forEach(g => {
+    g.style.display = (g.id === 'tri-' + id) ? '' : 'none'
+  })
+  clearActive()
+  document.getElementById('btn-' + id).classList.add('active')
+  const cands = CANDIDATES[id] || []
+  const status = CONFIRMED.has(id) ? ' — CONFIRMED' : ' — unconfirmed first pass'
+  document.getElementById('label').textContent = id + ' — ' + TRIANGLE_LABELS[id] + ' — ' + cands.length + ' deities' + status
+  document.getElementById('candidates').innerHTML = cands
+    .map(c => {
+      const isOwn = c.endsWith('~own')
+      const clean = c.replace(/~own$/, '')
+      return `<span class="tag${isOwn ? ' own' : ''}">${clean}</span>`
+    })
+    .join(' ')
+}
+
+function showAll() {
+  document.querySelectorAll('.line-group').forEach(g => g.style.display = '')
+  clearActive()
+  document.getElementById('btnAll').classList.add('active')
+  document.getElementById('label').textContent = 'All 9 primary triangles shown (heavy overlap near the centre is expected)'
+  document.getElementById('candidates').innerHTML = ''
+}
+
+function showNone() {
+  document.querySelectorAll('.line-group').forEach(g => g.style.display = 'none')
+  clearActive()
+  document.getElementById('btnNone').classList.add('active')
+  document.getElementById('label').textContent = 'Base yantra only — no triangles'
+  document.getElementById('candidates').innerHTML = ''
+}
+
+document.getElementById('btnAll').onclick = showAll
+document.getElementById('btnNone').onclick = showNone
+
+// Start on Shiva1
+showOnly('Shiva1')
+</script>
+</body>
+</html>
