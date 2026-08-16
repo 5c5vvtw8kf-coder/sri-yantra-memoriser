@@ -113,14 +113,16 @@ function regionColor(i, phase, previewStage, currentIndex, results) {
   return null
 }
 
-// C1/C8 point dots — Memorise-mode palette, but the "current" cream fill
-// matches SC_ACTIVE exactly so dots read as the same cream as the petal/
-// triangle regions, not a slightly different solid hex.
+// C1/C8 point dots — the "current" cream fill matches SC_ACTIVE exactly so
+// dots read as the same cream as the petal/triangle regions, not a slightly
+// different solid hex. Wrong-answer fill matches regionColor's SC_RESULT_GOLD
+// (gold, not Memorise-mode's brown TERRACOTTA) so dots and regions read
+// consistently within Drill views.
 function dotColor(i, phase, previewStage, currentIndex, results) {
   if (phase === 'preview') return previewStage === 'fills' ? SC_ACTIVE : null
   if (phase === 'drill' || phase === 'done') {
     if (i < currentIndex || results[i]) {
-      return results[i] === 'wrong' ? TERRACOTTA : (results[i] === 'correct' ? RED : DIM_GOLD)
+      return results[i] === 'wrong' ? SC_RESULT_GOLD : (results[i] === 'correct' ? RED : DIM_GOLD)
     }
     if (i === currentIndex) return SC_ACTIVE
     return DIM_GOLD

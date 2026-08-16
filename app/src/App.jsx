@@ -3315,7 +3315,9 @@ export default function App() {
   // preview/drill/done phase machine, tap semantics, and result tracking are
   // identical.
   const SD_SEGMENT_IDS = Object.keys(segmentDrillData.SEGMENTS)
-  const [sdSegmentId, setSdSegmentId] = useState(SD_SEGMENT_IDS[0])
+  // Start on a random segment rather than always Segment 1 — Segment Drill is
+  // meant to be practised in randomised order, not worked through sequentially.
+  const [sdSegmentId, setSdSegmentId] = useState(() => SD_SEGMENT_IDS[Math.floor(Math.random() * SD_SEGMENT_IDS.length)])
   const [sdPhase,     setSdPhase]     = useState('preview') // 'preview' | 'drill' | 'done'
   const [sdPreviewStage, setSdPreviewStage] = useState('line') // 'line' | 'fills' — only used during 'preview'
   const [sdIndex,     setSdIndex]     = useState(0)
@@ -3564,11 +3566,11 @@ export default function App() {
           <div className="text-sm font-mono space-y-2">
             <span className="text-red-400">{sdCorrectCount}/{sdStops.length} {tr('misc.memorised')}</span>
             <div className="flex gap-2">
-              <button onClick={sdRestartSameSegment} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
-                {tr('segmentdrill.redrill')}
-              </button>
-              <button onClick={sdShuffle} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700">
+              <button onClick={sdShuffle} className="px-2 py-0.5 rounded text-xs bg-gold-400 text-surface-900 font-bold">
                 {tr('segmentdrill.shuffle_next')}
+              </button>
+              <button onClick={sdRestartSameSegment} className="px-2 py-0.5 rounded text-xs bg-surface-800 text-muted hover:text-cream border border-surface-700">
+                {tr('segmentdrill.redrill')}
               </button>
             </div>
           </div>
