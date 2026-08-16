@@ -21,6 +21,9 @@ function buildSectionLabel(tr) {
     nc:           tr('sec.nc'),
     closing:      tr('sec.closing'),
     'spot-check': tr('sec.spotcheck'),
+    segmentdrill: tr('segmentdrill.heading'),
+    linedrill:    tr('linedrill.heading'),
+    triangledrill: tr('triangledrill.heading'),
   }
 }
 
