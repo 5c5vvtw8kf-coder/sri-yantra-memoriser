@@ -451,7 +451,7 @@ const TABS = [
     navLabelTe:  'శ్రీదేవీ విశేషణాని',         navLabelTa: 'ஶ்ரீதேவீ விஶேஷணானி',
     navLabelKn:  'ಶ್ರೀದೇವೀ ವಿಶೇಷಣಾನಿ',         navLabelMl: 'ശ്രീദേവീ വിശേഷണാനി',
     footerLabel: 'Śrīdevī Epithets' },
-  { id: 'h-spotcheck',  heading: 'SPOT CHECK AND MEMORY MAP', trKey: 'heading.spot' },
+  { id: 'h-spotcheck',  heading: 'DRILLS AND MEMORY MAP', trKey: 'heading.spot' },
   { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
   { id: 'triangledrill', trKey: 'tab.triangledrill', navLabel: 'Triangle Drills', navLabelEn: 'Triangle Drills', navLabelDev: 'Triangle Drills', footerLabel: 'Triangle Drills' },
   { id: 'segmentdrill', trKey: 'tab.segmentdrill', navLabel: 'Segment Drills', navLabelEn: 'Segment Drills', navLabelDev: 'Segment Drills', footerLabel: 'Segment Drills' },
@@ -4253,6 +4253,11 @@ export default function App() {
     if (activeTab === 'spotcheck') return (
       <div className="px-4 py-3 space-y-3">
         <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('spot.title')}</p>
+
+        {/* Instructions — mirrors the interaction hint shown in Segment/Line/Triangle Drill's right panel */}
+        <p className="text-xs text-muted font-mono leading-relaxed">
+          {isTouchDevice ? memoInstrTouch : memoInstr}
+        </p>
 
         {/* Filter buttons */}
         <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
