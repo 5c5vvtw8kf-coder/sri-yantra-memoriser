@@ -621,7 +621,9 @@ function regionColour(id) {
 //   c3Ring, c3Petals          — C3 (8-petal lotus) background ring + petals
 //   innerCircle               — disc behind circuits 4–9
 //   c4, c5, c6, c7            — triangle rings (uniform colour per ring)
-//   c8, c8Bg                  — primary triangle + its two background sub-fills
+//   c8                         — primary triangle (its two small background
+//                                sub-fills follow innerCircle, same as the
+//                                rest of the "triangles background" area)
 //   c9                        — bindu
 
 function buildFills(p) {
@@ -652,8 +654,8 @@ function buildFills(p) {
       [`tri-c7-${String(i + 1).padStart(2, '0')}`, p.c7]
     )),
     'tri-c8-01':    p.c8,
-    'tri-c8-bg-01': p.c8Bg,
-    'tri-c8-bg-02': p.c8Bg,
+    'tri-c8-bg-01': p.innerCircle,
+    'tri-c8-bg-02': p.innerCircle,
     'c9':           p.c9,
   }
 }
@@ -669,7 +671,7 @@ const YANTRA_THEMES = [
       c3Ring: 'rgba(215,220,228,0.90)', c3Petals: 'rgba(235,45,45,0.92)',
       innerCircle: 'rgba(255,255,255,1.0)',
       c4: 'rgba(35,65,185,0.92)', c5: 'rgba(235,45,45,0.92)', c6: 'rgba(20,20,20,0.92)', c7: 'rgba(50,170,80,0.90)',
-      c8: 'rgba(255,230,50,0.92)', c8Bg: 'rgba(255,255,255,1.0)',
+      c8: 'rgba(255,230,50,0.92)',
       c9: 'rgba(235,45,45,0.95)',
     },
   },
@@ -683,7 +685,7 @@ const YANTRA_THEMES = [
       c3Ring: 'rgba(200,210,230,0.90)', c3Petals: 'rgba(90,60,160,0.92)',
       innerCircle: 'rgba(235,240,255,1.0)',
       c4: 'rgba(40,50,120,0.92)', c5: 'rgba(90,60,160,0.92)', c6: 'rgba(15,20,45,0.92)', c7: 'rgba(70,140,190,0.90)',
-      c8: 'rgba(200,220,255,0.92)', c8Bg: 'rgba(235,240,255,1.0)',
+      c8: 'rgba(200,220,255,0.92)',
       c9: 'rgba(90,60,160,0.95)',
     },
   },
@@ -697,7 +699,7 @@ const YANTRA_THEMES = [
       c3Ring: 'rgba(230,200,180,0.90)', c3Petals: 'rgba(190,40,40,0.92)',
       innerCircle: 'rgba(255,245,230,1.0)',
       c4: 'rgba(150,50,40,0.92)', c5: 'rgba(190,40,40,0.92)', c6: 'rgba(40,15,10,0.92)', c7: 'rgba(224,140,50,0.90)',
-      c8: 'rgba(250,210,80,0.92)', c8Bg: 'rgba(255,245,230,1.0)',
+      c8: 'rgba(250,210,80,0.92)',
       c9: 'rgba(190,40,40,0.95)',
     },
   },
@@ -711,7 +713,7 @@ const YANTRA_THEMES = [
       c3Ring: 'rgba(200,220,205,0.90)', c3Petals: 'rgba(190,60,60,0.92)',
       innerCircle: 'rgba(240,255,245,1.0)',
       c4: 'rgba(20,80,110,0.92)', c5: 'rgba(190,60,60,0.92)', c6: 'rgba(10,30,20,0.92)', c7: 'rgba(80,160,110,0.90)',
-      c8: 'rgba(230,220,120,0.92)', c8Bg: 'rgba(240,255,245,1.0)',
+      c8: 'rgba(230,220,120,0.92)',
       c9: 'rgba(190,60,60,0.95)',
     },
   },
@@ -725,7 +727,7 @@ const YANTRA_THEMES = [
       c3Ring: 'rgba(235,235,235,0.90)', c3Petals: 'rgba(60,60,60,0.92)',
       innerCircle: 'rgba(255,255,255,1.0)',
       c4: 'rgba(70,70,70,0.92)', c5: 'rgba(60,60,60,0.92)', c6: 'rgba(15,15,15,0.92)', c7: 'rgba(130,130,130,0.90)',
-      c8: 'rgba(240,240,240,0.92)', c8Bg: 'rgba(255,255,255,1.0)',
+      c8: 'rgba(240,240,240,0.92)',
       c9: 'rgba(60,60,60,0.95)',
     },
   },
