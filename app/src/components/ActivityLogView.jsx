@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { loadSessionLog, clearSessionLog } from '../utils.js'
 import { iastToEnglish } from '../translations.js'
+import PullLatestButton from './PullLatestButton'
 
 // ── Section label map (store key → display label) ─────────────────────────────
 
@@ -134,14 +135,17 @@ export default function ActivityLogView({ tr = k => k, script = 'iast' }) {
               <span className="text-muted">&lt; 75%</span>
             </div>
           </div>
-          {log.length > 0 && (
-            <button
-              onClick={handleClear}
-              className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0"
-            >
-              {tr('log.clear')}
-            </button>
-          )}
+          <div className="flex gap-2 flex-shrink-0">
+            <PullLatestButton tr={tr} />
+            {log.length > 0 && (
+              <button
+                onClick={handleClear}
+                className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0"
+              >
+                {tr('log.clear')}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Filters */}

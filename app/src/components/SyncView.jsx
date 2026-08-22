@@ -60,9 +60,12 @@ export default function SyncView({ tr = k => k }) {
     setMessage(null)
     try {
       await linkSyncCode(trimmed)
-      refresh()
-      setInputCode('')
-      setMessage({ kind: 'success', text: tr('sync.success_linked') })
+      // Reload rather than just refreshing this view's own state — every other
+      // view's memo/history/session-log state was only read from localStorage
+      // once, at initial mount, and won't otherwise pick up what was just
+      // linked in (see the equivalent note on App.jsx's mount-effect pull).
+      window.location.reload()
+      return
     } catch (err) {
       const isNotFound = /not found/i.test(err?.message || '')
       const isInvalid = /invalid/i.test(err?.message || '')
@@ -82,8 +85,10 @@ export default function SyncView({ tr = k => k }) {
     setMessage(null)
     try {
       await pullNow()
-      refresh()
-      setMessage({ kind: 'success', text: tr('sync.success_synced') })
+      // Reload — see the note in handleLink; other views' state won't
+      // otherwise pick up what was just pulled.
+      window.location.reload()
+      return
     } catch (err) {
       setMessage({ kind: 'error', text: tr('sync.error_generic') })
       console.error('sync: pullNow failed', err)
@@ -98,8 +103,11 @@ export default function SyncView({ tr = k => k }) {
     setMessage(null)
     try {
       await pushNow()
-      refresh()
-      setMessage({ kind: 'success', text: tr('sync.success_pushed') })
+      // pushNow() now also adopts the server's merged blob locally (see
+      // sync.js) — reload so other views reflect anything just merged in
+      // from another device's contributions, not just this device's push.
+      window.location.reload()
+      return
     } catch (err) {
       setMessage({ kind: 'error', text: tr('sync.error_generic') })
       console.error('sync: pushNow failed', err)

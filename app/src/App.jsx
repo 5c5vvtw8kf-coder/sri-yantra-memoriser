@@ -2620,7 +2620,15 @@ export default function App() {
   useEffect(() => {
     if (!getSyncCode()) return
     if (hasLocalProgress()) return
-    pullNow().catch(err => console.error('sync: pull-on-load failed', err))
+    // Reload once the pull lands: this app's per-section state (bhupuraResults,
+    // c2Results, etc.) is only ever read from localStorage at initial mount, so
+    // without a reload a brand-new device's first pull would write correct data
+    // into storage while every already-rendered view kept showing its initial
+    // (empty) state. Safe against a reload loop — hasLocalProgress() will be
+    // true next time this effect runs, since the pull just populated storage.
+    pullNow()
+      .then(blob => { if (blob) window.location.reload() })
+      .catch(err => console.error('sync: pull-on-load failed', err))
   }, [])
 
   // Flush any pending debounced push the instant the tab is backgrounded or

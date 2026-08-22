@@ -2,6 +2,7 @@ import { useState } from 'react'
 import data from '../data/activeDeities'
 import { saveMemoStorage, loadMemoHistory, displayName, filterHistoryByMode } from '../utils.js'
 import MemoMapVisuals from './MemoMapVisuals'
+import PullLatestButton from './PullLatestButton'
 
 // Persisted separately from the lineage/results overlay — this is a display
 // preference, not practice data, so it isn't part of the memo-* / memo-history-*
@@ -310,7 +311,10 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
                 <button onClick={() => setView('list')} className={`text-[11px] px-2 py-0.5 rounded border transition-colors ${view === 'list' ? 'bg-gold-900/40 text-gold-400 border-gold-700/40' : 'text-muted border-transparent hover:text-cream'}`}>{tr('map.list')}</button>
               </div>
             </div>
-            <button onClick={handleClearAll} className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0">{tr('map.clear_all')}</button>
+            <div className="flex gap-2 flex-shrink-0">
+              <PullLatestButton tr={tr} />
+              <button onClick={handleClearAll} className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0">{tr('map.clear_all')}</button>
+            </div>
           </div>
 
           <div>
@@ -403,12 +407,15 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
             </div>
             )}
           </div>
-          <button
-            onClick={handleClearAll}
-            className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0"
-          >
-            {tr('map.clear_all')}
-          </button>
+          <div className="flex gap-2 flex-shrink-0">
+            <PullLatestButton tr={tr} />
+            <button
+              onClick={handleClearAll}
+              className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0"
+            >
+              {tr('map.clear_all')}
+            </button>
+          </div>
         </div>
 
         {/* Progress bar */}
