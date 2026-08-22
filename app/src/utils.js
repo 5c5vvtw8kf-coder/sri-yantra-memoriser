@@ -2,6 +2,8 @@
  * utils.js — shared display helpers used across all view components.
  */
 
+import { schedulePush } from './sync.js'
+
 // ── Tooltip width measurement ─────────────────────────────────────────────────
 //
 // Uses the Canvas 2D API to measure actual text advance width at the same
@@ -95,6 +97,7 @@ export function saveMemoStorage(key, data, { clearHistory = false } = {}) {
       // Only clear history when explicitly requested (e.g. "Clear all" button).
       localStorage.setItem(storageKey, JSON.stringify(data))
       if (clearHistory) localStorage.removeItem(histKey)
+      schedulePush()
       return
     }
 
@@ -116,6 +119,7 @@ export function saveMemoStorage(key, data, { clearHistory = false } = {}) {
 
     localStorage.setItem(storageKey, JSON.stringify(data))
     localStorage.setItem(histKey,    JSON.stringify(hist))
+    schedulePush()
   } catch {}
 }
 
@@ -143,6 +147,7 @@ export function saveSessionLog(entry) {
     log.push(entry)
     if (log.length > 500) log.splice(0, log.length - 500)
     localStorage.setItem('memo-session-log', JSON.stringify(log))
+    schedulePush()
   } catch {}
 }
 
@@ -167,6 +172,7 @@ export function recordHistoryEntry(key, seq, result, mode = 'memorise') {
     hist[seq].push({ result, mode })
     if (hist[seq].length > 3) hist[seq].shift()
     localStorage.setItem(histKey, JSON.stringify(hist))
+    schedulePush()
   } catch {}
 }
 

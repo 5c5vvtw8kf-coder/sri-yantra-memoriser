@@ -22,6 +22,8 @@ import ClosingView from './components/ClosingView'
 import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
+import SyncView from './components/SyncView'
+import { getSyncCode, pullNow } from './sync.js'
 import LineDrillView from './components/LineDrillView'
 import SegmentDrillView from './components/SegmentDrillView'
 import TriangleDrillView from './components/TriangleDrillView'
@@ -458,6 +460,8 @@ const TABS = [
   { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drills',  navLabelEn: 'Line Drills',  navLabelDev: 'Line Drills',  footerLabel: 'Line Drills'  },
   { id: 'memomap',      trKey: 'tab.memomap',   navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
   { id: 'activity-log', trKey: 'tab.actlog',    navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
+  { id: 'h-sync', heading: 'DEVICE SYNC', trKey: 'heading.sync' },
+  { id: 'sync', trKey: 'tab.sync', navLabel: 'Sync', navLabelEn: 'Sync', navLabelDev: 'Sync', footerLabel: 'Sync' },
   { id: 'h-references', heading: 'RESOURCES', trKey: 'heading.resources' },
   { id: 'yantra',
     navLabel:    'śrī yantra',                navLabelEn: 'Śrī Yantra',
@@ -2601,10 +2605,24 @@ export default function App() {
     return () => { clearTimeout(t); document.removeEventListener('mousedown', close) }
   }, [showSidebarLangMenu])
 
+  // ── Device sync — pull-on-load ────────────────────────────────────────────
+  // Silent and best-effort: if a sync code is linked, pull once on mount so a
+  // returning device picks up whatever the code holds. No code = no-op. Errors
+  // are logged only — sync is additive, the app must keep working fully
+  // offline on local data regardless of network/server state (see
+  // PERSISTENCE-AND-SYNC-DESIGN.md). Push-on-change is wired separately, at
+  // the point of writing (see utils.js's saveMemoStorage/recordHistoryEntry/
+  // saveSessionLog, each of which calls sync.js's schedulePush()).
+  useEffect(() => {
+    if (!getSyncCode()) return
+    pullNow().catch(err => console.error('sync: pull-on-load failed', err))
+  }, [])
+
   const tr = key => translate(uiLang !== 'en' ? uiLang : (usEnglish ? 'en-us' : script), key)  // uses uiLang when set, en-us if US variant, else script (for IAST overrides)
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
+    'h-sync':             true,
     'h-references':       true,
   })
 
@@ -2613,6 +2631,7 @@ export default function App() {
     onBeforeStart: () => setOpenSections({
       'h-explore-memorise': true,
       'h-spotcheck':        true,
+      'h-sync':             true,
       'h-references':       true,
     }),
     script,
@@ -5392,8 +5411,8 @@ export default function App() {
             onTouchEnd={handleSwipeEnd}>
 
         {/* Scrollable content area */}
-        <div className={`flex-1 min-h-0 flex flex-col items-center justify-start pt-2 relative ${['memomap', 'activity-log'].includes(activeTab) ? 'overflow-hidden' : 'overflow-y-auto'}`}>
-          <div className={`w-full flex flex-col md:block md:h-auto ${['memomap', 'activity-log'].includes(activeTab) ? '' : 'h-full'}`} style={{ maxWidth: activeTab === 'intro' ? '100%' : 'min(100%, calc(100dvh - 120px))' }}>
+        <div className={`flex-1 min-h-0 flex flex-col items-center justify-start pt-2 relative ${['memomap', 'activity-log', 'sync'].includes(activeTab) ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+          <div className={`w-full flex flex-col md:block md:h-auto ${['memomap', 'activity-log', 'sync'].includes(activeTab) ? '' : 'h-full'}`} style={{ maxWidth: activeTab === 'intro' ? '100%' : 'min(100%, calc(100dvh - 120px))' }}>
             {activeTab === 'yantra'  && (
               <div className="w-full p-4">
                 <div
@@ -5920,6 +5939,11 @@ export default function App() {
               <ActivityLogView tr={tr} script={script} />
             </div>
           )}
+          {activeTab === 'sync' && (
+            <div className="flex-1 min-h-0 w-full flex flex-col">
+              <SyncView tr={tr} />
+            </div>
+          )}
         </div>
 
         {/* ── Desktop/iPad memorise instructions (hidden on mobile — mobile has its own strip) */}
@@ -5946,7 +5970,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
-        <div className={`${['spotcheck', 'activity-log', 'memomap', 'linedrill', 'segmentdrill', 'triangledrill'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
+        <div className={`${['spotcheck', 'activity-log', 'memomap', 'linedrill', 'segmentdrill', 'triangledrill', 'sync'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}
@@ -6043,7 +6067,7 @@ export default function App() {
       )}
 
       {/* ── Right panel ──────────────────────────────────────────────────── */}
-      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['yantra', 'intro', 'memomap', 'activity-log'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
+      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['yantra', 'intro', 'memomap', 'activity-log', 'sync'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
              style={{ visibility: (activeTab === 'yantra' || activeTab === 'intro') ? 'hidden' : undefined }}>
 
         {/* Scrollable info area */}
