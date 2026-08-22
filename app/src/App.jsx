@@ -54,7 +54,7 @@ const LANG_OPTIONS = [
   { code: 'ta', label: 'தமிழ்',       englishName: 'Tamil',      beta: true,  defaultScript: 'tamil'      },
   { code: 'te', label: 'తెలుగు',      englishName: 'Telugu',     beta: true,  defaultScript: 'telugu'     },
 ]
-import { Globe, Plane, PenLine } from 'lucide-react'
+import { Globe, Plane, PenLine, ChevronLeft, ChevronRight, Shuffle } from 'lucide-react'
 
 const { sections, deities } = data
 const circuitSections = sections.filter(s => s.type === 'circuit')
@@ -605,43 +605,135 @@ function regionColour(id) {
   return CIRCUIT_COLOURS[id] ?? 'rgba(201,168,76,0.25)'
 }
 
-// ── Model yantra initial fills ────────────────────────────────────────────────
+// ── Model yantra colour themes ──────────────────────────────────────────────
+//
+// A "theme" is a compact, one-colour-per-band palette (16 keys) rather than
+// the ~60 individual region ids the SVG actually wants (per-petal, per-
+// triangle). buildFills() expands a compact palette into that full shape —
+// the same Array.from-per-circuit pattern the original hand-written
+// MODEL_YANTRA_FILLS used, just parameterised so new themes are cheap to add.
+//
+// Compact palette keys:
+//   c1Outer, c1Mid, c1Inner   — the three bhupura bands
+//   outerRings                — ring zone between bhupura and C2 petals
+//   c2Ring, c2Petals          — C2 (16-petal lotus) background ring + petals
+//   c3Ring, c3Petals          — C3 (8-petal lotus) background ring + petals
+//   innerCircle               — disc behind circuits 4–9
+//   c4, c5, c6, c7            — triangle rings (uniform colour per ring)
+//   c8, c8Bg                  — primary triangle + its two background sub-fills
+//   c9                        — bindu
 
-const MODEL_YANTRA_FILLS = {
-  'c1-outer':    'rgba(201,168,76,0.85)',
-  'c1-mid':      'rgba(255,235,60,0.85)',
-  'c1-inner':    'rgba(80,200,80,0.85)',
-  'outer-rings': 'rgba(215,220,228,0.90)',
-  'c2':          'rgba(201,168,76,0.85)',
-  ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
-    [`petal-c2-${String(i + 1).padStart(2, '0')}`, 'rgba(255,235,60,0.85)']
-  )),
-  'c3':          'rgba(215,220,228,0.90)',
-  ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
-    [`petal-c3-${String(i + 1).padStart(2, '0')}`, 'rgba(235,45,45,0.92)']
-  )),
-  'inner-circle': 'rgba(255,255,255,1.0)',
-  // C4–C9 fills added as each avarana's geometry is verified.
-  ...Object.fromEntries(Array.from({ length: 14 }, (_, i) =>
-    [`tri-c4-${String(i + 1).padStart(2, '0')}`, 'rgba(35,65,185,0.92)']
-  )),
-  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
-    [`tri-c5-${String(i + 1).padStart(2, '0')}`, 'rgba(235,45,45,0.92)']
-  )),
-  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
-    [`tri-c6-${String(i + 1).padStart(2, '0')}`, 'rgba(20,20,20,0.92)']
-  )),
-  ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
-    [`tri-c7-${String(i + 1).padStart(2, '0')}`, 'rgba(50,170,80,0.90)']
-  )),
-  'tri-c8-01':       'rgba(255,230,50,0.92)',
-  'tri-c8-bg-01':   'rgba(255,255,255,1.0)',
-  'tri-c8-bg-02':   'rgba(255,255,255,1.0)',
-  'c9':        'rgba(235,45,45,0.95)',
-  ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
-    [`tri-c5-${String(i + 1).padStart(2, '0')}`, 'rgba(235,45,45,0.92)']
-  )),
+function buildFills(p) {
+  return {
+    'c1-outer':    p.c1Outer,
+    'c1-mid':      p.c1Mid,
+    'c1-inner':    p.c1Inner,
+    'outer-rings': p.outerRings,
+    'c2':          p.c2Ring,
+    ...Object.fromEntries(Array.from({ length: 16 }, (_, i) =>
+      [`petal-c2-${String(i + 1).padStart(2, '0')}`, p.c2Petals]
+    )),
+    'c3':          p.c3Ring,
+    ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
+      [`petal-c3-${String(i + 1).padStart(2, '0')}`, p.c3Petals]
+    )),
+    'inner-circle': p.innerCircle,
+    ...Object.fromEntries(Array.from({ length: 14 }, (_, i) =>
+      [`tri-c4-${String(i + 1).padStart(2, '0')}`, p.c4]
+    )),
+    ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
+      [`tri-c5-${String(i + 1).padStart(2, '0')}`, p.c5]
+    )),
+    ...Object.fromEntries(Array.from({ length: 10 }, (_, i) =>
+      [`tri-c6-${String(i + 1).padStart(2, '0')}`, p.c6]
+    )),
+    ...Object.fromEntries(Array.from({ length: 8 }, (_, i) =>
+      [`tri-c7-${String(i + 1).padStart(2, '0')}`, p.c7]
+    )),
+    'tri-c8-01':    p.c8,
+    'tri-c8-bg-01': p.c8Bg,
+    'tri-c8-bg-02': p.c8Bg,
+    'c9':           p.c9,
+  }
 }
+
+const YANTRA_THEMES = [
+  {
+    id: 'traditional', label: 'Traditional',
+    accentColor: '#c9a84c', bgColor: '#0f0805',
+    palette: {
+      c1Outer: 'rgba(201,168,76,0.85)', c1Mid: 'rgba(255,235,60,0.85)', c1Inner: 'rgba(80,200,80,0.85)',
+      outerRings: 'rgba(215,220,228,0.90)',
+      c2Ring: 'rgba(201,168,76,0.85)', c2Petals: 'rgba(255,235,60,0.85)',
+      c3Ring: 'rgba(215,220,228,0.90)', c3Petals: 'rgba(235,45,45,0.92)',
+      innerCircle: 'rgba(255,255,255,1.0)',
+      c4: 'rgba(35,65,185,0.92)', c5: 'rgba(235,45,45,0.92)', c6: 'rgba(20,20,20,0.92)', c7: 'rgba(50,170,80,0.90)',
+      c8: 'rgba(255,230,50,0.92)', c8Bg: 'rgba(255,255,255,1.0)',
+      c9: 'rgba(235,45,45,0.95)',
+    },
+  },
+  {
+    id: 'midnight', label: 'Midnight Indigo',
+    accentColor: '#8fb4e3', bgColor: '#05070f',
+    palette: {
+      c1Outer: 'rgba(126,166,216,0.85)', c1Mid: 'rgba(180,160,230,0.85)', c1Inner: 'rgba(90,110,190,0.85)',
+      outerRings: 'rgba(200,210,230,0.90)',
+      c2Ring: 'rgba(126,166,216,0.85)', c2Petals: 'rgba(180,160,230,0.85)',
+      c3Ring: 'rgba(200,210,230,0.90)', c3Petals: 'rgba(90,60,160,0.92)',
+      innerCircle: 'rgba(235,240,255,1.0)',
+      c4: 'rgba(40,50,120,0.92)', c5: 'rgba(90,60,160,0.92)', c6: 'rgba(15,20,45,0.92)', c7: 'rgba(70,140,190,0.90)',
+      c8: 'rgba(200,220,255,0.92)', c8Bg: 'rgba(235,240,255,1.0)',
+      c9: 'rgba(90,60,160,0.95)',
+    },
+  },
+  {
+    id: 'sunset', label: 'Sunset Ember',
+    accentColor: '#e8a35c', bgColor: '#150705',
+    palette: {
+      c1Outer: 'rgba(214,110,50,0.85)', c1Mid: 'rgba(240,180,60,0.85)', c1Inner: 'rgba(180,60,50,0.85)',
+      outerRings: 'rgba(230,200,180,0.90)',
+      c2Ring: 'rgba(214,110,50,0.85)', c2Petals: 'rgba(240,180,60,0.85)',
+      c3Ring: 'rgba(230,200,180,0.90)', c3Petals: 'rgba(190,40,40,0.92)',
+      innerCircle: 'rgba(255,245,230,1.0)',
+      c4: 'rgba(150,50,40,0.92)', c5: 'rgba(190,40,40,0.92)', c6: 'rgba(40,15,10,0.92)', c7: 'rgba(224,140,50,0.90)',
+      c8: 'rgba(250,210,80,0.92)', c8Bg: 'rgba(255,245,230,1.0)',
+      c9: 'rgba(190,40,40,0.95)',
+    },
+  },
+  {
+    id: 'jade', label: 'Emerald Jade',
+    accentColor: '#7fbf8f', bgColor: '#040a06',
+    palette: {
+      c1Outer: 'rgba(60,140,90,0.85)', c1Mid: 'rgba(180,200,80,0.85)', c1Inner: 'rgba(30,90,60,0.85)',
+      outerRings: 'rgba(200,220,205,0.90)',
+      c2Ring: 'rgba(60,140,90,0.85)', c2Petals: 'rgba(180,200,80,0.85)',
+      c3Ring: 'rgba(200,220,205,0.90)', c3Petals: 'rgba(190,60,60,0.92)',
+      innerCircle: 'rgba(240,255,245,1.0)',
+      c4: 'rgba(20,80,110,0.92)', c5: 'rgba(190,60,60,0.92)', c6: 'rgba(10,30,20,0.92)', c7: 'rgba(80,160,110,0.90)',
+      c8: 'rgba(230,220,120,0.92)', c8Bg: 'rgba(240,255,245,1.0)',
+      c9: 'rgba(190,60,60,0.95)',
+    },
+  },
+  {
+    id: 'silver', label: 'Monochrome Silver',
+    accentColor: '#d9d9d9', bgColor: '#0a0a0a',
+    palette: {
+      c1Outer: 'rgba(150,150,150,0.85)', c1Mid: 'rgba(220,220,220,0.85)', c1Inner: 'rgba(90,90,90,0.85)',
+      outerRings: 'rgba(235,235,235,0.90)',
+      c2Ring: 'rgba(150,150,150,0.85)', c2Petals: 'rgba(220,220,220,0.85)',
+      c3Ring: 'rgba(235,235,235,0.90)', c3Petals: 'rgba(60,60,60,0.92)',
+      innerCircle: 'rgba(255,255,255,1.0)',
+      c4: 'rgba(70,70,70,0.92)', c5: 'rgba(60,60,60,0.92)', c6: 'rgba(15,15,15,0.92)', c7: 'rgba(130,130,130,0.90)',
+      c8: 'rgba(240,240,240,0.92)', c8Bg: 'rgba(255,255,255,1.0)',
+      c9: 'rgba(60,60,60,0.95)',
+    },
+  },
+].map(t => ({ ...t, fills: buildFills(t.palette) }))
+
+// Kept for the unrelated click-to-fill `filledRegions` state's initial value
+// (App.jsx's own region-highlight tool — see handleRegionClick) — not used
+// by the Śrī Yantra page itself, which now drives off YANTRA_THEMES.
+const MODEL_YANTRA_FILLS = YANTRA_THEMES[0].fills
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -2694,6 +2786,7 @@ export default function App() {
   const [selectedCircuit, setSelectedCircuit] = useState(null)
   const [lastTapped,      setLastTapped]      = useState(null)
   const [filledRegions,   setFilledRegions]   = useState(MODEL_YANTRA_FILLS)
+  const [yantraThemeIdx,  setYantraThemeIdx]  = useState(0)
 
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)
@@ -4178,6 +4271,19 @@ export default function App() {
 
   const hasFills = Object.keys(filledRegions).length > 0
 
+  // ── Śrī Yantra page colour theme controls ─────────────────────────────────
+  const handleYantraThemePrev = () =>
+    setYantraThemeIdx(i => (i - 1 + YANTRA_THEMES.length) % YANTRA_THEMES.length)
+  const handleYantraThemeNext = () =>
+    setYantraThemeIdx(i => (i + 1) % YANTRA_THEMES.length)
+  const handleYantraThemeShuffle = () =>
+    setYantraThemeIdx(i => {
+      if (YANTRA_THEMES.length < 2) return i
+      let n
+      do { n = Math.floor(Math.random() * YANTRA_THEMES.length) } while (n === i)
+      return n
+    })
+
   // ── Navigate to a tab AND start Memorise mode there ───────────────────────
   //    Used by "Next circuit →" completion buttons so the user lands in
   //    Memorise mode, not Explore mode.
@@ -5473,9 +5579,38 @@ export default function App() {
                       showTriangles={true}
                       showLabels={false}
                       showNumbers={false}
-                      filledRegions={MODEL_YANTRA_FILLS}
+                      filledRegions={YANTRA_THEMES[yantraThemeIdx].fills}
+                      accentColor={YANTRA_THEMES[yantraThemeIdx].accentColor}
+                      bgColor={YANTRA_THEMES[yantraThemeIdx].bgColor}
                     />
                   </div>
+                </div>
+                <div className="flex items-center justify-center gap-3 mt-3">
+                  <button
+                    onClick={handleYantraThemePrev}
+                    title="Previous colour scheme"
+                    className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
+                  >
+                    <ChevronLeft size={14} />
+                  </button>
+                  <span className="text-xs font-mono text-gold-400 min-w-[9rem] text-center select-none">
+                    {YANTRA_THEMES[yantraThemeIdx].label}
+                  </span>
+                  <button
+                    onClick={handleYantraThemeNext}
+                    title="Next colour scheme"
+                    className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
+                  >
+                    <ChevronRight size={14} />
+                  </button>
+                  <button
+                    onClick={handleYantraThemeShuffle}
+                    title="Shuffle colour scheme"
+                    className="ml-2 px-2 py-1 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700 hover:border-gold-600 transition-colors flex items-center gap-1.5"
+                  >
+                    <Shuffle size={13} />
+                    Shuffle
+                  </button>
                 </div>
               </div>
             )}

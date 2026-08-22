@@ -711,13 +711,14 @@ export default function SriYantraSVG({
   onRegionLeave       = null,
   onRegionDoubleClick = null,
   accentColor         = null,
+  bgColor             = null,
   noStrokeRegions     = {},
 }) {
   const gold             = accentColor || '#c9a84c'
   const bhupuraGold      = accentColor || '#b89840'   // slightly richer to match petal stroke appearance
   const bhupuraInnerGold = '#ffeb3c'   // matches c1-mid fill (bright yellow band) — model yantra only
   const goldFill         = 'rgba(201,168,76,0.07)'
-  const bg               = '#0f0805'
+  const bg               = bgColor || '#0f0805'
 
   // Inner bhupura strokes: yellow only when the model yantra's yellow c1-mid band is active;
   // otherwise use bhupuraGold so circuit-view pages show consistent all-gold bhupura lines.
