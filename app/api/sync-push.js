@@ -1,10 +1,12 @@
 // api/sync-push.js — POST { code, blob }
 //
-// Overwrites the stored blob for an existing sync code. Last-write-wins, no
-// merge — a deliberate simplification given the realistic usage pattern (one
-// person, one code, rarely two devices writing in the same minute); see
-// PERSISTENCE-AND-SYNC-DESIGN.md Part B for why a CRDT/merge approach was
-// considered and rejected as unnecessary complexity for this app's use case.
+// Merges the incoming blob into whatever's already stored for this code —
+// see _lib/mergeBlob.js for exactly what "merge" means here and the
+// 2026-08-22 incident that made a blind overwrite unacceptable (two devices
+// completing different circuits between syncs used to silently erase one
+// another). The response includes the merged blob so the pushing device can
+// adopt it locally too — a push now doubles as picking up whatever other
+// devices have already contributed, without a separate manual pull.
 //
 // Requires an existing code (from sync-new-code) — this endpoint never creates
 // one implicitly, so a typo'd code fails loudly instead of silently writing to
@@ -13,6 +15,7 @@
 import { getRedis } from './_lib/redis.js'
 import { isValidSyncCode } from './_lib/code.js'
 import { getPushLimiter, clientIp } from './_lib/ratelimit.js'
+import { mergeBlobs } from './_lib/mergeBlob.js'
 
 const SCHEMA_VERSION = 1
 const MAX_BODY_BYTES = 512 * 1024 // generous for this app's data shape, just stops abuse
@@ -41,17 +44,18 @@ export default async function handler(req, res) {
     }
 
     const redis = getRedis()
-    const exists = await redis.exists(`sync:${code}`)
-    if (!exists) {
+    const existing = await redis.get(`sync:${code}`)
+    if (!existing) {
       return res.status(404).json({ error: 'Unknown code — get a new one first' })
     }
 
     // Server sets updatedAt and schemaVersion — never trust the client's clock
     // or an arbitrary version number arriving in the request body.
-    const toStore = { ...blob, schemaVersion: SCHEMA_VERSION, updatedAt: new Date().toISOString() }
+    const merged  = mergeBlobs(existing, blob)
+    const toStore = { ...merged, schemaVersion: SCHEMA_VERSION, updatedAt: new Date().toISOString() }
     await redis.set(`sync:${code}`, toStore)
 
-    return res.status(200).json({ ok: true, updatedAt: toStore.updatedAt })
+    return res.status(200).json({ ok: true, updatedAt: toStore.updatedAt, blob: toStore })
   } catch (err) {
     console.error('sync-push error:', err)
     return res.status(500).json({ error: 'Internal error' })

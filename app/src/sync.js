@@ -7,12 +7,22 @@
  * loses the data behind it; that's a deliberate trade-off, not an oversight
  * (see SyncView.jsx for the in-product warning this requires).
  *
- * Sync direction, per the design doc: pull-on-load (merge into local state)
- * and push-on-change (debounced, not on every tap) — no manual "sync now"
- * button, the sync itself should be invisible. Conflict handling is
- * last-write-wins at the whole-blob level, same simplification the server
- * makes (see api/sync-push.js) — deliberate given the realistic usage
- * pattern (one person, one code, rarely two devices writing at once).
+ * Sync direction: push-on-change (debounced), pull only on an explicit,
+ * confirmed user action (Link, "Pull latest") or on first load for a device
+ * with zero local progress — see hasLocalProgress() and App.jsx's mount
+ * effect for why an unconditional pull-on-load was removed 2026-08-22.
+ *
+ * Conflict handling is a per-SECTION merge on the server (see
+ * api/_lib/mergeBlob.js), not a whole-blob overwrite — also changed
+ * 2026-08-22, after a blind overwrite let one device's push silently erase
+ * another device's progress on a circuit it had never touched. A push now
+ * merges this device's changes into whatever's stored and adopts the
+ * merged result locally (see pushNow), so pushing also picks up other
+ * devices' independent progress. The remaining accepted trade-off: two
+ * devices editing the exact same section without syncing between still
+ * resolves last-write-wins for that one section — full CRDT-style merging
+ * within a section was considered and rejected as unnecessary complexity
+ * for this app's realistic usage pattern (one person, a handful of devices).
  */
 
 const CODE_KEY = 'sy-sync-code'
@@ -90,8 +100,12 @@ function gatherBlob() {
   }
 }
 
-// Full replace, not a per-key merge — see file header on why last-write-wins
-// at the blob level is the deliberate design, not a shortcut.
+// Writes whatever blob it's given straight into localStorage, key for key —
+// this function itself does no merging. That's fine: for a Link/Pull, the
+// blob it receives is exactly what's stored server-side, which is already
+// the product of every device's merged contributions (see
+// api/_lib/mergeBlob.js); for pushNow's local adoption, same thing. The
+// merge work happens once, server-side, on write — not here on every apply.
 function applyBlob(blob) {
   if (!blob || typeof blob !== 'object') return
   try {
@@ -185,10 +199,17 @@ export function hasLocalProgress() {
   return false
 }
 
+// Pushes this device's data, then adopts whatever the server merged it into
+// (see api/_lib/mergeBlob.js) — sections this device never touched but
+// another device already pushed come back in the response and get applied
+// locally. Safe to apply unconditionally: the merge is additive (a section
+// is only ever replaced by a newer write for that exact section, never
+// dropped), unlike the old blind-pull overwrite this deliberately isn't.
 export async function pushNow(code = getSyncCode()) {
   if (!code) return null
   const blob = gatherBlob()
-  const { updatedAt } = await postJson('/api/sync-push', { code, blob })
+  const { updatedAt, blob: merged } = await postJson('/api/sync-push', { code, blob })
+  if (merged) applyBlob(merged)
   setLastSyncedAt(updatedAt)
   return updatedAt
 }
