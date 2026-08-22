@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { useTour } from './components/TourGuide'
 import CircuitBrowser from './components/CircuitBrowser'
 import ReferencesView from './components/ReferencesView'
@@ -7,6 +7,7 @@ import SriYantraSVG from './components/SriYantraSVG'
 import NyasaView from './components/NyasaView'
 import InnerView from './components/InnerView'
 import GuravaView from './components/GuravaView'
+import YantraThemeCustomiser from './components/YantraThemeCustomiser'
 import BhupuraView, { C1_TOTAL as BHUPURA_C1_TOTAL, SIDDHI_TOTAL as BHUPURA_SIDDHI_TOTAL } from './components/BhupuraView'
 import FuriganaName from './components/FuriganaName'
 import C2View from './components/C2View'
@@ -32,7 +33,7 @@ import lineDrillData from './data/lineDrillLines.json'
 import segmentDrillData from './data/segmentDrillLines.json'
 import triangleDrillData from './data/triangleDrillLines.json'
 import { getPosition, C4_DEITY_ORDER, C5_DEITY_ORDER, C6_DEITY_ORDER, C7_DEITY_ORDER } from './deityPositions.js'
-import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry, sectionIdToMemoKey } from './utils.js'
+import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry, sectionIdToMemoKey, loadCustomYantraTheme, saveCustomYantraTheme } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
 
 const LANG_OPTIONS = [
@@ -734,6 +735,20 @@ const YANTRA_THEMES = [
 // (App.jsx's own region-highlight tool — see handleRegionClick) — not used
 // by the Śrī Yantra page itself, which now drives off YANTRA_THEMES.
 const MODEL_YANTRA_FILLS = YANTRA_THEMES[0].fills
+
+// Seeds the "Custom" theme's default palette from Traditional — the built-in
+// palettes are rgba (with alpha), the custom picker works in solid hex, so
+// this drops the alpha channel rather than trying to expose it in the UI.
+function rgbaToHex(rgba) {
+  const m = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(rgba || '')
+  if (!m) return '#c9a84c'
+  const c = n => Math.max(0, Math.min(255, parseInt(n, 10))).toString(16).padStart(2, '0')
+  return `#${c(m[1])}${c(m[2])}${c(m[3])}`
+}
+
+const DEFAULT_CUSTOM_PALETTE = Object.fromEntries(
+  Object.entries(YANTRA_THEMES[0].palette).map(([k, v]) => [k, rgbaToHex(v)])
+)
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -2787,6 +2802,15 @@ export default function App() {
   const [lastTapped,      setLastTapped]      = useState(null)
   const [filledRegions,   setFilledRegions]   = useState(MODEL_YANTRA_FILLS)
   const [yantraThemeIdx,  setYantraThemeIdx]  = useState(0)
+  const [showCustomiser,  setShowCustomiser]  = useState(false)
+  const [customTheme,     setCustomTheme]     = useState(() => {
+    const saved = loadCustomYantraTheme()
+    return {
+      palette:     saved?.palette     ?? DEFAULT_CUSTOM_PALETTE,
+      accentColor: saved?.accentColor ?? YANTRA_THEMES[0].accentColor,
+      bgColor:     saved?.bgColor     ?? YANTRA_THEMES[0].bgColor,
+    }
+  })
 
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)
@@ -4272,17 +4296,50 @@ export default function App() {
   const hasFills = Object.keys(filledRegions).length > 0
 
   // ── Śrī Yantra page colour theme controls ─────────────────────────────────
-  const handleYantraThemePrev = () =>
-    setYantraThemeIdx(i => (i - 1 + YANTRA_THEMES.length) % YANTRA_THEMES.length)
-  const handleYantraThemeNext = () =>
-    setYantraThemeIdx(i => (i + 1) % YANTRA_THEMES.length)
-  const handleYantraThemeShuffle = () =>
+  // allThemes = the 5 built-in presets + the user's live-editable Custom slot
+  // (always last). Rebuilt only when the custom palette/accent/bg change.
+  const allThemes = useMemo(() => [
+    ...YANTRA_THEMES,
+    {
+      id: 'custom', label: 'Custom',
+      accentColor: customTheme.accentColor, bgColor: customTheme.bgColor,
+      palette: customTheme.palette, fills: buildFills(customTheme.palette),
+    },
+  ], [customTheme])
+  const customThemeIdx = allThemes.length - 1
+
+  useEffect(() => { saveCustomYantraTheme(customTheme) }, [customTheme])
+
+  const handleYantraThemePrev = () => {
+    setShowCustomiser(false)
+    setYantraThemeIdx(i => (i - 1 + allThemes.length) % allThemes.length)
+  }
+  const handleYantraThemeNext = () => {
+    setShowCustomiser(false)
+    setYantraThemeIdx(i => (i + 1) % allThemes.length)
+  }
+  const handleYantraThemeShuffle = () => {
+    setShowCustomiser(false)
     setYantraThemeIdx(i => {
-      if (YANTRA_THEMES.length < 2) return i
+      if (allThemes.length < 2) return i
       let n
-      do { n = Math.floor(Math.random() * YANTRA_THEMES.length) } while (n === i)
+      do { n = Math.floor(Math.random() * allThemes.length) } while (n === i)
       return n
     })
+  }
+  const handleYantraCustomise = () => {
+    setYantraThemeIdx(customThemeIdx)
+    setShowCustomiser(true)
+  }
+  const handleYantraCustomReset = () =>
+    setCustomTheme({
+      palette: DEFAULT_CUSTOM_PALETTE,
+      accentColor: YANTRA_THEMES[0].accentColor,
+      bgColor: YANTRA_THEMES[0].bgColor,
+    })
+  const handleCustomPaletteChange = newPalette => setCustomTheme(t => ({ ...t, palette: newPalette }))
+  const handleCustomAccentChange  = hex        => setCustomTheme(t => ({ ...t, accentColor: hex }))
+  const handleCustomBgChange      = hex        => setCustomTheme(t => ({ ...t, bgColor: hex }))
 
   // ── Navigate to a tab AND start Memorise mode there ───────────────────────
   //    Used by "Next circuit →" completion buttons so the user lands in
@@ -5579,13 +5636,13 @@ export default function App() {
                       showTriangles={true}
                       showLabels={false}
                       showNumbers={false}
-                      filledRegions={YANTRA_THEMES[yantraThemeIdx].fills}
-                      accentColor={YANTRA_THEMES[yantraThemeIdx].accentColor}
-                      bgColor={YANTRA_THEMES[yantraThemeIdx].bgColor}
+                      filledRegions={allThemes[yantraThemeIdx].fills}
+                      accentColor={allThemes[yantraThemeIdx].accentColor}
+                      bgColor={allThemes[yantraThemeIdx].bgColor}
                     />
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-3 mt-3">
+                <div className="flex items-center justify-center gap-3 mt-3 flex-wrap">
                   <button
                     onClick={handleYantraThemePrev}
                     title="Previous colour scheme"
@@ -5594,7 +5651,7 @@ export default function App() {
                     <ChevronLeft size={14} />
                   </button>
                   <span className="text-xs font-mono text-gold-400 min-w-[9rem] text-center select-none">
-                    {YANTRA_THEMES[yantraThemeIdx].label}
+                    {allThemes[yantraThemeIdx].label}
                   </span>
                   <button
                     onClick={handleYantraThemeNext}
@@ -5611,7 +5668,30 @@ export default function App() {
                     <Shuffle size={13} />
                     Shuffle
                   </button>
+                  <button
+                    onClick={handleYantraCustomise}
+                    title="Customise colours"
+                    className={`px-2 py-1 rounded text-xs border transition-colors ${
+                      yantraThemeIdx === customThemeIdx
+                        ? 'bg-gold-700 text-black border-gold-700'
+                        : 'bg-surface-800 text-gold-400 border-surface-700 hover:border-gold-600'
+                    }`}
+                  >
+                    Customise
+                  </button>
                 </div>
+                {showCustomiser && yantraThemeIdx === customThemeIdx && (
+                  <YantraThemeCustomiser
+                    palette={customTheme.palette}
+                    accentColor={customTheme.accentColor}
+                    bgColor={customTheme.bgColor}
+                    onPaletteChange={handleCustomPaletteChange}
+                    onAccentChange={handleCustomAccentChange}
+                    onBgChange={handleCustomBgChange}
+                    onReset={handleYantraCustomReset}
+                    onClose={() => setShowCustomiser(false)}
+                  />
+                )}
               </div>
             )}
             {activeTab === 'nyasa'   && <NyasaView

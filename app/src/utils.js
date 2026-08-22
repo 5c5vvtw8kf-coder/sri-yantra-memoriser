@@ -321,6 +321,25 @@ export function setIncludeOptionalDeities(value) {
   try { localStorage.setItem(INCLUDE_OPTIONAL_KEY, value ? 'true' : 'false') } catch {}
 }
 
+// ── Śrī Yantra page: user's custom colour theme ─────────────────────────────
+// Single-device only (plain localStorage) — not part of the Device Sync blob.
+// Wiring it into cross-device sync would mean extending the sync schema
+// (api/_lib/mergeBlob.js) and is a deliberate separate piece of work, not a
+// silent scope add here.
+
+const CUSTOM_YANTRA_THEME_KEY = 'sy-custom-yantra-theme'
+
+export function loadCustomYantraTheme() {
+  try {
+    const v = localStorage.getItem(CUSTOM_YANTRA_THEME_KEY)
+    return v ? JSON.parse(v) : null
+  } catch { return null }
+}
+
+export function saveCustomYantraTheme(theme) {
+  try { localStorage.setItem(CUSTOM_YANTRA_THEME_KEY, JSON.stringify(theme)) } catch {}
+}
+
 /**
  * Returns the display name for a deity in the requested script,
  * falling back to IAST if the requested script is unavailable.
