@@ -23,7 +23,7 @@ import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import SyncView from './components/SyncView'
-import { getSyncCode, pullNow } from './sync.js'
+import { getSyncCode, pullNow, hasLocalProgress } from './sync.js'
 import LineDrillView from './components/LineDrillView'
 import SegmentDrillView from './components/SegmentDrillView'
 import TriangleDrillView from './components/TriangleDrillView'
@@ -2605,16 +2605,21 @@ export default function App() {
     return () => { clearTimeout(t); document.removeEventListener('mousedown', close) }
   }, [showSidebarLangMenu])
 
-  // ── Device sync — pull-on-load ────────────────────────────────────────────
-  // Silent and best-effort: if a sync code is linked, pull once on mount so a
-  // returning device picks up whatever the code holds. No code = no-op. Errors
-  // are logged only — sync is additive, the app must keep working fully
-  // offline on local data regardless of network/server state (see
-  // PERSISTENCE-AND-SYNC-DESIGN.md). Push-on-change is wired separately, at
-  // the point of writing (see utils.js's saveMemoStorage/recordHistoryEntry/
+  // ── Device sync — pull-on-load (new devices only) ─────────────────────────
+  // Only auto-pulls when this device has zero local progress — i.e. a
+  // genuinely new install picking up an existing code for the first time.
+  // A device that already has memo results, history, or a session log is
+  // never silently overwritten on mount; that unconditional-pull behaviour
+  // is what wiped a real Activity Log on 2026-08-22 (mount ran on every
+  // load and replaced a fuller local dataset with a leaner cloud one).
+  // From here on, pulling into a device that already has progress only
+  // happens via an explicit, confirmed action (Link, Sync now — see
+  // SyncView.jsx). Push-on-change is wired separately, at the point of
+  // writing (see utils.js's saveMemoStorage/recordHistoryEntry/
   // saveSessionLog, each of which calls sync.js's schedulePush()).
   useEffect(() => {
     if (!getSyncCode()) return
+    if (hasLocalProgress()) return
     pullNow().catch(err => console.error('sync: pull-on-load failed', err))
   }, [])
 

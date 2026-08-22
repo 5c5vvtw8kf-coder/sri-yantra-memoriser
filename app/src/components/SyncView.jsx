@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getSyncCode, getLastSyncedAt, createSyncCode, linkSyncCode, pullNow, clearSyncCode } from '../sync.js'
+import { getSyncCode, getLastSyncedAt, createSyncCode, linkSyncCode, pullNow, pushNow, clearSyncCode } from '../sync.js'
 
 /**
  * SyncView.jsx — "Device Sync" tab.
@@ -77,6 +77,7 @@ export default function SyncView({ tr = k => k }) {
   }
 
   const handleSyncNow = async () => {
+    if (!window.confirm(tr('sync.sync_now_confirm'))) return
     setBusy(true)
     setMessage(null)
     try {
@@ -86,6 +87,22 @@ export default function SyncView({ tr = k => k }) {
     } catch (err) {
       setMessage({ kind: 'error', text: tr('sync.error_generic') })
       console.error('sync: pullNow failed', err)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const handlePush = async () => {
+    if (!window.confirm(tr('sync.push_confirm'))) return
+    setBusy(true)
+    setMessage(null)
+    try {
+      await pushNow()
+      refresh()
+      setMessage({ kind: 'success', text: tr('sync.success_pushed') })
+    } catch (err) {
+      setMessage({ kind: 'error', text: tr('sync.error_generic') })
+      console.error('sync: pushNow failed', err)
     } finally {
       setBusy(false)
     }
@@ -148,13 +165,20 @@ export default function SyncView({ tr = k => k }) {
             </p>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <button
               onClick={handleSyncNow}
               disabled={busy}
               className="text-xs bg-gold-400 text-surface-900 font-bold rounded px-3 py-1.5 disabled:opacity-50 transition-opacity"
             >
               {busy ? tr('sync.working') : tr('sync.sync_now')}
+            </button>
+            <button
+              onClick={handlePush}
+              disabled={busy}
+              className="text-xs bg-surface-800 text-gold-400 border border-surface-700 hover:border-gold-600 rounded px-3 py-1.5 disabled:opacity-50 transition-colors"
+            >
+              {busy ? tr('sync.working') : tr('sync.push')}
             </button>
             <button
               onClick={handleUnlink}

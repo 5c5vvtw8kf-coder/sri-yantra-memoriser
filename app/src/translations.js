@@ -514,7 +514,10 @@ const en = {
   'sync.copied':            'Copied',
   'sync.last_synced':       'Last synced',
   'sync.never_synced':      'Not yet synced',
-  'sync.sync_now':          'Sync now',
+  'sync.sync_now':          'Pull latest',
+  'sync.sync_now_confirm':  "This replaces this device's progress with whatever is stored in the cloud. Continue?",
+  'sync.push':               'Push this device',
+  'sync.push_confirm':      "This replaces the cloud copy with what's on this device — other devices will get this data next time they pull. Continue?",
   'sync.unlink':            'Unlink this device',
   'sync.unlink_confirm':    "This stops syncing on this device. Your progress here stays as-is, and the code still works on other devices. Continue?",
   'sync.working':           'Working…',
@@ -523,7 +526,8 @@ const en = {
   'sync.error_invalid':     'That code looks wrong — check for typos.',
   'sync.success_created':   'Code created and linked to this device.',
   'sync.success_linked':    "Linked — this device now has that code's progress.",
-  'sync.success_synced':    'Synced.',
+  'sync.success_synced':    'Pulled from the cloud.',
+  'sync.success_pushed':    "Pushed — this device's progress is now the cloud copy.",
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────

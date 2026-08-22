@@ -158,6 +158,33 @@ export async function pullNow(code = getSyncCode()) {
   return blob
 }
 
+// Used to decide whether an automatic pull is safe. A device with zero local
+// progress has nothing to lose, so pulling on mount is a pure convenience for
+// a brand-new install. A device that already has memo results, history, or a
+// session log must never be silently overwritten — that's what caused the
+// 2026-08-22 Activity Log wipe (mount-effect pull ran unconditionally and
+// replaced a fuller local dataset with a leaner cloud one). Any explicit pull
+// from here on (Link, Sync now) still overwrites — that's the point of those
+// actions — but it happens only when the user asked for it, with a confirm.
+export function hasLocalProgress() {
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i)
+      if (!k) continue
+      if (k === SESSION_LOG_KEY) {
+        const log = JSON.parse(localStorage.getItem(k) || '[]')
+        if (Array.isArray(log) && log.length > 0) return true
+      } else if (k.startsWith(MEMO_PREFIX) && k !== INCLUDE_DRILLS_KEY) {
+        const val = JSON.parse(localStorage.getItem(k) || '{}')
+        if (val && typeof val === 'object' && Object.keys(val).length > 0) return true
+      }
+    }
+  } catch (err) {
+    console.error('sync: hasLocalProgress check failed', err)
+  }
+  return false
+}
+
 export async function pushNow(code = getSyncCode()) {
   if (!code) return null
   const blob = gatherBlob()
