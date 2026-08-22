@@ -5659,7 +5659,8 @@ export default function App() {
                     />
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-3 mt-3 flex-wrap">
+                {/* Mobile only — desktop has these pinned to the bottom of the right panel instead */}
+                <div className="md:hidden flex items-center justify-center gap-3 mt-3 flex-wrap">
                   <button
                     onClick={handleYantraThemePrev}
                     title="Previous colour scheme"
@@ -7732,6 +7733,52 @@ export default function App() {
               </div>
             )}
 
+          </div>
+        )}
+
+        {/* Śrī Yantra colour theme controls — pinned to the bottom */}
+        {activeTab === 'yantra' && (
+          <div className="flex-shrink-0 border-t border-surface-800 p-3 space-y-2">
+            <div className="flex items-center justify-center gap-2">
+              <button
+                onClick={handleYantraThemePrev}
+                title="Previous colour scheme"
+                className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
+              >
+                <ChevronLeft size={14} />
+              </button>
+              <span className="text-xs font-mono text-gold-400 flex-1 text-center truncate select-none">
+                {allThemes[yantraThemeIdx].label}
+              </span>
+              <button
+                onClick={handleYantraThemeNext}
+                title="Next colour scheme"
+                className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
+              >
+                <ChevronRight size={14} />
+              </button>
+            </div>
+            <div className="flex gap-1.5">
+              <button
+                onClick={handleYantraThemeShuffle}
+                title="Shuffle colour scheme"
+                className="flex-1 px-2 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors flex items-center justify-center gap-1.5"
+              >
+                <Shuffle size={13} />
+                Shuffle
+              </button>
+              <button
+                onClick={handleYantraCustomise}
+                title="Customise colours"
+                className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  yantraThemeIdx === customThemeIdx
+                    ? 'bg-gold-700 text-black'
+                    : 'bg-surface-700 text-muted hover:text-cream'
+                }`}
+              >
+                Customise
+              </button>
+            </div>
           </div>
         )}
 
