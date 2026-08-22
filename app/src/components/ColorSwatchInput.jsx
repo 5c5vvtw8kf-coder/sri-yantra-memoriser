@@ -143,6 +143,10 @@ export default function ColorSwatchInput({ label, value, onChange }) {
   const [s, setS] = useState(0)
   const [v, setV] = useState(0)
   const [clipFeedback, setClipFeedback] = useState(null)   // 'copied' | 'pasted' | 'invalid' | 'error' | null
+  // What's actually shown in the hex text field — kept separate from `value`
+  // so a half-typed hex (e.g. "1", "ab") doesn't get committed (and snap
+  // back to black) on every keystroke. Only a complete, valid hex commits.
+  const [hexDraft, setHexDraft] = useState(value)
 
   // Sync internal h/s/v from the value prop — but skip it when the incoming
   // value is one we just emitted ourselves, so dragging near s=0 or v=0
@@ -153,6 +157,12 @@ export default function ColorSwatchInput({ label, value, onChange }) {
     const [nh, ns, nv] = hexToHsv(value)
     setH(nh); setS(ns); setV(nv)
   }, [value])
+
+  // Keep the hex field's draft in sync whenever the colour changes for any
+  // reason — wheel/square/hue drag, RGB fields, presets, paste, undo, reset,
+  // or finishing a valid hex typed right here. Never fires mid-typing of an
+  // incomplete value, since incomplete input never calls onChange below.
+  useEffect(() => { setHexDraft(value) }, [value])
 
   useEffect(() => {
     if (!open) return
@@ -192,8 +202,10 @@ export default function ColorSwatchInput({ label, value, onChange }) {
     commitHex(rgbToHex(next.r, next.g, next.b))
   }
   const handleHexInput = raw => {
-    let hex = raw.startsWith('#') ? raw : `#${raw}`
-    if (/^#[0-9a-fA-F]{0,6}$/.test(hex)) commitHex(hex)
+    const withHash = raw === '' ? '' : (raw.startsWith('#') ? raw : `#${raw}`)
+    setHexDraft(withHash)   // show exactly what's typed, valid or not
+    const hex = parseClipboardColor(withHash)
+    if (hex) commitHex(hex)   // only commit once it's a complete, valid colour
   }
 
   const flashFeedback = kind => {
@@ -332,7 +344,7 @@ export default function ColorSwatchInput({ label, value, onChange }) {
             <span className="text-[10px] text-muted flex-shrink-0">Hex</span>
             <input
               type="text"
-              value={value}
+              value={hexDraft}
               onChange={e => handleHexInput(e.target.value)}
               className="flex-1 min-w-0 text-xs font-mono bg-surface-900 border border-surface-700 rounded px-2 py-1.5 text-cream focus:outline-none focus:border-gold-700"
               maxLength={7}
