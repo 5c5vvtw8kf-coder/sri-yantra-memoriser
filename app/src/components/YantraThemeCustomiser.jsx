@@ -39,6 +39,8 @@ export default function YantraThemeCustomiser({
   palette, accentColor, bgColor,
   onPaletteChange, onAccentChange, onBgChange,
   onReset, onClose,
+  variant = 'panel',   // 'panel' — inside the desktop right-hand aside (no card chrome, aside supplies it)
+                       // 'inline' — mobile fallback rendered below the diagram (self-contained card)
 }) {
   const valueFor = key => {
     if (key === '__accent') return accentColor
@@ -51,23 +53,29 @@ export default function YantraThemeCustomiser({
     onPaletteChange({ ...palette, [key]: hex })
   }
 
+  const outerClass = variant === 'inline'
+    ? 'w-full max-w-md mx-auto mt-3 bg-surface-900 border border-surface-700 rounded-xl p-4'
+    : 'w-full p-4'
+
   return (
-    <div className="w-full max-w-md mx-auto mt-3 bg-surface-900 border border-surface-700 rounded-xl p-4">
+    <div className={outerClass}>
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-sm text-gold-400 font-medium">Customise colours</h3>
         <div className="flex items-center gap-3">
           <button onClick={onReset} className="text-[11px] text-muted hover:text-cream transition-colors">
-            Reset to Traditional
+            Reset
           </button>
-          <button onClick={onClose} className="text-[11px] text-muted hover:text-cream transition-colors">
-            Close
-          </button>
+          {variant === 'inline' && (
+            <button onClick={onClose} className="text-[11px] text-muted hover:text-cream transition-colors">
+              Close
+            </button>
+          )}
         </div>
       </div>
       <p className="text-[11px] text-muted mb-2">
         Changes apply live. Saved on this device only — not part of Device Sync.
       </p>
-      <div className="divide-y divide-surface-800 max-h-[60vh] overflow-y-auto pr-1">
+      <div className="divide-y divide-surface-800 max-h-[70vh] overflow-y-auto pr-1">
         {ROWS.map(({ key, label }) => (
           <ColorSwatchInput
             key={key}

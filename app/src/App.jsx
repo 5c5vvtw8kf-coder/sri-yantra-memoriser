@@ -4330,6 +4330,7 @@ export default function App() {
   const handleYantraCustomise = () => {
     setYantraThemeIdx(customThemeIdx)
     setShowCustomiser(true)
+    setRightPanelOpen(true)
   }
   const handleYantraCustomReset = () =>
     setCustomTheme({
@@ -4460,7 +4461,23 @@ export default function App() {
 
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {
-    if (['yantra', 'intro', 'memomap', 'references'].includes(activeTab)) return null
+    if (activeTab === 'yantra') {
+      if (!showCustomiser) return null
+      return (
+        <YantraThemeCustomiser
+          variant="panel"
+          palette={customTheme.palette}
+          accentColor={customTheme.accentColor}
+          bgColor={customTheme.bgColor}
+          onPaletteChange={handleCustomPaletteChange}
+          onAccentChange={handleCustomAccentChange}
+          onBgChange={handleCustomBgChange}
+          onReset={handleYantraCustomReset}
+          onClose={() => setShowCustomiser(false)}
+        />
+      )
+    }
+    if (['intro', 'memomap', 'references'].includes(activeTab)) return null
     if (activeTab === 'linedrill') return renderLineDrillControls()
     if (activeTab === 'segmentdrill') return renderSegmentDrillControls()
     if (activeTab === 'triangledrill') return renderTriangleDrillControls()
@@ -5680,17 +5697,21 @@ export default function App() {
                     Customise
                   </button>
                 </div>
+                {/* Mobile only — desktop uses the collapsible right panel instead */}
                 {showCustomiser && yantraThemeIdx === customThemeIdx && (
-                  <YantraThemeCustomiser
-                    palette={customTheme.palette}
-                    accentColor={customTheme.accentColor}
-                    bgColor={customTheme.bgColor}
-                    onPaletteChange={handleCustomPaletteChange}
-                    onAccentChange={handleCustomAccentChange}
-                    onBgChange={handleCustomBgChange}
-                    onReset={handleYantraCustomReset}
-                    onClose={() => setShowCustomiser(false)}
-                  />
+                  <div className="md:hidden">
+                    <YantraThemeCustomiser
+                      variant="inline"
+                      palette={customTheme.palette}
+                      accentColor={customTheme.accentColor}
+                      bgColor={customTheme.bgColor}
+                      onPaletteChange={handleCustomPaletteChange}
+                      onAccentChange={handleCustomAccentChange}
+                      onBgChange={handleCustomBgChange}
+                      onReset={handleYantraCustomReset}
+                      onClose={() => setShowCustomiser(false)}
+                    />
+                  </div>
                 )}
               </div>
             )}
@@ -6319,8 +6340,8 @@ export default function App() {
 
       </main>
 
-      {/* ── Right panel toggle strip — desktop only; hidden on intro/yantra ── */}
-      {(activeTab !== 'yantra' && activeTab !== 'intro') && (
+      {/* ── Right panel toggle strip — desktop only; hidden on intro ── */}
+      {activeTab !== 'intro' && (
         <button
           className="hidden md:flex items-center justify-center w-5 flex-shrink-0 bg-surface-900 border-l border-surface-800 text-muted hover:text-cream hover:bg-surface-800 transition-colors"
           onClick={() => setRightPanelOpen(o => !o)}
@@ -6330,8 +6351,8 @@ export default function App() {
       )}
 
       {/* ── Right panel ──────────────────────────────────────────────────── */}
-      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['yantra', 'intro', 'memomap', 'activity-log', 'sync'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
-             style={{ visibility: (activeTab === 'yantra' || activeTab === 'intro') ? 'hidden' : undefined }}>
+      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['intro', 'memomap', 'activity-log', 'sync'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
+             style={{ visibility: activeTab === 'intro' ? 'hidden' : undefined }}>
 
         {/* Scrollable info area */}
         <div className="flex-1 overflow-y-auto min-h-0">
