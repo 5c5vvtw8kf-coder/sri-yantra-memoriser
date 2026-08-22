@@ -15,7 +15,8 @@
  * Memorise — Petals revealed one at a time (chant order).
  *            Active petal: cream fill, hover/tap to reveal name.
  *            Single-tap = correct (red); double-tap = wrong.
- *            Green arrow shows from current → next petal (seqs 1–7).
+ *            No direction arrow — the cream focus fill already shows the
+ *            active petal, so the arrow is Explore-only (Chris, 2026-08-22).
  *            seq 9  = Chakra Svāminī (MobileSvaminiButtons)
  *            seq 10 = Yoginī (MobileSvaminiButtons)
  *            > 10   = done
@@ -374,16 +375,11 @@ export default function C3View({
 
   // ── Render ──────────────────────────────────────────────────────────────────
 
-  // Arrow seq for each mode:
-  //   Explore  → exploreSeq (next = (exploreSeq % 8) + 1, wraps 8→1)
-  //   Memorise → currentSeq (only shown for seqs 1–7; seq 8 next is Svāminī, not seq 1)
-  const arrowFromSeq = memorise ? currentSeq : exploreSeq
-  const arrowToSeq   = memorise
-    ? currentSeq + 1                          // next in sequence
-    : (exploreSeq % 8) + 1                    // wraps 8→1 in Explore
-  const showArrow = memorise
-    ? (currentSeq >= 1 && currentSeq <= 7)    // stop before Svāminī
-    : exploreSeq < 8                          // stop at Anangamalini — next focus is Svāminī
+  // Explore-mode only — the cream focus fill already shows the active petal in
+  // Memorise mode, so the arrow is redundant there (Chris, 2026-08-22).
+  const arrowFromSeq = exploreSeq
+  const arrowToSeq   = (exploreSeq % 8) + 1     // wraps 8→1 in Explore
+  const showArrow    = !memorise && exploreSeq < 8   // stop at Anangamalini — next focus is Svāminī
 
   return (
     <div className="w-full px-4 pt-3 pb-0 md:p-4 flex-1 flex flex-col md:block md:flex-none">
@@ -528,18 +524,6 @@ export default function C3View({
                     />
                   )
                 })()}
-
-                {/* Direction arrow — inside ring, current → next (seqs 1–7 only); desktop only in Memorise */}
-                {!flash && showArrow && window.innerWidth >= 768 && C3_SEQ_ANGLE[arrowFromSeq] !== undefined && C3_SEQ_ANGLE[arrowToSeq] !== undefined && (
-                  <path
-                    d={c3ArrowPath(arrowFromSeq, arrowToSeq)}
-                    fill="none"
-                    stroke="#27ae60"
-                    strokeWidth="2.5"
-                    markerEnd="url(#c3-arrow)"
-                    style={{ pointerEvents: 'none' }}
-                  />
-                )}
               </>
             )}
 
