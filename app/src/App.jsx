@@ -4266,6 +4266,16 @@ export default function App() {
     setSelectedDeity(null)
     setSelectedCircuit(null)
     setShowErrors(false)
+    // Customise is the default every time you arrive on the Śrī Yantra page —
+    // not just on first app load. Done here (synchronously, as part of the
+    // same navigation) rather than in a useEffect keyed on activeTab, which
+    // fires after render and can race with other mount-time effects (the
+    // sync pull-on-load reload, in particular) — that was the cause of
+    // "shows correctly, then reverts a moment later".
+    if (tabId === 'yantra') {
+      setYantraThemeIdx(YANTRA_THEMES.length)
+      setShowCustomiser(true)
+    }
     if (tabId !== 'nyasa')   setNyasaMemorise(false)
     if (tabId !== 'inner')   setInnerMemorise(false)
     if (tabId !== 'gurava')  setGuravaMemorse(false)
@@ -4335,18 +4345,6 @@ export default function App() {
   const activeCustomSlot = isOnCustomSlot ? yantraThemeIdx - YANTRA_THEMES.length : 0
 
   useEffect(() => { saveCustomYantraThemes(customThemes) }, [customThemes])
-
-  // Customise is the default every time you arrive on this page — not just
-  // on first app load. yantraThemeIdx/showCustomiser aren't persisted and
-  // don't reset on their own when you switch tabs away and back (same
-  // component instance, no remount), so without this, leaving via prev/next
-  // or Explore-ing a preset would "stick" until a full page reload.
-  useEffect(() => {
-    if (activeTab === 'yantra') {
-      setYantraThemeIdx(YANTRA_THEMES.length)
-      setShowCustomiser(true)
-    }
-  }, [activeTab])
 
   const handleYantraThemePrev = () => {
     setShowCustomiser(false)
