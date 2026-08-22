@@ -4336,6 +4336,18 @@ export default function App() {
 
   useEffect(() => { saveCustomYantraThemes(customThemes) }, [customThemes])
 
+  // Customise is the default every time you arrive on this page — not just
+  // on first app load. yantraThemeIdx/showCustomiser aren't persisted and
+  // don't reset on their own when you switch tabs away and back (same
+  // component instance, no remount), so without this, leaving via prev/next
+  // or Explore-ing a preset would "stick" until a full page reload.
+  useEffect(() => {
+    if (activeTab === 'yantra') {
+      setYantraThemeIdx(YANTRA_THEMES.length)
+      setShowCustomiser(true)
+    }
+  }, [activeTab])
+
   const handleYantraThemePrev = () => {
     setShowCustomiser(false)
     setYantraThemeIdx(i => (i - 1 + allThemes.length) % allThemes.length)
