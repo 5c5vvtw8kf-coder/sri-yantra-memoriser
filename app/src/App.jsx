@@ -23,7 +23,7 @@ import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
 import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import SyncView from './components/SyncView'
-import { getSyncCode, pullNow, hasLocalProgress } from './sync.js'
+import { getSyncCode, pullNow, hasLocalProgress, flushPendingPush } from './sync.js'
 import LineDrillView from './components/LineDrillView'
 import SegmentDrillView from './components/SegmentDrillView'
 import TriangleDrillView from './components/TriangleDrillView'
@@ -2621,6 +2621,22 @@ export default function App() {
     if (!getSyncCode()) return
     if (hasLocalProgress()) return
     pullNow().catch(err => console.error('sync: pull-on-load failed', err))
+  }, [])
+
+  // Flush any pending debounced push the instant the tab is backgrounded or
+  // closed, rather than waiting on the 3s debounce timer — a normal tab
+  // close/switch can happen well inside that window and silently drop the
+  // push (see flushPendingPush's comment in sync.js for the incident this
+  // fixes). visibilitychange covers backgrounding/switching apps; pagehide
+  // is the more reliable signal for an actual close on iOS Safari.
+  useEffect(() => {
+    const handleVisibility = () => { if (document.visibilityState === 'hidden') flushPendingPush() }
+    document.addEventListener('visibilitychange', handleVisibility)
+    window.addEventListener('pagehide', flushPendingPush)
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility)
+      window.removeEventListener('pagehide', flushPendingPush)
+    }
   }, [])
 
   const tr = key => translate(uiLang !== 'en' ? uiLang : (usEnglish ? 'en-us' : script), key)  // uses uiLang when set, en-us if US variant, else script (for IAST overrides)

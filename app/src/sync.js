@@ -211,3 +211,27 @@ export function schedulePush() {
     pushNow(code).catch(err => console.error('sync: debounced push failed', err))
   }, PUSH_DEBOUNCE_MS)
 }
+
+// A pending debounced push lives only as a setTimeout in this tab's memory —
+// if the tab closes, the app is backgrounded, or the OS reclaims it before
+// the timer fires, that push is silently lost (this is what dropped three
+// real Activity Log entries on 2026-08-22: Desktop generated them, closed
+// before the 3s debounce ran, and nothing surfaced the failure). Call this
+// from a visibilitychange/pagehide listener to flush immediately instead of
+// waiting. Uses sendBeacon rather than fetch — sendBeacon is specifically
+// designed to survive page unload, where a normal in-flight fetch can be
+// cancelled. Best-effort and silent by design (no response to read on
+// unload); no-op if nothing is pending or no code is linked.
+export function flushPendingPush() {
+  if (!pushTimer) return
+  clearTimeout(pushTimer)
+  pushTimer = null
+  const code = getSyncCode()
+  if (!code) return
+  try {
+    const payload = new Blob([JSON.stringify({ code, blob: gatherBlob() })], { type: 'application/json' })
+    navigator.sendBeacon('/api/sync-push', payload)
+  } catch (err) {
+    console.error('sync: flushPendingPush failed', err)
+  }
+}
