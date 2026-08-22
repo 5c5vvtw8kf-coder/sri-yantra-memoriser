@@ -2750,8 +2750,20 @@ export default function App() {
     // into storage while every already-rendered view kept showing its initial
     // (empty) state. Safe against a reload loop — hasLocalProgress() will be
     // true next time this effect runs, since the pull just populated storage.
+    //
+    // Stash the current tab before reloading, same as every other sync-triggered
+    // reload (see SyncView.jsx / PullLatestButton.jsx) — otherwise the reload
+    // lands back on the default tab instead of wherever the user actually was.
+    // Missing this was the cause of the Śrī Yantra page's "Customise" panel
+    // showing correctly on arrival, then appearing to vanish moments later on a
+    // brand-new device that still had an unresolved pull-on-load pending.
     pullNow()
-      .then(blob => { if (blob) window.location.reload() })
+      .then(blob => {
+        if (blob) {
+          try { sessionStorage.setItem('sy-post-sync-tab', activeTab) } catch {}
+          window.location.reload()
+        }
+      })
       .catch(err => console.error('sync: pull-on-load failed', err))
   }, [])
 
