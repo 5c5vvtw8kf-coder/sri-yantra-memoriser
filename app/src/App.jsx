@@ -33,7 +33,7 @@ import lineDrillData from './data/lineDrillLines.json'
 import segmentDrillData from './data/segmentDrillLines.json'
 import triangleDrillData from './data/triangleDrillLines.json'
 import { getPosition, C4_DEITY_ORDER, C5_DEITY_ORDER, C6_DEITY_ORDER, C7_DEITY_ORDER } from './deityPositions.js'
-import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry, sectionIdToMemoKey, loadCustomYantraTheme, saveCustomYantraTheme } from './utils.js'
+import { displayName, loadMemoStorage, saveMemoStorage, saveSessionLog, recordHistoryEntry, sectionIdToMemoKey, loadCustomYantraTheme, loadCustomYantraThemes, saveCustomYantraThemes } from './utils.js'
 import { translate, LOCALE_ORDER, LOCALE_CONFIG, iastToEnglish } from './translations.js'
 
 const LANG_OPTIONS = [
@@ -2803,19 +2803,37 @@ export default function App() {
   const [selectedCircuit, setSelectedCircuit] = useState(null)
   const [lastTapped,      setLastTapped]      = useState(null)
   const [filledRegions,   setFilledRegions]   = useState(MODEL_YANTRA_FILLS)
-  // Custom is the last slot in allThemes (5 presets, index 0-4) — default straight
-  // to it with the editor open, so Customise is the landing state, not an extra click.
+  // Custom 1 is the first of 5 custom slots, appended after the 5 presets in
+  // allThemes (index YANTRA_THEMES.length..+4) — default straight into it
+  // with the editor open, so Customise is the landing state, not an extra click.
   const [yantraThemeIdx,  setYantraThemeIdx]  = useState(YANTRA_THEMES.length)
   const [showCustomiser,  setShowCustomiser]  = useState(true)
-  const [customTheme,     setCustomTheme]     = useState(() => {
-    const saved = loadCustomYantraTheme()
-    return {
-      palette:     saved?.palette     ?? DEFAULT_CUSTOM_PALETTE,
-      accentColor: saved?.accentColor ?? YANTRA_THEMES[0].accentColor,
-      bgColor:     saved?.bgColor     ?? YANTRA_THEMES[0].bgColor,
-    }
+  const DEFAULT_CUSTOM_SLOT = {
+    palette: DEFAULT_CUSTOM_PALETTE,
+    accentColor: YANTRA_THEMES[0].accentColor,
+    bgColor: YANTRA_THEMES[0].bgColor,
+  }
+  const [customThemes,    setCustomThemes]    = useState(() => {
+    const saved = loadCustomYantraThemes()
+    if (saved) return saved
+    // First run after upgrading from the single-slot version — migrate
+    // whatever was there into Custom 1, leave the other four fresh.
+    const legacy = loadCustomYantraTheme()
+    const slot0 = legacy ? {
+      palette:     legacy.palette     ?? DEFAULT_CUSTOM_PALETTE,
+      accentColor: legacy.accentColor ?? YANTRA_THEMES[0].accentColor,
+      bgColor:     legacy.bgColor     ?? YANTRA_THEMES[0].bgColor,
+    } : { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } }
+    return [
+      slot0,
+      { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } },
+      { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } },
+      { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } },
+      { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } },
+    ]
   })
-  const [customHistory,   setCustomHistory]   = useState([])   // undo stack — see handleCustomUndo
+  // One undo stack per custom slot — editing Custom 3 shouldn't affect Custom 1's history.
+  const [customHistories, setCustomHistories] = useState(() => [[], [], [], [], []])
 
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)
@@ -4301,19 +4319,22 @@ export default function App() {
   const hasFills = Object.keys(filledRegions).length > 0
 
   // ── Śrī Yantra page colour theme controls ─────────────────────────────────
-  // allThemes = the 5 built-in presets + the user's live-editable Custom slot
-  // (always last). Rebuilt only when the custom palette/accent/bg change.
+  // allThemes = the 5 built-in presets + 5 user-editable Custom slots (10
+  // total). Which custom slot is "active" for editing is just whichever one
+  // yantraThemeIdx currently points at — stepping/shuffling through the
+  // rotation IS the slot picker, no separate UI needed for that.
   const allThemes = useMemo(() => [
     ...YANTRA_THEMES,
-    {
-      id: 'custom', label: 'Custom',
-      accentColor: customTheme.accentColor, bgColor: customTheme.bgColor,
-      palette: customTheme.palette, fills: buildFills(customTheme.palette),
-    },
-  ], [customTheme])
-  const customThemeIdx = allThemes.length - 1
+    ...customThemes.map((ct, i) => ({
+      id: `custom-${i}`, label: `Custom ${i + 1}`,
+      accentColor: ct.accentColor, bgColor: ct.bgColor,
+      palette: ct.palette, fills: buildFills(ct.palette),
+    })),
+  ], [customThemes])
+  const isOnCustomSlot = yantraThemeIdx >= YANTRA_THEMES.length
+  const activeCustomSlot = isOnCustomSlot ? yantraThemeIdx - YANTRA_THEMES.length : 0
 
-  useEffect(() => { saveCustomYantraTheme(customTheme) }, [customTheme])
+  useEffect(() => { saveCustomYantraThemes(customThemes) }, [customThemes])
 
   const handleYantraThemePrev = () => {
     setShowCustomiser(false)
@@ -4333,32 +4354,49 @@ export default function App() {
     })
   }
   const handleYantraCustomise = () => {
-    setYantraThemeIdx(customThemeIdx)
+    // Already on some Custom slot → just open the editor for it. Otherwise
+    // (on a preset) → land on Custom 1, don't force a specific "last edited" slot.
+    setYantraThemeIdx(i => (i >= YANTRA_THEMES.length ? i : YANTRA_THEMES.length))
     setShowCustomiser(true)
     setRightPanelOpen(true)
   }
-  // Undo — a plain in-memory stack of previous customTheme snapshots (not
-  // persisted; resets on reload, which is the expected behaviour for undo).
-  // Every edit (palette, accent, background, or Reset) pushes the theme as
-  // it was *before* that edit, so Undo always steps back one whole change.
-  const pushCustomHistory = () => setCustomHistory(h => [...h, customTheme].slice(-20))
+  // Undo — a plain in-memory stack per slot (not persisted; resets on
+  // reload, which is the expected behaviour for undo). Every edit (palette,
+  // accent, background, or Reset) pushes that slot's theme as it was
+  // *before* the edit, so Undo always steps back one whole change on
+  // whichever slot is currently active.
+  const pushCustomHistory = () => setCustomHistories(hs => {
+    const next = [...hs]
+    next[activeCustomSlot] = [...next[activeCustomSlot], customThemes[activeCustomSlot]].slice(-20)
+    return next
+  })
   const handleCustomUndo = () => {
-    if (customHistory.length === 0) return
-    const prev = customHistory[customHistory.length - 1]
-    setCustomTheme(prev)
-    setCustomHistory(h => h.slice(0, -1))
+    const stack = customHistories[activeCustomSlot]
+    if (stack.length === 0) return
+    const prev = stack[stack.length - 1]
+    setCustomThemes(ts => { const next = [...ts]; next[activeCustomSlot] = prev; return next })
+    setCustomHistories(hs => { const next = [...hs]; next[activeCustomSlot] = next[activeCustomSlot].slice(0, -1); return next })
   }
   const handleYantraCustomReset = () => {
     pushCustomHistory()
-    setCustomTheme({
-      palette: DEFAULT_CUSTOM_PALETTE,
-      accentColor: YANTRA_THEMES[0].accentColor,
-      bgColor: YANTRA_THEMES[0].bgColor,
+    setCustomThemes(ts => {
+      const next = [...ts]
+      next[activeCustomSlot] = { palette: { ...DEFAULT_CUSTOM_PALETTE }, accentColor: YANTRA_THEMES[0].accentColor, bgColor: YANTRA_THEMES[0].bgColor }
+      return next
     })
   }
-  const handleCustomPaletteChange = newPalette => { pushCustomHistory(); setCustomTheme(t => ({ ...t, palette: newPalette })) }
-  const handleCustomAccentChange  = hex        => { pushCustomHistory(); setCustomTheme(t => ({ ...t, accentColor: hex })) }
-  const handleCustomBgChange      = hex        => { pushCustomHistory(); setCustomTheme(t => ({ ...t, bgColor: hex })) }
+  const handleCustomPaletteChange = newPalette => {
+    pushCustomHistory()
+    setCustomThemes(ts => { const next = [...ts]; next[activeCustomSlot] = { ...next[activeCustomSlot], palette: newPalette }; return next })
+  }
+  const handleCustomAccentChange = hex => {
+    pushCustomHistory()
+    setCustomThemes(ts => { const next = [...ts]; next[activeCustomSlot] = { ...next[activeCustomSlot], accentColor: hex }; return next })
+  }
+  const handleCustomBgChange = hex => {
+    pushCustomHistory()
+    setCustomThemes(ts => { const next = [...ts]; next[activeCustomSlot] = { ...next[activeCustomSlot], bgColor: hex }; return next })
+  }
 
   // ── Navigate to a tab AND start Memorise mode there ───────────────────────
   //    Used by "Next circuit →" completion buttons so the user lands in
@@ -4484,16 +4522,17 @@ export default function App() {
       return (
         <YantraThemeCustomiser
           variant="panel"
-          palette={customTheme.palette}
-          accentColor={customTheme.accentColor}
-          bgColor={customTheme.bgColor}
+          slotLabel={allThemes[YANTRA_THEMES.length + activeCustomSlot].label}
+          palette={customThemes[activeCustomSlot].palette}
+          accentColor={customThemes[activeCustomSlot].accentColor}
+          bgColor={customThemes[activeCustomSlot].bgColor}
           onPaletteChange={handleCustomPaletteChange}
           onAccentChange={handleCustomAccentChange}
           onBgChange={handleCustomBgChange}
           onReset={handleYantraCustomReset}
           onClose={() => setShowCustomiser(false)}
           onUndo={handleCustomUndo}
-          canUndo={customHistory.length > 0}
+          canUndo={customHistories[activeCustomSlot].length > 0}
         />
       )
     }
@@ -5710,7 +5749,7 @@ export default function App() {
                     onClick={handleYantraCustomise}
                     title="Customise colours"
                     className={`px-2 py-1 rounded text-xs border transition-colors ${
-                      yantraThemeIdx === customThemeIdx
+                      isOnCustomSlot
                         ? 'bg-gold-700 text-black border-gold-700'
                         : 'bg-surface-800 text-gold-400 border-surface-700 hover:border-gold-600'
                     }`}
@@ -5719,20 +5758,21 @@ export default function App() {
                   </button>
                 </div>
                 {/* Mobile only — desktop uses the collapsible right panel instead */}
-                {showCustomiser && yantraThemeIdx === customThemeIdx && (
+                {showCustomiser && isOnCustomSlot && (
                   <div className="md:hidden">
                     <YantraThemeCustomiser
                       variant="inline"
-                      palette={customTheme.palette}
-                      accentColor={customTheme.accentColor}
-                      bgColor={customTheme.bgColor}
+                      slotLabel={allThemes[yantraThemeIdx].label}
+                      palette={customThemes[activeCustomSlot].palette}
+                      accentColor={customThemes[activeCustomSlot].accentColor}
+                      bgColor={customThemes[activeCustomSlot].bgColor}
                       onPaletteChange={handleCustomPaletteChange}
                       onAccentChange={handleCustomAccentChange}
                       onBgChange={handleCustomBgChange}
                       onReset={handleYantraCustomReset}
                       onClose={() => setShowCustomiser(false)}
                       onUndo={handleCustomUndo}
-                      canUndo={customHistory.length > 0}
+                      canUndo={customHistories[activeCustomSlot].length > 0}
                     />
                   </div>
                 )}
@@ -7793,7 +7833,7 @@ export default function App() {
                 onClick={handleYantraCustomise}
                 title="Customise colours"
                 className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                  yantraThemeIdx === customThemeIdx
+                  isOnCustomSlot
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}

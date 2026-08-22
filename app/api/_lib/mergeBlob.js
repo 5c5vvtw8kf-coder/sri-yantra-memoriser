@@ -35,6 +35,14 @@
 //     (utils.js's saveSessionLog).
 //
 //   preferences — incoming wins. A single small toggle; not worth merging.
+//
+//   yantraThemes — incoming wins, whole array (5 custom colour-theme slots
+//     for the Śrī Yantra page), same reasoning as preferences: this is
+//     small, user-authored configuration, not incremental practice data, so
+//     last-write-wins is the expected behaviour rather than something a user
+//     would want merged field-by-field. `??` rather than `||` so an
+//     incoming blob that genuinely omits the field (e.g. pushed by an older
+//     client build) doesn't clobber whatever's already stored.
 
 const SESSION_LOG_CAP = 500
 
@@ -64,5 +72,6 @@ export function mergeBlobs(existing, incoming) {
     memoHistory: { ...(existing.memoHistory || {}), ...(incoming.memoHistory || {}) },
     sessionLog:  mergeSessionLogs(existing.sessionLog, incoming.sessionLog),
     preferences: { ...(existing.preferences || {}), ...(incoming.preferences || {}) },
+    yantraThemes: incoming.yantraThemes ?? existing.yantraThemes,
   }
 }

@@ -40,6 +40,7 @@ export default function YantraThemeCustomiser({
   onPaletteChange, onAccentChange, onBgChange,
   onReset, onClose,
   onUndo, canUndo = false,
+  slotLabel = 'Custom',   // which of the 5 saved slots this is editing — e.g. "Custom 2"
   variant = 'panel',   // 'panel' — inside the desktop right-hand aside (no card chrome, aside supplies it)
                        // 'inline' — mobile fallback rendered below the diagram (self-contained card)
 }) {
@@ -61,7 +62,7 @@ export default function YantraThemeCustomiser({
   return (
     <div className={outerClass}>
       <div className="flex items-center justify-between mb-1">
-        <h3 className="text-[13px] text-gold-400 font-medium">Customise colours</h3>
+        <h3 className="text-[13px] text-gold-400 font-medium">Customise — {slotLabel}</h3>
         <div className="flex items-center gap-2">
           <button
             onClick={onUndo}

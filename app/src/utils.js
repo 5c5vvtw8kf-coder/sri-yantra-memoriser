@@ -321,14 +321,17 @@ export function setIncludeOptionalDeities(value) {
   try { localStorage.setItem(INCLUDE_OPTIONAL_KEY, value ? 'true' : 'false') } catch {}
 }
 
-// ── Śrī Yantra page: user's custom colour theme ─────────────────────────────
-// Single-device only (plain localStorage) — not part of the Device Sync blob.
-// Wiring it into cross-device sync would mean extending the sync schema
-// (api/_lib/mergeBlob.js) and is a deliberate separate piece of work, not a
-// silent scope add here.
+// ── Śrī Yantra page: user's custom colour themes ────────────────────────────
+// Part of the Device Sync blob (see sync.js's gatherBlob/applyBlob and
+// api/_lib/mergeBlob.js) — whichever device pushed last wins for the whole
+// array of 5 slots, same as `preferences`. Saving here also schedules a
+// push, same as every other memo-* write in this file.
 
-const CUSTOM_YANTRA_THEME_KEY = 'sy-custom-yantra-theme'
+const CUSTOM_YANTRA_THEME_KEY  = 'sy-custom-yantra-theme'    // legacy: single slot — read-only, kept for migration
+const CUSTOM_YANTRA_THEMES_KEY = 'sy-custom-yantra-themes'   // current: array of 5 slots
 
+// Legacy loader — only used once, to migrate an existing single custom theme
+// into slot 1 the first time a device sees the 5-slot version.
 export function loadCustomYantraTheme() {
   try {
     const v = localStorage.getItem(CUSTOM_YANTRA_THEME_KEY)
@@ -336,8 +339,19 @@ export function loadCustomYantraTheme() {
   } catch { return null }
 }
 
-export function saveCustomYantraTheme(theme) {
-  try { localStorage.setItem(CUSTOM_YANTRA_THEME_KEY, JSON.stringify(theme)) } catch {}
+export function loadCustomYantraThemes() {
+  try {
+    const v = localStorage.getItem(CUSTOM_YANTRA_THEMES_KEY)
+    const arr = v ? JSON.parse(v) : null
+    return Array.isArray(arr) && arr.length === 5 ? arr : null
+  } catch { return null }
+}
+
+export function saveCustomYantraThemes(themes) {
+  try {
+    localStorage.setItem(CUSTOM_YANTRA_THEMES_KEY, JSON.stringify(themes))
+    schedulePush()
+  } catch {}
 }
 
 /**

@@ -34,6 +34,7 @@ const MEMO_PREFIX = 'memo-'
 const HISTORY_PREFIX = 'memo-history-'
 const SESSION_LOG_KEY = 'memo-session-log'
 const INCLUDE_DRILLS_KEY = 'memo-map-include-drills'
+const CUSTOM_YANTRA_THEMES_KEY = 'sy-custom-yantra-themes'   // 5 custom colour-theme slots, see utils.js
 
 // ── Code management ──────────────────────────────────────────────────────
 
@@ -90,6 +91,14 @@ function gatherBlob() {
     console.error('sync: gatherBlob failed', err)
   }
 
+  let yantraThemes = null
+  try {
+    const raw = localStorage.getItem(CUSTOM_YANTRA_THEMES_KEY)
+    yantraThemes = raw ? JSON.parse(raw) : null
+  } catch (err) {
+    console.error('sync: reading yantraThemes failed', err)
+  }
+
   return {
     schemaVersion: SCHEMA_VERSION,
     updatedAt: new Date().toISOString(), // server overwrites this on push — see sync-push.js
@@ -97,6 +106,7 @@ function gatherBlob() {
     memoHistory,
     sessionLog,
     preferences: { memoryMapIncludeDrills },
+    yantraThemes,
   }
 }
 
@@ -118,6 +128,9 @@ function applyBlob(blob) {
     localStorage.setItem(SESSION_LOG_KEY, JSON.stringify(blob.sessionLog || []))
     if (blob.preferences && typeof blob.preferences.memoryMapIncludeDrills === 'boolean') {
       localStorage.setItem(INCLUDE_DRILLS_KEY, blob.preferences.memoryMapIncludeDrills ? 'true' : 'false')
+    }
+    if (Array.isArray(blob.yantraThemes) && blob.yantraThemes.length === 5) {
+      localStorage.setItem(CUSTOM_YANTRA_THEMES_KEY, JSON.stringify(blob.yantraThemes))
     }
   } catch (err) {
     console.error('sync: applyBlob failed', err)
