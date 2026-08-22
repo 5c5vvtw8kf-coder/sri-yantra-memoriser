@@ -324,14 +324,15 @@ export function setIncludeOptionalDeities(value) {
 // ── Śrī Yantra page: user's custom colour themes ────────────────────────────
 // Part of the Device Sync blob (see sync.js's gatherBlob/applyBlob and
 // api/_lib/mergeBlob.js) — whichever device pushed last wins for the whole
-// array of 5 slots, same as `preferences`. Saving here also schedules a
+// array of 3 slots, same as `preferences`. Saving here also schedules a
 // push, same as every other memo-* write in this file.
 
 const CUSTOM_YANTRA_THEME_KEY  = 'sy-custom-yantra-theme'    // legacy: single slot — read-only, kept for migration
-const CUSTOM_YANTRA_THEMES_KEY = 'sy-custom-yantra-themes'   // current: array of 5 slots
+const CUSTOM_YANTRA_THEMES_KEY = 'sy-custom-yantra-themes'   // current: array of custom slots (3, as of 2026-08-23 — was 5)
+const CUSTOM_YANTRA_SLOT_COUNT = 3
 
 // Legacy loader — only used once, to migrate an existing single custom theme
-// into slot 1 the first time a device sees the 5-slot version.
+// into slot 1 the first time a device sees the multi-slot version.
 export function loadCustomYantraTheme() {
   try {
     const v = localStorage.getItem(CUSTOM_YANTRA_THEME_KEY)
@@ -343,7 +344,18 @@ export function loadCustomYantraThemes() {
   try {
     const v = localStorage.getItem(CUSTOM_YANTRA_THEMES_KEY)
     const arr = v ? JSON.parse(v) : null
-    return Array.isArray(arr) && arr.length === 5 ? arr : null
+    if (!Array.isArray(arr) || arr.length === 0) return null
+    // A device that still has the old 5-slot save (or any other length) gets
+    // normalised to exactly 3 rather than rejected outright — rejecting would
+    // silently discard Custom 1-3, which is exactly the "changed the array
+    // shape and lost real user data" mistake this app got bitten by once
+    // already (see the sync pull-on-load incident, 2026-08-22). Longer than 3
+    // truncates; shorter than 3 (shouldn't happen, but be defensive) pads with
+    // copies of the last slot so index access never goes out of bounds.
+    if (arr.length >= CUSTOM_YANTRA_SLOT_COUNT) return arr.slice(0, CUSTOM_YANTRA_SLOT_COUNT)
+    const padded = [...arr]
+    while (padded.length < CUSTOM_YANTRA_SLOT_COUNT) padded.push(arr[arr.length - 1])
+    return padded
   } catch { return null }
 }
 

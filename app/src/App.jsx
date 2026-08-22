@@ -2759,11 +2759,14 @@ export default function App() {
   const [selectedCircuit, setSelectedCircuit] = useState(null)
   const [lastTapped,      setLastTapped]      = useState(null)
   const [filledRegions,   setFilledRegions]   = useState(MODEL_YANTRA_FILLS)
-  // Custom 1 is the first of 5 custom slots, appended after the 5 presets in
-  // allThemes (index YANTRA_THEMES.length..+4) — default straight into it
+  // Custom 1 is the first of 3 custom slots, appended after the presets in
+  // allThemes (index YANTRA_THEMES.length..+2) — default straight into it
   // with the editor open, so Customise is the landing state, not an extra click.
+  // (Cut from 5 slots to 3 on 2026-08-23 — Chris's call: this is a memorisation
+  // app, and five saved palettes was more choice than the feature needed.)
   const [yantraThemeIdx,  setYantraThemeIdx]  = useState(YANTRA_THEMES.length)
   const [showCustomiser,  setShowCustomiser]  = useState(true)
+  const CUSTOM_SLOT_COUNT = 3
   const DEFAULT_CUSTOM_SLOT = {
     palette: DEFAULT_CUSTOM_PALETTE,
     accentColor: YANTRA_THEMES[0].accentColor,
@@ -2773,7 +2776,7 @@ export default function App() {
     const saved = loadCustomYantraThemes()
     if (saved) return saved
     // First run after upgrading from the single-slot version — migrate
-    // whatever was there into Custom 1, leave the other four fresh.
+    // whatever was there into Custom 1, leave the others fresh.
     const legacy = loadCustomYantraTheme()
     const slot0 = legacy ? {
       palette:     legacy.palette     ?? DEFAULT_CUSTOM_PALETTE,
@@ -2782,14 +2785,11 @@ export default function App() {
     } : { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } }
     return [
       slot0,
-      { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } },
-      { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } },
-      { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } },
-      { ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } },
+      ...Array.from({ length: CUSTOM_SLOT_COUNT - 1 }, () => ({ ...DEFAULT_CUSTOM_SLOT, palette: { ...DEFAULT_CUSTOM_SLOT.palette } })),
     ]
   })
   // One undo stack per custom slot — editing Custom 3 shouldn't affect Custom 1's history.
-  const [customHistories, setCustomHistories] = useState(() => [[], [], [], [], []])
+  const [customHistories, setCustomHistories] = useState(() => Array.from({ length: CUSTOM_SLOT_COUNT }, () => []))
 
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)

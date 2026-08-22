@@ -40,7 +40,7 @@ export default function YantraThemeCustomiser({
   onPaletteChange, onAccentChange, onBgChange,
   onReset, onClose,
   onUndo, canUndo = false,
-  slotLabel = 'Custom',   // which of the 5 saved slots this is editing — e.g. "Custom 2"
+  slotLabel = 'Custom',   // which of the 3 saved slots this is editing — e.g. "Custom 2"
   variant = 'panel',   // 'panel' — inside the desktop right-hand aside (no card chrome, aside supplies it)
                        // 'inline' — mobile fallback rendered below the diagram (self-contained card)
   tr = k => k,

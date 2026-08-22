@@ -34,7 +34,7 @@ const MEMO_PREFIX = 'memo-'
 const HISTORY_PREFIX = 'memo-history-'
 const SESSION_LOG_KEY = 'memo-session-log'
 const INCLUDE_DRILLS_KEY = 'memo-map-include-drills'
-const CUSTOM_YANTRA_THEMES_KEY = 'sy-custom-yantra-themes'   // 5 custom colour-theme slots, see utils.js
+const CUSTOM_YANTRA_THEMES_KEY = 'sy-custom-yantra-themes'   // 3 custom colour-theme slots, see utils.js
 
 // ── Code management ──────────────────────────────────────────────────────
 
@@ -129,8 +129,15 @@ function applyBlob(blob) {
     if (blob.preferences && typeof blob.preferences.memoryMapIncludeDrills === 'boolean') {
       localStorage.setItem(INCLUDE_DRILLS_KEY, blob.preferences.memoryMapIncludeDrills ? 'true' : 'false')
     }
-    if (Array.isArray(blob.yantraThemes) && blob.yantraThemes.length === 5) {
-      localStorage.setItem(CUSTOM_YANTRA_THEMES_KEY, JSON.stringify(blob.yantraThemes))
+    // Normalise to exactly 3 slots rather than requiring an exact length match —
+    // an older device (or a stale cloud blob) may still be sending 5; truncate
+    // rather than reject so a pull never silently discards Custom 1-3. Matches
+    // the same normalisation in utils.js's loadCustomYantraThemes.
+    if (Array.isArray(blob.yantraThemes) && blob.yantraThemes.length > 0) {
+      const SLOT_COUNT = 3
+      let normalised = blob.yantraThemes.slice(0, SLOT_COUNT)
+      while (normalised.length < SLOT_COUNT) normalised.push(blob.yantraThemes[blob.yantraThemes.length - 1])
+      localStorage.setItem(CUSTOM_YANTRA_THEMES_KEY, JSON.stringify(normalised))
     }
   } catch (err) {
     console.error('sync: applyBlob failed', err)
