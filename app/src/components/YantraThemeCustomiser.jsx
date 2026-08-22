@@ -59,23 +59,23 @@ export default function YantraThemeCustomiser({
 
   return (
     <div className={outerClass}>
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-sm text-gold-400 font-medium">Customise colours</h3>
-        <div className="flex items-center gap-3">
-          <button onClick={onReset} className="text-[11px] text-muted hover:text-cream transition-colors">
+      <div className="flex items-center justify-between mb-1">
+        <h3 className="text-[13px] text-gold-400 font-medium">Customise colours</h3>
+        <div className="flex items-center gap-2">
+          <button onClick={onReset} className="text-[10px] text-muted hover:text-cream transition-colors">
             Reset
           </button>
           {variant === 'inline' && (
-            <button onClick={onClose} className="text-[11px] text-muted hover:text-cream transition-colors">
+            <button onClick={onClose} className="text-[10px] text-muted hover:text-cream transition-colors">
               Close
             </button>
           )}
         </div>
       </div>
-      <p className="text-[11px] text-muted mb-2">
-        Changes apply live. Saved on this device only — not part of Device Sync.
+      <p className="text-[9px] text-muted mb-1 leading-tight">
+        This device only — not part of Device Sync.
       </p>
-      <div className="divide-y divide-surface-800 max-h-[70vh] overflow-y-auto pr-1">
+      <div className="divide-y divide-surface-800/60">
         {ROWS.map(({ key, label }) => (
           <ColorSwatchInput
             key={key}

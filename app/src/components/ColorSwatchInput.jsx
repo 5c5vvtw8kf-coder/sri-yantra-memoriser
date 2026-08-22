@@ -65,16 +65,16 @@ export default function ColorSwatchInput({ label, value, onChange }) {
   }
 
   return (
-    <div ref={wrapRef} className="relative flex items-center justify-between gap-3 py-1.5">
-      <span className="text-xs text-muted iast">{label}</span>
+    <div ref={wrapRef} className="relative flex items-center justify-between gap-2 py-0.5">
+      <span className="text-[11px] leading-tight text-muted iast">{label}</span>
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-7 h-7 rounded border border-surface-600 flex-shrink-0 shadow-inner hover:border-gold-500 transition-colors"
+        className="w-5 h-5 rounded border border-surface-600 flex-shrink-0 shadow-inner hover:border-gold-500 transition-colors"
         style={{ background: value }}
         title={value}
       />
       {open && (
-        <div className="absolute right-0 top-9 z-50 w-56 bg-surface-800 border border-surface-600 rounded-lg shadow-xl p-3 space-y-3">
+        <div className="absolute right-0 top-7 z-50 w-56 bg-surface-800 border border-surface-600 rounded-lg shadow-xl p-3 space-y-3">
           <div className="flex items-center gap-2">
             <input
               type="color"
