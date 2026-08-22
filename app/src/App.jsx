@@ -460,8 +460,6 @@ const TABS = [
   { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drills',  navLabelEn: 'Line Drills',  navLabelDev: 'Line Drills',  footerLabel: 'Line Drills'  },
   { id: 'memomap',      trKey: 'tab.memomap',   navLabel: 'Memory Map',   navLabelEn: 'Memory Map',   navLabelDev: 'Memory Map',   footerLabel: 'Memory Map'   },
   { id: 'activity-log', trKey: 'tab.actlog',    navLabel: 'Activity Log', navLabelEn: 'Activity Log', navLabelDev: 'Activity Log', footerLabel: 'Activity Log' },
-  { id: 'h-sync', heading: 'DEVICE SYNC', trKey: 'heading.sync' },
-  { id: 'sync', trKey: 'tab.sync', navLabel: 'Sync', navLabelEn: 'Sync', navLabelDev: 'Sync', footerLabel: 'Sync' },
   { id: 'h-references', heading: 'RESOURCES', trKey: 'heading.resources' },
   { id: 'yantra',
     navLabel:    'śrī yantra',                navLabelEn: 'Śrī Yantra',
@@ -478,6 +476,8 @@ const TABS = [
     navLabelBn:  'শ্রী দেবী খড়গমালা স্তোত্রম্', navLabelGu: 'શ્રી દેવી ખડ્ગમાલા સ્તોત્રમ્', navLabelJa: 'シュリー・デーヴィー・カドゥガマーラー',
     footerLabel: 'Khadgamala Stotram' },
   { id: 'references',   englishOnly: true, trKey: 'tab.references', navLabel: 'References',   navLabelEn: 'References',   navLabelDev: 'References',   footerLabel: 'References'   },
+  { id: 'h-sync', heading: 'DEVICE SYNC', trKey: 'heading.sync' },
+  { id: 'sync', trKey: 'tab.sync', navLabel: 'Sync', navLabelEn: 'Sync', navLabelDev: 'Sync', footerLabel: 'Sync' },
 ]
 
 // Navigable tabs only (excludes heading entries — used for footer prev/next)
@@ -3253,11 +3253,15 @@ export default function App() {
     else recordHistoryEntry('bhupura', seq, 'wrong')
     const nextSeq = seq + 1
     setBhupuraCurrentSeq(nextSeq)
-    if (nextSeq > 30) {
+    const groupTotal = (bhupuraMemoGroup === 'all' ? BHUPURA_C1_TOTAL
+      : bhupuraMemoGroup === 'siddhiShakti' ? BHUPURA_SIDDHI_TOTAL
+      : bhupuraMemoGroup === 'ashtaMatrika' ? 8
+      : 10) + 2
+    if (nextSeq > groupTotal) {
       setBhupuraPrevResults(newResults)
-      setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + 30, rounds: prev.rounds + 1 }))
-      saveSessionLog({ ts: Date.now(), section: 'bhupura', correct: Object.keys(newResults).length, total: 30 })
-      const allCorrect = Array.from({ length: 30 }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
+      setSessionStats(prev => ({ correct: prev.correct + Object.keys(newResults).length, total: prev.total + groupTotal, rounds: prev.rounds + 1 }))
+      saveSessionLog({ ts: Date.now(), section: 'bhupura', correct: Object.keys(newResults).length, total: groupTotal })
+      const allCorrect = Array.from({ length: groupTotal }, (_, i) => i + 1).every(s => newResults[s] === 'correct')
       if (allCorrect) { setBhupuraFlash(true); setTimeout(() => setBhupuraFlash(false), 1000) }
     }
   }
@@ -6371,7 +6375,10 @@ export default function App() {
               )}
             </div>
             {bhupuraMemorise && (() => {
-              const memoTotal = bhupuraMemoGroup === 'all' ? 31 : bhupuraMemoGroup === 'siddhiShakti' ? 13 : bhupuraMemoGroup === 'ashtaMatrika' ? 10 : 12
+              const memoTotal = (bhupuraMemoGroup === 'all' ? BHUPURA_C1_TOTAL
+                : bhupuraMemoGroup === 'siddhiShakti' ? BHUPURA_SIDDHI_TOTAL
+                : bhupuraMemoGroup === 'ashtaMatrika' ? 8
+                : 10) + 2
               const correctCount = Object.values(bhupuraResults).filter(v => v === 'correct').length
               if (bhupuraCurrentSeq > memoTotal) return null
               return (

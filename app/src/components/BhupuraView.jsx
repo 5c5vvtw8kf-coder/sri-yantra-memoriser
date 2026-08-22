@@ -94,7 +94,7 @@ const bhupuraSection = sections.find(s => s.circuitNumber === 1 && s.type === 'c
 const bhupuraSvaminiDeity = deities.find(d => d.sectionId === 'circuit-1' && d.role === 'chakraSvamini') ?? null
 const bhupuraYoginiDeity  = deities.find(d => d.sectionId === 'circuit-1' && d.role === 'yoginiType')  ?? null
 
-const c1Deities      = deities.filter(d => d.sectionId === 'circuit-1')
+const c1Deities      = deities.filter(d => d.sectionId === 'circuit-1' && d.role === 'deity')
 const siddhiDeities  = c1Deities.filter(d => d.group === 'siddhiShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const matrikaDeities = c1Deities.filter(d => d.group === 'ashtaMatrika').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
 const mudraDeities   = c1Deities.filter(d => d.group === 'mudraShakti').sort((a, b) => a.sequenceInSection - b.sequenceInSection)
