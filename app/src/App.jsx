@@ -675,62 +675,6 @@ const YANTRA_THEMES = [
       c9: 'rgba(235,45,45,0.95)',
     },
   },
-  {
-    id: 'midnight', label: 'Midnight Indigo',
-    accentColor: '#8fb4e3', bgColor: '#05070f',
-    palette: {
-      c1Outer: 'rgba(126,166,216,0.85)', c1Mid: 'rgba(180,160,230,0.85)', c1Inner: 'rgba(90,110,190,0.85)',
-      outerRings: 'rgba(200,210,230,0.90)',
-      c2Ring: 'rgba(126,166,216,0.85)', c2Petals: 'rgba(180,160,230,0.85)',
-      c3Ring: 'rgba(200,210,230,0.90)', c3Petals: 'rgba(90,60,160,0.92)',
-      innerCircle: 'rgba(235,240,255,1.0)',
-      c4: 'rgba(40,50,120,0.92)', c5: 'rgba(90,60,160,0.92)', c6: 'rgba(15,20,45,0.92)', c7: 'rgba(70,140,190,0.90)',
-      c8: 'rgba(200,220,255,0.92)',
-      c9: 'rgba(90,60,160,0.95)',
-    },
-  },
-  {
-    id: 'sunset', label: 'Sunset Ember',
-    accentColor: '#e8a35c', bgColor: '#150705',
-    palette: {
-      c1Outer: 'rgba(214,110,50,0.85)', c1Mid: 'rgba(240,180,60,0.85)', c1Inner: 'rgba(180,60,50,0.85)',
-      outerRings: 'rgba(230,200,180,0.90)',
-      c2Ring: 'rgba(214,110,50,0.85)', c2Petals: 'rgba(240,180,60,0.85)',
-      c3Ring: 'rgba(230,200,180,0.90)', c3Petals: 'rgba(190,40,40,0.92)',
-      innerCircle: 'rgba(255,245,230,1.0)',
-      c4: 'rgba(150,50,40,0.92)', c5: 'rgba(190,40,40,0.92)', c6: 'rgba(40,15,10,0.92)', c7: 'rgba(224,140,50,0.90)',
-      c8: 'rgba(250,210,80,0.92)',
-      c9: 'rgba(190,40,40,0.95)',
-    },
-  },
-  {
-    id: 'jade', label: 'Emerald Jade',
-    accentColor: '#7fbf8f', bgColor: '#040a06',
-    palette: {
-      c1Outer: 'rgba(60,140,90,0.85)', c1Mid: 'rgba(180,200,80,0.85)', c1Inner: 'rgba(30,90,60,0.85)',
-      outerRings: 'rgba(200,220,205,0.90)',
-      c2Ring: 'rgba(60,140,90,0.85)', c2Petals: 'rgba(180,200,80,0.85)',
-      c3Ring: 'rgba(200,220,205,0.90)', c3Petals: 'rgba(190,60,60,0.92)',
-      innerCircle: 'rgba(240,255,245,1.0)',
-      c4: 'rgba(20,80,110,0.92)', c5: 'rgba(190,60,60,0.92)', c6: 'rgba(10,30,20,0.92)', c7: 'rgba(80,160,110,0.90)',
-      c8: 'rgba(230,220,120,0.92)',
-      c9: 'rgba(190,60,60,0.95)',
-    },
-  },
-  {
-    id: 'silver', label: 'Monochrome Silver',
-    accentColor: '#d9d9d9', bgColor: '#0a0a0a',
-    palette: {
-      c1Outer: 'rgba(150,150,150,0.85)', c1Mid: 'rgba(220,220,220,0.85)', c1Inner: 'rgba(90,90,90,0.85)',
-      outerRings: 'rgba(235,235,235,0.90)',
-      c2Ring: 'rgba(150,150,150,0.85)', c2Petals: 'rgba(220,220,220,0.85)',
-      c3Ring: 'rgba(235,235,235,0.90)', c3Petals: 'rgba(60,60,60,0.92)',
-      innerCircle: 'rgba(255,255,255,1.0)',
-      c4: 'rgba(70,70,70,0.92)', c5: 'rgba(60,60,60,0.92)', c6: 'rgba(15,15,15,0.92)', c7: 'rgba(130,130,130,0.90)',
-      c8: 'rgba(240,240,240,0.92)',
-      c9: 'rgba(60,60,60,0.95)',
-    },
-  },
 ].map(t => ({ ...t, fills: buildFills(t.palette) }))
 
 // Kept for the unrelated click-to-fill `filledRegions` state's initial value
@@ -4346,13 +4290,13 @@ export default function App() {
   // yantraThemeIdx currently points at — stepping/shuffling through the
   // rotation IS the slot picker, no separate UI needed for that.
   const allThemes = useMemo(() => [
-    ...YANTRA_THEMES,
+    ...YANTRA_THEMES.map(t => ({ ...t, label: tr('yantra.theme_traditional') })),
     ...customThemes.map((ct, i) => ({
-      id: `custom-${i}`, label: `Custom ${i + 1}`,
+      id: `custom-${i}`, label: `${tr('yantra.custom_slot_prefix')} ${i + 1}`,
       accentColor: ct.accentColor, bgColor: ct.bgColor,
       palette: ct.palette, fills: buildFills(ct.palette),
     })),
-  ], [customThemes])
+  ], [customThemes, tr])
   const isOnCustomSlot = yantraThemeIdx >= YANTRA_THEMES.length
   const activeCustomSlot = isOnCustomSlot ? yantraThemeIdx - YANTRA_THEMES.length : 0
 
@@ -4544,6 +4488,7 @@ export default function App() {
       return (
         <YantraThemeCustomiser
           variant="panel"
+          tr={tr}
           slotLabel={allThemes[YANTRA_THEMES.length + activeCustomSlot].label}
           palette={customThemes[activeCustomSlot].palette}
           accentColor={customThemes[activeCustomSlot].accentColor}
@@ -5744,7 +5689,7 @@ export default function App() {
                 <div className="md:hidden flex items-center justify-center gap-3 mt-3 flex-wrap">
                   <button
                     onClick={handleYantraThemePrev}
-                    title="Previous colour scheme"
+                    title={tr('yantra.theme_prev_title')}
                     className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
                   >
                     <ChevronLeft size={14} />
@@ -5754,29 +5699,29 @@ export default function App() {
                   </span>
                   <button
                     onClick={handleYantraThemeNext}
-                    title="Next colour scheme"
+                    title={tr('yantra.theme_next_title')}
                     className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
                   >
                     <ChevronRight size={14} />
                   </button>
                   <button
                     onClick={handleYantraThemeShuffle}
-                    title="Shuffle colour scheme"
+                    title={tr('yantra.theme_shuffle_title')}
                     className="ml-2 px-2 py-1 rounded text-xs bg-surface-800 text-gold-400 border border-surface-700 hover:border-gold-600 transition-colors flex items-center gap-1.5"
                   >
                     <Shuffle size={13} />
-                    Shuffle
+                    {tr('yantra.theme_shuffle')}
                   </button>
                   <button
                     onClick={handleYantraCustomise}
-                    title="Customise colours"
+                    title={tr('yantra.theme_customise_title')}
                     className={`px-2 py-1 rounded text-xs border transition-colors ${
                       isOnCustomSlot
                         ? 'bg-gold-700 text-black border-gold-700'
                         : 'bg-surface-800 text-gold-400 border-surface-700 hover:border-gold-600'
                     }`}
                   >
-                    Customise
+                    {tr('yantra.theme_customise')}
                   </button>
                 </div>
                 {/* Mobile only — desktop uses the collapsible right panel instead */}
@@ -5784,6 +5729,7 @@ export default function App() {
                   <div className="md:hidden">
                     <YantraThemeCustomiser
                       variant="inline"
+                      tr={tr}
                       slotLabel={allThemes[yantraThemeIdx].label}
                       palette={customThemes[activeCustomSlot].palette}
                       accentColor={customThemes[activeCustomSlot].accentColor}
@@ -7826,7 +7772,7 @@ export default function App() {
             <div className="flex items-center justify-center gap-2">
               <button
                 onClick={handleYantraThemePrev}
-                title="Previous colour scheme"
+                title={tr('yantra.theme_prev_title')}
                 className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
               >
                 <ChevronLeft size={14} />
@@ -7836,7 +7782,7 @@ export default function App() {
               </span>
               <button
                 onClick={handleYantraThemeNext}
-                title="Next colour scheme"
+                title={tr('yantra.theme_next_title')}
                 className="w-7 h-7 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
               >
                 <ChevronRight size={14} />
@@ -7845,22 +7791,22 @@ export default function App() {
             <div className="flex gap-1.5">
               <button
                 onClick={handleYantraThemeShuffle}
-                title="Shuffle colour scheme"
+                title={tr('yantra.theme_shuffle_title')}
                 className="flex-1 px-2 py-1.5 rounded-lg text-xs bg-surface-700 text-muted hover:text-cream transition-colors flex items-center justify-center gap-1.5"
               >
                 <Shuffle size={13} />
-                Shuffle
+                {tr('yantra.theme_shuffle')}
               </button>
               <button
                 onClick={handleYantraCustomise}
-                title="Customise colours"
+                title={tr('yantra.theme_customise_title')}
                 className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   isOnCustomSlot
                     ? 'bg-gold-700 text-black'
                     : 'bg-surface-700 text-muted hover:text-cream'
                 }`}
               >
-                Customise
+                {tr('yantra.theme_customise')}
               </button>
             </div>
           </div>

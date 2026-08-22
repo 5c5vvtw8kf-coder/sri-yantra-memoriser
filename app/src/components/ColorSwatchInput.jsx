@@ -129,7 +129,7 @@ function startDrag(onMove) {
   }
 }
 
-export default function ColorSwatchInput({ label, value, onChange }) {
+export default function ColorSwatchInput({ label, value, onChange, tr = k => k }) {
   const [open, setOpen] = useState(false)
   const [tab, setTab] = useState('standard')   // 'standard' | 'custom'
   const wrapRef = useRef(null)
@@ -288,20 +288,20 @@ export default function ColorSwatchInput({ label, value, onChange }) {
               <button
                 onClick={() => setTab('standard')}
                 className={`px-2 py-0.5 rounded transition-colors ${tab === 'standard' ? 'bg-gold-700 text-black' : 'text-muted hover:text-cream'}`}
-              >Standard</button>
+              >{tr('yantra.tab_standard')}</button>
               <button
                 onClick={() => setTab('custom')}
                 className={`px-2 py-0.5 rounded transition-colors ${tab === 'custom' ? 'bg-gold-700 text-black' : 'text-muted hover:text-cream'}`}
-              >Custom</button>
+              >{tr('yantra.tab_custom')}</button>
             </div>
-            <div className="flex flex-col items-center gap-0.5" title={`New ${value} / current ${openedValueRef.current}`}>
+            <div className="flex flex-col items-center gap-0.5" title={`${tr('yantra.swatch_new')} ${value} / ${tr('yantra.swatch_current')} ${openedValueRef.current}`}>
               <div className="flex rounded overflow-hidden border border-surface-600">
                 <div className="w-5 h-4" style={{ background: value }} />
                 <div className="w-5 h-4" style={{ background: openedValueRef.current }} />
               </div>
               <div className="flex text-[7px] text-muted leading-none gap-1">
-                <span className="w-5 text-center">New</span>
-                <span className="w-5 text-center">Cur.</span>
+                <span className="w-5 text-center">{tr('yantra.swatch_new')}</span>
+                <span className="w-5 text-center">{tr('yantra.swatch_current')}</span>
               </div>
             </div>
           </div>
@@ -312,14 +312,14 @@ export default function ColorSwatchInput({ label, value, onChange }) {
             <div className="flex items-center gap-1">
               <button
                 onClick={handleCopy}
-                title="Copy colour"
+                title={tr('yantra.copy_title')}
                 className="w-6 h-6 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
               >
                 {clipFeedback === 'copied' ? <Check size={12} className="text-green-400" /> : <Copy size={12} />}
               </button>
               <button
                 onClick={handlePaste}
-                title="Paste colour"
+                title={tr('yantra.paste_title')}
                 className="w-6 h-6 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
               >
                 {clipFeedback === 'pasted'
@@ -331,17 +331,17 @@ export default function ColorSwatchInput({ label, value, onChange }) {
             </div>
             {clipFeedback && (
               <span className={`text-[9px] ${(clipFeedback === 'invalid' || clipFeedback === 'error') ? 'text-red-400' : 'text-green-400'}`}>
-                {clipFeedback === 'copied' && 'Copied'}
-                {clipFeedback === 'pasted' && 'Pasted'}
-                {clipFeedback === 'invalid' && 'Not a colour'}
-                {clipFeedback === 'error' && 'Clipboard blocked'}
+                {clipFeedback === 'copied' && tr('yantra.feedback_copied')}
+                {clipFeedback === 'pasted' && tr('yantra.feedback_pasted')}
+                {clipFeedback === 'invalid' && tr('yantra.feedback_invalid')}
+                {clipFeedback === 'error' && tr('yantra.feedback_error')}
               </span>
             )}
           </div>
 
           {/* Hex — shared across both tabs, so typing a value doesn't require switching tab first */}
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-muted flex-shrink-0">Hex</span>
+            <span className="text-[10px] text-muted flex-shrink-0">{tr('yantra.hex_label')}</span>
             <input
               type="text"
               value={hexDraft}

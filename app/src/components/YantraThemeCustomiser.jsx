@@ -16,23 +16,23 @@ import ColorSwatchInput from './ColorSwatchInput'
  */
 
 const ROWS = [
-  { key: '__accent',   label: 'Line colour' },
-  { key: '__bg',       label: 'Background' },
-  { key: 'c1Outer',    label: 'Outer bhupura' },
-  { key: 'c1Mid',      label: 'Inner bhupura' },
-  { key: 'c1Inner',    label: 'Bhupura void / space' },
-  { key: 'outerRings', label: 'Valayam circles' },
-  { key: 'c2Petals',   label: 'Ṣoḍaśadalapadma (16-petal lotus)' },
-  { key: 'c2Ring',     label: 'Outer ṣoḍaśadalapadma' },
-  { key: 'c3Petals',   label: 'Aṣṭadalapadma (8-petal lotus)' },
-  { key: 'c3Ring',     label: 'Outer aṣṭadalapadma' },
-  { key: 'innerCircle', label: 'Triangles background' },
-  { key: 'c4',         label: 'Caturdaśa (14 triangles)' },
-  { key: 'c5',         label: 'Bahirdaśa (10 outer triangles)' },
-  { key: 'c6',         label: 'Antaradaśa (10 inner triangles)' },
-  { key: 'c7',         label: 'Aṣṭakoṇa (8 triangles)' },
-  { key: 'c8',         label: 'Trikoṇa (primary triangle)' },
-  { key: 'c9',         label: 'Bindu' },
+  { key: '__accent',   trKey: 'yantra.row_accent' },
+  { key: '__bg',       trKey: 'yantra.row_bg' },
+  { key: 'c1Outer',    trKey: 'yantra.row_c1outer' },
+  { key: 'c1Mid',      trKey: 'yantra.row_c1mid' },
+  { key: 'c1Inner',    trKey: 'yantra.row_c1inner' },
+  { key: 'outerRings', trKey: 'yantra.row_outerrings' },
+  { key: 'c2Petals',   trKey: 'yantra.row_c2petals' },
+  { key: 'c2Ring',     trKey: 'yantra.row_c2ring' },
+  { key: 'c3Petals',   trKey: 'yantra.row_c3petals' },
+  { key: 'c3Ring',     trKey: 'yantra.row_c3ring' },
+  { key: 'innerCircle', trKey: 'yantra.row_innercircle' },
+  { key: 'c4',         trKey: 'yantra.row_c4' },
+  { key: 'c5',         trKey: 'yantra.row_c5' },
+  { key: 'c6',         trKey: 'yantra.row_c6' },
+  { key: 'c7',         trKey: 'yantra.row_c7' },
+  { key: 'c8',         trKey: 'yantra.row_c8' },
+  { key: 'c9',         trKey: 'yantra.row_c9' },
 ]
 
 export default function YantraThemeCustomiser({
@@ -43,6 +43,7 @@ export default function YantraThemeCustomiser({
   slotLabel = 'Custom',   // which of the 5 saved slots this is editing — e.g. "Custom 2"
   variant = 'panel',   // 'panel' — inside the desktop right-hand aside (no card chrome, aside supplies it)
                        // 'inline' — mobile fallback rendered below the diagram (self-contained card)
+  tr = k => k,
 }) {
   const valueFor = key => {
     if (key === '__accent') return accentColor
@@ -62,35 +63,36 @@ export default function YantraThemeCustomiser({
   return (
     <div className={outerClass}>
       <div className="flex items-center justify-between mb-1">
-        <h3 className="text-[13px] text-gold-400 font-medium">Customise — {slotLabel}</h3>
+        <h3 className="text-[13px] text-gold-400 font-medium">{tr('yantra.customiser_heading')} — {slotLabel}</h3>
         <div className="flex items-center gap-2">
           <button
             onClick={onUndo}
             disabled={!canUndo}
             className="text-[10px] text-muted hover:text-cream disabled:opacity-30 disabled:hover:text-muted transition-colors"
           >
-            Undo
+            {tr('yantra.customiser_undo')}
           </button>
           <button onClick={onReset} className="text-[10px] text-muted hover:text-cream transition-colors">
-            Reset
+            {tr('yantra.customiser_reset')}
           </button>
           {variant === 'inline' && (
             <button onClick={onClose} className="text-[10px] text-muted hover:text-cream transition-colors">
-              Close
+              {tr('yantra.customiser_close')}
             </button>
           )}
         </div>
       </div>
       <p className="text-[9px] text-muted mb-1 leading-tight">
-        This device only — not part of Device Sync.
+        {tr('yantra.customiser_sync_note')}
       </p>
       <div className="divide-y divide-surface-800/60">
-        {ROWS.map(({ key, label }) => (
+        {ROWS.map(({ key, trKey }) => (
           <ColorSwatchInput
             key={key}
-            label={label}
+            label={tr(trKey)}
             value={valueFor(key)}
             onChange={hex => handleChange(key, hex)}
+            tr={tr}
           />
         ))}
       </div>
