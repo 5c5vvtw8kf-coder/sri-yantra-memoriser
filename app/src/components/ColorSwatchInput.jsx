@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { Copy, Clipboard, Check, X } from 'lucide-react'
 
 /**
  * ColorSwatchInput.jsx
@@ -73,6 +74,22 @@ function hsvToHex(h, s, v) {
   return rgbToHex(r, g, b)
 }
 
+// Accepts #abc, abc, #aabbcc, aabbcc, or rgb()/rgba() — covers hex copied
+// from another swatch, a design tool, or a website, not just our own format.
+function parseClipboardColor(raw) {
+  const s = (raw || '').trim()
+  let m = /^#?([0-9a-f]{3})$/i.exec(s)
+  if (m) {
+    const [r, g, b] = m[1].split('')
+    return `#${r}${r}${g}${g}${b}${b}`.toLowerCase()
+  }
+  m = /^#?([0-9a-f]{6})$/i.exec(s)
+  if (m) return `#${m[1].toLowerCase()}`
+  m = /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i.exec(s)
+  if (m) return rgbToHex(+m[1], +m[2], +m[3])
+  return null
+}
+
 // ── Greyscale strip (Standard tab) ──────────────────────────────────────────
 
 const GREY_STEPS = Array.from({ length: 10 }, (_, i) => {
@@ -117,6 +134,7 @@ export default function ColorSwatchInput({ label, value, onChange }) {
   const [h, setH] = useState(0)
   const [s, setS] = useState(0)
   const [v, setV] = useState(0)
+  const [clipFeedback, setClipFeedback] = useState(null)   // 'copied' | 'pasted' | 'invalid' | 'error' | null
 
   // Sync internal h/s/v from the value prop — but skip it when the incoming
   // value is one we just emitted ourselves, so dragging near s=0 or v=0
@@ -168,6 +186,30 @@ export default function ColorSwatchInput({ label, value, onChange }) {
   const handleHexInput = raw => {
     let hex = raw.startsWith('#') ? raw : `#${raw}`
     if (/^#[0-9a-fA-F]{0,6}$/.test(hex)) commitHex(hex)
+  }
+
+  const flashFeedback = kind => {
+    setClipFeedback(kind)
+    setTimeout(() => setClipFeedback(f => (f === kind ? null : f)), 1200)
+  }
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value)
+      flashFeedback('copied')
+    } catch {
+      flashFeedback('error')
+    }
+  }
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText()
+      const hex = parseClipboardColor(text)
+      if (!hex) { flashFeedback('invalid'); return }
+      commitHex(hex)
+      flashFeedback('pasted')
+    } catch {
+      flashFeedback('error')
+    }
   }
 
   const updateFromSquare = (clientX, clientY) => {
@@ -242,6 +284,39 @@ export default function ColorSwatchInput({ label, value, onChange }) {
                 <span className="w-5 text-center">Cur.</span>
               </div>
             </div>
+          </div>
+
+          {/* Copy / paste — works between swatches in this panel, or with an
+              external hex/rgb value copied from elsewhere */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handleCopy}
+                title="Copy colour"
+                className="w-6 h-6 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
+              >
+                {clipFeedback === 'copied' ? <Check size={12} className="text-green-400" /> : <Copy size={12} />}
+              </button>
+              <button
+                onClick={handlePaste}
+                title="Paste colour"
+                className="w-6 h-6 flex items-center justify-center rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-500 transition-colors"
+              >
+                {clipFeedback === 'pasted'
+                  ? <Check size={12} className="text-green-400" />
+                  : (clipFeedback === 'invalid' || clipFeedback === 'error')
+                    ? <X size={12} className="text-red-400" />
+                    : <Clipboard size={12} />}
+              </button>
+            </div>
+            {clipFeedback && (
+              <span className={`text-[9px] ${(clipFeedback === 'invalid' || clipFeedback === 'error') ? 'text-red-400' : 'text-green-400'}`}>
+                {clipFeedback === 'copied' && 'Copied'}
+                {clipFeedback === 'pasted' && 'Pasted'}
+                {clipFeedback === 'invalid' && 'Not a colour'}
+                {clipFeedback === 'error' && 'Clipboard blocked'}
+              </span>
+            )}
           </div>
 
           {tab === 'standard' ? (
