@@ -136,7 +136,7 @@ export default function ActivityLogView({ tr = k => k, script = 'iast' }) {
             </div>
           </div>
           <div className="flex gap-2 flex-shrink-0">
-            <PullLatestButton tr={tr} />
+            <PullLatestButton tr={tr} restoreTab="activity-log" />
             {log.length > 0 && (
               <button
                 onClick={handleClear}

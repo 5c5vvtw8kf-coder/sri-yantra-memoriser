@@ -312,7 +312,7 @@ export default function MemoMapView({ allResults, navCollapsed = false, script =
               </div>
             </div>
             <div className="flex gap-2 flex-shrink-0">
-              <PullLatestButton tr={tr} />
+              <PullLatestButton tr={tr} restoreTab="memomap" />
               <button onClick={handleClearAll} className="text-xs text-surface-500 hover:text-red-400 border border-surface-700 hover:border-red-900/60 rounded px-2 py-1 transition-colors flex-shrink-0">{tr('map.clear_all')}</button>
             </div>
           </div>

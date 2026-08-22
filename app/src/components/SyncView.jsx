@@ -64,6 +64,7 @@ export default function SyncView({ tr = k => k }) {
       // view's memo/history/session-log state was only read from localStorage
       // once, at initial mount, and won't otherwise pick up what was just
       // linked in (see the equivalent note on App.jsx's mount-effect pull).
+      try { sessionStorage.setItem('sy-post-sync-tab', 'sync') } catch {}
       window.location.reload()
       return
     } catch (err) {
@@ -87,6 +88,7 @@ export default function SyncView({ tr = k => k }) {
       await pullNow()
       // Reload — see the note in handleLink; other views' state won't
       // otherwise pick up what was just pulled.
+      try { sessionStorage.setItem('sy-post-sync-tab', 'sync') } catch {}
       window.location.reload()
       return
     } catch (err) {
@@ -106,6 +108,7 @@ export default function SyncView({ tr = k => k }) {
       // pushNow() now also adopts the server's merged blob locally (see
       // sync.js) — reload so other views reflect anything just merged in
       // from another device's contributions, not just this device's push.
+      try { sessionStorage.setItem('sy-post-sync-tab', 'sync') } catch {}
       window.location.reload()
       return
     } catch (err) {

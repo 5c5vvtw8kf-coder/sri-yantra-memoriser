@@ -2561,7 +2561,22 @@ const AVARANA_KANA = {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('intro')
+  // Normally starts on Introduction. Exception: a sync action (Link, Pull
+  // latest, Push this device) reloads the whole page to guarantee every
+  // view's state is fresh — see SyncView.jsx/PullLatestButton.jsx, which
+  // stash the tab the user was actually on into sessionStorage right before
+  // calling reload(). Read once, then cleared immediately, so it only
+  // affects the one reload it was set for.
+  const [activeTab, setActiveTab] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem('sy-post-sync-tab')
+      if (saved) {
+        sessionStorage.removeItem('sy-post-sync-tab')
+        return saved
+      }
+    } catch {}
+    return 'intro'
+  })
   const [script,   setScript]   = useState('iast') // script key for deity name display
   const [uiLang,   setUiLang]   = useState('en')   // UI language
   const [usEnglish, setUsEnglish] = useState(false) // American English spelling variant

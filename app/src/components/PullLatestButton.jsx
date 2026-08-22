@@ -16,13 +16,16 @@
 
 import { getSyncCode, pullNow } from '../sync.js'
 
-export default function PullLatestButton({ tr = k => k, className = '' }) {
+export default function PullLatestButton({ tr = k => k, className = '', restoreTab = null }) {
   if (!getSyncCode()) return null
 
   const handleClick = async () => {
     if (!window.confirm(tr('sync.sync_now_confirm'))) return
     try {
       await pullNow()
+      // Land back on this same tab after the reload, not the Introduction
+      // default — see the note on App.jsx's activeTab initial state.
+      if (restoreTab) { try { sessionStorage.setItem('sy-post-sync-tab', restoreTab) } catch {} }
       window.location.reload()
     } catch (err) {
       window.alert(tr('sync.error_generic'))
