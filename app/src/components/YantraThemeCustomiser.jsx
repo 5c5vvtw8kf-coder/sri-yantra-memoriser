@@ -39,6 +39,7 @@ export default function YantraThemeCustomiser({
   palette, accentColor, bgColor,
   onPaletteChange, onAccentChange, onBgChange,
   onReset, onClose,
+  onUndo, canUndo = false,
   variant = 'panel',   // 'panel' — inside the desktop right-hand aside (no card chrome, aside supplies it)
                        // 'inline' — mobile fallback rendered below the diagram (self-contained card)
 }) {
@@ -62,6 +63,13 @@ export default function YantraThemeCustomiser({
       <div className="flex items-center justify-between mb-1">
         <h3 className="text-[13px] text-gold-400 font-medium">Customise colours</h3>
         <div className="flex items-center gap-2">
+          <button
+            onClick={onUndo}
+            disabled={!canUndo}
+            className="text-[10px] text-muted hover:text-cream disabled:opacity-30 disabled:hover:text-muted transition-colors"
+          >
+            Undo
+          </button>
           <button onClick={onReset} className="text-[10px] text-muted hover:text-cream transition-colors">
             Reset
           </button>

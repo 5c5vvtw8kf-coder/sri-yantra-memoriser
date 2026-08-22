@@ -2801,8 +2801,10 @@ export default function App() {
   const [selectedCircuit, setSelectedCircuit] = useState(null)
   const [lastTapped,      setLastTapped]      = useState(null)
   const [filledRegions,   setFilledRegions]   = useState(MODEL_YANTRA_FILLS)
-  const [yantraThemeIdx,  setYantraThemeIdx]  = useState(0)
-  const [showCustomiser,  setShowCustomiser]  = useState(false)
+  // Custom is the last slot in allThemes (5 presets, index 0-4) — default straight
+  // to it with the editor open, so Customise is the landing state, not an extra click.
+  const [yantraThemeIdx,  setYantraThemeIdx]  = useState(YANTRA_THEMES.length)
+  const [showCustomiser,  setShowCustomiser]  = useState(true)
   const [customTheme,     setCustomTheme]     = useState(() => {
     const saved = loadCustomYantraTheme()
     return {
@@ -2811,6 +2813,7 @@ export default function App() {
       bgColor:     saved?.bgColor     ?? YANTRA_THEMES[0].bgColor,
     }
   })
+  const [customHistory,   setCustomHistory]   = useState([])   // undo stack — see handleCustomUndo
 
   // ── Sidebar UI state ───────────────────────────────────────────────────────
   const [controlsOpen, setControlsOpen] = useState(false)
@@ -4332,15 +4335,28 @@ export default function App() {
     setShowCustomiser(true)
     setRightPanelOpen(true)
   }
-  const handleYantraCustomReset = () =>
+  // Undo — a plain in-memory stack of previous customTheme snapshots (not
+  // persisted; resets on reload, which is the expected behaviour for undo).
+  // Every edit (palette, accent, background, or Reset) pushes the theme as
+  // it was *before* that edit, so Undo always steps back one whole change.
+  const pushCustomHistory = () => setCustomHistory(h => [...h, customTheme].slice(-20))
+  const handleCustomUndo = () => {
+    if (customHistory.length === 0) return
+    const prev = customHistory[customHistory.length - 1]
+    setCustomTheme(prev)
+    setCustomHistory(h => h.slice(0, -1))
+  }
+  const handleYantraCustomReset = () => {
+    pushCustomHistory()
     setCustomTheme({
       palette: DEFAULT_CUSTOM_PALETTE,
       accentColor: YANTRA_THEMES[0].accentColor,
       bgColor: YANTRA_THEMES[0].bgColor,
     })
-  const handleCustomPaletteChange = newPalette => setCustomTheme(t => ({ ...t, palette: newPalette }))
-  const handleCustomAccentChange  = hex        => setCustomTheme(t => ({ ...t, accentColor: hex }))
-  const handleCustomBgChange      = hex        => setCustomTheme(t => ({ ...t, bgColor: hex }))
+  }
+  const handleCustomPaletteChange = newPalette => { pushCustomHistory(); setCustomTheme(t => ({ ...t, palette: newPalette })) }
+  const handleCustomAccentChange  = hex        => { pushCustomHistory(); setCustomTheme(t => ({ ...t, accentColor: hex })) }
+  const handleCustomBgChange      = hex        => { pushCustomHistory(); setCustomTheme(t => ({ ...t, bgColor: hex })) }
 
   // ── Navigate to a tab AND start Memorise mode there ───────────────────────
   //    Used by "Next circuit →" completion buttons so the user lands in
@@ -4474,6 +4490,8 @@ export default function App() {
           onBgChange={handleCustomBgChange}
           onReset={handleYantraCustomReset}
           onClose={() => setShowCustomiser(false)}
+          onUndo={handleCustomUndo}
+          canUndo={customHistory.length > 0}
         />
       )
     }
@@ -5711,6 +5729,8 @@ export default function App() {
                       onBgChange={handleCustomBgChange}
                       onReset={handleYantraCustomReset}
                       onClose={() => setShowCustomiser(false)}
+                      onUndo={handleCustomUndo}
+                      canUndo={customHistory.length > 0}
                     />
                   </div>
                 )}
@@ -6348,7 +6368,7 @@ export default function App() {
           onClick={() => setRightPanelOpen(o => !o)}
           title={rightPanelOpen ? tr('nav.info_close') : tr('nav.info_open')}
           style={{ fontSize: 10 }}
-        >{rightPanelOpen ? '›' : '‹'}</button>
+        >{rightPanelOpen ? '»' : '«'}</button>
       )}
 
       {/* ── Right panel ──────────────────────────────────────────────────── */}
