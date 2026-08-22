@@ -97,6 +97,14 @@ const GREY_STEPS = Array.from({ length: 10 }, (_, i) => {
   return rgbToHex(v, v, v)
 })
 
+// ── Basic colours (Standard tab) ────────────────────────────────────────────
+// Twelve evenly-spaced, full-saturation hues — a coarse "pick the family
+// first" step before fine-tuning on the wheel, same idea as clicking a rough
+// spot on a hue ring before dragging to refine. Each swatch jumps hue to an
+// exact value at full saturation/brightness; dragging on the wheel afterward
+// nudges from there rather than starting from wherever the last colour was.
+const BASIC_HUES = Array.from({ length: 12 }, (_, i) => hsvToHex(i * 30, 1, 1))
+
 // ── Drag helper — mouse + touch, attaches/detaches window listeners ────────
 
 function startDrag(onMove) {
@@ -321,6 +329,17 @@ export default function ColorSwatchInput({ label, value, onChange }) {
 
           {tab === 'standard' ? (
             <div className="space-y-2">
+              <div className="grid grid-cols-6 gap-1">
+                {BASIC_HUES.map(sw => (
+                  <button
+                    key={sw}
+                    onClick={() => commitHex(sw)}
+                    className="aspect-square rounded-full border border-surface-600 hover:border-gold-500 hover:scale-110 transition-all"
+                    style={{ background: sw }}
+                    title={sw}
+                  />
+                ))}
+              </div>
               <div
                 ref={wheelRef}
                 onMouseDown={startDrag(updateFromWheel)}
