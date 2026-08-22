@@ -327,6 +327,19 @@ export default function ColorSwatchInput({ label, value, onChange }) {
             )}
           </div>
 
+          {/* Hex — shared across both tabs, so typing a value doesn't require switching tab first */}
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-muted flex-shrink-0">Hex</span>
+            <input
+              type="text"
+              value={value}
+              onChange={e => handleHexInput(e.target.value)}
+              className="flex-1 min-w-0 text-xs font-mono bg-surface-900 border border-surface-700 rounded px-2 py-1.5 text-cream focus:outline-none focus:border-gold-700"
+              maxLength={7}
+              spellCheck={false}
+            />
+          </div>
+
           {tab === 'standard' ? (
             <div className="space-y-2">
               <div className="grid grid-cols-6 gap-1">
@@ -392,16 +405,6 @@ export default function ColorSwatchInput({ label, value, onChange }) {
                 <div
                   className="absolute top-0 bottom-0 w-1 -ml-0.5 bg-white border border-surface-900 rounded-sm pointer-events-none"
                   style={{ left: `${(h / 360) * 100}%` }}
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={value}
-                  onChange={e => handleHexInput(e.target.value)}
-                  className="flex-1 min-w-0 text-xs font-mono bg-surface-900 border border-surface-700 rounded px-2 py-1.5 text-cream focus:outline-none focus:border-gold-700"
-                  maxLength={7}
-                  spellCheck={false}
                 />
               </div>
               <div className="flex items-center gap-1.5">
