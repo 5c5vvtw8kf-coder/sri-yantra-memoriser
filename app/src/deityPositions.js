@@ -282,16 +282,19 @@ const bySeqMap = {
 export const NITYA_TRIKONA = { apex: NITYA_APEX, baseL: NITYA_BASE_L, baseR: NITYA_BASE_R }
 // Base widened to match the mānavaugha row's own span (420–472) — Chris's
 // report, 2026-08-23: the trikona read as too small under the much wider
-// dot rows above it. Apex lowered to keep a sensible (not overly flat)
-// triangle at the new width; still comfortably inside GURU_INSET_VIEWBOX.
-export const GURU_TRIKONA  = { apex: [446, 110], baseL: [420, 80], baseR: [472, 80] }
+// dot rows above it. Height then raised again the same day ("height of the
+// gurus triangle needs to match the width") from 30 to 52 units so it reads
+// as a proper (roughly equilateral) triangle rather than a flat wedge —
+// GURU_INSET_VIEWBOX enlarged below to fit the taller apex.
+export const GURU_TRIKONA  = { apex: [446, 132], baseL: [420, 80], baseR: [472, 80] }
 
 // Tight crop boxes around each inset's own dots/trikona — used once the
 // insets are pulled out of the main yantra viewBox into their own standalone
 // <svg> panels (2026-08-23 desktop/mobile repositioning; see roadmap memory).
-// Same 64×58 aspect for both so the two panels read as a matched pair.
+// No longer a matched pair since GURU_TRIKONA grew taller (2026-08-23) — Guru's
+// box is now 64×82 to fit its apex at y=132 with a little breathing room.
 export const NITYA_INSET_VIEWBOX = '42 59 64 58'
-export const GURU_INSET_VIEWBOX  = '414 55 64 58'
+export const GURU_INSET_VIEWBOX  = '414 55 64 82'
 
 export const DEITY_POSITIONS = (() => {
   const map = {}
