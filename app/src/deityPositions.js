@@ -260,6 +260,13 @@ const bySeqMap = {
 export const NITYA_TRIKONA = { apex: NITYA_APEX, baseL: [52, 72], baseR: [96, 72] }
 export const GURU_TRIKONA  = { apex: [446, 105], baseL: [431, 80], baseR: [461, 80] }
 
+// Tight crop boxes around each inset's own dots/trikona — used once the
+// insets are pulled out of the main yantra viewBox into their own standalone
+// <svg> panels (2026-08-23 desktop/mobile repositioning; see roadmap memory).
+// Same 64×58 aspect for both so the two panels read as a matched pair.
+export const NITYA_INSET_VIEWBOX = '42 59 64 58'
+export const GURU_INSET_VIEWBOX  = '414 55 64 58'
+
 export const DEITY_POSITIONS = (() => {
   const map = {}
 

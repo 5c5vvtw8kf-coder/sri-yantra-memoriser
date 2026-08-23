@@ -33,7 +33,10 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import data from '../data/activeDeities'
 import { displayName, sectionIdToMemoKey, recordHistoryEntry } from '../utils.js'
-import { getPosition, DEITY_POSITIONS, NITYA_TRIKONA, GURU_TRIKONA } from '../deityPositions.js'
+import {
+  getPosition, DEITY_POSITIONS, NITYA_TRIKONA, GURU_TRIKONA,
+  NITYA_INSET_VIEWBOX, GURU_INSET_VIEWBOX,
+} from '../deityPositions.js'
 import SriYantraSVG from './SriYantraSVG'
 
 const { deities } = data
@@ -290,6 +293,50 @@ function CompletionOverlay({ correct, total, timeouts, streak, best, elapsedMs, 
   )
 }
 
+// ── Inset panel — Nitya / Guru trikona-and-dots, standalone (not layered on
+// the yantra SVG) ────────────────────────────────────────────────────────
+// Pulled out of the shared yantra viewBox 2026-08-23 (Chris: on desktop these
+// should sit beside the yantra near the west/east gates with a heading above,
+// not overlap its top corners; on mobile they belong below the yantra as a
+// side-by-side row, not on top of it). Each panel gets its own tight-cropped
+// viewBox (see NITYA_INSET_VIEWBOX/GURU_INSET_VIEWBOX in deityPositions.js)
+// so it renders as a small standalone diagram rather than a fragment of the
+// full 430×430 yantra space.
+function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activeRegionId, onPick }) {
+  if (insetDeities.length === 0) return null
+  const trikonaPoints = `${trikona.apex.join(',')} ${trikona.baseL.join(',')} ${trikona.baseR.join(',')}`
+  return (
+    <div className="flex flex-col items-center gap-1.5 w-24 md:w-28 flex-shrink-0">
+      <p className="text-[9px] uppercase tracking-widest text-muted font-mono text-center">{heading}</p>
+      <svg
+        viewBox={viewBox}
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-auto"
+        style={{ WebkitTouchCallout: 'none', userSelect: 'none' }}
+      >
+        <polygon points={trikonaPoints} fill="none" stroke={GOLD} strokeWidth="0.6" strokeOpacity="0.6" />
+        {insetDeities.map(d => {
+          const pos = getPosition(d.id)
+          const regionId = getRegionId(d)
+          if (!pos || !regionId) return null
+          const fill = pointFills[regionId] || CREAM
+          const isActive = regionId === activeRegionId
+          const r = isActive ? 6 : 4.8
+          return (
+            <circle
+              key={d.id}
+              cx={pos.x} cy={pos.y} r={r}
+              fill={fill} stroke={GOLD} strokeWidth="0.6"
+              style={{ cursor: 'pointer' }}
+              onClick={() => onPick(regionId)}
+            />
+          )
+        })}
+      </svg>
+    </div>
+  )
+}
+
 // ── Main component ───────────────────────────────────────────────────────
 export default function LocateDrillView({
   script = 'iast', scope = 'all', limit = null, timerSeconds = null,
@@ -484,6 +531,12 @@ export default function LocateDrillView({
   // markers give a generous fallback tap-area around each small dot — the
   // same hybrid pattern SegmentDrillView/LineDrillView already use).
   const pointDeities = scopeDeities.filter(d => POINT_SECTIONS.has(d.sectionId))
+  // Nitya/Guru render in their own standalone InsetPanel now (see below) —
+  // split them out of the main yantra overlay's point-dot list so they don't
+  // get drawn twice.
+  const svgPointDeities = pointDeities.filter(d => !INSET_SECTIONS.has(d.sectionId))
+  const nityaInsetDeities = pointDeities.filter(d => d.sectionId === 'nitya')
+  const guruInsetDeities = pointDeities.filter(d => GURU_SECTIONS.has(d.sectionId))
 
   return (
     <div className="w-full p-4 flex flex-col gap-3">
@@ -510,8 +563,87 @@ export default function LocateDrillView({
             )}
           </div>
 
+          {/* Desktop: Nitya/Guru insets flank the yantra beside the west/east
+              gates, each with a heading above. Mobile: hidden here — they
+              render instead as a side-by-side row below the yantra (Chris's
+              spec, 2026-08-23) so they never overlap the diagram on a narrow
+              screen. Wrapped in md:items-center so the panels vertically
+              centre against the yantra square rather than top-aligning. */}
+          <div className="hidden md:flex md:flex-row md:items-center md:gap-4">
+            <InsetPanel
+              heading={tr('locate.inset_heading_nitya')}
+              trikona={NITYA_TRIKONA}
+              viewBox={NITYA_INSET_VIEWBOX}
+              insetDeities={nityaInsetDeities}
+              pointFills={pointFills}
+              activeRegionId={activeRegionId}
+              onPick={handleAnswer}
+            />
+
+            <div
+              className="relative flex-1 min-w-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+              style={{ paddingBottom: '100%', WebkitTouchCallout: 'none', userSelect: 'none' }}
+            >
+              <div className="absolute inset-0">
+                <SriYantraSVG
+                  className="w-full h-full"
+                  showTriangles={true}
+                  showLabels={false}
+                  showNumbers={false}
+                  filledRegions={filledRegions}
+                  onRegionClick={handleRegionClick}
+                />
+                {/* pointerEvents: 'none' on the root is deliberate — this overlay only
+                    ever paints a handful of small circles, and without this the
+                    "empty" 90%+ of its full-canvas bounding box can still swallow
+                    clicks meant for the petals/triangles rendered underneath by
+                    SriYantraSVG (confirmed by Chris, 2026-08-23: Circuit 3 petals
+                    stopped responding once this overlay came back for smaller C1/8/9
+                    dots — same failure mode as the original click bug earlier this
+                    session, this time fixed properly instead of by elimination).
+                    Each circle re-enables its own events explicitly. Nitya/Guru no
+                    longer render here — see the standalone InsetPanel above/below. */}
+                <svg
+                  viewBox="45 55 430 430"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="absolute inset-0 w-full h-full"
+                  style={{ background: 'transparent', pointerEvents: 'none' }}
+                >
+                  {svgPointDeities.map(d => {
+                    const pos = getPosition(d.id)
+                    const regionId = getRegionId(d)
+                    if (!pos || !regionId) return null
+                    const fill = pointFills[regionId] || CREAM
+                    const isActive = regionId === activeRegionId
+                    const r = isActive ? 4 : 3.2
+                    return (
+                      <circle
+                        key={d.id}
+                        cx={pos.x} cy={pos.y} r={r}
+                        fill={fill} stroke={GOLD} strokeWidth="0.6"
+                        style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+                        onClick={() => handleAnswer(regionId)}
+                      />
+                    )
+                  })}
+                </svg>
+              </div>
+            </div>
+
+            <InsetPanel
+              heading={tr('locate.inset_heading_gurus')}
+              trikona={GURU_TRIKONA}
+              viewBox={GURU_INSET_VIEWBOX}
+              insetDeities={guruInsetDeities}
+              pointFills={pointFills}
+              activeRegionId={activeRegionId}
+              onPick={handleAnswer}
+            />
+          </div>
+
+          {/* Mobile: yantra alone, full width, insets never overlap it here. */}
           <div
-            className="relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+            className="md:hidden relative w-full rounded-xl overflow-hidden shadow-2xl shadow-black/60"
             style={{ paddingBottom: '100%', WebkitTouchCallout: 'none', userSelect: 'none' }}
           >
             <div className="absolute inset-0">
@@ -523,48 +655,19 @@ export default function LocateDrillView({
                 filledRegions={filledRegions}
                 onRegionClick={handleRegionClick}
               />
-              {/* pointerEvents: 'none' on the root is deliberate — this overlay only
-                  ever paints a handful of small circles, and without this the
-                  "empty" 90%+ of its full-canvas bounding box can still swallow
-                  clicks meant for the petals/triangles rendered underneath by
-                  SriYantraSVG (confirmed by Chris, 2026-08-23: Circuit 3 petals
-                  stopped responding once this overlay came back for smaller C1/8/9
-                  dots — same failure mode as the original click bug earlier this
-                  session, this time fixed properly instead of by elimination).
-                  Each circle re-enables its own events explicitly. */}
               <svg
                 viewBox="45 55 430 430"
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute inset-0 w-full h-full"
                 style={{ background: 'transparent', pointerEvents: 'none' }}
               >
-                {/* Nitya/Guru inset trikonas — outline only, no text labels
-                    (Chris's spec, 2026-08-23). Shown only when their deities
-                    are actually in the current scope. */}
-                {pointDeities.some(d => d.sectionId === 'nitya') && (
-                  <polygon
-                    points={`${NITYA_TRIKONA.apex.join(',')} ${NITYA_TRIKONA.baseL.join(',')} ${NITYA_TRIKONA.baseR.join(',')}`}
-                    fill="none" stroke={GOLD} strokeWidth="0.6" strokeOpacity="0.6"
-                  />
-                )}
-                {pointDeities.some(d => GURU_SECTIONS.has(d.sectionId)) && (
-                  <polygon
-                    points={`${GURU_TRIKONA.apex.join(',')} ${GURU_TRIKONA.baseL.join(',')} ${GURU_TRIKONA.baseR.join(',')}`}
-                    fill="none" stroke={GOLD} strokeWidth="0.6" strokeOpacity="0.6"
-                  />
-                )}
-                {pointDeities.map(d => {
+                {svgPointDeities.map(d => {
                   const pos = getPosition(d.id)
                   const regionId = getRegionId(d)
                   if (!pos || !regionId) return null
                   const fill = pointFills[regionId] || CREAM
                   const isActive = regionId === activeRegionId
-                  // Nitya/Guru inset dots are 50% larger than C1/8/9's, matching
-                  // the inset's own enlarged layout (Chris's feedback, 2026-08-23)
-                  // — otherwise a bigger empty layout with same-size dots reads as
-                  // sparser, not bigger.
-                  const insetDeity = INSET_SECTIONS.has(d.sectionId)
-                  const r = insetDeity ? (isActive ? 6 : 4.8) : (isActive ? 4 : 3.2)
+                  const r = isActive ? 4 : 3.2
                   return (
                     <circle
                       key={d.id}
@@ -577,6 +680,28 @@ export default function LocateDrillView({
                 })}
               </svg>
             </div>
+          </div>
+
+          {/* Mobile: Nitya + Guru side by side below the yantra. */}
+          <div className="md:hidden flex flex-row gap-3 justify-center">
+            <InsetPanel
+              heading={tr('locate.inset_heading_nitya')}
+              trikona={NITYA_TRIKONA}
+              viewBox={NITYA_INSET_VIEWBOX}
+              insetDeities={nityaInsetDeities}
+              pointFills={pointFills}
+              activeRegionId={activeRegionId}
+              onPick={handleAnswer}
+            />
+            <InsetPanel
+              heading={tr('locate.inset_heading_gurus')}
+              trikona={GURU_TRIKONA}
+              viewBox={GURU_INSET_VIEWBOX}
+              insetDeities={guruInsetDeities}
+              pointFills={pointFills}
+              activeRegionId={activeRegionId}
+              onPick={handleAnswer}
+            />
           </div>
 
           <p className="md:hidden text-center text-[11px]" style={{ color: 'rgba(201,168,76,0.55)' }}>

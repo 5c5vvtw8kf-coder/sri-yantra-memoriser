@@ -591,6 +591,8 @@ const en = {
   'locate.pair_suffix':  '(x2)',
   'locate.tap_outer':    'Tap the outer position first',
   'locate.tap_inner':    'Now tap the inner position',
+  'locate.inset_heading_nitya': 'Tithi Nitya',
+  'locate.inset_heading_gurus': 'Gurus',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────
