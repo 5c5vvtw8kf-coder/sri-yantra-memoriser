@@ -307,7 +307,7 @@ function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activ
   const trikonaPoints = `${trikona.apex.join(',')} ${trikona.baseL.join(',')} ${trikona.baseR.join(',')}`
   return (
     <div className="flex flex-col items-center gap-1.5 w-24 md:w-28 flex-shrink-0">
-      <p className="text-[9px] uppercase tracking-widest text-muted font-mono text-center">{heading}</p>
+      <p className="text-[9px] md:text-sm uppercase tracking-widest md:tracking-wide text-muted font-mono text-center">{heading}</p>
       <svg
         viewBox={viewBox}
         xmlns="http://www.w3.org/2000/svg"
@@ -321,7 +321,12 @@ function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activ
           if (!pos || !regionId) return null
           const fill = pointFills[regionId] || CREAM
           const isActive = regionId === activeRegionId
-          const r = isActive ? 6 : 4.8
+          // Kept small deliberately — the densest inset row (Guru-mānavaugha,
+          // 8 dots across ~52 units) has center-to-center spacing of only
+          // ~7.4 units, so anything approaching that in diameter overlaps its
+          // neighbours (Chris's report, 2026-08-23, after the first live
+          // screenshot showed exactly that at r=4.8/6).
+          const r = isActive ? 3.2 : 2.5
           return (
             <circle
               key={d.id}
@@ -568,8 +573,16 @@ export default function LocateDrillView({
               render instead as a side-by-side row below the yantra (Chris's
               spec, 2026-08-23) so they never overlap the diagram on a narrow
               screen. Wrapped in md:items-center so the panels vertically
-              centre against the yantra square rather than top-aligning. */}
-          <div className="hidden md:flex md:flex-row md:items-center md:gap-4">
+              centre against the yantra square rather than top-aligning.
+              md:justify-center + an explicit width cap on the yantra square
+              below (matching every other tab's normal size, not the widened
+              column) — the column was widened in App.jsx purely to make room
+              for the insets; without the explicit cap the yantra itself
+              greedily grew to fill that extra width via flex-1, which just
+              inflated the built-in blank margin above the gates into a big
+              empty-looking gap under the prompt text (Chris's report,
+              2026-08-23 screenshot). Capped + centred instead. */}
+          <div className="hidden md:flex md:flex-row md:items-center md:justify-center md:gap-4">
             <InsetPanel
               heading={tr('locate.inset_heading_nitya')}
               trikona={NITYA_TRIKONA}
@@ -581,8 +594,8 @@ export default function LocateDrillView({
             />
 
             <div
-              className="relative flex-1 min-w-0 rounded-xl overflow-hidden shadow-2xl shadow-black/60"
-              style={{ paddingBottom: '100%', WebkitTouchCallout: 'none', userSelect: 'none' }}
+              className="relative rounded-xl overflow-hidden shadow-2xl shadow-black/60"
+              style={{ width: 'min(100%, calc(100dvh - 120px))', paddingBottom: '100%', WebkitTouchCallout: 'none', userSelect: 'none' }}
             >
               <div className="absolute inset-0">
                 <SriYantraSVG
