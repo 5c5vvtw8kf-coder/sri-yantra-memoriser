@@ -410,19 +410,34 @@ export default function LocateDrillView({
   // Colour for an answered region's outcome
   const outcomeColour = v => v === 'correct' ? RED : v === 'wrong' ? GOLD : v === 'timeout' ? TERRACOTTA : CREAM
 
-  const filledRegions = {}
-  scopeRegionIds.forEach(id => { filledRegions[id] = CREAM })
+  // Point-section region ids (Circuit 1/8/9) never get a colour fed to
+  // SriYantraSVG — if they did, its own native markers (r=8) would paint a
+  // visible ring behind this file's smaller overlay dots (Chris's report,
+  // 2026-08-23: "large dots around the bhupura"). They stay in `filledRegions`
+  // implicitly-transparent so SriYantraSVG's click handling (and its bigger
+  // hit area for Circuit 1's native bhupura markers) keeps working as an
+  // invisible fallback tap-area — only `pointFills` drives what's actually
+  // painted for them, via this file's own overlay below.
+  const pointRegionIds = new Set(
+    scopeDeities.filter(d => POINT_SECTIONS.has(d.sectionId)).map(getRegionId).filter(Boolean)
+  )
+  const filledRegions = {}   // passed to SriYantraSVG — Circuit 2–7 shapes only
+  const pointFills = {}      // used only by this file's own point-dot overlay
+  const setFill = (id, colour) => {
+    if (!id) return
+    if (pointRegionIds.has(id)) pointFills[id] = colour
+    else filledRegions[id] = colour
+  }
+
+  scopeRegionIds.forEach(id => setFill(id, CREAM))
   Object.entries(results).forEach(([key, verdict]) => {
     if (key.startsWith('pair:')) {
       const outerId = key.slice(5)
       const innerId = PAIR_BY_OUTER.get(outerId)
-      const outerRegion = getRegionId(deityById[outerId])
-      const innerRegion = getRegionId(deityById[innerId])
-      if (outerRegion) filledRegions[outerRegion] = outcomeColour(verdict)
-      if (innerRegion) filledRegions[innerRegion] = outcomeColour(verdict)
+      setFill(getRegionId(deityById[outerId]), outcomeColour(verdict))
+      setFill(getRegionId(deityById[innerId]), outcomeColour(verdict))
     } else {
-      const regionId = getRegionId(deityById[key])
-      if (regionId) filledRegions[regionId] = outcomeColour(verdict)
+      setFill(getRegionId(deityById[key]), outcomeColour(verdict))
     }
   })
 
@@ -435,13 +450,12 @@ export default function LocateDrillView({
         ? getRegionId(deityById[current.outerId])
         : getRegionId(deityById[current.innerId])
       if (pairStage === 1) {
-        const outerRegion = getRegionId(deityById[current.outerId])
-        if (outerRegion) filledRegions[outerRegion] = RED   // outer half already confirmed correct
+        setFill(getRegionId(deityById[current.outerId]), RED)   // outer half already confirmed correct
       }
     } else {
       activeRegionId = getRegionId(deityById[current.id])
     }
-    if (activeRegionId) filledRegions[activeRegionId] = flash ? outcomeColour(flash) : CREAM
+    setFill(activeRegionId, flash ? outcomeColour(flash) : CREAM)
   }
 
   const handleRegionClick = useCallback((id) => {
@@ -505,7 +519,7 @@ export default function LocateDrillView({
                   const pos = getPosition(d.id)
                   const regionId = getRegionId(d)
                   if (!pos || !regionId) return null
-                  const fill = filledRegions[regionId] || CREAM
+                  const fill = pointFills[regionId] || CREAM
                   const isActive = regionId === activeRegionId
                   return (
                     <circle
