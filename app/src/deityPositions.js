@@ -221,32 +221,38 @@ function evenSide(n, from, to) {
   return pts
 }
 
-// Nitya: 16 deities forming a loop around the small trikona's three edges —
-// a dot at each of the 3 vertices, 4 evenly-spaced dots along each edge
-// (nudged slightly outward so they read as their own ring rather than
-// sitting on the outline), plus a 16th dot at the centroid for "the bindu in
-// the middle" (Chris's reference image, 2026-08-23 — the previous version's
-// detached top row + two side fans didn't read as "around the trikona").
+// Nitya: 16 deities positioned by hand, 2026-08-23 — Chris placed each one
+// individually against a live numbered reference diagram (starting from 1/15
+// flanking the apex, working up each side, across the top, with 16 kept at
+// the centroid as "the bindu in the middle"). These are NOT derived from a
+// formula any more; the earlier evenly-spaced/edge-offset version didn't
+// match the traditional arrangement he was working from, and repeated
+// geometric guessing wasn't converging — this is his final, approved layout.
+// Position N below is deity seq N (nitya-00N) directly, in canonical order:
+// 1 Kāmeśvarī, 2 Bhagamālinī, 3 Nityaklinnē, 4 Bhēruṇḍē, 5 Vahnivāsinī,
+// 6 Mahāvajrēśvarī, 7 Śivadūtī, 8 Tvaritē, 9 Kulasundarī, 10 Nityē,
+// 11 Nīlapatākē, 12 Vijayē, 13 Sarvamaṅgaḻē, 14 Jvālāmālinī, 15 Citrē,
+// 16 Mahānityē.
 const NITYA_APEX   = [74, 110]
 const NITYA_BASE_L = [52, 72]
 const NITYA_BASE_R = [96, 72]
-const NITYA_CENTROID = [
-  (NITYA_APEX[0] + NITYA_BASE_L[0] + NITYA_BASE_R[0]) / 3,
-  (NITYA_APEX[1] + NITYA_BASE_L[1] + NITYA_BASE_R[1]) / 3,
-]
-const NITYA_EDGE_OFFSET = 3
-function edgeDots(n, from, to) {
-  const [nx, ny] = outwardNormal(from, to, NITYA_CENTROID)
-  return evenSide(n, from, to).map(p => ({ x: p.x + nx * NITYA_EDGE_OFFSET, y: p.y + ny * NITYA_EDGE_OFFSET }))
-}
 const NITYA_POSITIONS = [
-  { x: NITYA_BASE_L[0], y: NITYA_BASE_L[1] },   // 1  — top-left vertex
-  ...edgeDots(4, NITYA_BASE_L, NITYA_BASE_R),   // 2–5  — across the top edge
-  { x: NITYA_BASE_R[0], y: NITYA_BASE_R[1] },   // 6  — top-right vertex
-  ...edgeDots(4, NITYA_BASE_R, NITYA_APEX),     // 7–10 — down the right edge
-  { x: NITYA_APEX[0], y: NITYA_APEX[1] },       // 11 — apex (bottom point)
-  ...edgeDots(4, NITYA_APEX, NITYA_BASE_L),     // 12–15 — up the left edge
-  { x: NITYA_CENTROID[0], y: NITYA_CENTROID[1] }, // 16 — centre (the bindu)
+  { x: 82,   y: 107.5 },  // 1  Kāmeśvarī — right of the apex
+  { x: 86.25, y: 100.25 }, // 2  Bhagamālinī
+  { x: 90.5, y: 93.0 },   // 3  Nityaklinnē
+  { x: 94.75, y: 85.75 }, // 4  Bhēruṇḍē
+  { x: 99,   y: 78.5 },   // 5  Vahnivāsinī
+  { x: 101,  y: 69.1 },   // 6  Mahāvajrēśvarī — past the top-right vertex
+  { x: 92,   y: 66.2 },   // 7  Śivadūtī — top edge, right end
+  { x: 81,   y: 66.2 },   // 8  Tvaritē
+  { x: 70,   y: 66.2 },   // 9  Kulasundarī
+  { x: 59,   y: 66.2 },   // 10 Nityē
+  { x: 48,   y: 66.2 },   // 11 Nīlapatākē — top edge, left end
+  { x: 49.2, y: 78.5 },   // 12 Vijayē
+  { x: 54.8, y: 88.2 },   // 13 Sarvamaṅgaḻē
+  { x: 60.4, y: 97.8 },   // 14 Jvālāmālinī
+  { x: 66,   y: 107.5 },  // 15 Citrē — left of the apex
+  { x: 74,   y: 84.7 },   // 16 Mahānityē — centre (the bindu)
 ]
 const nityaBySeq = Object.fromEntries(NITYA_POSITIONS.map((p, i) => [i + 1, p]))
 
