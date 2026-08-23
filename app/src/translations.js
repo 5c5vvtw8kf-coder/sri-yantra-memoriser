@@ -340,7 +340,7 @@ const en = {
   'map.not_attempted':   '— Not attempted',
   'map.no_entries':      'No entries match',
   'map.clear_confirm':   'Clear all memo results and history? This cannot be undone.',
-  'map.include_drills':  'Include drills',
+  'map.include_drills':  'Include drill results',
   'map.correct_last3':   'correct on last 3 attempts',
   'map.correct_partial': 'correct on < last 3 attempts',
   'map.none_correct':    'none of last 3 correct',

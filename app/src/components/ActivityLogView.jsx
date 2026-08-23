@@ -25,6 +25,7 @@ function buildSectionLabel(tr) {
     segmentdrill: tr('segmentdrill.heading'),
     linedrill:    tr('linedrill.heading'),
     triangledrill: tr('triangledrill.heading'),
+    'locate-drill': tr('locate.title'),
   }
 }
 
