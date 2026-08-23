@@ -280,7 +280,11 @@ const bySeqMap = {
 // to draw them (Locate Drill's own overlay, for now) doesn't have to
 // duplicate these coordinates.
 export const NITYA_TRIKONA = { apex: NITYA_APEX, baseL: NITYA_BASE_L, baseR: NITYA_BASE_R }
-export const GURU_TRIKONA  = { apex: [446, 105], baseL: [431, 80], baseR: [461, 80] }
+// Base widened to match the mānavaugha row's own span (420–472) — Chris's
+// report, 2026-08-23: the trikona read as too small under the much wider
+// dot rows above it. Apex lowered to keep a sensible (not overly flat)
+// triangle at the new width; still comfortably inside GURU_INSET_VIEWBOX.
+export const GURU_TRIKONA  = { apex: [446, 110], baseL: [420, 80], baseR: [472, 80] }
 
 // Tight crop boxes around each inset's own dots/trikona — used once the
 // insets are pulled out of the main yantra viewBox into their own standalone

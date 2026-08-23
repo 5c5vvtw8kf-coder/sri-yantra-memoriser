@@ -602,25 +602,31 @@ export default function LocateDrillView({
 
             <div
               className="relative rounded-xl overflow-hidden shadow-2xl shadow-black/60"
-              style={{ width: 'min(100%, calc(100dvh - 120px))', paddingBottom: '80%', WebkitTouchCallout: 'none', userSelect: 'none' }}
+              style={{ width: 'min(100%, calc(100dvh - 120px))', aspectRatio: '1 / 0.85', WebkitTouchCallout: 'none', userSelect: 'none' }}
             >
               {/* SriYantraSVG's shared viewBox (45,55,430,430) carries a large,
                   genuinely empty margin above the gates — present in every view,
                   but only glaring here because desktop Location Match is the
                   first place it's rendered at this size with a bare prompt
-                  above it (Chris's report, 2026-08-23; the earlier width-cap
-                  fix didn't help because the height-based cap was already the
-                  binding constraint, not the flex-1 growth). Fixed without
+                  above it (Chris's report, 2026-08-23). Cropped without
                   touching SriYantraSVG's coordinate system (which every other
-                  view also relies on): render the SVG+overlay pair at their
-                  natural square size (125% of this container's now-shorter
-                  80%-aspect box) bottom-anchored, so the bottom (which has
-                  almost no spare margin) sits flush with the container edge
-                  and the empty top ~20% is pushed above the visible area and
-                  clipped by this wrapper's overflow-hidden. Both children keep
-                  the exact same relative positioning to each other, so click
-                  hit-testing between them is unaffected. */}
-              <div className="absolute left-0 right-0 bottom-0" style={{ height: '125%' }}>
+                  view also relies on): the SVG+overlay pair render at their
+                  natural square size (aspect-ratio 1/1 against this container's
+                  own width, so it's always exactly W×W regardless of the
+                  container's shorter W×0.85W box) and sit bottom-anchored, so
+                  the near-zero bottom margin stays flush and the empty top
+                  strip is pushed above the visible area and clipped by this
+                  wrapper's overflow-hidden.
+                  NOTE: the first version of this fix used a percentage
+                  `height` on the inner box (125% of a padding-bottom-driven
+                  parent height) — that resolved against the wrong reference
+                  and badly over-cropped (clipped into the gate itself,
+                  Chris's report) while also revealing an unrelated sliver
+                  below the intended frame. `aspect-ratio` on both boxes is
+                  deterministic and avoids that percentage-of-generated-height
+                  ambiguity entirely. Both children still move together since
+                  they're sized identically, so hit-testing is unaffected. */}
+              <div className="absolute left-0 right-0 bottom-0 w-full" style={{ aspectRatio: '1 / 1' }}>
                 <SriYantraSVG
                   className="w-full h-full"
                   showTriangles={true}
