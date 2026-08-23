@@ -197,6 +197,15 @@ const C9_BINDU = { x: 260, y: 270 }
 // around the Nitya trikona; three stacked rows above the Guru trikona), not
 // yet visually verified live — flagged for a follow-up pass once he can see
 // it rendered and fine-tune spacing.
+//
+// Resized 2026-08-23 (Chris: "50% larger" after seeing the first live
+// screenshot) and pushed toward the literal outer corners of the viewBox
+// (45,55)–(475,485) rather than left where they were — he's planning to add
+// the 6 Nyasa Devatas (Hridaya, Shiro, etc.) somewhere in this same general
+// area later, and the original placement would have collided with wherever
+// those land. Since that placement isn't decided yet, this maximises
+// clearance in every direction rather than guessing a specific spot — worth
+// a joint look once Nyasa positions are actually being designed.
 function evenRow(n, x0, x1, y) {
   if (n === 1) return [{ x: (x0 + x1) / 2, y }]
   const pts = []
@@ -213,20 +222,20 @@ function evenSide(n, from, to) {
 }
 
 // Nitya: 16 deities in a loop (4 top row + 6 down each side) around a small
-// trikona, apex pointing down, top-left corner.
-const NITYA_APEX = [73, 100]
+// trikona, apex pointing down, pushed into the true top-left corner.
+const NITYA_APEX = [74, 110]
 const NITYA_POSITIONS = [
-  ...evenRow(4, 56, 90, 62),
-  ...evenSide(6, [55, 66], NITYA_APEX),
-  ...evenSide(6, [91, 66], NITYA_APEX),
+  ...evenRow(4, 48, 100, 60),
+  ...evenSide(6, [47, 65], NITYA_APEX),
+  ...evenSide(6, [101, 65], NITYA_APEX),
 ]
 const nityaBySeq = Object.fromEntries(NITYA_POSITIONS.map((p, i) => [i + 1, p]))
 
 // Gurus: three stacked rows (7 divyaugha, 4 siddhaugha, 8 mānavaugha) above a
-// small trikona, apex pointing down, top-right corner.
-const guruDivyaBySeq  = Object.fromEntries(evenRow(7, 434, 470, 58).map((p, i) => [i + 1, p]))
-const guruSiddhaBySeq = Object.fromEntries(evenRow(4, 442, 462, 66).map((p, i) => [i + 1, p]))
-const guruManavaBySeq = Object.fromEntries(evenRow(8, 433, 471, 74).map((p, i) => [i + 1, p]))
+// small trikona, apex pointing down, pushed into the true top-right corner.
+const guruDivyaBySeq  = Object.fromEntries(evenRow(7, 421, 471, 60).map((p, i) => [i + 1, p]))
+const guruSiddhaBySeq = Object.fromEntries(evenRow(4, 434, 458, 68).map((p, i) => [i + 1, p]))
+const guruManavaBySeq = Object.fromEntries(evenRow(8, 420, 472, 76).map((p, i) => [i + 1, p]))
 
 // ── Assemble the full map ─────────────────────────────────────────────────────
 
@@ -248,8 +257,8 @@ const bySeqMap = {
 // Trikona outlines for the two insets — exported so any consumer that wants
 // to draw them (Locate Drill's own overlay, for now) doesn't have to
 // duplicate these coordinates.
-export const NITYA_TRIKONA = { apex: NITYA_APEX, baseL: [58, 70], baseR: [88, 70] }
-export const GURU_TRIKONA  = { apex: [452, 100], baseL: [437, 78], baseR: [467, 78] }
+export const NITYA_TRIKONA = { apex: NITYA_APEX, baseL: [52, 72], baseR: [96, 72] }
+export const GURU_TRIKONA  = { apex: [446, 105], baseL: [431, 80], baseR: [461, 80] }
 
 export const DEITY_POSITIONS = (() => {
   const map = {}

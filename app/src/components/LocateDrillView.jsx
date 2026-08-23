@@ -86,6 +86,7 @@ const POINT_SECTIONS = new Set([
   'nitya', 'guru-divya', 'guru-siddha', 'guru-manava',
 ])
 const GURU_SECTIONS = new Set(['guru-divya', 'guru-siddha', 'guru-manava'])
+const INSET_SECTIONS = new Set(['nitya', 'guru-divya', 'guru-siddha', 'guru-manava'])
 
 const C4_DEITY_ORDER = [8, 7, 6, 5, 4, 3, 2, 1, 14, 13, 12, 11, 10, 9]
 const C5_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
@@ -540,10 +541,16 @@ export default function LocateDrillView({
                   if (!pos || !regionId) return null
                   const fill = pointFills[regionId] || CREAM
                   const isActive = regionId === activeRegionId
+                  // Nitya/Guru inset dots are 50% larger than C1/8/9's, matching
+                  // the inset's own enlarged layout (Chris's feedback, 2026-08-23)
+                  // — otherwise a bigger empty layout with same-size dots reads as
+                  // sparser, not bigger.
+                  const insetDeity = INSET_SECTIONS.has(d.sectionId)
+                  const r = insetDeity ? (isActive ? 6 : 4.8) : (isActive ? 4 : 3.2)
                   return (
                     <circle
                       key={d.id}
-                      cx={pos.x} cy={pos.y} r={isActive ? 4 : 3.2}
+                      cx={pos.x} cy={pos.y} r={r}
                       fill={fill} stroke={GOLD} strokeWidth="0.6"
                       style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                       onClick={() => handleAnswer(regionId)}
