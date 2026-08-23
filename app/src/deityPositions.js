@@ -184,16 +184,40 @@ const c8BySeq = Object.fromEntries(C8_POSITIONS.map((pos, idx) => [idx + 1, pos]
 const C9_BINDU = { x: 260, y: 270 }
 
 // ── Nyasa: 6 limb deities (hṛdaya, śirō, śikhā, kavaca, nētra, astra) ──────────
-// Added 2026-08-23. Only nētradēvī (seq 5) has a position so far — Chris:
-// "netradevi which is on the same position as the bindu" — she shares C9's
-// own bindu point, rendered in LocateDrillView as a larger transparent ring
-// there rather than a normal filled dot, so she doesn't visually replace C9's
-// own marker. astradēvī (seq 6) is a 4-position deity (Chris: "the 4
-// astradevi dots need to be treated as one deity") — any one of the 4 counts
-// as correct; coordinates pending. hṛdayadēvī/śirōdēvī/śikhādēvī/kavacadēvī
-// (seq 1–4) have no position yet — pending Chris's placement, same
-// interactive process used for Nitya's 16.
-const nyasaBySeq = { 5: C9_BINDU }
+// Added 2026-08-23, first-draft placement pending Chris's live correction
+// (same process used for Nitya — an initial guess, then adjusted against the
+// running app). nētradēvī (seq 5) shares C9's own bindu point (Chris:
+// "netradevi which is on the same position as the bindu"), rendered in
+// LocateDrillView as a transparent ring there. hṛdayadēvī/śirōdēvī/
+// śikhādēvī/kavacadēvī (seq 1–4) are placed at the four gate corridors'
+// midpoints (inside the outer tip, outside the lotus), one per cardinal
+// direction, clockwise from top. astradēvī (seq 6) is deliberately NOT given
+// a seqMap entry here — Chris: "the 4 astradevi dots need to be treated as
+// one deity", so she's a 4-position deity the normal one-id-per-deity
+// DEITY_POSITIONS map can't represent. Handled entirely as a special case in
+// LocateDrillView via ASTRA_POSITIONS below (4 gate outer tips, matching
+// "astra" = weapon guarding each direction).
+const GATE_MID_TOP    = { x: 260,    y: 103.67 }
+const GATE_MID_RIGHT  = { x: 426.33, y: 270 }
+const GATE_MID_BOTTOM = { x: 260,    y: 436.33 }
+const GATE_MID_LEFT   = { x: 93.67,  y: 270 }
+const nyasaBySeq = {
+  1: GATE_MID_TOP,     // Hṛdayadēvī
+  2: GATE_MID_RIGHT,   // Śirōdēvī
+  3: GATE_MID_BOTTOM,  // Śikhādēvī
+  4: GATE_MID_LEFT,    // Kavacadēvī
+  5: C9_BINDU,         // Nētradēvī
+}
+
+// Astradēvī's 4 positions — the four bhupura gates' outermost tips (derived
+// from BHUPURA_OUTER_PTS's extreme points: top y=63.67, right x=466.33,
+// bottom y=476.33, left x=53.67, each centred on the yantra's 260/270 axis).
+export const ASTRA_POSITIONS = [
+  { x: 260,    y: 63.67 },   // top gate
+  { x: 466.33, y: 270 },     // right gate
+  { x: 260,    y: 476.33 },  // bottom gate
+  { x: 53.67,  y: 270 },     // left gate
+]
 
 // ── Nitya / Guru insets (top corners, outside the bhupura) ────────────────────
 // Chris's design, 2026-08-23: the Tithi Nitya Devatas and the three Guru

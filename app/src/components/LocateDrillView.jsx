@@ -35,7 +35,7 @@ import data from '../data/activeDeities'
 import { displayName, sectionIdToMemoKey, recordHistoryEntry } from '../utils.js'
 import {
   getPosition, DEITY_POSITIONS, NITYA_TRIKONA, GURU_TRIKONA,
-  NITYA_INSET_VIEWBOX, GURU_INSET_VIEWBOX,
+  NITYA_INSET_VIEWBOX, GURU_INSET_VIEWBOX, ASTRA_POSITIONS,
 } from '../deityPositions.js'
 import SriYantraSVG from './SriYantraSVG'
 
@@ -78,7 +78,12 @@ function locateLabel(deity, script) {
 // All circuit deities 1–9 with real yantra positions. Circuits 1, 8 and 9
 // are "point" circuits — individual dots rather than filled petal/triangle
 // shapes, see POINT_SECTIONS and the small-dot overlay in the render below.
-const positionedDeities = deities.filter(d => DEITY_POSITIONS[d.id] != null && d.role === 'deity')
+// nyasa-006 (astradēvī) is force-included even though she has no
+// DEITY_POSITIONS entry — she's a 4-position deity (see ASTRA_POSITIONS /
+// ASTRA_REGION_IDS below), rendered and click-matched entirely as a special
+// case rather than through the normal one-id-per-deity machinery.
+const positionedDeities = deities.filter(d => (DEITY_POSITIONS[d.id] != null || d.id === 'nyasa-006') && d.role === 'deity')
+const ASTRA_REGION_IDS = ['astrapt-01', 'astrapt-02', 'astrapt-03', 'astrapt-04']
 
 // Sections rendered as small individual dots (own overlay, see render below)
 // rather than through SriYantraSVG's filled petal/triangle regions. Nitya
@@ -482,14 +487,21 @@ export default function LocateDrillView({
   // All circuits (1–9) go through the same region-id space.
   const handleAnswer = useCallback((clickedId) => {
     if (!current || done || flash) return
-    const target = getRegionId(deityById[current.id])
-    advance(clickedId === target ? 'correct' : 'wrong')
+    // Astradēvī has 4 valid click targets, not one — any of the 4 gate tips
+    // counts as correct (Chris, 2026-08-23: "the 4 astradevi dots need to be
+    // treated as one deity").
+    const isCorrect = current.id === 'nyasa-006'
+      ? ASTRA_REGION_IDS.includes(clickedId)
+      : clickedId === getRegionId(deityById[current.id])
+    advance(isCorrect ? 'correct' : 'wrong')
   }, [current, done, flash, advance])
 
   // In-scope region ids get a baseline fill + click handler; out-of-scope
   // regions stay untouched (no fill; clicks on them are no-ops below).
   const scopeDeities = scope === 'all' ? positionedDeities : positionedDeities.filter(d => matchesScope(d, scope))
+  const hasAstra = scopeDeities.some(d => d.id === 'nyasa-006')
   const scopeRegionIds = new Set(scopeDeities.map(getRegionId).filter(Boolean))
+  if (hasAstra) ASTRA_REGION_IDS.forEach(id => scopeRegionIds.add(id))
 
   // Colour for an answered region's outcome
   const outcomeColour = v => v === 'correct' ? RED : v === 'wrong' ? GOLD : v === 'timeout' ? TERRACOTTA : CREAM
@@ -505,6 +517,7 @@ export default function LocateDrillView({
   const pointRegionIds = new Set(
     scopeDeities.filter(d => POINT_SECTIONS.has(d.sectionId)).map(getRegionId).filter(Boolean)
   )
+  if (hasAstra) ASTRA_REGION_IDS.forEach(id => pointRegionIds.add(id))
   const filledRegions = {}   // passed to SriYantraSVG — Circuit 2–7 shapes only
   const pointFills = {}      // used only by this file's own point-dot overlay
   const setFill = (id, colour) => {
@@ -515,15 +528,26 @@ export default function LocateDrillView({
 
   scopeRegionIds.forEach(id => setFill(id, CREAM))
   Object.entries(results).forEach(([id, verdict]) => {
+    // Astradēvī's 4 gate-tip dots all share her one result — clicking any of
+    // them advances/scores as a single deity (see handleAnswer above).
+    if (id === 'nyasa-006') { ASTRA_REGION_IDS.forEach(rid => setFill(rid, outcomeColour(verdict))); return }
     setFill(getRegionId(deityById[id]), outcomeColour(verdict))
   })
 
   // The single region id currently awaiting a click — used both for the
   // main fill colour and to decide which point-dot (if any) renders larger.
+  // activeAstraIds mirrors this for Astradēvī's 4 simultaneous targets.
   let activeRegionId = null
+  let activeAstraIds = null
   if (!done && current) {
-    activeRegionId = getRegionId(deityById[current.id])
-    setFill(activeRegionId, flash ? outcomeColour(flash) : CREAM)
+    if (current.id === 'nyasa-006') {
+      activeAstraIds = ASTRA_REGION_IDS
+      const colour = flash ? outcomeColour(flash) : CREAM
+      ASTRA_REGION_IDS.forEach(rid => setFill(rid, colour))
+    } else {
+      activeRegionId = getRegionId(deityById[current.id])
+      setFill(activeRegionId, flash ? outcomeColour(flash) : CREAM)
+    }
   }
 
   const handleRegionClick = useCallback((id) => {
@@ -658,13 +682,35 @@ export default function LocateDrillView({
                     // as a distinct clickable target without visually replacing
                     // C9's own marker underneath.
                     const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
-                    const r = isNetraBindu ? (isActive ? 11 : 9) : (isActive ? 4 : 3.2)
+                    // r 5/6 fits inside the true central trikona (~23 units
+                    // wide — apex/baseL/baseR from KORVIN_CENTRAL_RAW) with
+                    // margin to spare; the original 9/11 was nearly half the
+                    // triangle's own width and spilled outside it (Chris's
+                    // report, 2026-08-23).
+                    const r = isNetraBindu ? (isActive ? 6 : 5) : (isActive ? 4 : 3.2)
                     const fillOpacity = isNetraBindu ? 0.35 : 1
                     return (
                       <circle
                         key={d.id}
                         cx={pos.x} cy={pos.y} r={r}
                         fill={fill} fillOpacity={fillOpacity} stroke={GOLD} strokeWidth="0.6"
+                        style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+                        onClick={() => handleAnswer(regionId)}
+                      />
+                    )
+                  })}
+                  {/* Astradēvī — 4 gate-tip dots, all one deity (see
+                      ASTRA_POSITIONS/ASTRA_REGION_IDS above). */}
+                  {hasAstra && ASTRA_POSITIONS.map((pos, i) => {
+                    const regionId = ASTRA_REGION_IDS[i]
+                    const fill = pointFills[regionId] || CREAM
+                    const isActive = activeAstraIds != null
+                    const r = isActive ? 4 : 3.2
+                    return (
+                      <circle
+                        key={regionId}
+                        cx={pos.x} cy={pos.y} r={r}
+                        fill={fill} stroke={GOLD} strokeWidth="0.6"
                         style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                         onClick={() => handleAnswer(regionId)}
                       />
@@ -711,10 +757,27 @@ export default function LocateDrillView({
                   if (!pos || !regionId) return null
                   const fill = pointFills[regionId] || CREAM
                   const isActive = regionId === activeRegionId
-                  const r = isActive ? 4 : 3.2
+                  const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
+                  const r = isNetraBindu ? (isActive ? 6 : 5) : (isActive ? 4 : 3.2)
+                  const fillOpacity = isNetraBindu ? 0.35 : 1
                   return (
                     <circle
                       key={d.id}
+                      cx={pos.x} cy={pos.y} r={r}
+                      fill={fill} fillOpacity={fillOpacity} stroke={GOLD} strokeWidth="0.6"
+                      style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+                      onClick={() => handleAnswer(regionId)}
+                    />
+                  )
+                })}
+                {hasAstra && ASTRA_POSITIONS.map((pos, i) => {
+                  const regionId = ASTRA_REGION_IDS[i]
+                  const fill = pointFills[regionId] || CREAM
+                  const isActive = activeAstraIds != null
+                  const r = isActive ? 4 : 3.2
+                  return (
+                    <circle
+                      key={regionId}
                       cx={pos.x} cy={pos.y} r={r}
                       fill={fill} stroke={GOLD} strokeWidth="0.6"
                       style={{ cursor: 'pointer', pointerEvents: 'auto' }}
