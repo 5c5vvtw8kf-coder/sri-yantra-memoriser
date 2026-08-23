@@ -211,12 +211,15 @@ const nyasaBySeq = {
 
 // Astradēvī's 4 positions — the four bhupura gates' outermost tips (derived
 // from BHUPURA_OUTER_PTS's extreme points: top y=63.67, right x=466.33,
-// bottom y=476.33, left x=53.67, each centred on the yantra's 260/270 axis).
+// bottom y=476.33, left x=53.67, each centred on the yantra's 260/270 axis),
+// nudged ~20 units in toward the bindu (Chris, 2026-08-23: "about 1cm
+// towards the bindu" — a rough physical-to-SVG-unit conversion, easy to
+// re-tune if it doesn't match what he sees live).
 export const ASTRA_POSITIONS = [
-  { x: 260,    y: 63.67 },   // top gate
-  { x: 466.33, y: 270 },     // right gate
-  { x: 260,    y: 476.33 },  // bottom gate
-  { x: 53.67,  y: 270 },     // left gate
+  { x: 260,    y: 83.67 },   // top gate
+  { x: 446.33, y: 270 },     // right gate
+  { x: 260,    y: 456.33 },  // bottom gate
+  { x: 73.67,  y: 270 },     // left gate
 ]
 
 // ── Nitya / Guru insets (top corners, outside the bhupura) ────────────────────
