@@ -188,8 +188,7 @@ export const LOCATE_SCOPES = [
   { id: 'circuit-5', label: '5th', trKey: 'av.5' },
   { id: 'circuit-6', label: '6th', trKey: 'av.6' },
   { id: 'circuit-7', label: '7th', trKey: 'av.7' },
-  { id: 'circuit-8', label: '8th', trKey: 'av.8' },
-  { id: 'circuit-9', label: '9th', trKey: 'av.9' },
+  { id: 'c8-c9',     label: '8·9', trKey: 'av.89' },
   { id: 'nitya',     label: 'Nitya', trKey: 'locate.scope_nitya' },
   { id: 'gurus',     label: 'Gurus', trKey: 'locate.scope_gurus' },
   { id: 'all',       label: 'All', trKey: 'misc.all' },
@@ -197,8 +196,12 @@ export const LOCATE_SCOPES = [
 
 // 'gurus' is one scope button covering three sectionIds (guru-divya/siddha/
 // manava) since they share a single inset — everywhere else, scope === sectionId.
+// 'c8-c9' combines circuits 8 and 9 into one button (Chris, 2026-08-23 — same
+// combined-scope convention SpotCheckView already uses for these two, since
+// C9 is just the single bindu point sitting inside C8's primary triangle).
 function matchesScope(d, scope) {
   if (scope === 'gurus') return GURU_SECTIONS.has(d.sectionId)
+  if (scope === 'c8-c9') return d.sectionId === 'circuit-8' || d.sectionId === 'circuit-9'
   return d.sectionId === scope
 }
 
