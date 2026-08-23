@@ -4503,7 +4503,12 @@ export default function App() {
   // ── Right panel ────────────────────────────────────────────────────────────
   const rightPanel = (() => {
     if (activeTab === 'yantra') {
-      if (!showCustomiser) return null
+      if (!showCustomiser) return (
+        <div className="px-4 py-3 space-y-3">
+          <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('tab.yantra')}</p>
+          <p className="text-xs text-muted font-mono leading-relaxed">{tr('yantra.instr')}</p>
+        </div>
+      )
       return (
         <YantraThemeCustomiser
           variant="panel"
