@@ -85,8 +85,8 @@ const STEPS_EN = [
     selector: '[data-tour="nav-yantra"]',
     title: 'Śrī Yantra',
     body:
-      'The <strong>Śrī Yantra</strong> tab shows the complete diagram as a reference — ' +
-      'all nine circuits from the Bhūpura to the bindu.',
+      'The <strong>Śrī Yantra</strong> tab shows the complete yantra as a reference with ' +
+      'the ability to customise the colours.',
   },
   {
     // English only — hidden for other languages
