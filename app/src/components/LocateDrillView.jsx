@@ -509,11 +509,20 @@ export default function LocateDrillView({
                 filledRegions={filledRegions}
                 onRegionClick={handleRegionClick}
               />
+              {/* pointerEvents: 'none' on the root is deliberate — this overlay only
+                  ever paints a handful of small circles, and without this the
+                  "empty" 90%+ of its full-canvas bounding box can still swallow
+                  clicks meant for the petals/triangles rendered underneath by
+                  SriYantraSVG (confirmed by Chris, 2026-08-23: Circuit 3 petals
+                  stopped responding once this overlay came back for smaller C1/8/9
+                  dots — same failure mode as the original click bug earlier this
+                  session, this time fixed properly instead of by elimination).
+                  Each circle re-enables its own events explicitly. */}
               <svg
                 viewBox="45 55 430 430"
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute inset-0 w-full h-full"
-                style={{ background: 'transparent' }}
+                style={{ background: 'transparent', pointerEvents: 'none' }}
               >
                 {pointDeities.map(d => {
                   const pos = getPosition(d.id)
@@ -526,7 +535,7 @@ export default function LocateDrillView({
                       key={d.id}
                       cx={pos.x} cy={pos.y} r={isActive ? 4 : 3.2}
                       fill={fill} stroke={GOLD} strokeWidth="0.6"
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                       onClick={() => handleAnswer(regionId)}
                     />
                   )
