@@ -4645,7 +4645,6 @@ export default function App() {
     if (activeTab === 'locate') return (
       <div className="px-4 py-3 space-y-3">
         <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('locate.title')}</p>
-        <p className="text-xs text-muted font-mono leading-relaxed">{tr('locate.instr')}</p>
 
         <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
         <div className="flex flex-wrap gap-1">
@@ -4684,6 +4683,8 @@ export default function App() {
             ))}
           </div>
         </div>
+
+        <p className="text-xs text-muted font-mono leading-relaxed">{tr('locate.instr')}</p>
 
         {ldProgress.total > 0 && (
           <div className="space-y-1.5 pt-1 border-t border-surface-800">
