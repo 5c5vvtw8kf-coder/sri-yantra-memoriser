@@ -2759,13 +2759,16 @@ export default function App() {
   const [selectedCircuit, setSelectedCircuit] = useState(null)
   const [lastTapped,      setLastTapped]      = useState(null)
   const [filledRegions,   setFilledRegions]   = useState(MODEL_YANTRA_FILLS)
-  // Custom 1 is the first of 3 custom slots, appended after the presets in
-  // allThemes (index YANTRA_THEMES.length..+2) — default straight into it
-  // with the editor open, so Customise is the landing state, not an extra click.
+  // Traditional (index 0) is the landing theme on the Śrī Yantra page, editor
+  // closed — Custom 1 is the first of 3 custom slots, appended after the
+  // presets in allThemes (index YANTRA_THEMES.length..+2), reached only by
+  // stepping/shuffling or hitting Customise, not by default.
   // (Cut from 5 slots to 3 on 2026-08-23 — Chris's call: this is a memorisation
-  // app, and five saved palettes was more choice than the feature needed.)
-  const [yantraThemeIdx,  setYantraThemeIdx]  = useState(YANTRA_THEMES.length)
-  const [showCustomiser,  setShowCustomiser]  = useState(true)
+  // app, and five saved palettes was more choice than the feature needed.
+  // Reversed the Custom-1-by-default landing state the same day — start on
+  // the plain diagram, not mid-edit.)
+  const [yantraThemeIdx,  setYantraThemeIdx]  = useState(0)
+  const [showCustomiser,  setShowCustomiser]  = useState(false)
   const CUSTOM_SLOT_COUNT = 3
   const DEFAULT_CUSTOM_SLOT = {
     palette: DEFAULT_CUSTOM_PALETTE,
@@ -4222,15 +4225,17 @@ export default function App() {
     setSelectedDeity(null)
     setSelectedCircuit(null)
     setShowErrors(false)
-    // Customise is the default every time you arrive on the Śrī Yantra page —
-    // not just on first app load. Done here (synchronously, as part of the
-    // same navigation) rather than in a useEffect keyed on activeTab, which
-    // fires after render and can race with other mount-time effects (the
-    // sync pull-on-load reload, in particular) — that was the cause of
-    // "shows correctly, then reverts a moment later".
+    // Traditional is the default every time you arrive on the Śrī Yantra page —
+    // not just on first app load (reversed 2026-08-23, was Custom 1 with the
+    // editor open — Chris's call: start on the plain diagram, not mid-edit).
+    // Done here (synchronously, as part of the same navigation) rather than in
+    // a useEffect keyed on activeTab, which fires after render and can race
+    // with other mount-time effects (the sync pull-on-load reload, in
+    // particular) — that was the cause of "shows correctly, then reverts a
+    // moment later" back when this defaulted to Custom 1.
     if (tabId === 'yantra') {
-      setYantraThemeIdx(YANTRA_THEMES.length)
-      setShowCustomiser(true)
+      setYantraThemeIdx(0)
+      setShowCustomiser(false)
     }
     if (tabId !== 'nyasa')   setNyasaMemorise(false)
     if (tabId !== 'inner')   setInnerMemorise(false)
