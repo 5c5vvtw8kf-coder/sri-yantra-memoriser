@@ -4307,22 +4307,26 @@ export default function App() {
 
   useEffect(() => { saveCustomYantraThemes(customThemes) }, [customThemes])
 
+  // Prev/Next/Shuffle always land showCustomiser on whatever's correct for the
+  // destination — open on a Custom slot, closed on a preset — rather than
+  // hardcoding it closed. Stepping onto Custom 2 should show its editor
+  // without a separate click; stepping onto Traditional should hide it.
   const handleYantraThemePrev = () => {
-    setShowCustomiser(false)
-    setYantraThemeIdx(i => (i - 1 + allThemes.length) % allThemes.length)
+    const next = (yantraThemeIdx - 1 + allThemes.length) % allThemes.length
+    setYantraThemeIdx(next)
+    setShowCustomiser(next >= YANTRA_THEMES.length)
   }
   const handleYantraThemeNext = () => {
-    setShowCustomiser(false)
-    setYantraThemeIdx(i => (i + 1) % allThemes.length)
+    const next = (yantraThemeIdx + 1) % allThemes.length
+    setYantraThemeIdx(next)
+    setShowCustomiser(next >= YANTRA_THEMES.length)
   }
   const handleYantraThemeShuffle = () => {
-    setShowCustomiser(false)
-    setYantraThemeIdx(i => {
-      if (allThemes.length < 2) return i
-      let n
-      do { n = Math.floor(Math.random() * allThemes.length) } while (n === i)
-      return n
-    })
+    if (allThemes.length < 2) return
+    let next
+    do { next = Math.floor(Math.random() * allThemes.length) } while (next === yantraThemeIdx)
+    setYantraThemeIdx(next)
+    setShowCustomiser(next >= YANTRA_THEMES.length)
   }
   const handleYantraCustomise = () => {
     // Already on some Custom slot → just open the editor for it. Otherwise
