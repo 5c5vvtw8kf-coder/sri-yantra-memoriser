@@ -118,12 +118,18 @@ function getRegionId(deity) {
 // as the presiding deity of Circuit 4 (the "inner" occurrence). Confirmed
 // exhaustively against the canonical 182-entry dataset — exactly 6 name
 // duplicates exist in total, but only these 4 have BOTH occurrences inside
-// Locate Drill's current circuits-1–7 scope (the other 2 — Kāmeśvarī,
-// Mahāvajreśvarī — have their second occurrence in the Nitya/Circuit-8
-// sections, which aren't in Locate Drill's yantra-position scope at all, so
-// they behave as ordinary single-location entries here). Hardcoded by id
-// (not matched by name at runtime) so a lineage edit to the displayed name
-// can't silently break the pairing.
+// Locate Drill's current circuits-1–9 scope (the other 2 — Kāmeśvarī,
+// Mahāvajreśvarī — have their second occurrence in the Nitya section, which
+// has no yantra position at all, so they behave as ordinary single-location
+// entries here). Hardcoded by id (not matched by name at runtime) so a
+// lineage edit to the displayed name can't silently break the pairing.
+//
+// Revised 2026-08-23: originally these were one compound queue item needing
+// two clicks before advancing. Chris asked for that to become two ordinary,
+// sequential queue items instead — outer immediately followed by inner, each
+// scored, timed and advanced independently like any other deity. buildQueue()
+// below is what enforces the adjacency; nothing downstream of it needs to
+// know pairing exists at all any more.
 const PAIR_LOCATIONS = [
   ['c1-mudra-001', 'c4-001'],  // Sarvasaṅkṣōbhiṇī
   ['c1-mudra-003', 'c4-003'],  // Sarvākarṣiṇī
@@ -131,7 +137,7 @@ const PAIR_LOCATIONS = [
   ['c1-mudra-005', 'c4-010'],  // Sarvōnmādinī
 ]
 const PAIR_BY_OUTER = new Map(PAIR_LOCATIONS)
-const PAIRED_IDS = new Set(PAIR_LOCATIONS.flat())
+const INNER_IDS = new Set(PAIR_LOCATIONS.map(([, innerId]) => innerId))
 
 export const LOCATE_SCOPES = [
   { id: 'circuit-1', label: '1st', trKey: 'av.1' },
@@ -155,25 +161,26 @@ function shuffle(arr) {
   return a
 }
 
-// Queue items are `{ id, pair: false }` for an ordinary deity, or
-// `{ id: 'pair:<outerId>', pair: true, outerId, innerId }` for one of the
-// four outer/inner pairs — only ever produced when scope === 'all', since a
-// single-circuit scope only ever has one half of a pair in play anyway.
+// Every queue item is an ordinary `{ id }` — including paired deities, which
+// are just two separate items placed back to back (outer, then inner). Only
+// relevant when scope === 'all': a single-circuit scope only ever has one
+// half of a pair in its pool anyway, so no adjacency logic is needed there.
 function buildQueue(scope, limit) {
-  let items
+  let ids
   if (scope === 'all') {
-    const singles = positionedDeities
-      .filter(d => !PAIRED_IDS.has(d.id))
-      .map(d => ({ id: d.id, pair: false }))
-    const pairs = PAIR_LOCATIONS.map(([outerId, innerId]) => ({
-      id: `pair:${outerId}`, pair: true, outerId, innerId,
-    }))
-    items = [...singles, ...pairs]
+    // Inner ids are excluded from the shuffle pool — each is inserted right
+    // after its outer id below instead of being placed independently.
+    const shuffled = shuffle(positionedDeities.filter(d => !INNER_IDS.has(d.id)).map(d => d.id))
+    ids = []
+    shuffled.forEach(id => {
+      ids.push(id)
+      if (PAIR_BY_OUTER.has(id)) ids.push(PAIR_BY_OUTER.get(id))
+    })
   } else {
-    items = positionedDeities.filter(d => d.sectionId === scope).map(d => ({ id: d.id, pair: false }))
+    ids = shuffle(positionedDeities.filter(d => d.sectionId === scope).map(d => d.id))
   }
-  const q = shuffle(items)
-  return limit ? q.slice(0, limit) : q
+  const items = ids.map(id => ({ id }))
+  return limit ? items.slice(0, limit) : items
 }
 
 // ── Best-streak / best-time persistence (local only, see file header) ──────
@@ -243,7 +250,6 @@ export default function LocateDrillView({
 }) {
   const [queue,       setQueue]       = useState(() => buildQueue(scope, limit))
   const [idx,         setIdx]         = useState(0)
-  const [pairStage,   setPairStage]   = useState(0)   // 0 = outer click needed, 1 = inner click needed
   const [results,     setResults]     = useState({})   // queueItem.id -> 'correct'|'wrong'|'timeout'
   const [flash,       setFlash]       = useState(null)  // 'correct'|'wrong'|'timeout'|null
   const [streak,      setStreak]      = useState(0)
@@ -270,7 +276,6 @@ export default function LocateDrillView({
     const q = buildQueue(scope, limit)
     setQueue(q)
     setIdx(0)
-    setPairStage(0)
     setResults({})
     setFlash(null)
     setStreak(0)
@@ -287,22 +292,17 @@ export default function LocateDrillView({
   // truncating whatever's already counting down.
   useEffect(() => { if (idx === 0 && !done) setTimeLeft(timerSeconds) }, [timerSeconds]) // eslint-disable-line
 
-  // Completes the current queue item (single deity or paired outer+inner)
-  // with a final verdict, logs history, advances to the next item.
+  // Completes the current queue item with a final verdict, logs history,
+  // advances to the next item. Paired deities (see PAIR_LOCATIONS) are just
+  // two ordinary items placed back to back by buildQueue() — nothing here
+  // needs to know pairing exists.
   const advance = useCallback((result) => {
     if (!current || done || flash) return
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
     setResults(prev => ({ ...prev, [current.id]: result }))
-    const logOne = d => {
-      const memoKey = sectionIdToMemoKey(d.sectionId)
-      if (memoKey) recordHistoryEntry(memoKey, d.sequenceInSection, result === 'correct' ? 'correct' : 'wrong', 'drill')
-    }
-    if (current.pair) {
-      logOne(deityById[current.outerId])
-      logOne(deityById[current.innerId])
-    } else {
-      logOne(deityById[current.id])
-    }
+    const d = deityById[current.id]
+    const memoKey = sectionIdToMemoKey(d.sectionId)
+    if (memoKey) recordHistoryEntry(memoKey, d.sequenceInSection, result === 'correct' ? 'correct' : 'wrong', 'drill')
     setFlash(result)
     setStreak(s => {
       const next = result === 'correct' ? s + 1 : 0
@@ -312,14 +312,11 @@ export default function LocateDrillView({
     setTimeout(() => {
       setFlash(null)
       setIdx(i => i + 1)
-      setPairStage(0)
       setTimeLeft(timerSeconds)
     }, 380)
   }, [current, done, flash, timerSeconds])
 
-  // Per-deity countdown. Re-keyed on pairStage too, so the inner half of a
-  // pair gets its own full countdown window rather than inheriting however
-  // much time was left when the outer half was answered.
+  // Per-deity countdown.
   useEffect(() => {
     if (done || flash || timerSeconds == null || current == null) return
     setTimeLeft(timerSeconds)
@@ -335,7 +332,7 @@ export default function LocateDrillView({
       })
     }, 1000)
     return () => { if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null } }
-  }, [idx, pairStage, done, timerSeconds]) // eslint-disable-line
+  }, [idx, done, timerSeconds]) // eslint-disable-line
 
   // Sync progress to right panel
   useEffect(() => {
@@ -363,7 +360,6 @@ export default function LocateDrillView({
     const q = buildQueue(scope, limit)
     setQueue(q)
     setIdx(0)
-    setPairStage(0)
     setResults({})
     setFlash(null)
     setStreak(0)
@@ -377,30 +373,12 @@ export default function LocateDrillView({
   }, [scope, limit, timerSeconds])
 
   // ── Click handling ────────────────────────────────────────────────────
-  // All circuits (1–7) now go through the same region-id space that
-  // SriYantraSVG itself renders and click-wires — no separate overlay.
-  // Paired items (outer + inner, see PAIR_LOCATIONS) need a second click:
-  // a correct outer click advances the stage without ending the round item;
-  // a wrong click at either stage ends it as 'wrong' immediately — there's
-  // no partial credit for getting only one half of a pair right.
+  // All circuits (1–9) go through the same region-id space.
   const handleAnswer = useCallback((clickedId) => {
     if (!current || done || flash) return
-    if (!current.pair) {
-      const target = getRegionId(deityById[current.id])
-      advance(clickedId === target ? 'correct' : 'wrong')
-      return
-    }
-    if (pairStage === 0) {
-      const target = getRegionId(deityById[current.outerId])
-      if (clickedId !== target) { advance('wrong'); return }
-      setPairStage(1)
-      setFlash('correct')
-      setTimeout(() => setFlash(null), 380)   // brief flash only — does not advance idx
-    } else {
-      const target = getRegionId(deityById[current.innerId])
-      advance(clickedId === target ? 'correct' : 'wrong')
-    }
-  }, [current, done, flash, pairStage, advance])
+    const target = getRegionId(deityById[current.id])
+    advance(clickedId === target ? 'correct' : 'wrong')
+  }, [current, done, flash, advance])
 
   // In-scope region ids get a baseline fill + click handler; out-of-scope
   // regions stay untouched (no fill; clicks on them are no-ops below).
@@ -430,31 +408,15 @@ export default function LocateDrillView({
   }
 
   scopeRegionIds.forEach(id => setFill(id, CREAM))
-  Object.entries(results).forEach(([key, verdict]) => {
-    if (key.startsWith('pair:')) {
-      const outerId = key.slice(5)
-      const innerId = PAIR_BY_OUTER.get(outerId)
-      setFill(getRegionId(deityById[outerId]), outcomeColour(verdict))
-      setFill(getRegionId(deityById[innerId]), outcomeColour(verdict))
-    } else {
-      setFill(getRegionId(deityById[key]), outcomeColour(verdict))
-    }
+  Object.entries(results).forEach(([id, verdict]) => {
+    setFill(getRegionId(deityById[id]), outcomeColour(verdict))
   })
 
   // The single region id currently awaiting a click — used both for the
   // main fill colour and to decide which point-dot (if any) renders larger.
   let activeRegionId = null
   if (!done && current) {
-    if (current.pair) {
-      activeRegionId = pairStage === 0
-        ? getRegionId(deityById[current.outerId])
-        : getRegionId(deityById[current.innerId])
-      if (pairStage === 1) {
-        setFill(getRegionId(deityById[current.outerId]), RED)   // outer half already confirmed correct
-      }
-    } else {
-      activeRegionId = getRegionId(deityById[current.id])
-    }
+    activeRegionId = getRegionId(deityById[current.id])
     setFill(activeRegionId, flash ? outcomeColour(flash) : CREAM)
   }
 
@@ -463,10 +425,7 @@ export default function LocateDrillView({
     handleAnswer(id)
   }, [scopeRegionIds, handleAnswer])
 
-  const name = current
-    ? locateLabel(deityById[current.pair ? current.outerId : current.id], script)
-      + (current.pair ? ` ${tr('locate.pair_suffix')}` : '')
-    : ''
+  const name = current ? locateLabel(deityById[current.id], script) : ''
 
   // Circuits 1/8/9 render as small individual dots on their own overlay
   // (matching Segment/Line Drill's dot sizing — Chris's request, 2026-08-23)
@@ -485,11 +444,6 @@ export default function LocateDrillView({
           <div className="text-center py-2">
             <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.find_this')}</p>
             <p className="iast text-cream text-xl leading-snug">{name}</p>
-            {current?.pair && (
-              <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
-                {pairStage === 0 ? tr('locate.tap_outer') : tr('locate.tap_inner')}
-              </p>
-            )}
             {timerSeconds != null && (
               <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
                 {timeLeft}s
