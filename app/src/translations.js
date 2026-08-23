@@ -589,6 +589,8 @@ const en = {
   'locate.scope_nitya':  'Nitya',
   'locate.scope_gurus':  'Gurus',
   'locate.pair_suffix':  '(x2)',
+  'locate.tap_outer':    'Tap the outer position first',
+  'locate.tap_inner':    'Now tap the inner position',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────

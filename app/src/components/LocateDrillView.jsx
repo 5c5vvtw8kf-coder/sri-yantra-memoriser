@@ -493,6 +493,16 @@ export default function LocateDrillView({
           <div className="text-center py-2">
             <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.find_this')}</p>
             <p className="iast text-cream text-xl leading-snug">{name}</p>
+            {current && PAIR_BY_OUTER.has(current.id) && (
+              <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
+                {tr('locate.tap_outer')}
+              </p>
+            )}
+            {current && INNER_IDS.has(current.id) && (
+              <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
+                {tr('locate.tap_inner')}
+              </p>
+            )}
             {timerSeconds != null && (
               <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
                 {timeLeft}s
