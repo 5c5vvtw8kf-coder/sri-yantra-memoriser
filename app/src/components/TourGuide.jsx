@@ -56,6 +56,23 @@ const STEPS_EN = [
       'to name the deity there. This builds flexible recall, not just rote sequence.',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> works the other way round from Spot Check — a ' +
+      'deity name is shown, and you tap where it lives on the yantra. It builds true ' +
+      'spatial recall.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'Drills',
+    body:
+      'Once a section feels solid, test it further with <strong>Segment</strong>, ' +
+      '<strong>Line</strong> and <strong>Triangle Drills</strong>. Each tests recall in ' +
+      'a different cross-section of the yantra — one wedge, a line cutting across ' +
+      'several circuits, or one of the nine construction triangles.',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'Memory Map',
     body:
@@ -125,6 +142,18 @@ const STEPS_HI = [
       '<strong>स्पॉट चेक</strong> यन्त्र पर एक यादृच्छिक स्थान चुनता है और आपसे वहाँ की देवता का नाम पूछता है। यह लचीली स्मृति बनाता है, न केवल क्रमिक पाठ।',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> स्पॉट चेक से उल्टा कार्य करता है — एक देवता का नाम दिखाया जाता है, और आप यन्त्र पर उसका स्थान टैप करते हैं। यह वास्तविक स्थानिक स्मृति बनाता है।',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'ड्रिल',
+    body:
+      'जब कोई खण्ड सुदृढ़ लगे, तब सेगमेंट ड्रिल, लाइन ड्रिल और त्रिकोण ड्रिल से और परखें। सेगमेंट ड्रिल श्री यन्त्र के एक खंड के भीतर स्मरण-शक्ति की जाँच करता है, लाइन ड्रिल कई आवरणों को पार करने वाली एक रेखा के साथ, और त्रिकोण ड्रिल यन्त्र के नौ मूल रचनात्मक त्रिकोणों में से एक के भीतर।',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'स्मृति मानचित्र',
     body:
@@ -178,6 +207,18 @@ const STEPS_KN = [
     title: 'ಸ್ಪಾಟ್ ಚೆಕ್',
     body:
       '<strong>ಸ್ಪಾಟ್ ಚೆಕ್</strong> ಯಂತ್ರದ ಯಾದೃಚ್ಛಿಕ ಸ್ಥಾನ ಆಯ್ಕೆ ಮಾಡಿ ಅಲ್ಲಿನ ದೇವತೆ ಯಾರು ಎಂದು ಕೇಳುತ್ತದೆ. ಇದು ಹೊಂದಿಕೊಳ್ಳುವ ಸ್ಮೃತಿ ನಿರ್ಮಿಸುತ್ತದೆ.',
+  },
+  {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> ಸ್ಪಾಟ್ ಚೆಕ್‌ಗೆ ವಿರುದ್ಧವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ — ಒಂದು ದೇವತೆಯ ಹೆಸರು ತೋರಿಸಲಾಗುತ್ತದೆ, ಮತ್ತು ನೀವು ಯಂತ್ರದಲ್ಲಿ ಅದರ ಸ್ಥಾನವನ್ನು ಟ್ಯಾಪ್ ಮಾಡುತ್ತೀರಿ. ಇದು ನಿಜವಾದ ಸ್ಥಾನಿಕ ಸ್ಮೃತಿಯನ್ನು ನಿರ್ಮಿಸುತ್ತದೆ.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'ಡ್ರಿಲ್‌ಗಳು',
+    body:
+      'ಒಂದು ವಿಭಾಗ ಭದ್ರವೆನಿಸಿದಾಗ, ಸೆಗ್ಮೆಂಟ್ ಡ್ರಿಲ್, ಲೈನ್ ಡ್ರಿಲ್ ಮತ್ತು ತ್ರಿಕೋನ ಡ್ರಿಲ್‌ಗಳಿಂದ ಮತ್ತಷ್ಟು ಪರೀಕ್ಷಿಸಿ. ಸೆಗ್ಮೆಂಟ್ ಡ್ರಿಲ್ ಯಂತ್ರದ ಒಂದು ವಿಭಾಗದೊಳಗೆ ನೆನಪನ್ನು ಪರೀಕ್ಷಿಸುತ್ತದೆ, ಲೈನ್ ಡ್ರಿಲ್ ಹಲವಾರು ಆವರಣಗಳನ್ನು ದಾಟುವ ಗೆರೆಯ ಉದ್ದಕ್ಕೂ, ಮತ್ತು ತ್ರಿಕೋನ ಡ್ರಿಲ್ ಯಂತ್ರದ ಒಂಬತ್ತು ಮೂಲ ರಚನಾ ತ್ರಿಕೋನಗಳಲ್ಲಿ ಒಂದರೊಳಗೆ.',
   },
   {
     selector: '[data-tour="nav-memomap"]',
@@ -235,6 +276,18 @@ const STEPS_ML = [
       '<strong>സ്പോട്ട് ചെക്ക്</strong> യന്ത്രത്തിൽ ഒരു ക്രമരഹിത സ്ഥാനം തിരഞ്ഞെടുത്ത് ആ ദേവതയുടെ പേര് ചോദിക്കുന്നു. ഇത് വഴക്കമുള്ള ഓർമ്മ നിർമ്മിക്കുന്നു.',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> സ്പോട്ട് ചെക്കിന് വിപരീതമായി പ്രവർത്തിക്കുന്നു — ഒരു ദേവതയുടെ പേര് കാണിക്കും, നിങ്ങൾ യന്ത്രത്തിൽ അതിന്റെ സ്ഥാനം ടാപ്പ് ചെയ്യുക. ഇത് യഥാർത്ഥ സ്ഥലിക ഓർമ്മ വളർത്തുന്നു.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'ഡ്രില്ലുകൾ',
+    body:
+      'ഒരു വിഭാഗം ഉറച്ചതായി തോന്നുമ്പോൾ, സെഗ്മെന്റ് ഡ്രിൽ, ലൈൻ ഡ്രിൽ, ത്രികോണ ഡ്രിൽ എന്നിവയിലൂടെ കൂടുതൽ പരിശോധിക്കുക. സെഗ്മെന്റ് ഡ്രിൽ യന്ത്രത്തിന്റെ ഒരു ഭാഗത്തിനുള്ളിൽ ഓർമ്മ പരിശോധിക്കുന്നു, ലൈൻ ഡ്രിൽ പല ആവരണങ്ങളും മുറിച്ചുകടക്കുന്ന ഒരു രേഖയിലൂടെ, ത്രികോണ ഡ്രിൽ യന്ത്രത്തിന്റെ ഒൻപത് അടിസ്ഥാന നിർമ്മാണ ത്രികോണങ്ങളിൽ ഒന്നിനുള്ളിൽ.',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'ഓർമ്മ മാപ്പ്',
     body:
@@ -290,6 +343,18 @@ const STEPS_TA = [
       '<strong>ஸ்பாட் செக்</strong> யந்த்ரத்தில் ஒரு தோராய இடத்தை தேர்ந்தெடுத்து அங்குள்ள தேவதையின் பெயர் கேட்கிறது. இது நெகிழ்வான நினைவை உருவாக்குகிறது.',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> ஸ்பாட் செக்கிற்கு நேர்மாறாக செயல்படுகிறது — ஒரு தேவதையின் பெயர் காட்டப்படும், நீங்கள் யந்த்ரத்தில் அதன் இடத்தை தட்டவும். இது உண்மையான இட நினைவை உருவாக்குகிறது.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'டிரில்கள்',
+    body:
+      'ஒரு பிரிவு உறுதியாக உணரும்போது, செக்மென்ட் டிரில், லைன் டிரில் மற்றும் முக்கோண டிரில் மூலம் மேலும் சோதிக்கவும். செக்மென்ட் டிரில் யந்த்ரத்தின் ஒரு பிரிவுக்குள் நினைவை சோதிக்கிறது, லைன் டிரில் பல ஆவரணங்களைக் கடக்கும் ஒரு கோட்டின் வழியே, முக்கோண டிரில் யந்த்ரத்தின் ஒன்பது அடிப்படை கட்டமைப்பு முக்கோணங்களில் ஒன்றுக்குள்.',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'நினைவு வரைபடம்',
     body:
@@ -343,6 +408,18 @@ const STEPS_TE = [
     title: 'స్పాట్ చెక్',
     body:
       '<strong>స్పాట్ చెక్</strong> యన్త్రంలో ఒక యాదృచ్ఛిక స్థానం ఎంచుకుని అక్కడి దేవత పేరు అడుగుతుంది. ఇది సౌలభ్య జ్ఞాపకాన్ని పెంచుతుంది.',
+  },
+  {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> స్పాట్ చెక్‌కు వ్యతిరేకంగా పనిచేస్తుంది — ఒక దేవత పేరు చూపబడుతుంది, మీరు యన్త్రంలో దాని స్థానాన్ని నొక్కాలి. ఇది నిజమైన స్థానిక జ్ఞాపకాన్ని పెంపొందిస్తుంది.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'డ్రిల్స్',
+    body:
+      'ఒక విభాగం స్థిరంగా అనిపించినప్పుడు, సెగ్మెంట్ డ్రిల్, లైన్ డ్రిల్, త్రికోణ డ్రిల్‌లతో మరింత పరీక్షించండి. సెగ్మెంట్ డ్రిల్ యంత్రంలోని ఒక విభాగంలో జ్ఞాపకశక్తిని పరీక్షిస్తుంది, లైన్ డ్రిల్ అనేక ఆవరణలను దాటే లైన్ వెంట, త్రికోణ డ్రిల్ యంత్రంలోని తొమ్మిది మూల నిర్మాణ త్రికోణాలలో ఒకదానిలో.',
   },
   {
     selector: '[data-tour="nav-memomap"]',
@@ -401,6 +478,18 @@ const STEPS_MR = [
       '<strong>स्पॉट चेक</strong> यन्त्रावर एक यादृच्छिक स्थान निवडतो आणि तेथील देवतेचे नाव विचारतो. हे लवचिक स्मृती निर्माण करते, केवळ क्रमिक पाठ नाही.',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> स्पॉट चेकच्या उलट कार्य करतो — एक देवतेचे नाव दाखवले जाते, आणि तुम्ही यन्त्रावर त्याचे स्थान टॅप करता. हे खरी स्थानिक स्मृती निर्माण करते.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'ड्रिल',
+    body:
+      'एखादा विभाग पक्का वाटू लागल्यावर, सेगमेंट ड्रिल, लाइन ड्रिल आणि त्रिकोण ड्रिलने अधिक तपासा. सेगमेंट ड्रिल यंत्राच्या एका विभागातील स्मरणशक्ती तपासते, लाइन ड्रिल अनेक आवरणे ओलांडणाऱ्या एका रेषेवरील, आणि त्रिकोण ड्रिल यंत्राच्या नऊ मूळ रचनात्मक त्रिकोणांपैकी एकामधील.',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'स्मृती नकाशा',
     body:
@@ -454,6 +543,18 @@ const STEPS_FR = [
     title: "Contrôle Rapide",
     body:
       "Le <strong>Contrôle Rapide</strong> choisit une position aléatoire sur le yantra et vous demande de nommer la divinité. Cela construit un rappel flexible, pas seulement la séquence par cœur.",
+  },
+  {
+    selector: '[data-tour="nav-locate"]',
+    title: "Location Match",
+    body:
+      "<strong>Location Match</strong> fonctionne à l'inverse du Contrôle Rapide — le nom d'une divinité est affiché, et vous touchez l'endroit où elle réside sur le yantra. Cela construit un véritable rappel spatial.",
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: "Exercices",
+    body:
+      "Une fois qu'une section semble bien maîtrisée, testez-la davantage avec les Exercices de Segment, de Ligne et de Triangle. Les Exercices de Segment testent la mémorisation au sein d'un seul segment du yantra, les Exercices de Ligne le long d'une ligne traversant plusieurs cercles, et les Exercices de Triangle au sein de l'un des neuf triangles fondamentaux de construction.",
   },
   {
     selector: '[data-tour="nav-memomap"]',
@@ -511,6 +612,18 @@ const STEPS_ES = [
       'La <strong>Comprobación Rápida</strong> elige una posición aleatoria en el yantra y te pide que nombres la deidad. Esto construye un recuerdo flexible, no solo secuencial.',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> funciona al revés que la Comprobación Rápida — se muestra el nombre de una deidad, y tú tocas dónde vive en el yantra. Esto construye un recuerdo espacial real.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'Ejercicios',
+    body:
+      'Cuando una sección se sienta sólida, ponla más a prueba con los Ejercicios de Segmento, de Línea y de Triángulo. Los Ejercicios de Segmento comprueban la memorización dentro de un único segmento del yantra, los Ejercicios de Línea a lo largo de una línea que atraviesa varios círculos, y los Ejercicios de Triángulo dentro de uno de los nueve triángulos fundamentales de construcción.',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'Mapa de Memoria',
     body:
@@ -564,6 +677,18 @@ const STEPS_IT = [
     title: "Controllo Rapido",
     body:
       "Il <strong>Controllo Rapido</strong> sceglie una posizione casuale sul yantra e ti chiede di nominare la divinità. Questo costruisce un ricordo flessibile, non solo sequenziale.",
+  },
+  {
+    selector: '[data-tour="nav-locate"]',
+    title: "Location Match",
+    body:
+      "<strong>Location Match</strong> funziona al contrario rispetto al Controllo Rapido — viene mostrato il nome di una divinità, e tu tocchi dove vive nel yantra. Questo costruisce un vero ricordo spaziale.",
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: "Esercizi",
+    body:
+      "Quando una sezione appare solida, mettila ulteriormente alla prova con gli Esercizi di Segmento, di Linea e di Triangolo. Gli Esercizi di Segmento verificano la memorizzazione all'interno di un singolo segmento dello yantra, gli Esercizi di Linea lungo una linea che attraversa più cerchi, e gli Esercizi di Triangolo all'interno di uno dei nove triangoli fondamentali di costruzione.",
   },
   {
     selector: '[data-tour="nav-memomap"]',
@@ -621,6 +746,18 @@ const STEPS_PT = [
       'A <strong>Verificação Rápida</strong> escolhe uma posição aleatória no yantra e pede-lhe que nomeie a divindade. Isto constrói uma recordação flexível, não apenas sequencial.',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      'O <strong>Location Match</strong> funciona ao contrário da Verificação Rápida — é mostrado o nome de uma divindade, e você toca onde ela vive no yantra. Isto constrói uma recordação espacial verdadeira.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'Exercícios',
+    body:
+      'Quando uma secção já parece sólida, teste-a ainda mais com os Exercícios de Segmento, de Linha e de Triângulo. Os Exercícios de Segmento testam a memorização dentro de um único segmento do yantra, os Exercícios de Linha ao longo de uma linha que atravessa vários círculos, e os Exercícios de Triângulo dentro de um dos nove triângulos fundamentais de construção.',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'Mapa de Memória',
     body:
@@ -674,6 +811,18 @@ const STEPS_DE = [
     title: 'Schnelltest',
     body:
       'Der <strong>Schnelltest</strong> wählt eine zufällige Position im Yantra aus und fragt dich nach der Gottheit dort. Das baut flexibles Erinnern auf, nicht nur Reihenfolge.',
+  },
+  {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> funktioniert umgekehrt zum Schnelltest — der Name einer Gottheit wird angezeigt, und du tippst darauf, wo sie im Yantra wohnt. Das baut echtes räumliches Erinnern auf.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'Übungen',
+    body:
+      'Sobald ein Abschnitt sicher sitzt, teste ihn weiter mit Segment-, Linien- und Dreiecksübungen. Segmentübungen prüfen das Erinnerungsvermögen innerhalb eines einzelnen Segments des Yantra, Linienübungen entlang einer Linie, die mehrere Kreise durchquert, und Dreiecksübungen innerhalb eines der neun grundlegenden Konstruktionsdreiecke.',
   },
   {
     selector: '[data-tour="nav-memomap"]',
@@ -738,6 +887,21 @@ const STEPS_JA = [
       'その神格の名前を問います。単なる順序の暗記ではなく、柔軟な想起力を養います。',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong>はスポットチェックの逆で、神格の名前が表示され、' +
+      'それがヤントラのどこに宿るかをタップします。真の空間的想起力を養います。',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'ドリル',
+    body:
+      'セクションが定着してきたら、セグメントドリル、ラインドリル、三角形ドリルでさらに試してください。' +
+      'セグメントドリルはヤントラの一つのセグメント内での記憶を確認し、ラインドリルは複数の輪を横切るライン沿いで、' +
+      '三角形ドリルはヤントラの9つの基礎構成三角形のうちの一つの中で確認します。',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: '記憶マップ',
     body:
@@ -800,6 +964,24 @@ const STEPS_RU = [
     body:
       '<strong>Проверка</strong> выбирает случайную позицию на янтре и спрашивает имя ' +
       'божества. Это развивает гибкое запоминание, а не только последовательное.',
+  },
+  {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> работает наоборот по сравнению с «Проверкой» — ' +
+      'показывается имя божества, а вы нажимаете на его место на янтре. Это развивает ' +
+      'настоящую пространственную память.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'Тренировки',
+    body:
+      'Когда раздел кажется уверенно усвоенным, проверьте его дальше с помощью ' +
+      'Сегментных, Линейных и Треугольных тренировок. Сегментные тренировки проверяют ' +
+      'запоминание в пределах одного сегмента янтры, Линейные — вдоль линии, ' +
+      'пересекающей несколько кругов, а Треугольные — внутри одного из девяти основных ' +
+      'треугольников построения.',
   },
   {
     selector: '[data-tour="nav-memomap"]',
@@ -869,6 +1051,23 @@ const STEPS_NE = [
       'देवताको नाम सोध्छ। यसले लचिलो स्मृति निर्माण गर्छ, केवल क्रमिक पाठ नभई।',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong>ले स्पट चेकको उल्टो काम गर्छ — एउटा देवताको नाम ' +
+      'देखाइन्छ, र तपाईंले यन्त्रमा त्यसको स्थान ट्याप गर्नुहुन्छ। यसले साँचो स्थानीय ' +
+      'स्मृति निर्माण गर्छ।',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'ड्रिलहरू',
+    body:
+      'कुनै खण्ड बलियो महसुस भएपछि, सेग्मेन्ट ड्रिल, लाइन ड्रिल र त्रिकोण ड्रिलले ' +
+      'थप जाँच्नुहोस्। सेग्मेन्ट ड्रिलले यन्त्रको एउटा खण्डभित्र सम्झना जाँच्छ, ' +
+      'लाइन ड्रिलले धेरै आवरणहरू छिचोल्ने रेखाको साथमा, र त्रिकोण ड्रिलले यन्त्रका ' +
+      'नौ मूल रचनात्मक त्रिकोणहरूमध्ये एउटाभित्र।',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'स्मृति नक्सा',
     body:
@@ -935,6 +1134,23 @@ const STEPS_BN = [
       'দেবতার নাম জিজ্ঞেস করে। এটি নমনীয় স্মরণশক্তি তৈরি করে।',
   },
   {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body:
+      '<strong>Location Match</strong> স্পট চেকের উল্টো কাজ করে — একটি দেবতার নাম ' +
+      'দেখানো হয়, আর আপনি যন্ত্রে তার অবস্থান ট্যাপ করেন। এটি প্রকৃত স্থানিক ' +
+      'স্মরণশক্তি তৈরি করে।',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'ড্রিল',
+    body:
+      'কোনো অংশ দৃঢ় মনে হলে, সেগমেন্ট ড্রিল, লাইন ড্রিল এবং ত্রিভুজ ড্রিল দিয়ে আরও ' +
+      'পরীক্ষা করুন। সেগমেন্ট ড্রিল যন্ত্রের একটি অংশের মধ্যে স্মৃতি পরীক্ষা করে, ' +
+      'লাইন ড্রিল একাধিক আবরণ অতিক্রমকারী একটি রেখা বরাবর, এবং ত্রিভুজ ড্রিল যন্ত্রের ' +
+      'নয়টি মৌলিক গঠনমূলক ত্রিভুজের একটির মধ্যে।',
+  },
+  {
     selector: '[data-tour="nav-memomap"]',
     title: 'স্মৃতি মানচিত্র',
     body:
@@ -983,6 +1199,16 @@ const STEPS_GU = [
     selector: '[data-tour="nav-spotcheck"]',
     title: 'સ્પોટ ચેક',
     body: '<strong>સ્પોટ ચેક</strong> યન્ત્રમાં યાદૃચ્છ સ્થળ બતાવે છે — તે સ્થળની દેવીનું નામ યાદ કરો. નમનીય સ્મૃતિ કેળવે છે.',
+  },
+  {
+    selector: '[data-tour="nav-locate"]',
+    title: 'Location Match',
+    body: '<strong>Location Match</strong> સ્પોટ ચેકથી ઊલટું કામ કરે છે — એક દેવીનું નામ બતાવાય છે, અને તમે યન્ત્ર પર તેનું સ્થાન ટેપ કરો છો. આ સાચી સ્થાનિક સ્મૃતિ કેળવે છે.',
+  },
+  {
+    selector: '[data-tour="nav-triangledrill"]',
+    title: 'ડ્રિલ',
+    body: 'કોઈ ભાગ મજબૂત લાગે ત્યારે, સેગમેન્ટ ડ્રિલ, લાઇન ડ્રિલ અને ત્રિકોણ ડ્રિલથી વધુ ચકાસો. સેગમેન્ટ ડ્રિલ યન્ત્રના એક ખંડમાં સ્મરણશક્તિ ચકાસે છે, લાઇન ડ્રિલ અનેક આવરણોને ઓળંગતી એક રેખા પર, અને ત્રિકોણ ડ્રિલ યન્ત્રના નવ મૂળભૂત રચનાત્મક ત્રિકોણોમાંથી એકમાં.',
   },
   {
     selector: '[data-tour="nav-memomap"]',

@@ -495,6 +495,8 @@ const TOUR_NAV_IDS = {
   yantra:    'nav-yantra',
   bhupura:   'nav-bhupura',
   spotcheck: 'nav-spotcheck',
+  locate:    'nav-locate',
+  triangledrill: 'nav-triangledrill',
   memomap:   'nav-memomap',
   browser:   'nav-browser',
 }
