@@ -221,20 +221,42 @@ function evenSide(n, from, to) {
   return pts
 }
 
-// Nitya: 16 deities in a loop (4 top row + 6 down each side) around a small
-// trikona, apex pointing down, pushed into the true top-left corner.
-const NITYA_APEX = [74, 110]
+// Nitya: 16 deities forming a loop around the small trikona's three edges —
+// a dot at each of the 3 vertices, 4 evenly-spaced dots along each edge
+// (nudged slightly outward so they read as their own ring rather than
+// sitting on the outline), plus a 16th dot at the centroid for "the bindu in
+// the middle" (Chris's reference image, 2026-08-23 — the previous version's
+// detached top row + two side fans didn't read as "around the trikona").
+const NITYA_APEX   = [74, 110]
+const NITYA_BASE_L = [52, 72]
+const NITYA_BASE_R = [96, 72]
+const NITYA_CENTROID = [
+  (NITYA_APEX[0] + NITYA_BASE_L[0] + NITYA_BASE_R[0]) / 3,
+  (NITYA_APEX[1] + NITYA_BASE_L[1] + NITYA_BASE_R[1]) / 3,
+]
+const NITYA_EDGE_OFFSET = 3
+function edgeDots(n, from, to) {
+  const [nx, ny] = outwardNormal(from, to, NITYA_CENTROID)
+  return evenSide(n, from, to).map(p => ({ x: p.x + nx * NITYA_EDGE_OFFSET, y: p.y + ny * NITYA_EDGE_OFFSET }))
+}
 const NITYA_POSITIONS = [
-  ...evenRow(4, 48, 100, 60),
-  ...evenSide(6, [47, 65], NITYA_APEX),
-  ...evenSide(6, [101, 65], NITYA_APEX),
+  { x: NITYA_BASE_L[0], y: NITYA_BASE_L[1] },   // 1  — top-left vertex
+  ...edgeDots(4, NITYA_BASE_L, NITYA_BASE_R),   // 2–5  — across the top edge
+  { x: NITYA_BASE_R[0], y: NITYA_BASE_R[1] },   // 6  — top-right vertex
+  ...edgeDots(4, NITYA_BASE_R, NITYA_APEX),     // 7–10 — down the right edge
+  { x: NITYA_APEX[0], y: NITYA_APEX[1] },       // 11 — apex (bottom point)
+  ...edgeDots(4, NITYA_APEX, NITYA_BASE_L),     // 12–15 — up the left edge
+  { x: NITYA_CENTROID[0], y: NITYA_CENTROID[1] }, // 16 — centre (the bindu)
 ]
 const nityaBySeq = Object.fromEntries(NITYA_POSITIONS.map((p, i) => [i + 1, p]))
 
 // Gurus: three stacked rows (7 divyaugha, 4 siddhaugha, 8 mānavaugha) above a
 // small trikona, apex pointing down, pushed into the true top-right corner.
+// Siddhaugha's row widened 2026-08-23 (Chris: it read as visibly cramped next
+// to the wider divyaugha/mānavaugha rows above/below it) to roughly match
+// their span instead of sitting in a narrow ~24-unit band.
 const guruDivyaBySeq  = Object.fromEntries(evenRow(7, 421, 471, 60).map((p, i) => [i + 1, p]))
-const guruSiddhaBySeq = Object.fromEntries(evenRow(4, 434, 458, 68).map((p, i) => [i + 1, p]))
+const guruSiddhaBySeq = Object.fromEntries(evenRow(4, 422, 470, 68).map((p, i) => [i + 1, p]))
 const guruManavaBySeq = Object.fromEntries(evenRow(8, 420, 472, 76).map((p, i) => [i + 1, p]))
 
 // ── Assemble the full map ─────────────────────────────────────────────────────
@@ -257,7 +279,7 @@ const bySeqMap = {
 // Trikona outlines for the two insets — exported so any consumer that wants
 // to draw them (Locate Drill's own overlay, for now) doesn't have to
 // duplicate these coordinates.
-export const NITYA_TRIKONA = { apex: NITYA_APEX, baseL: [52, 72], baseR: [96, 72] }
+export const NITYA_TRIKONA = { apex: NITYA_APEX, baseL: NITYA_BASE_L, baseR: NITYA_BASE_R }
 export const GURU_TRIKONA  = { apex: [446, 105], baseL: [431, 80], baseR: [461, 80] }
 
 // Tight crop boxes around each inset's own dots/trikona — used once the

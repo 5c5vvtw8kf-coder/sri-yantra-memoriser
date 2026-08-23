@@ -524,8 +524,15 @@ export default function LocateDrillView({
     handleAnswer(id)
   }, [scopeRegionIds, handleAnswer])
 
+  // (x2) badge and the outer/inner instruction only make sense in the 'all'
+  // scope — that's the only scope where buildQueue() actually places both
+  // halves of a pair back to back (see comment there). In a single-section
+  // scope only one half is ever in the pool at all, so its partner never
+  // appears nearby and the "sequential pair" framing would be misleading
+  // (Chris, 2026-08-23: "not relevant if only one section filter applied").
+  const showPairUi = scope === 'all'
   const name = current
-    ? locateLabel(deityById[current.id], script) + (ALL_PAIR_IDS.has(current.id) ? ` ${tr('locate.pair_suffix')}` : '')
+    ? locateLabel(deityById[current.id], script) + (showPairUi && ALL_PAIR_IDS.has(current.id) ? ` ${tr('locate.pair_suffix')}` : '')
     : ''
 
   // Circuits 1/8/9 render as small individual dots on their own overlay
@@ -551,12 +558,12 @@ export default function LocateDrillView({
           <div className="text-center py-2">
             <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.find_this')}</p>
             <p className="iast text-cream text-xl leading-snug">{name}</p>
-            {current && PAIR_BY_OUTER.has(current.id) && (
+            {current && showPairUi && PAIR_BY_OUTER.has(current.id) && (
               <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
                 {tr('locate.tap_outer')}
               </p>
             )}
-            {current && INNER_IDS.has(current.id) && (
+            {current && showPairUi && INNER_IDS.has(current.id) && (
               <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
                 {tr('locate.tap_inner')}
               </p>
@@ -595,9 +602,25 @@ export default function LocateDrillView({
 
             <div
               className="relative rounded-xl overflow-hidden shadow-2xl shadow-black/60"
-              style={{ width: 'min(100%, calc(100dvh - 120px))', paddingBottom: '100%', WebkitTouchCallout: 'none', userSelect: 'none' }}
+              style={{ width: 'min(100%, calc(100dvh - 120px))', paddingBottom: '80%', WebkitTouchCallout: 'none', userSelect: 'none' }}
             >
-              <div className="absolute inset-0">
+              {/* SriYantraSVG's shared viewBox (45,55,430,430) carries a large,
+                  genuinely empty margin above the gates — present in every view,
+                  but only glaring here because desktop Location Match is the
+                  first place it's rendered at this size with a bare prompt
+                  above it (Chris's report, 2026-08-23; the earlier width-cap
+                  fix didn't help because the height-based cap was already the
+                  binding constraint, not the flex-1 growth). Fixed without
+                  touching SriYantraSVG's coordinate system (which every other
+                  view also relies on): render the SVG+overlay pair at their
+                  natural square size (125% of this container's now-shorter
+                  80%-aspect box) bottom-anchored, so the bottom (which has
+                  almost no spare margin) sits flush with the container edge
+                  and the empty top ~20% is pushed above the visible area and
+                  clipped by this wrapper's overflow-hidden. Both children keep
+                  the exact same relative positioning to each other, so click
+                  hit-testing between them is unaffected. */}
+              <div className="absolute left-0 right-0 bottom-0" style={{ height: '125%' }}>
                 <SriYantraSVG
                   className="w-full h-full"
                   showTriangles={true}
