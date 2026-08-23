@@ -23,7 +23,8 @@
  *   wrong    → GOLD        (Chris's call, 2026-08-23 — not TERRACOTTA, to keep
  *                            wrong and timeout visually distinct from each other)
  *   timeout  → TERRACOTTA  ("brown", Chris's call)
- *   unanswered / not-yet-reached → DIM_GOLD, same as everywhere else in the app
+ *   unanswered / not-yet-reached → CREAM (Chris's call, 2026-08-23, revising
+ *                            the initial DIM_GOLD choice — better dot visibility)
  *
  * High score (best streak) and best time are tracked per scope+round-size
  * combination in localStorage (`sy-locate-stats`) — a 10-deity Circuit 4
@@ -46,11 +47,13 @@ const RED        = '#c0392b'
 const GOLD       = '#c9a84c'
 const TERRACOTTA = '#8b4513'
 const CREAM      = '#fff8c8'
-const DIM_GOLD   = 'rgba(201,168,76,0.35)'
 
 export const LOCATE_TIMER_OPTIONS = [3, 5, 8, 13, null]   // Fibonacci seconds; null = off (default)
 
 // ── C1 co-location (mirrors SpotCheckView.jsx's _posKeyDeities) ────────────
+// Still needed for locateLabel() below, which shows both names together when
+// a lineage-variant pair (e.g. laghimā/garimā) shares one physical dot.
+// Click handling no longer needs this — see getRegionId()'s circuit-1 case.
 const _posKeyDeities = {}
 deities.filter(d => d.sectionId === 'circuit-1' && d.role === 'deity').forEach(d => {
   const pos = getPosition(d.id)
@@ -59,9 +62,6 @@ deities.filter(d => d.sectionId === 'circuit-1' && d.role === 'deity').forEach(d
   if (!_posKeyDeities[key]) _posKeyDeities[key] = []
   _posKeyDeities[key].push(d)
 })
-const C1_DOTS = Object.entries(_posKeyDeities).map(([key, group]) => ({
-  key, pos: getPosition(group[0].id), deities: group,
-}))
 
 function locateLabel(deity, script) {
   if (!deity) return ''
@@ -90,27 +90,43 @@ function getRegionId(deity) {
   if (!deity || deity.role !== 'deity') return null
   const { sectionId, sequenceInSection: seq } = deity
   const pad = n => String(n).padStart(2, '0')
+  // Circuit 1 uses SriYantraSVG's own bhupura dot markers (bhupura-01..29,
+  // r=8, rendered + click-wired natively by SriYantraSVG itself) — the same
+  // id space Explore/Memorise already key their C1 dots by. No separate
+  // overlay needed; see the note above C1_DOTS' old home in git history for
+  // why an earlier version of this file duplicated that rendering (it broke
+  // clicks by sitting on top of it — fixed 2026-08-23).
+  if (sectionId === 'circuit-1') return `bhupura-${pad(seq)}`
   if (sectionId === 'circuit-2') return `petal-c2-${pad(seq)}`
   if (sectionId === 'circuit-3') return `petal-c3-${pad(seq)}`
   if (sectionId === 'circuit-4') return `tri-c4-${pad(C4_DEITY_ORDER[seq - 1])}`
   if (sectionId === 'circuit-5') return `tri-c5-${pad(C5_DEITY_ORDER[seq - 1])}`
   if (sectionId === 'circuit-6') return `tri-c6-${pad(C6_DEITY_ORDER[seq - 1])}`
   if (sectionId === 'circuit-7') return `tri-c7-${pad(C7_DEITY_ORDER[seq - 1])}`
-  return null   // circuit-1: dot only, keyed by position instead — see answerKey()
+  return null
 }
 
-// What must be clicked to be "correct" for a given deity — a region id for
-// C2–C7, or a synthetic dot key for C1 (so co-located deities sharing one
-// physical dot count each other as correct, matching Explore/Memorise/Spot
-// Check's existing treatment of the same dots).
-function answerKey(deity) {
-  if (!deity) return null
-  if (deity.sectionId === 'circuit-1') {
-    const pos = getPosition(deity.id)
-    return pos ? `dot:${pos.x},${pos.y}` : null
-  }
-  return getRegionId(deity)
-}
+// ── Outer/inner paired locations ────────────────────────────────────────
+// Confirmed by Chris, 2026-08-23: a handful of deity names recur at two
+// distinct positions in the yantra — once as a Circuit-1 Mudrā Śakti dot
+// (the "outer" occurrence, since Circuit 1/bhupura is outermost) and again
+// as the presiding deity of Circuit 4 (the "inner" occurrence). Confirmed
+// exhaustively against the canonical 182-entry dataset — exactly 6 name
+// duplicates exist in total, but only these 4 have BOTH occurrences inside
+// Locate Drill's current circuits-1–7 scope (the other 2 — Kāmeśvarī,
+// Mahāvajreśvarī — have their second occurrence in the Nitya/Circuit-8
+// sections, which aren't in Locate Drill's yantra-position scope at all, so
+// they behave as ordinary single-location entries here). Hardcoded by id
+// (not matched by name at runtime) so a lineage edit to the displayed name
+// can't silently break the pairing.
+const PAIR_LOCATIONS = [
+  ['c1-mudra-001', 'c4-001'],  // Sarvasaṅkṣōbhiṇī
+  ['c1-mudra-003', 'c4-003'],  // Sarvākarṣiṇī
+  ['c1-mudra-004', 'c4-008'],  // Sarvavaśaṅkarī
+  ['c1-mudra-005', 'c4-010'],  // Sarvōnmādinī
+]
+const PAIR_BY_OUTER = new Map(PAIR_LOCATIONS)
+const PAIRED_IDS = new Set(PAIR_LOCATIONS.flat())
 
 export const LOCATE_SCOPES = [
   { id: 'circuit-1', label: '1st', trKey: 'av.1' },
@@ -132,9 +148,24 @@ function shuffle(arr) {
   return a
 }
 
+// Queue items are `{ id, pair: false }` for an ordinary deity, or
+// `{ id: 'pair:<outerId>', pair: true, outerId, innerId }` for one of the
+// four outer/inner pairs — only ever produced when scope === 'all', since a
+// single-circuit scope only ever has one half of a pair in play anyway.
 function buildQueue(scope, limit) {
-  const pool = scope === 'all' ? positionedDeities : positionedDeities.filter(d => d.sectionId === scope)
-  const q = shuffle(pool.map(d => d.id))
+  let items
+  if (scope === 'all') {
+    const singles = positionedDeities
+      .filter(d => !PAIRED_IDS.has(d.id))
+      .map(d => ({ id: d.id, pair: false }))
+    const pairs = PAIR_LOCATIONS.map(([outerId, innerId]) => ({
+      id: `pair:${outerId}`, pair: true, outerId, innerId,
+    }))
+    items = [...singles, ...pairs]
+  } else {
+    items = positionedDeities.filter(d => d.sectionId === scope).map(d => ({ id: d.id, pair: false }))
+  }
+  const q = shuffle(items)
   return limit ? q.slice(0, limit) : q
 }
 
@@ -205,7 +236,8 @@ export default function LocateDrillView({
 }) {
   const [queue,       setQueue]       = useState(() => buildQueue(scope, limit))
   const [idx,         setIdx]         = useState(0)
-  const [results,     setResults]     = useState({})   // deityId -> 'correct'|'wrong'|'timeout'
+  const [pairStage,   setPairStage]   = useState(0)   // 0 = outer click needed, 1 = inner click needed
+  const [results,     setResults]     = useState({})   // queueItem.id -> 'correct'|'wrong'|'timeout'
   const [flash,       setFlash]       = useState(null)  // 'correct'|'wrong'|'timeout'|null
   const [streak,      setStreak]      = useState(0)
   const [bestStreakThisRound, setBestStreakThisRound] = useState(0)
@@ -219,7 +251,7 @@ export default function LocateDrillView({
 
   const total   = queue.length
   const done    = idx >= total
-  const current = !done ? (deityById[queue[idx]] ?? null) : null
+  const current = !done ? (queue[idx] ?? null) : null   // queue item — see buildQueue()
   const correct = Object.values(results).filter(v => v === 'correct').length
   const wrong   = Object.values(results).filter(v => v === 'wrong').length
   const timeouts = Object.values(results).filter(v => v === 'timeout').length
@@ -231,6 +263,7 @@ export default function LocateDrillView({
     const q = buildQueue(scope, limit)
     setQueue(q)
     setIdx(0)
+    setPairStage(0)
     setResults({})
     setFlash(null)
     setStreak(0)
@@ -247,12 +280,22 @@ export default function LocateDrillView({
   // truncating whatever's already counting down.
   useEffect(() => { if (idx === 0 && !done) setTimeLeft(timerSeconds) }, [timerSeconds]) // eslint-disable-line
 
+  // Completes the current queue item (single deity or paired outer+inner)
+  // with a final verdict, logs history, advances to the next item.
   const advance = useCallback((result) => {
     if (!current || done || flash) return
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
     setResults(prev => ({ ...prev, [current.id]: result }))
-    const memoKey = sectionIdToMemoKey(current.sectionId)
-    if (memoKey) recordHistoryEntry(memoKey, current.sequenceInSection, result === 'correct' ? 'correct' : 'wrong', 'drill')
+    const logOne = d => {
+      const memoKey = sectionIdToMemoKey(d.sectionId)
+      if (memoKey) recordHistoryEntry(memoKey, d.sequenceInSection, result === 'correct' ? 'correct' : 'wrong', 'drill')
+    }
+    if (current.pair) {
+      logOne(deityById[current.outerId])
+      logOne(deityById[current.innerId])
+    } else {
+      logOne(deityById[current.id])
+    }
     setFlash(result)
     setStreak(s => {
       const next = result === 'correct' ? s + 1 : 0
@@ -262,11 +305,14 @@ export default function LocateDrillView({
     setTimeout(() => {
       setFlash(null)
       setIdx(i => i + 1)
+      setPairStage(0)
       setTimeLeft(timerSeconds)
     }, 380)
   }, [current, done, flash, timerSeconds])
 
-  // Per-deity countdown
+  // Per-deity countdown. Re-keyed on pairStage too, so the inner half of a
+  // pair gets its own full countdown window rather than inheriting however
+  // much time was left when the outer half was answered.
   useEffect(() => {
     if (done || flash || timerSeconds == null || current == null) return
     setTimeLeft(timerSeconds)
@@ -282,7 +328,7 @@ export default function LocateDrillView({
       })
     }, 1000)
     return () => { if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null } }
-  }, [idx, done, timerSeconds]) // eslint-disable-line
+  }, [idx, pairStage, done, timerSeconds]) // eslint-disable-line
 
   // Sync progress to right panel
   useEffect(() => {
@@ -310,6 +356,7 @@ export default function LocateDrillView({
     const q = buildQueue(scope, limit)
     setQueue(q)
     setIdx(0)
+    setPairStage(0)
     setResults({})
     setFlash(null)
     setStreak(0)
@@ -323,48 +370,78 @@ export default function LocateDrillView({
   }, [scope, limit, timerSeconds])
 
   // ── Click handling ────────────────────────────────────────────────────
-  const handleAnswer = useCallback((clickedKey) => {
+  // All circuits (1–7) now go through the same region-id space that
+  // SriYantraSVG itself renders and click-wires — no separate overlay.
+  // Paired items (outer + inner, see PAIR_LOCATIONS) need a second click:
+  // a correct outer click advances the stage without ending the round item;
+  // a wrong click at either stage ends it as 'wrong' immediately — there's
+  // no partial credit for getting only one half of a pair right.
+  const handleAnswer = useCallback((clickedId) => {
     if (!current || done || flash) return
-    const target = answerKey(current)
-    advance(clickedKey === target ? 'correct' : 'wrong')
-  }, [current, done, flash, advance])
+    if (!current.pair) {
+      const target = getRegionId(deityById[current.id])
+      advance(clickedId === target ? 'correct' : 'wrong')
+      return
+    }
+    if (pairStage === 0) {
+      const target = getRegionId(deityById[current.outerId])
+      if (clickedId !== target) { advance('wrong'); return }
+      setPairStage(1)
+      setFlash('correct')
+      setTimeout(() => setFlash(null), 380)   // brief flash only — does not advance idx
+    } else {
+      const target = getRegionId(deityById[current.innerId])
+      advance(clickedId === target ? 'correct' : 'wrong')
+    }
+  }, [current, done, flash, pairStage, advance])
 
-  // In-scope region ids (C2–C7) get a dim baseline fill + click handler;
-  // out-of-scope regions stay untouched (no fill, no click).
+  // In-scope region ids get a baseline fill + click handler; out-of-scope
+  // regions stay untouched (no fill; clicks on them are no-ops below).
   const scopeDeities = scope === 'all' ? positionedDeities : positionedDeities.filter(d => d.sectionId === scope)
   const scopeRegionIds = new Set(scopeDeities.map(getRegionId).filter(Boolean))
-  const showC1 = scope === 'all' || scope === 'circuit-1'
 
-  // Colour for an answered region/dot's outcome
-  const outcomeColour = v => v === 'correct' ? RED : v === 'wrong' ? GOLD : v === 'timeout' ? TERRACOTTA : DIM_GOLD
+  // Colour for an answered region's outcome
+  const outcomeColour = v => v === 'correct' ? RED : v === 'wrong' ? GOLD : v === 'timeout' ? TERRACOTTA : CREAM
 
   const filledRegions = {}
-  scopeRegionIds.forEach(id => { filledRegions[id] = DIM_GOLD })
-  Object.entries(results).forEach(([deityId, verdict]) => {
-    const regionId = getRegionId(deityById[deityId])
-    if (regionId) filledRegions[regionId] = outcomeColour(verdict)
-  })
-  if (!done && current) {
-    const activeRegion = getRegionId(current)
-    if (activeRegion) filledRegions[activeRegion] = flash ? outcomeColour(flash) : DIM_GOLD
-  }
-
-  // C1 dot outcomes (last answered deity sharing a dot wins, i.e. most recent)
-  const dotOutcome = {}
-  Object.entries(results).forEach(([deityId, verdict]) => {
-    const d = deityById[deityId]
-    if (d?.sectionId === 'circuit-1') {
-      const pos = getPosition(d.id)
-      if (pos) dotOutcome[`${pos.x},${pos.y}`] = verdict
+  scopeRegionIds.forEach(id => { filledRegions[id] = CREAM })
+  Object.entries(results).forEach(([key, verdict]) => {
+    if (key.startsWith('pair:')) {
+      const outerId = key.slice(5)
+      const innerId = PAIR_BY_OUTER.get(outerId)
+      const outerRegion = getRegionId(deityById[outerId])
+      const innerRegion = getRegionId(deityById[innerId])
+      if (outerRegion) filledRegions[outerRegion] = outcomeColour(verdict)
+      if (innerRegion) filledRegions[innerRegion] = outcomeColour(verdict)
+    } else {
+      const regionId = getRegionId(deityById[key])
+      if (regionId) filledRegions[regionId] = outcomeColour(verdict)
     }
   })
+  if (!done && current) {
+    if (current.pair) {
+      const outerRegion = getRegionId(deityById[current.outerId])
+      const innerRegion = getRegionId(deityById[current.innerId])
+      if (pairStage === 0) {
+        if (outerRegion) filledRegions[outerRegion] = flash ? outcomeColour(flash) : CREAM
+      } else {
+        if (outerRegion) filledRegions[outerRegion] = RED   // outer half already confirmed correct
+        if (innerRegion) filledRegions[innerRegion] = flash ? outcomeColour(flash) : CREAM
+      }
+    } else {
+      const activeRegion = getRegionId(deityById[current.id])
+      if (activeRegion) filledRegions[activeRegion] = flash ? outcomeColour(flash) : CREAM
+    }
+  }
 
   const handleRegionClick = useCallback((id) => {
     if (!scopeRegionIds.has(id)) return
     handleAnswer(id)
   }, [scopeRegionIds, handleAnswer])
 
-  const name = current ? locateLabel(current, script) : ''
+  const name = current
+    ? locateLabel(deityById[current.pair ? current.outerId : current.id], script)
+    : ''
 
   return (
     <div className="w-full p-4 flex flex-col gap-3">
@@ -374,6 +451,11 @@ export default function LocateDrillView({
           <div className="text-center py-2">
             <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.find_this')}</p>
             <p className="iast text-cream text-xl leading-snug">{name}</p>
+            {current?.pair && (
+              <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
+                {pairStage === 0 ? tr('locate.tap_outer') : tr('locate.tap_inner')}
+              </p>
+            )}
             {timerSeconds != null && (
               <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
                 {timeLeft}s
@@ -394,30 +476,6 @@ export default function LocateDrillView({
                 filledRegions={filledRegions}
                 onRegionClick={handleRegionClick}
               />
-              {showC1 && (
-                <svg
-                  viewBox="45 55 430 430"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="absolute inset-0 w-full h-full"
-                  style={{ background: 'transparent' }}
-                >
-                  {C1_DOTS.map(({ key, pos }) => {
-                    if (!pos) return null
-                    const isActiveDotKey = current?.sectionId === 'circuit-1' && answerKey(current) === `dot:${key}`
-                    const outcome = dotOutcome[key]
-                    const fill = isActiveDotKey && flash ? outcomeColour(flash)
-                               : outcome ? outcomeColour(outcome)
-                               : DIM_GOLD
-                    return (
-                      <circle key={key}
-                        cx={pos.x.toFixed(1)} cy={pos.y.toFixed(1)} r={9}
-                        fill={fill} stroke="none"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleAnswer(`dot:${key}`)} />
-                    )
-                  })}
-                </svg>
-              )}
             </div>
           </div>
 

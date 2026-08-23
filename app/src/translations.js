@@ -573,8 +573,8 @@ const en = {
   'yantra.hex_label': 'Hex',
 
   // ── Locate Drill (added 2026-08-23 — English only so far, see roadmap memory) ──
-  'tab.locate':          'Locate',
-  'locate.title':        'Locate Drill',
+  'tab.locate':          'Location Match',
+  'locate.title':        'Location Match',
   'locate.instr':        'A name is shown — tap where it lives on the yantra.',
   'locate.find_this':    'Find this',
   'locate.tap_hint':     'Tap the yantra where this deity belongs',
@@ -586,6 +586,8 @@ const en = {
   'locate.timer':        'Timer',
   'locate.timer_off':    'Off',
   'locate.streak':       'Streak',
+  'locate.tap_outer':    'Tap the outer position first',
+  'locate.tap_inner':    'Now tap the inner position',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────

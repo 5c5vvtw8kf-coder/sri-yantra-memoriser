@@ -457,7 +457,7 @@ const TABS = [
     footerLabel: 'Śrīdevī Epithets' },
   { id: 'h-spotcheck',  heading: 'DRILLS AND MEMORY MAP', trKey: 'heading.spot' },
   { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
-  { id: 'locate',       trKey: 'tab.locate',    navLabel: 'Locate',      navLabelEn: 'Locate',      navLabelDev: 'Locate',      footerLabel: 'Locate'       },
+  { id: 'locate',       trKey: 'tab.locate',    navLabel: 'Location Match', navLabelEn: 'Location Match', navLabelDev: 'Location Match', footerLabel: 'Location Match' },
   { id: 'triangledrill', trKey: 'tab.triangledrill', navLabel: 'Triangle Drills', navLabelEn: 'Triangle Drills', navLabelDev: 'Triangle Drills', footerLabel: 'Triangle Drills' },
   { id: 'segmentdrill', trKey: 'tab.segmentdrill', navLabel: 'Segment Drills', navLabelEn: 'Segment Drills', navLabelDev: 'Segment Drills', footerLabel: 'Segment Drills' },
   { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drills',  navLabelEn: 'Line Drills',  navLabelDev: 'Line Drills',  footerLabel: 'Line Drills'  },
