@@ -594,6 +594,7 @@ const en = {
   'locate.inset_heading_nitya': 'Tithi Nitya',
   'locate.inset_heading_gurus': 'Gurus',
   'locate.scope_nyasa': 'Nyāsa',
+  'locate.scope_89': '8th/9th Avarana',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────

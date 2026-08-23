@@ -189,6 +189,9 @@ const INNER_IDS = new Set(PAIR_LOCATIONS.map(([, innerId]) => innerId))
 const ALL_PAIR_IDS = new Set(PAIR_LOCATIONS.flat())
 
 export const LOCATE_SCOPES = [
+  { id: 'nyasa',     label: 'Nyāsa', trKey: 'locate.scope_nyasa' },
+  { id: 'nitya',     label: 'Nitya', trKey: 'locate.scope_nitya' },
+  { id: 'gurus',     label: 'Gurus', trKey: 'locate.scope_gurus' },
   { id: 'circuit-1', label: '1st', trKey: 'av.1' },
   { id: 'circuit-2', label: '2nd', trKey: 'av.2' },
   { id: 'circuit-3', label: '3rd', trKey: 'av.3' },
@@ -196,10 +199,9 @@ export const LOCATE_SCOPES = [
   { id: 'circuit-5', label: '5th', trKey: 'av.5' },
   { id: 'circuit-6', label: '6th', trKey: 'av.6' },
   { id: 'circuit-7', label: '7th', trKey: 'av.7' },
-  { id: 'c8-c9',     label: '8·9', trKey: 'av.89' },
-  { id: 'nyasa',     label: 'Nyāsa', trKey: 'locate.scope_nyasa' },
-  { id: 'nitya',     label: 'Nitya', trKey: 'locate.scope_nitya' },
-  { id: 'gurus',     label: 'Gurus', trKey: 'locate.scope_gurus' },
+  // Dedicated key (not the shared av.89 used by Spot Check/Activity Log) so
+  // this button's shorter wording doesn't change those other views' text.
+  { id: 'c8-c9',     label: '8·9', trKey: 'locate.scope_89' },
   { id: 'all',       label: 'All', trKey: 'misc.all' },
 ]
 
