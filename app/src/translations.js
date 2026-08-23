@@ -571,6 +571,21 @@ const en = {
   'yantra.feedback_invalid': 'Not a colour',
   'yantra.feedback_error': 'Clipboard blocked',
   'yantra.hex_label': 'Hex',
+
+  // ── Locate Drill (added 2026-08-23 — English only so far, see roadmap memory) ──
+  'tab.locate':          'Locate',
+  'locate.title':        'Locate Drill',
+  'locate.instr':        'A name is shown — tap where it lives on the yantra.',
+  'locate.find_this':    'Find this',
+  'locate.tap_hint':     'Tap the yantra where this deity belongs',
+  'locate.round_complete': 'Round complete',
+  'locate.timed_out':    'timed out',
+  'locate.best_streak':  'Best streak',
+  'locate.best_time':    'Best time',
+  'locate.new_best':     'new best',
+  'locate.timer':        'Timer',
+  'locate.timer_off':    'Off',
+  'locate.streak':       'Streak',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────

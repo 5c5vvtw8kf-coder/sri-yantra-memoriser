@@ -21,6 +21,7 @@ import C9View from './components/C9View'
 import NavaChakreshvariView from './components/NavaChakreshvariView'
 import ClosingView from './components/ClosingView'
 import SpotCheckView, { SC_FILTERS } from './components/SpotCheckView'
+import LocateDrillView, { LOCATE_SCOPES, LOCATE_TIMER_OPTIONS } from './components/LocateDrillView'
 import MemoMapView from './components/MemoMapView'
 import ActivityLogView from './components/ActivityLogView'
 import SyncView from './components/SyncView'
@@ -456,6 +457,7 @@ const TABS = [
     footerLabel: 'Śrīdevī Epithets' },
   { id: 'h-spotcheck',  heading: 'DRILLS AND MEMORY MAP', trKey: 'heading.spot' },
   { id: 'spotcheck',    trKey: 'tab.spotcheck', navLabel: 'Spot Check',   navLabelEn: 'Spot Check',   navLabelDev: 'Spot Check',   footerLabel: 'Spot Check'   },
+  { id: 'locate',       trKey: 'tab.locate',    navLabel: 'Locate',      navLabelEn: 'Locate',      navLabelDev: 'Locate',      footerLabel: 'Locate'       },
   { id: 'triangledrill', trKey: 'tab.triangledrill', navLabel: 'Triangle Drills', navLabelEn: 'Triangle Drills', navLabelDev: 'Triangle Drills', footerLabel: 'Triangle Drills' },
   { id: 'segmentdrill', trKey: 'tab.segmentdrill', navLabel: 'Segment Drills', navLabelEn: 'Segment Drills', navLabelDev: 'Segment Drills', footerLabel: 'Segment Drills' },
   { id: 'linedrill',    trKey: 'tab.linedrill', navLabel: 'Line Drills',  navLabelEn: 'Line Drills',  navLabelDev: 'Line Drills',  footerLabel: 'Line Drills'  },
@@ -3451,6 +3453,14 @@ export default function App() {
   const [scLimit,     setScLimit]     = useState(null)
   const [scProgress, setScProgress] = useState({ idx: 0, total: 0, correct: 0, wrong: 0 })
 
+  // ── Locate Drill: scope, round size, timer, progress ──────────────────────
+  // (Chris's wife's idea, 2026-08-23 — reverse Spot Check: name shown, tap the
+  // location. Timer options are Fibonacci because Chris likes them; off by default.)
+  const [ldScope,   setLdScope]   = useState('all')
+  const [ldLimit,   setLdLimit]   = useState(null)
+  const [ldTimer,   setLdTimer]   = useState(null)
+  const [ldProgress, setLdProgress] = useState({ idx: 0, total: 0, correct: 0, wrong: 0, timeouts: 0, streak: 0, timeLeft: null, timerSeconds: null })
+
   const scSkipRef      = useRef(null)
   const swipeStartX    = useRef(null)
   const swipeStartY    = useRef(null)
@@ -4631,6 +4641,68 @@ export default function App() {
         script={script}
         tr={tr}
       />
+    )
+    if (activeTab === 'locate') return (
+      <div className="px-4 py-3 space-y-3">
+        <p className="text-xs font-mono text-muted uppercase tracking-widest font-bold">{tr('locate.title')}</p>
+        <p className="text-xs text-muted font-mono leading-relaxed">{tr('locate.instr')}</p>
+
+        <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
+        <div className="flex flex-wrap gap-1">
+          {LOCATE_SCOPES.map(s => (
+            <button key={s.id} onClick={() => setLdScope(s.id)}
+              className={['px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                ldScope === s.id ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream'].join(' ')}>
+              {tr(s.trKey)}
+            </button>
+          ))}
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.round_size')}</p>
+          <div className="flex gap-1">
+            {[10, 20, 50, 'whole'].map(n => (
+              <button key={n} onClick={() => setLdLimit(n === 'whole' ? null : n)}
+                className={['px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                  (n === 'whole' ? ldLimit === null : ldLimit === n)
+                    ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream'].join(' ')}>
+                {n === 'whole' ? tr('spot.whole') : n}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('locate.timer')}</p>
+          <div className="flex gap-1">
+            {LOCATE_TIMER_OPTIONS.map(n => (
+              <button key={n ?? 'off'} onClick={() => setLdTimer(n)}
+                className={['px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                  ldTimer === n ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream'].join(' ')}>
+                {n == null ? tr('locate.timer_off') : `${n}s`}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {ldProgress.total > 0 && (
+          <div className="space-y-1.5 pt-1 border-t border-surface-800">
+            <div className="flex justify-between text-xs text-muted">
+              <span>{ldProgress.idx} / {ldProgress.total}</span>
+              <span>
+                <span style={{ color: '#c0392b' }}>{ldProgress.correct}✓</span>{' '}
+                <span className="text-gold-400">{ldProgress.wrong}✗</span>{' '}
+                <span style={{ color: '#8b4513' }}>{ldProgress.timeouts}⏱</span>
+              </span>
+            </div>
+            <div className="w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
+              <div className="h-full bg-gold-400 rounded-full transition-all"
+                style={{ width: `${Math.round((ldProgress.idx / ldProgress.total) * 100)}%` }} />
+            </div>
+            <p className="text-xs text-muted">{tr('locate.streak')}: <span className="text-cream font-mono">{ldProgress.streak}</span></p>
+          </div>
+        )}
+      </div>
     )
     if (activeTab === 'spotcheck') return (
       <div className="px-4 py-3 space-y-3">
@@ -6033,6 +6105,85 @@ export default function App() {
               </div>
             )}
 
+            {activeTab === 'locate' && (
+              <LocateDrillView
+                script={script}
+                scope={ldScope}
+                limit={ldLimit}
+                timerSeconds={ldTimer}
+                onProgressSync={p => setLdProgress(p)}
+                onUpdateStats={(c, t, timeouts, ms) => {
+                  setSessionStats(prev => ({
+                    correct: prev.correct + c,
+                    total:   prev.total   + t,
+                    rounds:  prev.rounds  + 1,
+                  }))
+                  saveSessionLog({ ts: Date.now(), section: 'locate-drill', filter: ldScope, correct: c, total: t })
+                }}
+                tr={tr}
+              />
+            )}
+
+            {/* ── Mobile Locate Drill controls — mirrors right panel, hidden on desktop ── */}
+            {activeTab === 'locate' && (
+              <div className="md:hidden px-4 pb-4 space-y-4">
+                {ldProgress.total > 0 && (
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-xs text-muted">
+                      <span>{ldProgress.idx} / {ldProgress.total}</span>
+                      <span>
+                        <span style={{ color: '#c0392b' }}>{ldProgress.correct}✓</span>{' '}
+                        <span className="text-gold-400">{ldProgress.wrong}✗</span>{' '}
+                        <span style={{ color: '#8b4513' }}>{ldProgress.timeouts}⏱</span>
+                      </span>
+                    </div>
+                    <div className="w-full h-1.5 bg-surface-800 rounded-full overflow-hidden">
+                      <div className="h-full bg-gold-400 rounded-full transition-all"
+                        style={{ width: `${Math.round((ldProgress.idx / ldProgress.total) * 100)}%` }} />
+                    </div>
+                    <p className="text-xs text-muted">{tr('locate.streak')}: <span className="text-cream font-mono">{ldProgress.streak}</span></p>
+                  </div>
+                )}
+                <div className="space-y-1.5">
+                  <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.segment')}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {LOCATE_SCOPES.map(s => (
+                      <button key={s.id} onClick={() => setLdScope(s.id)}
+                        className={['px-2.5 py-1 rounded text-xs font-mono transition-colors',
+                          ldScope === s.id ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted'].join(' ')}>
+                        {tr(s.trKey)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('spot.round_size')}</p>
+                  <div className="flex gap-1">
+                    {[10, 20, 50, 'whole'].map(n => (
+                      <button key={n} onClick={() => setLdLimit(n === 'whole' ? null : n)}
+                        className={['px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                          (n === 'whole' ? ldLimit === null : ldLimit === n)
+                            ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream'].join(' ')}>
+                        {n === 'whole' ? tr('spot.whole') : n}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs font-mono text-muted uppercase tracking-widest" style={{ fontSize: '9px' }}>{tr('locate.timer')}</p>
+                  <div className="flex gap-1">
+                    {LOCATE_TIMER_OPTIONS.map(n => (
+                      <button key={n ?? 'off'} onClick={() => setLdTimer(n)}
+                        className={['px-2 py-0.5 rounded text-xs font-mono transition-colors',
+                          ldTimer === n ? 'bg-gold-400 text-surface-900 font-bold' : 'bg-surface-800 text-muted hover:text-cream'].join(' ')}>
+                        {n == null ? tr('locate.timer_off') : `${n}s`}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* ── Mobile Spot Check controls — mirrors right panel, hidden on desktop ── */}
             {activeTab === 'spotcheck' && (() => {
               const activeFilt = SC_FILTERS.find(f => f.id === scFilter)
@@ -6294,7 +6445,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
-        <div className={`${['spotcheck', 'activity-log', 'memomap', 'linedrill', 'segmentdrill', 'triangledrill', 'sync'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
+        <div className={`${['spotcheck', 'locate', 'activity-log', 'memomap', 'linedrill', 'segmentdrill', 'triangledrill', 'sync'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}
