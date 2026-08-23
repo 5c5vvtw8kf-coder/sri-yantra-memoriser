@@ -7,15 +7,12 @@
  * yantra?" — the more direct test of the spatial knowledge this whole app
  * is built around.
  *
- * v1 scope (deliberate cut, not an oversight — see App.jsx wiring comment
- * and the roadmap memory note for 2026-08-23): circuits 1–7 only, i.e. the
- * same 102-deity positioned set SpotCheckView already uses for its own
- * spatial mode. Circuit 8/9 and the non-yantra preamble/lineage sections
- * (Nyāsa, Nitya, Guravaḥ, Nava Cakreśvarī, Chakreśvarī) are not included —
- * several of those have no real yantra position at all, and the rest would
- * each need their own bespoke click-target logic the way SpotCheckView
- * delegates to six dedicated sub-components for them. Building all of that
- * in one sitting wasn't a safe bet; this can grow later.
+ * Scope (updated 2026-08-23): circuits 1–9, i.e. every deity with a real
+ * yantra position. The non-yantra preamble/lineage sections (Nyāsa, Nitya,
+ * Guravaḥ, Nava Cakreśvarī, Chakreśvarī) are still not included — they have
+ * no real yantra position at all, so "locate it on the diagram" doesn't
+ * apply to them; that would need a different drill entirely, not a scope
+ * extension of this one.
  *
  * Colours — three outcomes, not two, because this mode has a timeout that
  * Memorise mode doesn't:
@@ -75,11 +72,14 @@ function locateLabel(deity, script) {
   return displayName(deity, script)
 }
 
-// Only circuit deities 1–7 with real yantra positions — see file header.
-const positionedDeities = deities.filter(d =>
-  DEITY_POSITIONS[d.id] != null && d.role === 'deity' &&
-  d.sectionId !== 'circuit-8' && d.sectionId !== 'circuit-9'
-)
+// All circuit deities 1–9 with real yantra positions. Circuits 1, 8 and 9
+// are "point" circuits — individual dots rather than filled petal/triangle
+// shapes, see POINT_SECTIONS and the small-dot overlay in the render below.
+const positionedDeities = deities.filter(d => DEITY_POSITIONS[d.id] != null && d.role === 'deity')
+
+// Sections rendered as small individual dots (own overlay, see render below)
+// rather than through SriYantraSVG's filled petal/triangle regions.
+const POINT_SECTIONS = new Set(['circuit-1', 'circuit-8', 'circuit-9'])
 
 const C4_DEITY_ORDER = [8, 7, 6, 5, 4, 3, 2, 1, 14, 13, 12, 11, 10, 9]
 const C5_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
@@ -90,12 +90,11 @@ function getRegionId(deity) {
   if (!deity || deity.role !== 'deity') return null
   const { sectionId, sequenceInSection: seq } = deity
   const pad = n => String(n).padStart(2, '0')
-  // Circuit 1 uses SriYantraSVG's own bhupura dot markers (bhupura-01..29,
-  // r=8, rendered + click-wired natively by SriYantraSVG itself) — the same
-  // id space Explore/Memorise already key their C1 dots by. No separate
-  // overlay needed; see the note above C1_DOTS' old home in git history for
-  // why an earlier version of this file duplicated that rendering (it broke
-  // clicks by sitting on top of it — fixed 2026-08-23).
+  // Circuit 1 uses SriYantraSVG's own bhupura dot markers (bhupura-01..29) as
+  // an id space and a generous native fallback tap-area — the same ids
+  // Explore/Memorise already key their C1 dots by — but the *visible* dot is
+  // drawn small by this file's own point overlay (see render below), matching
+  // Segment/Line Drill's dot sizing (Chris's request, 2026-08-23).
   if (sectionId === 'circuit-1') return `bhupura-${pad(seq)}`
   if (sectionId === 'circuit-2') return `petal-c2-${pad(seq)}`
   if (sectionId === 'circuit-3') return `petal-c3-${pad(seq)}`
@@ -103,6 +102,12 @@ function getRegionId(deity) {
   if (sectionId === 'circuit-5') return `tri-c5-${pad(C5_DEITY_ORDER[seq - 1])}`
   if (sectionId === 'circuit-6') return `tri-c6-${pad(C6_DEITY_ORDER[seq - 1])}`
   if (sectionId === 'circuit-7') return `tri-c7-${pad(C7_DEITY_ORDER[seq - 1])}`
+  // Circuits 8 and 9 have no fine-grained native ids in SriYantraSVG (it only
+  // exposes the coarse whole-shape 'c8'/'c9'), so these synthetic ids are
+  // handled entirely by this file's own point overlay — no native fallback
+  // tap-area the way Circuit 1 gets, same limitation Segment/Line Drill have.
+  if (sectionId === 'circuit-8') return `c8pt-${pad(seq)}`
+  if (sectionId === 'circuit-9') return `c9pt-${pad(seq)}`
   return null
 }
 
@@ -136,6 +141,8 @@ export const LOCATE_SCOPES = [
   { id: 'circuit-5', label: '5th', trKey: 'av.5' },
   { id: 'circuit-6', label: '6th', trKey: 'av.6' },
   { id: 'circuit-7', label: '7th', trKey: 'av.7' },
+  { id: 'circuit-8', label: '8th', trKey: 'av.8' },
+  { id: 'circuit-9', label: '9th', trKey: 'av.9' },
   { id: 'all',       label: 'All', trKey: 'misc.all' },
 ]
 
@@ -418,20 +425,23 @@ export default function LocateDrillView({
       if (regionId) filledRegions[regionId] = outcomeColour(verdict)
     }
   })
+
+  // The single region id currently awaiting a click — used both for the
+  // main fill colour and to decide which point-dot (if any) renders larger.
+  let activeRegionId = null
   if (!done && current) {
     if (current.pair) {
-      const outerRegion = getRegionId(deityById[current.outerId])
-      const innerRegion = getRegionId(deityById[current.innerId])
-      if (pairStage === 0) {
-        if (outerRegion) filledRegions[outerRegion] = flash ? outcomeColour(flash) : CREAM
-      } else {
+      activeRegionId = pairStage === 0
+        ? getRegionId(deityById[current.outerId])
+        : getRegionId(deityById[current.innerId])
+      if (pairStage === 1) {
+        const outerRegion = getRegionId(deityById[current.outerId])
         if (outerRegion) filledRegions[outerRegion] = RED   // outer half already confirmed correct
-        if (innerRegion) filledRegions[innerRegion] = flash ? outcomeColour(flash) : CREAM
       }
     } else {
-      const activeRegion = getRegionId(deityById[current.id])
-      if (activeRegion) filledRegions[activeRegion] = flash ? outcomeColour(flash) : CREAM
+      activeRegionId = getRegionId(deityById[current.id])
     }
+    if (activeRegionId) filledRegions[activeRegionId] = flash ? outcomeColour(flash) : CREAM
   }
 
   const handleRegionClick = useCallback((id) => {
@@ -442,6 +452,15 @@ export default function LocateDrillView({
   const name = current
     ? locateLabel(deityById[current.pair ? current.outerId : current.id], script)
     : ''
+
+  // Circuits 1/8/9 render as small individual dots on their own overlay
+  // (matching Segment/Line Drill's dot sizing — Chris's request, 2026-08-23)
+  // rather than through SriYantraSVG's filled-shape regions. SriYantraSVG's
+  // own onRegionClick stays active underneath (it still handles C2–C7
+  // triangles/petals, and for Circuit 1 specifically its native r=8 bhupura
+  // markers give a generous fallback tap-area around each small dot — the
+  // same hybrid pattern SegmentDrillView/LineDrillView already use).
+  const pointDeities = scopeDeities.filter(d => POINT_SECTIONS.has(d.sectionId))
 
   return (
     <div className="w-full p-4 flex flex-col gap-3">
@@ -476,6 +495,29 @@ export default function LocateDrillView({
                 filledRegions={filledRegions}
                 onRegionClick={handleRegionClick}
               />
+              <svg
+                viewBox="45 55 430 430"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute inset-0 w-full h-full"
+                style={{ background: 'transparent' }}
+              >
+                {pointDeities.map(d => {
+                  const pos = getPosition(d.id)
+                  const regionId = getRegionId(d)
+                  if (!pos || !regionId) return null
+                  const fill = filledRegions[regionId] || CREAM
+                  const isActive = regionId === activeRegionId
+                  return (
+                    <circle
+                      key={d.id}
+                      cx={pos.x} cy={pos.y} r={isActive ? 4 : 3.2}
+                      fill={fill} stroke={GOLD} strokeWidth="0.6"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleAnswer(regionId)}
+                    />
+                  )
+                })}
+              </svg>
             </div>
           </div>
 

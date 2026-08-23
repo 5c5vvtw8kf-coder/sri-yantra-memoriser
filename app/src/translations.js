@@ -576,7 +576,7 @@ const en = {
   'tab.locate':          'Location Match',
   'locate.title':        'Location Match',
   'locate.instr':        'A name is shown — tap where it lives on the yantra.',
-  'locate.find_this':    'Find this',
+  'locate.find_this':    'Find this deity',
   'locate.tap_hint':     'Tap the yantra where this deity belongs',
   'locate.round_complete': 'Round complete',
   'locate.timed_out':    'timed out',
