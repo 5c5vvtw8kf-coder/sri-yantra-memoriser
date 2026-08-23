@@ -588,6 +588,7 @@ const en = {
   'locate.streak':       'Streak',
   'locate.scope_nitya':  'Nitya',
   'locate.scope_gurus':  'Gurus',
+  'locate.pair_suffix':  '(x2)',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────

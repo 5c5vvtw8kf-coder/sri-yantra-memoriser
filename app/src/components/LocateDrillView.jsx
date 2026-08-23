@@ -170,6 +170,12 @@ const PAIR_LOCATIONS = [
 ]
 const PAIR_BY_OUTER = new Map(PAIR_LOCATIONS)
 const INNER_IDS = new Set(PAIR_LOCATIONS.map(([, innerId]) => innerId))
+// Both halves — used only to show the "(x2)" prompt badge (Chris, 2026-08-23:
+// clarifying his "sequential, not simultaneous" request wasn't asking to drop
+// the badge, just the old compound two-click-before-scoring mechanic). Purely
+// a display concern; buildQueue()'s adjacency and the plain single-item click
+// handling are unaffected.
+const ALL_PAIR_IDS = new Set(PAIR_LOCATIONS.flat())
 
 export const LOCATE_SCOPES = [
   { id: 'circuit-1', label: '1st', trKey: 'av.1' },
@@ -466,7 +472,9 @@ export default function LocateDrillView({
     handleAnswer(id)
   }, [scopeRegionIds, handleAnswer])
 
-  const name = current ? locateLabel(deityById[current.id], script) : ''
+  const name = current
+    ? locateLabel(deityById[current.id], script) + (ALL_PAIR_IDS.has(current.id) ? ` ${tr('locate.pair_suffix')}` : '')
+    : ''
 
   // Circuits 1/8/9 render as small individual dots on their own overlay
   // (matching Segment/Line Drill's dot sizing — Chris's request, 2026-08-23)
