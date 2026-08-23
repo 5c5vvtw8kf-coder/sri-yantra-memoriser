@@ -586,6 +586,8 @@ const en = {
   'locate.timer':        'Timer',
   'locate.timer_off':    'Off',
   'locate.streak':       'Streak',
+  'locate.scope_nitya':  'Nitya',
+  'locate.scope_gurus':  'Gurus',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────

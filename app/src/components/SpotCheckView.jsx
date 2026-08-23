@@ -61,16 +61,19 @@ function spotLabel(deity, script) {
   return displayName(deity, script)
 }
 
-// Only circuit deities with yantra positions (102 total, C1-C7)
-const positionedDeities = deities.filter(d =>
-  DEITY_POSITIONS[d.id] != null &&
-  d.sectionId !== 'circuit-8' &&
-  d.sectionId !== 'circuit-9'
-)
-
 // Card-mode sections — no unique yantra position; displayed as cards not yantra highlights
 const CARD_SECTION_IDS = ['circuit-8', 'circuit-9', 'nitya', 'guru-divya', 'guru-siddha', 'guru-manava']
 const cardDeities = deities.filter(d => CARD_SECTION_IDS.includes(d.sectionId))
+
+// Only circuit deities with yantra positions (102 total, C1-C7). Explicitly
+// excludes CARD_SECTION_IDS rather than relying solely on DEITY_POSITIONS
+// being empty for them — Nitya/Guru gained real positions 2026-08-23 (small
+// inset trikonas, added for Locate Drill's paired-deity feature) but should
+// still route through Spot Check's card-based UI, not its spatial highlight
+// path, which has no rendering support for those insets.
+const positionedDeities = deities.filter(d =>
+  DEITY_POSITIONS[d.id] != null && !CARD_SECTION_IDS.includes(d.sectionId)
+)
 
 // ── Filter definitions (circuit-only — no preamble/nava/closing) ──────────────
 

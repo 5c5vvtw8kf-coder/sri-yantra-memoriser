@@ -33,7 +33,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import data from '../data/activeDeities'
 import { displayName, sectionIdToMemoKey, recordHistoryEntry } from '../utils.js'
-import { getPosition, DEITY_POSITIONS } from '../deityPositions.js'
+import { getPosition, DEITY_POSITIONS, NITYA_TRIKONA, GURU_TRIKONA } from '../deityPositions.js'
 import SriYantraSVG from './SriYantraSVG'
 
 const { deities } = data
@@ -78,8 +78,14 @@ function locateLabel(deity, script) {
 const positionedDeities = deities.filter(d => DEITY_POSITIONS[d.id] != null && d.role === 'deity')
 
 // Sections rendered as small individual dots (own overlay, see render below)
-// rather than through SriYantraSVG's filled petal/triangle regions.
-const POINT_SECTIONS = new Set(['circuit-1', 'circuit-8', 'circuit-9'])
+// rather than through SriYantraSVG's filled petal/triangle regions. Nitya
+// and the three Guru groups (added 2026-08-23) live in small insets in the
+// yantra's top corners — see NITYA_TRIKONA/GURU_TRIKONA in deityPositions.js.
+const POINT_SECTIONS = new Set([
+  'circuit-1', 'circuit-8', 'circuit-9',
+  'nitya', 'guru-divya', 'guru-siddha', 'guru-manava',
+])
+const GURU_SECTIONS = new Set(['guru-divya', 'guru-siddha', 'guru-manava'])
 
 const C4_DEITY_ORDER = [8, 7, 6, 5, 4, 3, 2, 1, 14, 13, 12, 11, 10, 9]
 const C5_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
@@ -108,6 +114,11 @@ function getRegionId(deity) {
   // tap-area the way Circuit 1 gets, same limitation Segment/Line Drill have.
   if (sectionId === 'circuit-8') return `c8pt-${pad(seq)}`
   if (sectionId === 'circuit-9') return `c9pt-${pad(seq)}`
+  // Nitya/Guru insets (added 2026-08-23) — synthetic ids, own overlay only.
+  if (sectionId === 'nitya') return `nitypt-${pad(seq)}`
+  if (sectionId === 'guru-divya') return `gdpt-${pad(seq)}`
+  if (sectionId === 'guru-siddha') return `gspt-${pad(seq)}`
+  if (sectionId === 'guru-manava') return `gmpt-${pad(seq)}`
   return null
 }
 
@@ -140,12 +151,21 @@ function getRegionId(deity) {
 // scored, timed and advanced independently like any other deity. buildQueue()
 // below is what enforces the adjacency; nothing downstream of it needs to
 // know pairing exists at all any more.
+// Nitya's own trikona inset (added 2026-08-23, see deityPositions.js) is
+// what makes these last two possible at all — before it existed, Nitya had
+// no position anywhere, so Kāmeśvarī/Mahāvajreśvarī only had one clickable
+// location (their circuit occurrence) despite genuinely being two-location
+// deities. Ordered Nitya-first: Nitya is recited before any circuit in the
+// actual stotra sequence, matching the same "earlier in the chant first"
+// principle the Circuit-1/Circuit-4 pairs above already follow.
 const PAIR_LOCATIONS = [
   ['c1-mudra-001', 'c4-001'],  // Sarvasaṅkṣōbhiṇī
   ['c1-mudra-002', 'c4-002'],  // Sarvavidrāviṇī
   ['c1-mudra-003', 'c4-003'],  // Sarvākarṣiṇī
   ['c1-mudra-004', 'c4-008'],  // Sarvavaśaṅkarī
   ['c1-mudra-005', 'c4-010'],  // Sarvōnmādinī
+  ['nitya-001', 'c7-002'],     // Kāmeśvarī
+  ['nitya-006', 'c8-006'],     // Mahāvajreśvarī
 ]
 const PAIR_BY_OUTER = new Map(PAIR_LOCATIONS)
 const INNER_IDS = new Set(PAIR_LOCATIONS.map(([, innerId]) => innerId))
@@ -160,8 +180,17 @@ export const LOCATE_SCOPES = [
   { id: 'circuit-7', label: '7th', trKey: 'av.7' },
   { id: 'circuit-8', label: '8th', trKey: 'av.8' },
   { id: 'circuit-9', label: '9th', trKey: 'av.9' },
+  { id: 'nitya',     label: 'Nitya', trKey: 'locate.scope_nitya' },
+  { id: 'gurus',     label: 'Gurus', trKey: 'locate.scope_gurus' },
   { id: 'all',       label: 'All', trKey: 'misc.all' },
 ]
+
+// 'gurus' is one scope button covering three sectionIds (guru-divya/siddha/
+// manava) since they share a single inset — everywhere else, scope === sectionId.
+function matchesScope(d, scope) {
+  if (scope === 'gurus') return GURU_SECTIONS.has(d.sectionId)
+  return d.sectionId === scope
+}
 
 function shuffle(arr) {
   const a = [...arr]
@@ -188,7 +217,7 @@ function buildQueue(scope, limit) {
       if (PAIR_BY_OUTER.has(id)) ids.push(PAIR_BY_OUTER.get(id))
     })
   } else {
-    ids = shuffle(positionedDeities.filter(d => d.sectionId === scope).map(d => d.id))
+    ids = shuffle(positionedDeities.filter(d => matchesScope(d, scope)).map(d => d.id))
   }
   const items = ids.map(id => ({ id }))
   return limit ? items.slice(0, limit) : items
@@ -393,7 +422,7 @@ export default function LocateDrillView({
 
   // In-scope region ids get a baseline fill + click handler; out-of-scope
   // regions stay untouched (no fill; clicks on them are no-ops below).
-  const scopeDeities = scope === 'all' ? positionedDeities : positionedDeities.filter(d => d.sectionId === scope)
+  const scopeDeities = scope === 'all' ? positionedDeities : positionedDeities.filter(d => matchesScope(d, scope))
   const scopeRegionIds = new Set(scopeDeities.map(getRegionId).filter(Boolean))
 
   // Colour for an answered region's outcome
@@ -490,6 +519,21 @@ export default function LocateDrillView({
                 className="absolute inset-0 w-full h-full"
                 style={{ background: 'transparent', pointerEvents: 'none' }}
               >
+                {/* Nitya/Guru inset trikonas — outline only, no text labels
+                    (Chris's spec, 2026-08-23). Shown only when their deities
+                    are actually in the current scope. */}
+                {pointDeities.some(d => d.sectionId === 'nitya') && (
+                  <polygon
+                    points={`${NITYA_TRIKONA.apex.join(',')} ${NITYA_TRIKONA.baseL.join(',')} ${NITYA_TRIKONA.baseR.join(',')}`}
+                    fill="none" stroke={GOLD} strokeWidth="0.6" strokeOpacity="0.6"
+                  />
+                )}
+                {pointDeities.some(d => GURU_SECTIONS.has(d.sectionId)) && (
+                  <polygon
+                    points={`${GURU_TRIKONA.apex.join(',')} ${GURU_TRIKONA.baseL.join(',')} ${GURU_TRIKONA.baseR.join(',')}`}
+                    fill="none" stroke={GOLD} strokeWidth="0.6" strokeOpacity="0.6"
+                  />
+                )}
                 {pointDeities.map(d => {
                   const pos = getPosition(d.id)
                   const regionId = getRegionId(d)

@@ -15,8 +15,16 @@
  *   C8  ( 7) — derived from the true central/primary triangle (korvinGeometry.js)
  *   C9  ( 1) — bindu (260, 270)
  *
- * chakraSvamini, yoginiType, and all non-circuit sections have no entry —
- * callers should treat a missing entry as "no yantra position".
+ * Plus two non-circuit "inset" sections, added 2026-08-23 — small trikona +
+ * dot diagrams in the yantra's empty top corners, outside the bhupura:
+ *   Nitya       (16) — top-left corner, see NITYA_TRIKONA
+ *   Guru-divya  ( 7) ─┐
+ *   Guru-siddha ( 4) ─┼─ top-right corner, see GURU_TRIKONA
+ *   Guru-manava ( 8) ─┘
+ *
+ * chakraSvamini, yoginiType, invocation, nyasa, chakreshvari, and closing
+ * still have no entry — callers should treat a missing entry as "no yantra
+ * position".
  */
 
 import { BHUPURA_MARKERS, C2_PETALS, C3_PETALS } from './components/SriYantraSVG'
@@ -175,6 +183,51 @@ const c8BySeq = Object.fromEntries(C8_POSITIONS.map((pos, idx) => [idx + 1, pos]
 // The bindu is the centre of the Sri Yantra diagram.
 const C9_BINDU = { x: 260, y: 270 }
 
+// ── Nitya / Guru insets (top corners, outside the bhupura) ────────────────────
+// Chris's design, 2026-08-23: the Tithi Nitya Devatas and the three Guru
+// lineages have no yantra position at all — they're preamble/lineage sections,
+// not part of the geometric diagram. Locate Drill's pairing feature exposed
+// this: Kāmeśvarī and Mahāvajreśvarī each recur once in Nitya and once in a
+// circuit, but only the circuit half had anywhere to click. Fix: two small
+// insets in the yantra's empty top corners (outside the bhupura's outer
+// square, which spans roughly x:[101,419] y:[111,429] within this file's
+// viewBox) — a small downward trikona with a dot per deity, Nitya top-left,
+// the three Guru groups together top-right. First version: coordinates are
+// evenly-spaced approximations of Chris's reference sketch (a loop of dots
+// around the Nitya trikona; three stacked rows above the Guru trikona), not
+// yet visually verified live — flagged for a follow-up pass once he can see
+// it rendered and fine-tune spacing.
+function evenRow(n, x0, x1, y) {
+  if (n === 1) return [{ x: (x0 + x1) / 2, y }]
+  const pts = []
+  for (let i = 0; i < n; i++) pts.push({ x: x0 + (x1 - x0) * (i / (n - 1)), y })
+  return pts
+}
+function evenSide(n, from, to) {
+  const pts = []
+  for (let i = 0; i < n; i++) {
+    const [x, y] = lerp2(from, to, (i + 1) / (n + 1))
+    pts.push({ x, y })
+  }
+  return pts
+}
+
+// Nitya: 16 deities in a loop (4 top row + 6 down each side) around a small
+// trikona, apex pointing down, top-left corner.
+const NITYA_APEX = [73, 100]
+const NITYA_POSITIONS = [
+  ...evenRow(4, 56, 90, 62),
+  ...evenSide(6, [55, 66], NITYA_APEX),
+  ...evenSide(6, [91, 66], NITYA_APEX),
+]
+const nityaBySeq = Object.fromEntries(NITYA_POSITIONS.map((p, i) => [i + 1, p]))
+
+// Gurus: three stacked rows (7 divyaugha, 4 siddhaugha, 8 mānavaugha) above a
+// small trikona, apex pointing down, top-right corner.
+const guruDivyaBySeq  = Object.fromEntries(evenRow(7, 434, 470, 58).map((p, i) => [i + 1, p]))
+const guruSiddhaBySeq = Object.fromEntries(evenRow(4, 442, 462, 66).map((p, i) => [i + 1, p]))
+const guruManavaBySeq = Object.fromEntries(evenRow(8, 433, 471, 74).map((p, i) => [i + 1, p]))
+
 // ── Assemble the full map ─────────────────────────────────────────────────────
 
 const bySeqMap = {
@@ -186,7 +239,17 @@ const bySeqMap = {
   'circuit-6': c6BySeq,
   'circuit-7': c7BySeq,
   'circuit-8': c8BySeq,
+  'nitya': nityaBySeq,
+  'guru-divya': guruDivyaBySeq,
+  'guru-siddha': guruSiddhaBySeq,
+  'guru-manava': guruManavaBySeq,
 }
+
+// Trikona outlines for the two insets — exported so any consumer that wants
+// to draw them (Locate Drill's own overlay, for now) doesn't have to
+// duplicate these coordinates.
+export const NITYA_TRIKONA = { apex: NITYA_APEX, baseL: [58, 70], baseR: [88, 70] }
+export const GURU_TRIKONA  = { apex: [452, 100], baseL: [437, 78], baseR: [467, 78] }
 
 export const DEITY_POSITIONS = (() => {
   const map = {}
