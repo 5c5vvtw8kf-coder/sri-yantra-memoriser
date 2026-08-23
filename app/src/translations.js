@@ -366,7 +366,7 @@ const en = {
   'yantra.numbers':      'Numbers',
   'yantra.labels':       'Labels',
   'yantra.seed_of_life': 'Seed of Life',
-  'yantra.instr':        'The complete Śrī Yantra, for calm reference. Step through colour themes below, or customise your own.',
+  'yantra.instr':        'The complete Śrī Yantra, for quiet contemplation. You can customise your own colour themes below.',
 
   // ── Deity detail ───────────────────────────────────────────────────────────
   'deity.secrecy':        'Secrecy',
