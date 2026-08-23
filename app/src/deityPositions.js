@@ -183,6 +183,18 @@ const c8BySeq = Object.fromEntries(C8_POSITIONS.map((pos, idx) => [idx + 1, pos]
 // The bindu is the centre of the Sri Yantra diagram.
 const C9_BINDU = { x: 260, y: 270 }
 
+// ── Nyasa: 6 limb deities (hṛdaya, śirō, śikhā, kavaca, nētra, astra) ──────────
+// Added 2026-08-23. Only nētradēvī (seq 5) has a position so far — Chris:
+// "netradevi which is on the same position as the bindu" — she shares C9's
+// own bindu point, rendered in LocateDrillView as a larger transparent ring
+// there rather than a normal filled dot, so she doesn't visually replace C9's
+// own marker. astradēvī (seq 6) is a 4-position deity (Chris: "the 4
+// astradevi dots need to be treated as one deity") — any one of the 4 counts
+// as correct; coordinates pending. hṛdayadēvī/śirōdēvī/śikhādēvī/kavacadēvī
+// (seq 1–4) have no position yet — pending Chris's placement, same
+// interactive process used for Nitya's 16.
+const nyasaBySeq = { 5: C9_BINDU }
+
 // ── Nitya / Guru insets (top corners, outside the bhupura) ────────────────────
 // Chris's design, 2026-08-23: the Tithi Nitya Devatas and the three Guru
 // lineages have no yantra position at all — they're preamble/lineage sections,
@@ -280,6 +292,7 @@ const bySeqMap = {
   'guru-divya': guruDivyaBySeq,
   'guru-siddha': guruSiddhaBySeq,
   'guru-manava': guruManavaBySeq,
+  'nyasa': nyasaBySeq,
 }
 
 // Trikona outlines for the two insets — exported so any consumer that wants

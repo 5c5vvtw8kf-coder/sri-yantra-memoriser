@@ -593,6 +593,7 @@ const en = {
   'locate.tap_inner':    'Now tap the inner position',
   'locate.inset_heading_nitya': 'Tithi Nitya',
   'locate.inset_heading_gurus': 'Gurus',
+  'locate.scope_nyasa': 'Nyāsa',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────

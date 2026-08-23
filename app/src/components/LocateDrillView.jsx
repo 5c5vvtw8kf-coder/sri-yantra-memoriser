@@ -86,7 +86,7 @@ const positionedDeities = deities.filter(d => DEITY_POSITIONS[d.id] != null && d
 // yantra's top corners — see NITYA_TRIKONA/GURU_TRIKONA in deityPositions.js.
 const POINT_SECTIONS = new Set([
   'circuit-1', 'circuit-8', 'circuit-9',
-  'nitya', 'guru-divya', 'guru-siddha', 'guru-manava',
+  'nitya', 'guru-divya', 'guru-siddha', 'guru-manava', 'nyasa',
 ])
 const GURU_SECTIONS = new Set(['guru-divya', 'guru-siddha', 'guru-manava'])
 const INSET_SECTIONS = new Set(['nitya', 'guru-divya', 'guru-siddha', 'guru-manava'])
@@ -123,6 +123,9 @@ function getRegionId(deity) {
   if (sectionId === 'guru-divya') return `gdpt-${pad(seq)}`
   if (sectionId === 'guru-siddha') return `gspt-${pad(seq)}`
   if (sectionId === 'guru-manava') return `gmpt-${pad(seq)}`
+  // Nyasa (added 2026-08-23) — synthetic ids, rendered in the main overlay
+  // (not an inset) since nētradēvī shares C9's own bindu position.
+  if (sectionId === 'nyasa') return `nyaspt-${pad(seq)}`
   return null
 }
 
@@ -189,6 +192,7 @@ export const LOCATE_SCOPES = [
   { id: 'circuit-6', label: '6th', trKey: 'av.6' },
   { id: 'circuit-7', label: '7th', trKey: 'av.7' },
   { id: 'c8-c9',     label: '8·9', trKey: 'av.89' },
+  { id: 'nyasa',     label: 'Nyāsa', trKey: 'locate.scope_nyasa' },
   { id: 'nitya',     label: 'Nitya', trKey: 'locate.scope_nitya' },
   { id: 'gurus',     label: 'Gurus', trKey: 'locate.scope_gurus' },
   { id: 'all',       label: 'All', trKey: 'misc.all' },
@@ -648,12 +652,19 @@ export default function LocateDrillView({
                     if (!pos || !regionId) return null
                     const fill = pointFills[regionId] || CREAM
                     const isActive = regionId === activeRegionId
-                    const r = isActive ? 4 : 3.2
+                    // Nētradēvī (nyasa seq 5) shares C9's own bindu position —
+                    // Chris, 2026-08-23: render her as a larger, transparent
+                    // ring there instead of a normal opaque dot, so she reads
+                    // as a distinct clickable target without visually replacing
+                    // C9's own marker underneath.
+                    const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
+                    const r = isNetraBindu ? (isActive ? 11 : 9) : (isActive ? 4 : 3.2)
+                    const fillOpacity = isNetraBindu ? 0.35 : 1
                     return (
                       <circle
                         key={d.id}
                         cx={pos.x} cy={pos.y} r={r}
-                        fill={fill} stroke={GOLD} strokeWidth="0.6"
+                        fill={fill} fillOpacity={fillOpacity} stroke={GOLD} strokeWidth="0.6"
                         style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                         onClick={() => handleAnswer(regionId)}
                       />
