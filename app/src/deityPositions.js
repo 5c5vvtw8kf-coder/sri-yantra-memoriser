@@ -185,41 +185,42 @@ const C9_BINDU = { x: 260, y: 270 }
 
 // ── Nyasa: 6 limb deities (hṛdaya, śirō, śikhā, kavaca, nētra, astra) ──────────
 // Added 2026-08-23, first-draft placement pending Chris's live correction
-// (same process used for Nitya — an initial guess, then adjusted against the
-// running app). nētradēvī (seq 5) shares C9's own bindu point (Chris:
-// "netradevi which is on the same position as the bindu"), rendered in
-// LocateDrillView as a transparent ring there. hṛdayadēvī/śirōdēvī/
-// śikhādēvī/kavacadēvī (seq 1–4) are placed at the four gate corridors'
-// midpoints (inside the outer tip, outside the lotus), one per cardinal
-// direction, clockwise from top. astradēvī (seq 6) is deliberately NOT given
-// a seqMap entry here — Chris: "the 4 astradevi dots need to be treated as
-// one deity", so she's a 4-position deity the normal one-id-per-deity
-// DEITY_POSITIONS map can't represent. Handled entirely as a special case in
-// LocateDrillView via ASTRA_POSITIONS below (4 gate outer tips, matching
-// "astra" = weapon guarding each direction).
-const GATE_MID_TOP    = { x: 260,    y: 103.67 }
-const GATE_MID_RIGHT  = { x: 426.33, y: 270 }
-const GATE_MID_BOTTOM = { x: 260,    y: 436.33 }
-const GATE_MID_LEFT   = { x: 93.67,  y: 270 }
+// (same process used for Nitya). nētradēvī (seq 5) shares C9's own bindu
+// point, rendered in LocateDrillView as a transparent ring there.
+// astradēvī (seq 6) is deliberately NOT given a seqMap entry — she's a
+// 4-position deity (Chris: "the 4 astradevi dots need to be treated as one
+// deity") the normal one-id-per-deity map can't represent; handled as a
+// special case in LocateDrillView via ASTRA_POSITIONS below.
+//
+// Astra's 4 dots were nudged in (Chris: "nudge the astra dots in so their
+// centre is where their inward-most point is now" — i.e. shift each one
+// inward by its own on-screen radius, 3.2 units) to land at the midpoints
+// of an imaginary square's sides. The other four (hṛdaya/śirō/śikhā/kavaca)
+// sit on that square's corners (Chris, 2026-08-23): hṛdayadēvī top-right,
+// śirōdēvī top-left, śikhādēvī bottom-right, kavacadēvī bottom-left. The
+// square is centred on the bindu (260,270) with half-extent 183.13 (the
+// nudged-in astra distance) on both axes.
+const ASTRA_HALF = 183.13
+const SQ_TOP_RIGHT    = { x: 260 + ASTRA_HALF, y: 270 - ASTRA_HALF }
+const SQ_TOP_LEFT     = { x: 260 - ASTRA_HALF, y: 270 - ASTRA_HALF }
+const SQ_BOTTOM_RIGHT = { x: 260 + ASTRA_HALF, y: 270 + ASTRA_HALF }
+const SQ_BOTTOM_LEFT  = { x: 260 - ASTRA_HALF, y: 270 + ASTRA_HALF }
 const nyasaBySeq = {
-  1: GATE_MID_TOP,     // Hṛdayadēvī
-  2: GATE_MID_RIGHT,   // Śirōdēvī
-  3: GATE_MID_BOTTOM,  // Śikhādēvī
-  4: GATE_MID_LEFT,    // Kavacadēvī
+  1: SQ_TOP_RIGHT,     // Hṛdayadēvī
+  2: SQ_TOP_LEFT,      // Śirōdēvī
+  3: SQ_BOTTOM_RIGHT,  // Śikhādēvī
+  4: SQ_BOTTOM_LEFT,   // Kavacadēvī
   5: C9_BINDU,         // Nētradēvī
 }
 
-// Astradēvī's 4 positions — the four bhupura gates' outermost tips (derived
-// from BHUPURA_OUTER_PTS's extreme points: top y=63.67, right x=466.33,
-// bottom y=476.33, left x=53.67, each centred on the yantra's 260/270 axis),
-// nudged ~20 units in toward the bindu (Chris, 2026-08-23: "about 1cm
-// towards the bindu" — a rough physical-to-SVG-unit conversion, easy to
-// re-tune if it doesn't match what he sees live).
+// Astradēvī's 4 positions — at the midpoints of the same square's sides
+// (i.e. the square's corners are hṛdaya/śirō/śikhā/kavaca above, and astra
+// sits centred on each edge between them).
 export const ASTRA_POSITIONS = [
-  { x: 260,    y: 83.67 },   // top gate
-  { x: 446.33, y: 270 },     // right gate
-  { x: 260,    y: 456.33 },  // bottom gate
-  { x: 73.67,  y: 270 },     // left gate
+  { x: 260,             y: 270 - ASTRA_HALF },  // top gate
+  { x: 260 + ASTRA_HALF, y: 270 },              // right gate
+  { x: 260,             y: 270 + ASTRA_HALF },  // bottom gate
+  { x: 260 - ASTRA_HALF, y: 270 },              // left gate
 ]
 
 // ── Nitya / Guru insets (top corners, outside the bhupura) ────────────────────
