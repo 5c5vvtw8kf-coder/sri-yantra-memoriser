@@ -575,7 +575,7 @@ const en = {
   // ── Locate Drill (added 2026-08-23 — English only so far, see roadmap memory) ──
   'tab.locate':          'Location Match',
   'locate.title':        'Location Match',
-  'locate.instr':        'A deity name is shown. Tap where it lives on the yantra.',
+  'locate.instr':        "A deity name is shown. Tap where it lives on the yantra. If you're feeling confident you can add a time limit to each deity name.",
   'locate.find_this':    'Find this deity',
   'locate.tap_hint':     'Tap the yantra where this deity belongs',
   'locate.round_complete': 'Round complete',
