@@ -465,6 +465,7 @@ export default function LocateDrillView({
 
   const name = current
     ? locateLabel(deityById[current.pair ? current.outerId : current.id], script)
+      + (current.pair ? ` ${tr('locate.pair_suffix')}` : '')
     : ''
 
   // Circuits 1/8/9 render as small individual dots on their own overlay

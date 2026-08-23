@@ -588,6 +588,7 @@ const en = {
   'locate.streak':       'Streak',
   'locate.tap_outer':    'Tap the outer position first',
   'locate.tap_inner':    'Now tap the inner position',
+  'locate.pair_suffix':  '(x2)',
 }
 
 // ── Gujarati ─────────────────────────────────────────────────────────────────
