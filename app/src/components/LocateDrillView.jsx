@@ -115,14 +115,24 @@ function getRegionId(deity) {
 // Confirmed by Chris, 2026-08-23: a handful of deity names recur at two
 // distinct positions in the yantra — once as a Circuit-1 Mudrā Śakti dot
 // (the "outer" occurrence, since Circuit 1/bhupura is outermost) and again
-// as the presiding deity of Circuit 4 (the "inner" occurrence). Confirmed
-// exhaustively against the canonical 182-entry dataset — exactly 6 name
-// duplicates exist in total, but only these 4 have BOTH occurrences inside
-// Locate Drill's current circuits-1–9 scope (the other 2 — Kāmeśvarī,
-// Mahāvajreśvarī — have their second occurrence in the Nitya section, which
-// has no yantra position at all, so they behave as ordinary single-location
-// entries here). Hardcoded by id (not matched by name at runtime) so a
-// lineage edit to the displayed name can't silently break the pairing.
+// as the presiding deity of Circuit 4 (the "inner" occurrence). Hardcoded by
+// id (not matched by name at runtime) so a lineage edit to the displayed
+// name can't silently break the pairing.
+//
+// Confirmed against the canonical 182-entry dataset via three independent
+// matching passes (exact IAST, diacritic-stripped IAST, diacritic-stripped
+// English) — 7 name duplicates exist in total, but only these 5 have BOTH
+// occurrences inside Locate Drill's circuits-1–9 scope (the other 2 —
+// Kāmeśvarī, Mahāvajreśvarī — have their second occurrence in the Nitya
+// section, which has no yantra position at all, so they behave as ordinary
+// single-location entries here). c1-mudra-002/c4-002 (Sarvavidrāviṇī) was
+// missed by the first exact-match-only pass, 2026-08-23 — the two entries
+// are transliterated slightly differently in the source data (vidrāviṇī vs
+// vidrāvinī), so an exact string comparison didn't catch them as the same
+// deity; Chris caught the gap by noticing the count was off ("more than
+// four"), the normalized passes confirmed it. Worth remembering if this list
+// ever needs re-deriving: exact-match alone isn't reliable against this
+// dataset's occasional spelling inconsistencies.
 //
 // Revised 2026-08-23: originally these were one compound queue item needing
 // two clicks before advancing. Chris asked for that to become two ordinary,
@@ -132,6 +142,7 @@ function getRegionId(deity) {
 // know pairing exists at all any more.
 const PAIR_LOCATIONS = [
   ['c1-mudra-001', 'c4-001'],  // Sarvasaṅkṣōbhiṇī
+  ['c1-mudra-002', 'c4-002'],  // Sarvavidrāviṇī
   ['c1-mudra-003', 'c4-003'],  // Sarvākarṣiṇī
   ['c1-mudra-004', 'c4-008'],  // Sarvavaśaṅkarī
   ['c1-mudra-005', 'c4-010'],  // Sarvōnmādinī
