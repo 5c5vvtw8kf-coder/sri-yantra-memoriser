@@ -4684,8 +4684,6 @@ export default function App() {
           </div>
         </div>
 
-        <p className="text-xs text-muted font-mono leading-relaxed">{tr('locate.instr')}</p>
-
         {ldProgress.total > 0 && (
           <div className="space-y-1.5 pt-1 border-t border-surface-800">
             <div className="flex justify-between text-xs text-muted">
@@ -4703,6 +4701,8 @@ export default function App() {
             <p className="text-xs text-muted">{tr('locate.streak')}: <span className="text-cream font-mono">{ldProgress.streak}</span></p>
           </div>
         )}
+
+        <p className="text-xs text-muted font-mono leading-relaxed">{tr('locate.instr')}</p>
       </div>
     )
     if (activeTab === 'spotcheck') return (
