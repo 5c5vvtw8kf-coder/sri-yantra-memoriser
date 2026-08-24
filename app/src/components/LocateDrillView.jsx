@@ -334,13 +334,16 @@ function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activ
           const regionId = getRegionId(d)
           if (!pos || !regionId) return null
           const fill = pointFills[regionId] || CREAM
-          const isActive = regionId === activeRegionId
           // Kept small deliberately — the densest inset row (Guru-mānavaugha,
           // 8 dots across ~52 units) has center-to-center spacing of only
           // ~7.4 units, so anything approaching that in diameter overlaps its
           // neighbours (Chris's report, 2026-08-23, after the first live
           // screenshot showed exactly that at r=4.8/6).
-          const r = isActive ? 3.2 : 2.5
+          // Constant radius regardless of active/idle — sizing the active
+          // (target) dot larger was a visual tell that gave away the answer
+          // before the tap, since its fill colour is identical CREAM to every
+          // other not-yet-answered dot in scope (Chris's report, 2026-08-25).
+          const r = 2.5
           return (
             <circle
               key={d.id}
@@ -677,19 +680,23 @@ export default function LocateDrillView({
                     const regionId = getRegionId(d)
                     if (!pos || !regionId) return null
                     const fill = pointFills[regionId] || CREAM
-                    const isActive = regionId === activeRegionId
                     // Nētradēvī (nyasa seq 5) shares C9's own bindu position —
                     // Chris, 2026-08-23: render her as a larger, transparent
                     // ring there instead of a normal opaque dot, so she reads
                     // as a distinct clickable target without visually replacing
                     // C9's own marker underneath.
                     const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
-                    // r 5/6 fits inside the true central trikona (~23 units
+                    // r 5 fits inside the true central trikona (~23 units
                     // wide — apex/baseL/baseR from KORVIN_CENTRAL_RAW) with
                     // margin to spare; the original 9/11 was nearly half the
                     // triangle's own width and spilled outside it (Chris's
                     // report, 2026-08-23).
-                    const r = isNetraBindu ? (isActive ? 6 : 5) : (isActive ? 4 : 3.2)
+                    // Constant radius regardless of active/idle — sizing the
+                    // active (target) dot larger was a visual tell that gave
+                    // away the answer before the tap, since its fill colour is
+                    // identical CREAM to every other not-yet-answered dot in
+                    // scope (Chris's report, 2026-08-25).
+                    const r = isNetraBindu ? 5 : 3.2
                     const fillOpacity = isNetraBindu ? 0.35 : 1
                     return (
                       <circle
@@ -706,12 +713,10 @@ export default function LocateDrillView({
                   {hasAstra && ASTRA_POSITIONS.map((pos, i) => {
                     const regionId = ASTRA_REGION_IDS[i]
                     const fill = pointFills[regionId] || CREAM
-                    const isActive = activeAstraIds != null
-                    const r = isActive ? 4 : 3.2
                     return (
                       <circle
                         key={regionId}
-                        cx={pos.x} cy={pos.y} r={r}
+                        cx={pos.x} cy={pos.y} r={3.2}
                         fill={fill} stroke={GOLD} strokeWidth="0.6"
                         style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                         onClick={() => handleAnswer(regionId)}
@@ -758,9 +763,10 @@ export default function LocateDrillView({
                   const regionId = getRegionId(d)
                   if (!pos || !regionId) return null
                   const fill = pointFills[regionId] || CREAM
-                  const isActive = regionId === activeRegionId
                   const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
-                  const r = isNetraBindu ? (isActive ? 6 : 5) : (isActive ? 4 : 3.2)
+                  // Constant radius regardless of active/idle — see desktop
+                  // copy above for why (Chris's report, 2026-08-25).
+                  const r = isNetraBindu ? 5 : 3.2
                   const fillOpacity = isNetraBindu ? 0.35 : 1
                   return (
                     <circle
@@ -775,12 +781,10 @@ export default function LocateDrillView({
                 {hasAstra && ASTRA_POSITIONS.map((pos, i) => {
                   const regionId = ASTRA_REGION_IDS[i]
                   const fill = pointFills[regionId] || CREAM
-                  const isActive = activeAstraIds != null
-                  const r = isActive ? 4 : 3.2
                   return (
                     <circle
                       key={regionId}
-                      cx={pos.x} cy={pos.y} r={r}
+                      cx={pos.x} cy={pos.y} r={3.2}
                       fill={fill} stroke={GOLD} strokeWidth="0.6"
                       style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                       onClick={() => handleAnswer(regionId)}
