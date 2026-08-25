@@ -418,8 +418,8 @@ const en = {
   'tab.browser':     'Khadgamala Stotram',
 
   // ── Common ────────────────────────────────────────────────────────────────
-  'device.portrait':    'This app is designed for portrait mode',
-  'device.landscape':   'This app is designed for landscape mode',
+  'device.portrait':    'This app is designed for portrait mode on mobile phones',
+  'device.landscape':   'This app is designed for landscape mode on tablets',
   'btn.reset':          'Reset',
   'btn.reset_session':  'Reset session',
   'btn.reset_level':    'Reset whole level',

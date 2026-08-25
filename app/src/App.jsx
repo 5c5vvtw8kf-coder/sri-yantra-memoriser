@@ -5432,9 +5432,9 @@ export default function App() {
       <div id="portrait-lock-overlay"
            className="fixed inset-0 z-[9999] flex-col items-center justify-center gap-4 text-center px-8"
            style={{ display: 'none', backgroundColor: '#0f0a05' }}>
-        <svg viewBox="0 0 64 64" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="8" y="16" width="48" height="32" rx="4" />
-          <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+        <svg viewBox="0 0 24 24" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="23 4 23 10 17 10" />
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
         </svg>
         <p className="iast text-lg font-medium px-4 py-1.5 rounded-lg bg-black/40" style={{ color: '#c0392b' }}>Please rotate your device</p>
         <p className="text-muted text-sm">{tr('device.landscape')}</p>
@@ -5457,9 +5457,9 @@ export default function App() {
       <div id="landscape-lock-overlay"
            className="fixed inset-0 z-[9999] flex-col items-center justify-center gap-4 px-8 text-center"
            style={{ display: showLandscapeLock ? 'flex' : 'none', backgroundColor: '#0f0a05' }}>
-        <svg viewBox="0 0 64 64" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="8" y="16" width="48" height="32" rx="4" />
-          <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+        <svg viewBox="0 0 24 24" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="23 4 23 10 17 10" />
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
         </svg>
         <p className="iast text-lg font-medium px-4 py-1.5 rounded-lg bg-black/40" style={{ color: '#c0392b' }}>Please rotate your device</p>
         <p className="text-muted text-sm">{tr('device.portrait')}</p>
