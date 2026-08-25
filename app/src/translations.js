@@ -431,6 +431,9 @@ const en = {
   'misc.memorised':        'memorised',
   'btn.new_round':         'New round',
   'btn.skip': 'skip →',
+  'btn.undo':              'Undo',
+  'btn.review_incorrect':  'Review incorrect',
+  'btn.back_to_results':   'Back to results',
   'sc.tripura': 'Tripurā',
   'sc.svamini': 'Svāminī',
   'sc.yogini_lbl': 'Yoginī',
@@ -595,6 +598,9 @@ const en = {
   'locate.inset_heading_nitya': 'Tithi Nitya',
   'locate.inset_heading_gurus': 'Gurus',
   'locate.scope_nyasa': 'Nyāsa',
+  'locate.undo_count':   'Undos used',
+  'locate.reviewing_incorrect': 'Reviewing',
+  'locate.review_hint':  'Hover a gold dot to see its name',
   'locate.scope_89': '8th/9th Avarana',
 }
 

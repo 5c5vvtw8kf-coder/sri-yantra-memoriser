@@ -265,9 +265,21 @@ function saveBest(scope, limit, next) {
 }
 
 // ── Completion overlay ───────────────────────────────────────────────────
-function CompletionOverlay({ correct, total, timeouts, streak, best, elapsedMs, isNewStreak, isNewTime, onRestart, tr }) {
+// fmtTime: minutes:seconds, no decimal place (Chris, 2026-08-25 — the old
+// "12.3s" format didn't scale to longer "All" rounds, which run past 60s).
+function fmtTime(ms) {
+  if (ms == null) return '—'
+  const totalSec = Math.round(ms / 1000)
+  const m = Math.floor(totalSec / 60)
+  const s = totalSec % 60
+  return `${m}:${String(s).padStart(2, '0')}`
+}
+
+function CompletionOverlay({
+  correct, total, timeouts, streak, best, elapsedMs, isNewStreak, isNewTime,
+  undoCount, canReview, onReview, onRestart, tr,
+}) {
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0
-  const fmtTime = ms => ms == null ? '—' : `${(ms / 1000).toFixed(1)}s`
   return (
     <div className="flex flex-col items-center gap-4 py-8 text-center">
       <p className="text-cream text-sm">{tr('locate.round_complete')}</p>
@@ -279,6 +291,11 @@ function CompletionOverlay({ correct, total, timeouts, streak, best, elapsedMs, 
         <p className="text-xs text-muted mt-1">{pct}% {tr('misc.memorised')}</p>
         {timeouts > 0 && (
           <p className="text-xs mt-0.5" style={{ color: TERRACOTTA }}>{timeouts} {tr('locate.timed_out')}</p>
+        )}
+        {/* Feature request, 2026-08-25: surface how many undos were used —
+            purely informational, doesn't affect the score above. */}
+        {undoCount > 0 && (
+          <p className="text-xs mt-0.5 text-muted">{undoCount} {tr('locate.undo_count')}</p>
         )}
       </div>
       <div className="flex gap-6 text-xs">
@@ -297,12 +314,22 @@ function CompletionOverlay({ correct, total, timeouts, streak, best, elapsedMs, 
           </p>
         </div>
       </div>
-      <button
-        onClick={onRestart}
-        className="px-5 py-2 bg-gold-800/40 border border-gold-700/50 text-gold-300 rounded-lg text-sm hover:bg-gold-800/60 transition-colors"
-      >
-        {tr('btn.new_round')}
-      </button>
+      <div className="flex gap-3">
+        {canReview && (
+          <button
+            onClick={onReview}
+            className="px-5 py-2 bg-black/20 border border-gold-700/50 text-gold-300 rounded-lg text-sm hover:bg-black/30 transition-colors"
+          >
+            {tr('btn.review_incorrect')}
+          </button>
+        )}
+        <button
+          onClick={onRestart}
+          className="px-5 py-2 bg-gold-800/40 border border-gold-700/50 text-gold-300 rounded-lg text-sm hover:bg-gold-800/60 transition-colors"
+        >
+          {tr('btn.new_round')}
+        </button>
+      </div>
     </div>
   )
 }
@@ -316,7 +343,7 @@ function CompletionOverlay({ correct, total, timeouts, streak, best, elapsedMs, 
 // viewBox (see NITYA_INSET_VIEWBOX/GURU_INSET_VIEWBOX in deityPositions.js)
 // so it renders as a small standalone diagram rather than a fragment of the
 // full 430×430 yantra space.
-function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activeRegionId, onPick }) {
+function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activeRegionId, onPick, reviewing, onHover, onLeave }) {
   if (insetDeities.length === 0) return null
   const trikonaPoints = `${trikona.apex.join(',')} ${trikona.baseL.join(',')} ${trikona.baseR.join(',')}`
   return (
@@ -351,6 +378,8 @@ function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activ
               fill={fill} stroke={GOLD} strokeWidth="0.6"
               style={{ cursor: 'pointer' }}
               onClick={() => onPick(regionId)}
+              onMouseEnter={() => reviewing && onHover && onHover(regionId)}
+              onMouseLeave={() => reviewing && onLeave && onLeave()}
             />
           )
         })}
@@ -375,6 +404,19 @@ export default function LocateDrillView({
   const [elapsedMs,   setElapsedMs]   = useState(null)
   const [newStreak,   setNewStreak]   = useState(false)
   const [newTime,     setNewTime]     = useState(false)
+  // Undo (Chris, 2026-08-25: "it's easy to click the wrong thing by mistake").
+  // history is an ordered stack of just-enough-to-revert snapshots, pushed
+  // once per advance() call — see advance() below. undoCount is a simple
+  // running tally shown on the completion page; it is *not* decremented by
+  // undoing further (it's a "how many mistakes did you correct" stat, not a
+  // remaining-uses counter — undo is uncapped for the whole round).
+  const [history,     setHistory]     = useState([])   // [{id, result, prevStreak, prevBestStreakThisRound}]
+  const [undoCount,   setUndoCount]   = useState(0)
+  // Review incorrect (Chris, 2026-08-25): shows the finished yantra with
+  // hover tooltips on the gold (wrong) regions. reviewHoverId tracks
+  // whichever region/dot the pointer is currently over.
+  const [reviewing,      setReviewing]      = useState(false)
+  const [reviewHoverId,  setReviewHoverId]  = useState(null)
   const timerRef     = useRef(null)
   const roundLoggedRef = useRef(false)
 
@@ -401,6 +443,10 @@ export default function LocateDrillView({
     setElapsedMs(null)
     setNewStreak(false)
     setNewTime(false)
+    setHistory([])
+    setUndoCount(0)
+    setReviewing(false)
+    setReviewHoverId(null)
     roundLoggedRef.current = false
   }, [scope, limit]) // eslint-disable-line
 
@@ -415,14 +461,28 @@ export default function LocateDrillView({
   const advance = useCallback((result) => {
     if (!current || done || flash) return
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
-    setResults(prev => ({ ...prev, [current.id]: result }))
-    const d = deityById[current.id]
+    const itemId = current.id
+    setResults(prev => ({ ...prev, [itemId]: result }))
+    const d = deityById[itemId]
     const memoKey = sectionIdToMemoKey(d.sectionId)
+    // Note (2026-08-25): this write to the Memory Map / Activity Log history
+    // is deliberately NOT reverted by undo below — undo only rewinds this
+    // round's own tally/position, it doesn't retract the historical record
+    // that an attempt happened. Reverting it would need a new "unrecord"
+    // primitive that doesn't exist elsewhere in the app; not worth adding for
+    // what's fundamentally a "let me retry that click" convenience.
     if (memoKey) recordHistoryEntry(memoKey, d.sequenceInSection, result === 'correct' ? 'correct' : 'wrong', 'drill')
     setFlash(result)
     setStreak(s => {
       const next = result === 'correct' ? s + 1 : 0
-      setBestStreakThisRound(b => Math.max(b, next))
+      setBestStreakThisRound(b => {
+        // Snapshot everything undoLast() needs to fully reverse this answer,
+        // captured here (inside the streak/best-streak updaters) so it's
+        // built from the actual pre-mutation values, not a possibly-stale
+        // closure over the `streak`/`bestStreakThisRound` state variables.
+        setHistory(h => [...h, { id: itemId, result, prevStreak: s, prevBestStreakThisRound: b }])
+        return Math.max(b, next)
+      })
       return next
     })
     setTimeout(() => {
@@ -431,6 +491,26 @@ export default function LocateDrillView({
       setTimeLeft(timerSeconds)
     }, 380)
   }, [current, done, flash, timerSeconds])
+
+  // Undo the most recent answer — rewinds idx, drops its result, restores
+  // streak/bestStreakThisRound to what they were before that answer, and
+  // resets the per-deity timer for the re-presented question (handled by the
+  // countdown effect above, which reruns whenever idx changes). Uncapped for
+  // the round; blocked mid-flash so it can't race the 380ms auto-advance.
+  const undoLast = useCallback(() => {
+    if (history.length === 0 || flash) return
+    const last = history[history.length - 1]
+    setHistory(h => h.slice(0, -1))
+    setResults(prev => {
+      const next = { ...prev }
+      delete next[last.id]
+      return next
+    })
+    setStreak(last.prevStreak)
+    setBestStreakThisRound(last.prevBestStreakThisRound)
+    setUndoCount(c => c + 1)
+    setIdx(i => Math.max(0, i - 1))
+  }, [history, flash])
 
   // Per-deity countdown.
   useEffect(() => {
@@ -485,6 +565,10 @@ export default function LocateDrillView({
     setElapsedMs(null)
     setNewStreak(false)
     setNewTime(false)
+    setHistory([])
+    setUndoCount(0)
+    setReviewing(false)
+    setReviewHoverId(null)
     roundLoggedRef.current = false
   }, [scope, limit, timerSeconds])
 
@@ -586,30 +670,81 @@ export default function LocateDrillView({
   const nityaInsetDeities = pointDeities.filter(d => d.sectionId === 'nitya')
   const guruInsetDeities = pointDeities.filter(d => GURU_SECTIONS.has(d.sectionId))
 
+  // ── Review incorrect (Chris, 2026-08-25) ────────────────────────────────
+  // filledRegions/pointFills above already hold the round's final colours
+  // once done===true (the "active" override block only runs when !done), so
+  // review mode just re-renders the same yantra with those colours and adds
+  // hover tooltips. deityByRegionId is the reverse of getRegionId(), used to
+  // resolve a hovered region back to "which deity actually lives here" —
+  // only shown when that region's fill is GOLD (wrong), per Chris's request.
+  const canReview = done && (wrong > 0 || timeouts > 0)
+  const deityByRegionId = {}
+  scopeDeities.forEach(d => {
+    const rid = getRegionId(d)
+    if (rid) deityByRegionId[rid] = d
+  })
+  if (hasAstra) ASTRA_REGION_IDS.forEach(id => { deityByRegionId[id] = deityById['nyasa-006'] })
+  const reviewHoverFill = reviewHoverId ? (pointFills[reviewHoverId] ?? filledRegions[reviewHoverId]) : null
+  const reviewHoverDeity = reviewing && reviewHoverFill === GOLD ? deityByRegionId[reviewHoverId] : null
+  const reviewHoverName = reviewHoverDeity ? locateLabel(reviewHoverDeity, script) : null
+
   return (
     <div className="w-full p-4 flex flex-col gap-3">
-      {!done && (
+      {(!done || reviewing) && (
         <>
-          {/* Prompt — the deity name to find. Never shown on the diagram itself. */}
-          <div className="text-center py-2">
-            <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.find_this')}</p>
-            <p className="iast text-cream text-xl leading-snug">{name}</p>
-            {current && showPairUi && PAIR_BY_OUTER.has(current.id) && (
-              <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
-                {tr('locate.tap_outer')}
+          {done && reviewing ? (
+            /* Review incorrect (Chris, 2026-08-25): replaces the prompt with a
+               reviewing header + hover readout, since there's no "current"
+               question any more — the round is over, this is just a look back
+               at the finished yantra. */
+            <div className="text-center py-2">
+              <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.reviewing_incorrect')}</p>
+              <p className="text-cream text-xl leading-snug min-h-[1.75rem]">
+                {reviewHoverName
+                  ? <span className="iast">{reviewHoverName}</span>
+                  : <span className="text-muted text-sm">{tr('locate.review_hint')}</span>}
               </p>
-            )}
-            {current && showPairUi && INNER_IDS.has(current.id) && (
-              <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
-                {tr('locate.tap_inner')}
-              </p>
-            )}
-            {timerSeconds != null && (
-              <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
-                {timeLeft}s
-              </p>
-            )}
-          </div>
+              <button
+                onClick={() => { setReviewing(false); setReviewHoverId(null) }}
+                className="mt-2 px-4 py-1.5 bg-black/20 border border-gold-700/50 text-gold-300 rounded-lg text-xs hover:bg-black/30 transition-colors"
+              >
+                {tr('btn.back_to_results')}
+              </button>
+            </div>
+          ) : (
+            /* Prompt — the deity name to find. Never shown on the diagram itself. */
+            <div className="text-center py-2">
+              <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.find_this')}</p>
+              <p className="iast text-cream text-xl leading-snug">{name}</p>
+              {current && showPairUi && PAIR_BY_OUTER.has(current.id) && (
+                <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
+                  {tr('locate.tap_outer')}
+                </p>
+              )}
+              {current && showPairUi && INNER_IDS.has(current.id) && (
+                <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
+                  {tr('locate.tap_inner')}
+                </p>
+              )}
+              {timerSeconds != null && (
+                <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
+                  {timeLeft}s
+                </p>
+              )}
+              {/* Undo (Chris, 2026-08-25): only meaningful mid-round, only once
+                  at least one answer has been given, disabled during the brief
+                  outcome flash so it can't race the auto-advance. */}
+              {history.length > 0 && (
+                <button
+                  onClick={undoLast}
+                  disabled={!!flash}
+                  className="mt-2 px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
+                >
+                  ↺ {tr('btn.undo')}
+                </button>
+              )}
+            </div>
+          )}
 
           {/* Desktop: Nitya/Guru insets flank the yantra beside the west/east
               gates, each with a heading above. Mobile: hidden here — they
@@ -634,6 +769,9 @@ export default function LocateDrillView({
               pointFills={pointFills}
               activeRegionId={activeRegionId}
               onPick={handleAnswer}
+              reviewing={reviewing}
+              onHover={setReviewHoverId}
+              onLeave={() => setReviewHoverId(null)}
             />
 
             <div
@@ -658,6 +796,8 @@ export default function LocateDrillView({
                   showNumbers={false}
                   filledRegions={filledRegions}
                   onRegionClick={handleRegionClick}
+                  onRegionHover={reviewing ? setReviewHoverId : undefined}
+                  onRegionLeave={reviewing ? () => setReviewHoverId(null) : undefined}
                 />
                 {/* pointerEvents: 'none' on the root is deliberate — this overlay only
                     ever paints a handful of small circles, and without this the
@@ -705,6 +845,8 @@ export default function LocateDrillView({
                         fill={fill} fillOpacity={fillOpacity} stroke={GOLD} strokeWidth="0.6"
                         style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                         onClick={() => handleAnswer(regionId)}
+                        onMouseEnter={() => reviewing && setReviewHoverId(regionId)}
+                        onMouseLeave={() => reviewing && setReviewHoverId(null)}
                       />
                     )
                   })}
@@ -720,6 +862,8 @@ export default function LocateDrillView({
                         fill={fill} stroke={GOLD} strokeWidth="0.6"
                         style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                         onClick={() => handleAnswer(regionId)}
+                        onMouseEnter={() => reviewing && setReviewHoverId(regionId)}
+                        onMouseLeave={() => reviewing && setReviewHoverId(null)}
                       />
                     )
                   })}
@@ -735,6 +879,9 @@ export default function LocateDrillView({
               pointFills={pointFills}
               activeRegionId={activeRegionId}
               onPick={handleAnswer}
+              reviewing={reviewing}
+              onHover={setReviewHoverId}
+              onLeave={() => setReviewHoverId(null)}
             />
           </div>
 
@@ -751,6 +898,8 @@ export default function LocateDrillView({
                 showNumbers={false}
                 filledRegions={filledRegions}
                 onRegionClick={handleRegionClick}
+                onRegionHover={reviewing ? setReviewHoverId : undefined}
+                onRegionLeave={reviewing ? () => setReviewHoverId(null) : undefined}
               />
               <svg
                 viewBox="45 55 430 430"
@@ -775,6 +924,8 @@ export default function LocateDrillView({
                       fill={fill} fillOpacity={fillOpacity} stroke={GOLD} strokeWidth="0.6"
                       style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                       onClick={() => handleAnswer(regionId)}
+                      onMouseEnter={() => reviewing && setReviewHoverId(regionId)}
+                      onMouseLeave={() => reviewing && setReviewHoverId(null)}
                     />
                   )
                 })}
@@ -788,6 +939,8 @@ export default function LocateDrillView({
                       fill={fill} stroke={GOLD} strokeWidth="0.6"
                       style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                       onClick={() => handleAnswer(regionId)}
+                      onMouseEnter={() => reviewing && setReviewHoverId(regionId)}
+                      onMouseLeave={() => reviewing && setReviewHoverId(null)}
                     />
                   )
                 })}
@@ -805,6 +958,9 @@ export default function LocateDrillView({
               pointFills={pointFills}
               activeRegionId={activeRegionId}
               onPick={handleAnswer}
+              reviewing={reviewing}
+              onHover={setReviewHoverId}
+              onLeave={() => setReviewHoverId(null)}
             />
             <InsetPanel
               heading={tr('locate.inset_heading_gurus')}
@@ -814,6 +970,9 @@ export default function LocateDrillView({
               pointFills={pointFills}
               activeRegionId={activeRegionId}
               onPick={handleAnswer}
+              reviewing={reviewing}
+              onHover={setReviewHoverId}
+              onLeave={() => setReviewHoverId(null)}
             />
           </div>
 
@@ -823,11 +982,12 @@ export default function LocateDrillView({
         </>
       )}
 
-      {done && (
+      {done && !reviewing && (
         <CompletionOverlay
           correct={correct} total={total} timeouts={timeouts}
           streak={bestStreakThisRound} best={best} elapsedMs={elapsedMs}
           isNewStreak={newStreak} isNewTime={newTime}
+          undoCount={undoCount} canReview={canReview} onReview={() => setReviewing(true)}
           onRestart={startNewRound} tr={tr}
         />
       )}
