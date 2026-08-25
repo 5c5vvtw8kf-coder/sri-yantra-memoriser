@@ -351,7 +351,7 @@ function HitZones({ onCircuitSelect, selectedCircuit }) {
 
 // ── Region fills ──────────────────────────────────────────────────────────────
 
-function RegionFills({ filledRegions = {}, noStrokeRegions = {}, onRegionClick = null, onRegionHover = null, onRegionLeave = null, onRegionDoubleClick = null }) {
+function RegionFills({ filledRegions = {}, noStrokeRegions = {}, onRegionClick = null, onRegionHover = null, onRegionLeave = null, onRegionDoubleClick = null, binduR = 1.4 }) {
   const hoverable   = onRegionHover != null
   if (Object.keys(filledRegions).length === 0 && !onRegionClick && !hoverable) return null
 
@@ -570,7 +570,7 @@ function RegionFills({ filledRegions = {}, noStrokeRegions = {}, onRegionClick =
 
       {/* C9: Bindu dot */}
       {filledRegions['c9'] && (
-        <circle cx={CX} cy={BINDU_CY} r={1.4} fill={filledRegions['c9']}
+        <circle cx={CX} cy={BINDU_CY} r={binduR} fill={filledRegions['c9']}
           style={style}
           onClick={clickable ? () => onRegionClick('c9') : undefined}
           onMouseEnter={hoverable ? () => onRegionHover('c9') : undefined}
@@ -713,6 +713,12 @@ export default function SriYantraSVG({
   accentColor         = null,
   bgColor             = null,
   noStrokeRegions     = {},
+  // Radius of the native C9 bindu dot. Overridable (2026-08-25, Location
+  // Match) so a caller layering its own larger marker over the bindu — e.g.
+  // Nētradēvī's ring — can shrink the underlying dot for a cleaner gap
+  // between the two, without affecting every other view that uses this
+  // component. Defaults to the original size everywhere else.
+  binduR              = 1.4,
 }) {
   const gold             = accentColor || '#c9a84c'
   const bhupuraGold      = accentColor || '#b89840'   // slightly richer to match petal stroke appearance
@@ -754,7 +760,7 @@ export default function SriYantraSVG({
       {/* Region fills rendered before strokes so lines stay visible on top */}
       <RegionFills filledRegions={filledRegions} noStrokeRegions={noStrokeRegions}
         onRegionClick={onRegionClick} onRegionHover={onRegionHover}
-        onRegionLeave={onRegionLeave} onRegionDoubleClick={onRegionDoubleClick} />
+        onRegionLeave={onRegionLeave} onRegionDoubleClick={onRegionDoubleClick} binduR={binduR} />
 
       {/* Circuit 1: Bhupura — Korvin construction: outer square + 4 stepped T-gates */}
       {/* Three concentric stepped-cross polygons: outer border, main outline, inner border */}
@@ -849,7 +855,7 @@ export default function SriYantraSVG({
 
       {/* Circuit 9: Bindu */}
       {!filledRegions['c9'] && (
-        <circle cx={CX} cy={BINDU_CY} r={1.4} fill="rgba(255,230,50,0.92)" />
+        <circle cx={CX} cy={BINDU_CY} r={binduR} fill="rgba(255,230,50,0.92)" />
       )}
 
       {/* Seed of Life overlay */}

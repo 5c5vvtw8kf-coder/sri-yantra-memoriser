@@ -798,6 +798,7 @@ export default function LocateDrillView({
                   onRegionClick={handleRegionClick}
                   onRegionHover={reviewing ? setReviewHoverId : undefined}
                   onRegionLeave={reviewing ? () => setReviewHoverId(null) : undefined}
+                  binduR={0.8}
                 />
                 {/* pointerEvents: 'none' on the root is deliberate — this overlay only
                     ever paints a handful of small circles, and without this the
@@ -900,6 +901,7 @@ export default function LocateDrillView({
                 onRegionClick={handleRegionClick}
                 onRegionHover={reviewing ? setReviewHoverId : undefined}
                 onRegionLeave={reviewing ? () => setReviewHoverId(null) : undefined}
+                binduR={0.8}
               />
               <svg
                 viewBox="45 55 430 430"
