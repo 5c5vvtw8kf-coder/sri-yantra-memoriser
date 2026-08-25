@@ -494,6 +494,12 @@ const EXPLORE_NAV_TABS = NAVIGABLE_TABS.filter(t => EXPLORE_TAB_IDS.includes(t.i
 // iPad collapse hint as Spot Check and the Explore tabs (Chris, 2026-08-25).
 const DRILL_TAB_IDS = ['triangledrill', 'segmentdrill', 'linedrill']
 
+// The 5 precision-tapping drill modes — Chris, 2026-08-25: closely spaced
+// dots/triangles are hard to hit accurately on a phone touchscreen, so
+// mobile gets a dismissible hint nudging toward tablet/desktop + a stylus,
+// or pinch-zooming if staying on mobile. Scoped to just these 5 for now.
+const MOBILE_DRILL_HINT_TAB_IDS = ['spotcheck', 'locate', 'triangledrill', 'segmentdrill', 'linedrill']
+
 // data-tour IDs for the site tour (TourGuide.jsx)
 const TOUR_NAV_IDS = {
   yantra:    'nav-yantra',
@@ -2833,6 +2839,20 @@ export default function App() {
       window.removeEventListener('orientationchange', checkOrientation)
     }
   }, [])
+
+  // ── Mobile drill precision hint (2026-08-25) ────────────────────────────
+  // Dismiss-once-ever banner, saved to localStorage — not a hard block, just
+  // a nudge toward tablet/desktop (+ stylus) or pinch-zooming, since closely
+  // spaced dots/triangles in the drills are hard to hit accurately on a
+  // phone touchscreen. See MOBILE_DRILL_HINT_TAB_IDS above for scope.
+  const MOBILE_DRILL_HINT_KEY = 'sy-mobile-drill-hint-dismissed'
+  const [mobileDrillHintDismissed, setMobileDrillHintDismissed] = useState(() => {
+    try { return localStorage.getItem(MOBILE_DRILL_HINT_KEY) === 'true' } catch { return false }
+  })
+  const dismissMobileDrillHint = () => {
+    setMobileDrillHintDismissed(true)
+    try { localStorage.setItem(MOBILE_DRILL_HINT_KEY, 'true') } catch {}
+  }
 
   // ── Global deity selection ─────────────────────────────────────────────────
   const [selectedDeity, setSelectedDeity] = useState(null)
@@ -5581,6 +5601,27 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* ── Mobile drill precision hint (2026-08-25) ─────────────────────────
+          Dismiss-once-ever banner (see MOBILE_DRILL_HINT_KEY above) — nudges
+          toward tablet/desktop + stylus, or pinch-zooming, since closely
+          spaced dots/triangles are hard to tap accurately on a phone
+          touchscreen. Scoped to the 5 precision-tapping drill tabs only. */}
+      {!mobileDrillHintDismissed && MOBILE_DRILL_HINT_TAB_IDS.includes(activeTab) && (
+        <div className="md:hidden flex-shrink-0 flex items-start gap-2 px-3 py-2 bg-gold-900/20 border-b border-gold-700/30">
+          <span className="text-gold-400 text-sm leading-none mt-0.5">ℹ</span>
+          <p className="flex-1 text-[11px] text-muted leading-snug">
+            {tr('mobile.drill_hint')}
+          </p>
+          <button
+            onClick={dismissMobileDrillHint}
+            aria-label={tr('btn.dismiss')}
+            className="text-muted hover:text-cream text-sm leading-none px-1 flex-shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* ── 3-column content row ─────────────────────────────────────────── */}
       <div className="flex-1 flex min-h-0 overflow-hidden">
