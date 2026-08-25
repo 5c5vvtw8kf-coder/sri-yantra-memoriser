@@ -5403,7 +5403,7 @@ export default function App() {
           <rect x="8" y="16" width="48" height="32" rx="4" />
           <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
         </svg>
-        <p className="iast text-gold-400 text-lg font-medium">Please rotate your device</p>
+        <p className="iast text-lg font-medium px-4 py-1.5 rounded-lg bg-black/40" style={{ color: '#c0392b' }}>Please rotate your device</p>
         <p className="text-muted text-sm">{tr('device.landscape')}</p>
       </div>
 
@@ -5416,7 +5416,7 @@ export default function App() {
           <rect x="8" y="16" width="48" height="32" rx="4" />
           <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
         </svg>
-        <p className="iast text-gold-400 text-lg font-medium">Please rotate your device</p>
+        <p className="iast text-lg font-medium px-4 py-1.5 rounded-lg bg-black/40" style={{ color: '#c0392b' }}>Please rotate your device</p>
         <p className="text-muted text-sm">{tr('device.portrait')}</p>
       </div>
 

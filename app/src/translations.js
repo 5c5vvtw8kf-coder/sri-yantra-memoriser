@@ -600,7 +600,7 @@ const en = {
   'locate.inset_heading_nitya': 'Tithi Nitya',
   'locate.inset_heading_gurus': 'Gurus',
   'locate.scope_nyasa': 'Nyāsa',
-  'locate.undo_count':   'Undos used',
+  'locate.undo_count':   'undos used',
   'locate.reviewing_incorrect': 'Reviewing',
   'locate.review_hint':  'Hover a gold dot to see its name',
   'locate.scope_89': '8th/9th Avarana',
