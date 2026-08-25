@@ -2808,6 +2808,36 @@ export default function App() {
   const [rightPanelOpen, setRightPanelOpen] = useState(true)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
+  // ── Phone landscape-lock (2026-08-25) ───────────────────────────────────
+  // The CSS media-query version of this (orientation:landscape + max-height
+  // + pointer:coarse) never fired reliably on Chris's actual phone across
+  // two attempts — the tablet portrait-lock's near-identical CSS approach
+  // works fine on his iPad, but something about pointer/height detection on
+  // his phone specifically wasn't matching, and there was no way to debug it
+  // further without device access. Moved to JS, which is directly testable:
+  // navigator.maxTouchPoints for touch detection instead of the `pointer`
+  // media feature, and screen.width/height's SHORTER side (orientation-
+  // invariant, since min() doesn't care which is width vs height) instead of
+  // a fixed max-height threshold that assumed which dimension was "the
+  // short one." Re-evaluated on resize/orientationchange.
+  const [showLandscapeLock, setShowLandscapeLock] = useState(false)
+  useEffect(() => {
+    const checkOrientation = () => {
+      const isTouch = navigator.maxTouchPoints > 0 || 'ontouchstart' in window
+      const shortSide = Math.min(window.screen.width, window.screen.height)
+      const isPhoneSize = shortSide < 700   // phones' short side stays well under this; tablets don't
+      const isLandscape = window.innerWidth > window.innerHeight
+      setShowLandscapeLock(isTouch && isPhoneSize && isLandscape)
+    }
+    checkOrientation()
+    window.addEventListener('resize', checkOrientation)
+    window.addEventListener('orientationchange', checkOrientation)
+    return () => {
+      window.removeEventListener('resize', checkOrientation)
+      window.removeEventListener('orientationchange', checkOrientation)
+    }
+  }, [])
+
   // ── Global deity selection ─────────────────────────────────────────────────
   const [selectedDeity, setSelectedDeity] = useState(null)
 
@@ -5417,20 +5447,20 @@ export default function App() {
       {/* ── Site tour portal (renders to document.body via createPortal) ──── */}
       {tourElement}
 
-      {/* ── Landscape lock overlay — phone only, shown via #landscape-lock-overlay's
-          CSS rule in index.css (orientation:landscape + pointer:coarse), not
-          Tailwind's `md:!hidden` any more.
-          Bug fix (2026-08-25, Chris: message wasn't showing on his iPhone at
-          all): `md:!hidden` hides at 768px+ WIDTH, but a large phone's
-          LANDSCAPE width (e.g. ~932px on a Pro Max) crosses that threshold,
-          so it got misclassified as a tablet and suppressed. Switched to the
-          same id + inline-display-none + CSS !important pattern as the
-          tablet overlay above, with a height-based (not width-based) rule in
-          index.css — a phone's short dimension stays under ~430px in either
-          orientation, well clear of the smallest tablet's ~744px. */}
+      {/* ── Landscape lock overlay — phone only, driven by the showLandscapeLock
+          JS state above, not a CSS media query any more.
+          Bug history (2026-08-25): first version used Tailwind's `md:!hidden`
+          (768px width), which large phones can exceed in landscape — fixed
+          to a height-based CSS media query, but that STILL didn't fire on
+          Chris's actual phone (confirmed via screenshot: normal unlocked
+          layout showing in landscape) even though the near-identical CSS
+          approach works fine for the tablet overlay above. Rather than guess
+          at a third CSS threshold, moved the whole check to JS — directly
+          testable/debuggable, and not dependent on the `pointer` media
+          feature, which is the most likely culprit for the mismatch. */}
       <div id="landscape-lock-overlay"
            className="fixed inset-0 z-[9999] flex-col items-center justify-center gap-4 px-8 text-center"
-           style={{ display: 'none', backgroundColor: '#0f0a05' }}>
+           style={{ display: showLandscapeLock ? 'flex' : 'none', backgroundColor: '#0f0a05' }}>
         <svg viewBox="0 0 64 64" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="8" y="16" width="48" height="32" rx="4" />
           <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
