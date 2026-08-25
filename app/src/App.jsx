@@ -2809,24 +2809,14 @@ export default function App() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   // ── Phone landscape-lock (2026-08-25) ───────────────────────────────────
-  // The CSS media-query version of this (orientation:landscape + max-height
-  // + pointer:coarse) never fired reliably on Chris's actual phone across
-  // two attempts — the tablet portrait-lock's near-identical CSS approach
-  // works fine on his iPad, but something about pointer/height detection on
-  // his phone specifically wasn't matching, and there was no way to debug it
-  // further without device access. Moved to JS, which is directly testable:
-  // navigator.maxTouchPoints for touch detection instead of the `pointer`
-  // media feature, and screen.width/height's SHORTER side (orientation-
-  // invariant, since min() doesn't care which is width vs height) instead of
-  // a fixed max-height threshold that assumed which dimension was "the
-  // short one." Re-evaluated on resize/orientationchange.
+  // JS-based (not a CSS media query) — navigator.maxTouchPoints for touch
+  // detection instead of the `pointer` media feature, and screen.width/
+  // height's SHORTER side (orientation-invariant, since min() doesn't care
+  // which is width vs height) for phone-vs-tablet sizing. Confirmed working
+  // on Chris's phone, 2026-08-25 — the earlier reports of it not appearing
+  // turned out to be testing the production URL instead of a dev/preview
+  // deployment with these commits on it, not a code bug.
   const [showLandscapeLock, setShowLandscapeLock] = useState(false)
-  // TEMP DIAGNOSTIC (2026-08-25) — three attempts at this haven't fixed it on
-  // Chris's actual phone and I have no way to see what's actually happening
-  // on his device. Capturing the raw computed values so he can screenshot
-  // them instead of me guessing a fourth heuristic blind. Remove this state
-  // + the debug readout in the render below once the real cause is found.
-  const [landscapeLockDebug, setLandscapeLockDebug] = useState(null)
   useEffect(() => {
     const checkOrientation = () => {
       const isTouch = navigator.maxTouchPoints > 0 || 'ontouchstart' in window
@@ -2834,17 +2824,6 @@ export default function App() {
       const isPhoneSize = shortSide < 700   // phones' short side stays well under this; tablets don't
       const isLandscape = window.innerWidth > window.innerHeight
       setShowLandscapeLock(isTouch && isPhoneSize && isLandscape)
-      setLandscapeLockDebug({
-        maxTouchPoints: navigator.maxTouchPoints,
-        ontouchstart: 'ontouchstart' in window,
-        isTouch,
-        screenW: window.screen.width, screenH: window.screen.height,
-        innerW: window.innerWidth, innerH: window.innerHeight,
-        shortSide, isPhoneSize, isLandscape,
-        mqLandscape: window.matchMedia('(orientation: landscape)').matches,
-        mqCoarse: window.matchMedia('(pointer: coarse)').matches,
-        ua: navigator.userAgent,
-      })
     }
     checkOrientation()
     window.addEventListener('resize', checkOrientation)
@@ -5485,21 +5464,6 @@ export default function App() {
         <p className="iast text-lg font-medium px-4 py-1.5 rounded-lg bg-black/40" style={{ color: '#c0392b' }}>Please rotate your device</p>
         <p className="text-muted text-sm">{tr('device.portrait')}</p>
       </div>
-
-      {/* ── TEMP DIAGNOSTIC (2026-08-25) — remove once the landscape-lock bug
-          is found. Always visible, any orientation, so Chris can screenshot
-          the actual computed values from his phone in both portrait and
-          landscape. */}
-      {landscapeLockDebug && (
-        <div className="fixed top-1 left-1 z-[99999] bg-black/90 text-[9px] leading-tight font-mono text-lime-300 p-2 rounded max-w-[280px] break-words">
-          <div>touch: max={String(landscapeLockDebug.maxTouchPoints)} ontouch={String(landscapeLockDebug.ontouchstart)} → isTouch={String(landscapeLockDebug.isTouch)}</div>
-          <div>screen: {landscapeLockDebug.screenW}×{landscapeLockDebug.screenH} short={landscapeLockDebug.shortSide} → isPhoneSize={String(landscapeLockDebug.isPhoneSize)}</div>
-          <div>inner: {landscapeLockDebug.innerW}×{landscapeLockDebug.innerH} → isLandscape={String(landscapeLockDebug.isLandscape)}</div>
-          <div>mq landscape={String(landscapeLockDebug.mqLandscape)} mq coarse={String(landscapeLockDebug.mqCoarse)}</div>
-          <div className="text-gold-300">showLandscapeLock = {String(showLandscapeLock)}</div>
-          <div className="text-muted mt-1">{landscapeLockDebug.ua}</div>
-        </div>
-      )}
 
       {/* ── Mobile drawer backdrop ───────────────────────────────────────── */}
       {mobileNavOpen && (
