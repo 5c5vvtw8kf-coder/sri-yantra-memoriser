@@ -420,7 +420,8 @@ const en = {
   // ── Common ────────────────────────────────────────────────────────────────
   'device.portrait':    'This app is designed for portrait orientation on mobile phones',
   'device.landscape':   'This app is designed for landscape orientation on tablets',
-  'mobile.drill_hint':  "Drills work best on a tablet or desktop, ideally with a stylus — some dots and triangles sit close together. On mobile, try pinching to zoom in for more precise tapping.",
+  'mobile.drill_hint':  "Drills work best on a desktop or tablet, ideally with a stylus as some dots and triangles sit close together. On mobile, try pinching to zoom in for more precise tapping",
+  'mobile.drill_hint_dont_show_again': "Don't show this message again",
   'btn.dismiss':        'Dismiss',
   'btn.reset':          'Reset',
   'btn.reset_session':  'Reset session',

@@ -2841,17 +2841,23 @@ export default function App() {
   }, [])
 
   // ── Mobile drill precision hint (2026-08-25) ────────────────────────────
-  // Dismiss-once-ever banner, saved to localStorage — not a hard block, just
-  // a nudge toward tablet/desktop (+ stylus) or pinch-zooming, since closely
+  // Nudge toward tablet/desktop (+ stylus) or pinch-zooming, since closely
   // spaced dots/triangles in the drills are hard to hit accurately on a
   // phone touchscreen. See MOBILE_DRILL_HINT_TAB_IDS above for scope.
+  // Dismissal is session-only by default (closing with × just hides it for
+  // now — it'll be back next visit); checking "Don't show this message
+  // again" before dismissing is what persists to localStorage permanently
+  // (Chris, 2026-08-25).
   const MOBILE_DRILL_HINT_KEY = 'sy-mobile-drill-hint-dismissed'
   const [mobileDrillHintDismissed, setMobileDrillHintDismissed] = useState(() => {
     try { return localStorage.getItem(MOBILE_DRILL_HINT_KEY) === 'true' } catch { return false }
   })
+  const [mobileDrillHintDontShowAgain, setMobileDrillHintDontShowAgain] = useState(false)
   const dismissMobileDrillHint = () => {
     setMobileDrillHintDismissed(true)
-    try { localStorage.setItem(MOBILE_DRILL_HINT_KEY, 'true') } catch {}
+    if (mobileDrillHintDontShowAgain) {
+      try { localStorage.setItem(MOBILE_DRILL_HINT_KEY, 'true') } catch {}
+    }
   }
 
   // ── Global deity selection ─────────────────────────────────────────────────
@@ -5603,23 +5609,35 @@ export default function App() {
       </div>
 
       {/* ── Mobile drill precision hint (2026-08-25) ─────────────────────────
-          Dismiss-once-ever banner (see MOBILE_DRILL_HINT_KEY above) — nudges
-          toward tablet/desktop + stylus, or pinch-zooming, since closely
-          spaced dots/triangles are hard to tap accurately on a phone
-          touchscreen. Scoped to the 5 precision-tapping drill tabs only. */}
+          Banner (see MOBILE_DRILL_HINT_KEY above) — nudges toward tablet/
+          desktop + stylus, or pinch-zooming, since closely spaced dots/
+          triangles are hard to tap accurately on a phone touchscreen.
+          Scoped to the 5 precision-tapping drill tabs only. × closes it for
+          this visit only; the checkbox is what makes it permanent. */}
       {!mobileDrillHintDismissed && MOBILE_DRILL_HINT_TAB_IDS.includes(activeTab) && (
-        <div className="md:hidden flex-shrink-0 flex items-start gap-2 px-3 py-2 bg-gold-900/20 border-b border-gold-700/30">
-          <span className="text-gold-400 text-sm leading-none mt-0.5">ℹ</span>
-          <p className="flex-1 text-[11px] text-muted leading-snug">
-            {tr('mobile.drill_hint')}
-          </p>
-          <button
-            onClick={dismissMobileDrillHint}
-            aria-label={tr('btn.dismiss')}
-            className="text-muted hover:text-cream text-sm leading-none px-1 flex-shrink-0"
-          >
-            ✕
-          </button>
+        <div className="md:hidden flex-shrink-0 flex flex-col gap-1.5 px-3 py-2 bg-gold-900/20 border-b border-gold-700/30">
+          <div className="flex items-start gap-2">
+            <span className="text-sm leading-none mt-0.5" style={{ color: '#c0392b' }}>ℹ</span>
+            <p className="flex-1 text-[11px] text-muted leading-snug">
+              {tr('mobile.drill_hint')}
+            </p>
+            <button
+              onClick={dismissMobileDrillHint}
+              aria-label={tr('btn.dismiss')}
+              className="text-muted hover:text-cream text-sm leading-none px-1 flex-shrink-0"
+            >
+              ✕
+            </button>
+          </div>
+          <label className="flex items-center gap-1.5 pl-6 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={mobileDrillHintDontShowAgain}
+              onChange={e => setMobileDrillHintDontShowAgain(e.target.checked)}
+              className="w-3 h-3 accent-gold-500"
+            />
+            <span className="text-[10px] text-muted">{tr('mobile.drill_hint_dont_show_again')}</span>
+          </label>
         </div>
       )}
 
