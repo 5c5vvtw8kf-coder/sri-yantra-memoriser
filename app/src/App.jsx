@@ -5617,7 +5617,11 @@ export default function App() {
       {!mobileDrillHintDismissed && MOBILE_DRILL_HINT_TAB_IDS.includes(activeTab) && (
         <div className="md:hidden flex-shrink-0 flex flex-col gap-1.5 px-3 py-2 bg-gold-900/20 border-b border-gold-700/30">
           <div className="flex items-start gap-2">
-            <span className="text-sm leading-none mt-0.5" style={{ color: '#c0392b' }}>ℹ</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" className="flex-shrink-0 mt-0.5" fill="none" stroke="#c0392b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
             <p className="flex-1 text-[11px] text-muted leading-snug">
               {tr('mobile.drill_hint')}
             </p>
