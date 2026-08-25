@@ -5390,15 +5390,22 @@ export default function App() {
   return (
     <div className={`h-[100dvh] flex flex-col bg-surface-950 text-cream overflow-hidden${uiLang === 'ja' ? ' lang-ja' : ''}`}>
 
-      {/* ── Portrait lock overlay — tablet only (md+ in portrait) ──────────
-          Same message/treatment as the mobile landscape-lock overlay below
-          (Chris, 2026-08-25: "add the 'Please rotate your device' message
-          from mobile view to iPad view") — same SVG icon, same heading
-          styling, and the landscape-mode counterpart of device.portrait for
-          the subtitle, instead of the old plain ↺ glyph + hardcoded text. */}
+      {/* ── Portrait lock overlay — tablet only, shown via #portrait-lock-overlay's
+          CSS rule in index.css (orientation:portrait + pointer:coarse), not
+          Tailwind classes — inline display:none by default, overridden with
+          !important there. Same message/treatment as the mobile landscape-lock
+          overlay below (Chris, 2026-08-25: "add the 'Please rotate your device'
+          message from mobile view to iPad view").
+          Bug fix (2026-08-25, from Chris's iPad screenshot): background was
+          `bg-surface-950`, a shade that was never defined in tailwind.config.js
+          (surface only goes up to 900) — Tailwind silently drops unknown
+          classes, so the overlay had NO background at all, letting the page
+          underneath show through and burying the gold icon in the page's own
+          gold text. Now set as an inline style so it can't silently vanish
+          again if the Tailwind scale ever changes. */}
       <div id="portrait-lock-overlay"
-           className="fixed inset-0 z-[9999] bg-surface-950 flex-col items-center justify-center gap-4 text-center px-8"
-           style={{ display: 'none' }}>
+           className="fixed inset-0 z-[9999] flex-col items-center justify-center gap-4 text-center px-8"
+           style={{ display: 'none', backgroundColor: '#0f0a05' }}>
         <svg viewBox="0 0 64 64" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="8" y="16" width="48" height="32" rx="4" />
           <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
@@ -5410,8 +5417,20 @@ export default function App() {
       {/* ── Site tour portal (renders to document.body via createPortal) ──── */}
       {tourElement}
 
-      {/* ── Landscape lock overlay (mobile only) ────────────────────────── */}
-      <div className="hidden landscape:flex md:!hidden fixed inset-0 z-[9999] bg-surface-900 flex-col items-center justify-center gap-4 px-8 text-center">
+      {/* ── Landscape lock overlay — phone only, shown via #landscape-lock-overlay's
+          CSS rule in index.css (orientation:landscape + pointer:coarse), not
+          Tailwind's `md:!hidden` any more.
+          Bug fix (2026-08-25, Chris: message wasn't showing on his iPhone at
+          all): `md:!hidden` hides at 768px+ WIDTH, but a large phone's
+          LANDSCAPE width (e.g. ~932px on a Pro Max) crosses that threshold,
+          so it got misclassified as a tablet and suppressed. Switched to the
+          same id + inline-display-none + CSS !important pattern as the
+          tablet overlay above, with a height-based (not width-based) rule in
+          index.css — a phone's short dimension stays under ~430px in either
+          orientation, well clear of the smallest tablet's ~744px. */}
+      <div id="landscape-lock-overlay"
+           className="fixed inset-0 z-[9999] flex-col items-center justify-center gap-4 px-8 text-center"
+           style={{ display: 'none', backgroundColor: '#0f0a05' }}>
         <svg viewBox="0 0 64 64" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="8" y="16" width="48" height="32" rx="4" />
           <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />

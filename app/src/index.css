@@ -116,7 +116,24 @@
   .ipad-collapse-tooltip { display: none !important; }
 }
 
-/* Portrait lock — touch tablet in portrait */
-@media (orientation: portrait) and (min-width: 768px) and (pointer: coarse) {
+/* Portrait lock — touch tablet in portrait. min-width lowered from 768 to
+   600 (2026-08-25, from Chris's iPad screenshot testing): iPad mini's
+   portrait width is 744px, under the old 768 threshold, so the smallest
+   iPad never triggered this lock at all. 600px sits comfortably between the
+   widest real phone's portrait width (~430px) and the narrowest tablet's
+   (744px), so it can't misclassify either direction. */
+@media (orientation: portrait) and (min-width: 600px) and (pointer: coarse) {
   #portrait-lock-overlay { display: flex !important; }
+}
+
+/* Landscape lock — phone only. Height-based, not width-based (2026-08-25,
+   Chris: the rotate message wasn't showing on his iPhone at all) — the
+   previous Tailwind `md:!hidden` (768px width) incorrectly suppressed this
+   on large phones, since a big iPhone's LANDSCAPE WIDTH (e.g. ~932px on a
+   Pro Max) exceeds 768 and gets misclassified as a tablet. In landscape,
+   HEIGHT is a phone's short dimension and stays under ~430px even on the
+   largest phones, while the smallest tablet's landscape height (iPad mini,
+   744px) stays well clear — max-height:600 sits safely between the two. */
+@media (orientation: landscape) and (max-height: 600px) and (pointer: coarse) {
+  #landscape-lock-overlay { display: flex !important; }
 }
