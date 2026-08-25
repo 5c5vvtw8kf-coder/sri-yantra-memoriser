@@ -490,6 +490,10 @@ const NAVIGABLE_TABS = TABS.filter(t => !t.heading)
 const EXPLORE_TAB_IDS  = ['nyasa','inner','gurava','bhupura','c2','c3','c4','c5','c6','c7','c8','c9','chakreshvari','closing']
 const EXPLORE_NAV_TABS = NAVIGABLE_TABS.filter(t => EXPLORE_TAB_IDS.includes(t.id))
 
+// Triangle/Segment/Line Drill — get the same single-panel (left nav only)
+// iPad collapse hint as Spot Check and the Explore tabs (Chris, 2026-08-25).
+const DRILL_TAB_IDS = ['triangledrill', 'segmentdrill', 'linedrill']
+
 // data-tour IDs for the site tour (TourGuide.jsx)
 const TOUR_NAV_IDS = {
   yantra:    'nav-yantra',
@@ -6192,6 +6196,23 @@ export default function App() {
               </div>
             )}
 
+            {/* iPad-only: collapse hint for Location Match — collapses BOTH the left
+                nav and the right controls panel (Chris, 2026-08-25), unlike the
+                single-panel hint everywhere else. Location Match's yantra has the
+                Nitya/Guru insets flanking it on desktop, so it needs more reclaimed
+                width than a single panel gives. Hidden once both are already
+                collapsed — nothing left to do. */}
+            {activeTab === 'locate' && (!navCollapsed || rightPanelOpen) && (
+              <div className="ipad-collapse-hint hidden md:hidden flex-shrink-0 px-4 pb-2 pt-1">
+                <button
+                  onClick={() => { setNavCollapsed(true); setRightPanelOpen(false) }}
+                  className="w-full py-1.5 rounded border border-surface-700 text-muted hover:text-cream hover:border-gold-600 transition-colors text-xs text-center font-mono"
+                >
+                  {tr('nav.collapse_enlarge_both')}
+                </button>
+              </div>
+            )}
+
             {/* ── Mobile Spot Check controls — mirrors right panel, hidden on desktop ── */}
             {activeTab === 'spotcheck' && (() => {
               const activeFilt = SC_FILTERS.find(f => f.id === scFilter)
@@ -6381,8 +6402,12 @@ export default function App() {
               </div>
             )}
 
-            {/* iPad-only: collapse hint shown below diagram when sidebar is open on explore tabs */}
-            {!navCollapsed && EXPLORE_TAB_IDS.includes(activeTab) && (
+            {/* iPad-only: collapse hint shown below diagram when sidebar is open on
+                explore tabs — also covers Triangle/Segment/Line Drill (Chris,
+                2026-08-25: "replicate the iPad view Spot Check button and
+                function" for these three), which get the same single-panel
+                (left nav only) collapse as Spot Check and the circuit views. */}
+            {!navCollapsed && (EXPLORE_TAB_IDS.includes(activeTab) || DRILL_TAB_IDS.includes(activeTab)) && (
               <div className="ipad-collapse-hint hidden md:hidden px-4 pb-3 pt-1">
                 <button
                   onClick={() => setNavCollapsed(true)}

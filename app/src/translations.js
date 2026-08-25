@@ -401,6 +401,7 @@ const en = {
   'nav.expand':         'Expand navigation',
   'nav.collapse':       'Collapse navigation',
   'nav.collapse_enlarge': '← Collapse left panel to enlarge image',
+  'nav.collapse_enlarge_both': '← Collapse left and right panels to enlarge image →',
   'nav.take_tour': 'Take the tour',
 
   // ── Tab labels (non-Sanskrit only) ────────────────────────────────────────
