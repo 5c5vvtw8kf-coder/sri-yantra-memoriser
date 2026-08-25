@@ -419,6 +419,7 @@ const en = {
 
   // ── Common ────────────────────────────────────────────────────────────────
   'device.portrait':    'This app is designed for portrait mode',
+  'device.landscape':   'This app is designed for landscape mode',
   'btn.reset':          'Reset',
   'btn.reset_session':  'Reset session',
   'btn.reset_level':    'Reset whole level',

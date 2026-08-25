@@ -5390,13 +5390,21 @@ export default function App() {
   return (
     <div className={`h-[100dvh] flex flex-col bg-surface-950 text-cream overflow-hidden${uiLang === 'ja' ? ' lang-ja' : ''}`}>
 
-      {/* ── Portrait lock overlay — tablet only (md+ in portrait) ────────── */}
+      {/* ── Portrait lock overlay — tablet only (md+ in portrait) ──────────
+          Same message/treatment as the mobile landscape-lock overlay below
+          (Chris, 2026-08-25: "add the 'Please rotate your device' message
+          from mobile view to iPad view") — same SVG icon, same heading
+          styling, and the landscape-mode counterpart of device.portrait for
+          the subtitle, instead of the old plain ↺ glyph + hardcoded text. */}
       <div id="portrait-lock-overlay"
-           className="fixed inset-0 z-[999] bg-surface-950 flex-col items-center justify-center gap-6 text-center px-8"
+           className="fixed inset-0 z-[9999] bg-surface-950 flex-col items-center justify-center gap-4 text-center px-8"
            style={{ display: 'none' }}>
-        <div style={{ fontSize: '3rem', lineHeight: 1 }}>↺</div>
-        <p className="text-cream text-lg font-light">Please rotate your device</p>
-        <p className="text-muted text-sm">This app works in landscape</p>
+        <svg viewBox="0 0 64 64" className="w-16 h-16 text-gold-500" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="8" y="16" width="48" height="32" rx="4" />
+          <path d="M38 8 L56 26 L38 44" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+        </svg>
+        <p className="iast text-gold-400 text-lg font-medium">Please rotate your device</p>
+        <p className="text-muted text-sm">{tr('device.landscape')}</p>
       </div>
 
       {/* ── Site tour portal (renders to document.body via createPortal) ──── */}
