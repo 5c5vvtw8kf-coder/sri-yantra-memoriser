@@ -927,7 +927,8 @@ const gu = {
   'yantra.hex_label': 'હેક્સ',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'લોકેશન મેચ',
+  'locate.title':        'લોકેશન મેચ',
   'locate.instr':        'એક દેવીનું નામ બતાવવામાં આવે છે. યન્ત્ર પર તેનું સ્થાન ટેપ કરો. જો તમે આત્મવિશ્વાસ અનુભવો, તો દરેક દેવીના નામ માટે સમય મર્યાદા ઉમેરી શકો છો.',
   'locate.find_this':    'આ દેવીને શોધો',
   'locate.tap_hint':     'આ દેવી જ્યાં છે ત્યાં યન્ત્ર પર ટેપ કરો',
@@ -1272,7 +1273,8 @@ const hi = {
   'yantra.hex_label': 'हेक्स',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'लोकेशन मैच',
+  'locate.title':        'लोकेशन मैच',
   'locate.instr':        'एक देवता का नाम दिखाया जाता है। यन्त्र पर उसका स्थान टैप करें। यदि आप आत्मविश्वासी महसूस करें, तो प्रत्येक देवता नाम के लिए समय सीमा जोड़ सकते हैं।',
   'locate.find_this':    'इस देवता को खोजें',
   'locate.tap_hint':     'यह देवता जहाँ है वहाँ यन्त्र पर टैप करें',
@@ -1617,7 +1619,8 @@ const te = {
   'yantra.hex_label': 'హెక్స్',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'లొకేషన్ మ్యాచ్',
+  'locate.title':        'లొకేషన్ మ్యాచ్',
   'locate.instr':        'ఒక దేవత పేరు చూపబడుతుంది. యన్త్రంలో ఆమె ఉన్న స్థానాన్ని నొక్కండి. మీకు నమ్మకంగా అనిపిస్తే, ప్రతి దేవత పేరుకు సమయ పరిమితిని జోడించవచ్చు.',
   'locate.find_this':    'ఈ దేవతను కనుగొనండి',
   'locate.tap_hint':     'ఈ దేవత ఉన్న చోట యన్త్రంపై నొక్కండి',
@@ -1962,7 +1965,8 @@ const ta = {
   'yantra.hex_label': 'ஹெக்ஸ்',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'லொகேஷன் மேட்ச்',
+  'locate.title':        'லொகேஷன் மேட்ச்',
   'locate.instr':        'ஒரு தேவதையின் பெயர் காட்டப்படும். யந்த்ரத்தில் அவள் இருக்கும் இடத்தை தட்டவும். நீங்கள் நம்பிக்கையாக உணர்ந்தால், ஒவ்வொரு தேவதை பெயருக்கும் நேர வரம்பை சேர்க்கலாம்.',
   'locate.find_this':    'இந்த தேவதையை கண்டறியவும்',
   'locate.tap_hint':     'இந்த தேவதை உள்ள இடத்தில் யந்த்ரத்தை தட்டவும்',
@@ -2307,7 +2311,8 @@ const kn = {
   'yantra.hex_label': 'ಹೆಕ್ಸ್',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'ಲೊಕೇಶನ್ ಮ್ಯಾಚ್',
+  'locate.title':        'ಲೊಕೇಶನ್ ಮ್ಯಾಚ್',
   'locate.instr':        'ಒಂದು ದೇವತೆಯ ಹೆಸರು ತೋರಿಸಲಾಗುತ್ತದೆ. ಯಂತ್ರದಲ್ಲಿ ಆಕೆ ಇರುವ ಸ್ಥಳವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ನಿಮಗೆ ಆತ್ಮವಿಶ್ವಾಸವಿದ್ದರೆ, ಪ್ರತಿ ದೇವತೆಯ ಹೆಸರಿಗೆ ಸಮಯ ಮಿತಿಯನ್ನು ಸೇರಿಸಬಹುದು.',
   'locate.find_this':    'ಈ ದೇವತೆಯನ್ನು ಹುಡುಕಿ',
   'locate.tap_hint':     'ಈ ದೇವತೆ ಇರುವ ಸ್ಥಳದಲ್ಲಿ ಯಂತ್ರವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ',
@@ -2652,7 +2657,8 @@ const ml = {
   'yantra.hex_label': 'ഹെക്സ്',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'ലൊക്കേഷൻ മാച്ച്',
+  'locate.title':        'ലൊക്കേഷൻ മാച്ച്',
   'locate.instr':        'ഒരു ദേവതയുടെ പേര് കാണിക്കും. യന്ത്രത്തിൽ അവൾ ഉള്ള സ്ഥാനം ടാപ്പ് ചെയ്യുക. നിങ്ങൾക്ക് ആത്മവിശ്വാസം തോന്നിയാൽ, ഓരോ ദേവതയുടെ പേരിനും സമയപരിധി ചേർക്കാം.',
   'locate.find_this':    'ഈ ദേവതയെ കണ്ടെത്തുക',
   'locate.tap_hint':     'ഈ ദേവത ഉള്ള സ്ഥലത്ത് യന്ത്രത്തിൽ ടാപ്പ് ചെയ്യുക',
@@ -2998,7 +3004,8 @@ const mr = {
   'yantra.hex_label': 'हेक्स',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'लोकेशन मॅच',
+  'locate.title':        'लोकेशन मॅच',
   'locate.instr':        'एक देवतेचे नाव दाखवले जाते. यन्त्रावर ती जिथे आहे ते स्थान टॅप करा. तुम्हाला आत्मविश्वास वाटत असेल, तर प्रत्येक देवतेच्या नावासाठी वेळ मर्यादा जोडू शकता.',
   'locate.find_this':    'ही देवता शोधा',
   'locate.tap_hint':     'ही देवता जिथे आहे तिथे यन्त्रावर टॅप करा',
@@ -3343,7 +3350,8 @@ const fr = {
   'yantra.hex_label': 'Hex',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'Localisation',
+  'locate.title':        'Localisation',
   'locate.instr':        "Le nom d'une divinité est affiché. Touchez l'endroit où elle vit sur le yantra. Si vous vous sentez confiant, vous pouvez ajouter une limite de temps à chaque nom.",
   'locate.find_this':    'Trouvez cette divinité',
   'locate.tap_hint':     "Touchez le yantra à l'endroit où réside cette divinité",
@@ -3688,7 +3696,8 @@ const es = {
   'yantra.hex_label': 'Hex',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'Localización',
+  'locate.title':        'Localización',
   'locate.instr':        'Se muestra el nombre de una deidad. Toca dónde vive ella en el yantra. Si te sientes seguro, puedes añadir un límite de tiempo a cada nombre.',
   'locate.find_this':    'Encuentra esta deidad',
   'locate.tap_hint':     'Toca el yantra donde pertenece esta deidad',
@@ -4033,7 +4042,8 @@ const it = {
   'yantra.hex_label': 'Hex',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'Localizzazione',
+  'locate.title':        'Localizzazione',
   'locate.instr':        'Viene mostrato il nome di una divinità. Tocca dove vive lei nel yantra. Se ti senti sicuro, puoi aggiungere un limite di tempo a ogni nome.',
   'locate.find_this':    'Trova questa divinità',
   'locate.tap_hint':     'Tocca il yantra dove appartiene questa divinità',
@@ -4379,7 +4389,8 @@ const pt = {
   'yantra.hex_label': 'Hex',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'Localização',
+  'locate.title':        'Localização',
   'locate.instr':        'É mostrado o nome de uma divindade. Toque onde ela vive no yantra. Se se sentir confiante, pode adicionar um limite de tempo a cada nome.',
   'locate.find_this':    'Encontre esta divindade',
   'locate.tap_hint':     'Toque no yantra onde esta divindade pertence',
@@ -4724,7 +4735,8 @@ const de = {
   'yantra.hex_label': 'Hex',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'Standortsuche',
+  'locate.title':        'Standortsuche',
   'locate.instr':        'Der Name einer Gottheit wird angezeigt. Tippe darauf, wo sie im Yantra wohnt. Wenn du dich sicher fühlst, kannst du für jeden Namen ein Zeitlimit hinzufügen.',
   'locate.find_this':    'Finde diese Gottheit',
   'locate.tap_hint':     'Tippe im Yantra auf die Stelle, wo diese Gottheit wohnt',
@@ -5072,7 +5084,8 @@ const ja = {
   'yantra.hex_label': '16進',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'ロケーションマッチ',
+  'locate.title':        'ロケーションマッチ',
   'locate.instr':        '神格の名前が表示されます。彼女がヤントラのどこに宿るかをタップしてください。自信があれば、各名前に制限時間を追加できます。',
   'locate.find_this':    'この神格を見つける',
   'locate.tap_hint':     'この神格がいる場所でヤントラをタップ',
@@ -5416,7 +5429,8 @@ const ru = {
   'yantra.hex_label': 'Hex',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'Поиск места',
+  'locate.title':        'Поиск места',
   'locate.instr':        'Показывается имя божества. Нажмите на её место на янтре. Если вы уверены в себе, можно добавить ограничение по времени для каждого имени.',
   'locate.find_this':    'Найдите это божество',
   'locate.tap_hint':     'Нажмите на янтре там, где находится это божество',
@@ -5761,7 +5775,8 @@ const ne = {
   'yantra.hex_label': 'हेक्स',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'लोकेसन म्याच',
+  'locate.title':        'लोकेसन म्याच',
   'locate.instr':        'एउटा देवताको नाम देखाइन्छ। यन्त्रमा उहाँ रहेको स्थान ट्याप गर्नुहोस्। तपाईं आत्मविश्वासी महसुस गर्नुभयो भने, प्रत्येक देवताको नामको लागि समय सीमा थप्न सक्नुहुन्छ।',
   'locate.find_this':    'यो देवता खोज्नुहोस्',
   'locate.tap_hint':     'यो देवता रहेको ठाउँमा यन्त्र ट्याप गर्नुहोस्',
@@ -6106,7 +6121,8 @@ const bn = {
   'yantra.hex_label': 'হেক্স',
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
-  'locate.title':        'Location Match',
+  'tab.locate':          'লোকেশন ম্যাচ',
+  'locate.title':        'লোকেশন ম্যাচ',
   'locate.instr':        'একজন দেবতার নাম দেখানো হয়। যন্ত্রে তিনি যেখানে থাকেন সেখানে ট্যাপ করুন। আপনি আত্মবিশ্বাসী বোধ করলে, প্রতিটি দেবতার নামের জন্য একটি সময়সীমা যোগ করতে পারেন।',
   'locate.find_this':    'এই দেবতাকে খুঁজুন',
   'locate.tap_hint':     'এই দেবতা যেখানে আছেন সেখানে যন্ত্রে ট্যাপ করুন',
