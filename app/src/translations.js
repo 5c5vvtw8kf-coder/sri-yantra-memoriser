@@ -584,7 +584,7 @@ const en = {
   // ── Locate Drill (added 2026-08-23 — English only so far, see roadmap memory) ──
   'tab.locate':          'Location Match',
   'locate.title':        'Location Match',
-  'locate.instr':        "A deity name is shown. Tap where it lives on the yantra. If you're feeling confident you can add a time limit to each deity name.",
+  'locate.instr':        "A deity name is shown. Tap where she lives on the yantra. If you're feeling confident you can add a time limit to each deity name.",
   'locate.find_this':    'Find this deity',
   'locate.tap_hint':     'Tap the yantra where this deity belongs',
   'locate.round_complete': 'Round complete',
@@ -3689,7 +3689,7 @@ const es = {
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
   'locate.title':        'Location Match',
-  'locate.instr':        'Se muestra el nombre de una deidad. Toca dónde vive en el yantra. Si te sientes seguro, puedes añadir un límite de tiempo a cada nombre.',
+  'locate.instr':        'Se muestra el nombre de una deidad. Toca dónde vive ella en el yantra. Si te sientes seguro, puedes añadir un límite de tiempo a cada nombre.',
   'locate.find_this':    'Encuentra esta deidad',
   'locate.tap_hint':     'Toca el yantra donde pertenece esta deidad',
   'locate.round_complete': 'Ronda completada',
@@ -4034,7 +4034,7 @@ const it = {
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
   'locate.title':        'Location Match',
-  'locate.instr':        'Viene mostrato il nome di una divinità. Tocca dove vive nel yantra. Se ti senti sicuro, puoi aggiungere un limite di tempo a ogni nome.',
+  'locate.instr':        'Viene mostrato il nome di una divinità. Tocca dove vive lei nel yantra. Se ti senti sicuro, puoi aggiungere un limite di tempo a ogni nome.',
   'locate.find_this':    'Trova questa divinità',
   'locate.tap_hint':     'Tocca il yantra dove appartiene questa divinità',
   'locate.round_complete': 'Turno completato',
@@ -5073,7 +5073,7 @@ const ja = {
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
   'locate.title':        'Location Match',
-  'locate.instr':        '神格の名前が表示されます。それがヤントラのどこに宿るかをタップしてください。自信があれば、各名前に制限時間を追加できます。',
+  'locate.instr':        '神格の名前が表示されます。彼女がヤントラのどこに宿るかをタップしてください。自信があれば、各名前に制限時間を追加できます。',
   'locate.find_this':    'この神格を見つける',
   'locate.tap_hint':     'この神格がいる場所でヤントラをタップ',
   'locate.round_complete': 'ラウンド完了',
@@ -5417,7 +5417,7 @@ const ru = {
 
   // ── Location Match (AI-generated — needs native speaker review) ────────────
   'locate.title':        'Location Match',
-  'locate.instr':        'Показывается имя божества. Нажмите на его место на янтре. Если вы уверены в себе, можно добавить ограничение по времени для каждого имени.',
+  'locate.instr':        'Показывается имя божества. Нажмите на её место на янтре. Если вы уверены в себе, можно добавить ограничение по времени для каждого имени.',
   'locate.find_this':    'Найдите это божество',
   'locate.tap_hint':     'Нажмите на янтре там, где находится это божество',
   'locate.round_complete': 'Раунд завершён',
