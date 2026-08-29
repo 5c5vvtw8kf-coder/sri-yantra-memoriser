@@ -277,7 +277,7 @@ function fmtTime(ms) {
 
 function CompletionOverlay({
   correct, total, timeouts, streak, best, elapsedMs, isNewStreak, isNewTime,
-  undoCount, canReview, onReview, onRestart, tr,
+  undoCount, pauseCount, canReview, onReview, onRestart, tr,
 }) {
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0
   return (
@@ -296,6 +296,9 @@ function CompletionOverlay({
             purely informational, doesn't affect the score above. */}
         {undoCount > 0 && (
           <p className="text-xs mt-0.5 text-muted">{undoCount} {tr('locate.undo_count')}</p>
+        )}
+        {pauseCount > 0 && (
+          <p className="text-xs mt-0.5 text-muted">{pauseCount} {tr('locate.pause_count')}</p>
         )}
       </div>
       <div className="flex gap-6 text-xs">
@@ -412,6 +415,18 @@ export default function LocateDrillView({
   // remaining-uses counter — undo is uncapped for the whole round).
   const [history,     setHistory]     = useState([])   // [{id, result, prevStreak, prevBestStreakThisRound}]
   const [undoCount,   setUndoCount]   = useState(0)
+  // Pause (Chris, 2026-08-25): freezes the per-deity countdown so stepping
+  // away mid-round doesn't cost an unfair timeout. Toggles to Resume; a ref
+  // mirrors `paused` so the countdown interval (created once per idx change,
+  // not re-created on pause/resume) can read live pause state without being
+  // in its own effect's dependency array — depending on it there would reset
+  // timeLeft back to full on resume instead of freezing in place. Counted
+  // once per pause (not resume), same "how many times did you need this"
+  // stat pattern as undoCount.
+  const [paused,      setPaused]      = useState(false)
+  const [pauseCount,  setPauseCount]  = useState(0)
+  const pausedRef = useRef(false)
+  useEffect(() => { pausedRef.current = paused }, [paused])
   // Review incorrect (Chris, 2026-08-25): shows the finished yantra with
   // hover tooltips on the gold (wrong) regions. reviewHoverId tracks
   // whichever region/dot the pointer is currently over.
@@ -445,6 +460,8 @@ export default function LocateDrillView({
     setNewTime(false)
     setHistory([])
     setUndoCount(0)
+    setPaused(false)
+    setPauseCount(0)
     setReviewing(false)
     setReviewHoverId(null)
     roundLoggedRef.current = false
@@ -459,7 +476,7 @@ export default function LocateDrillView({
   // two ordinary items placed back to back by buildQueue() — nothing here
   // needs to know pairing exists.
   const advance = useCallback((result) => {
-    if (!current || done || flash) return
+    if (!current || done || flash || paused) return
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
     const itemId = current.id
     setResults(prev => ({ ...prev, [itemId]: result }))
@@ -485,12 +502,20 @@ export default function LocateDrillView({
       })
       return next
     })
+    // Wrong answers get a longer flash (2s, TERRACOTTA) instead of the usual
+    // quick 380ms outcome flash — Chris, 2026-08-25: on mobile when zoomed in,
+    // a tap can register without the visible change being obvious (deity name
+    // text is off-screen, the correct dot is elsewhere on the diagram). The
+    // longer brown fill on the exact spot tapped confirms the tap registered
+    // before the player zooms out to see the actual gold "not memorised" dot.
+    // Correct/timeout keep the original quick flash — this problem is specific
+    // to "I tapped and nothing seemed to happen".
     setTimeout(() => {
       setFlash(null)
       setIdx(i => i + 1)
       setTimeLeft(timerSeconds)
-    }, 380)
-  }, [current, done, flash, timerSeconds])
+    }, result === 'wrong' ? 2000 : 380)
+  }, [current, done, flash, paused, timerSeconds])
 
   // Undo the most recent answer — rewinds idx, drops its result, restores
   // streak/bestStreakThisRound to what they were before that answer, and
@@ -498,7 +523,7 @@ export default function LocateDrillView({
   // countdown effect above, which reruns whenever idx changes). Uncapped for
   // the round; blocked mid-flash so it can't race the 380ms auto-advance.
   const undoLast = useCallback(() => {
-    if (history.length === 0 || flash) return
+    if (history.length === 0 || flash || paused) return
     const last = history[history.length - 1]
     setHistory(h => h.slice(0, -1))
     setResults(prev => {
@@ -510,13 +535,32 @@ export default function LocateDrillView({
     setBestStreakThisRound(last.prevBestStreakThisRound)
     setUndoCount(c => c + 1)
     setIdx(i => Math.max(0, i - 1))
-  }, [history, flash])
+  }, [history, flash, paused])
 
-  // Per-deity countdown.
+  // Pause/resume the per-deity countdown. Toggling on increments pauseCount;
+  // toggling back off (resume) does not. Blocked mid-flash so it can't race
+  // the auto-advance, same guard pattern as undo.
+  const togglePause = useCallback(() => {
+    if (!current || done || flash) return
+    setPaused(p => {
+      const next = !p
+      if (next) setPauseCount(c => c + 1)
+      return next
+    })
+  }, [current, done, flash])
+
+  // Per-deity countdown. Deliberately does NOT depend on `paused` — the
+  // interval is created once per idx change (new question) and keeps running
+  // every 1s regardless; each tick is a no-op while pausedRef.current is true.
+  // If this effect depended on `paused` instead, resuming would re-run it and
+  // hit `setTimeLeft(timerSeconds)` again — resetting the clock to full time
+  // instead of freezing it in place, which isn't what "pause" is supposed to
+  // mean (Chris, 2026-08-25: pause should genuinely freeze, not reset).
   useEffect(() => {
     if (done || flash || timerSeconds == null || current == null) return
     setTimeLeft(timerSeconds)
     timerRef.current = setInterval(() => {
+      if (pausedRef.current) return
       setTimeLeft(t => {
         if (t <= 1) {
           clearInterval(timerRef.current)
@@ -567,6 +611,8 @@ export default function LocateDrillView({
     setNewTime(false)
     setHistory([])
     setUndoCount(0)
+    setPaused(false)
+    setPauseCount(0)
     setReviewing(false)
     setReviewHoverId(null)
     roundLoggedRef.current = false
@@ -575,7 +621,7 @@ export default function LocateDrillView({
   // ── Click handling ────────────────────────────────────────────────────
   // All circuits (1–9) go through the same region-id space.
   const handleAnswer = useCallback((clickedId) => {
-    if (!current || done || flash) return
+    if (!current || done || flash || paused) return
     // Astradēvī has 4 valid click targets, not one — any of the 4 gate tips
     // counts as correct (Chris, 2026-08-23: "the 4 astradevi dots need to be
     // treated as one deity").
@@ -583,7 +629,7 @@ export default function LocateDrillView({
       ? ASTRA_REGION_IDS.includes(clickedId)
       : clickedId === getRegionId(deityById[current.id])
     advance(isCorrect ? 'correct' : 'wrong')
-  }, [current, done, flash, advance])
+  }, [current, done, flash, paused, advance])
 
   // In-scope region ids get a baseline fill + click handler; out-of-scope
   // regions stay untouched (no fill; clicks on them are no-ops below).
@@ -592,8 +638,15 @@ export default function LocateDrillView({
   const scopeRegionIds = new Set(scopeDeities.map(getRegionId).filter(Boolean))
   if (hasAstra) ASTRA_REGION_IDS.forEach(id => scopeRegionIds.add(id))
 
-  // Colour for an answered region's outcome
+  // Colour for an answered region's outcome (permanent, once results-recorded)
   const outcomeColour = v => v === 'correct' ? RED : v === 'wrong' ? GOLD : v === 'timeout' ? TERRACOTTA : CREAM
+  // Colour during the brief post-tap flash specifically. Wrong taps flash
+  // TERRACOTTA (not their eventual permanent GOLD) — Chris, 2026-08-25: a
+  // distinct "your tap registered" confirmation, using the same brown already
+  // established elsewhere for timeout rather than introducing a new colour.
+  // Once the flash ends and results[] takes over via outcomeColour() above,
+  // a wrong answer settles into its normal permanent GOLD.
+  const flashColour = v => v === 'wrong' ? TERRACOTTA : outcomeColour(v)
 
   // Point-section region ids (Circuit 1/8/9) never get a colour fed to
   // SriYantraSVG — if they did, its own native markers (r=8) would paint a
@@ -631,11 +684,11 @@ export default function LocateDrillView({
   if (!done && current) {
     if (current.id === 'nyasa-006') {
       activeAstraIds = ASTRA_REGION_IDS
-      const colour = flash ? outcomeColour(flash) : CREAM
+      const colour = flash ? flashColour(flash) : CREAM
       ASTRA_REGION_IDS.forEach(rid => setFill(rid, colour))
     } else {
       activeRegionId = getRegionId(deityById[current.id])
-      setFill(activeRegionId, flash ? outcomeColour(flash) : CREAM)
+      setFill(activeRegionId, flash ? flashColour(flash) : CREAM)
     }
   }
 
@@ -731,17 +784,35 @@ export default function LocateDrillView({
                   {timeLeft}s
                 </p>
               )}
-              {/* Undo (Chris, 2026-08-25): only meaningful mid-round, only once
+              {/* Pause (Chris, 2026-08-25): sits left of Undo, only shown when
+                  a timer is actually running — pausing has nothing to freeze
+                  otherwise. Toggles label to Resume; disabled during the brief
+                  outcome flash, same guard as Undo.
+                  Undo (Chris, 2026-08-25): only meaningful mid-round, only once
                   at least one answer has been given, disabled during the brief
-                  outcome flash so it can't race the auto-advance. */}
-              {history.length > 0 && (
-                <button
-                  onClick={undoLast}
-                  disabled={!!flash}
-                  className="mt-2 px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
-                >
-                  ↺ {tr('btn.undo')}
-                </button>
+                  outcome flash so it can't race the auto-advance, and while
+                  paused (nothing should be actionable except Resume). */}
+              {(timerSeconds != null || history.length > 0) && (
+                <div className="mt-2 flex gap-2 justify-center">
+                  {timerSeconds != null && (
+                    <button
+                      onClick={togglePause}
+                      disabled={!!flash}
+                      className="px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
+                    >
+                      {tr(paused ? 'btn.resume' : 'btn.pause')}
+                    </button>
+                  )}
+                  {history.length > 0 && (
+                    <button
+                      onClick={undoLast}
+                      disabled={!!flash || paused}
+                      className="px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
+                    >
+                      ↺ {tr('btn.undo')}
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           )}
@@ -989,7 +1060,7 @@ export default function LocateDrillView({
           correct={correct} total={total} timeouts={timeouts}
           streak={bestStreakThisRound} best={best} elapsedMs={elapsedMs}
           isNewStreak={newStreak} isNewTime={newTime}
-          undoCount={undoCount} canReview={canReview} onReview={() => setReviewing(true)}
+          undoCount={undoCount} pauseCount={pauseCount} canReview={canReview} onReview={() => setReviewing(true)}
           onRestart={startNewRound} tr={tr}
         />
       )}
