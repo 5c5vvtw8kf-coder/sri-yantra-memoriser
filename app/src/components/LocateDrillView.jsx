@@ -830,7 +830,16 @@ export default function LocateDrillView({
   const reviewHoverName = reviewHoverDeity ? locateLabel(reviewHoverDeity, script) : null
 
   return (
-    <div className="w-full p-4 flex flex-col gap-3">
+    // md:py-2/md:gap-2 (Chris, 2026-08-29): desktop-only tightening — the
+    // prompt block grew taller over several rounds of Location Match
+    // changes (Selection Time Limit line, session timer/Start/Pause/Undo
+    // row) without the surrounding vertical padding ever shrinking to
+    // compensate, so on shorter desktop viewports the Tithi Nitya/Gurus
+    // insets were being pushed below the fold, forcing a scrollbar. Mobile
+    // padding (p-4/gap-3) is untouched — this was a desktop-only report and
+    // mobile spacing here was already deliberately tuned. See the yantra
+    // square's own width calc below for the matching change.
+    <div className="w-full p-4 md:py-2 flex flex-col gap-3 md:gap-2">
       {(!done || reviewing) && (
         <>
           {done && reviewing ? (
@@ -838,7 +847,7 @@ export default function LocateDrillView({
                reviewing header + hover readout, since there's no "current"
                question any more — the round is over, this is just a look back
                at the finished yantra. */
-            <div className="text-center py-2">
+            <div className="text-center py-2 md:py-1">
               <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.reviewing_incorrect')}</p>
               <p className="text-cream text-xl leading-snug min-h-[1.75rem]">
                 {reviewHoverName
@@ -863,7 +872,7 @@ export default function LocateDrillView({
             </div>
           ) : (
             /* Prompt — the deity name to find. Never shown on the diagram itself. */
-            <div className="text-center py-2">
+            <div className="text-center py-2 md:py-1">
               {!started ? (
                 /* Gated start (Chris, 2026-08-29): nothing about the round
                    — name, pairing hints, Selection Time Limit countdown —
@@ -929,7 +938,7 @@ export default function LocateDrillView({
                   necessarily still empty), disabled during the brief outcome
                   flash so it can't race the auto-advance, and while paused
                   (nothing should be actionable except Resume). */}
-              <div className="mt-2 flex gap-2 justify-center items-center">
+              <div className="mt-2 md:mt-1 flex gap-2 justify-center items-center">
                 <span className="px-2 text-xs font-mono tabular-nums" style={{ color: 'rgba(201,168,76,0.7)' }}>
                   {fmtTime(sessionElapsed * 1000)}
                 </span>
@@ -989,7 +998,19 @@ export default function LocateDrillView({
 
             <div
               className="relative rounded-xl overflow-hidden shadow-2xl shadow-black/60"
-              style={{ width: 'min(100%, calc(100dvh - 120px))', aspectRatio: '1 / 1', WebkitTouchCallout: 'none', userSelect: 'none' }}
+              // 120px → 165px (Chris, 2026-08-29): this budget is meant to
+              // leave room for everything above/below the square within
+              // this scroll pane, but 100dvh is the *whole browser
+              // viewport*, not this pane's own available height — it
+              // doesn't know about the app's outer chrome, so on shorter
+              // desktop screens the square rendered too tall and pushed the
+              // Nitya/Gurus insets (same row, same height) below the fold,
+              // forcing a scrollbar. Measured live on the stable dev URL at
+              // 1440×820: ~57px of overflow. Combined with the md:py-1/
+              // md:py-2/md:gap-2/md:mt-1 trims above/below this square
+              // (≈32px), the extra 45px here comfortably covers that with
+              // margin for real screens shorter than the 820px tested.
+              style={{ width: 'min(100%, calc(100dvh - 165px))', aspectRatio: '1 / 1', WebkitTouchCallout: 'none', userSelect: 'none' }}
             >
               {/* Reverted to an uncropped square, 2026-08-23 — two crop attempts
                   (20%, then 15%) both cut into the actual north-gate artwork
