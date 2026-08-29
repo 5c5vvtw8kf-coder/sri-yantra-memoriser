@@ -805,26 +805,37 @@ export default function LocateDrillView({
                   {tr('locate.tap_inner')}
                 </p>
               )}
-              {timerSeconds != null && (
-                <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
-                  {timeLeft}s
-                </p>
-              )}
-              {/* Pause (Chris, 2026-08-25): sits left of Undo, only shown when
-                  a timer is actually running — pausing has nothing to freeze
-                  otherwise. Toggles label to Resume; disabled during the brief
-                  outcome flash, same guard as Undo.
-                  Undo (Chris, 2026-08-25): only meaningful mid-round, only once
-                  at least one answer has been given, disabled during the brief
-                  outcome flash so it can't race the auto-advance, and while
-                  paused (nothing should be actionable except Resume). */}
-              {/* Pause shows unconditionally (Chris, 2026-08-25, corrected same
-                  day: gating it on timerSeconds != null meant it was invisible
-                  with Timer off, which is the default — Chris couldn't find it
-                  at all). Still freezes the countdown when a timer is running;
-                  with Timer off it just blocks further taps while paused, a
-                  smaller but still real "step away safely" use. */}
-              <div className="mt-2 flex gap-2 justify-center">
+              {/* Timer / Pause / Undo — one row, in that order (Chris,
+                  2026-08-25: "add a Timer and Pause button to the left of
+                  the Undo button" — originally misread as two separate
+                  elements, corrected 2026-08-29: the countdown itself needs
+                  to sit in this row too, immediately left of Pause, not as
+                  its own paragraph above. Only the countdown digits are
+                  conditional on timerSeconds != null (nothing to show with
+                  Timer off) — Pause and, once history exists, Undo are
+                  unconditional. items-center so the font-mono digits align
+                  with the button baselines rather than the row's top edge. */}
+              {/* Pause (Chris, 2026-08-25, corrected 2026-08-25: shows
+                  unconditionally — gating it on timerSeconds != null meant it
+                  was invisible with Timer off, which is the default, and
+                  Chris couldn't find it at all). Still freezes the countdown
+                  when a timer is running; with Timer off it just blocks
+                  further taps while paused, a smaller but still real "step
+                  away safely" use.
+                  Undo (Chris, 2026-08-25): only meaningful mid-round, only
+                  once at least one answer has been given, disabled during
+                  the brief outcome flash so it can't race the auto-advance,
+                  and while paused (nothing should be actionable except
+                  Resume). */}
+              <div className="mt-2 flex gap-2 justify-center items-center">
+                {timerSeconds != null && (
+                  <span
+                    className="px-2 text-xs font-mono tabular-nums"
+                    style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}
+                  >
+                    {timeLeft}s
+                  </span>
+                )}
                 <button
                   onClick={togglePause}
                   disabled={!!flash}
