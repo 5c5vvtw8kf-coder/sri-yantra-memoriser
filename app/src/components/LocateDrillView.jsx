@@ -23,6 +23,13 @@
  *   unanswered / not-yet-reached → CREAM (Chris's call, 2026-08-23, revising
  *                            the initial DIM_GOLD choice — better dot visibility)
  *
+ * A fifth colour, BLACK, is not an outcome — it's a 2-second "your tap
+ * registered" confirmation painted on wrongClickId, the region the player
+ * actually tapped on a wrong answer (added 2026-08-25, corrected same day
+ * after an initial version mistakenly flashed the *target's* dot instead —
+ * see wrongClickId's own comment near its useState). The target's own dot
+ * still settles into GOLD immediately, no delay.
+ *
  * High score (best streak) and best time are tracked per scope+round-size
  * combination in localStorage (`sy-locate-stats`) — a 10-deity Circuit 4
  * round and a 70-deity "All" round aren't comparable, so they don't share a
@@ -47,6 +54,10 @@ const RED        = '#c0392b'
 const GOLD       = '#c9a84c'
 const TERRACOTTA = '#8b4513'
 const CREAM      = '#fff8c8'
+// "Your tap registered" confirmation colour — see wrongClickId below. Plain
+// black, not part of the outcome palette above, so it reads unambiguously as
+// "something happened here" and can't be confused with any real outcome.
+const BLACK      = '#000000'
 
 export const LOCATE_TIMER_OPTIONS = [3, 5, 8, 13, null]   // Fibonacci seconds; null = off (default)
 
@@ -427,6 +438,12 @@ export default function LocateDrillView({
   const [pauseCount,  setPauseCount]  = useState(0)
   const pausedRef = useRef(false)
   useEffect(() => { pausedRef.current = paused }, [paused])
+  // Wrong-tap confirmation (Chris, 2026-08-25, corrected same day): the black
+  // flash belongs on the region the player actually tapped — not on the
+  // target/correct deity's own dot, which is a different location entirely
+  // whenever the tap is wrong. Set by handleAnswer on a wrong tap, cleared by
+  // advance()'s existing flash-duration timeout alongside `flash` itself.
+  const [wrongClickId, setWrongClickId] = useState(null)
   // Review incorrect (Chris, 2026-08-25): shows the finished yantra with
   // hover tooltips on the gold (wrong) regions. reviewHoverId tracks
   // whichever region/dot the pointer is currently over.
@@ -462,6 +479,7 @@ export default function LocateDrillView({
     setUndoCount(0)
     setPaused(false)
     setPauseCount(0)
+    setWrongClickId(null)
     setReviewing(false)
     setReviewHoverId(null)
     roundLoggedRef.current = false
@@ -502,16 +520,20 @@ export default function LocateDrillView({
       })
       return next
     })
-    // Wrong answers get a longer flash (2s, TERRACOTTA) instead of the usual
-    // quick 380ms outcome flash — Chris, 2026-08-25: on mobile when zoomed in,
-    // a tap can register without the visible change being obvious (deity name
-    // text is off-screen, the correct dot is elsewhere on the diagram). The
-    // longer brown fill on the exact spot tapped confirms the tap registered
-    // before the player zooms out to see the actual gold "not memorised" dot.
-    // Correct/timeout keep the original quick flash — this problem is specific
-    // to "I tapped and nothing seemed to happen".
+    // Wrong answers get a longer flash (2s) instead of the usual quick 380ms
+    // outcome flash — Chris, 2026-08-25: on mobile when zoomed in, a tap can
+    // register without the visible change being obvious (deity name text is
+    // off-screen, the correct dot is elsewhere on the diagram entirely). The
+    // black fill on wrongClickId (the exact spot actually tapped — see state
+    // above and the render-time override below) confirms the tap registered,
+    // while activeRegionId/activeAstraIds settle into gold immediately at the
+    // real answer's location — no delay there, since Chris's ask was tap
+    // confirmation at the point of contact, not a delayed reveal of the
+    // answer. Correct/timeout keep the original quick flash — this problem is
+    // specific to "I tapped and nothing seemed to happen".
     setTimeout(() => {
       setFlash(null)
+      setWrongClickId(null)
       setIdx(i => i + 1)
       setTimeLeft(timerSeconds)
     }, result === 'wrong' ? 2000 : 380)
@@ -613,6 +635,7 @@ export default function LocateDrillView({
     setUndoCount(0)
     setPaused(false)
     setPauseCount(0)
+    setWrongClickId(null)
     setReviewing(false)
     setReviewHoverId(null)
     roundLoggedRef.current = false
@@ -628,6 +651,7 @@ export default function LocateDrillView({
     const isCorrect = current.id === 'nyasa-006'
       ? ASTRA_REGION_IDS.includes(clickedId)
       : clickedId === getRegionId(deityById[current.id])
+    if (!isCorrect) setWrongClickId(clickedId)
     advance(isCorrect ? 'correct' : 'wrong')
   }, [current, done, flash, paused, advance])
 
@@ -640,13 +664,6 @@ export default function LocateDrillView({
 
   // Colour for an answered region's outcome (permanent, once results-recorded)
   const outcomeColour = v => v === 'correct' ? RED : v === 'wrong' ? GOLD : v === 'timeout' ? TERRACOTTA : CREAM
-  // Colour during the brief post-tap flash specifically. Wrong taps flash
-  // TERRACOTTA (not their eventual permanent GOLD) — Chris, 2026-08-25: a
-  // distinct "your tap registered" confirmation, using the same brown already
-  // established elsewhere for timeout rather than introducing a new colour.
-  // Once the flash ends and results[] takes over via outcomeColour() above,
-  // a wrong answer settles into its normal permanent GOLD.
-  const flashColour = v => v === 'wrong' ? TERRACOTTA : outcomeColour(v)
 
   // Point-section region ids (Circuit 1/8/9) never get a colour fed to
   // SriYantraSVG — if they did, its own native markers (r=8) would paint a
@@ -684,13 +701,22 @@ export default function LocateDrillView({
   if (!done && current) {
     if (current.id === 'nyasa-006') {
       activeAstraIds = ASTRA_REGION_IDS
-      const colour = flash ? flashColour(flash) : CREAM
+      const colour = flash ? outcomeColour(flash) : CREAM
       ASTRA_REGION_IDS.forEach(rid => setFill(rid, colour))
     } else {
       activeRegionId = getRegionId(deityById[current.id])
-      setFill(activeRegionId, flash ? flashColour(flash) : CREAM)
+      setFill(activeRegionId, flash ? outcomeColour(flash) : CREAM)
     }
   }
+
+  // Wrong-tap confirmation — painted last so it wins over whatever the tapped
+  // region's own natural fill would otherwise be (CREAM if unreached, or its
+  // own outcome colour if it's a different, already-answered item). This is
+  // deliberately a different region than activeRegionId/activeAstraIds above:
+  // those mark where the answer actually lives (now gold, immediately, no
+  // delay); this marks where the player's finger actually landed, which is
+  // never the same place on a wrong tap by definition.
+  if (wrongClickId) setFill(wrongClickId, BLACK)
 
   const handleRegionClick = useCallback((id) => {
     if (!scopeRegionIds.has(id)) return
@@ -792,28 +818,30 @@ export default function LocateDrillView({
                   at least one answer has been given, disabled during the brief
                   outcome flash so it can't race the auto-advance, and while
                   paused (nothing should be actionable except Resume). */}
-              {(timerSeconds != null || history.length > 0) && (
-                <div className="mt-2 flex gap-2 justify-center">
-                  {timerSeconds != null && (
-                    <button
-                      onClick={togglePause}
-                      disabled={!!flash}
-                      className="px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
-                    >
-                      {tr(paused ? 'btn.resume' : 'btn.pause')}
-                    </button>
-                  )}
-                  {history.length > 0 && (
-                    <button
-                      onClick={undoLast}
-                      disabled={!!flash || paused}
-                      className="px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
-                    >
-                      ↺ {tr('btn.undo')}
-                    </button>
-                  )}
-                </div>
-              )}
+              {/* Pause shows unconditionally (Chris, 2026-08-25, corrected same
+                  day: gating it on timerSeconds != null meant it was invisible
+                  with Timer off, which is the default — Chris couldn't find it
+                  at all). Still freezes the countdown when a timer is running;
+                  with Timer off it just blocks further taps while paused, a
+                  smaller but still real "step away safely" use. */}
+              <div className="mt-2 flex gap-2 justify-center">
+                <button
+                  onClick={togglePause}
+                  disabled={!!flash}
+                  className="px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
+                >
+                  {tr(paused ? 'btn.resume' : 'btn.pause')}
+                </button>
+                {history.length > 0 && (
+                  <button
+                    onClick={undoLast}
+                    disabled={!!flash || paused}
+                    className="px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
+                  >
+                    ↺ {tr('btn.undo')}
+                  </button>
+                )}
+              </div>
             </div>
           )}
 
