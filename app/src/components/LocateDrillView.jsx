@@ -414,6 +414,15 @@ export default function LocateDrillView({
   const [streak,      setStreak]      = useState(0)
   const [bestStreakThisRound, setBestStreakThisRound] = useState(0)
   const [timeLeft,    setTimeLeft]    = useState(timerSeconds)
+  // Session timer (Chris, 2026-08-29): a continuous elapsed-time clock for
+  // the whole round, distinct from timeLeft/timerSeconds above (renamed in
+  // the UI to "Selection Time Limit" — the per-deity countdown). This one
+  // counts up in whole seconds from 0, runs for the entire round regardless
+  // of whether a Selection Time Limit is even set, and freezes during pause
+  // via the same pausedRef both timers share. Not reset on idx change —
+  // only on a fresh round (see the two full-reset points below) — that's
+  // what makes it "session" rather than "per-question".
+  const [sessionElapsed, setSessionElapsed] = useState(0)
   const [roundStart,  setRoundStart]  = useState(() => Date.now())
   const [elapsedMs,   setElapsedMs]   = useState(null)
   const [newStreak,   setNewStreak]   = useState(false)
@@ -471,6 +480,7 @@ export default function LocateDrillView({
     setStreak(0)
     setBestStreakThisRound(0)
     setTimeLeft(timerSeconds)
+    setSessionElapsed(0)
     setRoundStart(Date.now())
     setElapsedMs(null)
     setNewStreak(false)
@@ -488,6 +498,21 @@ export default function LocateDrillView({
   // Timer default changing mid-round only affects the *next* deity, not silently
   // truncating whatever's already counting down.
   useEffect(() => { if (idx === 0 && !done) setTimeLeft(timerSeconds) }, [timerSeconds]) // eslint-disable-line
+
+  // Session timer tick — see sessionElapsed's own comment near its useState
+  // for why this is a separate mechanism from the per-deity countdown below.
+  // Keyed on roundStart (not idx) so it survives every question in the round
+  // and only restarts when a genuinely new round begins; keyed on done too
+  // so it stops ticking (and stops re-creating its interval) once the round
+  // is over rather than continuing to tick behind the completion overlay.
+  useEffect(() => {
+    if (done) return
+    const iv = setInterval(() => {
+      if (pausedRef.current) return
+      setSessionElapsed(s => s + 1)
+    }, 1000)
+    return () => clearInterval(iv)
+  }, [roundStart, done]) // eslint-disable-line
 
   // Completes the current queue item with a final verdict, logs history,
   // advances to the next item. Paired deities (see PAIR_LOCATIONS) are just
@@ -627,6 +652,7 @@ export default function LocateDrillView({
     setStreak(0)
     setBestStreakThisRound(0)
     setTimeLeft(timerSeconds)
+    setSessionElapsed(0)
     setRoundStart(Date.now())
     setElapsedMs(null)
     setNewStreak(false)
@@ -814,22 +840,35 @@ export default function LocateDrillView({
                   {tr('locate.tap_inner')}
                 </p>
               )}
-              {/* Timer / Pause / Undo — one row, in that order (Chris,
-                  2026-08-25: "add a Timer and Pause button to the left of
-                  the Undo button" — originally misread as two separate
-                  elements, corrected 2026-08-29: the countdown itself needs
-                  to sit in this row too, immediately left of Pause, not as
-                  its own paragraph above. Only the countdown digits are
-                  conditional on timerSeconds != null (nothing to show with
-                  Timer off) — Pause and, once history exists, Undo are
-                  unconditional. items-center so the font-mono digits align
-                  with the button baselines rather than the row's top edge. */}
+              {/* Selection Time Limit countdown (Chris, 2026-08-25; renamed
+                  from plain "Timer" 2026-08-29 once the session timer below
+                  made the old name ambiguous between two different clocks).
+                  Per-deity — resets every question, only shown when a limit
+                  is actually selected in settings (nothing to count down
+                  with it Off). Restored to its own line above the button row
+                  2026-08-29: briefly lived inside that row, but Chris's
+                  actual ask was the *session* timer there, not this one. */}
+              {timerSeconds != null && (
+                <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
+                  {timeLeft}s
+                </p>
+              )}
+              {/* Session timer / Pause / Undo — one row, in that order
+                  (Chris, 2026-08-29, the final clarification of the original
+                  2026-08-25 request: the thing that belongs left of Pause is
+                  a continuously-running whole-round clock, not the per-deity
+                  Selection Time Limit countdown above — those are two
+                  independent timers). Unconditional — runs whether or not a
+                  Selection Time Limit is set. items-center so the font-mono
+                  digits align with the button baselines rather than the
+                  row's top edge. */}
               {/* Pause (Chris, 2026-08-25, corrected 2026-08-25: shows
                   unconditionally — gating it on timerSeconds != null meant it
                   was invisible with Timer off, which is the default, and
-                  Chris couldn't find it at all). Still freezes the countdown
-                  when a timer is running; with Timer off it just blocks
-                  further taps while paused, a smaller but still real "step
+                  Chris couldn't find it at all). Freezes both timers —
+                  session and, if running, the per-deity countdown — via the
+                  shared pausedRef; with no Selection Time Limit set it still
+                  blocks further taps while paused, a smaller but real "step
                   away safely" use.
                   Undo (Chris, 2026-08-25): only meaningful mid-round, only
                   once at least one answer has been given, disabled during
@@ -837,14 +876,9 @@ export default function LocateDrillView({
                   and while paused (nothing should be actionable except
                   Resume). */}
               <div className="mt-2 flex gap-2 justify-center items-center">
-                {timerSeconds != null && (
-                  <span
-                    className="px-2 text-xs font-mono tabular-nums"
-                    style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}
-                  >
-                    {timeLeft}s
-                  </span>
-                )}
+                <span className="px-2 text-xs font-mono tabular-nums" style={{ color: 'rgba(201,168,76,0.7)' }}>
+                  {fmtTime(sessionElapsed * 1000)}
+                </span>
                 <button
                   onClick={togglePause}
                   disabled={!!flash}
