@@ -123,6 +123,17 @@
   .review-hint-tap    { display: inline; }
 }
 
+/* Location Match "Tap/Click Start to begin" hint (Chris, 2026-08-29) — same
+   hover-capability split as review-hint-hover/-tap just above, reused here
+   rather than generalised into shared classes to avoid touching the
+   already-working review-hint pair. */
+.start-hint-hover { display: inline; }
+.start-hint-tap    { display: none; }
+@media (hover: none) {
+  .start-hint-hover { display: none; }
+  .start-hint-tap    { display: inline; }
+}
+
 /* iPad landscape — touch tablet in landscape (covers mini through Pro 11") */
 @media (min-width: 768px) and (max-height: 900px) and (pointer: coarse) {
   .ipad-segment-bar      { display: flex !important; }

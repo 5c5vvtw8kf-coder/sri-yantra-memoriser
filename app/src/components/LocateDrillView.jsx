@@ -423,6 +423,18 @@ export default function LocateDrillView({
   // only on a fresh round (see the two full-reset points below) — that's
   // what makes it "session" rather than "per-question".
   const [sessionElapsed, setSessionElapsed] = useState(0)
+  // Gated start (Chris, 2026-08-29): a round is built silently the moment
+  // scope/limit/queue are ready, but nothing is revealed or answerable
+  // until the player taps Start — no deity name, no live countdown, no
+  // scoreable taps on the yantra. Tapping Start does three things at once:
+  // flips this to true, resets roundStart to *now* (so elapsedMs/the
+  // session timer measure only the active portion of the round, not time
+  // spent looking at the "tap start" screen), and — because the countdown
+  // effect and session-timer effect below both gate on `started` — lets
+  // both timers begin from a clean baseline. Reset to false at both
+  // full-round-reset points alongside the rest of this state, so every new
+  // round (not just the very first) requires pressing Start again.
+  const [started,     setStarted]     = useState(false)
   const [roundStart,  setRoundStart]  = useState(() => Date.now())
   const [elapsedMs,   setElapsedMs]   = useState(null)
   const [newStreak,   setNewStreak]   = useState(false)
@@ -481,6 +493,7 @@ export default function LocateDrillView({
     setBestStreakThisRound(0)
     setTimeLeft(timerSeconds)
     setSessionElapsed(0)
+    setStarted(false)
     setRoundStart(Date.now())
     setElapsedMs(null)
     setNewStreak(false)
@@ -501,25 +514,30 @@ export default function LocateDrillView({
 
   // Session timer tick — see sessionElapsed's own comment near its useState
   // for why this is a separate mechanism from the per-deity countdown below.
-  // Keyed on roundStart (not idx) so it survives every question in the round
-  // and only restarts when a genuinely new round begins; keyed on done too
-  // so it stops ticking (and stops re-creating its interval) once the round
-  // is over rather than continuing to tick behind the completion overlay.
+  // Gated on `started` (2026-08-29) so it stays frozen at 00:00 on the "Tap
+  // Start to begin" screen — Start itself resets roundStart to the moment
+  // it's pressed, which is what actually kicks this effect into gear (it's
+  // in the dependency array), `started` here just also blocks it outright
+  // before that first press. Keyed on roundStart (not idx) so it survives
+  // every question in the round and only restarts when a genuinely new
+  // round begins; keyed on done too so it stops ticking (and stops
+  // re-creating its interval) once the round is over rather than
+  // continuing to tick behind the completion overlay.
   useEffect(() => {
-    if (done) return
+    if (done || !started) return
     const iv = setInterval(() => {
       if (pausedRef.current) return
       setSessionElapsed(s => s + 1)
     }, 1000)
     return () => clearInterval(iv)
-  }, [roundStart, done]) // eslint-disable-line
+  }, [roundStart, done, started]) // eslint-disable-line
 
   // Completes the current queue item with a final verdict, logs history,
   // advances to the next item. Paired deities (see PAIR_LOCATIONS) are just
   // two ordinary items placed back to back by buildQueue() — nothing here
   // needs to know pairing exists.
   const advance = useCallback((result) => {
-    if (!current || done || flash || paused) return
+    if (!started || !current || done || flash || paused) return
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
     const itemId = current.id
     setResults(prev => ({ ...prev, [itemId]: result }))
@@ -562,7 +580,7 @@ export default function LocateDrillView({
       setIdx(i => i + 1)
       setTimeLeft(timerSeconds)
     }, result === 'wrong' ? 2000 : 380)
-  }, [current, done, flash, paused, timerSeconds])
+  }, [started, current, done, flash, paused, timerSeconds])
 
   // Undo the most recent answer — rewinds idx, drops its result, restores
   // streak/bestStreakThisRound to what they were before that answer, and
@@ -586,7 +604,10 @@ export default function LocateDrillView({
 
   // Pause/resume the per-deity countdown. Toggling on increments pauseCount;
   // toggling back off (resume) does not. Blocked mid-flash so it can't race
-  // the auto-advance, same guard pattern as undo.
+  // the auto-advance, same guard pattern as undo. Only ever called once
+  // `started` is already true — see the button's onClick below, which
+  // routes to handleStart instead while waiting to begin — so no `started`
+  // guard needed here.
   const togglePause = useCallback(() => {
     if (!current || done || flash) return
     setPaused(p => {
@@ -596,6 +617,18 @@ export default function LocateDrillView({
     })
   }, [current, done, flash])
 
+  // Start the round (Chris, 2026-08-29): the button's first press. Resets
+  // roundStart to *now* — both the session timer effect above and the
+  // elapsed-time-on-completion calculation key off roundStart, so this is
+  // what makes "how long did the round take" measure only the active
+  // portion, not time spent sitting on the "Tap Start to begin" screen.
+  // sessionElapsed/timeLeft are already at their reset values (0 /
+  // timerSeconds) from the last full round-reset, so nothing else to touch.
+  const handleStart = useCallback(() => {
+    setStarted(true)
+    setRoundStart(Date.now())
+  }, [])
+
   // Per-deity countdown. Deliberately does NOT depend on `paused` — the
   // interval is created once per idx change (new question) and keeps running
   // every 1s regardless; each tick is a no-op while pausedRef.current is true.
@@ -603,8 +636,10 @@ export default function LocateDrillView({
   // hit `setTimeLeft(timerSeconds)` again — resetting the clock to full time
   // instead of freezing it in place, which isn't what "pause" is supposed to
   // mean (Chris, 2026-08-25: pause should genuinely freeze, not reset).
+  // Gated on `started` (2026-08-29) — see handleStart above; before Start is
+  // pressed there's no current question on display yet to be counting down.
   useEffect(() => {
-    if (done || flash || timerSeconds == null || current == null) return
+    if (!started || done || flash || timerSeconds == null || current == null) return
     setTimeLeft(timerSeconds)
     timerRef.current = setInterval(() => {
       if (pausedRef.current) return
@@ -619,7 +654,7 @@ export default function LocateDrillView({
       })
     }, 1000)
     return () => { if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null } }
-  }, [idx, done, timerSeconds]) // eslint-disable-line
+  }, [idx, done, timerSeconds, started]) // eslint-disable-line
 
   // Sync progress to right panel
   useEffect(() => {
@@ -653,6 +688,7 @@ export default function LocateDrillView({
     setBestStreakThisRound(0)
     setTimeLeft(timerSeconds)
     setSessionElapsed(0)
+    setStarted(false)
     setRoundStart(Date.now())
     setElapsedMs(null)
     setNewStreak(false)
@@ -670,7 +706,7 @@ export default function LocateDrillView({
   // ── Click handling ────────────────────────────────────────────────────
   // All circuits (1–9) go through the same region-id space.
   const handleAnswer = useCallback((clickedId) => {
-    if (!current || done || flash || paused) return
+    if (!started || !current || done || flash || paused) return
     // Astradēvī has 4 valid click targets, not one — any of the 4 gate tips
     // counts as correct (Chris, 2026-08-23: "the 4 astradevi dots need to be
     // treated as one deity").
@@ -679,7 +715,7 @@ export default function LocateDrillView({
       : clickedId === getRegionId(deityById[current.id])
     if (!isCorrect) setWrongClickId(clickedId)
     advance(isCorrect ? 'correct' : 'wrong')
-  }, [current, done, flash, paused, advance])
+  }, [started, current, done, flash, paused, advance])
 
   // In-scope region ids get a baseline fill + click handler; out-of-scope
   // regions stay untouched (no fill; clicks on them are no-ops below).
@@ -828,63 +864,81 @@ export default function LocateDrillView({
           ) : (
             /* Prompt — the deity name to find. Never shown on the diagram itself. */
             <div className="text-center py-2">
-              <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.find_this')}</p>
-              <p className="iast text-cream text-xl leading-snug">{name}</p>
-              {current && showPairUi && PAIR_BY_OUTER.has(current.id) && (
-                <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
-                  {tr('locate.tap_outer')}
+              {!started ? (
+                /* Gated start (Chris, 2026-08-29): nothing about the round
+                   — name, pairing hints, Selection Time Limit countdown —
+                   is revealed until Start is pressed. "Click" on desktop,
+                   "Tap" on iPad/mobile, split the same way review-hint-hover/
+                   -tap is (hover: none), not viewport width. */
+                <p className="text-muted text-sm py-1">
+                  <span className="start-hint-hover">{tr('locate.start_hint_hover')}</span>
+                  <span className="start-hint-tap">{tr('locate.start_hint_tap')}</span>
                 </p>
+              ) : (
+                <>
+                  <p className="text-muted text-[10px] uppercase tracking-widest mb-1">{tr('locate.find_this')}</p>
+                  <p className="iast text-cream text-xl leading-snug">{name}</p>
+                  {current && showPairUi && PAIR_BY_OUTER.has(current.id) && (
+                    <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
+                      {tr('locate.tap_outer')}
+                    </p>
+                  )}
+                  {current && showPairUi && INNER_IDS.has(current.id) && (
+                    <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
+                      {tr('locate.tap_inner')}
+                    </p>
+                  )}
+                  {/* Selection Time Limit countdown (Chris, 2026-08-25;
+                      renamed from plain "Timer" 2026-08-29 once the session
+                      timer below made the old name ambiguous between two
+                      different clocks). Per-deity — resets every question,
+                      only shown when a limit is actually selected in
+                      settings (nothing to count down with it Off). */}
+                  {timerSeconds != null && (
+                    <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
+                      {timeLeft}s
+                    </p>
+                  )}
+                </>
               )}
-              {current && showPairUi && INNER_IDS.has(current.id) && (
-                <p className="mt-1 text-[11px]" style={{ color: 'rgba(201,168,76,0.75)' }}>
-                  {tr('locate.tap_inner')}
-                </p>
-              )}
-              {/* Selection Time Limit countdown (Chris, 2026-08-25; renamed
-                  from plain "Timer" 2026-08-29 once the session timer below
-                  made the old name ambiguous between two different clocks).
-                  Per-deity — resets every question, only shown when a limit
-                  is actually selected in settings (nothing to count down
-                  with it Off). Restored to its own line above the button row
-                  2026-08-29: briefly lived inside that row, but Chris's
-                  actual ask was the *session* timer there, not this one. */}
-              {timerSeconds != null && (
-                <p className="mt-1 text-sm font-mono" style={{ color: timeLeft <= 2 ? TERRACOTTA : 'rgba(201,168,76,0.7)' }}>
-                  {timeLeft}s
-                </p>
-              )}
-              {/* Session timer / Pause / Undo — one row, in that order
-                  (Chris, 2026-08-29, the final clarification of the original
-                  2026-08-25 request: the thing that belongs left of Pause is
-                  a continuously-running whole-round clock, not the per-deity
-                  Selection Time Limit countdown above — those are two
-                  independent timers). Unconditional — runs whether or not a
-                  Selection Time Limit is set. items-center so the font-mono
-                  digits align with the button baselines rather than the
-                  row's top edge. */}
-              {/* Pause (Chris, 2026-08-25, corrected 2026-08-25: shows
-                  unconditionally — gating it on timerSeconds != null meant it
-                  was invisible with Timer off, which is the default, and
-                  Chris couldn't find it at all). Freezes both timers —
-                  session and, if running, the per-deity countdown — via the
-                  shared pausedRef; with no Selection Time Limit set it still
-                  blocks further taps while paused, a smaller but real "step
-                  away safely" use.
+              {/* Session timer / Start-or-Pause / Undo — one row, in that
+                  order (Chris, 2026-08-29, the final clarification of the
+                  original 2026-08-25 request: the thing that belongs left of
+                  Pause is a continuously-running whole-round clock, not the
+                  per-deity Selection Time Limit countdown above — those are
+                  two independent timers). The session timer itself is
+                  unconditional — always visible, frozen at 00:00 before
+                  Start. items-center so the font-mono digits align with the
+                  button baselines rather than the row's top edge. */}
+              {/* Start/Pause (Chris, 2026-08-29): one button, two jobs.
+                  Before the round begins it reads Start and calls
+                  handleStart — reveals the first deity, resets roundStart to
+                  now, and lets both timers begin. After that it's the
+                  original Pause/Resume toggle (Chris, 2026-08-25, corrected
+                  2026-08-25: shows unconditionally once started — gating it
+                  on timerSeconds != null meant it was invisible with
+                  Selection Time Limit off, the default, and Chris couldn't
+                  find it at all). Freezes both timers — session and, if
+                  running, the per-deity countdown — via the shared
+                  pausedRef; with no Selection Time Limit set it still blocks
+                  further taps while paused, a smaller but real "step away
+                  safely" use.
                   Undo (Chris, 2026-08-25): only meaningful mid-round, only
-                  once at least one answer has been given, disabled during
-                  the brief outcome flash so it can't race the auto-advance,
-                  and while paused (nothing should be actionable except
-                  Resume). */}
+                  once at least one answer has been given (impossible before
+                  Start, so no extra `started` guard needed — history is
+                  necessarily still empty), disabled during the brief outcome
+                  flash so it can't race the auto-advance, and while paused
+                  (nothing should be actionable except Resume). */}
               <div className="mt-2 flex gap-2 justify-center items-center">
                 <span className="px-2 text-xs font-mono tabular-nums" style={{ color: 'rgba(201,168,76,0.7)' }}>
                   {fmtTime(sessionElapsed * 1000)}
                 </span>
                 <button
-                  onClick={togglePause}
+                  onClick={started ? togglePause : handleStart}
                   disabled={!!flash}
                   className="px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
                 >
-                  {tr(paused ? 'btn.resume' : 'btn.pause')}
+                  {tr(!started ? 'btn.start' : (paused ? 'btn.resume' : 'btn.pause'))}
                 </button>
                 {history.length > 0 && (
                   <button
