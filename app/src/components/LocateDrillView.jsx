@@ -940,15 +940,21 @@ export default function LocateDrillView({
                 >
                   {tr(!started ? 'btn.start' : (paused ? 'btn.resume' : 'btn.pause'))}
                 </button>
-                {history.length > 0 && (
-                  <button
-                    onClick={undoLast}
-                    disabled={!!flash || paused}
-                    className="px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40"
-                  >
-                    ↺ {tr('btn.undo')}
-                  </button>
-                )}
+                {/* Always in the DOM, space reserved from the first render —
+                    Chris, 2026-08-29: previously conditionally rendered, so
+                    the session timer and Start/Pause button visibly shifted
+                    position the moment Undo appeared after the first answer.
+                    `invisible` (visibility: hidden) hides it without
+                    collapsing its layout box, unlike removing the element;
+                    `disabled` on top so it can't be tabbed to or clicked
+                    while hidden. */}
+                <button
+                  onClick={undoLast}
+                  disabled={!!flash || paused || history.length === 0}
+                  className={`px-3 py-1 bg-black/20 border border-gold-700/40 text-gold-300 rounded-lg text-[11px] hover:bg-black/30 transition-colors disabled:opacity-40${history.length === 0 ? ' invisible' : ''}`}
+                >
+                  ↺ {tr('btn.undo')}
+                </button>
               </div>
             </div>
           )}
