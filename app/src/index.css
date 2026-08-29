@@ -108,6 +108,21 @@
   }
 }
 
+/* Location Match "Review incorrect" hint text (Chris, 2026-08-29): hover
+   copy on devices that can actually hover (desktop/mouse), tap copy
+   everywhere else. Deliberately keyed on (hover: none) rather than a
+   viewport-width breakpoint — an iPad in landscape can match desktop-width
+   breakpoints while still being a touch device with no real hover state,
+   same reasoning as the ipad-* width+pointer rules below but simpler here
+   since there's no width-dependent layout involved, just which sentence
+   to show. */
+.review-hint-hover { display: inline; }
+.review-hint-tap    { display: none; }
+@media (hover: none) {
+  .review-hint-hover { display: none; }
+  .review-hint-tap    { display: inline; }
+}
+
 /* iPad landscape — touch tablet in landscape (covers mini through Pro 11") */
 @media (min-width: 768px) and (max-height: 900px) and (pointer: coarse) {
   .ipad-segment-bar      { display: flex !important; }

@@ -781,7 +781,16 @@ export default function LocateDrillView({
               <p className="text-cream text-xl leading-snug min-h-[1.75rem]">
                 {reviewHoverName
                   ? <span className="iast">{reviewHoverName}</span>
-                  : <span className="text-muted text-sm">{tr('locate.review_hint')}</span>}
+                  : (
+                    <span className="text-muted text-sm">
+                      {/* Hover copy (desktop/mouse) vs tap copy (iPad + mobile) —
+                          picked by (hover: none), not viewport width, so an
+                          iPad in landscape still gets the tap wording (Chris,
+                          2026-08-29). See review-hint-hover/-tap in index.css. */}
+                      <span className="review-hint-hover">{tr('locate.review_hint_hover')}</span>
+                      <span className="review-hint-tap">{tr('locate.review_hint_tap')}</span>
+                    </span>
+                  )}
               </p>
               <button
                 onClick={() => { setReviewing(false); setReviewHoverId(null) }}
