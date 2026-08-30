@@ -6799,7 +6799,13 @@ export default function App() {
       )}
 
       {/* ── Right panel ──────────────────────────────────────────────────── */}
-      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['intro', 'memomap', 'activity-log', 'sync'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
+      {/* bg-surface-900 (Chris, 2026-08-30): the left sidebar (line ~5761)
+          has always had this same fill, which is what reads as a "boxed"
+          panel against the root bg-surface-950 behind it — this aside only
+          had border-l, so it sat flush/transparent against the page instead.
+          Most visible on iPad, where both sidebars are on screen at once
+          with nothing else to break up the background between them. */}
+      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 bg-surface-900 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['intro', 'memomap', 'activity-log', 'sync'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
              style={{ visibility: activeTab === 'intro' ? 'hidden' : undefined }}>
 
         {/* Scrollable info area */}
