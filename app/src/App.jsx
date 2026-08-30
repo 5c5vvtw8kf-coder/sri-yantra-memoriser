@@ -1257,10 +1257,22 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
 
   const dotsDone = currentSeq >= svaminiSeq
 
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -1286,7 +1298,7 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -1319,8 +1331,8 @@ function BhupuraMemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
@@ -1399,10 +1411,22 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
   const petalsDone = currentSeq > 16
 
   // Single-tap: memorised (red) if active; mark if past-skipped. Double-tap: skip/unmark.
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -1428,7 +1452,7 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -1461,8 +1485,8 @@ function C2MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
@@ -1540,10 +1564,22 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const petalsDone = currentSeq > 8
 
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -1569,7 +1605,7 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -1602,8 +1638,8 @@ function C3MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
@@ -1677,10 +1713,22 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 14
 
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -1706,7 +1754,7 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -1739,8 +1787,8 @@ function C4MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
@@ -1813,10 +1861,22 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 10
 
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -1842,7 +1902,7 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -1875,8 +1935,8 @@ function C5MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
@@ -1949,10 +2009,22 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 10
 
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -1978,7 +2050,7 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -2011,8 +2083,8 @@ function C6MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
@@ -2085,10 +2157,22 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 8
 
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -2114,7 +2198,7 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -2147,8 +2231,8 @@ function C7MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
@@ -2223,10 +2307,22 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const trianglesDone = currentSeq > 7
 
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -2252,7 +2348,7 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -2285,8 +2381,8 @@ function C8MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
@@ -2355,10 +2451,22 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
 
   const binduDone = currentSeq > 1
 
+  // iPad fix (Chris, 2026-08-30): the reveal-before-mark gate below used to
+  // rely on hoveredField===null to detect "no real mouse hover happened yet,
+  // so this must be a touch tap — reveal first." On iPad, a tap fires a
+  // synthetic mouseenter immediately before the click, so hoveredField is
+  // already non-null by the time handleItemClick runs — the first tap skipped
+  // straight to marking (name went red immediately) instead of revealing.
+  // Phones never hit this path at all (md:hidden swaps in the separate
+  // MobileSvaminiButtons component below 768px), so the bug only showed up
+  // on iPad. Detect touch explicitly, same check used in the circuit views'
+  // tap handlers, and ignore hoveredField entirely on touch so the reveal
+  // step is never skipped regardless of any synthetic hover event.
+  const isTouch = navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches
   const lastTapRef = useRef({ seq: null, time: 0 })
   const handleItemClick = (seq) => {
     // First tap on active seq: reveal the name (no mark yet)
-    if (currentSeq === seq && revealedSeq !== seq && hoveredField === null) {
+    if (currentSeq === seq && revealedSeq !== seq && (isTouch || hoveredField === null)) {
       setRevealedSeq(seq)
       lastTapRef.current = { seq: null, time: 0 }
       return
@@ -2384,7 +2492,7 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
     const isActive  = currentSeq === seq
     const isPast    = currentSeq > seq
     const isCorrect = results[seq] === 'correct'
-    const isRevealed = hoveredField === fieldKey || revealedSeq === seq
+    const isRevealed = (!isTouch && hoveredField === fieldKey) || revealedSeq === seq
     const value     = sectionName(section, fieldKey, script)
 
     let valueContent
@@ -2417,8 +2525,8 @@ function C9MemoriseInfo({ currentSeq, results, onMarkResult, onToggleResult, onR
           boxShadow:  '0 0 0 1px rgba(255,248,200,0.35)',
         } : undefined}
         onClick={interactive ? () => handleItemClick(seq) : undefined}
-        onMouseEnter={isActive ? () => setHoveredField(fieldKey) : undefined}
-        onMouseLeave={isActive ? () => setHoveredField(null) : undefined}
+        onMouseEnter={isActive && !isTouch ? () => setHoveredField(fieldKey) : undefined}
+        onMouseLeave={isActive && !isTouch ? () => setHoveredField(null) : undefined}
         onContextMenu={interactive && isPast
           ? e => { e.preventDefault(); onToggleResult(seq) }
           : undefined}
