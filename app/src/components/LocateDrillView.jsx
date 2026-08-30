@@ -112,6 +112,12 @@ const C5_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
 const C6_DEITY_ORDER = [6, 5, 4, 3, 2, 1, 10, 9, 8, 7]
 const C7_DEITY_ORDER = [5, 4, 3, 2, 1, 8, 7, 6]
 
+// Nētradēvī (nyasa-005) and Circuit 9's own deity (Śrī Śrī Mahā Bhaṭṭārikē)
+// occupy the same physical bindu point on the real yantra — one shared tap
+// target, not two (Chris, 2026-08-30). See getRegionId's nyasa/circuit-9
+// branches below for the full reasoning.
+const BINDU_SHARED_REGION_ID = 'bindupt-01'
+
 function getRegionId(deity) {
   if (!deity || deity.role !== 'deity') return null
   const { sectionId, sequenceInSection: seq } = deity
@@ -133,7 +139,9 @@ function getRegionId(deity) {
   // handled entirely by this file's own point overlay — no native fallback
   // tap-area the way Circuit 1 gets, same limitation Segment/Line Drill have.
   if (sectionId === 'circuit-8') return `c8pt-${pad(seq)}`
-  if (sectionId === 'circuit-9') return `c9pt-${pad(seq)}`
+  // Circuit 9 (Śrī Śrī Mahā Bhaṭṭārikē) shares BINDU_SHARED_REGION_ID with
+  // nētradēvī below — see that comment for why.
+  if (sectionId === 'circuit-9') return BINDU_SHARED_REGION_ID
   // Nitya/Guru insets (added 2026-08-23) — synthetic ids, own overlay only.
   if (sectionId === 'nitya') return `nitypt-${pad(seq)}`
   if (sectionId === 'guru-divya') return `gdpt-${pad(seq)}`
@@ -141,7 +149,24 @@ function getRegionId(deity) {
   if (sectionId === 'guru-manava') return `gmpt-${pad(seq)}`
   // Nyasa (added 2026-08-23) — synthetic ids, rendered in the main overlay
   // (not an inset) since nētradēvī shares C9's own bindu position.
-  if (sectionId === 'nyasa') return `nyaspt-${pad(seq)}`
+  // nētradēvī (seq 5) — one shared region id with circuit-9, not her own
+  // (Chris, 2026-08-30, replacing the earlier two-shape ring+dot approach
+  // after four rounds of proportion-tuning: they occupy one physical point
+  // on the real yantra, not two, so this file now renders one plain dot
+  // there instead of a ring around a separate inner dot. Whichever of the
+  // two is the round's *current* question still gets the usual active-
+  // target cream override (see the render's `current` block below), which
+  // is what makes it "reset to cream before being selected for the second
+  // time" the way Chris described — no special-casing needed for that, the
+  // existing active/idle logic already does it for every other point.
+  // Trade-off, deliberately accepted: Review Incorrect's hover-to-see-name
+  // (deityByRegionId below) can only resolve one deity per region id, so if
+  // *both* nētradēvī and circuit-9 end up wrong in the same round, hovering
+  // this shared dot in review only surfaces whichever of the two is later
+  // in scopeDeities' iteration order — not a real information loss (the
+  // prompt always names the deity at the time of asking), just a minor gap
+  // in the after-the-fact review view.
+  if (sectionId === 'nyasa') return seq === 5 ? BINDU_SHARED_REGION_ID : `nyaspt-${pad(seq)}`
   return null
 }
 
@@ -392,11 +417,13 @@ function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activ
           // around it for mahanitye"). First pass went to r=1.7 — measured
           // live afterwards (rendered ~6px against siblings' ~9px) and
           // Chris flagged it as now too small relative to the other 15;
-          // settled on 2.1 as the middle ground. See the matching isNetraBindu
-          // adjustment below (r 5→4) for the other half of this same
-          // "somewhere near the middle for both" request — that dot is the
-          // main yantra's actual bindu marker, a completely different SVG/
-          // scale, not this inset.
+          // settled on 2.1 as the middle ground. The other half of this same
+          // "somewhere near the middle for both" request concerned the main
+          // yantra's actual bindu marker — a completely different SVG/scale,
+          // not this inset. That was later superseded entirely (2026-08-30):
+          // Nētradēvī and Circuit 9's deity now share ONE dot/region id
+          // (BINDU_SHARED_REGION_ID, see getRegionId below) instead of two
+          // separately-sized shapes, per Chris's own proposed alternative.
           const isMahaNitye = d.sectionId === 'nitya' && d.sequenceInSection === 16
           // 1.7 → 2.1 → 2.35 (Chris, 2026-08-29, second pass): 2.1 was
           // still reported too small — measured live it rendered at ~84% of
@@ -827,7 +854,19 @@ export default function LocateDrillView({
   // Nitya/Guru render in their own standalone InsetPanel now (see below) —
   // split them out of the main yantra overlay's point-dot list so they don't
   // get drawn twice.
-  const svgPointDeities = pointDeities.filter(d => !INSET_SECTIONS.has(d.sectionId))
+  // De-duplicated by region id (Chris, 2026-08-30): under 'all' scope,
+  // nētradēvī and circuit-9 both show up here and now share one region id
+  // (BINDU_SHARED_REGION_ID — see getRegionId) since they're one physical
+  // dot, not two — without this, they'd render as two fully-overlapping
+  // identical circles for no reason. Every other section still has a
+  // 1:1 deity-to-region-id mapping, so this is a no-op everywhere else.
+  const seenRegionIds = new Set()
+  const svgPointDeities = pointDeities.filter(d => !INSET_SECTIONS.has(d.sectionId)).filter(d => {
+    const rid = getRegionId(d)
+    if (!rid || seenRegionIds.has(rid)) return false
+    seenRegionIds.add(rid)
+    return true
+  })
   const nityaInsetDeities = pointDeities.filter(d => d.sectionId === 'nitya')
   const guruInsetDeities = pointDeities.filter(d => GURU_SECTIONS.has(d.sectionId))
 
@@ -1052,21 +1091,15 @@ export default function LocateDrillView({
                   onRegionClick={handleRegionClick}
                   onRegionHover={reviewing ? setReviewHoverId : undefined}
                   onRegionLeave={reviewing ? () => setReviewHoverId(null) : undefined}
-                  // 0.8 → 3 (Chris, 2026-08-29, third pass on this pair —
-                  // see the isNetraBindu/isC9Bindu comment in the point
-                  // overlay below for the full story). This is
-                  // SriYantraSVG's own native, non-interactive bindu marker
-                  // — always rendered regardless of scope, underneath both
-                  // Nētradēvī's ring and C9's own point-overlay circle when
-                  // either is present. It's what Chris was seeing (and
-                  // rightly calling too small) as "the middle dot" under a
-                  // scope where C9 itself isn't a valid question at all,
-                  // e.g. Nyāsa-only — there's nothing else there. Sized to
-                  // roughly match C9's own overlay circle (r=4) so the two
-                  // blend into one consistent "medium" dot when both are
-                  // present, instead of a tiny always-on marker suddenly
-                  // jumping in size whenever C9 comes into scope.
-                  binduR={3}
+                  // No binduR override any more (Chris, 2026-08-30): with
+                  // nētradēvī and circuit-9 now sharing one plain point-
+                  // overlay dot (BINDU_SHARED_REGION_ID, see getRegionId and
+                  // the point overlay below) instead of a separate ring, an
+                  // enlarged native marker underneath isn't needed — falls
+                  // back to SriYantraSVG's own default. This history went
+                  // 0.8 (original, so a bigger caller-drawn ring would have
+                  // a "cleaner gap") → 3 (briefly, to compensate for that
+                  // same ring) → removed, once the ring itself went away.
                 />
                 {/* pointerEvents: 'none' on the root is deliberate — this overlay only
                     ever paints a handful of small circles, and without this the
@@ -1089,54 +1122,30 @@ export default function LocateDrillView({
                     const regionId = getRegionId(d)
                     if (!pos || !regionId) return null
                     const fill = pointFills[regionId] || CREAM
-                    // Nētradēvī (nyasa seq 5) shares C9's own bindu position —
-                    // Chris, 2026-08-23: render her as a larger, transparent
-                    // ring there instead of a normal opaque dot, so she reads
-                    // as a distinct clickable target without visually replacing
-                    // C9's own marker underneath.
-                    const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
-                    // Circuit 9 (Śrī Śrī Mahā Bhaṭṭārikē) — its own point-
-                    // overlay circle, separate from SriYantraSVG's native
-                    // (non-interactive, always-rendered) bindu dot below —
-                    // see binduR on the <SriYantraSVG> above. Both sit at the
-                    // same cx/cy; this one only exists while C9 is in scope.
-                    const isC9Bindu = d.sectionId === 'circuit-9'
-                    // Three rounds on this pair, 2026-08-29 — worth recording
-                    // the actual mistake, not just the current numbers: the
-                    // first two rounds treated the ring+dot as one "blob"
-                    // that read too big overall and kept shrinking BOTH,
-                    // which was backwards. Chris's screenshots + description
-                    // clarified what he actually meant: the ring (r 5→4→3.5,
-                    // all wrong direction) and SriYantraSVG's native bindu
-                    // dot (binduR, separately set to 0.8 — effectively
-                    // invisible) both needed to grow, with a genuinely wide
-                    // gap between them, not a razor-thin one — "a sufficient
-                    // doughnut... so both can be distinguished and selected."
-                    // Solved geometrically instead of guessing a fourth time:
-                    // computed the distance from the bindu (260,270) to each
-                    // of the central trikona's 3 edges (KORVIN_CENTRAL_RAW —
-                    // same source as the "~23 units wide" comment this
-                    // replaced) — the two slanted sides are the tightest
-                    // constraint, at 6.575 units. r=6 sits just inside that,
-                    // genuinely "near the edges" per Chris's request, with a
-                    // small margin so the ring doesn't visually cross the
-                    // gold trikona outline. C9's own dot goes to 4 (up from
-                    // 3.2, the size shared with unrelated points elsewhere —
-                    // deliberately NOT changing that shared default), leaving
-                    // a 2-unit gap to the ring — see binduR above for the
-                    // matching change to the always-visible native dot.
+                    // Bindu (nētradēvī + circuit-9, BINDU_SHARED_REGION_ID) —
+                    // four rounds of a separate ring+bigger-dot treatment
+                    // here, 2026-08-25 through 2026-08-29, all trying to
+                    // proportion two overlapping shapes for two deities that
+                    // actually occupy one physical point on the real yantra.
+                    // Chris's call, 2026-08-30: just one plain dot, same
+                    // size/style as every other point, for both — see
+                    // getRegionId and svgPointDeities' dedup above for how
+                    // that's wired up. Whichever of the two is currently
+                    // being asked about still gets the ordinary active-
+                    // target cream override a few lines below this map, so
+                    // it still resets between the two deities' turns with no
+                    // special-casing needed here.
                     // Constant radius regardless of active/idle — sizing the
                     // active (target) dot larger was a visual tell that gave
                     // away the answer before the tap, since its fill colour is
                     // identical CREAM to every other not-yet-answered dot in
                     // scope (Chris's report, 2026-08-25).
-                    const r = isNetraBindu ? 6 : isC9Bindu ? 4 : 3.2
-                    const fillOpacity = isNetraBindu ? 0.35 : 1
+                    const r = 3.2
                     return (
                       <circle
                         key={d.id}
                         cx={pos.x} cy={pos.y} r={r}
-                        fill={fill} fillOpacity={fillOpacity} stroke={GOLD} strokeWidth="0.6"
+                        fill={fill} stroke={GOLD} strokeWidth="0.6"
                         style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                         onClick={() => handleAnswer(regionId)}
                         onMouseEnter={() => reviewing && setReviewHoverId(regionId)}
@@ -1194,7 +1203,8 @@ export default function LocateDrillView({
                 onRegionClick={handleRegionClick}
                 onRegionHover={reviewing ? setReviewHoverId : undefined}
                 onRegionLeave={reviewing ? () => setReviewHoverId(null) : undefined}
-                binduR={0.8}
+                // No binduR override — see desktop copy above for why
+                // (Chris, 2026-08-30).
               />
               <svg
                 viewBox="45 55 430 430"
@@ -1207,22 +1217,17 @@ export default function LocateDrillView({
                   const regionId = getRegionId(d)
                   if (!pos || !regionId) return null
                   const fill = pointFills[regionId] || CREAM
-                  const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
-                  const isC9Bindu = d.sectionId === 'circuit-9'
+                  // Bindu (nētradēvī + circuit-9) — one plain dot for both,
+                  // same size/style as every other point — see desktop copy
+                  // above for the full history of why (Chris, 2026-08-30).
                   // Constant radius regardless of active/idle — see desktop
                   // copy above for why (Chris's report, 2026-08-25).
-                  // r 5→4→3.5→6 (ring) and 3.2→4 (C9's own dot), 2026-08-29,
-                  // third pass — see desktop copy above for the full
-                  // geometric reasoning (distance from the bindu to the
-                  // central trikona's edges, and why the first two passes
-                  // shrank the wrong thing).
-                  const r = isNetraBindu ? 6 : isC9Bindu ? 4 : 3.2
-                  const fillOpacity = isNetraBindu ? 0.35 : 1
+                  const r = 3.2
                   return (
                     <circle
                       key={d.id}
                       cx={pos.x} cy={pos.y} r={r}
-                      fill={fill} fillOpacity={fillOpacity} stroke={GOLD} strokeWidth="0.6"
+                      fill={fill} stroke={GOLD} strokeWidth="0.6"
                       style={{ cursor: 'pointer', pointerEvents: 'auto' }}
                       onClick={() => handleAnswer(regionId)}
                       onMouseEnter={() => reviewing && setReviewHoverId(regionId)}
