@@ -1052,7 +1052,21 @@ export default function LocateDrillView({
                   onRegionClick={handleRegionClick}
                   onRegionHover={reviewing ? setReviewHoverId : undefined}
                   onRegionLeave={reviewing ? () => setReviewHoverId(null) : undefined}
-                  binduR={0.8}
+                  // 0.8 → 3 (Chris, 2026-08-29, third pass on this pair —
+                  // see the isNetraBindu/isC9Bindu comment in the point
+                  // overlay below for the full story). This is
+                  // SriYantraSVG's own native, non-interactive bindu marker
+                  // — always rendered regardless of scope, underneath both
+                  // Nētradēvī's ring and C9's own point-overlay circle when
+                  // either is present. It's what Chris was seeing (and
+                  // rightly calling too small) as "the middle dot" under a
+                  // scope where C9 itself isn't a valid question at all,
+                  // e.g. Nyāsa-only — there's nothing else there. Sized to
+                  // roughly match C9's own overlay circle (r=4) so the two
+                  // blend into one consistent "medium" dot when both are
+                  // present, instead of a tiny always-on marker suddenly
+                  // jumping in size whenever C9 comes into scope.
+                  binduR={3}
                 />
                 {/* pointerEvents: 'none' on the root is deliberate — this overlay only
                     ever paints a handful of small circles, and without this the
@@ -1081,25 +1095,42 @@ export default function LocateDrillView({
                     // as a distinct clickable target without visually replacing
                     // C9's own marker underneath.
                     const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
-                    // r 5 fits inside the true central trikona (~23 units
-                    // wide — apex/baseL/baseR from KORVIN_CENTRAL_RAW) with
-                    // margin to spare; the original 9/11 was nearly half the
-                    // triangle's own width and spilled outside it (Chris's
-                    // report, 2026-08-23).
+                    // Circuit 9 (Śrī Śrī Mahā Bhaṭṭārikē) — its own point-
+                    // overlay circle, separate from SriYantraSVG's native
+                    // (non-interactive, always-rendered) bindu dot below —
+                    // see binduR on the <SriYantraSVG> above. Both sit at the
+                    // same cx/cy; this one only exists while C9 is in scope.
+                    const isC9Bindu = d.sectionId === 'circuit-9'
+                    // Three rounds on this pair, 2026-08-29 — worth recording
+                    // the actual mistake, not just the current numbers: the
+                    // first two rounds treated the ring+dot as one "blob"
+                    // that read too big overall and kept shrinking BOTH,
+                    // which was backwards. Chris's screenshots + description
+                    // clarified what he actually meant: the ring (r 5→4→3.5,
+                    // all wrong direction) and SriYantraSVG's native bindu
+                    // dot (binduR, separately set to 0.8 — effectively
+                    // invisible) both needed to grow, with a genuinely wide
+                    // gap between them, not a razor-thin one — "a sufficient
+                    // doughnut... so both can be distinguished and selected."
+                    // Solved geometrically instead of guessing a fourth time:
+                    // computed the distance from the bindu (260,270) to each
+                    // of the central trikona's 3 edges (KORVIN_CENTRAL_RAW —
+                    // same source as the "~23 units wide" comment this
+                    // replaced) — the two slanted sides are the tightest
+                    // constraint, at 6.575 units. r=6 sits just inside that,
+                    // genuinely "near the edges" per Chris's request, with a
+                    // small margin so the ring doesn't visually cross the
+                    // gold trikona outline. C9's own dot goes to 4 (up from
+                    // 3.2, the size shared with unrelated points elsewhere —
+                    // deliberately NOT changing that shared default), leaving
+                    // a 2-unit gap to the ring — see binduR above for the
+                    // matching change to the always-visible native dot.
                     // Constant radius regardless of active/idle — sizing the
                     // active (target) dot larger was a visual tell that gave
                     // away the answer before the tap, since its fill colour is
                     // identical CREAM to every other not-yet-answered dot in
                     // scope (Chris's report, 2026-08-25).
-                    // r 5→4→3.5 (Chris, 2026-08-29, second pass): still
-                    // reported too big at r=4 (measured live: 6.48px halo
-                    // around the 5.19px solid C9 dot it stacks on, ~25%
-                    // bigger). 3.5 brings the halo to 5.67px — only ~9%
-                    // bigger than the solid dot inside it, barely a visible
-                    // ring any more, but still just enough of one that she
-                    // isn't literally identical to a plain dot (the reason
-                    // she's a ring at all, see comment above).
-                    const r = isNetraBindu ? 3.5 : 3.2
+                    const r = isNetraBindu ? 6 : isC9Bindu ? 4 : 3.2
                     const fillOpacity = isNetraBindu ? 0.35 : 1
                     return (
                       <circle
@@ -1177,11 +1208,15 @@ export default function LocateDrillView({
                   if (!pos || !regionId) return null
                   const fill = pointFills[regionId] || CREAM
                   const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
+                  const isC9Bindu = d.sectionId === 'circuit-9'
                   // Constant radius regardless of active/idle — see desktop
                   // copy above for why (Chris's report, 2026-08-25).
-                  // r 5→4→3.5 (Chris, 2026-08-29, second pass) — see desktop
-                  // copy above for the full reasoning.
-                  const r = isNetraBindu ? 3.5 : 3.2
+                  // r 5→4→3.5→6 (ring) and 3.2→4 (C9's own dot), 2026-08-29,
+                  // third pass — see desktop copy above for the full
+                  // geometric reasoning (distance from the bindu to the
+                  // central trikona's edges, and why the first two passes
+                  // shrank the wrong thing).
+                  const r = isNetraBindu ? 6 : isC9Bindu ? 4 : 3.2
                   const fillOpacity = isNetraBindu ? 0.35 : 1
                   return (
                     <circle
