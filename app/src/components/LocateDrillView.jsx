@@ -387,12 +387,18 @@ function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activ
           // Mahānityē (seq 16) sits alone at the trikona's centroid — "the
           // bindu in the middle" of this inset, per Chris's own framing when
           // he placed these positions by hand (see NITYA_POSITIONS above).
-          // Shrunk smaller than the other 15 (Chris, 2026-08-29: "make the
-          // bindu smaller so there's more space around it for mahanitye")
-          // so the extra clearance from its nearest neighbours makes it
-          // easier to tap precisely rather than clipping an adjacent dot.
+          // Shrunk smaller than the other 15 (Chris, 2026-08-25 [sic
+          // 2026-08-29]: "make the bindu smaller so there's more space
+          // around it for mahanitye"). First pass went to r=1.7 — measured
+          // live afterwards (rendered ~6px against siblings' ~9px) and
+          // Chris flagged it as now too small relative to the other 15;
+          // settled on 2.1 as the middle ground. See the matching isNetraBindu
+          // adjustment below (r 5→4) for the other half of this same
+          // "somewhere near the middle for both" request — that dot is the
+          // main yantra's actual bindu marker, a completely different SVG/
+          // scale, not this inset.
           const isMahaNitye = d.sectionId === 'nitya' && d.sequenceInSection === 16
-          const r = isMahaNitye ? 1.7 : 2.5
+          const r = isMahaNitye ? 2.1 : 2.5
           return (
             <circle
               key={d.id}
@@ -1079,7 +1085,18 @@ export default function LocateDrillView({
                     // away the answer before the tap, since its fill colour is
                     // identical CREAM to every other not-yet-answered dot in
                     // scope (Chris's report, 2026-08-25).
-                    const r = isNetraBindu ? 5 : 3.2
+                    // r 5→4 (Chris, 2026-08-29): Nētradēvī's ring sits at the
+                    // exact same cx/cy as Circuit 9's own r=3.2 dot (they
+                    // share the bindu position), so the two always render
+                    // stacked — that combined halo+solid blob, not C9's own
+                    // marker alone, is what read "too big" against every
+                    // other single dot on the yantra. Measured live: r=5 was
+                    // an 8.1px rendered diameter on a typical mobile screen;
+                    // r=4 brings that to 6.5px, still visibly bigger than the
+                    // 5.2px solid dot inside it (keeping her a distinct,
+                    // easier-to-hit target — the reason she's a ring at all,
+                    // see comment above) without dominating the yantra.
+                    const r = isNetraBindu ? 4 : 3.2
                     const fillOpacity = isNetraBindu ? 0.35 : 1
                     return (
                       <circle
@@ -1159,7 +1176,10 @@ export default function LocateDrillView({
                   const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
                   // Constant radius regardless of active/idle — see desktop
                   // copy above for why (Chris's report, 2026-08-25).
-                  const r = isNetraBindu ? 5 : 3.2
+                  // r 5→4 (Chris, 2026-08-29) — see desktop copy above for
+                  // the full reasoning (the combined halo+solid blob at the
+                  // shared bindu position, not either dot alone).
+                  const r = isNetraBindu ? 4 : 3.2
                   const fillOpacity = isNetraBindu ? 0.35 : 1
                   return (
                     <circle
