@@ -398,7 +398,13 @@ function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activ
           // main yantra's actual bindu marker, a completely different SVG/
           // scale, not this inset.
           const isMahaNitye = d.sectionId === 'nitya' && d.sequenceInSection === 16
-          const r = isMahaNitye ? 2.1 : 2.5
+          // 1.7 → 2.1 → 2.35 (Chris, 2026-08-29, second pass): 2.1 was
+          // still reported too small — measured live it rendered at ~84% of
+          // its siblings' diameter (7.48px vs 8.91px on a 390px mobile
+          // viewport). 2.35 brings that to ~94% (8.37px), close enough to
+          // read as roughly the same size while still leaving a touch more
+          // clearance than the original uniform 2.5.
+          const r = isMahaNitye ? 2.35 : 2.5
           return (
             <circle
               key={d.id}
@@ -1085,18 +1091,15 @@ export default function LocateDrillView({
                     // away the answer before the tap, since its fill colour is
                     // identical CREAM to every other not-yet-answered dot in
                     // scope (Chris's report, 2026-08-25).
-                    // r 5→4 (Chris, 2026-08-29): Nētradēvī's ring sits at the
-                    // exact same cx/cy as Circuit 9's own r=3.2 dot (they
-                    // share the bindu position), so the two always render
-                    // stacked — that combined halo+solid blob, not C9's own
-                    // marker alone, is what read "too big" against every
-                    // other single dot on the yantra. Measured live: r=5 was
-                    // an 8.1px rendered diameter on a typical mobile screen;
-                    // r=4 brings that to 6.5px, still visibly bigger than the
-                    // 5.2px solid dot inside it (keeping her a distinct,
-                    // easier-to-hit target — the reason she's a ring at all,
-                    // see comment above) without dominating the yantra.
-                    const r = isNetraBindu ? 4 : 3.2
+                    // r 5→4→3.5 (Chris, 2026-08-29, second pass): still
+                    // reported too big at r=4 (measured live: 6.48px halo
+                    // around the 5.19px solid C9 dot it stacks on, ~25%
+                    // bigger). 3.5 brings the halo to 5.67px — only ~9%
+                    // bigger than the solid dot inside it, barely a visible
+                    // ring any more, but still just enough of one that she
+                    // isn't literally identical to a plain dot (the reason
+                    // she's a ring at all, see comment above).
+                    const r = isNetraBindu ? 3.5 : 3.2
                     const fillOpacity = isNetraBindu ? 0.35 : 1
                     return (
                       <circle
@@ -1176,10 +1179,9 @@ export default function LocateDrillView({
                   const isNetraBindu = d.sectionId === 'nyasa' && d.sequenceInSection === 5
                   // Constant radius regardless of active/idle — see desktop
                   // copy above for why (Chris's report, 2026-08-25).
-                  // r 5→4 (Chris, 2026-08-29) — see desktop copy above for
-                  // the full reasoning (the combined halo+solid blob at the
-                  // shared bindu position, not either dot alone).
-                  const r = isNetraBindu ? 4 : 3.2
+                  // r 5→4→3.5 (Chris, 2026-08-29, second pass) — see desktop
+                  // copy above for the full reasoning.
+                  const r = isNetraBindu ? 3.5 : 3.2
                   const fillOpacity = isNetraBindu ? 0.35 : 1
                   return (
                     <circle
