@@ -384,7 +384,15 @@ function InsetPanel({ heading, trikona, viewBox, insetDeities, pointFills, activ
           // (target) dot larger was a visual tell that gave away the answer
           // before the tap, since its fill colour is identical CREAM to every
           // other not-yet-answered dot in scope (Chris's report, 2026-08-25).
-          const r = 2.5
+          // Mahānityē (seq 16) sits alone at the trikona's centroid — "the
+          // bindu in the middle" of this inset, per Chris's own framing when
+          // he placed these positions by hand (see NITYA_POSITIONS above).
+          // Shrunk smaller than the other 15 (Chris, 2026-08-29: "make the
+          // bindu smaller so there's more space around it for mahanitye")
+          // so the extra clearance from its nearest neighbours makes it
+          // easier to tap precisely rather than clipping an adjacent dot.
+          const isMahaNitye = d.sectionId === 'nitya' && d.sequenceInSection === 16
+          const r = isMahaNitye ? 1.7 : 2.5
           return (
             <circle
               key={d.id}

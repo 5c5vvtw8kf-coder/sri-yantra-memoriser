@@ -221,7 +221,13 @@ export default function MobileSvaminiButtons({
       >
         <div className="flex items-baseline gap-2 min-w-0">
           <span className={labelClass}>{tr('sc.svamini')}</span>
-          <span className="text-sm leading-snug min-w-0">
+          {/* text-base (Chris, 2026-08-29): bumped from text-sm — the "tap
+              to reveal"/locked-dots placeholders inside renderNameContent
+              keep their own explicit text-sm/text-xs, which override this
+              wrapper's inherited size, so only the actual revealed deity
+              name (the branches with no size class of their own) grows. The
+              "SVĀMINĪ"/"YOGINĪ" heading above is labelClass, untouched. */}
+          <span className="text-base leading-snug min-w-0">
             {renderNameContent(svaminiActive, svaminiPast, svaminiCorrect, false,
                                revealedSvamini, svaminiName)}
           </span>
@@ -239,7 +245,7 @@ export default function MobileSvaminiButtons({
       >
         <div className="flex items-baseline gap-2 min-w-0">
           <span className={labelClass}>{tr('sc.yogini_lbl')}</span>
-          <span className="text-sm leading-snug min-w-0">
+          <span className="text-base leading-snug min-w-0">
             {renderNameContent(yoginiActive, yoginiPast, yoginiCorrect, yoginiLocked,
                                revealedYogini, yoginiName)
 }
