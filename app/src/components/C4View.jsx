@@ -338,7 +338,16 @@ export default function C4View({
 
   // ── Render ──────────────────────────────────────────────────────────────────
 
+  // iPad fix (Chris, 2026-08-30): width alone put touch tablets (iPad
+  // portrait/landscape are almost always >=768px) on the "desktop" tooltip
+  // path — fixed font size, no per-sequence C4_TOOLTIP_OFFSET, unzoomed
+  // FULL_VIEWBOX — so tooltips sized/positioned for a full-yantra view
+  // covered the next deity's dot on a touchscreen. Reuse the same
+  // touch-detection already used for tap handling above so a coarse-pointer
+  // tablet gets the same zoomed CIRCUIT_VIEWBOX + calibrated tooltip offsets
+  // already working on phones, regardless of its (often tablet-width) screen.
   const isMobileView = window.innerWidth < 768
+    || (navigator.maxTouchPoints > 0 && !window.matchMedia('(pointer: fine)').matches)
   const activeViewBox = isMobileView ? CIRCUIT_VIEWBOX : FULL_VIEWBOX
 
   return (
