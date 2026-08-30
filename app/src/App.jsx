@@ -6788,13 +6788,22 @@ export default function App() {
 
       </main>
 
-      {/* ── Right panel toggle strip — desktop only; hidden on intro ── */}
+      {/* ── Right panel toggle — desktop only; hidden on intro ── */}
+      {/* Chris, 2026-08-30 (iPad screenshot): the previous version was a
+          full-height, edge-flush strip (bg-surface-900 border-l, no fixed
+          height or self-alignment, so it stretched to fill the row) — no box
+          around the chevron, unlike the left sidebar's own collapse toggle
+          a few hundred lines up, which is a small rounded-border square
+          anchored near the top of its column. Rebuilt this one with the
+          exact same classes/size (w-5 h-5 rounded border border-surface-600)
+          and self-start + mt-3 so it sits as a matching boxed button near
+          the top of the right column instead of a borderless vertical bar. */}
       {activeTab !== 'intro' && (
         <button
-          className="hidden md:flex items-center justify-center w-5 flex-shrink-0 bg-surface-900 border-l border-surface-800 text-muted hover:text-cream hover:bg-surface-800 transition-colors"
+          className="hidden md:flex self-start flex-shrink-0 mt-3 mx-1 w-5 h-5 rounded border border-surface-600 text-muted hover:text-cream hover:border-gold-500 transition-colors items-center justify-center"
           onClick={() => setRightPanelOpen(o => !o)}
           title={rightPanelOpen ? tr('nav.info_close') : tr('nav.info_open')}
-          style={{ fontSize: 10 }}
+          style={{ fontSize: 11, fontFamily: 'monospace' }}
         >{rightPanelOpen ? '»' : '«'}</button>
       )}
 
