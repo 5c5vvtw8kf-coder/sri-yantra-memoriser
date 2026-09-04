@@ -504,7 +504,7 @@ const en = {
   'heading.explore': 'EXPLORE AND MEMORISE',
   'heading.spot': 'DRILLS AND MEMORY MAP',
   'heading.sync': 'DEVICE SYNC',
-  'tab.feedback': 'Send Feedback',
+  'tab.feedback': 'Provide Feedback',
   'heading.feedback': 'FEEDBACK',
   'heading.resources': 'RESOURCES',
   'btn.lang_picker':   'Language',
