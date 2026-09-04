@@ -504,6 +504,8 @@ const en = {
   'heading.explore': 'EXPLORE AND MEMORISE',
   'heading.spot': 'DRILLS AND MEMORY MAP',
   'heading.sync': 'DEVICE SYNC',
+  'tab.feedback': 'Send Feedback',
+  'heading.feedback': 'FEEDBACK',
   'heading.resources': 'RESOURCES',
   'btn.lang_picker':   'Language',
   'nav.script_expand': 'Script settings — expand panel',
@@ -893,6 +895,8 @@ const gu = {
   'sync.success_pushed': 'પુશ કરવામાં આવ્યું — આ ઉપકરણની પ્રગતિ હવે ક્લાઉડ કૉપિ છે.',
   'tab.sync': 'સિંક',
   'heading.sync': 'ડિવાઇસ સિંક',
+  'tab.feedback': 'ફીડબેક મોકલો',
+  'heading.feedback': 'ફીડબેક',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'પરંપરાગત',
   'yantra.custom_slot_prefix': 'કસ્ટમ',
@@ -1246,6 +1250,8 @@ const hi = {
   'sync.success_pushed': 'पुश किया गया — इस डिवाइस की प्रगति अब क्लाउड कॉपी है।',
   'tab.sync': 'सिंक',
   'heading.sync': 'डिवाइस सिंक',
+  'tab.feedback': 'फ़ीडबैक भेजें',
+  'heading.feedback': 'फ़ीडबैक',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'पारंपरिक',
   'yantra.custom_slot_prefix': 'कस्टम',
@@ -1599,6 +1605,8 @@ const te = {
   'sync.success_pushed': 'పుష్ చేయబడింది — ఈ పరికరం యొక్క పురోగతి ఇప్పుడు క్లౌడ్ కాపీ.',
   'tab.sync': 'సింక్',
   'heading.sync': 'పరికర సింక్',
+  'tab.feedback': 'ఫీడ్‌బ్యాక్ పంపండి',
+  'heading.feedback': 'ఫీడ్‌బ్యాక్',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'సాంప్రదాయ',
   'yantra.custom_slot_prefix': 'అనుకూల',
@@ -1952,6 +1960,8 @@ const ta = {
   'sync.success_pushed': 'புஷ் செய்யப்பட்டது — இந்த சாதனத்தின் முன்னேற்றம் இப்போது கிளவுட் நகல்.',
   'tab.sync': 'ஒத்திசைவு',
   'heading.sync': 'சாதன ஒத்திசைவு',
+  'tab.feedback': 'ஃபீட்பேக் அனுப்பவும்',
+  'heading.feedback': 'ஃபீட்பேக்',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'பாரம்பரியம்',
   'yantra.custom_slot_prefix': 'தனிப்பயன்',
@@ -2305,6 +2315,8 @@ const kn = {
   'sync.success_pushed': 'ಪುಶ್ ಮಾಡಲಾಗಿದೆ — ಈ ಸಾಧನದ ಪ್ರಗತಿ ಈಗ ಕ್ಲೌಡ್ ಪ್ರತಿಯಾಗಿದೆ.',
   'tab.sync': 'ಸಿಂಕ್',
   'heading.sync': 'ಸಾಧನ ಸಿಂಕ್',
+  'tab.feedback': 'ಫೀಡ್‌ಬ್ಯಾಕ್ ಕಳುಹಿಸಿ',
+  'heading.feedback': 'ಫೀಡ್‌ಬ್ಯಾಕ್',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'ಸಾಂಪ್ರದಾಯಿಕ',
   'yantra.custom_slot_prefix': 'ಕಸ್ಟಮ್',
@@ -2658,6 +2670,8 @@ const ml = {
   'sync.success_pushed': 'പുഷ് ചെയ്തു — ഈ ഉപകരണത്തിന്റെ പുരോഗതി ഇപ്പോൾ ക്ലൗഡ് പകർപ്പാണ്.',
   'tab.sync': 'സിങ്ക്',
   'heading.sync': 'ഡിവൈസ് സിങ്ക്',
+  'tab.feedback': 'ഫീഡ്‌ബാക്ക് അയയ്ക്കുക',
+  'heading.feedback': 'ഫീഡ്‌ബാക്ക്',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'പരമ്പരാഗതം',
   'yantra.custom_slot_prefix': 'ഇഷ്ടാനുസൃതം',
@@ -3012,6 +3026,8 @@ const mr = {
   'sync.success_pushed': 'पुश केले — या डिव्हाइसची प्रगती आता क्लाउड कॉपी आहे.',
   'tab.sync': 'सिंक',
   'heading.sync': 'डिव्हाइस सिंक',
+  'tab.feedback': 'फीडबॅक पाठवा',
+  'heading.feedback': 'फीडबॅक',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'पारंपरिक',
   'yantra.custom_slot_prefix': 'सानुकूल',
@@ -3365,6 +3381,8 @@ const fr = {
   'sync.success_pushed': 'Envoyé — la progression de cet appareil est maintenant la copie du cloud.',
   'tab.sync': 'Sync',
   'heading.sync': 'SYNCHRONISATION DES APPAREILS',
+  'tab.feedback': 'Envoyer des commentaires',
+  'heading.feedback': 'COMMENTAIRES',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Traditionnel',
   'yantra.custom_slot_prefix': 'Personnalisé',
@@ -3718,6 +3736,8 @@ const es = {
   'sync.success_pushed': 'Enviado — el progreso de este dispositivo es ahora la copia en la nube.',
   'tab.sync': 'Sincronización',
   'heading.sync': 'SINCRONIZACIÓN DE DISPOSITIVOS',
+  'tab.feedback': 'Enviar comentarios',
+  'heading.feedback': 'COMENTARIOS',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Tradicional',
   'yantra.custom_slot_prefix': 'Personalizado',
@@ -4071,6 +4091,8 @@ const it = {
   'sync.success_pushed': 'Inviato — i progressi di questo dispositivo sono ora la copia nel cloud.',
   'tab.sync': 'Sincronizza',
   'heading.sync': 'SINCRONIZZAZIONE DISPOSITIVI',
+  'tab.feedback': 'Invia feedback',
+  'heading.feedback': 'FEEDBACK',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Tradizionale',
   'yantra.custom_slot_prefix': 'Personalizzato',
@@ -4425,6 +4447,8 @@ const pt = {
   'sync.success_pushed': 'Enviado — o progresso deste dispositivo é agora a cópia na nuvem.',
   'tab.sync': 'Sincronização',
   'heading.sync': 'SINCRONIZAÇÃO DE DISPOSITIVOS',
+  'tab.feedback': 'Enviar comentários',
+  'heading.feedback': 'COMENTÁRIOS',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Tradicional',
   'yantra.custom_slot_prefix': 'Personalizado',
@@ -4778,6 +4802,8 @@ const de = {
   'sync.success_pushed': 'Gepusht — der Fortschritt dieses Geräts ist jetzt die Cloud-Kopie.',
   'tab.sync': 'Sync',
   'heading.sync': 'GERÄTE-SYNCHRONISIERUNG',
+  'tab.feedback': 'Feedback senden',
+  'heading.feedback': 'FEEDBACK',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Traditionell',
   'yantra.custom_slot_prefix': 'Benutzerdefiniert',
@@ -5134,6 +5160,8 @@ const ja = {
   'sync.success_pushed': '送信しました — この端末の進捗が今クラウドのコピーになりました。',
   'tab.sync': '同期',
   'heading.sync': 'デバイス同期',
+  'tab.feedback': 'フィードバックを送る',
+  'heading.feedback': 'フィードバック',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': '伝統的',
   'yantra.custom_slot_prefix': 'カスタム',
@@ -5486,6 +5514,8 @@ const ru = {
   'sync.success_pushed': 'Отправлено — прогресс этого устройства теперь является облачной копией.',
   'tab.sync': 'Синхронизация',
   'heading.sync': 'СИНХРОНИЗАЦИЯ УСТРОЙСТВ',
+  'tab.feedback': 'Отправить отзыв',
+  'heading.feedback': 'ОТЗЫВЫ',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Традиционная',
   'yantra.custom_slot_prefix': 'Пользовательская',
@@ -5839,6 +5869,8 @@ const ne = {
   'sync.success_pushed': 'पुश गरियो — यो डिभाइसको प्रगति अब क्लाउड प्रतिलिपि हो।',
   'tab.sync': 'सिंक',
   'heading.sync': 'डिभाइस सिंक',
+  'tab.feedback': 'फिडब्याक पठाउनुहोस्',
+  'heading.feedback': 'फिडब्याक',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'परम्परागत',
   'yantra.custom_slot_prefix': 'अनुकूलित',
@@ -6192,6 +6224,8 @@ const bn = {
   'sync.success_pushed': 'পুশ হয়েছে — এই ডিভাইসের অগ্রগতি এখন ক্লাউড কপি।',
   'tab.sync': 'সিঙ্ক',
   'heading.sync': 'ডিভাইস সিঙ্ক',
+  'tab.feedback': 'ফিডব্যাক পাঠান',
+  'heading.feedback': 'ফিডব্যাক',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'ঐতিহ্যবাহী',
   'yantra.custom_slot_prefix': 'কাস্টম',
