@@ -492,6 +492,32 @@ const TABS = [
 // Navigable tabs only (excludes heading entries — used for footer prev/next)
 const NAVIGABLE_TABS = TABS.filter(t => !t.heading)
 
+// Feedback Google Form IDs, one per interface language (Chris, 2026-09-05).
+// He can only reply in English, so the English form alone has Name + Email +
+// a plain question; every other locale's form has the same three fields but
+// its question is worded "...please use the English form if you'd like a
+// response" — see the activeTab === 'feedback' render block for how this
+// drives both the desktop/iPad iframe and the phone fallback link.
+const FEEDBACK_FORM_IDS = {
+  en: '1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A',
+  gu: '1FAIpQLSclcGrQkxuKeOKGCoopmgOvc0OV9Tr4MlwmLpInsfWi6MrWFQ',
+  hi: '1FAIpQLSftCG0tUXohm9enCO8HlaSl6m1hQCmF97xDsBMtGqb5jIZNMA',
+  te: '1FAIpQLSddNT39nysDWlEa-edJWrRMs1yoj4ieBljqG2TeARLzR6d-kQ',
+  ta: '1FAIpQLScnFtpdeTjvCm-P-gJlYQyP3-phDjypOqBX1cxH1DWmODLoCg',
+  kn: '1FAIpQLSfn1DJkFR1qvkajDS8J6PcuUolf-spFDj4Yp9b75unL-Hg_LA',
+  ml: '1FAIpQLSfioEY6ZpEegKfd4MkllXp4avk88EU7SMB-m4XI7KaCZrW4kw',
+  mr: '1FAIpQLSdNmwP5-1gri_VG3NI1Up8I3mdvh0N5o4Ws-6YecoIyaiWPgQ',
+  fr: '1FAIpQLSfTVMas569923CS_yVkxN6NXB9QtJSuSAx0jdhbivazjjjC-w',
+  es: '1FAIpQLScjpn5Z4rFrpVOivQzWBL77Z6LkTB0jjqXZiUUkn9WlUeKszw',
+  it: '1FAIpQLSeONj09-O_KmpAuisi3Ym1VzgLh9w7R0nT27r431-xq_stvqw',
+  pt: '1FAIpQLSeoJUPlOWdKyHhP9aPPDUxx06OhJoRgWUwYzffhdQy2SsdEVg',
+  de: '1FAIpQLSeNWjtcg2hvg5biO2rzLL9ntfjwRtleH_yX3do_4v-hwDS89g',
+  ja: '1FAIpQLSdgqe7pb4e3BExKDChJOlGqqLwAOAjieK2wil3KHOrVYV6Y1g',
+  ru: '1FAIpQLSc8Uw3T83U9cPbIuX3p3PqLi_uZ9IAeWD8_iFVQdtSXMIOIdw',
+  ne: '1FAIpQLSeaGhv20ghwbMN3st4Qp5iXyWWSyzEYt76C-SEdlxcK3OmMOw',
+  bn: '1FAIpQLSehNfU2wO6d0FzcvltnELcT4nkhWOcgP4KhdDbFszJenjPELg',
+}
+
 // The 14 Explore & Memorise sections — used for swipe navigation and segment bar
 const EXPLORE_TAB_IDS  = ['nyasa','inner','gurava','bhupura','c2','c3','c4','c5','c6','c7','c8','c9','chakreshvari','closing']
 const EXPLORE_NAV_TABS = NAVIGABLE_TABS.filter(t => EXPLORE_TAB_IDS.includes(t.id))
@@ -2856,15 +2882,10 @@ export default function App() {
   }, [])
 
   const tr = key => translate(uiLang !== 'en' ? uiLang : (usEnglish ? 'en-us' : script), key)  // uses uiLang when set, en-us if US variant, else script (for IAST overrides)
-  // Chris (2026-09-05): he can only reply to feedback in English, so the
-  // full form (Name + Email + question) is English-only; every other
-  // interface language gets a cut-down form with a single question that
-  // tells the respondent to switch to English if they want a reply. Same
-  // switch drives both the desktop/iPad iframe and the phone fallback link
-  // below — see the activeTab === 'feedback' render block.
-  const feedbackFormId = uiLang === 'en'
-    ? '1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A'  // full: Name, Email, feedback
-    : '1FAIpQLSdYSA5YLH_R7QbkWUBGunQvzZKIeEoPzrORX9tRS4HCABSgFg'  // cut-down: single question only
+  // One localised feedback form per interface language — see FEEDBACK_FORM_IDS
+  // above. Falls back to the English form if uiLang somehow isn't one of the
+  // 17 keys (shouldn't happen, but a fallback beats a broken iframe src).
+  const feedbackFormId = FEEDBACK_FORM_IDS[uiLang] ?? FEEDBACK_FORM_IDS.en
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
