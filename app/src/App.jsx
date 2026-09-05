@@ -6742,16 +6742,34 @@ export default function App() {
               on mobile). Below md this now just top-aligns like every other
               tab, sidestepping the dvh-centering fragility entirely. */}
           {activeTab === 'feedback' && (
-            <div className="flex-1 min-h-0 md:h-full w-full flex flex-col items-center justify-start md:justify-center p-4">
-              <iframe
-                src="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform?embedded=true"
-                title="Feedback"
-                className="hidden md:block w-full max-w-2xl h-full max-h-[80%] rounded-xl border border-surface-700"
-                style={{ colorScheme: 'light' }}
-              >
-                Loading…
-              </iframe>
-              <div className="flex md:hidden flex-col items-center justify-center gap-4 text-center max-w-sm mt-4">
+            <>
+              {/* Desktop/iPad (≥768px): the working iframe path, vertically
+                  centred in its own flex-1/h-full box — unaffected by
+                  anything below since it's a completely separate element
+                  now, not a sibling sharing one flex-grow wrapper. */}
+              <div className="hidden md:flex flex-1 min-h-0 h-full w-full flex-col items-center justify-center p-4">
+                <iframe
+                  src="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform?embedded=true"
+                  title="Feedback"
+                  className="w-full max-w-2xl h-full max-h-[80%] rounded-xl border border-surface-700"
+                  style={{ colorScheme: 'light' }}
+                >
+                  Loading…
+                </iframe>
+              </div>
+              {/* Phone (<768px): deliberately plain, ordinary block content —
+                  no flex-1/h-full/justify-* height games at all. Two earlier
+                  attempts (flex-1+h-full, then justify-center, then
+                  justify-start on a flex-1 wrapper) all still put this near
+                  the bottom of the screen on Chris's iPhone, needing a
+                  scroll-up to find it — a dvh/flex-height interaction this
+                  file hasn't fully run to ground. Since the content is just
+                  a line of text and a button, there's no actual need for it
+                  to participate in the surrounding flex-height layout at
+                  all: a plain top-margin block, sized to its own content,
+                  sidesteps the whole class of bug rather than chasing the
+                  exact cause further. */}
+              <div className="flex md:hidden flex-col items-center gap-4 text-center max-w-sm mx-auto px-4 pt-6">
                 <p className="text-muted text-sm leading-relaxed">
                   Your feedback helps improve this app for everyone learning the Śrī Yantra.
                 </p>
@@ -6764,7 +6782,7 @@ export default function App() {
                   Open Feedback Form ↗
                 </a>
               </div>
-            </div>
+            </>
           )}
         </div>
 
