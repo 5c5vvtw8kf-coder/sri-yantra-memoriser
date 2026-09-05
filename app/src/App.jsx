@@ -5990,7 +5990,7 @@ export default function App() {
             onTouchEnd={handleSwipeEnd}>
 
         {/* Scrollable content area */}
-        <div className={`flex-1 min-h-0 flex flex-col items-center justify-start pt-2 relative ${['memomap', 'activity-log', 'sync', 'feedback'].includes(activeTab) ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+        <div className={`flex-1 min-h-0 flex flex-col items-center justify-start pt-2 relative ${['memomap', 'activity-log', 'sync'].includes(activeTab) ? 'overflow-hidden' : activeTab === 'feedback' ? 'overflow-y-auto md:overflow-hidden' : 'overflow-y-auto'}`}>
           <div className={`w-full flex flex-col md:block md:h-auto ${['memomap', 'activity-log', 'sync'].includes(activeTab) ? '' : 'h-full'}`} style={{ maxWidth: activeTab === 'intro' ? '100%' : activeTab === 'locate' ? 'min(100%, calc(100dvh - 120px + 320px))' : activeTab === 'feedback' ? '100%' : 'min(100%, calc(100dvh - 120px))' }}>
             {activeTab === 'yantra'  && (
               <div className="w-full p-4">
@@ -6724,9 +6724,25 @@ export default function App() {
               Fix: keep the iframe for md and up, where it demonstrably
               works; fall back to a plain "open in new tab" link below md,
               which is exactly what a phone visitor would get anyway once
-              the iframe silently fails. */}
+              the iframe silently fails.
+              2026-09-05 follow-up #4: the mobile fallback initially used
+              justify-center to vertically centre the short text+button (like
+              the desktop iframe's own centering), but on Chris's iPhone it
+              rendered as a large blank gap with the text/button squeezed
+              near the very bottom, overlapping the prev/next footer bar.
+              Root cause: Safari's dynamic toolbar changes the real viewport
+              height (100dvh) after initial layout, and this was the first
+              place in the app trying to vertically centre very short
+              content against that height — every other tab has enough
+              content to fill/scroll regardless, so the same dvh timing
+              quirk was never visible before. Fix: only centre vertically at
+              md and up (matches the outer scrollable container, which is
+              overflow-y-auto md:overflow-hidden for this tab too, so a
+              genuinely short viewport can still scroll instead of clipping
+              on mobile). Below md this now just top-aligns like every other
+              tab, sidestepping the dvh-centering fragility entirely. */}
           {activeTab === 'feedback' && (
-            <div className="flex-1 min-h-0 md:h-full w-full flex flex-col items-center justify-center p-4">
+            <div className="flex-1 min-h-0 md:h-full w-full flex flex-col items-center justify-start md:justify-center p-4">
               <iframe
                 src="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform?embedded=true"
                 title="Feedback"
@@ -6735,7 +6751,7 @@ export default function App() {
               >
                 Loading…
               </iframe>
-              <div className="flex md:hidden flex-col items-center justify-center gap-4 text-center max-w-sm">
+              <div className="flex md:hidden flex-col items-center justify-center gap-4 text-center max-w-sm mt-4">
                 <p className="text-muted text-sm leading-relaxed">
                   Your feedback helps improve this app for everyone learning the Śrī Yantra.
                 </p>
