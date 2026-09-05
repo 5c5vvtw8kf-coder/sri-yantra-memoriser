@@ -6688,27 +6688,35 @@ export default function App() {
               the 'feedback' TABS entry, now an ordinary in-app tab again). The
               Form itself already carries the "śrī yantra memoriser" header
               banner and its own title, so no extra heading is added here —
-              would just be redundant. Wrapper needs an explicit h-full (not
-              just flex-1) because its ancestor becomes `display:block` at the
-              md breakpoint (see the shared content-area wrapper above) — a
-              non-flex parent ignores flex-1, so height:100% is what actually
-              gives the container room instead of collapsing to 0 on desktop.
-              Google's own default embed snippet is a fixed 640x800 iframe —
-              the single most common embedding complaint — which is why
-              sizing here comes from layout instead. colorScheme: 'light'
-              guards against a browser's forced-dark-mode rewriting the
-              form's white UI to match this dark app shell.
-              2026-09-05 follow-up: with only the single "Your feedback"
+              would just be redundant. Google's own default embed snippet is
+              a fixed 640x800 iframe — the single most common embedding
+              complaint — which is why sizing here comes from layout instead.
+              colorScheme: 'light' guards against a browser's forced-dark-mode
+              rewriting the form's white UI to match this dark app shell.
+              2026-09-05 follow-up #1: with only the single "Your feedback"
               question, a full-height iframe left a large empty cream card
               stretching to the bottom of the screen on desktop (Chris
               screenshot). Centered the card instead of stretching it —
               items-center/justify-center on the wrapper, max-w-2xl +
               max-h-[80%] on the iframe (not a fixed px height, so it scales
               sensibly across desktop/iPad/phone rather than assuming one
-              viewport size) — so it reads as a compact card floating in the
-              dark shell rather than a mostly-blank page. */}
+              viewport size).
+              2026-09-05 follow-up #2: that fix used an unqualified h-full on
+              the wrapper, reasoning it was needed because the shared
+              content-area ancestor becomes display:block at the md
+              breakpoint (a non-flex parent ignores flex-1, so height:100%
+              was what gave the container room on desktop/iPad). But below
+              md — real phones — that same ancestor stays flex, and pairing
+              h-full with flex-1 there collapsed the wrapper to zero height
+              (blank white screen, Chris screenshot on iPhone; iPad reads
+              ≥768px so it hit the working desktop path and looked fine).
+              Fix: h-full is now md:h-full only. Below md it's plain
+              `flex-1 min-h-0`, the same pattern already used for every other
+              flex-context tab in this file (e.g. the 'sync' block just
+              above) — proven to size correctly from flex-grow alone,
+              no percentage-height chain needed. */}
           {activeTab === 'feedback' && (
-            <div className="flex-1 min-h-0 h-full w-full flex flex-col items-center justify-center p-4">
+            <div className="flex-1 min-h-0 md:h-full w-full flex flex-col items-center justify-center p-4">
               <iframe
                 src="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform?embedded=true"
                 title="Feedback"
