@@ -6708,23 +6708,46 @@ export default function App() {
               was what gave the container room on desktop/iPad). But below
               md — real phones — that same ancestor stays flex, and pairing
               h-full with flex-1 there collapsed the wrapper to zero height
-              (blank white screen, Chris screenshot on iPhone; iPad reads
-              ≥768px so it hit the working desktop path and looked fine).
-              Fix: h-full is now md:h-full only. Below md it's plain
-              `flex-1 min-h-0`, the same pattern already used for every other
-              flex-context tab in this file (e.g. the 'sync' block just
-              above) — proven to size correctly from flex-grow alone,
-              no percentage-height chain needed. */}
+              on real phones (blank screen) — fixed with md:h-full instead of
+              an unqualified h-full below md.
+              2026-09-05 follow-up #3: fixing that height bug didn't fix the
+              blank phone screen. Root cause turned out to be a separate,
+              well-documented WebKit issue — iOS Safari refuses to render
+              this same Google Form when it's inside an iframe at all, even
+              with correct sizing (confirmed with Chris: the identical
+              viewform URL opens fine in an ordinary Safari tab on his
+              iPhone, but never renders embedded). This is Google/WebKit
+              behaviour, not something fixable from our CSS. iPad never
+              exposed it because it renders the desktop/iPad markup below
+              (≥768px, the same md breakpoint used everywhere else in this
+              file to distinguish "phone" from "desktop/iPad/large screen").
+              Fix: keep the iframe for md and up, where it demonstrably
+              works; fall back to a plain "open in new tab" link below md,
+              which is exactly what a phone visitor would get anyway once
+              the iframe silently fails. */}
           {activeTab === 'feedback' && (
             <div className="flex-1 min-h-0 md:h-full w-full flex flex-col items-center justify-center p-4">
               <iframe
                 src="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform?embedded=true"
                 title="Feedback"
-                className="w-full max-w-2xl h-full max-h-[80%] rounded-xl border border-surface-700"
+                className="hidden md:block w-full max-w-2xl h-full max-h-[80%] rounded-xl border border-surface-700"
                 style={{ colorScheme: 'light' }}
               >
                 Loading…
               </iframe>
+              <div className="flex md:hidden flex-col items-center justify-center gap-4 text-center max-w-sm">
+                <p className="text-muted text-sm leading-relaxed">
+                  Your feedback helps improve this app for everyone learning the Śrī Yantra.
+                </p>
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gold-700 hover:bg-gold-600 text-black font-medium py-3 px-6 rounded-lg transition-colors"
+                >
+                  Open Feedback Form ↗
+                </a>
+              </div>
             </div>
           )}
         </div>
