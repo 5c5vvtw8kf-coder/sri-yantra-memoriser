@@ -482,19 +482,15 @@ const TABS = [
   { id: 'h-sync', heading: 'DEVICE SYNC', trKey: 'heading.sync' },
   { id: 'sync', trKey: 'tab.sync', navLabel: 'Sync', navLabelEn: 'Sync', navLabelDev: 'Sync', footerLabel: 'Sync' },
   { id: 'h-feedback', heading: 'FEEDBACK', trKey: 'heading.feedback' },
-  // external: true (Chris, 2026-09-04) — this isn't an in-app view, just a link
-  // out to the Google Form. See NAVIGABLE_TABS below (excludes external tabs
-  // from prev/next footer sequencing) and the nav render block further down
-  // (renders external tabs as a plain <a target="_blank">, not a
-  // handleTabChange button — there's no activeTab==='feedback' view to land on).
-  { id: 'feedback', trKey: 'tab.feedback', external: true,
-    url: 'https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform',
+  // Ordinary in-app tab (Chris, 2026-09-05: switched from an external
+  // target="_blank" link to an embedded iframe view — see the
+  // activeTab === 'feedback' render block for the actual <iframe>).
+  { id: 'feedback', trKey: 'tab.feedback',
     navLabel: 'Send Feedback', navLabelEn: 'Send Feedback', navLabelDev: 'Send Feedback', footerLabel: 'Feedback' },
 ]
 
-// Navigable tabs only (excludes heading entries and external links — used for
-// footer prev/next; an external tab like 'feedback' has no view to land on)
-const NAVIGABLE_TABS = TABS.filter(t => !t.heading && !t.external)
+// Navigable tabs only (excludes heading entries — used for footer prev/next)
+const NAVIGABLE_TABS = TABS.filter(t => !t.heading)
 
 // The 14 Explore & Memorise sections — used for swipe navigation and segment bar
 const EXPLORE_TAB_IDS  = ['nyasa','inner','gurava','bhupura','c2','c3','c4','c5','c6','c7','c8','c9','chakreshvari','closing']
@@ -4705,7 +4701,7 @@ export default function App() {
         />
       )
     }
-    if (['intro', 'memomap', 'references'].includes(activeTab)) return null
+    if (['intro', 'memomap', 'references', 'feedback'].includes(activeTab)) return null
     if (activeTab === 'linedrill') return renderLineDrillControls()
     if (activeTab === 'segmentdrill') return renderSegmentDrillControls()
     if (activeTab === 'triangledrill') return renderTriangleDrillControls()
@@ -5888,21 +5884,17 @@ export default function App() {
               if (currentHeadingId !== null && !openSections[currentHeadingId]) return null
               if (tab.englishOnly && uiLang !== 'en') return null
               const dot = tabDotMap[tab.id]
-              // Shared className/label for both branches below — external
-              // (Chris, 2026-09-04, feedback link) renders as a plain <a
-              // target="_blank"> instead of a handleTabChange button, since
-              // there's no activeTab==='feedback' view to navigate into.
-              // activeTab can never equal an external tab's id, so the
-              // "active" branch of this className is simply dead for it —
-              // it always renders as a normal muted/hover nav item, which is
-              // the right look for a link that isn't "on" a page.
-              const navClassName = `w-full text-left ${script === 'iast' || script === 'english' || script === 'devanagari' ? 'text-sm' : 'text-sm md:text-xs'} px-2 py-1.5 rounded-md transition-colors flex items-center justify-between gap-1
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id)}
+                  className={`w-full text-left ${script === 'iast' || script === 'english' || script === 'devanagari' ? 'text-sm' : 'text-sm md:text-xs'} px-2 py-1.5 rounded-md transition-colors flex items-center justify-between gap-1
                     ${(script === 'iast' || script === 'english' || (tab.trKey && uiLang === 'en')) ? 'iast' : ''}
                     ${activeTab === tab.id
                       ? 'text-gold-300 bg-gold-900/30'
-                      : 'text-muted hover:text-cream'}`
-              const navLabelContent = (
-                <>
+                      : 'text-muted hover:text-cream'}`}
+                  {...(TOUR_NAV_IDS[tab.id] ? { 'data-tour': TOUR_NAV_IDS[tab.id] } : {})}
+                >
                   <span className="flex-1 min-w-0">
                     {tab.trKey ? tr(tab.trKey)
                       : uiLang === 'hi' || uiLang === 'mr' || uiLang === 'ne' ? (tab.navLabelDev || tab.navLabel)
@@ -5930,29 +5922,6 @@ export default function App() {
                       )}
                     </svg>
                   )}
-                </>
-              )
-              if (tab.external) {
-                return (
-                  <a
-                    key={tab.id}
-                    href={tab.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={navClassName}
-                  >
-                    {navLabelContent}
-                  </a>
-                )
-              }
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab.id)}
-                  className={navClassName}
-                  {...(TOUR_NAV_IDS[tab.id] ? { 'data-tour': TOUR_NAV_IDS[tab.id] } : {})}
-                >
-                  {navLabelContent}
                 </button>
               )
             })
@@ -6021,8 +5990,8 @@ export default function App() {
             onTouchEnd={handleSwipeEnd}>
 
         {/* Scrollable content area */}
-        <div className={`flex-1 min-h-0 flex flex-col items-center justify-start pt-2 relative ${['memomap', 'activity-log', 'sync'].includes(activeTab) ? 'overflow-hidden' : 'overflow-y-auto'}`}>
-          <div className={`w-full flex flex-col md:block md:h-auto ${['memomap', 'activity-log', 'sync'].includes(activeTab) ? '' : 'h-full'}`} style={{ maxWidth: activeTab === 'intro' ? '100%' : activeTab === 'locate' ? 'min(100%, calc(100dvh - 120px + 320px))' : 'min(100%, calc(100dvh - 120px))' }}>
+        <div className={`flex-1 min-h-0 flex flex-col items-center justify-start pt-2 relative ${['memomap', 'activity-log', 'sync', 'feedback'].includes(activeTab) ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+          <div className={`w-full flex flex-col md:block md:h-auto ${['memomap', 'activity-log', 'sync'].includes(activeTab) ? '' : 'h-full'}`} style={{ maxWidth: activeTab === 'intro' ? '100%' : activeTab === 'locate' ? 'min(100%, calc(100dvh - 120px + 320px))' : activeTab === 'feedback' ? '100%' : 'min(100%, calc(100dvh - 120px))' }}>
             {activeTab === 'yantra'  && (
               <div className="w-full p-4">
                 <div
@@ -6715,6 +6684,32 @@ export default function App() {
               <SyncView tr={tr} />
             </div>
           )}
+          {/* Embedded (Chris, 2026-09-05: switched from target="_blank" — see
+              the 'feedback' TABS entry, now an ordinary in-app tab again). The
+              Form itself already carries the "śrī yantra memoriser" header
+              banner and its own title, so no extra heading is added here —
+              would just be redundant. Wrapper needs an explicit h-full (not
+              just flex-1) because its ancestor becomes `display:block` at the
+              md breakpoint (see the shared content-area wrapper above) — a
+              non-flex parent ignores flex-1, so height:100% is what actually
+              gives the iframe room to fill instead of collapsing to 0 on
+              desktop. Google's own default embed snippet is a fixed 640x800
+              iframe — the single most common embedding complaint — which is
+              why sizing here comes from layout instead. colorScheme: 'light'
+              guards against a browser's forced-dark-mode rewriting the
+              form's white UI to match this dark app shell. */}
+          {activeTab === 'feedback' && (
+            <div className="flex-1 min-h-0 h-full w-full flex flex-col p-4">
+              <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform?embedded=true"
+                title="Feedback"
+                className="flex-1 w-full rounded-xl border border-surface-700"
+                style={{ colorScheme: 'light' }}
+              >
+                Loading…
+              </iframe>
+            </div>
+          )}
         </div>
 
         {/* ── Desktop/iPad memorise instructions (hidden on mobile — mobile has its own strip) */}
@@ -6741,7 +6736,7 @@ export default function App() {
         )}
 
         {/* ── Mobile explore section segments (14) — hidden on Spot Check ──── */}
-        <div className={`${['spotcheck', 'locate', 'activity-log', 'memomap', 'linedrill', 'segmentdrill', 'triangledrill', 'sync'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
+        <div className={`${['spotcheck', 'locate', 'activity-log', 'memomap', 'linedrill', 'segmentdrill', 'triangledrill', 'sync', 'feedback'].includes(activeTab) ? 'hidden' : 'flex'} md:hidden ipad-segment-bar flex-shrink-0 px-2 py-1 gap-1`}>
           {EXPLORE_NAV_TABS.map(tab => (
             <button
               key={tab.id}
@@ -6853,7 +6848,7 @@ export default function App() {
           had border-l, so it sat flush/transparent against the page instead.
           Most visible on iPad, where both sidebars are on screen at once
           with nothing else to break up the background between them. */}
-      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 bg-surface-900 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['intro', 'memomap', 'activity-log', 'sync'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
+      <aside className={`hidden md:flex flex-shrink-0 flex-col border-l border-surface-800 bg-surface-900 overflow-hidden transition-all duration-300 ${(rightPanelOpen && !['intro', 'memomap', 'activity-log', 'sync', 'feedback'].includes(activeTab)) ? 'w-64' : 'w-0'}`}
              style={{ visibility: activeTab === 'intro' ? 'hidden' : undefined }}>
 
         {/* Scrollable info area */}
