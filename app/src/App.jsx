@@ -6692,18 +6692,27 @@ export default function App() {
               just flex-1) because its ancestor becomes `display:block` at the
               md breakpoint (see the shared content-area wrapper above) — a
               non-flex parent ignores flex-1, so height:100% is what actually
-              gives the iframe room to fill instead of collapsing to 0 on
-              desktop. Google's own default embed snippet is a fixed 640x800
-              iframe — the single most common embedding complaint — which is
-              why sizing here comes from layout instead. colorScheme: 'light'
+              gives the container room instead of collapsing to 0 on desktop.
+              Google's own default embed snippet is a fixed 640x800 iframe —
+              the single most common embedding complaint — which is why
+              sizing here comes from layout instead. colorScheme: 'light'
               guards against a browser's forced-dark-mode rewriting the
-              form's white UI to match this dark app shell. */}
+              form's white UI to match this dark app shell.
+              2026-09-05 follow-up: with only the single "Your feedback"
+              question, a full-height iframe left a large empty cream card
+              stretching to the bottom of the screen on desktop (Chris
+              screenshot). Centered the card instead of stretching it —
+              items-center/justify-center on the wrapper, max-w-2xl +
+              max-h-[80%] on the iframe (not a fixed px height, so it scales
+              sensibly across desktop/iPad/phone rather than assuming one
+              viewport size) — so it reads as a compact card floating in the
+              dark shell rather than a mostly-blank page. */}
           {activeTab === 'feedback' && (
-            <div className="flex-1 min-h-0 h-full w-full flex flex-col p-4">
+            <div className="flex-1 min-h-0 h-full w-full flex flex-col items-center justify-center p-4">
               <iframe
                 src="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform?embedded=true"
                 title="Feedback"
-                className="flex-1 w-full rounded-xl border border-surface-700"
+                className="w-full max-w-2xl h-full max-h-[80%] rounded-xl border border-surface-700"
                 style={{ colorScheme: 'light' }}
               >
                 Loading…
