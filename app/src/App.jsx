@@ -2856,6 +2856,15 @@ export default function App() {
   }, [])
 
   const tr = key => translate(uiLang !== 'en' ? uiLang : (usEnglish ? 'en-us' : script), key)  // uses uiLang when set, en-us if US variant, else script (for IAST overrides)
+  // Chris (2026-09-05): he can only reply to feedback in English, so the
+  // full form (Name + Email + question) is English-only; every other
+  // interface language gets a cut-down form with a single question that
+  // tells the respondent to switch to English if they want a reply. Same
+  // switch drives both the desktop/iPad iframe and the phone fallback link
+  // below — see the activeTab === 'feedback' render block.
+  const feedbackFormId = uiLang === 'en'
+    ? '1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A'  // full: Name, Email, feedback
+    : '1FAIpQLSdYSA5YLH_R7QbkWUBGunQvzZKIeEoPzrORX9tRS4HCABSgFg'  // cut-down: single question only
   const [openSections, setOpenSections] = useState({
     'h-explore-memorise': true,
     'h-spotcheck':        true,
@@ -6749,7 +6758,7 @@ export default function App() {
                   now, not a sibling sharing one flex-grow wrapper. */}
               <div className="hidden md:flex flex-1 min-h-0 h-full w-full flex-col items-center justify-center p-4">
                 <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform?embedded=true"
+                  src={`https://docs.google.com/forms/d/e/${feedbackFormId}/viewform?embedded=true`}
                   title="Feedback"
                   className="w-full max-w-2xl h-full max-h-[80%] rounded-xl border border-surface-700"
                   style={{ colorScheme: 'light' }}
@@ -6774,7 +6783,7 @@ export default function App() {
                   {tr('feedback.mobile_note')}
                 </p>
                 <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform"
+                  href={`https://docs.google.com/forms/d/e/${feedbackFormId}/viewform`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gold-700 hover:bg-gold-600 text-black font-medium py-3 px-6 rounded-lg transition-colors"
