@@ -6771,7 +6771,7 @@ export default function App() {
                   exact cause further. */}
               <div className="flex md:hidden flex-col items-center gap-4 text-center max-w-sm mx-auto px-4 pt-6">
                 <p className="text-muted text-sm leading-relaxed">
-                  Your feedback helps improve this app for everyone learning the Śrī Yantra.
+                  {tr('feedback.mobile_note')}
                 </p>
                 <a
                   href="https://docs.google.com/forms/d/e/1FAIpQLSca5bctY5HTyNVue8X2fvUwIcWM5wkh6OfycD9o83w6550G7A/viewform"
@@ -6779,7 +6779,7 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="bg-gold-700 hover:bg-gold-600 text-black font-medium py-3 px-6 rounded-lg transition-colors"
                 >
-                  Open Feedback Form ↗
+                  {tr('feedback.mobile_cta')}
                 </a>
               </div>
             </>

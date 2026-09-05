@@ -506,6 +506,8 @@ const en = {
   'heading.sync': 'DEVICE SYNC',
   'tab.feedback': 'Provide Feedback',
   'heading.feedback': 'FEEDBACK',
+  'feedback.mobile_note': 'Your feedback helps improve this app for everyone learning the Śrī Yantra.',
+  'feedback.mobile_cta': 'Open Feedback Form ↗',
   'heading.resources': 'RESOURCES',
   'btn.lang_picker':   'Language',
   'nav.script_expand': 'Script settings — expand panel',
@@ -897,6 +899,8 @@ const gu = {
   'heading.sync': 'ડિવાઇસ સિંક',
   'tab.feedback': 'ફીડબેક મોકલો',
   'heading.feedback': 'ફીડબેક',
+  'feedback.mobile_note': 'તમારો પ્રતિભાવ શ્રી યન્ત્ર શીખતા દરેક માટે આ એપને સુધારવામાં મદદ કરે છે.',
+  'feedback.mobile_cta': 'ફીડબેક ફોર્મ ખોલો ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'પરંપરાગત',
   'yantra.custom_slot_prefix': 'કસ્ટમ',
@@ -1252,6 +1256,8 @@ const hi = {
   'heading.sync': 'डिवाइस सिंक',
   'tab.feedback': 'फ़ीडबैक भेजें',
   'heading.feedback': 'फ़ीडबैक',
+  'feedback.mobile_note': 'आपकी प्रतिक्रिया श्री यन्त्र सीखने वाले हर किसी के लिए इस ऐप को बेहतर बनाने में मदद करती है।',
+  'feedback.mobile_cta': 'फ़ीडबैक फ़ॉर्म खोलें ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'पारंपरिक',
   'yantra.custom_slot_prefix': 'कस्टम',
@@ -1607,6 +1613,8 @@ const te = {
   'heading.sync': 'పరికర సింక్',
   'tab.feedback': 'ఫీడ్‌బ్యాక్ పంపండి',
   'heading.feedback': 'ఫీడ్‌బ్యాక్',
+  'feedback.mobile_note': 'మీ అభిప్రాయం శ్రీ యన్త్ర నేర్చుకుంటున్న ప్రతి ఒక్కరి కోసం ఈ యాప్‌ను మెరుగుపరచడంలో సహాయపడుతుంది.',
+  'feedback.mobile_cta': 'ఫీడ్‌బ్యాక్ ఫారం తెరవండి ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'సాంప్రదాయ',
   'yantra.custom_slot_prefix': 'అనుకూల',
@@ -1962,6 +1970,8 @@ const ta = {
   'heading.sync': 'சாதன ஒத்திசைவு',
   'tab.feedback': 'ஃபீட்பேக் அனுப்பவும்',
   'heading.feedback': 'ஃபீட்பேக்',
+  'feedback.mobile_note': 'உங்கள் ஃபீட்பேக் ஶ்ரீ யந்த்ரவைக் கற்கும் அனைவருக்கும் இந்த செயலியை மேம்படுத்த உதவுகிறது.',
+  'feedback.mobile_cta': 'ஃபீட்பேக் படிவத்தைத் திறக்கவும் ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'பாரம்பரியம்',
   'yantra.custom_slot_prefix': 'தனிப்பயன்',
@@ -2317,6 +2327,8 @@ const kn = {
   'heading.sync': 'ಸಾಧನ ಸಿಂಕ್',
   'tab.feedback': 'ಫೀಡ್‌ಬ್ಯಾಕ್ ಕಳುಹಿಸಿ',
   'heading.feedback': 'ಫೀಡ್‌ಬ್ಯಾಕ್',
+  'feedback.mobile_note': 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ ಶ್ರೀ ಯಂತ್ರವನ್ನು ಕಲಿಯುತ್ತಿರುವ ಎಲ್ಲರಿಗೂ ಈ ಆ್ಯಪ್ ಅನ್ನು ಸುಧಾರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.',
+  'feedback.mobile_cta': 'ಫೀಡ್‌ಬ್ಯಾಕ್ ಫಾರ್ಮ್ ತೆರೆಯಿರಿ ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'ಸಾಂಪ್ರದಾಯಿಕ',
   'yantra.custom_slot_prefix': 'ಕಸ್ಟಮ್',
@@ -2672,6 +2684,8 @@ const ml = {
   'heading.sync': 'ഡിവൈസ് സിങ്ക്',
   'tab.feedback': 'ഫീഡ്‌ബാക്ക് അയയ്ക്കുക',
   'heading.feedback': 'ഫീഡ്‌ബാക്ക്',
+  'feedback.mobile_note': 'നിങ്ങളുടെ അഭിപ്രായം ശ്രീ യന്ത്ര പഠിക്കുന്ന എല്ലാവർക്കും ഈ ആപ്പ് മെച്ചപ്പെടുത്താൻ സഹായിക്കുന്നു.',
+  'feedback.mobile_cta': 'ഫീഡ്‌ബാക്ക് ഫോം തുറക്കുക ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'പരമ്പരാഗതം',
   'yantra.custom_slot_prefix': 'ഇഷ്ടാനുസൃതം',
@@ -3028,6 +3042,8 @@ const mr = {
   'heading.sync': 'डिव्हाइस सिंक',
   'tab.feedback': 'फीडबॅक पाठवा',
   'heading.feedback': 'फीडबॅक',
+  'feedback.mobile_note': 'तुमचा अभिप्राय श्री यंत्र शिकणाऱ्या प्रत्येकासाठी हे अ‍ॅप सुधारण्यास मदत करतो.',
+  'feedback.mobile_cta': 'फीडबॅक फॉर्म उघडा ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'पारंपरिक',
   'yantra.custom_slot_prefix': 'सानुकूल',
@@ -3383,6 +3399,8 @@ const fr = {
   'heading.sync': 'SYNCHRONISATION DES APPAREILS',
   'tab.feedback': 'Envoyer des commentaires',
   'heading.feedback': 'COMMENTAIRES',
+  'feedback.mobile_note': 'Vos commentaires aident à améliorer cette application pour tous ceux qui apprennent le Śrī Yantra.',
+  'feedback.mobile_cta': 'Ouvrir le formulaire de commentaires ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Traditionnel',
   'yantra.custom_slot_prefix': 'Personnalisé',
@@ -3738,6 +3756,8 @@ const es = {
   'heading.sync': 'SINCRONIZACIÓN DE DISPOSITIVOS',
   'tab.feedback': 'Enviar comentarios',
   'heading.feedback': 'COMENTARIOS',
+  'feedback.mobile_note': 'Tus comentarios ayudan a mejorar esta aplicación para todos los que aprenden el Śrī Yantra.',
+  'feedback.mobile_cta': 'Abrir formulario de comentarios ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Tradicional',
   'yantra.custom_slot_prefix': 'Personalizado',
@@ -4093,6 +4113,8 @@ const it = {
   'heading.sync': 'SINCRONIZZAZIONE DISPOSITIVI',
   'tab.feedback': 'Invia feedback',
   'heading.feedback': 'FEEDBACK',
+  'feedback.mobile_note': 'Il tuo feedback aiuta a migliorare questa app per tutti coloro che imparano lo Śrī Yantra.',
+  'feedback.mobile_cta': 'Apri modulo di feedback ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Tradizionale',
   'yantra.custom_slot_prefix': 'Personalizzato',
@@ -4449,6 +4471,8 @@ const pt = {
   'heading.sync': 'SINCRONIZAÇÃO DE DISPOSITIVOS',
   'tab.feedback': 'Enviar comentários',
   'heading.feedback': 'COMENTÁRIOS',
+  'feedback.mobile_note': 'O seu feedback ajuda a melhorar esta aplicação para todos os que aprendem o Śrī Yantra.',
+  'feedback.mobile_cta': 'Abrir formulário de feedback ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Tradicional',
   'yantra.custom_slot_prefix': 'Personalizado',
@@ -4804,6 +4828,8 @@ const de = {
   'heading.sync': 'GERÄTE-SYNCHRONISIERUNG',
   'tab.feedback': 'Feedback senden',
   'heading.feedback': 'FEEDBACK',
+  'feedback.mobile_note': 'Dein Feedback hilft dabei, diese App für alle zu verbessern, die das Śrī Yantra lernen.',
+  'feedback.mobile_cta': 'Feedback-Formular öffnen ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Traditionell',
   'yantra.custom_slot_prefix': 'Benutzerdefiniert',
@@ -5162,6 +5188,8 @@ const ja = {
   'heading.sync': 'デバイス同期',
   'tab.feedback': 'フィードバックを送る',
   'heading.feedback': 'フィードバック',
+  'feedback.mobile_note': 'あなたのフィードバックは、シュリー・ヤントラを学ぶすべての人のためにこのアプリを改善するのに役立ちます。',
+  'feedback.mobile_cta': 'フィードバックフォームを開く ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': '伝統的',
   'yantra.custom_slot_prefix': 'カスタム',
@@ -5516,6 +5544,8 @@ const ru = {
   'heading.sync': 'СИНХРОНИЗАЦИЯ УСТРОЙСТВ',
   'tab.feedback': 'Отправить отзыв',
   'heading.feedback': 'ОТЗЫВЫ',
+  'feedback.mobile_note': 'Ваш отзыв помогает улучшить это приложение для всех, кто изучает Шри Янтру.',
+  'feedback.mobile_cta': 'Открыть форму обратной связи ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'Традиционная',
   'yantra.custom_slot_prefix': 'Пользовательская',
@@ -5871,6 +5901,8 @@ const ne = {
   'heading.sync': 'डिभाइस सिंक',
   'tab.feedback': 'फिडब्याक पठाउनुहोस्',
   'heading.feedback': 'फिडब्याक',
+  'feedback.mobile_note': 'तपाईंको प्रतिक्रियाले श्री यन्त्र सिक्ने सबैका लागि यो एप सुधार गर्न मद्दत गर्छ।',
+  'feedback.mobile_cta': 'फिडब्याक फारम खोल्नुहोस् ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'परम्परागत',
   'yantra.custom_slot_prefix': 'अनुकूलित',
@@ -6226,6 +6258,8 @@ const bn = {
   'heading.sync': 'ডিভাইস সিঙ্ক',
   'tab.feedback': 'ফিডব্যাক পাঠান',
   'heading.feedback': 'ফিডব্যাক',
+  'feedback.mobile_note': 'আপনার মতামত শ্রী যন্ত্র শেখা সকলের জন্য এই অ্যাপটি উন্নত করতে সাহায্য করে।',
+  'feedback.mobile_cta': 'ফিডব্যাক ফর্ম খুলুন ↗',
   // ── Śrī Yantra colour theme feature (localised) ─────────────────────────
   'yantra.theme_traditional': 'ঐতিহ্যবাহী',
   'yantra.custom_slot_prefix': 'কাস্টম',
