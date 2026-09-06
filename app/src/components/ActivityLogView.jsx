@@ -44,7 +44,7 @@ function fmtTime(ts) {
 function Cols() {
   return (
     <colgroup>
-      <col style={{ width: '6.5rem' }} />
+      <col style={{ width: '5.25rem' }} />
       <col style={{ width: '3rem' }} />
       <col style={{ width: '4rem' }} />
       <col />
