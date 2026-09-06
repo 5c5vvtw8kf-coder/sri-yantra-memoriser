@@ -2799,21 +2799,24 @@ export default function App() {
   const [showScriptMenu,       setShowScriptMenu]       = useState(false)
   const [showMobileScriptMenu, setShowMobileScriptMenu] = useState(false)
 
-  // ── Mobile Script pop-up info note (2026-09-06) ─────────────────────────
+  // ── Script pop-up info note (2026-09-06) ────────────────────────────────
   // Explains that the deity-name script is independent of the interface
   // language (e.g. English interface + Devanagari names) — not obvious from
-  // the pop-up alone. Same dismiss pattern as the mobile drill precision
-  // hint above: × hides it for this visit only, the checkbox is what
-  // persists the dismissal to localStorage.
-  const MOBILE_SCRIPT_INFO_KEY = 'sy-mobile-script-info-dismissed'
-  const [mobileScriptInfoDismissed, setMobileScriptInfoDismissed] = useState(() => {
-    try { return localStorage.getItem(MOBILE_SCRIPT_INFO_KEY) === 'true' } catch { return false }
+  // either pop-up alone. Shown in BOTH Script pop-ups (the mobile top-bar
+  // one and the sidebar one used on tablet/desktop) — unlike the mobile
+  // drill precision hint this pattern is based on, this note isn't
+  // mobile-only, so one shared dismiss state covers both; dismissing it in
+  // either place dismisses it in the other too. × hides it for this visit
+  // only, the checkbox is what persists the dismissal to localStorage.
+  const SCRIPT_INFO_KEY = 'sy-script-info-dismissed'
+  const [scriptInfoDismissed, setScriptInfoDismissed] = useState(() => {
+    try { return localStorage.getItem(SCRIPT_INFO_KEY) === 'true' } catch { return false }
   })
-  const [mobileScriptInfoDontShowAgain, setMobileScriptInfoDontShowAgain] = useState(false)
-  const dismissMobileScriptInfo = () => {
-    setMobileScriptInfoDismissed(true)
-    if (mobileScriptInfoDontShowAgain) {
-      try { localStorage.setItem(MOBILE_SCRIPT_INFO_KEY, 'true') } catch {}
+  const [scriptInfoDontShowAgain, setScriptInfoDontShowAgain] = useState(false)
+  const dismissScriptInfo = () => {
+    setScriptInfoDismissed(true)
+    if (scriptInfoDontShowAgain) {
+      try { localStorage.setItem(SCRIPT_INFO_KEY, 'true') } catch {}
     }
   }
 
@@ -5758,7 +5761,7 @@ export default function App() {
             {showMobileScriptMenu && (
               <div className="absolute right-0 top-8 bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1 min-w-[220px] max-w-[260px]">
                 <p className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted border-b border-surface-700 mb-1">{tr('ui.script')}</p>
-                {!mobileScriptInfoDismissed && (
+                {!scriptInfoDismissed && (
                   <div className="px-3 py-2 border-b border-surface-700 mb-1 flex flex-col gap-1.5">
                     <div className="flex items-start gap-1.5">
                       <svg viewBox="0 0 24 24" width="12" height="12" className="flex-shrink-0 mt-0.5" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -5770,7 +5773,7 @@ export default function App() {
                         {tr('ui.script_independent_info')}
                       </p>
                       <button
-                        onClick={dismissMobileScriptInfo}
+                        onClick={dismissScriptInfo}
                         aria-label={tr('btn.dismiss')}
                         className="text-muted hover:text-cream text-xs leading-none px-0.5 flex-shrink-0"
                       >
@@ -5780,8 +5783,8 @@ export default function App() {
                     <label className="flex items-center gap-1.5 pl-[18px] cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={mobileScriptInfoDontShowAgain}
-                        onChange={e => setMobileScriptInfoDontShowAgain(e.target.checked)}
+                        checked={scriptInfoDontShowAgain}
+                        onChange={e => setScriptInfoDontShowAgain(e.target.checked)}
                         className="w-3 h-3 accent-gold-500"
                       />
                       <span className="text-[9px] text-muted">{tr('mobile.drill_hint_dont_show_again')}</span>
@@ -5967,7 +5970,7 @@ export default function App() {
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
                   className={`w-full text-left ${script === 'iast' || script === 'english' ? 'text-sm' : 'text-sm md:text-xs'} px-2 py-1.5 rounded-md transition-colors flex items-center justify-between gap-1
-                    ${(script === 'iast' || script === 'english' || (tab.trKey && uiLang === 'en')) ? 'iast' : ''}
+                    ${uiLang === 'en' ? 'iast' : ''}
                     ${activeTab === tab.id
                       ? 'text-gold-300 bg-gold-900/30'
                       : 'text-muted hover:text-cream'}`}
@@ -6035,6 +6038,36 @@ export default function App() {
             </button>
             {showScriptMenu && (
               <div className="absolute bottom-full left-0 mb-1 w-full bg-surface-800 border border-surface-600 rounded-lg shadow-xl z-50 py-1">
+                {!scriptInfoDismissed && (
+                  <div className="px-3 py-2 border-b border-surface-700 mb-1 flex flex-col gap-1.5">
+                    <div className="flex items-start gap-1.5">
+                      <svg viewBox="0 0 24 24" width="12" height="12" className="flex-shrink-0 mt-0.5" fill="none" stroke="#c9a84c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                      </svg>
+                      <p className="flex-1 text-[10px] text-muted leading-snug">
+                        {tr('ui.script_independent_info')}
+                      </p>
+                      <button
+                        onClick={dismissScriptInfo}
+                        aria-label={tr('btn.dismiss')}
+                        className="text-muted hover:text-cream text-xs leading-none px-0.5 flex-shrink-0"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    <label className="flex items-center gap-1.5 pl-[18px] cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={scriptInfoDontShowAgain}
+                        onChange={e => setScriptInfoDontShowAgain(e.target.checked)}
+                        className="w-3 h-3 accent-gold-500"
+                      />
+                      <span className="text-[9px] text-muted">{tr('mobile.drill_hint_dont_show_again')}</span>
+                    </label>
+                  </div>
+                )}
                 {LOCALE_ORDER.map(id => (
                   <button
                     key={id}
