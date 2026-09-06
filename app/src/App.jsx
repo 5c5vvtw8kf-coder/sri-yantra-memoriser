@@ -5970,7 +5970,7 @@ export default function App() {
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
                   className={`w-full text-left ${script === 'iast' || script === 'english' ? 'text-sm' : 'text-sm md:text-xs'} px-2 py-1.5 rounded-md transition-colors flex items-center justify-between gap-1
-                    ${uiLang === 'en' ? 'iast' : ''}
+                    ${(script === 'iast' || script === 'english' || uiLang === 'en') ? 'iast' : ''}
                     ${activeTab === tab.id
                       ? 'text-gold-300 bg-gold-900/30'
                       : 'text-muted hover:text-cream'}`}
