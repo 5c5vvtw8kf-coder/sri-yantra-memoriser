@@ -46,8 +46,8 @@ function Cols() {
     <colgroup>
       <col style={{ width: '6.5rem' }} />
       <col style={{ width: '3rem' }} />
-      <col />
       <col style={{ width: '4rem' }} />
+      <col />
     </colgroup>
   )
 }
@@ -180,8 +180,8 @@ export default function ActivityLogView({ tr = k => k, script = 'iast' }) {
               <tr className="bg-surface-800">
                 <th className="px-1 py-2 text-left text-muted font-normal">{tr('log.col_date')}</th>
                 <th className="px-1 py-2 text-left text-muted font-normal">{tr('log.col_time')}</th>
+                <th className="px-1 py-2 text-left text-muted font-normal">{tr('log.col_score')}</th>
                 <th className="px-1 py-2 text-left text-muted font-normal">{tr('log.col_section')}</th>
-                <th className="px-1 py-2 text-right text-muted font-normal">{tr('log.col_score')}</th>
               </tr>
             </thead>
           </table>
@@ -218,14 +218,14 @@ export default function ActivityLogView({ tr = k => k, script = 'iast' }) {
                     >
                       <td className="px-1 py-2 iast text-muted text-[15px]">{fmtDate(entry.ts)}</td>
                       <td className="px-1 py-2 iast text-muted text-[15px]">{fmtTime(entry.ts)}</td>
+                      <td className={`px-1 py-2 iast text-left text-[15px] ${scoreClass}`}>
+                        {entry.correct}/{entry.total}
+                      </td>
                       <td className="px-1 py-2 iast text-gold-400 truncate text-[15px]">
                         {sectionLabel(entry.section)}
                         {entry.section === 'spot-check' && entry.filter && entry.filter !== 'all' && (
                           <span> – {spotLabel(entry.filter)}</span>
                         )}
-                      </td>
-                      <td className={`px-1 py-2 iast text-right text-[15px] ${scoreClass}`}>
-                        {entry.correct}/{entry.total}
                       </td>
                     </tr>
                   )
