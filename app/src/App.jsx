@@ -4689,7 +4689,7 @@ export default function App() {
   // Desktop (mouse) memorise instructions
   const memoInstr = (
     <span className="text-muted" style={INSTR_STYLE}>
-      {tr('instr.hover_reveal')} ·{' '}
+      {tr('instr.hover_reveal')}, {tr('instr.then')}{' '}
       <span className="text-red-400">click</span> = {tr('instr.click_correct').replace('click = ', '')} ·{' '}
       <span className="text-gold-400">dbl-click</span> = {tr('instr.dblclick_wrong').replace('dbl-click = ', '')} ·{' '}
       {tr('instr.right_click_toggle')}
@@ -4698,7 +4698,7 @@ export default function App() {
   // Touch (iPad) memorise instructions — same wording as mobile strip
   const memoInstrTouch = (
     <span className="text-center flex flex-col gap-0.5 text-muted" style={INSTR_STYLE}>
-      <span>{tr('instr.tap_reveal')} · <span className="text-red-400">{tr('instr.tap_again_correct')}</span></span>
+      <span>{tr('instr.tap_reveal')}, {tr('instr.then')} <span className="text-red-400">{tr('instr.tap_again_correct')}</span></span>
       <span><span className="text-gold-400">{tr('instr.dbltap_wrong')}</span> · <span className="text-gold-400">{tr('instr.dbltap_toggle')}</span></span>
     </span>
   )
@@ -4715,8 +4715,8 @@ export default function App() {
             <span className="text-muted">Proceed from the outer Bhūpura to the inner Bindu</span>
             <span className="text-muted">
               {isTouchDevice
-                ? <>{tr('instr.tap_reveal')} · <span className="text-red-400">{tr('instr.tap_again_correct')}</span> · <span className="text-gold-400">{tr('instr.dbltap_wrong')}</span></>
-                : <>{tr('instr.hover_reveal')} · <span className="text-red-400">click</span> = {tr('instr.click_correct').replace('click = ', '')} · <span className="text-gold-400">dbl-click</span> = {tr('instr.dblclick_wrong').replace('dbl-click = ', '')}</>
+                ? <>{tr('instr.tap_reveal')}, {tr('instr.then')} <span className="text-red-400">{tr('instr.tap_again_correct')}</span> · <span className="text-gold-400">{tr('instr.dbltap_wrong')}</span></>
+                : <>{tr('instr.hover_reveal')}, {tr('instr.then')} <span className="text-red-400">click</span> = {tr('instr.click_correct').replace('click = ', '')} · <span className="text-gold-400">dbl-click</span> = {tr('instr.dblclick_wrong').replace('dbl-click = ', '')}</>
               }
             </span>
           </span>

@@ -324,7 +324,7 @@ export default function TriangleDrillView({
         {phase === 'drill' && (
           <div className="flex flex-col items-center gap-0.5 pt-1 pb-0.5"
                style={{ fontSize: '11px', fontFamily: "'Inter', system-ui, sans-serif", color: 'rgba(201,168,76,0.55)', letterSpacing: '0.02em' }}>
-            <span>{tr('instr.tap_reveal')} · <span style={{ color: '#f87171' }}>{tr('instr.tap_again_correct')}</span></span>
+            <span>{tr('instr.tap_reveal')}, {tr('instr.then')} <span style={{ color: '#f87171' }}>{tr('instr.tap_again_correct')}</span></span>
             <span><span style={{ color: '#c9a84c' }}>{tr('instr.dbltap_wrong')}</span> · <span style={{ color: '#c9a84c' }}>{tr('instr.dbltap_toggle')}</span></span>
           </div>
         )}
