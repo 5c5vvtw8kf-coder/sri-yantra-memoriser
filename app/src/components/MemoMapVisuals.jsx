@@ -687,12 +687,16 @@ function StatusCounts({ counts, tr = k => k }) {
 // -- Legend -------------------------------------------------------------------
 
 function Legend({ tr = k => k }) {
+  // Uses the same precise wording as the List view's counts (map.correct_last3
+  // etc.) rather than the terser leg_mem/leg_part/leg_not/leg_none labels --
+  // Chris flagged that "memorised"/"partial"/"not memorised" alone don't
+  // convey the actual last-3-attempts rule behind each colour (2026-09-06).
   return (
     <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-xs font-mono pt-2 border-t border-surface-800 text-center justify-center">
-      <span className="text-green-400">✓ {tr('map.leg_mem')}</span>
-      <span className="text-amber-400">~ {tr('map.leg_part')}</span>
-      <span className="text-red-400">✗ {tr('map.leg_not')}</span>
-      <span className="text-surface-600">— {tr('map.leg_none')}</span>
+      <span className="text-green-400">✓ {tr('map.correct_last3')}</span>
+      <span className="text-amber-400">~ {tr('map.correct_partial')}</span>
+      <span className="text-red-400">✗ {tr('map.none_correct')}</span>
+      <span className="text-surface-600">— {tr('map.not_tried')}</span>
     </div>
   )
 }
