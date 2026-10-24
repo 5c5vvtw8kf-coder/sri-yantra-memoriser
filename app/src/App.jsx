@@ -5862,7 +5862,7 @@ export default function App() {
                   śrī yantra memoriser
                 </h1>
                 <p className="iast mt-1 text-muted italic" style={{ fontSize: '13px', letterSpacing: '0.03em' }}>
-                  for the Khadgamala Stotram
+                  for the Śrī Devī Khadgamala Stotram
                 </p>
               </div>
             )}
