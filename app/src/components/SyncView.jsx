@@ -144,6 +144,8 @@ export default function SyncView({ tr = k => k }) {
         <p className="text-amber-400/90 text-xs leading-relaxed">{tr('sync.warning')}</p>
       </div>
 
+      <p className="text-muted text-xs leading-relaxed mt-3 max-w-md">{tr('sync.privacy')}</p>
+
       {message && (
         <div
           className={`mt-4 max-w-md rounded-lg border px-3 py-2 text-xs ${
