@@ -17,7 +17,7 @@ const STEPS_EN = [
   {
     title: 'Welcome to Śrī Yantra Memoriser',
     body:
-      '<p>This app helps you learn the <em>Khadgamala Stotram</em>, around 180 deity ' +
+      '<p>This app helps you learn the <em>Śrī Devī Khadgamala Stotram</em>, around 180 deity ' +
       'names, by building spatial memory of the Śrī Yantra geometry.</p>' +
       '<p>Rather than drilling a word list, you learn <em>where</em> each deity lives ' +
       'in the yantra. Spatial memory makes sequential recall natural.</p>',
@@ -111,7 +111,7 @@ const STEPS_HI = [
   {
     title: 'श्री यन्त्र स्मरण-सहायक में आपका स्वागत है',
     body:
-      '<p>यह ऐप <em>खड्गमाला स्तोत्र</em> के लगभग 180 देवता नामों को श्री यन्त्र की स्थानिक स्मृति के माध्यम से सीखने में मदद करता है।</p>' +
+      '<p>यह ऐप <em>श्री देवी खड्गमाला स्तोत्र</em> के लगभग 180 देवता नामों को श्री यन्त्र की स्थानिक स्मृति के माध्यम से सीखने में मदद करता है।</p>' +
       '<p>शब्दों की सूची को रटने के बजाय, आप सीखते हैं कि प्रत्येक देवता यन्त्र में <em>कहाँ</em> विराजमान हैं। स्थानिक स्मृति से क्रमिक स्मरण सहज हो जाता है।</p>',
   },
   {
@@ -178,7 +178,7 @@ const STEPS_KN = [
   {
     title: 'ಶ್ರೀ ಯಂತ್ರ ಸ್ಮರಣ ಸಹಾಯಕಕ್ಕೆ ಸ್ವಾಗತ',
     body:
-      '<p>ಈ ಆ್ಯಪ್ <em>ಖಡ್ಗಮಾಲಾ ಸ್ತೋತ್ರ</em>ದ ಸುಮಾರು 180 ದೇವತಾ ನಾಮಗಳನ್ನು ಶ್ರೀ ಯಂತ್ರ ಜ್ಯಾಮಿತಿಯ ಸ್ಥಾನಿಕ ಸ್ಮೃತಿ ಮೂಲಕ ಕಲಿಯಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.</p>' +
+      '<p>ಈ ಆ್ಯಪ್ <em>ಶ್ರೀ ದೇವೀ ಖಡ್ಗಮಾಲಾ ಸ್ತೋತ್ರ</em>ದ ಸುಮಾರು 180 ದೇವತಾ ನಾಮಗಳನ್ನು ಶ್ರೀ ಯಂತ್ರ ಜ್ಯಾಮಿತಿಯ ಸ್ಥಾನಿಕ ಸ್ಮೃತಿ ಮೂಲಕ ಕಲಿಯಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.</p>' +
       '<p>ಶಬ್ದ ಪಟ್ಟಿ ರಟ್ಟು ಮಾಡುವ ಬದಲು, ಪ್ರತಿ ದೇವತೆ ಯಂತ್ರದಲ್ಲಿ <em>ಎಲ್ಲಿ</em> ನೆಲೆಸಿದ್ದಾರೆ ಎಂದು ಕಲಿಯುತ್ತೀರಿ. ಸ್ಥಾನಿಕ ಸ್ಮೃತಿ ಕ್ರಮ ಸ್ಮರಣವನ್ನು ಸ್ವಾಭಾವಿಕಗೊಳಿಸುತ್ತದೆ.</p>',
   },
   {
@@ -245,7 +245,7 @@ const STEPS_ML = [
   {
     title: 'ശ്രീ യന്ത്ര മനഃപ്പാഠ സഹായകത്തിലേക്ക് സ്വാഗതം',
     body:
-      '<p>ഈ ആപ്പ് <em>ഖഡ്ഗമാലാ സ്തോത്ര</em>ത്തിലെ ഏകദേശം 180 ദേവതാ നാമങ്ങൾ ശ്രീ യന്ത്ര ജ്യാമിതിയുടെ സ്ഥലിക സ്മൃതി വഴി പഠിക്കാൻ സഹായിക്കുന്നു.</p>' +
+      '<p>ഈ ആപ്പ് <em>ശ്രീ ദേവീ ഖഡ്ഗമാലാ സ്തോത്ര</em>ത്തിലെ ഏകദേശം 180 ദേവതാ നാമങ്ങൾ ശ്രീ യന്ത്ര ജ്യാമിതിയുടെ സ്ഥലിക സ്മൃതി വഴി പഠിക്കാൻ സഹായിക്കുന്നു.</p>' +
       '<p>പദ പട്ടിക ആവർത്തിക്കുന്നതിനു പകരം, ഓരോ ദേവത യന്ത്രത്തിൽ <em>എവിടെ</em> ഉണ്ട് എന്ന് പഠിക്കുന്നു. സ്ഥലിക സ്മൃതി ക്രമ ഓർമ്മ സ്വാഭാവികമാക്കുന്നു.</p>',
   },
   {
@@ -312,7 +312,7 @@ const STEPS_TA = [
   {
     title: 'ஶ்ரீ யந்த்ர மனன உதவியில் உங்களை வரவேற்கிறோம்',
     body:
-      '<p>இந்த ஆப் <em>கட்கமாலா ஸ்தோத்ர</em>த்தின் சுமார் 180 தேவதை நாமங்களை ஶ்ரீ யந்த்ர ஜ்யாமிதியின் இட நினைவு மூலம் கற்க உதவுகிறது.</p>' +
+      '<p>இந்த ஆப் <em>ஶ்ரீ தேவீ கட்கமாலா ஸ்தோத்ர</em>த்தின் சுமார் 180 தேவதை நாமங்களை ஶ்ரீ யந்த்ர ஜ்யாமிதியின் இட நினைவு மூலம் கற்க உதவுகிறது.</p>' +
       '<p>சொல்பட்டியல் மனனத்திற்கு பதிலாக, ஒவ்வொரு தேவதையும் யந்த்ரத்தில் <em>எங்கு</em> உள்ளார் என்பதை கற்கிறீர்கள். இட நினைவு வரிசை ஞாபகத்தை இயல்பாக்குகிறது.</p>',
   },
   {
@@ -379,7 +379,7 @@ const STEPS_TE = [
   {
     title: 'శ్రీ యన్త్ర స్మరణ సహాయకంలో స్వాగతం',
     body:
-      '<p>ఈ యాప్ <em>ఖడ్గమాలా స్తోత్రం</em>లోని సుమారు 180 దేవతా నామాలను శ్రీ యన్త్రం యొక్క జ్యామితి స్థానిక స్మృతి ద్వారా నేర్చుకోవడంలో సహాయపడుతుంది.</p>' +
+      '<p>ఈ యాప్ <em>శ్రీ దేవీ ఖడ్గమాలా స్తోత్రం</em>లోని సుమారు 180 దేవతా నామాలను శ్రీ యన్త్రం యొక్క జ్యామితి స్థానిక స్మృతి ద్వారా నేర్చుకోవడంలో సహాయపడుతుంది.</p>' +
       '<p>పదాల జాబితా వల్ల బట్టీ పట్టే బదులు, ప్రతి దేవత యన్త్రంలో <em>ఎక్కడ</em> ఉంటుందో నేర్చుకుంటారు. స్థానిక స్మృతి వరుస జ్ఞాపకాన్ని సహజంగా చేస్తుంది.</p>',
   },
   {
@@ -447,7 +447,7 @@ const STEPS_MR = [
   {
     title: 'श्री यन्त्र स्मरण सहायकामध्ये स्वागत आहे',
     body:
-      '<p>हे अ‍ॅप <em>खड्गमाला स्तोत्र</em>ातील सुमारे 180 देवतानामे श्री यन्त्राच्या भौमितिक स्थानिक स्मृतीद्वारे शिकण्यास मदत करते.</p>' +
+      '<p>हे अ‍ॅप <em>श्री देवी खड्गमाला स्तोत्र</em>ातील सुमारे 180 देवतानामे श्री यन्त्राच्या भौमितिक स्थानिक स्मृतीद्वारे शिकण्यास मदत करते.</p>' +
       '<p>शब्दांची यादी पाठ करण्याऐवजी, प्रत्येक देवता यन्त्रात <em>कुठे</em> वास करते हे शिकता. स्थानिक स्मृती क्रमिक पाठ सहज करते.</p>',
   },
   {
@@ -514,7 +514,7 @@ const STEPS_FR = [
   {
     title: "Bienvenue dans le Śrī Yantra Memoriser",
     body:
-      "<p>Cette application vous aide à apprendre le <em>Khadgamalā Stotram</em>, environ 180 noms de divinités, en construisant une mémoire spatiale de la géométrie du Śrī Yantra.</p>" +
+      "<p>Cette application vous aide à apprendre le <em>Śrī Devī Khadgamalā Stotram</em>, environ 180 noms de divinités, en construisant une mémoire spatiale de la géométrie du Śrī Yantra.</p>" +
       "<p>Plutôt que de mémoriser une liste de mots, vous apprenez <em>où</em> chaque divinité réside dans le yantra. La mémoire spatiale rend le rappel séquentiel naturel.</p>",
   },
   {
@@ -581,7 +581,7 @@ const STEPS_ES = [
   {
     title: 'Bienvenido al Śrī Yantra Memoriser',
     body:
-      '<p>Esta aplicación te ayuda a aprender el <em>Khadgamalā Stotram</em>, alrededor de 180 nombres de deidades, construyendo memoria espacial de la geometría del Śrī Yantra.</p>' +
+      '<p>Esta aplicación te ayuda a aprender el <em>Śrī Devī Khadgamalā Stotram</em>, alrededor de 180 nombres de deidades, construyendo memoria espacial de la geometría del Śrī Yantra.</p>' +
       '<p>En lugar de memorizar una lista de palabras, aprendes <em>dónde</em> vive cada deidad en el yantra. La memoria espacial hace que el recuerdo secuencial sea natural.</p>',
   },
   {
@@ -648,7 +648,7 @@ const STEPS_IT = [
   {
     title: "Benvenuto nello Śrī Yantra Memoriser",
     body:
-      "<p>Questa app ti aiuta a imparare il <em>Khadgamalā Stotram</em>, circa 180 nomi di divinità, costruendo una memoria spaziale della geometria dello Śrī Yantra.</p>" +
+      "<p>Questa app ti aiuta a imparare il <em>Śrī Devī Khadgamalā Stotram</em>, circa 180 nomi di divinità, costruendo una memoria spaziale della geometria dello Śrī Yantra.</p>" +
       "<p>Invece di memorizzare un elenco di parole, impari <em>dove</em> vive ogni divinità nel yantra. La memoria spaziale rende il ricordo sequenziale naturale.</p>",
   },
   {
@@ -715,7 +715,7 @@ const STEPS_PT = [
   {
     title: 'Bem-vindo ao Śrī Yantra Memoriser',
     body:
-      '<p>Esta aplicação ajuda-o a aprender o <em>Khadgamalā Stotram</em>, cerca de 180 nomes de divindades, construindo memória espacial da geometria do Śrī Yantra.</p>' +
+      '<p>Esta aplicação ajuda-o a aprender o <em>Śrī Devī Khadgamalā Stotram</em>, cerca de 180 nomes de divindades, construindo memória espacial da geometria do Śrī Yantra.</p>' +
       '<p>Em vez de memorizar uma lista de palavras, aprende <em>onde</em> cada divindade vive no yantra. A memória espacial torna a recordação sequencial natural.</p>',
   },
   {
@@ -782,7 +782,7 @@ const STEPS_DE = [
   {
     title: 'Willkommen beim Śrī Yantra Memoriser',
     body:
-      '<p>Diese App hilft dir, den <em>Khadgamalā Stotram</em>, etwa 180 Götternamen, durch den Aufbau eines räumlichen Gedächtnisses der Śrī Yantra-Geometrie zu lernen.</p>' +
+      '<p>Diese App hilft dir, den <em>Śrī Devī Khadgamalā Stotram</em>, etwa 180 Götternamen, durch den Aufbau eines räumlichen Gedächtnisses der Śrī Yantra-Geometrie zu lernen.</p>' +
       '<p>Statt einer Wortliste auswendig zu lernen, lernst du, <em>wo</em> jede Gottheit im Yantra wohnt. Räumliches Gedächtnis macht sequenzielles Erinnern natürlich.</p>',
   },
   {
@@ -852,7 +852,7 @@ const STEPS_JA = [
     title: 'シュリー・ヤントラ記憶アプリへようこそ',
     body:
       '<p>このアプリは、シュリー・ヤントラの幾何学的な空間記憶を構築することで、' +
-      '<em>カドガマーラー・ストートラム</em>（約180の神格名）を学ぶためのツールです。</p>' +
+      '<em>シュリー・デーヴィー・カドガマーラー・ストートラム</em>（約180の神格名）を学ぶためのツールです。</p>' +
       '<p>単語リストを暗記するのではなく、各神格がヤントラのどこに宿るかを学びます。' +
       '空間記憶によって、順序通りの想起が自然に身につきます。</p>',
   },
@@ -929,7 +929,7 @@ const STEPS_RU = [
   {
     title: 'Добро пожаловать в Śrī Yantra Memoriser',
     body:
-      '<p>Это приложение поможет вам выучить <em>Кхадгамала Стотрам</em> — около 180 имён ' +
+      '<p>Это приложение поможет вам выучить <em>Шри Деви Кхадгамала Стотрам</em> — около 180 имён ' +
       'божеств — через пространственную память о геометрии Шри Янтры.</p>' +
       '<p>Вместо зубрёжки списка слов вы учитесь, <em>где</em> обитает каждое ' +
       'божество на янтре. Пространственная память делает последовательное вспоминание естественным.</p>',
@@ -1013,7 +1013,7 @@ const STEPS_NE = [
   {
     title: 'श्री यन्त्र स्मरण सहायकमा स्वागत छ',
     body:
-      '<p>यो एप <em>खड्गमाला स्तोत्र</em>का लगभग १८० देवताका नामहरू श्री यन्त्रको ' +
+      '<p>यो एप <em>श्री देवी खड्गमाला स्तोत्र</em>का लगभग १८० देवताका नामहरू श्री यन्त्रको ' +
       'ज्यामितिक स्थानीय स्मृतिद्वारा सिक्न मदत गर्छ।</p>' +
       '<p>शब्दसूची रटनुभन्दा बरु प्रत्येक देवता यन्त्रमा <em>कहाँ</em> विराजमान छन् ' +
       'भनी सिक्नुहोस्। स्थानीय स्मृतिले क्रमिक स्मरण सहज बनाउँछ।</p>',
@@ -1097,7 +1097,7 @@ const STEPS_BN = [
   {
     title: 'শ্রী যন্ত্র মেমোরাইজারে স্বাগতম',
     body:
-      '<p>এই অ্যাপটি <em>খড়্গমালা স্তোত্র</em>-এর প্রায় ১৮০টি দেবতার নাম শ্রী যন্ত্রের ' +
+      '<p>এই অ্যাপটি <em>শ্রী দেবী খড়্গমালা স্তোত্র</em>-এর প্রায় ১৮০টি দেবতার নাম শ্রী যন্ত্রের ' +
       'জ্যামিতিক স্থানিক স্মৃতির মাধ্যমে শিখতে সাহায্য করে।</p>' +
       '<p>শব্দের তালিকা মুখস্থ করার পরিবর্তে, প্রতিটি দেবতা যন্ত্রে <em>কোথায়</em> ' +
       'অবস্থান করেন তা শিখুন। স্থানিক স্মৃতি ক্রমিক স্মরণকে স্বাভাবিক করে তোলে।</p>',
@@ -1179,7 +1179,7 @@ const STEPS_BN = [
 const STEPS_GU = [
   {
     title: 'શ્રી યન્ત્ર સ્મૃતિસાધનમાં સ્વાગતમ',
-    body: '<p>આ App ‘ખડ્ગમાલા સ્તોત્ર’ ના આશરે 180 દેવી નામો શ્રી યન્ત્રની સ્થાનિક સ્મૃતિ દ્વારા યાદ કરવા મદદ કરે છે.</p><p>યાદી ઘૂંટવાને બદલે, દરેક દેવી યન્ત્રમાં ‘ક્યાં’ છે તે જાણો. સ્થાનિક સ્મૃતિ ક્રમિક સમરણને બનાવે છે.</p>',
+    body: '<p>આ App ‘શ્રી દેવી ખડ્ગમાલા સ્તોત્ર’ ના આશરે 180 દેવી નામો શ્રી યન્ત્રની સ્થાનિક સ્મૃતિ દ્વારા યાદ કરવા મદદ કરે છે.</p><p>યાદી ઘૂંટવાને બદલે, દરેક દેવી યન્ત્રમાં ‘ક્યાં’ છે તે જાણો. સ્થાનિક સ્મૃતિ ક્રમિક સમરણને બનાવે છે.</p>',
   },
   {
     title: 'નેવિગેશન',
