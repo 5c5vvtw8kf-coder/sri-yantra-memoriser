@@ -22,6 +22,7 @@
 import { useState } from 'react'
 import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
+import TapTarget, { makeTapCells, tapRadiusFor } from './TapTarget'
 
 // ── Coordinate system (same as InnerView) ────────────────────────────────────
 
@@ -102,19 +103,28 @@ const BG    = '#0f0805'
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
+// Enlarged, non-overlapping tap zones (dot size unchanged) — see TapTarget.jsx
+const TAP_R   = tapRadiusFor(500)
+const tapCell = makeTapCells([...C8_POSITIONS, BINDU_POS], TAP_R)
+
 function DeityDot({ x, y, r, fill, selected, onClick, onMouseEnter, onMouseLeave }) {
+  const shownR = selected ? r + 2.5 : r
   return (
-    <circle
-      cx={x.toFixed(1)} cy={y.toFixed(1)}
-      r={selected ? r + 2.5 : r}
-      fill={selected ? fill : fill + 'cc'}
-      stroke={selected ? '#fff' : 'none'}
-      strokeWidth={selected ? 0.8 : 0}
-      style={{ cursor: 'pointer' }}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    />
+    <g>
+      <circle
+        cx={x.toFixed(1)} cy={y.toFixed(1)}
+        r={shownR}
+        fill={selected ? fill : fill + 'cc'}
+        stroke={selected ? '#fff' : 'none'}
+        strokeWidth={selected ? 0.8 : 0}
+        pointerEvents="none"
+      />
+      <TapTarget x={x} y={y} r={shownR} cell={tapCell(x, y)}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      />
+    </g>
   )
 }
 

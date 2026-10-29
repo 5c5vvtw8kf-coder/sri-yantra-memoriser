@@ -21,6 +21,7 @@
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
+import TapTarget, { makeTapCells, tapRadiusFor } from './TapTarget'
 import FuriganaName from './FuriganaName'
 import SriYantraSVG, { BHUPURA_MARKERS } from './SriYantraSVG'
 import { useDoneDelay } from '../hooks/useDoneDelay'
@@ -168,23 +169,34 @@ const GROUP_LABEL = {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, onClick, onTouchStart, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
+// Enlarged, non-overlapping tap zones (dot size unchanged) — see TapTarget.jsx
+const TAP_R    = tapRadiusFor(430)
+const tapCell  = makeTapCells(Object.values(BHUPURA_POSITIONS).map(p => [p.x, p.y]), TAP_R)
+
+function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, opacity, focus, cellFn = tapCell, onClick, onTouchStart, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu }) {
   const isInteractive = !!(onClick || onMouseEnter)
   return (
-    <circle
-      cx={x.toFixed(1)} cy={y.toFixed(1)}
-      r={r}
-      fill={selected ? fill : (highlighted || isHovered) ? RED : fill + 'bb'}
-      stroke="none"
-      strokeWidth={0}
-      opacity={opacity ?? 1}
-      style={{ cursor: isInteractive ? 'pointer' : 'default', transition: 'opacity 0.2s' }}
-      onTouchStart={onTouchStart}
-      onClick={onClick}
-      onContextMenu={onContextMenu}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    />
+    <g>
+      <circle
+        cx={x.toFixed(1)} cy={y.toFixed(1)}
+        r={r}
+        fill={selected ? fill : (highlighted || isHovered) ? RED : fill + 'bb'}
+        stroke="none"
+        strokeWidth={0}
+        opacity={opacity ?? 1}
+        pointerEvents="none"
+        style={{ transition: 'opacity 0.2s' }}
+      />
+      {isInteractive && (
+        <TapTarget x={x} y={y} r={r} cell={cellFn(x, y)} focusR={focus ? TAP_R : 0}
+          onTouchStart={onTouchStart}
+          onClick={onClick}
+          onContextMenu={onContextMenu}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        />
+      )}
+    </g>
   )
 }
 
@@ -236,6 +248,12 @@ const BAND_CONFIG = [
   { id: 'ashtaMatrika', list: matrikaDeities, label: 'Middle Band', groupLabel: 'Ashta Matrikas', trKey: 'bhupura.middle_band', groupTrKey: 'bhupura.matrika' },
   { id: 'mudraShakti',  list: mudraDeities,   label: 'Inner Band',  groupLabel: 'Mudra Shaktis',  trKey: 'bhupura.inner_band',  groupTrKey: 'bhupura.mudra'   },
 ]
+
+// Mobile Explore shows one band at a time, so tap zones only need to avoid the
+// dots in that band — much larger zones than the all-28-dots layout allows.
+const bandTapCell = BAND_CONFIG.map(b =>
+  makeTapCells(b.list.map(bhupuraPos).filter(Boolean).map(p => [p.x, p.y]), TAP_R)
+)
 
 // ── NavArrow ──────────────────────────────────────────────────────────────────
 
@@ -479,6 +497,8 @@ export default function BhupuraView({
                       fill={fill} selected={isPast} highlighted={false}
                       isHovered={hoveredDot?.id === d.id}
                       opacity={opacity}
+                      focus={isFocus}
+                      cellFn={bandTapCell[bandStep]}
                       onClick={() => tap(d.id)}
                       onMouseEnter={() => hover(d.id, pos.x, pos.y)}
                       onMouseLeave={unhover}
@@ -554,6 +574,7 @@ export default function BhupuraView({
                   r={isActive ? DOT_R_FOCUS : DOT_R_NORMAL}
                   fill={fill} selected={selected}
                   opacity={1}
+                  focus={isActive && !flash}
                   onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                   onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
                   onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, pos.x, pos.y) : undefined}

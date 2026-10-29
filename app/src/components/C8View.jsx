@@ -19,6 +19,7 @@
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
+import TapTarget, { makeTapCells, tapRadiusFor } from './TapTarget'
 import FuriganaName from './FuriganaName'
 import { APEX, BASE_L, BASE_R, CENTROID, CONTEXT_TRIS, CONTEXT_FILL_PATH } from '../korvinGeometry'
 import MobileSvaminiButtons, { MobileMemoriseInstr } from './MobileSvaminiButtons'
@@ -94,21 +95,33 @@ const c8YoginiDeity = deities.find(d => d.sectionId === 'circuit-8' && d.role ==
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, onClick, onDoubleClick, onContextMenu, onMouseEnter, onMouseLeave, dimStyle }) {
+// Enlarged, non-overlapping tap zones (dot size unchanged) — see TapTarget.jsx
+const TAP_R   = tapRadiusFor(560)
+const tapCell = makeTapCells(C8_POSITIONS, TAP_R)
+
+function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, focus, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
   const isInteractive = !!(onClick || onMouseEnter)
+  const shownR = selected ? r + 2.5 : r
   return (
-    <circle
-      cx={x.toFixed(1)} cy={y.toFixed(1)}
-      r={selected ? r + 2.5 : r}
-      fill={selected ? fill : (highlighted || isHovered) ? RED : fill + 'bb'}
-      stroke="none"
-      strokeWidth={0}
-      style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
-      onClick={onClick}
-      onContextMenu={onContextMenu}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    />
+    <g>
+      <circle
+        cx={x.toFixed(1)} cy={y.toFixed(1)}
+        r={shownR}
+        fill={selected ? fill : (highlighted || isHovered) ? RED : fill + 'bb'}
+        stroke="none"
+        strokeWidth={0}
+        pointerEvents="none"
+        style={dimStyle}
+      />
+      {isInteractive && (
+        <TapTarget x={x} y={y} r={shownR} cell={tapCell(x, y)} focusR={focus ? TAP_R : 0}
+          onClick={onClick}
+          onContextMenu={onContextMenu}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        />
+      )}
+    </g>
   )
 }
 
@@ -317,7 +330,7 @@ export default function C8View({
 
             return (
               <DeityDot key={`mem-${seq}`}
-                x={pos[0]} y={pos[1]} r={14} fill={fill} selected={selected}
+                x={pos[0]} y={pos[1]} r={14} fill={fill} selected={selected} focus={isActive && !flash}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
                 onMouseEnter={!flash && (isActive || isPast) ? () => hover(d.id, pos[0], pos[1]) : undefined}

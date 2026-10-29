@@ -24,6 +24,7 @@ import { useState, useRef, useEffect } from 'react'
 import SriYantraSVG from './SriYantraSVG'
 import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
+import TapTarget, { makeTapCells, tapRadiusFor } from './TapTarget'
 import FuriganaName from './FuriganaName'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
 import { useDoneDelay } from '../hooks/useDoneDelay'
@@ -130,31 +131,34 @@ function NavArrow({ from, to, length = 27, gap = 12 }) {
 
 // ── DeityDot ──────────────────────────────────────────────────────────────────
 
-function DeityDot({
-  x, y, r = 9, fill, selected, highlighted,
-  onClick, onMouseEnter, onMouseLeave,
-  onDoubleClick, onContextMenu,
-  dimStyle,
-}) {
+// Enlarged, non-overlapping tap zones (dot size unchanged) — see TapTarget.jsx
+const TAP_R   = tapRadiusFor(500)
+const tapCell = makeTapCells([...BODY_POSITIONS, ...ASTRA_POSITIONS], TAP_R)
+
+function DeityDot({ x, y, r = 9, fill, selected, highlighted, isHovered, focus, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
   const isInteractive = !!(onClick || onMouseEnter)
+  const shownR = selected ? r + 2.5 : r
   return (
-    <circle
-      cx={x.toFixed(1)} cy={y.toFixed(1)}
-      r={selected ? r + 2.5 : r}
-      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
-      stroke="none"
-      strokeWidth={0}
-      style={{
-        cursor: isInteractive ? 'pointer' : 'default',
-        pointerEvents: isInteractive ? 'all' : 'none',
-        ...dimStyle,
-      }}
-      onClick={onClick}
-      onDoubleClick={onDoubleClick}
-      onContextMenu={onContextMenu}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    />
+    <g>
+      <circle
+        cx={x.toFixed(1)} cy={y.toFixed(1)}
+        r={shownR}
+        fill={selected ? fill : (highlighted || isHovered) ? RED : fill + 'bb'}
+        stroke="none"
+        strokeWidth={0}
+        pointerEvents="none"
+        style={dimStyle}
+      />
+      {isInteractive && (
+        <TapTarget x={x} y={y} r={shownR} cell={tapCell(x, y)} focusR={focus ? TAP_R : 0}
+          onClick={onClick}
+          onDoubleClick={onDoubleClick}
+          onContextMenu={onContextMenu}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        />
+      )}
+    </g>
   )
 }
 
@@ -493,7 +497,7 @@ export default function NyasaView({
               <DeityDot key={`mem-${seq}-${pi}`}
                 x={x} y={y}
                 fill={fill}
-                selected={selected}
+                selected={selected} focus={isActive && !flash}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                 onContextMenu={!flash && isPast

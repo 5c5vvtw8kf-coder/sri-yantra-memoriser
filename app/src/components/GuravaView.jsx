@@ -13,6 +13,7 @@
 import { useState, useRef, useEffect } from 'react'
 import data from '../data/activeDeities'
 import { displayName, measureTooltipWidth } from '../utils.js'
+import TapTarget, { makeTapCells, tapRadiusFor } from './TapTarget'
 import FuriganaName from './FuriganaName'
 import { APEX, BASE_L, BASE_R, CONTEXT_TRIS, CONTEXT_FILL_PATH, GURU_TRAPEZOID } from '../korvinGeometry'
 import { MobileMemoriseInstr } from './MobileSvaminiButtons'
@@ -117,22 +118,34 @@ const ACTIVE_FILL = 'rgba(255,248,200,0.92)'
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function DeityDot({ x, y, r, fill, selected, highlighted, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
+// Enlarged, non-overlapping tap zones (dot size unchanged) — see TapTarget.jsx
+const TAP_R   = tapRadiusFor(350)
+const tapCell = makeTapCells(Object.values(GURU_POSITIONS).flat(), TAP_R)
+
+function DeityDot({ x, y, r, fill, selected, highlighted, isHovered, focus, onClick, onMouseEnter, onMouseLeave, onDoubleClick, onContextMenu, dimStyle }) {
   const isInteractive = !!(onClick || onMouseEnter)
+  const shownR = selected ? r + 2.5 : r
   return (
-    <circle
-      cx={x.toFixed(1)} cy={y.toFixed(1)}
-      r={selected ? r + 2.5 : r}
-      fill={selected ? fill : highlighted ? RED : fill + 'bb'}
-      stroke="none"
-      strokeWidth={0}
-      style={{ cursor: isInteractive ? 'pointer' : 'default', pointerEvents: isInteractive ? 'all' : 'none', ...dimStyle }}
-      onClick={onClick}
-      onDoubleClick={onDoubleClick}
-      onContextMenu={onContextMenu}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    />
+    <g>
+      <circle
+        cx={x.toFixed(1)} cy={y.toFixed(1)}
+        r={shownR}
+        fill={selected ? fill : (highlighted || isHovered) ? RED : fill + 'bb'}
+        stroke="none"
+        strokeWidth={0}
+        pointerEvents="none"
+        style={dimStyle}
+      />
+      {isInteractive && (
+        <TapTarget x={x} y={y} r={shownR} cell={tapCell(x, y)} focusR={focus ? TAP_R : 0}
+          onClick={onClick}
+          onDoubleClick={onDoubleClick}
+          onContextMenu={onContextMenu}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        />
+      )}
+    </g>
   )
 }
 
@@ -360,7 +373,7 @@ export default function GuravaView({
 
             return (
               <DeityDot key={`mem-${seq}`}
-                x={pos[0]} y={pos[1]} r={DOT_R} fill={fill} selected={selected}
+                x={pos[0]} y={pos[1]} r={DOT_R} fill={fill} selected={selected} focus={isActive && !flash}
                 onClick={!flash && (isActive || isPast) ? () => handleMemClick(seq) : undefined}
                 onDoubleClick={!flash && (isActive || isPast) ? () => handleMemDblClick(seq) : undefined}
                 onContextMenu={!flash && isPast ? e => { e.preventDefault(); onToggleResult(seq) } : undefined}
